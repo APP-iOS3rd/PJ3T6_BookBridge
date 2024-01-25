@@ -1,0 +1,6 @@
+framework module Pods_BookBridge {
+  umbrella header "Pods-BookBridge-umbrella.h"
+
+  export *
+  module * { export * }
+}
