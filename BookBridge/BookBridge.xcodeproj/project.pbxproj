@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		1E9CA8884DE9A470795B434C /* Pods_BookBridge_BookBridgeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38996D702CA8C661E33E70C8 /* Pods_BookBridge_BookBridgeUITests.framework */; };
 		34927C483CF1E10C21B09E15 /* Pods_BookBridgeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */; };
+		5A1A168E2B6228290063D408 /* LoginGoogle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A168D2B6228290063D408 /* LoginGoogle.swift */; };
+		5A1A16912B6228AB0063D408 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A1A16902B6228AB0063D408 /* GoogleService-Info.plist */; };
+		5A1A16942B622BB10063D408 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A16932B622BB10063D408 /* Utilities.swift */; };
+		5A1A16962B6231870063D408 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A16952B6231870063D408 /* AuthenticationManager.swift */; };
 		5A7A4E262B61DFFD00F79C23 /* BookBridgeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A4E252B61DFFD00F79C23 /* BookBridgeApp.swift */; };
 		5A7A4E282B61DFFD00F79C23 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A4E272B61DFFD00F79C23 /* ContentView.swift */; };
 		5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A7A4E292B61DFFE00F79C23 /* Assets.xcassets */; };
@@ -17,7 +21,7 @@
 		5A7A4E412B61DFFE00F79C23 /* BookBridgeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A4E402B61DFFE00F79C23 /* BookBridgeUITests.swift */; };
 		5A7A4E432B61DFFE00F79C23 /* BookBridgeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A4E422B61DFFE00F79C23 /* BookBridgeUITestsLaunchTests.swift */; };
 		5A7A4E502B61E06600F79C23 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5A7A4E4F2B61E06600F79C23 /* .gitignore */; };
-		5A7A4E522B61F48900F79C23 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A7A4E512B61F48900F79C23 /* GoogleService-Info.plist */; };
+		5A7A4E552B62269600F79C23 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A4E542B62269600F79C23 /* LoginView.swift */; };
 		AFE5B788F315503A86355ABB /* Pods_BookBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0208E9110CB38EDE3D59A6 /* Pods_BookBridge.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +48,11 @@
 		2C64B1A5C532C5F1A934328D /* Pods-BookBridge-BookBridgeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge-BookBridgeUITests.release.xcconfig"; path = "Target Support Files/Pods-BookBridge-BookBridgeUITests/Pods-BookBridge-BookBridgeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		38996D702CA8C661E33E70C8 /* Pods_BookBridge_BookBridgeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridge_BookBridgeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		38E83709A8699EFCEF75F30C /* Pods-BookBridge-BookBridgeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge-BookBridgeUITests.debug.xcconfig"; path = "Target Support Files/Pods-BookBridge-BookBridgeUITests/Pods-BookBridge-BookBridgeUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		5A1A168D2B6228290063D408 /* LoginGoogle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginGoogle.swift; sourceTree = "<group>"; };
+		5A1A168F2B62285A0063D408 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		5A1A16902B6228AB0063D408 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5A1A16932B622BB10063D408 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		5A1A16952B6231870063D408 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		5A7A4E222B61DFFD00F79C23 /* BookBridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookBridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A7A4E252B61DFFD00F79C23 /* BookBridgeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookBridgeApp.swift; sourceTree = "<group>"; };
 		5A7A4E272B61DFFD00F79C23 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -55,7 +64,7 @@
 		5A7A4E402B61DFFE00F79C23 /* BookBridgeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookBridgeUITests.swift; sourceTree = "<group>"; };
 		5A7A4E422B61DFFE00F79C23 /* BookBridgeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookBridgeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5A7A4E4F2B61E06600F79C23 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		5A7A4E512B61F48900F79C23 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5A7A4E542B62269600F79C23 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		7C8CB12351EDD2306C897CC8 /* Pods-BookBridgeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridgeTests.debug.xcconfig"; path = "Target Support Files/Pods-BookBridgeTests/Pods-BookBridgeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridgeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5811A49FE2A9EF629A77C52 /* Pods-BookBridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.debug.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.debug.xcconfig"; sourceTree = "<group>"; };
@@ -90,11 +99,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A1A168C2B6228150063D408 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				5A7A4E542B62269600F79C23 /* LoginView.swift */,
+				5A1A168D2B6228290063D408 /* LoginGoogle.swift */,
+				5A1A16952B6231870063D408 /* AuthenticationManager.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		5A1A16922B622B9F0063D408 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				5A1A16932B622BB10063D408 /* Utilities.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		5A7A4E192B61DFFD00F79C23 = {
 			isa = PBXGroup;
 			children = (
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
-				5A7A4E512B61F48900F79C23 /* GoogleService-Info.plist */,
+				5A1A16902B6228AB0063D408 /* GoogleService-Info.plist */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
 				5A7A4E352B61DFFE00F79C23 /* BookBridgeTests */,
 				5A7A4E3F2B61DFFE00F79C23 /* BookBridgeUITests */,
@@ -117,6 +144,9 @@
 		5A7A4E242B61DFFD00F79C23 /* BookBridge */ = {
 			isa = PBXGroup;
 			children = (
+				5A1A16922B622B9F0063D408 /* Utilities */,
+				5A1A168F2B62285A0063D408 /* Info.plist */,
+				5A7A4E532B62268A00F79C23 /* Views */,
 				5A7A4E252B61DFFD00F79C23 /* BookBridgeApp.swift */,
 				5A7A4E272B61DFFD00F79C23 /* ContentView.swift */,
 				5A7A4E292B61DFFE00F79C23 /* Assets.xcassets */,
@@ -148,6 +178,14 @@
 				5A7A4E422B61DFFE00F79C23 /* BookBridgeUITestsLaunchTests.swift */,
 			);
 			path = BookBridgeUITests;
+			sourceTree = "<group>";
+		};
+		5A7A4E532B62268A00F79C23 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5A1A168C2B6228150063D408 /* Login */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		7BFA2AE0109ED85C6A9152AB /* Pods */ = {
@@ -284,8 +322,8 @@
 			files = (
 				5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */,
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
+				5A1A16912B6228AB0063D408 /* GoogleService-Info.plist in Resources */,
 				5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */,
-				5A7A4E522B61F48900F79C23 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,7 +451,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A7A4E552B62269600F79C23 /* LoginView.swift in Sources */,
+				5A1A16942B622BB10063D408 /* Utilities.swift in Sources */,
 				5A7A4E282B61DFFD00F79C23 /* ContentView.swift in Sources */,
+				5A1A16962B6231870063D408 /* AuthenticationManager.swift in Sources */,
+				5A1A168E2B6228290063D408 /* LoginGoogle.swift in Sources */,
 				5A7A4E262B61DFFD00F79C23 /* BookBridgeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -581,6 +623,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"BookBridge/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BookBridge/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -610,6 +653,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"BookBridge/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BookBridge/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

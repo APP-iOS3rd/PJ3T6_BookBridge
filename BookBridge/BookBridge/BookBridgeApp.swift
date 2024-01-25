@@ -15,7 +15,7 @@ struct BookBridgeApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LoginGoogle()
         }
     }
 }
