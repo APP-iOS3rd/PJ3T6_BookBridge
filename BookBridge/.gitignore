@@ -4,6 +4,10 @@
 ### Firebase ###
 GoogleService-Info.plist
 
+### Apple Account ###
+bookBridgeDistribution.mobileprovision
+BookBrigeProfile.mobileprovision
+
 ### macOS ###
 # General
 .DS_Store
