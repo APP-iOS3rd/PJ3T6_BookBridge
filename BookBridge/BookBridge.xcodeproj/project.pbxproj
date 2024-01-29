@@ -141,7 +141,6 @@
 			isa = PBXGroup;
 			children = (
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
-
 				1D8401912B66983D00ADEEB5 /* GoogleService-Info.plist */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
 				5A7A4E352B61DFFE00F79C23 /* BookBridgeTests */,
@@ -244,6 +243,7 @@
 				5A7A4E1F2B61DFFD00F79C23 /* Frameworks */,
 				5A7A4E202B61DFFD00F79C23 /* Resources */,
 				3FDB86E0A4423C5527627E26 /* [CP] Copy Pods Resources */,
+				53F1DD96824B0B9861A31BE5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -282,6 +282,7 @@
 				5A7A4E392B61DFFE00F79C23 /* Frameworks */,
 				5A7A4E3A2B61DFFE00F79C23 /* Resources */,
 				CBC581BB139EAE58B5EADB30 /* [CP] Copy Pods Resources */,
+				FE3BF220B03B0FB377BDF34D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -382,6 +383,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BookBridge/Pods-BookBridge-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		53F1DD96824B0B9861A31BE5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BookBridge/Pods-BookBridge-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BookBridge/Pods-BookBridge-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BookBridge/Pods-BookBridge-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6F59E5411193109960F7F95E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -463,6 +481,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FE3BF220B03B0FB377BDF34D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BookBridge-BookBridgeUITests/Pods-BookBridge-BookBridgeUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BookBridge-BookBridgeUITests/Pods-BookBridge-BookBridgeUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BookBridge-BookBridgeUITests/Pods-BookBridge-BookBridgeUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

@@ -23,6 +23,16 @@
 				<string>3faeb18730ff6edf468b5e43fc5fea19</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>Naver Sign in</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.bookBridge</string>
+			</array>
+		</dict>
 	</array>
 	<key>GIDClientID</key>
 	<string>301482998840-1vmnt9ul95saa58vhg4sn873rsir7mgt.apps.googleusercontent.com</string>
@@ -31,6 +41,8 @@
 		<string>kakaokompassauth</string>
 		<string>kakaolink</string>
 		<string>kakaoplus</string>
+		<string>naversearchapp</string>
+		<string>naversearchthirdlogin</string>
 	</array>
 </dict>
 </plist>
