@@ -35,15 +35,7 @@ struct BookBridgeApp: App {
                 .onOpenURL { url in // 뷰가 속한 Window에 대한 URL을 받았을 때 호출할 Handler를 등록하는 함수
                     if AuthApi.isKakaoTalkLoginUrl(url) {
                         _ = AuthController.handleOpenUrl(url: url)
-                    } //else if NaverThirdPartyLoginConnection.getSharedInstance().is
-                    
-                    /*if NaverThirdPartyLoginConnection.getSharedInstance().is
-                        
-                        NaverThirdPartyLoginConnection.getSharedInstance().isNaverThirdPartyLoginAppschemeURL(url) {
-                        NaverThirdPartyLoginConnection
-                            .getSharedInstance()
-                            .receiveAccessToken(url)
-                    }*/
+                    }
                 }
         }
     }

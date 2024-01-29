@@ -30,7 +30,7 @@
 			<string>Naver Sign in</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.bookBridge</string>
+				<string>com.bookbridge</string>
 			</array>
 		</dict>
 	</array>

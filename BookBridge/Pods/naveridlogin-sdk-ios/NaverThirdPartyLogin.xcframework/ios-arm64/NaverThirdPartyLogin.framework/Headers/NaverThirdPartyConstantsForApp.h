@@ -32,7 +32,7 @@ typedef enum {
     OK
 } OAuthLoginState;
 
-#define kServiceAppUrlScheme    @"com.bookBridge"
+#define kServiceAppUrlScheme    @"com.bookbridge"
 
 #define kConsumerKey            @"3xYfqPtM5GIp3KYB3EfF"
 #define kConsumerSecret         @"6ct5YqxMF9"
