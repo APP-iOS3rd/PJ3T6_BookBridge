@@ -45,7 +45,6 @@ class KakaoLoginViewModel : ObservableObject {
             if result != nil {
                 self.state = .signedIn
                 print("사용자 이메일: \(String(describing: result?.user.email))")
-                print("사용자 이름: \(String(describing: result?.user.displayName))")
                 
             }
         }
@@ -99,7 +98,7 @@ class KakaoLoginViewModel : ObservableObject {
             }
             guard let email = kakaoUser?.kakaoAccount?.email else { return }
             guard let password = kakaoUser?.id else { return }
-            guard let userName = kakaoUser?.kakaoAccount?.profile?.nickname else { return }
+            guard let userName = kakaoUser?.kakaoAccount?.profile?.nickname else { return }            
             
             self.emailAuthSignUp(email: email, userName: userName, password: "\(password)") {
                 self.emailAuthSignIn(email: email, password: "\(password)")
@@ -107,4 +106,26 @@ class KakaoLoginViewModel : ObservableObject {
         }
     }
     
+    // 로그아웃 기능 추가
+    func logout() {
+        // Firebase 로그아웃
+        do {
+            try Auth.auth().signOut()
+        } catch let signOutError as NSError {
+            print("Firebase 로그아웃 실패: \(signOutError.localizedDescription)")
+        }
+
+        // Kakao 로그아웃
+        UserApi.shared.logout { (error) in
+            if let error = error {
+                print("Kakao 로그아웃 실패: \(error.localizedDescription)")
+            }
+        }
+
+        self.state = .signedOut
+        
+    }
+    
 }
+
+
