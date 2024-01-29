@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SignUpInputEmailView: View {
-    @Binding var email: String
+    @StateObject var signUpVM: SignUpVM
     
     var body: some View {
         VStack {
@@ -21,7 +21,7 @@ struct SignUpInputEmailView: View {
             }
                         
             HStack {
-                TextField("이메일을 입력해 주세요", text: $email)
+                TextField("이메일을 입력해 주세요", text: $signUpVM.email)
                     .padding()
                     .foregroundColor(Color(hex: "3C3C43"))
                     .frame(height: 36)
@@ -45,5 +45,5 @@ struct SignUpInputEmailView: View {
 }
 
 #Preview {
-    SignUpInputEmailView(email: .constant(""))
+    SignUpInputEmailView(signUpVM: SignUpVM())
 }

@@ -15,7 +15,7 @@ struct SignUpView: View {
         
         Spacer()
         
-        SignUpInputEmailView(email: $signUpVM.email)
+        SignUpInputEmailView(signUpVM: signUpVM)
             .padding()
         
         SignUpAuthCodeView(signUpVm: signUpVM)
@@ -33,7 +33,9 @@ struct SignUpView: View {
     @ViewBuilder
     func AuthConfirmBtn() -> some View {
         Button {
-            
+            signUpVM.register{
+                
+            }
         } label: {
             Text("회원가입")
                 .font(.system(size: 20))

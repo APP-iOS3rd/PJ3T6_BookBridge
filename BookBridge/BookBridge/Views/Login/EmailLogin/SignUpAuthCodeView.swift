@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SignUpAuthCodeView: View {
-    @ObservedObject var signUpVm: SignUpVM
+    @StateObject var signUpVm: SignUpVM
     
     var body: some View {
         VStack {

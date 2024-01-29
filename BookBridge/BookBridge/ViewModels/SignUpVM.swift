@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 class SignUpVM: ObservableObject {
     @Published var email: String = ""
@@ -13,4 +14,15 @@ class SignUpVM: ObservableObject {
     @Published var password: String = ""
     @Published var passwordConfirm: String = ""
     var AuthCode: Int?
+    
+    func register(completion: @escaping () -> Void) {
+        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                completion()
+            }
+        }
+    }
+    
 }
