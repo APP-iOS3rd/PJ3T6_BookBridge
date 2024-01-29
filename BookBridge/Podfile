@@ -9,7 +9,8 @@ target 'BookBridge' do
   pod 'FirebaseAuth'
   pod 'GoogleSignIn'
   pod 'GoogleSignInSwift'
-
+  pod 'KakaoSDKUser'
+  pod 'KakaoSDKAuth'
 
   # Add the Firebase pod for Google Analytics
   pod 'FirebaseAnalytics'
