@@ -9,16 +9,16 @@ import SwiftUI
 import NaverThirdPartyLogin
 
 struct NaverLoginView: View {
-    @StateObject private var viewModel = NaverLoginViewModel()
+    @State private var isLogin: Bool = false
     
     private var naverLoginManger = NaverLoginManager.shared
     
     var body: some View {
         VStack {
-            if viewModel.isLogin {
+            if isLogin {
                 Button{
                     naverLoginManger.doNaverLogout()
-                    viewModel.isLogin = false
+                    isLogin = false
                 } label: {
                     Image("googleLogo")
                         .resizable()
@@ -27,7 +27,7 @@ struct NaverLoginView: View {
             } else {
                 Button{
                     naverLoginManger.doNaverLogin()
-                    viewModel.isLogin = true
+                    isLogin = true
                 } label: {
                     Image("naverLogo")
                         .resizable()

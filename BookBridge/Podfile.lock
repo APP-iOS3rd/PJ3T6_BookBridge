@@ -838,6 +838,7 @@ PODS:
   - RecaptchaInterop (100.0.0)
 
 DEPENDENCIES:
+  - Alamofire
   - Firebase
   - FirebaseAnalytics
   - FirebaseAuth
@@ -916,6 +917,6 @@ SPEC CHECKSUMS:
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
 
-PODFILE CHECKSUM: 2a52fd0a0b8f28686949af9fd488f59856541edf
+PODFILE CHECKSUM: 4b00fd0e06adb7db48a6c65f8ccf8593aa18b777
 
 COCOAPODS: 1.15.0
