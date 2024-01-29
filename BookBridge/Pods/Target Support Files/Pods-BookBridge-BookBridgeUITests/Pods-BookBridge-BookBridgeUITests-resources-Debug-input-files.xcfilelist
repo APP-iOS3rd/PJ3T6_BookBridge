@@ -1,2 +1,3 @@
 ${PODS_ROOT}/Target Support Files/Pods-BookBridge-BookBridgeUITests/Pods-BookBridge-BookBridgeUITests-resources.sh
+${PODS_CONFIGURATION_BUILD_DIR}/GoogleSignIn/GoogleSignIn.bundle
 ${PODS_CONFIGURATION_BUILD_DIR}/gRPC-C++/gRPCCertificates-Cpp.bundle

@@ -6,6 +6,12 @@ target 'BookBridge' do
   pod 'Firebase', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
 
+  pod 'FirebaseAuth'
+  pod 'GoogleSignIn'
+  pod 'GoogleSignInSwift'
+  pod 'KakaoSDKUser'
+  pod 'KakaoSDKAuth'
+
   # Add the Firebase pod for Google Analytics
   pod 'FirebaseAnalytics'
 

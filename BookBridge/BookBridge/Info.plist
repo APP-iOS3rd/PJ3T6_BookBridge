@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>Google Sign In</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.301482998840-1vmnt9ul95saa58vhg4sn873rsir7mgt</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>kakao</string>
+				<string>3faeb18730ff6edf468b5e43fc5fea19</string>
+			</array>
+		</dict>
+	</array>
+	<key>GIDClientID</key>
+	<string>301482998840-1vmnt9ul95saa58vhg4sn873rsir7mgt.apps.googleusercontent.com</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>kakaokompassauth</string>
+		<string>kakaolink</string>
+		<string>kakaoplus</string>
+	</array>
+</dict>
+</plist>
