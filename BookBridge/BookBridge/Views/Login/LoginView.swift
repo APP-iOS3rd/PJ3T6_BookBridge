@@ -83,6 +83,7 @@ struct LoginView: View {
 
 
                 HStack(spacing: 20){
+                    NaverLoginView()
                     LoginGoogleView()
                     KakaoLoginView()
                 }
@@ -92,8 +93,6 @@ struct LoginView: View {
             }
             .padding(20)
         }
-        
-        
     }
 }
 
