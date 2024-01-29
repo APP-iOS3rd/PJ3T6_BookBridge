@@ -26,6 +26,9 @@
 		5A7A4E552B62269600F79C23 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A4E542B62269600F79C23 /* LoginView.swift */; };
 		5A9A33852B628D9E00982E92 /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A33842B628D9E00982E92 /* SignInGoogleHelper.swift */; };
 		5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A33862B62960800982E92 /* ColorExtension.swift */; };
+		73DA7BCC2B67462900E46A04 /* NaverLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA7BCB2B67462900E46A04 /* NaverLoginView.swift */; };
+		73DA7BCE2B67480E00E46A04 /* NaverLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA7BCD2B67480E00E46A04 /* NaverLoginViewModel.swift */; };
+		73DA7BD02B6767CE00E46A04 /* NaverLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA7BCF2B6767CE00E46A04 /* NaverLoginManager.swift */; };
 		AFE5B788F315503A86355ABB /* Pods_BookBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0208E9110CB38EDE3D59A6 /* Pods_BookBridge.framework */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +76,9 @@
 		5A7A4E542B62269600F79C23 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		5A9A33842B628D9E00982E92 /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
 		5A9A33862B62960800982E92 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		73DA7BCB2B67462900E46A04 /* NaverLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginView.swift; sourceTree = "<group>"; };
+		73DA7BCD2B67480E00E46A04 /* NaverLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginViewModel.swift; sourceTree = "<group>"; };
+		73DA7BCF2B6767CE00E46A04 /* NaverLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginManager.swift; sourceTree = "<group>"; };
 		7C8CB12351EDD2306C897CC8 /* Pods-BookBridgeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridgeTests.debug.xcconfig"; path = "Target Support Files/Pods-BookBridgeTests/Pods-BookBridgeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridgeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5811A49FE2A9EF629A77C52 /* Pods-BookBridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.debug.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.debug.xcconfig"; sourceTree = "<group>"; };
@@ -120,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				1D922F442B636F1200C3642F /* KaKaoLogin */,
+				73DA7BCA2B6745F100E46A04 /* NaverLogin */,
 				5A7A4E542B62269600F79C23 /* LoginView.swift */,
 				5A1A168D2B6228290063D408 /* LoginGoogleView.swift */,
 				5A1A16952B6231870063D408 /* AuthenticationManager.swift */,
@@ -206,6 +213,16 @@
 				5A7A4E272B61DFFD00F79C23 /* ContentView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		73DA7BCA2B6745F100E46A04 /* NaverLogin */ = {
+			isa = PBXGroup;
+			children = (
+				73DA7BCB2B67462900E46A04 /* NaverLoginView.swift */,
+				73DA7BCD2B67480E00E46A04 /* NaverLoginViewModel.swift */,
+				73DA7BCF2B6767CE00E46A04 /* NaverLoginManager.swift */,
+			);
+			path = NaverLogin;
 			sourceTree = "<group>";
 		};
 		7BFA2AE0109ED85C6A9152AB /* Pods */ = {
@@ -513,8 +530,11 @@
 				1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */,
 				5A1A16942B622BB10063D408 /* Utilities.swift in Sources */,
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
+				73DA7BD02B6767CE00E46A04 /* NaverLoginManager.swift in Sources */,
 				5A7A4E282B61DFFD00F79C23 /* ContentView.swift in Sources */,
+				73DA7BCC2B67462900E46A04 /* NaverLoginView.swift in Sources */,
 				5A1A16962B6231870063D408 /* AuthenticationManager.swift in Sources */,
+				73DA7BCE2B67480E00E46A04 /* NaverLoginViewModel.swift in Sources */,
 				5A1A168E2B6228290063D408 /* LoginGoogleView.swift in Sources */,
 				5A7A4E262B61DFFD00F79C23 /* BookBridgeApp.swift in Sources */,
 			);

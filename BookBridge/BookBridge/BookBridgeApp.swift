@@ -9,13 +9,22 @@ import SwiftUI
 import Firebase
 import KakaoSDKCommon
 import KakaoSDKAuth
+import NaverThirdPartyLogin
 
 @main
 struct BookBridgeApp: App {
     
     init() {
-        // Kakao SDK 초기화
+        //Kakao SDK 초기화
         KakaoSDK.initSDK(appKey: "3faeb18730ff6edf468b5e43fc5fea19")
+        
+        //Naver SDK 초기화
+        NaverThirdPartyLoginConnection.getSharedInstance()?.isInAppOauthEnable = true
+        
+        NaverThirdPartyLoginConnection.getSharedInstance().serviceUrlScheme = kServiceAppUrlScheme
+        NaverThirdPartyLoginConnection.getSharedInstance().consumerKey = kConsumerKey
+        NaverThirdPartyLoginConnection.getSharedInstance().consumerSecret = kConsumerSecret
+        NaverThirdPartyLoginConnection.getSharedInstance().appName = kServiceAppName
     }
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
@@ -26,7 +35,15 @@ struct BookBridgeApp: App {
                 .onOpenURL { url in // 뷰가 속한 Window에 대한 URL을 받았을 때 호출할 Handler를 등록하는 함수
                     if AuthApi.isKakaoTalkLoginUrl(url) {
                         _ = AuthController.handleOpenUrl(url: url)
-                    }
+                    } //else if NaverThirdPartyLoginConnection.getSharedInstance().is
+                    
+                    /*if NaverThirdPartyLoginConnection.getSharedInstance().is
+                        
+                        NaverThirdPartyLoginConnection.getSharedInstance().isNaverThirdPartyLoginAppschemeURL(url) {
+                        NaverThirdPartyLoginConnection
+                            .getSharedInstance()
+                            .receiveAccessToken(url)
+                    }*/
                 }
         }
     }
