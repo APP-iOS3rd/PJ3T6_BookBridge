@@ -1,12 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "icons8-구글-로고.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "GoogleLogo.svg",
+      "filename" : "bookbridghCharacter.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
