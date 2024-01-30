@@ -44,7 +44,7 @@ struct LoginView: View {
                 HStack{
                     Text("이미 계정이 있으신가요?")
                         .font(.system(size: 16, weight: .light))
-                    NavigationLink(destination: IdLoginView()) {
+                    NavigationLink(destination: IdLoginView().navigationBarBackButtonHidden()) {
                         Text("로그인")
                             .foregroundColor(Color(hex: "3A87FD"))
                             .underline()
@@ -68,7 +68,7 @@ struct LoginView: View {
                 HStack {
                     // 왼쪽 가로 Divider
                     Rectangle()
-                        .frame(width: 100, height: 1) // 가로 길이 96, 높이 1
+                        .frame(width: 100, height: 1)
                         .foregroundColor(Color(hex:"A7A7A7"))
 
                     Text("SNS 계정으로")
@@ -78,7 +78,7 @@ struct LoginView: View {
 
                     // 오른쪽 가로 Divider
                     Rectangle()
-                        .frame(width: 100, height: 1) // 가로 길이 96, 높이 1
+                        .frame(width: 100, height: 1) 
                         .foregroundColor(Color(hex:"A7A7A7"))
                 }
 
