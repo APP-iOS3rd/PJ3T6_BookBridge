@@ -29,7 +29,7 @@ struct LoginView: View {
                     
                     
                 }
-                NavigationLink(destination: SignUpView()) {
+                NavigationLink(destination: EmailSignUpView()) {
                     Text("시작하기")
                         .foregroundColor(.white)
                         .font(.system(size: 20).bold())
@@ -87,6 +87,7 @@ struct LoginView: View {
                 HStack(spacing: 20){
                     LoginGoogleView()
                     KakaoLoginView()
+                    AppleLoginView()
                 }
                 Spacer()
                     .frame(height: 50)

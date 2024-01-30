@@ -15,7 +15,7 @@ struct KakaoLoginView: View {
             if viewModel.state == .signedOut {
                 Button(action: viewModel.kakaoAuthSignIn) {
                     ZStack {
-                        Image("KakaoLogo")
+                        Image("KaKaoLogo")
                             .resizable()
                             .frame(width: 36, height: 36)
 
