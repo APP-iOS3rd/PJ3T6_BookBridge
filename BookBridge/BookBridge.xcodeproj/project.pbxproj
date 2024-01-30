@@ -31,6 +31,8 @@
 		5AA82E522B6761BD006EFC72 /* SignUpVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E512B6761BD006EFC72 /* SignUpVM.swift */; };
 		5AA82E542B6764DF006EFC72 /* SignUpAuthCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E532B6764DF006EFC72 /* SignUpAuthCodeView.swift */; };
 		5AA82E562B676F43006EFC72 /* SignUpPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E552B676F43006EFC72 /* SignUpPasswordView.swift */; };
+		5AA82E592B6779DD006EFC72 /* SwiftSMTP in Frameworks */ = {isa = PBXBuildFile; productRef = 5AA82E582B6779DD006EFC72 /* SwiftSMTP */; };
+		5AA82E5E2B67891E006EFC72 /* SMTP_SET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E5D2B67891E006EFC72 /* SMTP_SET.swift */; };
 		AFE5B788F315503A86355ABB /* Pods_BookBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0208E9110CB38EDE3D59A6 /* Pods_BookBridge.framework */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +85,7 @@
 		5AA82E512B6761BD006EFC72 /* SignUpVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVM.swift; sourceTree = "<group>"; };
 		5AA82E532B6764DF006EFC72 /* SignUpAuthCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAuthCodeView.swift; sourceTree = "<group>"; };
 		5AA82E552B676F43006EFC72 /* SignUpPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPasswordView.swift; sourceTree = "<group>"; };
+		5AA82E5D2B67891E006EFC72 /* SMTP_SET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMTP_SET.swift; sourceTree = "<group>"; };
 		7C8CB12351EDD2306C897CC8 /* Pods-BookBridgeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridgeTests.debug.xcconfig"; path = "Target Support Files/Pods-BookBridgeTests/Pods-BookBridgeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridgeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5811A49FE2A9EF629A77C52 /* Pods-BookBridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.debug.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.debug.xcconfig"; sourceTree = "<group>"; };
@@ -94,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AA82E592B6779DD006EFC72 /* SwiftSMTP in Frameworks */,
 				AFE5B788F315503A86355ABB /* Pods_BookBridge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -142,6 +146,7 @@
 			children = (
 				5A1A16932B622BB10063D408 /* Utilities.swift */,
 				5A9A33862B62960800982E92 /* ColorExtension.swift */,
+				5AA82E5D2B67891E006EFC72 /* SMTP_SET.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -288,6 +293,9 @@
 			dependencies = (
 			);
 			name = BookBridge;
+			packageProductDependencies = (
+				5AA82E582B6779DD006EFC72 /* SwiftSMTP */,
+			);
 			productName = BookBridge;
 			productReference = 5A7A4E222B61DFFD00F79C23 /* BookBridge.app */;
 			productType = "com.apple.product-type.application";
@@ -363,6 +371,9 @@
 				Base,
 			);
 			mainGroup = 5A7A4E192B61DFFD00F79C23;
+			packageReferences = (
+				5AA82E572B6779DD006EFC72 /* XCRemoteSwiftPackageReference "Swift-SMTP" */,
+			);
 			productRefGroup = 5A7A4E232B61DFFD00F79C23 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -516,6 +527,7 @@
 				5A7A4E552B62269600F79C23 /* LoginView.swift in Sources */,
 				5A9A33852B628D9E00982E92 /* SignInGoogleHelper.swift in Sources */,
 				1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */,
+				5AA82E5E2B67891E006EFC72 /* SMTP_SET.swift in Sources */,
 				5A1A16942B622BB10063D408 /* Utilities.swift in Sources */,
 				5AA82E4D2B675E26006EFC72 /* SignUpView.swift in Sources */,
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
@@ -868,6 +880,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5AA82E572B6779DD006EFC72 /* XCRemoteSwiftPackageReference "Swift-SMTP" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/IBM-Swift/Swift-SMTP";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5AA82E582B6779DD006EFC72 /* SwiftSMTP */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5AA82E572B6779DD006EFC72 /* XCRemoteSwiftPackageReference "Swift-SMTP" */;
+			productName = SwiftSMTP;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5A7A4E1A2B61DFFD00F79C23 /* Project object */;
 }

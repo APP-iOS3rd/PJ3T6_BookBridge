@@ -33,7 +33,7 @@ struct SignUpView: View {
     @ViewBuilder
     func AuthConfirmBtn() -> some View {
         Button {
-            signUpVM.register{
+            signUpVM.register {
                 
             }
         } label: {

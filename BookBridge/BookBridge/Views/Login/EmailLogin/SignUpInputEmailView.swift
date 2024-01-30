@@ -30,7 +30,8 @@ struct SignUpInputEmailView: View {
                     .cornerRadius(5.0)
                 
                 Button {
-                    
+                    signUpVM.sendMail()
+                    print("메일을 전송하였습니다.")
                 } label: {
                     Text("인증하기")
                         .font(.system(size: 17))
