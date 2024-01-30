@@ -40,6 +40,8 @@
 		5AA82E5E2B67891E006EFC72 /* SMTP_SET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E5D2B67891E006EFC72 /* SMTP_SET.swift */; };
 		5CE454902B68B79000874BCE /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4548F2B68B79000874BCE /* FirestoreService.swift */; };
 		5CE454932B68B7CB00874BCE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454922B68B7CB00874BCE /* User.swift */; };
+		5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454962B68B8CA00874BCE /* AppleLoginView.swift */; };
+		5CE454992B68B8EF00874BCE /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454982B68B8EF00874BCE /* AppleAuthManager.swift */; };
 		AFE5B788F315503A86355ABB /* Pods_BookBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0208E9110CB38EDE3D59A6 /* Pods_BookBridge.framework */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +102,9 @@
 		5AA82E5D2B67891E006EFC72 /* SMTP_SET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMTP_SET.swift; sourceTree = "<group>"; };
 		5CE4548F2B68B79000874BCE /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		5CE454922B68B7CB00874BCE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		5CE454962B68B8CA00874BCE /* AppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginView.swift; sourceTree = "<group>"; };
+		5CE454982B68B8EF00874BCE /* AppleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthManager.swift; sourceTree = "<group>"; };
+		5CE4549A2B68C93A00874BCE /* BookBridge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookBridge.entitlements; sourceTree = "<group>"; };
 		7C8CB12351EDD2306C897CC8 /* Pods-BookBridgeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridgeTests.debug.xcconfig"; path = "Target Support Files/Pods-BookBridgeTests/Pods-BookBridgeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridgeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5811A49FE2A9EF629A77C52 /* Pods-BookBridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.debug.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.debug.xcconfig"; sourceTree = "<group>"; };
@@ -167,6 +172,7 @@
 				1DCFB01C2B687D4B00250D55 /* Find */,
 				1D84019C2B677B1B00ADEEB5 /* IdLogin */,
 				5AA82E4B2B674966006EFC72 /* EmailLogin */,
+				5CE454952B68B88D00874BCE /* AppleLogin */,
 				5AA82E492B6745C4006EFC72 /* GoogleLogin */,
 				1D922F442B636F1200C3642F /* KaKaoLogin */,
 				5A7A4E542B62269600F79C23 /* LoginView.swift */,
@@ -214,6 +220,7 @@
 		5A7A4E242B61DFFD00F79C23 /* BookBridge */ = {
 			isa = PBXGroup;
 			children = (
+				5CE4549A2B68C93A00874BCE /* BookBridge.entitlements */,
 				5CE454912B68B7C000874BCE /* Model */,
 				5A1A16922B622B9F0063D408 /* Utilities */,
 				5AA82E502B676199006EFC72 /* ViewModels */,
@@ -295,6 +302,15 @@
 				5CE454922B68B7CB00874BCE /* User.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		5CE454952B68B88D00874BCE /* AppleLogin */ = {
+			isa = PBXGroup;
+			children = (
+				5CE454962B68B8CA00874BCE /* AppleLoginView.swift */,
+				5CE454982B68B8EF00874BCE /* AppleAuthManager.swift */,
+			);
+			path = AppleLogin;
 			sourceTree = "<group>";
 		};
 		7BFA2AE0109ED85C6A9152AB /* Pods */ = {
@@ -579,10 +595,12 @@
 				1D8401992B675E0800ADEEB5 /* SignUpView.swift in Sources */,
 				1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */,
 				5AA82E5E2B67891E006EFC72 /* SMTP_SET.swift in Sources */,
+				5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */,
 				5A1A16942B622BB10063D408 /* Utilities.swift in Sources */,
 				5AA82E4D2B675E26006EFC72 /* EmailSignUpView.swift in Sources */,
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
 				5A7A4E282B61DFFD00F79C23 /* ContentView.swift in Sources */,
+				5CE454992B68B8EF00874BCE /* AppleAuthManager.swift in Sources */,
 				5A1A16962B6231870063D408 /* AuthenticationManager.swift in Sources */,
 				5AA82E562B676F43006EFC72 /* SignUpPasswordView.swift in Sources */,
 				5AA82E4F2B6760C7006EFC72 /* SignUpInputEmailView.swift in Sources */,
@@ -750,6 +768,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BookBridge/BookBridge.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -786,6 +805,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BookBridge/BookBridge.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;

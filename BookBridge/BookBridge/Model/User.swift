@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct User: Identifiable {
+//User라고 할 경우 AuthDataResultModel에 User와 충돌 이슈
+struct UserModel: Identifiable {
     var id: String?                    //고유 아이디 CI 값
     var loginId: String?                //로그인 아이디
     var passsword: String?                //비밀번호

@@ -6,14 +6,16 @@
 //
 
 import Foundation
+import AuthenticationServices
 import FirebaseFirestore
+import FirebaseStorage
 
 class FirestoreService {
     static let shared = FirestoreService()
 
     private init() {}
 
-    func saveUserToFirestore(user: User) {
+    func saveUserToFirestore(user: UserModel) {
         let db = Firestore.firestore()
 
         let userData = [
