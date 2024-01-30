@@ -22,6 +22,8 @@ struct SignUpInputBox: View {
                     .font(.system(size: 10))
                     .foregroundStyle(Color(hex: "999999"))
                 
+                
+                
                 Spacer()
             }
                         
@@ -35,9 +37,20 @@ struct SignUpInputBox: View {
                     .cornerRadius(5.0)
                 
                 Button {
-                    signUpVM.sendMail()
-                    status = true
-                    print("메일을 전송하였습니다.")
+                    switch inputer.type {
+                    case .email:
+                        if signUpVM.isValidEmail() {
+                            status = true
+                            signUpVM.sendMail()
+                        } else {
+                            status = false
+                        }
+                                                
+                    case .id:
+                        print("아이디 중복 확인 기능")
+                    case .nickName:
+                        print("닉네임 중복 확인 기능")
+                    }
                 } label: {
                     Text(inputer.btnTitle)
                         .font(.system(size: 17))
@@ -57,9 +70,13 @@ struct SignUpInputBox: View {
             }
         }
     }
+}
+
+struct StatusText: View {
+    var text: String
+    var color: String
     
-    @ViewBuilder
-    func StatusText(text: String, color: String) -> some View {
+    var body: some View {
         HStack {
             Text(text)
                 .font(.system(size: 10))
@@ -70,5 +87,5 @@ struct SignUpInputBox: View {
 }
 
 #Preview {
-    SignUpInputBox(signUpVM: SignUpVM(), inputer: SignUpInputer(input: .nickName))
+    SignUpInputBox(signUpVM: SignUpVM(), inputer: SignUpInputer(input: .email))
 }

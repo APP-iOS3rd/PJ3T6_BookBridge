@@ -21,7 +21,7 @@ struct EmailSignUpView: View {
                 SignUpInputBox(signUpVM: signUpVM, inputer: SignUpInputer(input: .nickName))
                     .padding()
                                                 
-                SignUpPasswordView(signUpVm: signUpVM)
+                SignUpPasswordBox(signUpVm: signUpVM)
                     .padding()
                 
                 Spacer()

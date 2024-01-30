@@ -9,10 +9,16 @@ import SwiftUI
 
 struct EmailCertiView: View {
     @StateObject var signUpVM = SignUpVM()
+    @State var tag: Int? = nil
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
+            
+            
             VStack {
+                NavigationLink(destination: EmailSignUpView(), tag: 1, selection: self.$tag) {
+                    
+                }
                 Image("Character")
                 
                 HStack {
@@ -28,13 +34,29 @@ struct EmailCertiView: View {
                 SignUpInputBox(signUpVM: signUpVM, inputer: SignUpInputer(input: .email))
                     .padding()
                 
-                SignUpAuthCodeView(signUpVm: signUpVM)
-                    .padding()
-                
+                if signUpVM.isCertiActive {
+                    SignUpAuthCodeBox(signUpVm: signUpVM)
+                        .padding()
+                }
+                                
                 Spacer()
                 
-                AuthConfirmBtn()
-                    .padding()
+                Button {
+                    self.tag = 1
+                } label: {
+                    Text("인증완료")
+                        .font(.system(size: 20))
+                        .fontWeight(.semibold)
+                        .foregroundStyle(.white)
+                        .frame(height: 50)
+                        .frame(maxWidth: .infinity)
+                        .background(Color(hex: "59AAE0"))
+                        .cornerRadius(10.0)
+                }
+                .padding()
+                
+                
+                
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -43,24 +65,6 @@ struct EmailCertiView: View {
                         .font(.headline)
                 }
             }
-        }
-    }
-    
-    @ViewBuilder
-    func AuthConfirmBtn() -> some View {
-        Button {
-            signUpVM.register {
-                // 다음화면 이동 기능
-            }
-        } label: {
-            Text("인증완료")
-                .font(.system(size: 20))
-                .fontWeight(.semibold)
-                .foregroundStyle(.white)
-                .frame(height: 50)
-                .frame(maxWidth: .infinity)
-                .background(Color(hex: "59AAE0"))
-                .cornerRadius(10.0)
         }
     }
 }

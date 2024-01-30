@@ -36,8 +36,8 @@
 		5AA82E4D2B675E26006EFC72 /* EmailSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */; };
 		5AA82E4F2B6760C7006EFC72 /* SignUpInputBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E4E2B6760C7006EFC72 /* SignUpInputBox.swift */; };
 		5AA82E522B6761BD006EFC72 /* SignUpVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E512B6761BD006EFC72 /* SignUpVM.swift */; };
-		5AA82E542B6764DF006EFC72 /* SignUpAuthCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E532B6764DF006EFC72 /* SignUpAuthCodeView.swift */; };
-		5AA82E562B676F43006EFC72 /* SignUpPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E552B676F43006EFC72 /* SignUpPasswordView.swift */; };
+		5AA82E542B6764DF006EFC72 /* SignUpAuthCodeBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E532B6764DF006EFC72 /* SignUpAuthCodeBox.swift */; };
+		5AA82E562B676F43006EFC72 /* SignUpPasswordBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E552B676F43006EFC72 /* SignUpPasswordBox.swift */; };
 		5AA82E592B6779DD006EFC72 /* SwiftSMTP in Frameworks */ = {isa = PBXBuildFile; productRef = 5AA82E582B6779DD006EFC72 /* SwiftSMTP */; };
 		5AA82E5E2B67891E006EFC72 /* SMTP_SET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E5D2B67891E006EFC72 /* SMTP_SET.swift */; };
 		AFE5B788F315503A86355ABB /* Pods_BookBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0208E9110CB38EDE3D59A6 /* Pods_BookBridge.framework */; };
@@ -97,8 +97,8 @@
 		5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignUpView.swift; sourceTree = "<group>"; };
 		5AA82E4E2B6760C7006EFC72 /* SignUpInputBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputBox.swift; sourceTree = "<group>"; };
 		5AA82E512B6761BD006EFC72 /* SignUpVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVM.swift; sourceTree = "<group>"; };
-		5AA82E532B6764DF006EFC72 /* SignUpAuthCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAuthCodeView.swift; sourceTree = "<group>"; };
-		5AA82E552B676F43006EFC72 /* SignUpPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPasswordView.swift; sourceTree = "<group>"; };
+		5AA82E532B6764DF006EFC72 /* SignUpAuthCodeBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAuthCodeBox.swift; sourceTree = "<group>"; };
+		5AA82E552B676F43006EFC72 /* SignUpPasswordBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPasswordBox.swift; sourceTree = "<group>"; };
 		5AA82E5D2B67891E006EFC72 /* SMTP_SET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMTP_SET.swift; sourceTree = "<group>"; };
 		7C8CB12351EDD2306C897CC8 /* Pods-BookBridgeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridgeTests.debug.xcconfig"; path = "Target Support Files/Pods-BookBridgeTests/Pods-BookBridgeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridgeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -280,11 +280,11 @@
 		5AA82E4B2B674966006EFC72 /* EmailSignUp */ = {
 			isa = PBXGroup;
 			children = (
+				5A2DE0962B6884BE00EF3A6B /* EmailCertiView.swift */,
 				5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */,
 				5AA82E4E2B6760C7006EFC72 /* SignUpInputBox.swift */,
-				5AA82E532B6764DF006EFC72 /* SignUpAuthCodeView.swift */,
-				5AA82E552B676F43006EFC72 /* SignUpPasswordView.swift */,
-				5A2DE0962B6884BE00EF3A6B /* EmailCertiView.swift */,
+				5AA82E532B6764DF006EFC72 /* SignUpAuthCodeBox.swift */,
+				5AA82E552B676F43006EFC72 /* SignUpPasswordBox.swift */,
 			);
 			path = EmailSignUp;
 			sourceTree = "<group>";
@@ -568,7 +568,7 @@
 			files = (
 				1D2B61842B63929900945EE2 /* KakaoLoginViewModel.swift in Sources */,
 				1D84019B2B6779CB00ADEEB5 /* IdLoginView.swift in Sources */,
-				5AA82E542B6764DF006EFC72 /* SignUpAuthCodeView.swift in Sources */,
+				5AA82E542B6764DF006EFC72 /* SignUpAuthCodeBox.swift in Sources */,
 				5AA82E522B6761BD006EFC72 /* SignUpVM.swift in Sources */,
 				5A7A4E552B62269600F79C23 /* LoginView.swift in Sources */,
 				1D8401972B675C3800ADEEB5 /* LoginViewModel.swift in Sources */,
@@ -583,7 +583,7 @@
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
 				5A7A4E282B61DFFD00F79C23 /* ContentView.swift in Sources */,
 				5A1A16962B6231870063D408 /* AuthenticationManager.swift in Sources */,
-				5AA82E562B676F43006EFC72 /* SignUpPasswordView.swift in Sources */,
+				5AA82E562B676F43006EFC72 /* SignUpPasswordBox.swift in Sources */,
 				5AA82E4F2B6760C7006EFC72 /* SignUpInputBox.swift in Sources */,
 				5A2DE09A2B68915200EF3A6B /* SignUpInputer.swift in Sources */,
 				5A2DE0972B6884BE00EF3A6B /* EmailCertiView.swift in Sources */,

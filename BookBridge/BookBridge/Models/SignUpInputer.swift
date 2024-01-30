@@ -18,8 +18,11 @@ class SignUpInputer {
     var placeholder: String
     var status: [String]
     var btnTitle: String
+    var type: SignUpInput
     
     init(input: SignUpInput) {
+        type = input
+        
         switch input {
             
         case .email:
