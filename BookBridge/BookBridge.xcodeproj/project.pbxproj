@@ -21,6 +21,7 @@
 		5A1A16962B6231870063D408 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A16952B6231870063D408 /* AuthenticationManager.swift */; };
 		5A2DE0972B6884BE00EF3A6B /* EmailCertiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2DE0962B6884BE00EF3A6B /* EmailCertiView.swift */; };
 		5A2DE09A2B68915200EF3A6B /* SignUpInputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2DE0992B68915200EF3A6B /* SignUpInputer.swift */; };
+		5A2DE09E2B68DBB700EF3A6B /* SignUpPasswordBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2DE09D2B68DBB700EF3A6B /* SignUpPasswordBox.swift */; };
 		5A7A4E262B61DFFD00F79C23 /* BookBridgeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A4E252B61DFFD00F79C23 /* BookBridgeApp.swift */; };
 		5A7A4E282B61DFFD00F79C23 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A4E272B61DFFD00F79C23 /* ContentView.swift */; };
 		5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A7A4E292B61DFFE00F79C23 /* Assets.xcassets */; };
@@ -37,7 +38,6 @@
 		5AA82E4F2B6760C7006EFC72 /* SignUpInputBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E4E2B6760C7006EFC72 /* SignUpInputBox.swift */; };
 		5AA82E522B6761BD006EFC72 /* SignUpVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E512B6761BD006EFC72 /* SignUpVM.swift */; };
 		5AA82E542B6764DF006EFC72 /* SignUpAuthCodeBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E532B6764DF006EFC72 /* SignUpAuthCodeBox.swift */; };
-		5AA82E562B676F43006EFC72 /* SignUpPasswordBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E552B676F43006EFC72 /* SignUpPasswordBox.swift */; };
 		5AA82E592B6779DD006EFC72 /* SwiftSMTP in Frameworks */ = {isa = PBXBuildFile; productRef = 5AA82E582B6779DD006EFC72 /* SwiftSMTP */; };
 		5AA82E5E2B67891E006EFC72 /* SMTP_SET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E5D2B67891E006EFC72 /* SMTP_SET.swift */; };
 		AFE5B788F315503A86355ABB /* Pods_BookBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0208E9110CB38EDE3D59A6 /* Pods_BookBridge.framework */; };
@@ -79,6 +79,7 @@
 		5A1A16952B6231870063D408 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		5A2DE0962B6884BE00EF3A6B /* EmailCertiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCertiView.swift; sourceTree = "<group>"; };
 		5A2DE0992B68915200EF3A6B /* SignUpInputer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputer.swift; sourceTree = "<group>"; };
+		5A2DE09D2B68DBB700EF3A6B /* SignUpPasswordBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPasswordBox.swift; sourceTree = "<group>"; };
 		5A7A4E222B61DFFD00F79C23 /* BookBridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookBridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A7A4E252B61DFFD00F79C23 /* BookBridgeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookBridgeApp.swift; sourceTree = "<group>"; };
 		5A7A4E272B61DFFD00F79C23 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -98,7 +99,6 @@
 		5AA82E4E2B6760C7006EFC72 /* SignUpInputBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputBox.swift; sourceTree = "<group>"; };
 		5AA82E512B6761BD006EFC72 /* SignUpVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVM.swift; sourceTree = "<group>"; };
 		5AA82E532B6764DF006EFC72 /* SignUpAuthCodeBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAuthCodeBox.swift; sourceTree = "<group>"; };
-		5AA82E552B676F43006EFC72 /* SignUpPasswordBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPasswordBox.swift; sourceTree = "<group>"; };
 		5AA82E5D2B67891E006EFC72 /* SMTP_SET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMTP_SET.swift; sourceTree = "<group>"; };
 		7C8CB12351EDD2306C897CC8 /* Pods-BookBridgeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridgeTests.debug.xcconfig"; path = "Target Support Files/Pods-BookBridgeTests/Pods-BookBridgeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridgeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -284,7 +284,7 @@
 				5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */,
 				5AA82E4E2B6760C7006EFC72 /* SignUpInputBox.swift */,
 				5AA82E532B6764DF006EFC72 /* SignUpAuthCodeBox.swift */,
-				5AA82E552B676F43006EFC72 /* SignUpPasswordBox.swift */,
+				5A2DE09D2B68DBB700EF3A6B /* SignUpPasswordBox.swift */,
 			);
 			path = EmailSignUp;
 			sourceTree = "<group>";
@@ -576,6 +576,7 @@
 				1D84019E2B677B3B00ADEEB5 /* IdLoginViewModel.swift in Sources */,
 				1DCFB01E2B687D7000250D55 /* FindIdView.swift in Sources */,
 				1D8401992B675E0800ADEEB5 /* SignUpView.swift in Sources */,
+				5A2DE09E2B68DBB700EF3A6B /* SignUpPasswordBox.swift in Sources */,
 				1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */,
 				5AA82E5E2B67891E006EFC72 /* SMTP_SET.swift in Sources */,
 				5A1A16942B622BB10063D408 /* Utilities.swift in Sources */,
@@ -583,7 +584,6 @@
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
 				5A7A4E282B61DFFD00F79C23 /* ContentView.swift in Sources */,
 				5A1A16962B6231870063D408 /* AuthenticationManager.swift in Sources */,
-				5AA82E562B676F43006EFC72 /* SignUpPasswordBox.swift in Sources */,
 				5AA82E4F2B6760C7006EFC72 /* SignUpInputBox.swift in Sources */,
 				5A2DE09A2B68915200EF3A6B /* SignUpInputer.swift in Sources */,
 				5A2DE0972B6884BE00EF3A6B /* EmailCertiView.swift in Sources */,
