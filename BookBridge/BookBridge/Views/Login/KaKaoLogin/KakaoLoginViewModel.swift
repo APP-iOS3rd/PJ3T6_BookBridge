@@ -38,10 +38,8 @@ class KakaoLoginViewModel : ObservableObject {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if let error = error {
                 print("error: \(error.localizedDescription)")
-                
                 return
             }
-            
             if result != nil {
                 self.state = .signedIn
                 print("사용자 이메일: \(String(describing: result?.user.email))")

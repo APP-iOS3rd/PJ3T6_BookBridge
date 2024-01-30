@@ -32,6 +32,7 @@ struct LoginView: View {
                 NavigationLink(destination: SignUpView()) {
                     Text("시작하기")
                         .foregroundColor(.white)
+                        .font(.system(size: 20).bold())
                         .frame(width: 353, height: 50) // 여기에 프레임을 설정
                         .background(Color(hex: "59AAE0"))
                         .cornerRadius(10)
@@ -43,7 +44,7 @@ struct LoginView: View {
                 HStack{
                     Text("이미 계정이 있으신가요?")
                         .font(.system(size: 16, weight: .light))
-                    NavigationLink(destination: SignUpView()) {
+                    NavigationLink(destination: IdLoginView()) {
                         Text("로그인")
                             .foregroundColor(Color(hex: "3A87FD"))
                             .underline()
@@ -58,6 +59,7 @@ struct LoginView: View {
                             .foregroundColor(Color(hex: "3A87FD"))
                             .underline()
                     }
+                    .navigationBarBackButtonHidden(true)
                 }
                 
                 Spacer()
