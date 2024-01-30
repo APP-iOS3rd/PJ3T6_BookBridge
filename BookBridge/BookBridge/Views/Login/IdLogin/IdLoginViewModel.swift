@@ -6,13 +6,20 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 class IdLoginViewModel: ObservableObject {
+    @Published var state: SignInState = .signedOut
     @Published var username: String = ""
     @Published var password: String = ""
     @Published var usernameErrorMessage: String = ""
     @Published var passwordErrorMessage: String = ""
     
+    
+    enum SignInState{
+        case signedIn
+        case signedOut
+    }
     
     func login() {
         usernameErrorMessage = ""
@@ -33,8 +40,23 @@ class IdLoginViewModel: ObservableObject {
         }
         
         if isValid {
-            print("로그인 시도: \(username), \(password)")
+            Auth.auth().signIn(withEmail: username, password: password) { result,error in
+                if let error = error {
+                    print("error: \(error.localizedDescription)")
+                    
+                    return
+                }
+                if result != nil {
+                    self.state = .signedIn
+                    print("사용자 이메일: \(String(describing: result?.user.email))")
+                    print("사용자 이름: \(String(describing: result?.user.displayName))")
+                    
+                }
+                
+            }
         }
     }
     
 }
+
+

@@ -10,6 +10,7 @@ import SwiftUI
 struct IdLoginView: View {
     
     @StateObject private var viewModel = IdLoginViewModel()
+    @StateObject var signUpVM =  SignUpVM()
     
     var body: some View {
         
@@ -57,8 +58,9 @@ struct IdLoginView: View {
                         .opacity(viewModel.usernameErrorMessage.isEmpty ? 0 : 1)
                 
                     
+                    
                     HStack{
-                        NavigationLink(destination: FindIdView()) {
+                        NavigationLink(destination: FindIdView(signUpVM: signUpVM)) {
                             Text("아이디찾기")
                                 .font(.system(size: 12, weight: .regular))
                                 .foregroundColor(Color(hex: "999999"))

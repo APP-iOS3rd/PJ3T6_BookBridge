@@ -8,11 +8,42 @@
 import SwiftUI
 
 struct FindIdView: View {
+    @StateObject var signUpVM: SignUpVM
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        
+        VStack {
+            Image("Character")
+            Text("가입할 때 입력한\n 이베일을 입력해주세요")
+            
+            HStack {
+                TextField("이메일을 입력해 주세요", text: $signUpVM.email)
+                    .padding()
+                    .foregroundColor(Color(hex: "3C3C43"))
+                    .frame(height: 36)
+                    .frame(maxWidth: .infinity)
+                    .background(Color(hex: "F7F8FC"))
+                    .cornerRadius(5.0)
+                
+                Button {
+                    signUpVM.sendMail()
+                    print("메일을 전송하였습니다.")
+                } label: {
+                    Text("인증하기")
+                        .font(.system(size: 17))
+                        .foregroundStyle(.white)
+                        .frame(width: 100, height: 36)
+                        .background(Color(hex: "59AAE0"))
+                        .cornerRadius(5.0)
+                }
+            }
+            
+            
+            
+        }
     }
 }
 
-#Preview {
-    FindIdView()
-}
+//#Preview {
+//    FindIdView()
+//}
