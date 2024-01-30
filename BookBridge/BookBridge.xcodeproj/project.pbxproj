@@ -14,8 +14,8 @@
 		1D84019B2B6779CB00ADEEB5 /* IdLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D84019A2B6779CB00ADEEB5 /* IdLoginView.swift */; };
 		1D84019E2B677B3B00ADEEB5 /* IdLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D84019D2B677B3B00ADEEB5 /* IdLoginViewModel.swift */; };
 		1DA6E06C2B68D9EB00D631D5 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6E06B2B68D9EB00D631D5 /* ChangePasswordView.swift */; };
+		1DA6E06E2B68E2EA00D631D5 /* FindIdResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6E06D2B68E2EA00D631D5 /* FindIdResultView.swift */; };
 		1DCFB01E2B687D7000250D55 /* FindIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB01D2B687D7000250D55 /* FindIdView.swift */; };
-		1DCFB0202B68BD8300250D55 /* FindIdResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB01F2B68BD8300250D55 /* FindIdResultView.swift */; };
 		1DCFB0222B68CB4400250D55 /* FindIdVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0212B68CB4400250D55 /* FindIdVM.swift */; };
 		1DCFB0242B68CD3100250D55 /* FindPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */; };
 		1E9CA8884DE9A470795B434C /* Pods_BookBridge_BookBridgeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38996D702CA8C661E33E70C8 /* Pods_BookBridge_BookBridgeUITests.framework */; };
@@ -78,8 +78,8 @@
 		1D84019A2B6779CB00ADEEB5 /* IdLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdLoginView.swift; sourceTree = "<group>"; };
 		1D84019D2B677B3B00ADEEB5 /* IdLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdLoginViewModel.swift; sourceTree = "<group>"; };
 		1DA6E06B2B68D9EB00D631D5 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
+		1DA6E06D2B68E2EA00D631D5 /* FindIdResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdResultView.swift; sourceTree = "<group>"; };
 		1DCFB01D2B687D7000250D55 /* FindIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdView.swift; sourceTree = "<group>"; };
-		1DCFB01F2B68BD8300250D55 /* FindIdResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FindIdResultView.swift; path = "../../../../../../../../.Trash/PJ3T6_BookBridge 오전 10.07.31/BookBridge/BookBridge/Views/Login/Find/FindIdResultView.swift"; sourceTree = "<group>"; };
 		1DCFB0212B68CB4400250D55 /* FindIdVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdVM.swift; sourceTree = "<group>"; };
 		1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordView.swift; sourceTree = "<group>"; };
 		2C64B1A5C532C5F1A934328D /* Pods-BookBridge-BookBridgeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge-BookBridgeUITests.release.xcconfig"; path = "Target Support Files/Pods-BookBridge-BookBridgeUITests/Pods-BookBridge-BookBridgeUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -174,10 +174,10 @@
 			isa = PBXGroup;
 			children = (
 				1DCFB01D2B687D7000250D55 /* FindIdView.swift */,
-				1DCFB01F2B68BD8300250D55 /* FindIdResultView.swift */,
 				1DCFB0212B68CB4400250D55 /* FindIdVM.swift */,
 				1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */,
 				1DA6E06B2B68D9EB00D631D5 /* ChangePasswordView.swift */,
+				1DA6E06D2B68E2EA00D631D5 /* FindIdResultView.swift */,
 			);
 			path = Find;
 			sourceTree = "<group>";
@@ -187,7 +187,7 @@
 			children = (
 				1DCFB01C2B687D4B00250D55 /* Find */,
 				1D84019C2B677B1B00ADEEB5 /* IdLogin */,
-				5AA82E4B2B674966006EFC72 /* EmailLogin */,
+				5AA82E4B2B674966006EFC72 /* EmailSignUp */,
 				5CE454952B68B88D00874BCE /* AppleLogin */,
 				5AA82E492B6745C4006EFC72 /* GoogleLogin */,
 				1D922F442B636F1200C3642F /* KaKaoLogin */,
@@ -611,7 +611,7 @@
 				1DCFB0242B68CD3100250D55 /* FindPasswordView.swift in Sources */,
 				1D2B61842B63929900945EE2 /* KakaoLoginViewModel.swift in Sources */,
 				1D84019B2B6779CB00ADEEB5 /* IdLoginView.swift in Sources */,
-				5AA82E542B6764DF006EFC72 /* SignUpAuthCodeView.swift in Sources */,
+				5AA82E542B6764DF006EFC72 /* SignUpAuthCodeBox.swift in Sources */,
 				5CE454902B68B79000874BCE /* FirestoreService.swift in Sources */,
 				5AA82E522B6761BD006EFC72 /* SignUpVM.swift in Sources */,
 				5A7A4E552B62269600F79C23 /* LoginView.swift in Sources */,
@@ -621,11 +621,8 @@
 				1DCFB0222B68CB4400250D55 /* FindIdVM.swift in Sources */,
 				1DCFB01E2B687D7000250D55 /* FindIdView.swift in Sources */,
 				1D8401992B675E0800ADEEB5 /* SignUpView.swift in Sources */,
-
 				1DA6E06C2B68D9EB00D631D5 /* ChangePasswordView.swift in Sources */,
-
 				5A2DE09E2B68DBB700EF3A6B /* SignUpPasswordBox.swift in Sources */,
-
 				1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */,
 				5AA82E5E2B67891E006EFC72 /* SMTP_SET.swift in Sources */,
 				5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */,
@@ -636,10 +633,10 @@
 				5CE454992B68B8EF00874BCE /* AppleAuthManager.swift in Sources */,
 				5A1A16962B6231870063D408 /* AuthenticationManager.swift in Sources */,
 				5AA82E4F2B6760C7006EFC72 /* SignUpInputBox.swift in Sources */,
+				1DA6E06E2B68E2EA00D631D5 /* FindIdResultView.swift in Sources */,
 				5A2DE09A2B68915200EF3A6B /* SignUpInputer.swift in Sources */,
 				5A2DE0972B6884BE00EF3A6B /* EmailCertiView.swift in Sources */,
 				5A1A168E2B6228290063D408 /* LoginGoogleView.swift in Sources */,
-				1DCFB0202B68BD8300250D55 /* FindIdResultView.swift in Sources */,
 				5A7A4E262B61DFFD00F79C23 /* BookBridgeApp.swift in Sources */,
 				5CE454932B68B7CB00874BCE /* User.swift in Sources */,
 			);
