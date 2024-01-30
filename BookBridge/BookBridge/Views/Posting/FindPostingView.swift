@@ -2,7 +2,7 @@
 //  FindPostingView.swift
 //  BookBridge
 //
-//  Created by jmyeong on 1/30/24.
+//  Created by 이현호 on 1/30/24.
 //
 
 import SwiftUI
