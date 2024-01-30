@@ -14,10 +14,12 @@ struct ChangePostingView: View {
     @State private var sourceType = 0
     @State private var showActionSheet = false
     @State private var showImagePicker = false
-    @State private var selectedImages: [Image] = []
+    @State private var selectedImages: [UIImage] = []
     
     
     @State var text: String = ""
+    
+    @StateObject var post = ChangePostViewModel()
     
     var body: some View {
         NavigationView {
@@ -99,6 +101,7 @@ struct ChangePostingView: View {
                     // 확인 버튼
                     Button(action: {
                         // 확인 버튼이 클릭되었을 때 수행할 동작
+                        post.uploadPost(title: titleText, detail: text, images: selectedImages)
                     }) {
                         Text("확인")
                             .fontWeight(.bold)
@@ -141,7 +144,7 @@ struct ChangePostingView: View {
 
 // 추가된 이미지 스크롤 뷰
 struct ImageScrollView: View {
-    @Binding var selectedImages: [Image]
+    @Binding var selectedImages: [UIImage]
     @Binding var showActionSheet: Bool
     
     var body: some View {
@@ -166,7 +169,7 @@ struct ImageScrollView: View {
                 }
                 ForEach(selectedImages.indices, id: \.self) { index in
                     ZStack {
-                        selectedImages[index]
+                        Image(uiImage: selectedImages[index])
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 100, height: 100)
@@ -214,7 +217,7 @@ struct CameraButton: View {
 
 // 이미지 삭제 버튼
 struct DeleteImageButton: View {
-    @Binding var selectedImages: [Image]
+    @Binding var selectedImages: [UIImage]
     var index: Int
     
     var body: some View {

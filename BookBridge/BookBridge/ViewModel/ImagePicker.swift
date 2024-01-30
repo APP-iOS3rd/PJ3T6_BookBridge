@@ -11,7 +11,7 @@ import PhotosUI
 struct ImagePicker: UIViewControllerRepresentable {
     
     @Binding var isVisible: Bool
-    @Binding var images: [Image]
+    @Binding var images: [UIImage]
     var sourceType: Int
     
     static let maxSelections = 5
@@ -58,7 +58,7 @@ struct ImagePicker: UIViewControllerRepresentable {
                     if let image = image as? UIImage {
                         DispatchQueue.main.async {
                             if self.parent.images.count < ImagePicker.maxSelections {
-                                self.parent.images.append(Image(uiImage: image))
+                                self.parent.images.append(image)
                             }
                         }
                     }
@@ -74,7 +74,7 @@ struct ImagePicker: UIViewControllerRepresentable {
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let image = info[.originalImage] as? UIImage {
                 if parent.images.count < ImagePicker.maxSelections {
-                    parent.images.append(Image(uiImage: image))
+                    parent.images.append(image)
                 }
             }
             parent.isVisible = false

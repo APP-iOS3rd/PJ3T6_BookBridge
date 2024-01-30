@@ -32,6 +32,8 @@
 		91B80A472B6799B7000D5339 /* ChangePostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A462B6799B7000D5339 /* ChangePostingView.swift */; };
 		91C60CE82B67492500A1E8E4 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C60CE72B67492500A1E8E4 /* StorageManager.swift */; };
 		AFE5B788F315503A86355ABB /* Pods_BookBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0208E9110CB38EDE3D59A6 /* Pods_BookBridge.framework */; };
+		F623A51B2B68BFBC00B5C159 /* ChangePostingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F623A51A2B68BFBC00B5C159 /* ChangePostingViewModel.swift */; };
+		F623A51D2B68C01E00B5C159 /* ChangePostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F623A51C2B68C01E00B5C159 /* ChangePostModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +89,8 @@
 		A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridgeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5811A49FE2A9EF629A77C52 /* Pods-BookBridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.debug.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.debug.xcconfig"; sourceTree = "<group>"; };
 		CD38D177426E7831566653B2 /* Pods-BookBridge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.release.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.release.xcconfig"; sourceTree = "<group>"; };
+		F623A51A2B68BFBC00B5C159 /* ChangePostingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePostingViewModel.swift; sourceTree = "<group>"; };
+		F623A51C2B68C01E00B5C159 /* ChangePostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePostModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +252,8 @@
 			children = (
 				91C60CE72B67492500A1E8E4 /* StorageManager.swift */,
 				91B80A412B676EEE000D5339 /* ImagePicker.swift */,
+				F623A51A2B68BFBC00B5C159 /* ChangePostingViewModel.swift */,
+				F623A51C2B68C01E00B5C159 /* ChangePostModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -510,6 +516,7 @@
 				5A7A4E552B62269600F79C23 /* LoginView.swift in Sources */,
 				91B80A452B6798B9000D5339 /* TabView.swift in Sources */,
 				91B80A422B676EEE000D5339 /* ImagePicker.swift in Sources */,
+				F623A51B2B68BFBC00B5C159 /* ChangePostingViewModel.swift in Sources */,
 				5A9A33852B628D9E00982E92 /* SignInGoogleHelper.swift in Sources */,
 				91C60CE82B67492500A1E8E4 /* StorageManager.swift in Sources */,
 				91B80A472B6799B7000D5339 /* ChangePostingView.swift in Sources */,
@@ -519,6 +526,7 @@
 				91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */,
 				5A7A4E282B61DFFD00F79C23 /* ContentView.swift in Sources */,
 				5A1A16962B6231870063D408 /* AuthenticationManager.swift in Sources */,
+				F623A51D2B68C01E00B5C159 /* ChangePostModel.swift in Sources */,
 				5A1A168E2B6228290063D408 /* LoginGoogleView.swift in Sources */,
 				5A7A4E262B61DFFD00F79C23 /* BookBridgeApp.swift in Sources */,
 			);
