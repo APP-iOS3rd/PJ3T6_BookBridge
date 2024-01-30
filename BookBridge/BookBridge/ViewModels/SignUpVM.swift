@@ -10,10 +10,12 @@ import Firebase
 import SwiftSMTP
 
 class SignUpVM: ObservableObject {
+    @Published var id: String = ""
+    @Published var nickname: String = ""
     @Published var email: String = ""
-    @Published var userAuthCode: String = ""
     @Published var password: String = ""
     @Published var passwordConfirm: String = ""
+    @Published var userAuthCode: String = ""
     private var authCode: String = ""
     
     func sendMail() {
