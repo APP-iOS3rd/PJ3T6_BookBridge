@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-struct SignUpAuthCodeView: View {
-    @StateObject var signUpVm: SignUpVM
+struct SignUpAuthCodeBox: View {
+    @StateObject var signUpVm: SignUpVM    
+    @State var status: Bool?
     
     var body: some View {
         VStack {
@@ -16,6 +17,12 @@ struct SignUpAuthCodeView: View {
                 Text("인증번호")
                     .font(.system(size: 10))
                     .foregroundStyle(Color(hex: "999999"))
+                                            
+                if signUpVm.timeLabel != "" {
+                    Text(signUpVm.timeLabel)
+                        .font(.system(size: 10))
+                        .foregroundStyle(Color(hex: "FF0000"))
+                }
                 
                 Spacer()
             }
@@ -35,15 +42,27 @@ struct SignUpAuthCodeView: View {
                     AuthConfirmBtn()
                 }
             }
+            
+            if let status = status {
+                if status {
+                    StatusText(text: "올바른 인증번호 입니다.", color: "0A84FF")
+                } else {
+                    StatusText(text: "잘못된 인증번호 입니다.", color: "F80B0B")
+                }
+            }
         }
     }
     
     @ViewBuilder
     func AuthConfirmBtn() -> some View {
         Button {
-            
+            if signUpVm.isCertiCode() {
+                status = true
+            } else {
+                status = false
+            }
         } label: {
-            Text("인증하기")
+            Text("인증완료")
                 .font(.system(size: 17))
                 .foregroundStyle(.white)
                 .frame(width: 100, height: 36)
@@ -55,7 +74,7 @@ struct SignUpAuthCodeView: View {
     @ViewBuilder
     func ResendBtn() -> some View {
         Button {
-            
+            signUpVm.sendMail()
         } label: {
             Text("재전송")
                 .font(.system(size: 17))
@@ -68,6 +87,6 @@ struct SignUpAuthCodeView: View {
     }
 }
 
-//#Preview {
-//    SignUpAuthCodeView(signUpVm: .constant(SignUpVM()))
-//}
+#Preview {
+    SignUpAuthCodeBox(signUpVm: SignUpVM())
+}

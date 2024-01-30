@@ -87,6 +87,7 @@ struct LoginView: View {
                 HStack(spacing: 20){
                     LoginGoogleView()
                     KakaoLoginView()
+                    AppleLoginView()
                 }
                 Spacer()
                     .frame(height: 50)
