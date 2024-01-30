@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SignUpView: View {
+struct EmailSignUpView: View {
     @StateObject var signUpVM = SignUpVM()
     
     var body: some View {

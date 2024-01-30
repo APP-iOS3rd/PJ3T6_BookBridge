@@ -28,7 +28,7 @@
 		5A9A33852B628D9E00982E92 /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A33842B628D9E00982E92 /* SignInGoogleHelper.swift */; };
 		5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A33862B62960800982E92 /* ColorExtension.swift */; };
 		5AA82E482B6744D8006EFC72 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5AA82E472B6744D8006EFC72 /* GoogleService-Info.plist */; };
-		5AA82E4D2B675E26006EFC72 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E4C2B675E26006EFC72 /* SignUpView.swift */; };
+		5AA82E4D2B675E26006EFC72 /* EmailSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */; };
 		5AA82E4F2B6760C7006EFC72 /* SignUpInputEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E4E2B6760C7006EFC72 /* SignUpInputEmailView.swift */; };
 		5AA82E522B6761BD006EFC72 /* SignUpVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E512B6761BD006EFC72 /* SignUpVM.swift */; };
 		5AA82E542B6764DF006EFC72 /* SignUpAuthCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E532B6764DF006EFC72 /* SignUpAuthCodeView.swift */; };
@@ -84,7 +84,7 @@
 		5A9A33842B628D9E00982E92 /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
 		5A9A33862B62960800982E92 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		5AA82E472B6744D8006EFC72 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		5AA82E4C2B675E26006EFC72 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignUpView.swift; sourceTree = "<group>"; };
 		5AA82E4E2B6760C7006EFC72 /* SignUpInputEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputEmailView.swift; sourceTree = "<group>"; };
 		5AA82E512B6761BD006EFC72 /* SignUpVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVM.swift; sourceTree = "<group>"; };
 		5AA82E532B6764DF006EFC72 /* SignUpAuthCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAuthCodeView.swift; sourceTree = "<group>"; };
@@ -242,7 +242,7 @@
 		5AA82E4B2B674966006EFC72 /* EmailLogin */ = {
 			isa = PBXGroup;
 			children = (
-				5AA82E4C2B675E26006EFC72 /* SignUpView.swift */,
+				5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */,
 				5AA82E4E2B6760C7006EFC72 /* SignUpInputEmailView.swift */,
 				5AA82E532B6764DF006EFC72 /* SignUpAuthCodeView.swift */,
 				5AA82E552B676F43006EFC72 /* SignUpPasswordView.swift */,
@@ -537,7 +537,7 @@
 				1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */,
 				5AA82E5E2B67891E006EFC72 /* SMTP_SET.swift in Sources */,
 				5A1A16942B622BB10063D408 /* Utilities.swift in Sources */,
-				5AA82E4D2B675E26006EFC72 /* SignUpView.swift in Sources */,
+				5AA82E4D2B675E26006EFC72 /* EmailSignUpView.swift in Sources */,
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
 				5A7A4E282B61DFFD00F79C23 /* ContentView.swift in Sources */,
 				5A1A16962B6231870063D408 /* AuthenticationManager.swift in Sources */,
