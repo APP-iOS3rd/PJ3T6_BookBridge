@@ -25,6 +25,7 @@
 		5A7A4E552B62269600F79C23 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A4E542B62269600F79C23 /* LoginView.swift */; };
 		5A9A33852B628D9E00982E92 /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A33842B628D9E00982E92 /* SignInGoogleHelper.swift */; };
 		5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A33862B62960800982E92 /* ColorExtension.swift */; };
+		91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91392F282B68BE0E0092052A /* FindPostingView.swift */; };
 		913EFD962B673EF70019263C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 913EFD952B673EF70019263C /* GoogleService-Info.plist */; };
 		91B80A422B676EEE000D5339 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A412B676EEE000D5339 /* ImagePicker.swift */; };
 		91B80A452B6798B9000D5339 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A442B6798B9000D5339 /* TabView.swift */; };
@@ -77,6 +78,7 @@
 		5A9A33842B628D9E00982E92 /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
 		5A9A33862B62960800982E92 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		7C8CB12351EDD2306C897CC8 /* Pods-BookBridgeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridgeTests.debug.xcconfig"; path = "Target Support Files/Pods-BookBridgeTests/Pods-BookBridgeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		91392F282B68BE0E0092052A /* FindPostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPostingView.swift; sourceTree = "<group>"; };
 		913EFD952B673EF70019263C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		91B80A412B676EEE000D5339 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		91B80A442B6798B9000D5339 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 			isa = PBXGroup;
 			children = (
 				91B80A462B6799B7000D5339 /* ChangePostingView.swift */,
+				91392F282B68BE0E0092052A /* FindPostingView.swift */,
 			);
 			path = Posting;
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 				1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */,
 				5A1A16942B622BB10063D408 /* Utilities.swift in Sources */,
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
+				91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */,
 				5A7A4E282B61DFFD00F79C23 /* ContentView.swift in Sources */,
 				5A1A16962B6231870063D408 /* AuthenticationManager.swift in Sources */,
 				5A1A168E2B6228290063D408 /* LoginGoogleView.swift in Sources */,

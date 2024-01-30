@@ -90,6 +90,9 @@ struct ChangePostingView: View {
                                 .stroke(Color.gray, lineWidth: 1)
                         )
                     }
+                    NavigationLink(destination: Text("교환장소(지도) 표시부분"), isActive: $isDestinationActive) {
+                        EmptyView()
+                    }
                     
                     .padding(.bottom, 30)
                     
@@ -111,9 +114,6 @@ struct ChangePostingView: View {
             .padding()
             .navigationTitle("바꿔요")
             .navigationBarTitleDisplayMode(.inline)
-            .background(NavigationLink(destination: Text("지도 표시부분"), isActive: $isDestinationActive) {
-                EmptyView()
-            })
             .confirmationDialog(
                 "Title",
                 isPresented: $showActionSheet,
@@ -139,7 +139,7 @@ struct ChangePostingView: View {
     }
 }
 
-// 이미지 스크롤 뷰
+// 추가된 이미지 스크롤 뷰
 struct ImageScrollView: View {
     @Binding var selectedImages: [Image]
     @Binding var showActionSheet: Bool
@@ -171,7 +171,21 @@ struct ImageScrollView: View {
                             .aspectRatio(contentMode: .fill)
                             .frame(width: 100, height: 100)
                             .cornerRadius(10)
+                        
                         DeleteImageButton(selectedImages: $selectedImages, index: index)
+                        
+                        if index == 0 {
+                            VStack {
+                                Spacer()
+                                ZStack {
+                                    Rectangle()
+                                        .fill(Color.black)
+                                    .frame(height: 25)
+                                    Text("대표사진")
+                                        .foregroundStyle(.white)
+                                }
+                            }
+                        }
                     }
                 }
             }
