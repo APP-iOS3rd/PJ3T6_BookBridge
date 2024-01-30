@@ -12,26 +12,29 @@ struct IdLoginView: View {
     @StateObject private var viewModel = IdLoginViewModel()
     @StateObject var signUpVM =  SignUpVM()
     
-    var body: some View {
-        
-        NavigationView{
+    var body: some View {        
             
             VStack{
                 
                 Image("Character")
                 
-                Spacer()
-                    .frame(height: 85)
+
                 
                 VStack(alignment: .leading, spacing: 5) {
+                    Spacer()
+                        .frame(height: 85)
+                    
                     Text("아이디")
                         .font(.system(size: 12, weight: .regular))
                         .foregroundColor(Color(hex: "999999"))
                     
                     TextField("아이디를 입력하세요", text: $viewModel.username)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .autocapitalization(.none)
+                        .padding()
+                        .foregroundColor(Color(hex: "3C3C43"))
+                        .frame(height: 36)
+                        .frame(maxWidth: .infinity)
                         .background(Color(hex: "F7F8FC"))
+                        .cornerRadius(5.0)
                                         
                     Text(viewModel.usernameErrorMessage)
                         .foregroundColor(.red)
@@ -47,9 +50,12 @@ struct IdLoginView: View {
                         .foregroundColor(Color(hex: "999999"))
                     
                     SecureField("비밀번호를 입력하세요", text: $viewModel.password)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .autocapitalization(.none)
+                        .padding()
+                        .foregroundColor(Color(hex: "3C3C43"))
+                        .frame(height: 36)
+                        .frame(maxWidth: .infinity)
                         .background(Color(hex: "F7F8FC"))
+                        .cornerRadius(5.0)
                     
                     
                     Text(viewModel.passwordErrorMessage)
@@ -60,7 +66,9 @@ struct IdLoginView: View {
                     
                     
                     HStack{
-                        NavigationLink(destination: FindIdView(signUpVM: signUpVM)) {
+                        NavigationLink(destination: FindIdView(signUpVM: signUpVM)
+                            .navigationBarBackButtonHidden()
+                        ) {
                             Text("아이디찾기")
                                 .font(.system(size: 12, weight: .regular))
                                 .foregroundColor(Color(hex: "999999"))
@@ -69,7 +77,7 @@ struct IdLoginView: View {
                         
                         Spacer()
                         
-                        NavigationLink(destination: SignUpView()) {
+                        NavigationLink(destination: FindPasswordView(signUpVM: signUpVM).navigationBarBackButtonHidden()) {
                             Text("비밀번호찾기")
                                 .font(.system(size: 12, weight: .regular))
                                 .foregroundColor(Color(hex: "999999"))
@@ -97,34 +105,28 @@ struct IdLoginView: View {
             }
             .padding(20)
             
-        }
+        
+        .navigationBarTitle("로그인", displayMode: .inline)
+        .navigationBarItems(leading: CustomBackButtonView())
+        
         
         
     }
+    
 }
 
 
 struct CustomBackButtonView: View {
     @Environment(\.presentationMode) var presentationMode
-    let title: String
     
     var body: some View {
-        HStack {
-            // 커스텀 백 버튼
-            Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }) {
-                Image(systemName: "chevron.backward")
-                    .frame(width: 32,height: 31)
-                    .foregroundColor(Color(hex: "000000"))
-            }
-            
-            Text(title)
-                .font(.system(size: 24).bold())
-                .frame(maxWidth: .infinity, alignment: .center)
+        Button(action: {
+            self.presentationMode.wrappedValue.dismiss()
+        }) {
+            Image(systemName: "chevron.backward")
+                .frame(width: 32, height: 31)
+                .foregroundColor(Color(hex: "000000"))
         }
-        .padding(20)
-        .navigationBarBackButtonHidden(true) // 기본 백 버튼 숨기기
     }
 }
 
