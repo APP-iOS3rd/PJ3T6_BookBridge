@@ -118,11 +118,11 @@ struct ChangePostingView: View {
             .navigationTitle("바꿔요")
             .navigationBarTitleDisplayMode(.inline)
             .confirmationDialog(
-                "Title",
+                "",
                 isPresented: $showActionSheet,
-                titleVisibility: .visible,
+                titleVisibility: .hidden,
                 actions: {
-                    Button("카메라") {
+                    Button("카메라", role: .destructive) {
                         self.sourceType = 0
                         self.showImagePicker.toggle()
                     }
@@ -132,7 +132,6 @@ struct ChangePostingView: View {
                     }
                 },
                 message: {
-                    Text("Choose where to load the photo.")
                 }
             )
         }
