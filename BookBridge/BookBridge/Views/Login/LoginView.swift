@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct LoginView: View {
+    @StateObject private var pathModel = PathModel()
+    
     var body: some View {
-        NavigationView{
+        NavigationStack(path: $pathModel.paths){
+            // NavigationDestination 정의
+
             VStack{
                 Image("Character")
                 VStack(alignment: .leading,spacing : 10){
@@ -29,14 +33,17 @@ struct LoginView: View {
                     
                     
                 }
-                NavigationLink(destination: EmailCertiView()) {
+                Button(action: {
+                    pathModel.paths.append(.certi)
+                }, label: {
                     Text("시작하기")
-                        .foregroundColor(.white)
-                        .font(.system(size: 20).bold())
-                        .frame(width: 353, height: 50) // 여기에 프레임을 설정
-                        .background(Color(hex: "59AAE0"))
-                        .cornerRadius(10)
-                }
+                })
+                .foregroundColor(.white)
+                .font(.system(size: 20).bold())
+                .frame(width: 353, height: 50) // 여기에 프레임을 설정
+                .background(Color(hex: "59AAE0"))
+                .cornerRadius(10)
+      
                 
                 Spacer()
                     .frame(height: 20)
@@ -44,22 +51,29 @@ struct LoginView: View {
                 HStack{
                     Text("이미 계정이 있으신가요?")
                         .font(.system(size: 16, weight: .light))
-                    NavigationLink(destination: IdLoginView().navigationBarBackButtonHidden()) {
+                    
+                    Button(action: {
+                        pathModel.paths.append(.login)
+                    }, label: {
                         Text("로그인")
                             .foregroundColor(Color(hex: "3A87FD"))
                             .underline()
-                    }
+                    })
+                    
+                    
                 }
                 
                 HStack{
                     Text("로그인 없이")
                         .font(.system(size: 16, weight: .light))
-                    NavigationLink(destination: SignUpView()) {
+                    
+                    Button(action: {
+                        pathModel.paths.append(.login)
+                    }, label: {
                         Text("둘러보기")
                             .foregroundColor(Color(hex: "3A87FD"))
                             .underline()
-                    }
-                    .navigationBarBackButtonHidden(true)
+                    })
                 }
                 
                 Spacer()
@@ -92,12 +106,41 @@ struct LoginView: View {
                 Spacer()
                     .frame(height: 50)
                 
+                
+                
             }
             .padding(20)
+            .navigationDestination(for: PathType.self) { pathType in
+                switch pathType {
+                case .home:
+                    EmptyView()
+                case .certi:
+                    EmailCertiView()
+                        .navigationBarBackButtonHidden()
+                case .findId:
+                    FindIdView()
+                        .navigationBarBackButtonHidden()
+                case .findpassword:
+                    FindPasswordView()
+                        .navigationBarBackButtonHidden()
+                case .login:
+                    IdLoginView()
+                        .navigationBarBackButtonHidden()
+                case .resultId:
+                    FindIdResultView()
+                        .navigationBarBackButtonHidden()
+                case .changepassword:
+                    ChangePasswordView()
+                        .navigationBarBackButtonHidden()
+                }
+            }
+            
         }
+        .environmentObject(pathModel)
         
         
     }
+        
 }
 
 #Preview {

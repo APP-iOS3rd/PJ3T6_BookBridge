@@ -1,5 +1,5 @@
 //
-//  FindIdView.swift
+//  FindPasswordView.swift
 //  BookBridge
 //
 //  Created by 김건호 on 1/30/24.
@@ -7,8 +7,9 @@
 
 import SwiftUI
 
-struct FindIdView: View {
-    @StateObject private var viewModel =  FindIdVM()
+struct FindPasswordView: View {
+    @EnvironmentObject private var pathModel: PathModel
+    @StateObject private var viewModel = FindIdVM()
     @State private var isNavigationActive = false // 화면 전환 상태 관리
     
     var body: some View {
@@ -21,19 +22,37 @@ struct FindIdView: View {
             
             VStack(alignment: .leading,spacing: 5 ) {
                 
-                Text("가입할 때 입력한")
+                Text("가입할 때 입력한 아이디와")
                     .font(.system(size: 20, weight: .regular))
                 
                 Text("이메일을 입력해주세요")
                     .font(.system(size: 20, weight: .regular))
                 
                 Spacer()
-                    .frame(height: 80)
+                    .frame(height: 50)
+                
+                Text("아이디")
+                    .font(.system(size: 12, weight: .regular))
+                    .foregroundColor(Color(hex: "999999"))
+                
+                TextField("아이디를 입력해주세요", text: $viewModel.email)
+                    .padding()
+                    .foregroundColor(Color(hex: "3C3C43"))
+                    .frame(height: 36)
+                    .frame(maxWidth: .infinity)
+                    .background(Color(hex: "F7F8FC"))
+                    .cornerRadius(5.0)
+                
+                Spacer()
+                    .frame(height: 5)
+                //                Text(viewModel.usernameErrorMessage)
+                //                    .foregroundColor(.red)
+                //                    .font(.system(size: 10))
+                //                    .opacity(viewModel.usernameErrorMessage.isEmpty ? 0 : 1)
                 
                 Text("이메일")
                     .font(.system(size: 12, weight: .regular))
                     .foregroundColor(Color(hex: "999999"))
-                
                 HStack {
                     TextField("이메일을 입력해 주세요", text: $viewModel.email)
                         .padding()
@@ -59,10 +78,10 @@ struct FindIdView: View {
                 Spacer()
                     .frame(height: 5)
                 
-                Text("인증번호")
+                
+                Text("인증 번호")
                     .font(.system(size: 12, weight: .regular))
                     .foregroundColor(Color(hex: "999999"))
-                
                 HStack {
                     TextField("인증번호를 입력해주세요", text: $viewModel.userAuthCode)
                         .padding()
@@ -77,23 +96,21 @@ struct FindIdView: View {
                 
                 
                 Spacer()
-                    .frame(height: 180)
+                    .frame(height: 140)
+                
                 
                 
 
-                NavigationLink(destination: FindIdResultView().navigationBarBackButtonHidden(), isActive: $isNavigationActive) {
-                    EmptyView()
-                }
                 
                 Button(action: {
                     if viewModel.isCertiCode(){
-                        isNavigationActive = true
+                        pathModel.paths.append(.changepassword)
                     }
                     else{
-                        isNavigationActive = false
+                        pathModel.paths.append(.changepassword) // 임시로 추가
                     }
                 }, label: {
-                    Text("확인")
+                    Text("인증완료")
                 })
                 .foregroundColor(.white)
                 .font(.system(size: 20).bold())
@@ -106,11 +123,10 @@ struct FindIdView: View {
             
             
             
-
         }
         .padding(20)
         
-        .navigationBarTitle("아이디 찾기", displayMode: .inline)
+        .navigationBarTitle("비밀번호 찾기", displayMode: .inline)
         .navigationBarItems(leading: CustomBackButtonView())
         
     }
@@ -132,8 +148,5 @@ struct FindIdView: View {
     }
     
     
-}
-#Preview {
-    FindIdView()
 }
 
