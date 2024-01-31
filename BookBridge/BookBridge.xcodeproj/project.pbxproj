@@ -31,6 +31,8 @@
 		73C962A52B688D4200D34D3F /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C962A42B688D4200D34D3F /* BookModel.swift */; };
 		73C962A92B68C38D00D34D3F /* BookAPIManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C962A82B68C38D00D34D3F /* BookAPIManger.swift */; };
 		73C962AB2B68C4D800D34D3F /* SearchBooksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C962AA2B68C4D800D34D3F /* SearchBooksViewModel.swift */; };
+		73DDA5DF2B6A336100B25FB8 /* SelectBooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DDA5DE2B6A336100B25FB8 /* SelectBooksView.swift */; };
+		73DDA5E12B6A34A500B25FB8 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DDA5E02B6A34A500B25FB8 /* SearchResultView.swift */; };
 		AFE5B788F315503A86355ABB /* Pods_BookBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0208E9110CB38EDE3D59A6 /* Pods_BookBridge.framework */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +85,8 @@
 		73C962A42B688D4200D34D3F /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
 		73C962A82B68C38D00D34D3F /* BookAPIManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookAPIManger.swift; sourceTree = "<group>"; };
 		73C962AA2B68C4D800D34D3F /* SearchBooksViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksViewModel.swift; sourceTree = "<group>"; };
+		73DDA5DE2B6A336100B25FB8 /* SelectBooksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBooksView.swift; sourceTree = "<group>"; };
+		73DDA5E02B6A34A500B25FB8 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		7C8CB12351EDD2306C897CC8 /* Pods-BookBridgeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridgeTests.debug.xcconfig"; path = "Target Support Files/Pods-BookBridgeTests/Pods-BookBridgeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridgeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5811A49FE2A9EF629A77C52 /* Pods-BookBridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.debug.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.debug.xcconfig"; sourceTree = "<group>"; };
@@ -179,6 +183,8 @@
 				5A7A4E532B62268A00F79C23 /* Views */,
 				5A7A4E252B61DFFD00F79C23 /* BookBridgeApp.swift */,
 				73C962A02B6883A700D34D3F /* SearchBooksView.swift */,
+				73DDA5DE2B6A336100B25FB8 /* SelectBooksView.swift */,
+				73DDA5E02B6A34A500B25FB8 /* SearchResultView.swift */,
 				73C962AA2B68C4D800D34D3F /* SearchBooksViewModel.swift */,
 				73C962A22B68880500D34D3F /* SearchBar.swift */,
 				73C962A82B68C38D00D34D3F /* BookAPIManger.swift */,
@@ -495,8 +501,10 @@
 				1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */,
 				73C962A32B68880500D34D3F /* SearchBar.swift in Sources */,
 				73C962A52B688D4200D34D3F /* BookModel.swift in Sources */,
+				73DDA5DF2B6A336100B25FB8 /* SelectBooksView.swift in Sources */,
 				5A1A16942B622BB10063D408 /* Utilities.swift in Sources */,
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
+				73DDA5E12B6A34A500B25FB8 /* SearchResultView.swift in Sources */,
 				5A7A4E282B61DFFD00F79C23 /* ContentView.swift in Sources */,
 				5A1A16962B6231870063D408 /* AuthenticationManager.swift in Sources */,
 				5A1A168E2B6228290063D408 /* LoginGoogleView.swift in Sources */,
