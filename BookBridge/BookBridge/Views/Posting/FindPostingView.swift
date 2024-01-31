@@ -120,6 +120,7 @@ struct FindPostingView: View {
                     NavigationLink(destination: Text("교환장소(지도) 표시부분"), isActive: $mapDestinationActive) {
                         EmptyView()
                     }
+                    
                     .padding(.bottom, 30)
                     
                     // 확인 버튼
@@ -138,7 +139,7 @@ struct FindPostingView: View {
                 }
             }
             .padding()
-            .navigationTitle("바꿔요")
+            .navigationTitle("구해요")
             .navigationBarTitleDisplayMode(.inline)
         }
     }
