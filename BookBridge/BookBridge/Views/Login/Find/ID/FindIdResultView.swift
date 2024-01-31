@@ -16,7 +16,9 @@ struct FindIdResultView: View {
         VStack{
             Image("Character")
             
+            
             VStack(alignment: .leading){
+                
                 
                 Text("가입한 아이디")
                     .font(.system(size: 20, weight: .bold))
@@ -50,7 +52,7 @@ struct FindIdResultView: View {
             
             
             Spacer()
-                .frame(height: 200)
+                .frame(height: 220)
             
             
             

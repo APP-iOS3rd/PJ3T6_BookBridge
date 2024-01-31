@@ -45,10 +45,7 @@ struct FindPasswordView: View {
                 
                 Spacer()
                     .frame(height: 5)
-                //                Text(viewModel.usernameErrorMessage)
-                //                    .foregroundColor(.red)
-                //                    .font(.system(size: 10))
-                //                    .opacity(viewModel.usernameErrorMessage.isEmpty ? 0 : 1)
+                
                 
                 Text("이메일")
                     .font(.system(size: 12, weight: .regular))
