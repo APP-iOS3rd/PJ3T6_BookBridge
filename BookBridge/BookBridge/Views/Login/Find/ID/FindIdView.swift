@@ -1,5 +1,5 @@
 //
-//  FindPasswordView.swift
+//  FindIdView.swift
 //  BookBridge
 //
 //  Created by 김건호 on 1/30/24.
@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct FindPasswordView: View {
-    @StateObject var signUpVM : SignUpVM
-    @StateObject private var viewModel = IdLoginViewModel()
-    @State private var isNavigationActive = false // 화면 전환 상태 관리
+struct FindIdView: View {
+    @EnvironmentObject private var pathModel: PathModel
+    @StateObject private var viewModel =  FindIdVM()
+    
     
     var body: some View {
         
@@ -22,39 +22,21 @@ struct FindPasswordView: View {
             
             VStack(alignment: .leading,spacing: 5 ) {
                 
-                Text("가입할 때 입력한 아이디와")
+                Text("가입할 때 입력한")
                     .font(.system(size: 20, weight: .regular))
                 
                 Text("이메일을 입력해주세요")
                     .font(.system(size: 20, weight: .regular))
                 
                 Spacer()
-                    .frame(height: 50)
-                
-                Text("아이디")
-                    .font(.system(size: 12, weight: .regular))
-                    .foregroundColor(Color(hex: "999999"))
-                
-                TextField("아이디를 입력해주세요", text: $signUpVM.email)
-                    .padding()
-                    .foregroundColor(Color(hex: "3C3C43"))
-                    .frame(height: 36)
-                    .frame(maxWidth: .infinity)
-                    .background(Color(hex: "F7F8FC"))
-                    .cornerRadius(5.0)
-                
-                Spacer()
-                    .frame(height: 5)
-                //                Text(viewModel.usernameErrorMessage)
-                //                    .foregroundColor(.red)
-                //                    .font(.system(size: 10))
-                //                    .opacity(viewModel.usernameErrorMessage.isEmpty ? 0 : 1)
+                    .frame(height: 80)
                 
                 Text("이메일")
                     .font(.system(size: 12, weight: .regular))
                     .foregroundColor(Color(hex: "999999"))
+                
                 HStack {
-                    TextField("이메일을 입력해 주세요", text: $signUpVM.email)
+                    TextField("이메일을 입력해 주세요", text: $viewModel.email)
                         .padding()
                         .foregroundColor(Color(hex: "3C3C43"))
                         .frame(height: 36)
@@ -63,7 +45,7 @@ struct FindPasswordView: View {
                         .cornerRadius(5.0)
                     
                     Button {
-                        signUpVM.sendMail()
+                        viewModel.sendMail()
                         print("메일을 전송하였습니다.")
                     } label: {
                         Text("인증하기")
@@ -78,12 +60,12 @@ struct FindPasswordView: View {
                 Spacer()
                     .frame(height: 5)
                 
-                
-                Text("인증 번호")
+                Text("인증번호")
                     .font(.system(size: 12, weight: .regular))
                     .foregroundColor(Color(hex: "999999"))
+                
                 HStack {
-                    TextField("인증번호를 입력해주세요", text: $signUpVM.userAuthCode)
+                    TextField("인증번호를 입력해주세요", text: $viewModel.userAuthCode)
                         .padding()
                         .foregroundColor(Color(hex: "3C3C43"))
                         .frame(height: 36)
@@ -96,20 +78,19 @@ struct FindPasswordView: View {
                 
                 
                 Spacer()
-                    .frame(height: 140)
-                
-                
-                
-                NavigationLink(destination: ChangePasswordView().navigationBarBackButtonHidden(), isActive: $isNavigationActive) {
-                    EmptyView()
-                }
-                
+                    .frame(height: 180)
+                                
                 Button(action: {
-                    self.isNavigationActive = true // 버튼 클릭 시 화면 전환
+                    if viewModel.isCertiCode(){
+                        pathModel.paths.append(.resultId)
+                    }
+                    else{
+                        pathModel.paths.append(.resultId) // 임시로 추가
+                    }
                 }, label: {
-                    Text("인증완료")
+                    Text("확인")
                 })
-                .foregroundColor(Color(hex:"FFFFFF"))
+                .foregroundColor(.white)
                 .font(.system(size: 20).bold())
                 .frame(width: 353, height: 50) // 여기에 프레임을 설정
                 .background(Color(hex: "59AAE0"))
@@ -120,10 +101,11 @@ struct FindPasswordView: View {
             
             
             
+
         }
         .padding(20)
         
-        .navigationBarTitle("비밀번호 찬기", displayMode: .inline)
+        .navigationBarTitle("아이디 찾기", displayMode: .inline)
         .navigationBarItems(leading: CustomBackButtonView())
         
     }
@@ -132,7 +114,7 @@ struct FindPasswordView: View {
     @ViewBuilder
     func ResendBtn() -> some View {
         Button {
-            
+            viewModel.sendMail()
         } label: {
             Text("재전송")
                 .font(.system(size: 17))
@@ -145,5 +127,8 @@ struct FindPasswordView: View {
     }
     
     
+}
+#Preview {
+    FindIdView()
 }
 

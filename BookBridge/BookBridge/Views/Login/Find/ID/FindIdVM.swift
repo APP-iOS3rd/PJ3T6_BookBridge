@@ -1,18 +1,16 @@
 //
-//  SignUpVM.swift
+//  FindIdVM.swift
 //  BookBridge
 //
-//  Created by 이민호 on 1/29/24.
+//  Created by 김건호 on 1/30/24.
 //
 
 import Foundation
-import SwiftUI
 import Firebase
 import SwiftSMTP
 import Combine
 
-
-class SignUpVM: ObservableObject {
+class FindIdVM : ObservableObject {
     @Published var id: String = ""
     @Published var nickname: String = ""
     @Published var email: String = ""
@@ -25,7 +23,6 @@ class SignUpVM: ObservableObject {
     private var authCode: String? // 인증번호
     var isCertiClear = false
     
-        
     func sendMail() {
         let mail_to = Mail.User(name: "mail_to", email: email)
         authCode = createEmailCode()
@@ -38,16 +35,6 @@ class SignUpVM: ObservableObject {
         smtp.send(mail)
         isCertiActive.toggle()
         showingTime()
-    }
-                    
-    func register(completion: @escaping () -> Void) {
-        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                completion()
-            }
-        }
     }
     
     func showingTime() {
@@ -73,7 +60,7 @@ class SignUpVM: ObservableObject {
        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
        return emailTest.evaluate(with: self.email)
-    }    
+    }
     
     func isCertiCode() -> Bool {
         if userAuthCode == self.authCode {
