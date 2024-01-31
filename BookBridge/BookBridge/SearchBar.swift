@@ -48,7 +48,6 @@ struct SearchBar: View {
                             .padding(.horizontal, 8)
                     }
                     .padding(.trailing, 8)
-                    .transition(.move(edge: .trailing))
                 }
             }
             .frame(width: geometry.size.width)

@@ -51,7 +51,7 @@ struct SearchBooksView: View {
                     ScrollView(.horizontal) {
                         HStack {
                             ForEach(viewModel.selectBooks.items) { book in
-                                ZStack {
+                                HStack(alignment: .top) {
                                     if let smallThumbnail = book.volumeInfo.imageLinks?.smallThumbnail {
                                         AsyncImage(url: URL(string: smallThumbnail)) {
                                             image in
@@ -72,11 +72,13 @@ struct SearchBooksView: View {
                                         viewModel.deleteSelectBook(book: book)
                                     } label: {
                                         Image(systemName: "xmark")
+                                            .resizable()
                                             .frame(width: 15, height: 15)
+                                            .foregroundStyle(.black)
                                     }
-                                    .offset(x: 35, y: -40)
+                                    .padding(.top, -9)
+                                    .padding(.leading, -7)
                                 }
-                                .frame(width: 80, height: 100)
                             }
                         }
                         .padding(.vertical, 10)
@@ -114,14 +116,13 @@ struct SearchBooksView: View {
                                         .frame(width: 60, height: 80)
                                 }
                                 
-                                
                                 VStack(alignment: .leading) {
-                                    Text(book.volumeInfo.title ?? "제목")
+                                    Text(book.volumeInfo.title ?? "제목 미상")
                                         .font(.system(size: 12, weight: .semibold))
                                         .padding(.bottom, 10)
                                     
                                     HStack {
-                                        Text(book.volumeInfo.authors?[0] ?? "저자")
+                                        Text(book.volumeInfo.authors?[0] ?? "저자 미상")
                                             .font(.system(size: 12, weight: .semibold))
                                             .foregroundStyle(Color.init(hex: "767676"))
                                             .padding(.trailing, 8)
@@ -133,7 +134,7 @@ struct SearchBooksView: View {
                                     .padding(.bottom, 8)
                                     
                                     HStack(alignment: .bottom) {
-                                        Text(book.volumeInfo.publishedDate ?? "2022-2-2")
+                                        Text(book.volumeInfo.publishedDate ?? "출판 날짜 미상")
                                             .font(.system(size: 12, weight: .semibold))
                                             .foregroundStyle(Color.init(hex: "767676"))
                                             .padding(.bottom, 10)
@@ -141,15 +142,20 @@ struct SearchBooksView: View {
                                         Spacer()
                                         
                                         Button {
-                                            viewModel.doSelectBook(book: book)
+                                            if viewModel.selectBooks.items.contains(where: { $0.id == book.id }) {
+                                                viewModel.deleteSelectBook(book: book)
+                                            } else {
+                                                viewModel.doSelectBook(book: book)
+                                            }
                                         } label: {
-                                            Text("선택")
+                                            Text(viewModel.selectBooks.items.contains(where: { $0.id == book.id }) ? "취소" : "선택")
                                                 .font(.system(size: 12))
                                                 .foregroundStyle(.white)
                                                 .frame(width: 45, height: 20)
-                                                .cornerRadius(10)
-                                                .background(Color.init(hex: "6F6F70"))
+                                                .background( viewModel.selectBooks.items.contains(where: { $0.id == book.id }) ? Color.init(hex: "EE5050") : Color.init(hex: "59AAE0")
+                                                )
                                         }
+                                        .cornerRadius(5)
                                     }
                                 }
                             }
