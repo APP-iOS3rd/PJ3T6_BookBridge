@@ -8,7 +8,6 @@
 import SwiftUI
 
 
-
 struct SignUpInputBox: View {
     @StateObject var signUpVM: SignUpVM
     @State var status: Bool?
@@ -28,14 +27,18 @@ struct SignUpInputBox: View {
             }
                         
             HStack {
-                TextField(inputer.placeholder, text: $signUpVM.email)
-                    .padding()
-                    .foregroundColor(Color(hex: "3C3C43"))
-                    .frame(height: 36)
-                    .frame(maxWidth: .infinity)
-                    .background(Color(hex: "F7F8FC"))
-                    .cornerRadius(5.0)
-                
+                switch inputer.type {
+                case .email:
+                    TextField(inputer.placeholder, text: $signUpVM.email)
+                        .modifier(InputTextFieldStyle())
+                case .id:
+                    TextField(inputer.placeholder, text: $signUpVM.id)
+                        .modifier(InputTextFieldStyle())
+                case .nickName:
+                    TextField(inputer.placeholder, text: $signUpVM.nickname)
+                        .modifier(InputTextFieldStyle())
+                }
+                                                    
                 Button {
                     switch inputer.type {
                     case .email:
@@ -83,6 +86,18 @@ struct StatusText: View {
                 .foregroundStyle(Color(hex: color))
             Spacer()
         }
+    }
+}
+
+struct InputTextFieldStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding()
+            .foregroundColor(Color(hex: "3C3C43"))
+            .frame(height: 36)
+            .frame(maxWidth: .infinity)
+            .background(Color(hex: "F7F8FC"))
+            .cornerRadius(5.0)
     }
 }
 
