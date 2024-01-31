@@ -15,6 +15,8 @@ struct FindPostingView: View {
     
     @State var text: String = ""
     
+    @StateObject var post = FindPostViewModel()
+    
     var body: some View {
         NavigationView {
             ScrollView(showsIndicators: false) {
@@ -122,7 +124,7 @@ struct FindPostingView: View {
                     
                     // 확인 버튼
                     Button(action: {
-                        // 확인 버튼이 클릭되었을 때 수행할 동작
+                        post.uploadPost(title: titleText, detail: text)
                     }) {
                         Text("확인")
                             .fontWeight(.bold)
