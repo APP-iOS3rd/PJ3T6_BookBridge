@@ -34,6 +34,8 @@
 		AFE5B788F315503A86355ABB /* Pods_BookBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0208E9110CB38EDE3D59A6 /* Pods_BookBridge.framework */; };
 		F623A51B2B68BFBC00B5C159 /* ChangePostingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F623A51A2B68BFBC00B5C159 /* ChangePostingViewModel.swift */; };
 		F623A51D2B68C01E00B5C159 /* ChangePostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F623A51C2B68C01E00B5C159 /* ChangePostModel.swift */; };
+		F623A5272B6A1DFE00B5C159 /* FindPostingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F623A5262B6A1DFE00B5C159 /* FindPostingViewModel.swift */; };
+		F623A5292B6A1E0C00B5C159 /* FindPostingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F623A5282B6A1E0B00B5C159 /* FindPostingModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +93,8 @@
 		CD38D177426E7831566653B2 /* Pods-BookBridge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.release.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.release.xcconfig"; sourceTree = "<group>"; };
 		F623A51A2B68BFBC00B5C159 /* ChangePostingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePostingViewModel.swift; sourceTree = "<group>"; };
 		F623A51C2B68C01E00B5C159 /* ChangePostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePostModel.swift; sourceTree = "<group>"; };
+		F623A5262B6A1DFE00B5C159 /* FindPostingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPostingViewModel.swift; sourceTree = "<group>"; };
+		F623A5282B6A1E0B00B5C159 /* FindPostingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPostingModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +258,8 @@
 				91B80A412B676EEE000D5339 /* ImagePicker.swift */,
 				F623A51A2B68BFBC00B5C159 /* ChangePostingViewModel.swift */,
 				F623A51C2B68C01E00B5C159 /* ChangePostModel.swift */,
+				F623A5262B6A1DFE00B5C159 /* FindPostingViewModel.swift */,
+				F623A5282B6A1E0B00B5C159 /* FindPostingModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -520,10 +526,12 @@
 				5A9A33852B628D9E00982E92 /* SignInGoogleHelper.swift in Sources */,
 				91C60CE82B67492500A1E8E4 /* StorageManager.swift in Sources */,
 				91B80A472B6799B7000D5339 /* ChangePostingView.swift in Sources */,
+				F623A5272B6A1DFE00B5C159 /* FindPostingViewModel.swift in Sources */,
 				1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */,
 				5A1A16942B622BB10063D408 /* Utilities.swift in Sources */,
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
 				91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */,
+				F623A5292B6A1E0C00B5C159 /* FindPostingModel.swift in Sources */,
 				5A7A4E282B61DFFD00F79C23 /* ContentView.swift in Sources */,
 				5A1A16962B6231870063D408 /* AuthenticationManager.swift in Sources */,
 				F623A51D2B68C01E00B5C159 /* ChangePostModel.swift in Sources */,
