@@ -7,8 +7,10 @@
 
 import SwiftUI
 
-struct SearchBooksView: View {    
+struct SearchBooksView: View {
     @StateObject var viewModel = SearchBooksViewModel()
+    
+    @State private var selectScrollHeight: CGFloat = 0
     
     var body: some View {
         VStack {
@@ -39,10 +41,10 @@ struct SearchBooksView: View {
                 .padding(.bottom, 20)
                 .padding(.horizontal)
             
-            if !viewModel.selectBooks.items.isEmpty {
+            GeometryReader { geometry in
                 VStack {
                     HStack {
-                        Text("선택항목 \(viewModel.selectBooks.items.count)권")
+                        Text(selectScrollHeight == 0 ? "" : "선택항목 \(viewModel.selectBooks.items.count)권")
                             .font(.system(size: 17, weight: .semibold))
                         
                         Spacer()
@@ -70,6 +72,12 @@ struct SearchBooksView: View {
                                     
                                     Button {
                                         viewModel.deleteSelectBook(book: book)
+                                        
+                                        if viewModel.selectBooks.items.isEmpty {
+                                            withAnimation(.linear(duration: 0.3)) {
+                                                selectScrollHeight = 0
+                                            }
+                                        }
                                     } label: {
                                         Image(systemName: "xmark")
                                             .resizable()
@@ -83,9 +91,14 @@ struct SearchBooksView: View {
                         }
                         .padding(.vertical, 10)
                     }
+                    
+                    Rectangle()
+                        .frame(width: geometry.size.width - 40, height: selectScrollHeight == 0 ? 0 : 2)
+                        .foregroundStyle(Color.init(hex: "B3B3B3"))
                 }
                 .padding(.horizontal)
             }
+            .frame(maxHeight: selectScrollHeight)
             
             GeometryReader { geometry in
                 VStack {
@@ -143,10 +156,24 @@ struct SearchBooksView: View {
                                         
                                         Button {
                                             if viewModel.selectBooks.items.contains(where: { $0.id == book.id }) {
+                                                
                                                 viewModel.deleteSelectBook(book: book)
+                                                
+                                                if viewModel.selectBooks.items.isEmpty {
+                                                    withAnimation(.linear(duration: 0.3)) {
+                                                        selectScrollHeight = 0
+                                                    }
+                                                }
                                             } else {
+                                                if viewModel.selectBooks.items.isEmpty {
+                                                    withAnimation(.linear(duration: 0.3)) {
+                                                        selectScrollHeight = 150
+                                                    }
+                                                }
+                                                
                                                 viewModel.doSelectBook(book: book)
                                             }
+                                            
                                         } label: {
                                             Text(viewModel.selectBooks.items.contains(where: { $0.id == book.id }) ? "취소" : "선택")
                                                 .font(.system(size: 12))
