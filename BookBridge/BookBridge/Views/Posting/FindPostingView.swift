@@ -15,7 +15,7 @@ struct FindPostingView: View {
     
     @State var text: String = ""
     
-    @StateObject var post = FindPostViewModel()
+    @StateObject var findViewModel = FindPostViewModel()
     
     var body: some View {
         NavigationView {
@@ -125,7 +125,7 @@ struct FindPostingView: View {
                     
                     // 확인 버튼
                     Button(action: {
-                        post.uploadPost(title: titleText, detail: text)
+                        findViewModel.uploadPost(title: titleText, detail: text)
                     }) {
                         Text("확인")
                             .fontWeight(.bold)
