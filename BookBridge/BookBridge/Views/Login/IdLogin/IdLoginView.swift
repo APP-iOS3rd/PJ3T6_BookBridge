@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct IdLoginView: View {
-    
+    @EnvironmentObject private var pathModel: PathModel
     @StateObject private var viewModel = IdLoginViewModel()
-    @StateObject var signUpVM =  SignUpVM()
     
     var body: some View {        
             
@@ -66,23 +65,27 @@ struct IdLoginView: View {
                     
                     
                     HStack{
-                        NavigationLink(destination: FindIdView(signUpVM: signUpVM)
-                            .navigationBarBackButtonHidden()
-                        ) {
+                        
+                        Button(action: {
+                            pathModel.paths.append(.findId)
+                        }, label: {
                             Text("아이디찾기")
                                 .font(.system(size: 12, weight: .regular))
                                 .foregroundColor(Color(hex: "999999"))
                                 .underline()
-                        }
+                        })
+            
                         
                         Spacer()
                         
-                        NavigationLink(destination: FindPasswordView(signUpVM: signUpVM).navigationBarBackButtonHidden()) {
+                        Button(action: {
+                            pathModel.paths.append(.findpassword)
+                        }, label: {
                             Text("비밀번호찾기")
                                 .font(.system(size: 12, weight: .regular))
                                 .foregroundColor(Color(hex: "999999"))
                                 .underline()
-                        }
+                        })
                         
                     }
                     
@@ -117,11 +120,12 @@ struct IdLoginView: View {
 
 
 struct CustomBackButtonView: View {
+    @EnvironmentObject private var pathModel: PathModel
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
         Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
+            pathModel.paths.removeLast()
         }) {
             Image(systemName: "chevron.backward")
                 .frame(width: 32, height: 31)

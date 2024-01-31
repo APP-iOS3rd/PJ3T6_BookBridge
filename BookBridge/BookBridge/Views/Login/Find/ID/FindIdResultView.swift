@@ -9,13 +9,16 @@
 import SwiftUI
 
 struct FindIdResultView: View {
-    @State private var isNavigationActive = false // 화면 전환 상태 관리
+    
+    @EnvironmentObject private var pathModel: PathModel
     
     var body: some View {
         VStack{
             Image("Character")
             
+            
             VStack(alignment: .leading){
+                
                 
                 Text("가입한 아이디")
                     .font(.system(size: 20, weight: .bold))
@@ -49,16 +52,12 @@ struct FindIdResultView: View {
             
             
             Spacer()
-                .frame(height: 200)
+                .frame(height: 220)
             
-            
-            NavigationLink(destination: FindPasswordView(signUpVM: SignUpVM()).navigationBarBackButtonHidden(), isActive: $isNavigationActive) {
-                EmptyView()
-            }
             
             
             Button(action: {
-                self.isNavigationActive = true // 버튼 클릭 시 화면 전환
+                pathModel.paths.append(.findpassword)
             }, label: {
                 Text("비밀번호 찾기")
             })
@@ -71,7 +70,7 @@ struct FindIdResultView: View {
             
             
             Button(action: {
-                
+                pathModel.paths.removeSubrange(1...pathModel.paths.count-1)
             }, label: {
                 Text("확인")
             })
