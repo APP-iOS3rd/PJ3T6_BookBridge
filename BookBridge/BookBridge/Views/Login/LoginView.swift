@@ -29,7 +29,7 @@ struct LoginView: View {
                     
                     
                 }
-                NavigationLink(destination: EmailSignUpView()) {
+                NavigationLink(destination: EmailCertiView()) {
                     Text("시작하기")
                         .foregroundColor(.white)
                         .font(.system(size: 20).bold())

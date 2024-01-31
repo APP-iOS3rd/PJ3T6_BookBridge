@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EmailSignUpView: View {
-    @StateObject var signUpVM = SignUpVM()
+    @StateObject var signUpVM: SignUpVM
     
     var body: some View {
         NavigationStack {
@@ -42,9 +42,9 @@ struct EmailSignUpView: View {
     @ViewBuilder
     func AuthConfirmBtn() -> some View {
         Button {
-            signUpVM.register {
-                
-            }
+//            signUpVM.register {
+//                
+//            }
         } label: {
             Text("확인")
                 .font(.system(size: 20))
@@ -58,5 +58,5 @@ struct EmailSignUpView: View {
 }
 
 #Preview {
-    EmailSignUpView()
+    EmailSignUpView(signUpVM: SignUpVM())
 }

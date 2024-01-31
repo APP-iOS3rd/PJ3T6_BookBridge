@@ -36,38 +36,15 @@ struct SignUpAuthCodeBox: View {
                     .background(Color(hex: "F7F8FC"))
                     .cornerRadius(5.0)
                 
-                if signUpVm.userAuthCode == "" {
-                    ResendBtn()
-                } else {
-                    AuthConfirmBtn()
-                }
+                ResendBtn()
             }
-            
-            if let status = status {
-                if status {
-                    StatusText(text: "올바른 인증번호 입니다.", color: "0A84FF")
-                } else {
+                        
+            if let certiResult = signUpVm.isCertiClear {
+                if certiResult == .wrong {
                     StatusText(text: "잘못된 인증번호 입니다.", color: "F80B0B")
                 }
             }
-        }
-    }
-    
-    @ViewBuilder
-    func AuthConfirmBtn() -> some View {
-        Button {
-            if signUpVm.isCertiCode() {
-                status = true
-            } else {
-                status = false
-            }
-        } label: {
-            Text("인증완료")
-                .font(.system(size: 17))
-                .foregroundStyle(.white)
-                .frame(width: 100, height: 36)
-                .background(Color(hex: "59AAE0"))
-                .cornerRadius(5.0)
+            
         }
     }
     

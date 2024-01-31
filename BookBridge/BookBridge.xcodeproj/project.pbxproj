@@ -205,16 +205,9 @@
 				5A9A33862B62960800982E92 /* ColorExtension.swift */,
 				5AA82E5D2B67891E006EFC72 /* SMTP_SET.swift */,
 				5CE4548F2B68B79000874BCE /* FirestoreService.swift */,
-			);
-			path = Utilities;
-			sourceTree = "<group>";
-		};
-		5A2DE0982B68913700EF3A6B /* Models */ = {
-			isa = PBXGroup;
-			children = (
 				5A2DE0992B68915200EF3A6B /* SignUpInputer.swift */,
 			);
-			path = Models;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		5A7A4E192B61DFFD00F79C23 = {
@@ -247,7 +240,6 @@
 				5CE4549A2B68C93A00874BCE /* BookBridge.entitlements */,
 				5CE454912B68B7C000874BCE /* Model */,
 				5A1A16922B622B9F0063D408 /* Utilities */,
-				5A2DE0982B68913700EF3A6B /* Models */,
 				5AA82E502B676199006EFC72 /* ViewModels */,
 				5A7A4E532B62268A00F79C23 /* Views */,
 				5A7A4E252B61DFFD00F79C23 /* BookBridgeApp.swift */,

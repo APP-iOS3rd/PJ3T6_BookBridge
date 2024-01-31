@@ -13,12 +13,10 @@ struct EmailCertiView: View {
     
     var body: some View {
         NavigationView {
-            
-            
+                        
             VStack {
-                NavigationLink(destination: EmailSignUpView(), tag: 1, selection: self.$tag) {
-                    
-                }
+                NavigationLink(destination: EmailSignUpView(signUpVM: self.signUpVM), tag: 1, selection: self.$tag) {}
+                                    
                 Image("Character")
                 
                 HStack {
@@ -42,7 +40,18 @@ struct EmailCertiView: View {
                 Spacer()
                 
                 Button {
-                    self.tag = 1
+                    signUpVM.isCertiCode()
+                    
+                    if let certiResult = signUpVM.isCertiClear {
+                        switch certiResult {
+                        case .right:
+                            self.tag = 1
+                        case .wrong:
+                            print("잘못된 인증번호입니다. ")
+                        case .timeOut:
+                            signUpVM.isCertiClear = .wrong
+                        }
+                    }
                 } label: {
                     Text("인증완료")
                         .font(.system(size: 20))
@@ -54,9 +63,7 @@ struct EmailCertiView: View {
                         .cornerRadius(10.0)
                 }
                 .padding()
-                
-                
-                
+                                                
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -65,6 +72,7 @@ struct EmailCertiView: View {
                         .font(.headline)
                 }
             }
+            
         }
     }
 }
