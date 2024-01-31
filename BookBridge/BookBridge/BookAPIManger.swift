@@ -9,8 +9,8 @@ import Foundation
 
 class BookAPIManger {
     //결과값
-    func getData(text: String, completion: (@escaping (Book) -> Void)){
-        let urlString = "https://www.googleapis.com/books/v1/volumes?q=\(text)&startIndex=0&maxResults=10&printType=books"
+    func getData(text: String, startIndex: Int, completion: (@escaping (Book) -> Void)){
+        let urlString = "https://www.googleapis.com/books/v1/volumes?q=\(text)&startIndex=\(startIndex)&maxResults=20&printType=books"
 
          guard let url = URL(string: urlString) else { return }
 
@@ -35,9 +35,7 @@ class BookAPIManger {
              do {
                  let json = try JSONDecoder().decode(Book.self, from: data)
                  
-                 DispatchQueue.main.async {
-                     completion(json)
-                 }
+                 completion(json)
              } catch let error {
                  print(error.localizedDescription)
              }

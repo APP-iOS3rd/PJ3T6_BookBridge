@@ -8,12 +8,9 @@
 import SwiftUI
  
 struct SearchBar: View {
-    @Binding var searchBooks: Book
-    @Binding var text: String
+    @StateObject var viewModel: SearchBooksViewModel
     
     @State var isEditing = false
-    
-    var bookApiManger = BookAPIManger()
  
     var body: some View {
         GeometryReader { geometry in
@@ -23,23 +20,32 @@ struct SearchBar: View {
                     .frame(width: 16, height: 16)
                     .padding(.leading, 8)
                 
-                TextField("검색어를 입력해주세요", text: $text)
+                TextField("검색어를 입력해주세요", text: $viewModel.text)
                     .padding(7)
-                    .onChange(of: text) { _ in
-                        if text != "" {
-                            isEditing = true
-                        }
+                    .onChange(of: viewModel.text) { _ in
+                        viewModel.saveText = viewModel.text
+                        viewModel.searchBooks.totalItems = 0
+                        viewModel.searchBooks.items.removeAll()
+                        viewModel.firstToTalCount = 0
+                        viewModel.isFinish = true
+                        viewModel.startIndex = 0
                         
-                        bookApiManger.getData(text: text) { book in
-                            searchBooks = book
+                        if viewModel.text != "" {
+                            isEditing = true
+                            viewModel.callBookApi()
+                        } else {
+                            isEditing = false
                         }
                     }
                 
                 if isEditing {
                     Button {
                         isEditing = false
-                        text = ""
-                        searchBooks.items.removeAll()
+                        viewModel.firstToTalCount = 0
+                        viewModel.isFinish = true
+                        viewModel.startIndex = 0
+                        viewModel.searchBooks.items.removeAll()
+                        viewModel.text = ""
                     } label: {
                         Image(systemName: "xmark.circle")
                             .resizable()

@@ -8,6 +8,7 @@
 import Foundation
 
 struct Book: Codable {
+    var totalItems: Int
     var items: [Item]
 }
 
