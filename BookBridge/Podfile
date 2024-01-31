@@ -7,6 +7,7 @@ target 'BookBridge' do
   pod 'FirebaseCore', :modular_headers => true
 
   pod 'FirebaseAuth'
+  pod 'FirebaseStorage'
   pod 'GoogleSignIn'
   pod 'GoogleSignInSwift'
   pod 'KakaoSDKUser'
