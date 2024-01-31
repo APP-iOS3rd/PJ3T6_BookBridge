@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FindIdView: View {
-    @StateObject var signUpVM : SignUpVM
+    @StateObject private var viewModel =  FindIdVM()
     @State private var isNavigationActive = false // 화면 전환 상태 관리
     
     var body: some View {
@@ -35,7 +35,7 @@ struct FindIdView: View {
                     .foregroundColor(Color(hex: "999999"))
                 
                 HStack {
-                    TextField("이메일을 입력해 주세요", text: $signUpVM.email)
+                    TextField("이메일을 입력해 주세요", text: $viewModel.email)
                         .padding()
                         .foregroundColor(Color(hex: "3C3C43"))
                         .frame(height: 36)
@@ -44,7 +44,7 @@ struct FindIdView: View {
                         .cornerRadius(5.0)
                     
                     Button {
-                        signUpVM.sendMail()
+                        viewModel.sendMail()
                         print("메일을 전송하였습니다.")
                     } label: {
                         Text("인증하기")
@@ -64,7 +64,7 @@ struct FindIdView: View {
                     .foregroundColor(Color(hex: "999999"))
                 
                 HStack {
-                    TextField("인증번호를 입력해주세요", text: $signUpVM.userAuthCode)
+                    TextField("인증번호를 입력해주세요", text: $viewModel.userAuthCode)
                         .padding()
                         .foregroundColor(Color(hex: "3C3C43"))
                         .frame(height: 36)
@@ -86,7 +86,12 @@ struct FindIdView: View {
                 }
                 
                 Button(action: {
-                    self.isNavigationActive = true // 버튼 클릭 시 화면 전환
+                    if viewModel.isCertiCode(){
+                        isNavigationActive = true
+                    }
+                    else{
+                        isNavigationActive = false
+                    }
                 }, label: {
                     Text("확인")
                 })
@@ -114,7 +119,7 @@ struct FindIdView: View {
     @ViewBuilder
     func ResendBtn() -> some View {
         Button {
-            
+            viewModel.sendMail()
         } label: {
             Text("재전송")
                 .font(.system(size: 17))
@@ -128,5 +133,7 @@ struct FindIdView: View {
     
     
 }
-
+#Preview {
+    FindIdView()
+}
 

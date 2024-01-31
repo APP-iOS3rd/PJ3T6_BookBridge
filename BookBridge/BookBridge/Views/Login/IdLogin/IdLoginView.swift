@@ -66,7 +66,7 @@ struct IdLoginView: View {
                     
                     
                     HStack{
-                        NavigationLink(destination: FindIdView(signUpVM: signUpVM)
+                        NavigationLink(destination: FindIdView()
                             .navigationBarBackButtonHidden()
                         ) {
                             Text("아이디찾기")

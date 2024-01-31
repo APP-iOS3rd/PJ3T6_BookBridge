@@ -18,11 +18,11 @@ class SignUpVM: ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var passwordConfirm: String = ""
-    @Published var userAuthCode: String = ""
+    @Published var userAuthCode: String = "" // 사용자가 입력하는 인증번호
     @Published var timeRemaining = 180
     @Published var timeLabel: String = ""
     @Published var isCertiActive = false
-    private var authCode: String?
+    private var authCode: String? // 인증번호
     var isCertiClear = false
     
         
