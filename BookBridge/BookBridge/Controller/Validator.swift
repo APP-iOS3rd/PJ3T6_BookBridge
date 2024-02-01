@@ -6,67 +6,45 @@
 //
 
 import Foundation
-
-enum ValidType {
-    case email
-    case id
-    case nickname
-}
+import SwiftUI
 
 struct Validator {
+    @StateObject var signUpVM : SignUpViewModel
     let format = FormatValidator()
     let redundant = RedundantValidator()
-    
-    func validate(type: ValidType, value: String) -> Bool {
-        switch type {
-        case .email:
-            return isValidEmail(email: value)
             
-        case .id:
-            return isValidId(id: value)
-            
-        case .nickname:
-            return isValidNickname(nickname: value)
+    func isValidEmail() {
+        redundant.isValidEmail(email: signUpVM.email) { success in
+            if success {
+                if format.isValidEmail(email: signUpVM.email) {
+                    print("이메일 인증 성공")
+                    signUpVM.emailError = .success
+                    signUpVM.isCertiActive = true
+                    signUpVM.sendMail()
+                } else {
+                    print("이메일 인증 실패")
+                    signUpVM.emailError = .invalid
+                }
+            } else {
+                signUpVM.emailError = .redundant
+            }
         }
     }
     
-    func isValidId(id: String) -> Bool {
-        return
-            // redundant.isValidId(id: id) &&
-            format.isValidID(id: id)
+    func isValidNickname() {
+        redundant.isValidNickname(nickname: signUpVM.nickname) { success in
+            if success {
+                if format.isValidNickname(nickname: signUpVM.nickname) {
+                    print("닉네임 인증 성공")
+                    signUpVM.nicknameError = .success
+                } else {
+                    print("닉네임 인증 실패")
+                    signUpVM.nicknameError = .invalid
+                }
+            } else {
+                signUpVM.nicknameError = .redundant
+            }
+        }
     }
         
-    func isValidEmail(email: String) -> Bool {
-        return
-            // redundant.isValidEmail(email: email) &&
-            format.isValidEmail(email: email)
-    }
-                    
-    func isValidNickname(nickname: String) -> Bool {
-        return
-            // redundant.isValidNickname(nickname: nickname)&&
-            format.isValidNickname(nickname: nickname)
-    }
-    
-//    func isValidPwd(pwd: String, confirmPwd: String) -> PwdError {
-//        if pwd != confirmPwd {
-//            return .wrong
-//        }
-//        
-//        if !format.isValidPwd(pwd: pwd) {
-//            return .invalid
-//        }
-//            
-//        return .none
-//    }
-//        
-    
-    func isAllInput(id: String, nickname: String, pwd: String, confirmPwd: String) -> Bool {
-        return
-            !id.isEmpty &&
-            !nickname.isEmpty &&
-            !pwd.isEmpty &&
-            !confirmPwd.isEmpty
-          
-    }
 }

@@ -12,59 +12,36 @@ import FirebaseFirestore
 struct RedundantValidator {
     let db = Firestore.firestore()
             
-    func isValidEmail(email: String) -> Bool {
-        var result = false
-        
+    func isValidEmail(email: String, completion: @escaping(Bool) -> Void) {
         let userDB = db.collection("User")
-        let query = userDB.whereField("id", isEqualTo: email)
+        let query = userDB.whereField("email", isEqualTo: email)
         
         query.getDocuments() { (qs, err) in
             
             if qs!.documents.isEmpty {
                 print("이메일 중복 없음")
-                result = true
+                completion(true)
             } else {
                 print("이메일 중복")
+                completion(false)
             }
         }
-        
-        return result
     }
-    
-    func isValidId(id: String) -> Bool {
-        var result = false
-        
-        let userDB = db.collection("User")
-        let query = userDB.whereField("loginId", isEqualTo: id)
-        query.getDocuments() { (qs, err) in
-            
-            if qs!.documents.isEmpty {
-                print("아이디 중복 없음")
-                result = true
-            } else {
-                print("아이디 중복")
-            }
-        }
-        
-        return result
-    }
-    
-    func isValidNickname(nickname: String) -> Bool {
-        var result = false
-        
+           
+    func isValidNickname(nickname: String, completion: @escaping(Bool) -> Void) {
         let userDB = db.collection("User")
         let query = userDB.whereField("nickname", isEqualTo: nickname)
+        
         query.getDocuments() { (qs, err) in
             
             if qs!.documents.isEmpty {
                 print("닉네임 중복 없음")
-                result = true
+                completion(true)
             } else {
                 print("닉네임 중복")
+                completion(false)
             }
         }
-        
-        return result
     }
         
 }

@@ -13,59 +13,52 @@ struct EmailCertiView: View {
     @State var tag: Int? = nil
     
     var body: some View {
-            VStack {
-                Image("Character")
-                
-                HStack {
-                    Text("이메일로 \n가입할 수 있어요")
-                        .font(.system(size: 20))
-                        .multilineTextAlignment(.leading)
-                    
-                    Spacer()
-                }
-                .padding()
-                
-                
-                SignUpInputBoxView(signUpVM: signUpVM, inputer: SignUpInputer(input: .email))
-                    .padding()
-                
-                if signUpVM.isCertiActive {
-                    SignUpAuthCodeBoxView(signUpVm: signUpVM)
-                        .padding()
-                }
-                                
-                Spacer()
-                
-                Button {
-                    signUpVM.isCertiCode()
-                    
-                    if let certiResult = signUpVM.isCertiClear {
-                        switch certiResult {
-                        case .right:
-                            pathModel.paths.append(.signUp)
-                        case .wrong:
-                            print("잘못된 인증번호입니다. ")
-                        case .timeOut:
-                            signUpVM.isCertiClear = .wrong
-                        }
-                    }
-                } label: {
-                    Text("인증완료")
-                        .font(.system(size: 20))
-                        .fontWeight(.semibold)
-                        .foregroundStyle(.white)
-                        .frame(height: 50)
-                        .frame(maxWidth: .infinity)
-                        .background(Color(hex: "59AAE0"))
-                        .cornerRadius(10.0)
-                }
-                .padding()
-                                                
-            }
-            .navigationBarTitle("회원가입", displayMode: .inline)
-            .navigationBarItems(leading: CustomBackButtonView())
+        VStack {
+            Image("Character")
             
+            HStack {
+                Text("이메일로 \n가입할 수 있어요")
+                    .font(.system(size: 20))
+                    .multilineTextAlignment(.leading)
+                
+                Spacer()
+            }
+            .padding()
+            
+            
+            SignUpInputBoxView(signUpVM: signUpVM, inputer: SignUpInputer(input: .email), validator: Validator(signUpVM: signUpVM))
+                .padding()
+            
+            if signUpVM.isCertiActive {
+                SignUpAuthCodeBoxView(signUpVm: signUpVM)
+                    .padding()
+            }
+                            
+            Spacer()
+            
+            Button {
+                signUpVM.isCertiCode()
+                
+                if let certiResult = signUpVM.isCertiClear {
+                    switch certiResult {
+                    case .right:
+                        pathModel.paths.append(.signUp)
+                    case .wrong:
+                        print("잘못된 인증번호입니다. ")
+                    case .timeOut:
+                        signUpVM.isCertiClear = .wrong
+                    }
+                }
+            } label: {
+                LargeBtnStyle(title: "인증완료")
+            }
+            .padding()
+                                            
         }
+        .navigationBarTitle("회원가입", displayMode: .inline)
+        .navigationBarItems(leading: CustomBackButtonView())
+        
+    }
     
 }
 

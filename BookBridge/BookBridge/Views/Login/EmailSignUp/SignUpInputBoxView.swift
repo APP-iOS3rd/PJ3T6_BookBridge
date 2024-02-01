@@ -8,10 +8,23 @@
 import SwiftUI
 
 
+enum NicknameError: String {
+    case invalid = "잘못된 닉네임 형식입니다."
+    case redundant = "이미 가입한 닉네임 입니다."
+    case success = "사용가능한 닉네임 입니다."
+}
+
+enum EmailError: String {
+    case invalid = "잘못된 이메일 형식입니다."
+    case redundant = "이미 가입한 이메일 입니다."
+    case success = "이메일 인증이 완료되었습니다."
+}
+
 struct SignUpInputBoxView: View {
     @StateObject var signUpVM: SignUpViewModel
     @State var status: Bool?
     var inputer: SignUpInputer
+    var validator: Validator
     
     
     var body: some View {
@@ -20,9 +33,7 @@ struct SignUpInputBoxView: View {
                 Text(inputer.title)
                     .font(.system(size: 10))
                     .foregroundStyle(Color(hex: "999999"))
-                
-                
-                
+                                                
                 Spacer()
             }
                         
@@ -31,9 +42,7 @@ struct SignUpInputBoxView: View {
                 case .email:
                     TextField(inputer.placeholder, text: $signUpVM.email)
                         .modifier(InputTextFieldStyle())
-                case .id:
-                    TextField(inputer.placeholder, text: $signUpVM.id)
-                        .modifier(InputTextFieldStyle())
+               
                 case .nickName:
                     TextField(inputer.placeholder, text: $signUpVM.nickname)
                         .modifier(InputTextFieldStyle())
@@ -42,28 +51,10 @@ struct SignUpInputBoxView: View {
                 Button {
                     switch inputer.type {
                     case .email:
-                        if signUpVM.isValid(type: .email) {
-                            signUpVM.isCertiActive = true
-                            status = true
-                            signUpVM.sendMail()
-                        } else {
-                            print("error")
-                            status = false
-                        }
-                                                
-                    case .id:
-                        if signUpVM.isValid(type: .id) {
-                            status = true
-                        } else {
-                            status = false
-                        }
-                        
+                        validator.isValidEmail()
+                                                                                                    
                     case .nickName:
-                        if signUpVM.isValid(type: .nickname) {
-                            status = true
-                        } else {
-                            status = false
-                        }
+                        validator.isValidNickname()
                     }
                 } label: {
                     Text(inputer.btnTitle)
@@ -75,13 +66,14 @@ struct SignUpInputBoxView: View {
                 }
             }
             
-            if let status = status {
-                if status {
-                    StatusText(text: inputer.status[1], color: "0A84FF")
-                } else {
-                    StatusText(text: inputer.status[0], color: "F80B0B")
-                }
+            switch inputer.type {
+            case .email:
+                errorText(text: signUpVM.emailError?.rawValue ?? "", color: "F80B0B")
+            
+            case .nickName:
+                errorText(text: signUpVM.nicknameError?.rawValue ?? "", color: "F80B0B")
             }
+                                    
         }
     }
 }
@@ -112,6 +104,18 @@ struct InputTextFieldStyle: ViewModifier {
     }
 }
 
+extension SignUpInputBoxView {
+    func errorText(text: String, color: String) -> some View {
+        return HStack {
+            Text(text)
+                .font(.system(size: 10))
+                .foregroundStyle(Color(hex: color))
+            
+            Spacer()
+        }
+    }
+}
+
 #Preview {
-    SignUpInputBoxView(signUpVM: SignUpViewModel(), inputer: SignUpInputer(input: .email))
+    SignUpInputBoxView(signUpVM: SignUpViewModel(), inputer: SignUpInputer(input: .email), validator: Validator(signUpVM: SignUpViewModel()))
 }

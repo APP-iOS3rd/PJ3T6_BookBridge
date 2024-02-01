@@ -25,15 +25,18 @@ class SignUpViewModel: ObservableObject {
     @Published var passwordConfirm: String = ""
     @Published var pwdStatus: PwdError?
     
+    @Published var nicknameError: NicknameError?
+    @Published var emailError: EmailError?
     @Published var phError: PhoneError?
     @Published var pwdError: PwdError?
     @Published var pwdConfirmError: PwdConfirmError?
     
     private var authCode: String?
     private let format = FormatValidator()
+    private let redundant = RedundantValidator()
     let db = Firestore.firestore()
     
-    let validator = Validator()
+    let validator = Validator(signUpVM: SignUpViewModel())
     var isCertiActive = false
     var timer: Timer?
     
@@ -79,20 +82,7 @@ class SignUpViewModel: ObservableObject {
         self.timer?.invalidate()
         self.timer = nil
     }
-    
-    func isValid(type: ValidType) -> Bool {
-        switch type {
-        case .email:
-            return validator.validate(type: .email, value: self.email)
-            
-        case .id:
-            return validator.validate(type: .id, value: self.id)
-            
-        case .nickname:
-            return validator.validate(type: .nickname, value: self.nickname)
-        }
-    }
-            
+                    
     func isValidPhone() -> Bool {
         if self.phoneNumer == "" {
             print("휴대폰번호를 입력해주세요")
@@ -141,9 +131,7 @@ class SignUpViewModel: ObservableObject {
         
         return true
     }
-    
-    
-    
+            
     func isCertiCode() {
         if userAuthCode == self.authCode {
             self.isCertiClear = .right
@@ -188,7 +176,7 @@ class SignUpViewModel: ObservableObject {
             completion(false)
         }
     }
-    
+                    
     func register(completion: @escaping () -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             if let error = error {

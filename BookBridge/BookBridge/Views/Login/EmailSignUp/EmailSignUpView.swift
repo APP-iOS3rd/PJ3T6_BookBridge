@@ -7,17 +7,18 @@
 
 import SwiftUI
 
+
+
 struct EmailSignUpView: View {
     @EnvironmentObject private var pathModel: PathViewModel
     @StateObject var signUpVM: SignUpViewModel
-    private let format = FormatValidator()
     
     var body: some View {
         
             VStack {
                 Image("Character")
                 
-                SignUpInputBoxView(signUpVM: signUpVM, inputer: SignUpInputer(input: .nickName))
+                SignUpInputBoxView(signUpVM: signUpVM, inputer: SignUpInputer(input: .nickName), validator: Validator(signUpVM: signUpVM))
                     .padding()
                 
                 SignUpInputView(signUpVm: signUpVM, manager: SignUpInputManager(input: .phone))
@@ -44,18 +45,10 @@ struct EmailSignUpView: View {
             signUpVM.signUp { success in
                 if success {
                     pathModel.paths.removeAll()
-                } else {
-                    // 등록 실패 후의 작업 수행
                 }
             }
         } label: {
-            Text("확인")
-                .font(.system(size: 20))
-                .foregroundStyle(.white)
-                .frame(height: 50)
-                .frame(maxWidth: .infinity)
-                .background(Color(hex: "59AAE0"))
-                .cornerRadius(10.0)
+            LargeBtnStyle(title: "확인")
         }
         
     }
