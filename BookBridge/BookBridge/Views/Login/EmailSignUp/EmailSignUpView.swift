@@ -10,21 +10,25 @@ import SwiftUI
 struct EmailSignUpView: View {
     @EnvironmentObject private var pathModel: PathViewModel
     @StateObject var signUpVM: SignUpViewModel
+    private let format = FormatValidator()
     
     var body: some View {
         
             VStack {
                 Image("Character")
-                                                                                
-                SignUpInputBoxView(signUpVM: signUpVM, inputer: SignUpInputer(input: .id))
-                    .padding()
                 
                 SignUpInputBoxView(signUpVM: signUpVM, inputer: SignUpInputer(input: .nickName))
                     .padding()
-                                                
-                SignUpPasswordBoxView(signUpVm: signUpVM)
+                
+                SignUpInputView(signUpVm: signUpVM, manager: SignUpInputManager(input: .phone))
                     .padding()
                 
+                SignUpInputView(signUpVm: signUpVM, manager: SignUpInputManager(input: .pwd))
+                    .padding()
+                
+                SignUpInputView(signUpVm: signUpVM, manager: SignUpInputManager(input: .pwdConfirm))
+                    .padding()
+                                                            
                 Spacer()
                 
                 AuthConfirmBtn()
@@ -37,11 +41,12 @@ struct EmailSignUpView: View {
     @ViewBuilder
     func AuthConfirmBtn() -> some View {
         Button {
-            signUpVM.isValidPwd()
-                        
-            if signUpVM.pwdStatus == PwdError.none && signUpVM.validAll() {
-                pathModel.paths.removeSubrange(0...pathModel.paths.count-1)
-                signUpVM.userSave()
+            signUpVM.signUp { success in
+                if success {
+                    pathModel.paths.removeAll()
+                } else {
+                    // 등록 실패 후의 작업 수행
+                }
             }
         } label: {
             Text("확인")
@@ -52,6 +57,7 @@ struct EmailSignUpView: View {
                 .background(Color(hex: "59AAE0"))
                 .cornerRadius(10.0)
         }
+        
     }
 }
 

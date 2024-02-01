@@ -41,25 +41,25 @@ struct Validator {
             // redundant.isValidEmail(email: email) &&
             format.isValidEmail(email: email)
     }
-        
-    
+                    
     func isValidNickname(nickname: String) -> Bool {
         return
             // redundant.isValidNickname(nickname: nickname)&&
             format.isValidNickname(nickname: nickname)
     }
     
-    func isValidPwd(pwd: String, confirmPwd: String) -> PwdError {
-        if pwd != confirmPwd {
-            return .pwdWrong
-        }
-        
-        if !format.isValidPwd(pwd: pwd) {
-            return .pwdInvalid
-        }
-            
-        return .none
-    }
+//    func isValidPwd(pwd: String, confirmPwd: String) -> PwdError {
+//        if pwd != confirmPwd {
+//            return .wrong
+//        }
+//        
+//        if !format.isValidPwd(pwd: pwd) {
+//            return .invalid
+//        }
+//            
+//        return .none
+//    }
+//        
     
     func isAllInput(id: String, nickname: String, pwd: String, confirmPwd: String) -> Bool {
         return

@@ -52,6 +52,9 @@
 		5ADE79DE2B6B3305005BB3ED /* GoogleAuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */; };
 		5ADE79E02B6B3351005BB3ED /* GoogleSignResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79DF2B6B3351005BB3ED /* GoogleSignResultModel.swift */; };
 		5ADE79E22B6B34D0005BB3ED /* GoogleAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E12B6B34D0005BB3ED /* GoogleAuthViewModel.swift */; };
+		5ADE79E62B6B565F005BB3ED /* SignUpInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E52B6B565F005BB3ED /* SignUpInputView.swift */; };
+		5ADE79E82B6B5963005BB3ED /* StatusTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E72B6B5963005BB3ED /* StatusTextView.swift */; };
+		5ADE79EA2B6B6715005BB3ED /* SignUpInputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */; };
 		5CE454902B68B79000874BCE /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4548F2B68B79000874BCE /* FirestoreService.swift */; };
 		5CE454932B68B7CB00874BCE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454922B68B7CB00874BCE /* UserModel.swift */; };
 		5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454962B68B8CA00874BCE /* AppleLoginView.swift */; };
@@ -143,6 +146,9 @@
 		5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthModel.swift; sourceTree = "<group>"; };
 		5ADE79DF2B6B3351005BB3ED /* GoogleSignResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignResultModel.swift; sourceTree = "<group>"; };
 		5ADE79E12B6B34D0005BB3ED /* GoogleAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthViewModel.swift; sourceTree = "<group>"; };
+		5ADE79E52B6B565F005BB3ED /* SignUpInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputView.swift; sourceTree = "<group>"; };
+		5ADE79E72B6B5963005BB3ED /* StatusTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTextView.swift; sourceTree = "<group>"; };
+		5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputManager.swift; sourceTree = "<group>"; };
 		5CE4548F2B68B79000874BCE /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		5CE454922B68B7CB00874BCE /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		5CE454962B68B8CA00874BCE /* AppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginView.swift; sourceTree = "<group>"; };
@@ -379,6 +385,8 @@
 				5AA82E4E2B6760C7006EFC72 /* SignUpInputBoxView.swift */,
 				5AA82E532B6764DF006EFC72 /* SignUpAuthCodeBoxView.swift */,
 				5A2DE09D2B68DBB700EF3A6B /* SignUpPasswordBoxView.swift */,
+				5ADE79E52B6B565F005BB3ED /* SignUpInputView.swift */,
+				5ADE79E72B6B5963005BB3ED /* StatusTextView.swift */,
 			);
 			path = EmailSignUp;
 			sourceTree = "<group>";
@@ -424,6 +432,7 @@
 				5A2DE0992B68915200EF3A6B /* SignUpInputer.swift */,
 				5A1A16952B6231870063D408 /* GoogleAuthManager.swift */,
 				5A9A33842B628D9E00982E92 /* GoogleSignManager.swift */,
+				5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -762,6 +771,7 @@
 				1DCFB0242B68CD3100250D55 /* FindPasswordView.swift in Sources */,
 				1D2B61842B63929900945EE2 /* KakaoLoginViewModel.swift in Sources */,
 				1D84019B2B6779CB00ADEEB5 /* IdLoginView.swift in Sources */,
+				5ADE79E82B6B5963005BB3ED /* StatusTextView.swift in Sources */,
 				5AA82E542B6764DF006EFC72 /* SignUpAuthCodeBoxView.swift in Sources */,
 				5CE454902B68B79000874BCE /* FirestoreService.swift in Sources */,
 				5AA82E522B6761BD006EFC72 /* SignUpViewModel.swift in Sources */,
@@ -783,6 +793,7 @@
 				91B80A422B676EEE000D5339 /* ImagePicker.swift in Sources */,
 				F623A51B2B68BFBC00B5C159 /* ChangePostingViewModel.swift in Sources */,
 				5ADE79DA2B6B2C99005BB3ED /* CertiResult.swift in Sources */,
+				5ADE79E62B6B565F005BB3ED /* SignUpInputView.swift in Sources */,
 				5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */,
 				91C60CE82B67492500A1E8E4 /* StorageManager.swift in Sources */,
 				91B80A472B6799B7000D5339 /* ChangePostingView.swift in Sources */,
@@ -793,6 +804,7 @@
 				5ADE79DE2B6B3305005BB3ED /* GoogleAuthModel.swift in Sources */,
 				5ADE79E22B6B34D0005BB3ED /* GoogleAuthViewModel.swift in Sources */,
 				5AA82E5E2B67891E006EFC72 /* SmtpManager.swift in Sources */,
+				5ADE79EA2B6B6715005BB3ED /* SignUpInputManager.swift in Sources */,
 				5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */,
 				5A5041CE2B6A637A00211CF2 /* PathType.swift in Sources */,
 				73C962A32B68880500D34D3F /* SearchBarView.swift in Sources */,

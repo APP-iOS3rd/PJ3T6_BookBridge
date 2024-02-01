@@ -33,4 +33,10 @@ struct FormatValidator {
         let pwdTest = NSPredicate(format:"SELF MATCHES %@", pwdRegEx)
         return pwdTest.evaluate(with: pwd)
     }
+        
+    func isValidPhoneNum(ph: String) -> Bool {
+        let phRegEx = "^01[0-1, 7][0-9]{7,8}$"
+        let phTest = NSPredicate(format:"SELF MATCHES %@", phRegEx)
+        return phTest.evaluate(with: ph)
+    }
 }

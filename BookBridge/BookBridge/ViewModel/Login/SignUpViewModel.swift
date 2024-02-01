@@ -19,13 +19,20 @@ class SignUpViewModel: ObservableObject {
     @Published var isCertiClear: CertiResult?
     
     @Published var id: String = ""
+    @Published var phoneNumer: String = ""
     @Published var nickname: String = ""
     @Published var password: String = ""
     @Published var passwordConfirm: String = ""
     @Published var pwdStatus: PwdError?
     
+    @Published var phError: PhoneError?
+    @Published var pwdError: PwdError?
+    @Published var pwdConfirmError: PwdConfirmError?
+    
     private var authCode: String?
+    private let format = FormatValidator()
     let db = Firestore.firestore()
+    
     let validator = Validator()
     var isCertiActive = false
     var timer: Timer?
@@ -85,14 +92,57 @@ class SignUpViewModel: ObservableObject {
             return validator.validate(type: .nickname, value: self.nickname)
         }
     }
-    
-    func isValidPwd() {
-        self.pwdStatus = validator.isValidPwd(pwd: self.password, confirmPwd: self.passwordConfirm)
+            
+    func isValidPhone() -> Bool {
+        if self.phoneNumer == "" {
+            print("휴대폰번호를 입력해주세요")
+            print(self.phoneNumer)
+            self.phError = .empty
+            return false
+        }
+        
+        if !format.isValidPhoneNum(ph: self.phoneNumer) {
+            print("휴대폰번호를 입력형식이 맞지 않아요")
+            self.phError = .invalid
+            return false
+        }
+                    
+        return true
     }
     
-    func validAll() -> Bool {
-        return validator.isAllInput(id: self.id, nickname: self.nickname, pwd: self.password, confirmPwd: self.passwordConfirm)
+    func isValidPwd() -> Bool {
+        if self.password.isEmpty {
+            print("비밀번호를 입력해주세요")
+            self.pwdError = .empty
+            return false
+        }
+        
+        return true
     }
+    
+    func isValidPwdConfirm() -> Bool {
+        if self.passwordConfirm.isEmpty {
+            print("비밀번호를 한번더 입력해주세요")
+            self.pwdConfirmError = .empty
+            return false
+        }
+        
+        if self.password != self.passwordConfirm {
+            print("비밀번호확인이 맞지 않아요")
+            self.pwdConfirmError = .wrong
+            return false
+        }
+        
+        if !format.isValidPwd(pwd: self.password) {
+            print("핸드폰 입력형식이 맞지 않아요")
+            self.pwdConfirmError = .invalid
+            return false
+        }
+        
+        return true
+    }
+    
+    
     
     func isCertiCode() {
         if userAuthCode == self.authCode {
@@ -102,8 +152,8 @@ class SignUpViewModel: ObservableObject {
         }
     }
     
-    func userSave() {
-        let user = UserModel(id: email, loginId: id, passsword: password, nickname: nickname)
+    func userSave(id: String) {
+        let user = UserModel(id: id, email: email, passsword: password, nickname: nickname, phoneNumber: phoneNumer)
                 
         do {
             _ = try db.collection("User").addDocument(from: user) { err in
@@ -118,15 +168,28 @@ class SignUpViewModel: ObservableObject {
         }
     }
     
-    //    func register(completion: @escaping () -> Void) {
-    //        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-    //            if let error = error {
-    //                print(error.localizedDescription)
-    //            } else {
-    //                completion()
-    //            }
-    //        }
-    //    }
+    func signUp(completion: @escaping (Bool) -> Void) {
+        if isValidPhone() && isValidPwd() && isValidPwdConfirm() {
+            register {
+                completion(true)
+            }
+        } else {
+            print("error")
+            completion(false)
+        }
+    }
     
-    
+    func register(completion: @escaping () -> Void) {
+        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                guard let user = result?.user else { return }
+                self.userSave(id: user.uid)
+                print("Authentication 저장완료!")
+                completion()
+            }
+        }
+    }
+        
 }

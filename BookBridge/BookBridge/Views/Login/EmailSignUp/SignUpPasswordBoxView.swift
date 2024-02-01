@@ -8,11 +8,7 @@
 
 import SwiftUI
 
-enum PwdError: String {
-    case pwdWrong = "비밀번호가 서로 일치하지 않습니다."
-    case pwdInvalid = "비밀번호를 영어, 숫자, 특수문자를 사용하여 8~16글자 로 작성해주세요"
-    case none = ""
-}
+
 
 struct SignUpPasswordBoxView: View {
     @StateObject var signUpVm: SignUpViewModel
@@ -25,16 +21,16 @@ struct SignUpPasswordBoxView: View {
             
             passwordView(text: "비밀번호확인", placeholder: "비밀번호를 한번 더 입력해주세요", value: $signUpVm.passwordConfirm)
             
-            if let status = signUpVm.pwdStatus {
-                switch status {
-                case .pwdWrong:
-                    StatusText(text: status.rawValue, color: "F80B0B")
-                case .pwdInvalid:
-                    StatusText(text: status.rawValue, color: "F80B0B")
-                case .none:
-                    StatusText(text: status.rawValue, color: "F80B0B")
-                }
-            }
+//            if let status = signUpVm.pwdStatus {
+//                switch status {
+//                case .wrong:
+//                    StatusText(text: status.rawValue, color: "F80B0B")
+//                case .invalid:
+//                    StatusText(text: status.rawValue, color: "F80B0B")
+//                case .none:
+//                    StatusText(text: status.rawValue, color: "F80B0B")
+//                }
+//            }
             
         }
     }

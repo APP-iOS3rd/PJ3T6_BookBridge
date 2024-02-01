@@ -43,7 +43,6 @@ struct SignUpInputBoxView: View {
                     switch inputer.type {
                     case .email:
                         if signUpVM.isValid(type: .email) {
-                            
                             signUpVM.isCertiActive = true
                             status = true
                             signUpVM.sendMail()
