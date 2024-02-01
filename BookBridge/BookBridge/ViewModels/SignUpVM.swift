@@ -28,10 +28,11 @@ class SignUpVM: ObservableObject {
     @Published var nickname: String = ""
     @Published var password: String = ""
     @Published var passwordConfirm: String = ""
-    @Published var users: [UserModel] = []
+    @Published var pwdStatus: PwdError?
     
     private var authCode: String?
     let db = Firestore.firestore()
+    let validator = Validator()
     var isCertiActive = false
     var timer: Timer?
                         
@@ -78,11 +79,26 @@ class SignUpVM: ObservableObject {
         self.timer = nil
     }
     
-    func isValidEmail() -> Bool {
-       let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-       let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
-       return emailTest.evaluate(with: self.email)
-    }    
+    func isValid(type: ValidType) -> Bool {
+        switch type {
+        case .email:
+            return validator.validate(type: .email, value: self.email)
+            
+        case .id:
+            return validator.validate(type: .id, value: self.id)
+            
+        case .nickname:
+            return validator.validate(type: .nickname, value: self.nickname)
+        }
+    }
+    
+    func isValidPwd() {
+        self.pwdStatus = validator.isValidPwd(pwd: self.password, confirmPwd: self.passwordConfirm)
+    }
+    
+    func validAll() -> Bool {
+        return validator.isAllInput(id: self.id, nickname: self.nickname, pwd: self.password, confirmPwd: self.passwordConfirm)
+    }
     
     func isCertiCode() {
         if userAuthCode == self.authCode {
@@ -90,6 +106,19 @@ class SignUpVM: ObservableObject {
         } else {
             self.isCertiClear = .wrong
         }
+    }
+    
+    func userSave() {
+        let user = UserModel(id: email, loginId: id, passsword: password, nickname: nickname)
+                
+        do {
+            _ = try db.collection("User").addDocument(from: user) { err in
+                if let err = err {
+                    print(err.localizedDescription)
+                } else {
+                    print("User has been saved!")
+                }
+            }
     }
     
     func register(completion: @escaping () -> Void) {
