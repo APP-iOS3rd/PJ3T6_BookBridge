@@ -17,51 +17,61 @@ enum tapInfo: String, CaseIterable {
 }
 
 struct BookShelfView: View {
-    @State private var selectedPicker: tapInfo = .wish
     @StateObject private var viewModel = BookShelfViewModel()
-    
+    @State private var selectedPicker: tapInfo = .wish
+    @State private var showingSheet = false // 시트 표시 여부를 위한 상태 변수
     @State private var searchText = ""
     
     var searchBarPlaceholder: String {
-            switch selectedPicker {
-            case .wish:
-                return "희망도서 이름을 검색해 주세요"
-            case .hold:
-                return "보유도서 이름을 검색해 주세요"
-            }
+        switch selectedPicker {
+        case .wish:
+            return "희망도서 이름을 검색해 주세요"
+        case .hold:
+            return "보유도서 이름을 검색해 주세요"
         }
+    }
     
     var body: some View {
-        VStack {
-            Picker("선택", selection: $selectedPicker) {
-                ForEach(tapInfo.allCases, id: \.self) {
-                    Text($0.rawValue)
+        ZStack{
+            VStack {
+                Picker("선택", selection: $selectedPicker) {
+                    ForEach(tapInfo.allCases, id: \.self) {
+                        Text($0.rawValue)
+                    }
                 }
-            }
-            .pickerStyle(.segmented)
-            
-            Spacer()
-                .frame(height: 20)
-
-
-            SearchBar(text: $searchText, placeholder: searchBarPlaceholder)
-            
-            
-            Spacer()
-                .frame(height: 20)
-            
+                .pickerStyle(.segmented)
+                
+                Spacer()
+                    .frame(height: 20)
+                
+                
+                SearchBar(text: $searchText, placeholder: searchBarPlaceholder)
+                
+                
+                Spacer()
+                    .frame(height: 20)
+                
                 BookView(tap: selectedPicker)
                     .environmentObject(viewModel)
+                
+            }
+            .padding(20)
             
+            AddBookBtnView(showingSheet: $showingSheet)
+                            .padding(.trailing, 20)
+                            .padding(.bottom, 50)
+                            .sheet(isPresented: $showingSheet) {
+                                SearchBooksView()
+                            }
         }
-        .padding(20)
         
     }
 }
+
 struct BookView: View {
     @EnvironmentObject var viewModel: BookShelfViewModel
     var tap: tapInfo
-
+    
     var books: [Item] {
         switch tap {
         case .wish:
@@ -70,9 +80,9 @@ struct BookView: View {
             return viewModel.holdBooks.flatMap { $0.items }
         }
     }
-
+    
     let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
-
+    
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 20) {
@@ -122,6 +132,32 @@ struct SearchBar: View {
                             }
                         }
                     })
+        }
+    }
+}
+
+struct AddBookBtnView: View {
+    @Binding var showingSheet: Bool
+    
+    var body: some View {
+        VStack {
+            Spacer()
+            
+            HStack {
+                Spacer()
+                
+                Button(
+                    action: {
+                        showingSheet = true                            
+                    },
+                    label: {
+                        Image(systemName: "plus.circle.fill")
+                            .resizable()
+                            .foregroundColor(Color(hex:"F6A65D"))
+                            .frame(width: 50,height: 50)
+                    }
+                )
+            }
         }
     }
 }
