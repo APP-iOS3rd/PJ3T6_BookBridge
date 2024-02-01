@@ -152,19 +152,29 @@ class SignUpViewModel: ObservableObject {
         }
     }
     
+    func convertUserModelToDictionary(user: UserModel) -> [String : Any] {
+
+        let userData = [
+            "id" : user.id,  // change these according to you model
+            "email": user.email,
+            "password": user.passsword,
+            "nickname": user.nickname,
+            "phoneNumber": user.phoneNumber,
+        ]
+        
+        return userData as [String : Any]
+    }
+    
     func userSave(id: String) {
         let user = UserModel(id: id, email: email, passsword: password, nickname: nickname, phoneNumber: phoneNumer)
-                
-        do {
-            _ = try db.collection("User").addDocument(from: user) { err in
-                if let err = err {
-                    print(err.localizedDescription)
-                } else {
-                    print("User has been saved!")
-                }
+        let userData = convertUserModelToDictionary(user: user)
+        
+        db.collection("User").document(id).setData(userData)  { err in
+            if let err = err {
+                print(err.localizedDescription)
+            } else {
+                print("User has been saved!")
             }
-        } catch let err {
-            print(err.localizedDescription)
         }
     }
     
