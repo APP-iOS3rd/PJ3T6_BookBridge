@@ -40,13 +40,13 @@
 		5A7A4E552B62269600F79C23 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A4E542B62269600F79C23 /* LoginView.swift */; };
 		5A9A33852B628D9E00982E92 /* SignInGoogleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A33842B628D9E00982E92 /* SignInGoogleHelper.swift */; };
 		5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A33862B62960800982E92 /* ColorExtension.swift */; };
-		5AA82E482B6744D8006EFC72 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5AA82E472B6744D8006EFC72 /* GoogleService-Info.plist */; };
 		5AA82E4D2B675E26006EFC72 /* EmailSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */; };
 		5AA82E4F2B6760C7006EFC72 /* SignUpInputBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E4E2B6760C7006EFC72 /* SignUpInputBox.swift */; };
 		5AA82E522B6761BD006EFC72 /* SignUpVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E512B6761BD006EFC72 /* SignUpVM.swift */; };
 		5AA82E542B6764DF006EFC72 /* SignUpAuthCodeBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E532B6764DF006EFC72 /* SignUpAuthCodeBox.swift */; };
 		5AA82E592B6779DD006EFC72 /* SwiftSMTP in Frameworks */ = {isa = PBXBuildFile; productRef = 5AA82E582B6779DD006EFC72 /* SwiftSMTP */; };
 		5AA82E5E2B67891E006EFC72 /* SMTP_SET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E5D2B67891E006EFC72 /* SMTP_SET.swift */; };
+		5ADE79D32B6B2798005BB3ED /* SwiftSMTP in Frameworks */ = {isa = PBXBuildFile; productRef = 5ADE79D22B6B2798005BB3ED /* SwiftSMTP */; };
 		5CE454902B68B79000874BCE /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4548F2B68B79000874BCE /* FirestoreService.swift */; };
 		5CE454932B68B7CB00874BCE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454922B68B7CB00874BCE /* User.swift */; };
 		5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454962B68B8CA00874BCE /* AppleLoginView.swift */; };
@@ -59,7 +59,6 @@
 		73DDA5DF2B6A336100B25FB8 /* SelectBooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DDA5DE2B6A336100B25FB8 /* SelectBooksView.swift */; };
 		73DDA5E12B6A34A500B25FB8 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DDA5E02B6A34A500B25FB8 /* SearchResultView.swift */; };
 		91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91392F282B68BE0E0092052A /* FindPostingView.swift */; };
-		913EFD962B673EF70019263C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 913EFD952B673EF70019263C /* GoogleService-Info.plist */; };
 		91B80A422B676EEE000D5339 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A412B676EEE000D5339 /* ImagePicker.swift */; };
 		91B80A452B6798B9000D5339 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A442B6798B9000D5339 /* TabView.swift */; };
 		91B80A472B6799B7000D5339 /* ChangePostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A462B6799B7000D5339 /* ChangePostingView.swift */; };
@@ -131,7 +130,6 @@
 		5A7A4E542B62269600F79C23 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		5A9A33842B628D9E00982E92 /* SignInGoogleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInGoogleHelper.swift; sourceTree = "<group>"; };
 		5A9A33862B62960800982E92 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
-		5AA82E472B6744D8006EFC72 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignUpView.swift; sourceTree = "<group>"; };
 		5AA82E4E2B6760C7006EFC72 /* SignUpInputBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputBox.swift; sourceTree = "<group>"; };
 		5AA82E512B6761BD006EFC72 /* SignUpVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVM.swift; sourceTree = "<group>"; };
@@ -151,7 +149,6 @@
 		73DDA5E02B6A34A500B25FB8 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		7C8CB12351EDD2306C897CC8 /* Pods-BookBridgeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridgeTests.debug.xcconfig"; path = "Target Support Files/Pods-BookBridgeTests/Pods-BookBridgeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		91392F282B68BE0E0092052A /* FindPostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPostingView.swift; sourceTree = "<group>"; };
-		913EFD952B673EF70019263C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		91B80A412B676EEE000D5339 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		91B80A442B6798B9000D5339 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		91B80A462B6799B7000D5339 /* ChangePostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePostingView.swift; sourceTree = "<group>"; };
@@ -172,6 +169,7 @@
 			files = (
 				5AA82E592B6779DD006EFC72 /* SwiftSMTP in Frameworks */,
 				AFE5B788F315503A86355ABB /* Pods_BookBridge.framework in Frameworks */,
+				5ADE79D32B6B2798005BB3ED /* SwiftSMTP in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,9 +297,6 @@
 			isa = PBXGroup;
 			children = (
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
-				5AA82E472B6744D8006EFC72 /* GoogleService-Info.plist */,
-				1D8401912B66983D00ADEEB5 /* GoogleService-Info.plist */,
-				913EFD952B673EF70019263C /* GoogleService-Info.plist */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
 				5A7A4E352B61DFFE00F79C23 /* BookBridgeTests */,
 				5A7A4E3F2B61DFFE00F79C23 /* BookBridgeUITests */,
@@ -330,7 +325,6 @@
 				5CE454912B68B7C000874BCE /* Model */,
 				5A1A16922B622B9F0063D408 /* Utilities */,
 				5AA82E502B676199006EFC72 /* ViewModels */,
-				5A1A168F2B62285A0063D408 /* Info.plist */,
 				91C60CE62B6747C400A1E8E4 /* ViewModel */,
 				5A7A4E532B62268A00F79C23 /* Views */,
 				5A7A4E252B61DFFD00F79C23 /* BookBridgeApp.swift */,
@@ -495,9 +489,7 @@
 			);
 			name = BookBridge;
 			packageProductDependencies = (
-				5AA82E582B6779DD006EFC72 /* SwiftSMTP */,
-			);
-			packageProductDependencies = (
+				5ADE79D22B6B2798005BB3ED /* SwiftSMTP */,
 			);
 			productName = BookBridge;
 			productReference = 5A7A4E222B61DFFD00F79C23 /* BookBridge.app */;
@@ -575,9 +567,7 @@
 			);
 			mainGroup = 5A7A4E192B61DFFD00F79C23;
 			packageReferences = (
-				5AA82E572B6779DD006EFC72 /* XCRemoteSwiftPackageReference "Swift-SMTP" */,
-			);
-			packageReferences = (
+				5ADE79D12B6B2798005BB3ED /* XCRemoteSwiftPackageReference "Swift-SMTP" */,
 			);
 			productRefGroup = 5A7A4E232B61DFFD00F79C23 /* Products */;
 			projectDirPath = "";
@@ -596,8 +586,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */,
-				5AA82E482B6744D8006EFC72 /* GoogleService-Info.plist in Resources */,
-				913EFD962B673EF70019263C /* GoogleService-Info.plist in Resources */,
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
 				5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */,
 			);
@@ -956,7 +944,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -995,7 +983,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1137,12 +1125,25 @@
 				minimumVersion = 6.0.0;
 			};
 		};
+		5ADE79D12B6B2798005BB3ED /* XCRemoteSwiftPackageReference "Swift-SMTP" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/IBM-Swift/Swift-SMTP";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		5AA82E582B6779DD006EFC72 /* SwiftSMTP */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5AA82E572B6779DD006EFC72 /* XCRemoteSwiftPackageReference "Swift-SMTP" */;
+			productName = SwiftSMTP;
+		};
+		5ADE79D22B6B2798005BB3ED /* SwiftSMTP */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5ADE79D12B6B2798005BB3ED /* XCRemoteSwiftPackageReference "Swift-SMTP" */;
 			productName = SwiftSMTP;
 		};
 /* End XCSwiftPackageProductDependency section */
