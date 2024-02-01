@@ -840,10 +840,12 @@ PODS:
     - nanopb/encode (= 2.30909.1)
   - nanopb/decode (2.30909.1)
   - nanopb/encode (2.30909.1)
+  - naveridlogin-sdk-ios (4.2.0)
   - PromisesObjC (2.3.1)
   - RecaptchaInterop (100.0.0)
 
 DEPENDENCIES:
+  - Alamofire
   - Firebase
   - FirebaseAnalytics
   - FirebaseAuth
@@ -854,6 +856,7 @@ DEPENDENCIES:
   - GoogleSignInSwift
   - KakaoSDKAuth
   - KakaoSDKUser
+  - naveridlogin-sdk-ios
 
 SPEC REPOS:
   trunk:
@@ -887,6 +890,7 @@ SPEC REPOS:
     - KakaoSDKUser
     - leveldb-library
     - nanopb
+    - naveridlogin-sdk-ios
     - PromisesObjC
     - RecaptchaInterop
 
@@ -921,9 +925,10 @@ SPEC CHECKSUMS:
   KakaoSDKUser: 0594b37675fb634304da3ecc83830c0ec84ceef5
   leveldb-library: f03246171cce0484482ec291f88b6d563699ee06
   nanopb: d4d75c12cd1316f4a64e3c6963f879ecd4b5e0d5
+  naveridlogin-sdk-ios: 03fa42741249ab10b804f6b2574b56b6d89045ba
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
 
-PODFILE CHECKSUM: 2238d409b20b63e1200f720fc8a7cd475bf42e15
+PODFILE CHECKSUM: 34c65b37685d99d39b8531f2f07605a811b8584f
 
 COCOAPODS: 1.15.0
