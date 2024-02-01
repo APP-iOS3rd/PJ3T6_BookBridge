@@ -19,7 +19,7 @@ struct ChangePostingView: View {
     
     @State var text: String = ""
     
-    @StateObject var post = ChangePostViewModel()
+    @StateObject var changeViewModel = ChangePostViewModel()
     
     var body: some View {
         NavigationView {
@@ -101,7 +101,7 @@ struct ChangePostingView: View {
                     // 확인 버튼
                     Button(action: {
                         // 확인 버튼이 클릭되었을 때 수행할 동작
-                        post.uploadPost(title: titleText, detail: text, images: selectedImages)
+                        changeViewModel.uploadPost(title: titleText, detail: text, images: selectedImages)
                     }) {
                         Text("확인")
                             .fontWeight(.bold)
