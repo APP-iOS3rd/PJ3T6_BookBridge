@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FindIdView: View {
-    @EnvironmentObject private var pathModel: PathModel
+    @EnvironmentObject private var pathModel: PathViewModel
     @StateObject private var viewModel =  FindIdVM()
     
     

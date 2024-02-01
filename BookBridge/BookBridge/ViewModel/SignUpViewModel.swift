@@ -11,13 +11,7 @@ import Firebase
 import SwiftSMTP
 import FirebaseFirestore
 
-enum CertiResult {
-    case right
-    case wrong
-    case timeOut
-}
-
-class SignUpVM: ObservableObject {
+class SignUpViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var userAuthCode: String = ""
     @Published var timeRemaining = 0

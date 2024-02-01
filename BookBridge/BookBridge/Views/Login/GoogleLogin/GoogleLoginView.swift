@@ -9,18 +9,10 @@ import SwiftUI
 import GoogleSignIn
 import GoogleSignInSwift
 
-final class AuthenticationViewModel: ObservableObject {
-    
-    func signInGoogle() async throws {
-        let helper = SignInGoogleHelper()
-        let tokens = try await helper.signIn()
-        try await AuthenticationManager.shared.signInWithGoogle(tokens: tokens)
-    }
-    
-}
 
-struct LoginGoogleView: View {
-    @StateObject private var viewModel = AuthenticationViewModel()
+
+struct GoogleLoginView: View {
+    @StateObject private var viewModel = GoogleAuthViewModel()
     
     var body: some View {
                                             
@@ -49,5 +41,5 @@ struct LoginGoogleView: View {
 }
 
 #Preview {
-    LoginGoogleView()
+    GoogleLoginView()
 }

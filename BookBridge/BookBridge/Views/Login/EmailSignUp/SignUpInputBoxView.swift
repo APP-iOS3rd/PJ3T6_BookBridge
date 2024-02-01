@@ -8,8 +8,8 @@
 import SwiftUI
 
 
-struct SignUpInputBox: View {
-    @StateObject var signUpVM: SignUpVM
+struct SignUpInputBoxView: View {
+    @StateObject var signUpVM: SignUpViewModel
     @State var status: Bool?
     var inputer: SignUpInputer
     
@@ -102,5 +102,5 @@ struct InputTextFieldStyle: ViewModifier {
 }
 
 #Preview {
-    SignUpInputBox(signUpVM: SignUpVM(), inputer: SignUpInputer(input: .email))
+    SignUpInputBoxView(signUpVM: SignUpViewModel(), inputer: SignUpInputer(input: .email))
 }

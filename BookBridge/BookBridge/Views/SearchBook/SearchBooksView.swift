@@ -34,7 +34,7 @@ struct SearchBooksView: View {
             .padding(.bottom, 20)
             .padding(.horizontal)
             
-            SearchBar(viewModel: viewModel)
+            SearchBarView(viewModel: viewModel)
                 .frame(height: 36)
                 .padding(.bottom, 20)
                 .padding(.horizontal)

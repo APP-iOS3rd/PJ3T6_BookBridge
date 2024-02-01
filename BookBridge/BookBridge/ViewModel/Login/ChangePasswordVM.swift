@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseAuth
 
-class ChangePasswordVM : ObservableObject {
+class ChangePasswordVM: ObservableObject {
     @Published var email: String = ""
     @Published var Resetpassword: String = ""
     @Published var Resetpassword1: String = ""

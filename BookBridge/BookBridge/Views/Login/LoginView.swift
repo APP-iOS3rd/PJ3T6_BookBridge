@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
-    @StateObject private var pathModel = PathModel()
+    @StateObject private var pathModel = PathViewModel()
     
     var body: some View {
         NavigationStack(path: $pathModel.paths){
@@ -99,7 +99,7 @@ struct LoginView: View {
 
 
                 HStack(spacing: 20){
-                    LoginGoogleView()
+                    GoogleLoginView()
                     KakaoLoginView()
                     AppleLoginView()
                 }

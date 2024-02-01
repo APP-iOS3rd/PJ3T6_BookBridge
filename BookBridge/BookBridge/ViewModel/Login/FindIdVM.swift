@@ -10,7 +10,7 @@ import Firebase
 import SwiftSMTP
 import Combine
 
-class FindIdVM : ObservableObject {
+class FindIdVM: ObservableObject {
     @Published var id: String = ""
     @Published var nickname: String = ""
     @Published var email: String = ""

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ChangePasswordView: View {
-    @EnvironmentObject private var pathModel: PathModel
+    @EnvironmentObject private var pathModel: PathViewModel
     @StateObject private var viewModel = ChangePasswordVM()
     
     var body: some View {

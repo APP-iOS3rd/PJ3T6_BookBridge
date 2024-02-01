@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct SignUpAuthCodeBox: View {
-    @StateObject var signUpVm: SignUpVM    
+struct SignUpAuthCodeBoxView: View {
+    @StateObject var signUpVm: SignUpViewModel    
     @State var status: Bool?
     
     var body: some View {
@@ -65,5 +65,5 @@ struct SignUpAuthCodeBox: View {
 }
 
 #Preview {
-    SignUpAuthCodeBox(signUpVm: SignUpVM())
+    SignUpAuthCodeBoxView(signUpVm: SignUpViewModel())
 }

@@ -8,8 +8,8 @@
 
 import SwiftUI
 
-struct SignUpPasswordBox: View {
-    @StateObject var signUpVm: SignUpVM
+struct SignUpPasswordBoxView: View {
+    @StateObject var signUpVm: SignUpViewModel
     
     var body: some View {
         VStack {
@@ -47,5 +47,5 @@ struct SignUpPasswordBox: View {
 }
 
 #Preview {
-    SignUpPasswordBox(signUpVm: SignUpVM())
+    SignUpPasswordBoxView(signUpVm: SignUpViewModel())
 }
