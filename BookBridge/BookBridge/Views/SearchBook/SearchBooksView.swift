@@ -10,6 +10,8 @@ import SwiftUI
 struct SearchBooksView: View {
     @Environment(\.dismiss) private var dismiss
     
+    @Binding var hopeBooks: [Item]
+    
     @StateObject var viewModel = SearchBooksViewModel()
     
     var body: some View {
@@ -41,13 +43,17 @@ struct SearchBooksView: View {
 
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    
+                    hopeBooks = viewModel.selectBooks.items
+                    dismiss()
                 } label: {
                     Text("확인")
                         .font(.system(size: 16))
                         .foregroundStyle(.black)
                 }
             }
+        }
+        .onAppear {
+            viewModel.selectBooks.items = hopeBooks
         }
     }
 }

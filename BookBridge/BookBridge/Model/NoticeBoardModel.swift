@@ -12,7 +12,7 @@ struct NoticeBoard: Identifiable {
     var isChange: Bool
     var state: Int                      //게시물 상태) 0 = 아무것도 없음, 1 = 예약중, 2 = 교환완료
     var date: Date
-    var hopeBook: [Item]?
+    var hopeBook: [Item]
 
     var dictionary: [String: Any] {
         return [

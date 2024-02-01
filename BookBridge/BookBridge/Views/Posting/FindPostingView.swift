@@ -60,10 +60,10 @@ struct FindPostingView: View {
                         .bold()
                     
                     
-                    NavigationLink(destination: SearchBooksView()) {
+                    NavigationLink(destination: SearchBooksView(hopeBooks: $viewModel.noticeBoard.hopeBook)) {
                         HStack {
                             Text(
-                                viewModel.noticeBoard.hopeBook?.isEmpty ?? true ? "희망도서 선택" : "\(viewModel.noticeBoard.hopeBook?[0].volumeInfo.title ?? "")외 \((viewModel.noticeBoard.hopeBook?.count ?? 0) - 1)권"
+                                viewModel.noticeBoard.hopeBook.isEmpty ? "희망도서 선택" : "\(viewModel.noticeBoard.hopeBook[0].volumeInfo.title ?? "") 외 \(viewModel.noticeBoard.hopeBook.count - 1)권"
                             )
                                 .foregroundColor(.black)
                             Spacer()
@@ -74,11 +74,11 @@ struct FindPostingView: View {
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
                         .background(Color(hex: "EAEAEA"))
-                        .cornerRadius(10)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.gray, lineWidth: 1)
                         )
+                        .cornerRadius(10)
                     }
                     .padding(.bottom, 30)
                     
@@ -99,11 +99,11 @@ struct FindPostingView: View {
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
                         .background(Color(hex: "EAEAEA"))
-                        .cornerRadius(10)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.gray, lineWidth: 1)
                         )
+                        .cornerRadius(10)
                     }
                     .padding(.bottom, 30)
                    

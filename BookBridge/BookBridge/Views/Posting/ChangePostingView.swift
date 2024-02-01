@@ -80,11 +80,11 @@ struct ChangePostingView: View {
                         .frame(maxWidth: .infinity)
                         .frame(height: 50)
                         .background(Color(hex: "EAEAEA"))
-                        .cornerRadius(10)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.gray, lineWidth: 1)
                         )
+                        .cornerRadius(10)
                     }
                     .padding(.bottom, 30)
                     
