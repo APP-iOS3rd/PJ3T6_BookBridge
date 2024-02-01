@@ -8,18 +8,12 @@
 import SwiftUI
 
 struct ChangePostingView: View {
-    @State private var titleText = ""
-    @State private var contentText = ""
-    @State private var isDestinationActive = false
-    @State private var sourceType = 0
+    @StateObject var viewModel = PostingViewModel()
+    
+    @State private var selectedImages: [UIImage] = []
     @State private var showActionSheet = false
     @State private var showImagePicker = false
-    @State private var selectedImages: [UIImage] = []
-    
-    
-    @State var text: String = ""
-    
-    @StateObject var changeViewModel = ChangePostViewModel()
+    @State private var sourceType = 0
     
     var body: some View {
         NavigationView {
@@ -31,7 +25,7 @@ struct ChangePostingView: View {
                     // 제목 입력 필드
                     Text("제목")
                         .bold()
-                    TextField("제목을 입력해주세요", text: $titleText)
+                    TextField("제목을 입력해주세요", text: $viewModel.noticeBoard.noticeBoardTitle)
                         .padding()
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
@@ -44,7 +38,7 @@ struct ChangePostingView: View {
                         Text("상세설명")
                             .bold()
                         ZStack {
-                            TextEditor(text: $text)
+                            TextEditor(text: $viewModel.noticeBoard.noticeBoardDetail)
                                 .padding(.leading, 11)
                                 .padding(.trailing, 11)
                                 .padding(.top, 7)
@@ -52,7 +46,7 @@ struct ChangePostingView: View {
                                     RoundedRectangle(cornerRadius: 10)
                                         .stroke(Color.gray, lineWidth: 1)
                                 )
-                            if text.isEmpty {
+                            if viewModel.noticeBoard.noticeBoardDetail.isEmpty {
                                 VStack {
                                     HStack {
                                         Text("상세 내용을 작성해주세요")
@@ -72,9 +66,9 @@ struct ChangePostingView: View {
                     // 교환 희망 장소 선택 버튼
                     Text("교환 희망 장소")
                         .bold()
-                    Button(action: {
-                        isDestinationActive = true
-                    }) {
+                    
+                    //EmptyView에 지훈님이 만든 네이버 맵 화면
+                    NavigationLink(destination: EmptyView()) {
                         HStack {
                             Text("교환장소 선택")
                                 .foregroundColor(.black)
@@ -92,16 +86,11 @@ struct ChangePostingView: View {
                                 .stroke(Color.gray, lineWidth: 1)
                         )
                     }
-                    NavigationLink(destination: Text("교환장소(지도) 표시부분"), isActive: $isDestinationActive) {
-                        EmptyView()
-                    }
-                    
-                    .padding(.bottom, 20)
+                    .padding(.bottom, 30)
                     
                     // 확인 버튼
                     Button(action: {
-                        // 확인 버튼이 클릭되었을 때 수행할 동작
-                        changeViewModel.uploadPost(title: titleText, detail: text, images: selectedImages)
+                        viewModel.uploadPost(isChange: true, images: selectedImages)
                     }) {
                         Text("확인")
                             .fontWeight(.bold)
@@ -140,163 +129,6 @@ struct ChangePostingView: View {
         }
     }
 }
-
-// 추가된 이미지 스크롤 뷰
-struct ImageScrollView: View {
-    @Binding var selectedImages: [UIImage]
-    @Binding var showActionSheet: Bool
-    @State var photoEditShowModal = false 
-    @State var index: Int = 0
-    
-    var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 20) {
-                ZStack {
-                    Rectangle()
-                        .fill(Color(hex: "EAEAEA"))
-                        .cornerRadius(10)
-                        .frame(width: 100, height: 100)
-                    VStack {
-                        CameraButton(showActionSheet: $showActionSheet)
-                            .disabled(selectedImages.count >= 5)
-                        HStack {
-                            Text("\(selectedImages.count)")
-                                .foregroundStyle(Color(hex:"59AAE0"))
-                                .padding(.trailing, -3)
-                            Text("/ 5")
-                        }
-                        .padding(.top, -15)
-                    }
-                    .frame(width: 80, height: 80) // 카메라 버튼 범위
-                }
-                ForEach(selectedImages.indices, id: \.self) { index in
-                    ZStack {
-                        ZStack {
-                            Image(uiImage: selectedImages[index])
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 100, height: 100)
-                                .onTapGesture {
-                                    self.index = index
-                                    photoEditShowModal = true
-                                }
-                                    
-                            if index == 0 {
-                                VStack {
-                                    Spacer()
-                                    ZStack {
-                                        Rectangle()
-                                            .fill(Color.black)
-                                            .frame(height: 25)
-                                        Text("대표사진")
-                                            .foregroundStyle(.white)
-                                    }
-                                }
-                            }
-                        }
-                        .cornerRadius(10)
-                    }
-                    .overlay {
-                        ZStack {
-                            DeleteImageButton(selectedImages: $selectedImages, index: index)
-                        }
-                        .frame(width: 140, height: 140, alignment: .topTrailing) // Delete버튼 위치
-                    }
-                    
-                    .fullScreenCover(isPresented: $photoEditShowModal) {
-                        ImageEditorModalView(selectedImages: $selectedImages, showImageEditorModal: $photoEditShowModal, index: $index)
-                    }
-                }
-            }
-            .padding(.vertical, 20)
-        }
-    }
-}
-
-// 사진 편집 모달 뷰
-struct ImageEditorModalView: View {
-    @Environment(\.presentationMode) var presentationMode
-    @Binding var selectedImages: [UIImage]
-    @Binding var showImageEditorModal: Bool
-    @Binding var index: Int
-    
-    var body: some View {
-        VStack {
-            HStack {
-                Image(systemName: "xmark")
-                    .onTapGesture {
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                
-                Spacer()
-                
-                Text("1/1")
-                    .font(.title3)
-                    .fontWeight(.bold)
-                
-                Spacer()
-                
-                Button(action: {
-                    // 완료 버튼 클릭 시 편집된 이미지 저장 후 모달 종료
-                    presentationMode.wrappedValue.dismiss()
-                }) {
-                    Text("완료")
-                        .font(.headline)
-                }
-            }
-        }
-        .padding()
-        
-        // 모달창에 보여질 이미지
-        Image(uiImage: selectedImages[index])
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(maxWidth: .infinity,maxHeight: .infinity)
-            .clipped()
-    }
-}
-
-// 카메라 버튼
-struct CameraButton: View {
-    @Binding var showActionSheet: Bool
-    
-    var body: some View {
-        Button(action: {
-            self.showActionSheet = true
-        }) {
-            Image(systemName: "camera.fill")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 40, height: 40)
-                .foregroundColor(.gray)
-                .padding(10)
-        }
-    }
-}
-
-// 이미지 삭제 버튼
-struct DeleteImageButton: View {
-    @Binding var selectedImages: [UIImage]
-    var index: Int
-    
-    var body: some View {
-        ZStack {
-            Image(systemName: "xmark.circle.fill")
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .foregroundColor(.black)
-                .frame(width: 25, height: 25)
-    //            .offset(x: 50, y: -50)
-        }
-        .frame(width: 35, height: 35) // Delete버튼 범위
-        .onTapGesture {
-            selectedImages.remove(at: index)
-        }
-        
-    }
-}
-
-
 
 #Preview {
     ChangePostingView()

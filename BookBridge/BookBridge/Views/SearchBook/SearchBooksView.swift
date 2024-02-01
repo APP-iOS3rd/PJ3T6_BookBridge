@@ -14,39 +14,6 @@ struct SearchBooksView: View {
     
     var body: some View {
         VStack {
-            //상단 네비 뷰
-            /*
-            ZStack {
-                Text("희망도서")
-                    .font(.system(size: 20, weight: .bold))
-                    .padding(.top, 10)
-                    .padding(.bottom, 20)
-                
-                HStack {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "chevron.backward")
-                            .font(.system(size: 20))
-                            .foregroundStyle(.black)
-                    }
-                    
-                    Spacer()
-                    
-                    Button {
-                        
-                    } label: {
-                        Text("확인")
-                            .font(.system(size: 20))
-                            .foregroundStyle(.black)
-                    }
-                    
-                }
-                .padding(.top, 10)
-                .padding(.bottom, 20)
-                .padding(.horizontal)
-            }
-            */
             SearchBarView(viewModel: viewModel)
                 .frame(height: 36)
                 .padding(.vertical, 20)
@@ -83,8 +50,4 @@ struct SearchBooksView: View {
             }
         }
     }
-}
-
-#Preview {
-    SearchBooksView()
 }

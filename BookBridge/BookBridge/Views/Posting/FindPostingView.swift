@@ -8,14 +8,7 @@
 import SwiftUI
 
 struct FindPostingView: View {
-    @State private var titleText = ""
-    @State private var contentText = ""
-    @State private var mapDestinationActive = false
-    @State private var bookDestinationActive = false
-    
-    @State var text: String = ""
-    
-    @StateObject var findViewModel = FindPostViewModel()
+    @StateObject var viewModel = PostingViewModel()
     
     var body: some View {
         NavigationView {
@@ -24,7 +17,7 @@ struct FindPostingView: View {
                     // 제목 입력 필드
                     Text("제목")
                         .bold()
-                    TextField("제목을 입력해주세요", text: $titleText)
+                    TextField("제목을 입력해주세요", text: $viewModel.noticeBoard.noticeBoardTitle)
                         .padding()
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
@@ -37,7 +30,7 @@ struct FindPostingView: View {
                         Text("상세설명")
                             .bold()
                         ZStack {
-                            TextEditor(text: $text)
+                            TextEditor(text: $viewModel.noticeBoard.noticeBoardDetail)
                                 .padding(.leading, 11)
                                 .padding(.trailing, 11)
                                 .padding(.top, 7)
@@ -45,7 +38,7 @@ struct FindPostingView: View {
                                     RoundedRectangle(cornerRadius: 10)
                                         .stroke(Color.gray, lineWidth: 1)
                                 )
-                            if text.isEmpty {
+                            if viewModel.noticeBoard.noticeBoardDetail.isEmpty {
                                 VStack {
                                     HStack {
                                         Text("상세 내용을 작성해주세요")
@@ -69,7 +62,9 @@ struct FindPostingView: View {
                     
                     NavigationLink(destination: SearchBooksView()) {
                         HStack {
-                            Text("희망도서 선택")
+                            Text(
+                                viewModel.noticeBoard.hopeBook?.isEmpty ?? true ? "희망도서 선택" : "\(viewModel.noticeBoard.hopeBook?[0].volumeInfo.title ?? "")외 \((viewModel.noticeBoard.hopeBook?.count ?? 0) - 1)권"
+                            )
                                 .foregroundColor(.black)
                             Spacer()
                             Image(systemName: "chevron.right")
@@ -91,10 +86,8 @@ struct FindPostingView: View {
                     Text("교환 희망 장소")
                         .bold()
                     
-                    
-                    Button(action: {
-                        mapDestinationActive = true
-                    }) {
+                    //EmptyView에 지훈님이 만든 네이버 맵 화면
+                    NavigationLink(destination: EmptyView()) {
                         HStack {
                             Text("교환장소 선택")
                                 .foregroundColor(.black)
@@ -112,16 +105,13 @@ struct FindPostingView: View {
                                 .stroke(Color.gray, lineWidth: 1)
                         )
                     }
-                    NavigationLink(destination: Text("교환장소(지도) 표시부분"), isActive: $mapDestinationActive) {
-                        EmptyView()
-                    }
-                    
                     .padding(.bottom, 30)
+                   
                     
                     // 확인 버튼
-                    Button(action: {
-                        findViewModel.uploadPost(title: titleText, detail: text)
-                    }) {
+                    Button {
+                        viewModel.uploadPost(isChange: false, images: [])
+                    } label: {
                         Text("확인")
                             .fontWeight(.bold)
                             .frame(maxWidth: .infinity)
