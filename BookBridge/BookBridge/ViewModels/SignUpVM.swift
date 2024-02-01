@@ -35,7 +35,7 @@ class SignUpVM: ObservableObject {
     let validator = Validator()
     var isCertiActive = false
     var timer: Timer?
-                        
+    
     func sendMail() {
         let mail_to = Mail.User(name: "mail_to", email: email)
         authCode = createEmailCode()
@@ -51,7 +51,7 @@ class SignUpVM: ObservableObject {
         smtp.send(mail)
         showingTime()
     }
-                        
+    
     func showingTime() {
         timerReset()
         
@@ -119,31 +119,20 @@ class SignUpVM: ObservableObject {
                     print("User has been saved!")
                 }
             }
-    }
-    
-    func register(completion: @escaping () -> Void) {
-        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                completion()
-            }
+        } catch let err {
+            print(err.localizedDescription)
         }
     }
     
-    func isValidId() -> Bool {
-        db.collection("User").getDocuments { snapShot, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                self.users = snapShot?.documents.compactMap {
-                    try? $0.data(as: UserModel.self)
-                } ?? []
-            }
-        }
-
-        return false
-    }
+    //    func register(completion: @escaping () -> Void) {
+    //        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+    //            if let error = error {
+    //                print(error.localizedDescription)
+    //            } else {
+    //                completion()
+    //            }
+    //        }
+    //    }
     
     
 }

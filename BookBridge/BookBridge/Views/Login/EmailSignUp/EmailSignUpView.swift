@@ -42,9 +42,11 @@ struct EmailSignUpView: View {
     @ViewBuilder
     func AuthConfirmBtn() -> some View {
         Button {
-//            signUpVM.register {
-//                
-//            }
+            signUpVM.isValidPwd()
+                        
+            if signUpVM.pwdStatus == PwdError.none && signUpVM.validAll() {
+                signUpVM.userSave()
+            }
         } label: {
             Text("확인")
                 .font(.system(size: 20))

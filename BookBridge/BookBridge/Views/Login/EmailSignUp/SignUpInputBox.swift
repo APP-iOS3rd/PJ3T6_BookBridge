@@ -42,17 +42,29 @@ struct SignUpInputBox: View {
                 Button {
                     switch inputer.type {
                     case .email:
-                        if signUpVM.isValidEmail() {
+                        if signUpVM.isValid(type: .email) {
+                            
+                            signUpVM.isCertiActive = true
                             status = true
                             signUpVM.sendMail()
                         } else {
+                            print("error")
                             status = false
                         }
                                                 
                     case .id:
-                        print("아이디 중복 확인 기능")
+                        if signUpVM.isValid(type: .id) {
+                            status = true
+                        } else {
+                            status = false
+                        }
+                        
                     case .nickName:
-                        print("닉네임 중복 확인 기능")
+                        if signUpVM.isValid(type: .nickname) {
+                            status = true
+                        } else {
+                            status = false
+                        }
                     }
                 } label: {
                     Text(inputer.btnTitle)
