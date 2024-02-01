@@ -275,23 +275,6 @@
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
-		5A5041C92B6A633E00211CF2 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				5A5041CA2B6A634A00211CF2 /* Path */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		5A5041CA2B6A634A00211CF2 /* Path */ = {
-			isa = PBXGroup;
-			children = (
-				5A5041CB2B6A635C00211CF2 /* PathModel.swift */,
-				5A5041CD2B6A637A00211CF2 /* PathType.swift */,
-			);
-			path = Path;
-			sourceTree = "<group>";
-		};
 		5A6CC51F2B6B19170037429F /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -331,8 +314,6 @@
 			isa = PBXGroup;
 			children = (
 				5A6CC51F2B6B19170037429F /* Controller */,
-				5CE4549A2B68C93A00874BCE /* BookBridge.entitlements */,
-				5A5041C92B6A633E00211CF2 /* Models */,
 				5CE454912B68B7C000874BCE /* Model */,
 				5A1A16922B622B9F0063D408 /* Utility */,
 				91C60CE62B6747C400A1E8E4 /* ViewModel */,
@@ -425,6 +406,7 @@
 		5ADE79DB2B6B2D5F005BB3ED /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				5AA82E512B6761BD006EFC72 /* SignUpViewModel.swift */,
 				1D2B61832B63929900945EE2 /* KakaoLoginViewModel.swift */,
 				1D84019D2B677B3B00ADEEB5 /* IdLoginViewModel.swift */,
 				1D357CAB2B6A13510064B87D /* ChangePasswordVM.swift */,
@@ -512,7 +494,6 @@
 			children = (
 				5ADE79DB2B6B2D5F005BB3ED /* Login */,
 				5A5041CB2B6A635C00211CF2 /* PathViewModel.swift */,
-				5AA82E512B6761BD006EFC72 /* SignUpViewModel.swift */,
 				91B80A412B676EEE000D5339 /* ImagePicker.swift */,
 				73C962AA2B68C4D800D34D3F /* SearchBooksViewModel.swift */,
 				91C60CE72B67492500A1E8E4 /* StorageManager.swift */,
@@ -794,7 +775,6 @@
 				5ADE79E02B6B3351005BB3ED /* GoogleSignResultModel.swift in Sources */,
 				1DCFB01E2B687D7000250D55 /* FindIdView.swift in Sources */,
 				1D357CAC2B6A13510064B87D /* ChangePasswordVM.swift in Sources */,
-				1D8401992B675E0800ADEEB5 /* SignUpView.swift in Sources */,
 				5A6CC5252B6B19630037429F /* Validator.swift in Sources */,
 				1DA6E06C2B68D9EB00D631D5 /* ChangePasswordView.swift in Sources */,
 				5A2DE09E2B68DBB700EF3A6B /* SignUpPasswordBoxView.swift in Sources */,
@@ -809,7 +789,7 @@
 				F623A5272B6A1DFE00B5C159 /* FindPostingViewModel.swift in Sources */,
 				1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */,
 				5A6CC5232B6B19510037429F /* RedundantValidator.swift in Sources */,
-				5AA82E5E2B67891E006EFC72 /* SMTP_SET.swift in Sources */,
+				5AA82E5E2B67891E006EFC72 /* SmtpManager.swift in Sources */,
 				5ADE79DE2B6B3305005BB3ED /* GoogleAuthModel.swift in Sources */,
 				5ADE79E22B6B34D0005BB3ED /* GoogleAuthViewModel.swift in Sources */,
 				5AA82E5E2B67891E006EFC72 /* SmtpManager.swift in Sources */,

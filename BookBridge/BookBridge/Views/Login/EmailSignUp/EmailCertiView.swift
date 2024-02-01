@@ -8,15 +8,12 @@
 import SwiftUI
 
 struct EmailCertiView: View {
-    @StateObject var signUpVM = SignUpViewModel()
+    @StateObject var signUpVM: SignUpViewModel
+    @EnvironmentObject private var pathModel: PathViewModel
     @State var tag: Int? = nil
     
     var body: some View {
-        NavigationView {
-                        
             VStack {
-                NavigationLink(destination: EmailSignUpView(signUpVM: self.signUpVM), tag: 1, selection: self.$tag) {}
-                                    
                 Image("Character")
                 
                 HStack {
@@ -45,7 +42,7 @@ struct EmailCertiView: View {
                     if let certiResult = signUpVM.isCertiClear {
                         switch certiResult {
                         case .right:
-                            self.tag = 1
+                            pathModel.paths.append(.signUp)
                         case .wrong:
                             print("잘못된 인증번호입니다. ")
                         case .timeOut:
@@ -65,18 +62,13 @@ struct EmailCertiView: View {
                 .padding()
                                                 
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("회원가입")
-                        .font(.headline)
-                }
-            }
+            .navigationBarTitle("회원가입", displayMode: .inline)
+            .navigationBarItems(leading: CustomBackButtonView())
             
         }
-    }
+    
 }
 
 #Preview {
-    EmailCertiView()
+    EmailCertiView(signUpVM: SignUpViewModel())
 }

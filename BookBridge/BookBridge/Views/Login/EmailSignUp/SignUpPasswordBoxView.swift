@@ -14,8 +14,8 @@ enum PwdError: String {
     case none = ""
 }
 
-struct SignUpPasswordBox: View {
-    @StateObject var signUpVm: SignUpVM
+struct SignUpPasswordBoxView: View {
+    @StateObject var signUpVm: SignUpViewModel
     
     var body: some View {
         VStack {

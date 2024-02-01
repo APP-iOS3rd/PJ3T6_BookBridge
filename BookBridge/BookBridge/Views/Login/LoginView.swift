@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     @StateObject private var pathModel = PathViewModel()
+    @StateObject var signUpVM = SignUpViewModel()
     
     var body: some View {
         NavigationStack(path: $pathModel.paths){
@@ -115,7 +116,7 @@ struct LoginView: View {
                 case .home:
                     EmptyView()
                 case .certi:
-                    EmailCertiView()
+                    EmailCertiView(signUpVM: signUpVM)
                         .navigationBarBackButtonHidden()
                 case .findId:
                     FindIdView()
@@ -131,6 +132,9 @@ struct LoginView: View {
                         .navigationBarBackButtonHidden()
                 case .changepassword:
                     ChangePasswordView()
+                        .navigationBarBackButtonHidden()
+                case .signUp:
+                    EmailSignUpView(signUpVM: signUpVM)
                         .navigationBarBackButtonHidden()
                 }
             }

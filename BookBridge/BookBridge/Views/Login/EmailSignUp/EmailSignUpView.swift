@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct EmailSignUpView: View {
+    @EnvironmentObject private var pathModel: PathViewModel
     @StateObject var signUpVM: SignUpViewModel
     
     var body: some View {
-        NavigationStack {
+        
             VStack {
                 Image("Character")
                                                                                 
@@ -29,14 +30,8 @@ struct EmailSignUpView: View {
                 AuthConfirmBtn()
                     .padding()
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("회원가입")
-                        .font(.headline)
-                }
-            }
-        }
+            .navigationBarTitle("회원가입", displayMode: .inline)
+            .navigationBarItems(leading: CustomBackButtonView())        
     }
     
     @ViewBuilder
@@ -45,6 +40,7 @@ struct EmailSignUpView: View {
             signUpVM.isValidPwd()
                         
             if signUpVM.pwdStatus == PwdError.none && signUpVM.validAll() {
+                pathModel.paths.removeSubrange(0...pathModel.paths.count-1)
                 signUpVM.userSave()
             }
         } label: {
