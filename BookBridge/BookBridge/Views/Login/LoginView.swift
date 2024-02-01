@@ -99,6 +99,7 @@ struct LoginView: View {
 
 
                 HStack(spacing: 20){
+                    NaverLoginView()
                     GoogleLoginView()
                     KakaoLoginView()
                     AppleLoginView()
