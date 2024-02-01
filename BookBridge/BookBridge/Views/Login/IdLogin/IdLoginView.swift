@@ -107,12 +107,7 @@ struct IdLoginView: View {
                 .cornerRadius(10)
             }
             .padding(20)
-            
-        
-        .navigationBarTitle("로그인", displayMode: .inline)
         .navigationBarItems(leading: CustomBackButtonView())
-        
-        
         
     }
     

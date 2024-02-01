@@ -66,9 +66,8 @@ struct FindPostingView: View {
                     Text("희망도서(선택)")
                         .bold()
                     
-                    Button(action: {
-                        bookDestinationActive = true
-                    }) {
+                    
+                    NavigationLink(destination: SearchBooksView()) {
                         HStack {
                             Text("희망도서 선택")
                                 .foregroundColor(.black)
@@ -85,10 +84,6 @@ struct FindPostingView: View {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.gray, lineWidth: 1)
                         )
-                    }
-                    
-                    NavigationLink(destination: Text("희망도서 선택부분"), isActive: $bookDestinationActive) {
-                        EmptyView()
                     }
                     .padding(.bottom, 30)
                     
