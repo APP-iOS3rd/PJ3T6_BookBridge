@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct EmailSignUpView: View {
-    @StateObject var signUpVM: SignUpVM
+    @StateObject var signUpVM: SignUpViewModel
     
     var body: some View {
         NavigationStack {
             VStack {
                 Image("Character")
                                                                                 
-                SignUpInputBox(signUpVM: signUpVM, inputer: SignUpInputer(input: .id))
+                SignUpInputBoxView(signUpVM: signUpVM, inputer: SignUpInputer(input: .id))
                     .padding()
                 
-                SignUpInputBox(signUpVM: signUpVM, inputer: SignUpInputer(input: .nickName))
+                SignUpInputBoxView(signUpVM: signUpVM, inputer: SignUpInputer(input: .nickName))
                     .padding()
                                                 
-                SignUpPasswordBox(signUpVm: signUpVM)
+                SignUpPasswordBoxView(signUpVm: signUpVM)
                     .padding()
                 
                 Spacer()
@@ -60,5 +60,5 @@ struct EmailSignUpView: View {
 }
 
 #Preview {
-    EmailSignUpView(signUpVM: SignUpVM())
+    EmailSignUpView(signUpVM: SignUpViewModel())
 }

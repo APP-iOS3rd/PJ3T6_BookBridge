@@ -64,5 +64,5 @@ struct SignUpPasswordBox: View {
 }
 
 #Preview {
-    SignUpPasswordBox(signUpVm: SignUpVM())
+    SignUpPasswordBoxView(signUpVm: SignUpViewModel())
 }

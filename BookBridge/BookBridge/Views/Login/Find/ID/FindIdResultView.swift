@@ -10,7 +10,7 @@ import SwiftUI
 
 struct FindIdResultView: View {
     
-    @EnvironmentObject private var pathModel: PathModel
+    @EnvironmentObject private var pathModel: PathViewModel
     
     var body: some View {
         VStack{

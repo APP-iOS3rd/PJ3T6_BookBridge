@@ -8,14 +8,14 @@
 import Foundation
 import UIKit
 
-final class Utilities {
+final class GoogleLoginViewController {
     
-    static let shared = Utilities()
+    static let shared = GoogleLoginViewController()
     private init() {}
     
     @MainActor
     func topViewController(controller: UIViewController? = nil) -> UIViewController? {
-        
+                
         let controller = controller ?? UIApplication.shared.keyWindow?.rootViewController
         
         if let navigationController = controller as? UINavigationController {

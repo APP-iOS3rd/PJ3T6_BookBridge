@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct IdLoginView: View {
-    @EnvironmentObject private var pathModel: PathModel
+    @EnvironmentObject private var pathModel: PathViewModel
     @StateObject private var viewModel = IdLoginViewModel()
     
     var body: some View {        
@@ -120,7 +120,7 @@ struct IdLoginView: View {
 
 
 struct CustomBackButtonView: View {
-    @EnvironmentObject private var pathModel: PathModel
+    @EnvironmentObject private var pathModel: PathViewModel
     @Environment(\.presentationMode) var presentationMode
     
     var body: some View {

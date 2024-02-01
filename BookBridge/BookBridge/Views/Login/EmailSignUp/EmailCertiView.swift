@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EmailCertiView: View {
-    @StateObject var signUpVM = SignUpVM()
+    @StateObject var signUpVM = SignUpViewModel()
     @State var tag: Int? = nil
     
     var body: some View {
@@ -29,11 +29,11 @@ struct EmailCertiView: View {
                 .padding()
                 
                 
-                SignUpInputBox(signUpVM: signUpVM, inputer: SignUpInputer(input: .email))
+                SignUpInputBoxView(signUpVM: signUpVM, inputer: SignUpInputer(input: .email))
                     .padding()
                 
                 if signUpVM.isCertiActive {
-                    SignUpAuthCodeBox(signUpVm: signUpVM)
+                    SignUpAuthCodeBoxView(signUpVm: signUpVM)
                         .padding()
                 }
                                 
