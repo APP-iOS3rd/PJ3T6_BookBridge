@@ -10,10 +10,17 @@
 		1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0A68352B638403006F8A4A /* KakaoLoginView.swift */; };
 		1D2B61842B63929900945EE2 /* KakaoLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2B61832B63929900945EE2 /* KakaoLoginViewModel.swift */; };
 		1D357CAC2B6A13510064B87D /* ChangePasswordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D357CAB2B6A13510064B87D /* ChangePasswordVM.swift */; };
+		1D71C6C12B6C743900EEC95D /* BookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71C6C02B6C743900EEC95D /* BookView.swift */; };
+		1D71C6C32B6C763900EEC95D /* AddBookBtnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71C6C22B6C763900EEC95D /* AddBookBtnView.swift */; };
+		1D71C6C52B6C766300EEC95D /* BookSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71C6C42B6C766300EEC95D /* BookSearchBar.swift */; };
+		1D71C6C72B6C8D4400EEC95D /* WishBookAddBtnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71C6C62B6C8D4400EEC95D /* WishBookAddBtnView.swift */; };
 		1D84019B2B6779CB00ADEEB5 /* IdLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D84019A2B6779CB00ADEEB5 /* IdLoginView.swift */; };
 		1D84019E2B677B3B00ADEEB5 /* IdLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D84019D2B677B3B00ADEEB5 /* IdLoginViewModel.swift */; };
 		1DA6E06C2B68D9EB00D631D5 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6E06B2B68D9EB00D631D5 /* ChangePasswordView.swift */; };
 		1DA6E06E2B68E2EA00D631D5 /* FindIdResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6E06D2B68E2EA00D631D5 /* FindIdResultView.swift */; };
+		1DB39DBA2B6B57B100C1B489 /* BookShelfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DB92B6B57B100C1B489 /* BookShelfView.swift */; };
+		1DB39DBC2B6B57F100C1B489 /* BookShelfViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */; };
+		1DB39DC02B6B8A5300C1B489 /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DBF2B6B8A5300C1B489 /* BookDetailView.swift */; };
 		1DCFB01E2B687D7000250D55 /* FindIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB01D2B687D7000250D55 /* FindIdView.swift */; };
 		1DCFB0222B68CB4400250D55 /* FindIdVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0212B68CB4400250D55 /* FindIdVM.swift */; };
 		1DCFB0242B68CD3100250D55 /* FindPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */; };
@@ -101,10 +108,17 @@
 		1D0A68352B638403006F8A4A /* KakaoLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginView.swift; sourceTree = "<group>"; };
 		1D2B61832B63929900945EE2 /* KakaoLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginViewModel.swift; sourceTree = "<group>"; };
 		1D357CAB2B6A13510064B87D /* ChangePasswordVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVM.swift; sourceTree = "<group>"; };
+		1D71C6C02B6C743900EEC95D /* BookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookView.swift; sourceTree = "<group>"; };
+		1D71C6C22B6C763900EEC95D /* AddBookBtnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookBtnView.swift; sourceTree = "<group>"; };
+		1D71C6C42B6C766300EEC95D /* BookSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchBar.swift; sourceTree = "<group>"; };
+		1D71C6C62B6C8D4400EEC95D /* WishBookAddBtnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishBookAddBtnView.swift; sourceTree = "<group>"; };
 		1D84019A2B6779CB00ADEEB5 /* IdLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdLoginView.swift; sourceTree = "<group>"; };
 		1D84019D2B677B3B00ADEEB5 /* IdLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdLoginViewModel.swift; sourceTree = "<group>"; };
 		1DA6E06B2B68D9EB00D631D5 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		1DA6E06D2B68E2EA00D631D5 /* FindIdResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdResultView.swift; sourceTree = "<group>"; };
+		1DB39DB92B6B57B100C1B489 /* BookShelfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfView.swift; sourceTree = "<group>"; };
+		1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfViewModel.swift; sourceTree = "<group>"; };
+		1DB39DBF2B6B8A5300C1B489 /* BookDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
 		1DCFB01D2B687D7000250D55 /* FindIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdView.swift; sourceTree = "<group>"; };
 		1DCFB0212B68CB4400250D55 /* FindIdVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdVM.swift; sourceTree = "<group>"; };
 		1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordView.swift; sourceTree = "<group>"; };
@@ -240,6 +254,19 @@
 			path = KaKaoLogin;
 			sourceTree = "<group>";
 		};
+		1DB39DB82B6B579A00C1B489 /* BookShelf */ = {
+			isa = PBXGroup;
+			children = (
+				1DB39DB92B6B57B100C1B489 /* BookShelfView.swift */,
+				1D71C6C42B6C766300EEC95D /* BookSearchBar.swift */,
+				1D71C6C02B6C743900EEC95D /* BookView.swift */,
+				1D71C6C22B6C763900EEC95D /* AddBookBtnView.swift */,
+				1DB39DBF2B6B8A5300C1B489 /* BookDetailView.swift */,
+				1D71C6C62B6C8D4400EEC95D /* WishBookAddBtnView.swift */,
+			);
+			path = BookShelf;
+			sourceTree = "<group>";
+		};
 		1DCFB01C2B687D4B00250D55 /* Find */ = {
 			isa = PBXGroup;
 			children = (
@@ -315,6 +342,7 @@
 				5A1A16922B622B9F0063D408 /* Utility */,
 				91C60CE62B6747C400A1E8E4 /* ViewModel */,
 				5A7A4E532B62268A00F79C23 /* Views */,
+				91B80A442B6798B9000D5339 /* TabBarView.swift */,
 				5A7A4E252B61DFFD00F79C23 /* BookBridgeApp.swift */,
 				5A7A4E292B61DFFE00F79C23 /* Assets.xcassets */,
 				5A1A168F2B62285A0063D408 /* Info.plist */,
@@ -355,7 +383,7 @@
 				5A1A168C2B6228150063D408 /* Login */,
 				91C60CE22B67459E00A1E8E4 /* Posting */,
 				5ADE79D62B6B2B02005BB3ED /* SearchBook */,
-				91B80A442B6798B9000D5339 /* TabBarView.swift */,
+				1DB39DB82B6B579A00C1B489 /* BookShelf */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -516,6 +544,9 @@
 				73C962AA2B68C4D800D34D3F /* SearchBooksViewModel.swift */,
 				91C60CE72B67492500A1E8E4 /* StorageManager.swift */,
 				736127102B6B84AC00943CD7 /* PostingViewModel.swift */,
+				F623A51A2B68BFBC00B5C159 /* ChangePostingViewModel.swift */,
+				F623A5262B6A1DFE00B5C159 /* FindPostingViewModel.swift */,
+				1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -838,7 +869,11 @@
 				5ADE79DA2B6B2C99005BB3ED /* CertiResult.swift in Sources */,
 				5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */,
 				91C60CE82B67492500A1E8E4 /* StorageManager.swift in Sources */,
+
+				1D71C6C52B6C766300EEC95D /* BookSearchBar.swift in Sources */,
+
 				736127052B6B538800943CD7 /* NaverLoginView.swift in Sources */,
+
 				91B80A472B6799B7000D5339 /* ChangePostingView.swift in Sources */,
 				1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */,
 				5ADE79DE2B6B3305005BB3ED /* GoogleAuthModel.swift in Sources */,
@@ -853,21 +888,28 @@
 				73C962A52B688D4200D34D3F /* BookModel.swift in Sources */,
 				73DDA5DF2B6A336100B25FB8 /* SelectBooksView.swift in Sources */,
 				5A1A16942B622BB10063D408 /* GoogleLoginViewController.swift in Sources */,
+				1DB39DBC2B6B57F100C1B489 /* BookShelfViewModel.swift in Sources */,
 				5AA82E4D2B675E26006EFC72 /* EmailSignUpView.swift in Sources */,
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
 				73DDA5E12B6A34A500B25FB8 /* SearchResultView.swift in Sources */,
+				1D71C6C72B6C8D4400EEC95D /* WishBookAddBtnView.swift in Sources */,
 				91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */,
 				5CE454992B68B8EF00874BCE /* AppleAuthManager.swift in Sources */,
 				5A1A16962B6231870063D408 /* GoogleAuthManager.swift in Sources */,
 				5AA82E4F2B6760C7006EFC72 /* SignUpInputBoxView.swift in Sources */,
 				1DA6E06E2B68E2EA00D631D5 /* FindIdResultView.swift in Sources */,
 				5A2DE09A2B68915200EF3A6B /* SignUpInputer.swift in Sources */,
+				1D71C6C12B6C743900EEC95D /* BookView.swift in Sources */,
 				5A2DE0972B6884BE00EF3A6B /* EmailCertiView.swift in Sources */,
 				F623A51D2B68C01E00B5C159 /* NoticeBoardModel.swift in Sources */,
+				1DB39DBA2B6B57B100C1B489 /* BookShelfView.swift in Sources */,
+				F623A51D2B68C01E00B5C159 /* ChangePostModel.swift in Sources */,
 				5A1A168E2B6228290063D408 /* GoogleLoginView.swift in Sources */,
 				910F491C2B6CC66900C0563E /* CameraModalView.swift in Sources */,
 				5A5041CC2B6A635C00211CF2 /* PathViewModel.swift in Sources */,
 				7361270B2B6B82F100943CD7 /* ImageEditorModalView.swift in Sources */,
+				1DB39DC02B6B8A5300C1B489 /* BookDetailView.swift in Sources */,
+				1D71C6C32B6C763900EEC95D /* AddBookBtnView.swift in Sources */,
 				5A7A4E262B61DFFD00F79C23 /* BookBridgeApp.swift in Sources */,
 				5CE454932B68B7CB00874BCE /* UserModel.swift in Sources */,
 			);
