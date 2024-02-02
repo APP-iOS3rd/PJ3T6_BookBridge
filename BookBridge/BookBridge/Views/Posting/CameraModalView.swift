@@ -12,8 +12,6 @@ struct CameraModalView: View {
     @Binding var showActionSheet: Bool
     @Binding var sourceType: Int
     
-    @State private var showImagePicker = false
-    
     var body: some View {
         VStack {
             Rectangle()
@@ -27,8 +25,7 @@ struct CameraModalView: View {
                 VStack(spacing: 10) {
                     Button {
                         self.sourceType = 1
-                        showImagePicker.toggle()
-//                        showActionSheet.toggle()
+                        showActionSheet.toggle()
                     } label: {
                         ZStack {
                             Circle()
@@ -48,8 +45,7 @@ struct CameraModalView: View {
                 VStack(spacing: 10) {
                     Button {
                         self.sourceType = 0
-                        showImagePicker.toggle()
-//                        showActionSheet.toggle()
+                        showActionSheet.toggle()
                     } label: {
                         ZStack {
                             Circle()
@@ -67,11 +63,5 @@ struct CameraModalView: View {
             }
             Spacer()
         }
-        .fullScreenCover(isPresented: $showImagePicker, onDismiss: {
-                    // showImagePicker가 닫힐 때마다 액션 시트를 닫습니다.
-                    showActionSheet = false
-                }) {
-                    ImagePicker(isVisible: $showImagePicker, images: $selectedImages, sourceType: sourceType)
-                }
     }
 }

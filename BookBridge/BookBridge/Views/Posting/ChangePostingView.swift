@@ -14,7 +14,7 @@ struct ChangePostingView: View {
     
     @State private var selectedImages: [UIImage] = []
     @State private var showActionSheet = false
-
+    @State private var showImagePicker = false
     @State private var sourceType = 0
     
     var body: some View {
@@ -105,9 +105,15 @@ struct ChangePostingView: View {
                     .padding(.bottom, 20)
                 }
             }
-            .sheet(isPresented: $showActionSheet) {
+            .sheet(isPresented: $showActionSheet, onDismiss: {
+                showImagePicker.toggle()
+            }, content: {
                 CameraModalView(selectedImages: $selectedImages, showActionSheet: $showActionSheet, sourceType: $sourceType)
                     .presentationDetents([.height(150)])
+            })
+            .fullScreenCover(isPresented: $showImagePicker) {
+                ImagePicker(isVisible: $showImagePicker, images: $selectedImages, sourceType: sourceType)
+                    .ignoresSafeArea(.all)
             }
             .padding()
             .navigationTitle("바꿔요")
