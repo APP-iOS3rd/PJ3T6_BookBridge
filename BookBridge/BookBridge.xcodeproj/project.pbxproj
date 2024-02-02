@@ -68,6 +68,7 @@
 		73DDA5DF2B6A336100B25FB8 /* SelectBooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DDA5DE2B6A336100B25FB8 /* SelectBooksView.swift */; };
 		73DDA5E12B6A34A500B25FB8 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DDA5E02B6A34A500B25FB8 /* SearchResultView.swift */; };
 		910F48F92B6CB42D00C0563E /* ImageDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910F48F82B6CB42D00C0563E /* ImageDropDelegate.swift */; };
+		910F491C2B6CC66900C0563E /* CameraModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910F491B2B6CC66900C0563E /* CameraModalView.swift */; };
 		91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91392F282B68BE0E0092052A /* FindPostingView.swift */; };
 		91B80A422B676EEE000D5339 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A412B676EEE000D5339 /* ImagePicker.swift */; };
 		91B80A452B6798B9000D5339 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A442B6798B9000D5339 /* TabBarView.swift */; };
@@ -163,6 +164,7 @@
 		73DDA5E02B6A34A500B25FB8 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		7C8CB12351EDD2306C897CC8 /* Pods-BookBridgeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridgeTests.debug.xcconfig"; path = "Target Support Files/Pods-BookBridgeTests/Pods-BookBridgeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		910F48F82B6CB42D00C0563E /* ImageDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDropDelegate.swift; sourceTree = "<group>"; };
+		910F491B2B6CC66900C0563E /* CameraModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraModalView.swift; sourceTree = "<group>"; };
 		91392F282B68BE0E0092052A /* FindPostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPostingView.swift; sourceTree = "<group>"; };
 		91B80A412B676EEE000D5339 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		91B80A442B6798B9000D5339 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
@@ -495,6 +497,7 @@
 			children = (
 				91B80A462B6799B7000D5339 /* ChangePostingView.swift */,
 				7361270C2B6B83AC00943CD7 /* CameraButtonView.swift */,
+				910F491B2B6CC66900C0563E /* CameraModalView.swift */,
 				7361270E2B6B83BF00943CD7 /* DeleteImageButtonView.swift */,
 				91392F282B68BE0E0092052A /* FindPostingView.swift */,
 				736127082B6B82B400943CD7 /* ImageScrollView.swift */,
@@ -862,6 +865,7 @@
 				5A2DE0972B6884BE00EF3A6B /* EmailCertiView.swift in Sources */,
 				F623A51D2B68C01E00B5C159 /* NoticeBoardModel.swift in Sources */,
 				5A1A168E2B6228290063D408 /* GoogleLoginView.swift in Sources */,
+				910F491C2B6CC66900C0563E /* CameraModalView.swift in Sources */,
 				5A5041CC2B6A635C00211CF2 /* PathViewModel.swift in Sources */,
 				7361270B2B6B82F100943CD7 /* ImageEditorModalView.swift in Sources */,
 				5A7A4E262B61DFFD00F79C23 /* BookBridgeApp.swift in Sources */,

@@ -14,7 +14,7 @@ struct ChangePostingView: View {
     
     @State private var selectedImages: [UIImage] = []
     @State private var showActionSheet = false
-    @State private var showImagePicker = false
+
     @State private var sourceType = 0
     
     var body: some View {
@@ -105,23 +105,10 @@ struct ChangePostingView: View {
                     .padding(.bottom, 20)
                 }
             }
-            .confirmationDialog(
-                "",
-                isPresented: $showActionSheet,
-                titleVisibility: .hidden,
-                actions: {
-                    Button("카메라", role: .destructive) {
-                        self.sourceType = 0
-                        self.showImagePicker.toggle()
-                    }
-                    Button("라이브러리") {
-                        self.sourceType = 1
-                        self.showImagePicker.toggle()
-                    }
-                },
-                message: {
-                }
-            )
+            .sheet(isPresented: $showActionSheet) {
+                CameraModalView(selectedImages: $selectedImages, showActionSheet: $showActionSheet, sourceType: $sourceType)
+                    .presentationDetents([.height(150)])
+            }
             .padding()
             .navigationTitle("바꿔요")
             .navigationBarTitleDisplayMode(.inline)
@@ -136,9 +123,6 @@ struct ChangePostingView: View {
                     }
                 }
             }
-        }
-        .fullScreenCover(isPresented: $showImagePicker) {
-            ImagePicker(isVisible: $showImagePicker, images: $selectedImages, sourceType: sourceType)
         }
     }
 }
