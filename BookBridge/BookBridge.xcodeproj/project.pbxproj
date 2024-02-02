@@ -29,6 +29,7 @@
 		5A3A44202B6C890900B66C81 /* NaverMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A441F2B6C890900B66C81 /* NaverMapView.swift */; };
 		5A3A44222B6C89AE00B66C81 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44212B6C89AE00B66C81 /* LocationViewModel.swift */; };
 		5A3A44282B6CC7BA00B66C81 /* NaverMapApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44272B6CC7BA00B66C81 /* NaverMapApiManager.swift */; };
+		5A3A442A2B6CDB8A00B66C81 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44292B6CDB8A00B66C81 /* KeychainManager.swift */; };
 		5A5041CC2B6A635C00211CF2 /* PathViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5041CB2B6A635C00211CF2 /* PathViewModel.swift */; };
 		5A5041CE2B6A637A00211CF2 /* PathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5041CD2B6A637A00211CF2 /* PathType.swift */; };
 		5A7A4E262B61DFFD00F79C23 /* BookBridgeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A4E252B61DFFD00F79C23 /* BookBridgeApp.swift */; };
@@ -122,6 +123,7 @@
 		5A3A441F2B6C890900B66C81 /* NaverMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMapView.swift; sourceTree = "<group>"; };
 		5A3A44212B6C89AE00B66C81 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		5A3A44272B6CC7BA00B66C81 /* NaverMapApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMapApiManager.swift; sourceTree = "<group>"; };
+		5A3A44292B6CDB8A00B66C81 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		5A5041CB2B6A635C00211CF2 /* PathViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathViewModel.swift; sourceTree = "<group>"; };
 		5A5041CD2B6A637A00211CF2 /* PathType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathType.swift; sourceTree = "<group>"; };
 		5A7A4E222B61DFFD00F79C23 /* BookBridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookBridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -441,6 +443,7 @@
 				91C60CE72B67492500A1E8E4 /* StorageManager.swift */,
 				73C962A82B68C38D00D34D3F /* BookAPIManger.swift */,
 				5A3A44272B6CC7BA00B66C81 /* NaverMapApiManager.swift */,
+				5A3A44292B6CDB8A00B66C81 /* KeychainManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -824,6 +827,7 @@
 				73C962A92B68C38D00D34D3F /* BookAPIManger.swift in Sources */,
 				5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */,
 				1D84019E2B677B3B00ADEEB5 /* IdLoginViewModel.swift in Sources */,
+				5A3A442A2B6CDB8A00B66C81 /* KeychainManager.swift in Sources */,
 				1DCFB0222B68CB4400250D55 /* FindIdVM.swift in Sources */,
 				5ADE79E02B6B3351005BB3ED /* GoogleSignResultModel.swift in Sources */,
 				1DCFB01E2B687D7000250D55 /* FindIdView.swift in Sources */,

@@ -39,6 +39,14 @@ struct BookBridgeApp: App {
                 }
                 .onAppear() {
                     LocationViewModel.shared.checkIfLocationServiceIsEnabled()
+                    NaverMapApiManager.getNaverApiInfo()
+                    
+//                    keychain등록시 사용
+//                    do {
+//                        try KeychainManager.save(account: "", value: "")
+//                    } catch let err {
+//                        print(err.localizedDescription)
+//                    }
                 }
         }
     }

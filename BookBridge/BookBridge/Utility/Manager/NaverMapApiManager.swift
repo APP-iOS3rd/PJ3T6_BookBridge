@@ -9,6 +9,16 @@ import Foundation
 
 class NaverMapApiManager {
     static let ADDRESS_URL = "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc"
-    static let NAVER_API_ID = "ktfnx6a897"
-    static let NAVER_API_KEY = "oYWtaxkOiFhANt74UiH6NQPTaaV9tcNWHeU2uWTy"
+    static var NAVER_API_ID: String?
+    static var NAVER_API_KEY: String?
+    
+    static func getNaverApiInfo() {
+        do {
+            NaverMapApiManager.NAVER_API_ID = try KeychainManager.load(account: "X-NCP-APIGW-API-KEY-ID")
+            
+            NaverMapApiManager.NAVER_API_KEY = try KeychainManager.load(account: "X-NCP-APIGW-API-KEY")
+        } catch let err {
+            print(err.localizedDescription)
+        }
+    }
 }

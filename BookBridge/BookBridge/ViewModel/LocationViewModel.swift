@@ -118,14 +118,17 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
     }
     
     func getDistrict(long: Double, lat: Double, completion: @escaping (String?) -> Void) {
+                
+        
         let urlStr = NaverMapApiManager.ADDRESS_URL
         let param: Parameters = [
             "coords":"\(long),\(lat)",
             "output":"json"
         ]
-        let header1 = HTTPHeader(name: "X-NCP-APIGW-API-KEY-ID", value: NaverMapApiManager.NAVER_API_ID)
-        let header2 = HTTPHeader(name: "X-NCP-APIGW-API-KEY", value: NaverMapApiManager.NAVER_API_KEY)
+        let header1 = HTTPHeader(name: "X-NCP-APIGW-API-KEY-ID", value: NaverMapApiManager.NAVER_API_ID ?? "")
+        let header2 = HTTPHeader(name: "X-NCP-APIGW-API-KEY", value: NaverMapApiManager.NAVER_API_KEY ?? "")
         let headers = HTTPHeaders([header1,header2])
+        
 
         let alamo = AF.request(urlStr, method: .get, parameters: param, headers: headers)
         alamo.validate().responseJSON { response in
