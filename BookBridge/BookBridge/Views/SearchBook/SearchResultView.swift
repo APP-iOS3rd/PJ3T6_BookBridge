@@ -31,14 +31,16 @@ struct SearchResultView: View {
                                         image
                                             .resizable()
                                             .frame(width: 60, height: 80)
+                                            .cornerRadius(5)
                                     } placeholder: {
                                         ProgressView()
                                             .frame(width: 60, height: 80)
                                     }
                                 } else {
-                                    Image("KaKaoLogo")
+                                    Image("imageNil")
                                         .resizable()
                                         .frame(width: 60, height: 80)
+                                        .cornerRadius(5)
                                 }
                                 
                                 VStack(alignment: .leading) {

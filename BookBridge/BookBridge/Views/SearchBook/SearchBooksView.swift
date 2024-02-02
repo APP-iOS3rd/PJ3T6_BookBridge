@@ -8,35 +8,17 @@
 import SwiftUI
 
 struct SearchBooksView: View {
+    @Environment(\.dismiss) private var dismiss
+    
+    @Binding var hopeBooks: [Item]
+    
     @StateObject var viewModel = SearchBooksViewModel()
     
     var body: some View {
         VStack {
-            //상단 네비 뷰
-            HStack {
-                Image(systemName: "chevron.backward")
-                    .font(.system(size: 20))
-                
-                Spacer()
-                
-                Text("희망도서")
-                    .font(.system(size: 20, weight: .bold))
-                
-                Spacer()
-                
-                Button { } label: {
-                    Text("확인")
-                        .font(.system(size: 20))
-                }
-                
-            }
-            .padding(.top, 10)
-            .padding(.bottom, 20)
-            .padding(.horizontal)
-            
             SearchBarView(viewModel: viewModel)
                 .frame(height: 36)
-                .padding(.bottom, 20)
+                .padding(.vertical, 20)
                 .padding(.horizontal)
             
             if !viewModel.selectBooks.items.isEmpty {
@@ -46,9 +28,32 @@ struct SearchBooksView: View {
             SearchResultView(viewModel: viewModel)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-}
+        .navigationBarBackButtonHidden()
+        .navigationTitle("희망도서")
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.backward")
+                        .font(.system(size: 16))
+                        .foregroundStyle(.black)
+                }
+            }
 
-#Preview {
-    SearchBooksView()
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    hopeBooks = viewModel.selectBooks.items
+                    dismiss()
+                } label: {
+                    Text("확인")
+                        .font(.system(size: 16))
+                        .foregroundStyle(.black)
+                }
+            }
+        }
+        .onAppear {
+            viewModel.selectBooks.items = hopeBooks
+        }
+    }
 }

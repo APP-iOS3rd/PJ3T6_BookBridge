@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 class SearchBooksViewModel: ObservableObject {
     @Published var searchBooks: Book = Book.init(totalItems: 0, items: [])
