@@ -114,7 +114,8 @@ struct LoginView: View {
             .navigationDestination(for: PathType.self) { pathType in
                 switch pathType {
                 case .home:
-                    EmptyView()
+                    TabBarView()
+                        .navigationBarBackButtonHidden()
                 case .certi:
                     EmailCertiView(signUpVM: signUpVM)
                         .navigationBarBackButtonHidden()
