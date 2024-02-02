@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DeleteImageButtonView: View {
+    @Binding var items: [String]
     @Binding var selectedImages: [UIImage]
     
     var index: Int
@@ -19,12 +20,12 @@ struct DeleteImageButtonView: View {
                 .aspectRatio(contentMode: .fit)
                 .foregroundColor(.black)
                 .frame(width: 25, height: 25)
-    //            .offset(x: 50, y: -50)
         }
         .frame(width: 35, height: 35) // Delete버튼 범위
         .onTapGesture {
-            selectedImages.remove(at: index)
+            if index < selectedImages.count {
+                selectedImages.remove(at: index)
+            }
         }
-        
     }
 }
