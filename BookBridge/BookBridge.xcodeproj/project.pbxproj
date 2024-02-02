@@ -60,6 +60,8 @@
 		5CE454932B68B7CB00874BCE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454922B68B7CB00874BCE /* UserModel.swift */; };
 		5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454962B68B8CA00874BCE /* AppleLoginView.swift */; };
 		5CE454992B68B8EF00874BCE /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454982B68B8EF00874BCE /* AppleAuthManager.swift */; };
+		736127052B6B538800943CD7 /* NaverLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736127042B6B538800943CD7 /* NaverLoginView.swift */; };
+		736127072B6B543A00943CD7 /* NaverAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736127062B6B543A00943CD7 /* NaverAuthManager.swift */; };
 		73C962A12B6883A700D34D3F /* SearchBooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C962A02B6883A700D34D3F /* SearchBooksView.swift */; };
 		73C962A32B68880500D34D3F /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C962A22B68880500D34D3F /* SearchBarView.swift */; };
 		73C962A52B688D4200D34D3F /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C962A42B688D4200D34D3F /* BookModel.swift */; };
@@ -156,6 +158,8 @@
 		5CE454962B68B8CA00874BCE /* AppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginView.swift; sourceTree = "<group>"; };
 		5CE454982B68B8EF00874BCE /* AppleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthManager.swift; sourceTree = "<group>"; };
 		5CE4549A2B68C93A00874BCE /* BookBridge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookBridge.entitlements; sourceTree = "<group>"; };
+		736127042B6B538800943CD7 /* NaverLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginView.swift; sourceTree = "<group>"; };
+		736127062B6B543A00943CD7 /* NaverAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverAuthManager.swift; sourceTree = "<group>"; };
 		73C962A02B6883A700D34D3F /* SearchBooksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksView.swift; sourceTree = "<group>"; };
 		73C962A22B68880500D34D3F /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		73C962A42B688D4200D34D3F /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
@@ -273,6 +277,7 @@
 				5CE454952B68B88D00874BCE /* AppleLogin */,
 				5AA82E492B6745C4006EFC72 /* GoogleLogin */,
 				1D922F442B636F1200C3642F /* KaKaoLogin */,
+				736127032B6B536C00943CD7 /* NaverLogin */,
 				5A7A4E542B62269600F79C23 /* LoginView.swift */,
 			);
 			path = Login;
@@ -430,6 +435,7 @@
 			isa = PBXGroup;
 			children = (
 				5CE454982B68B8EF00874BCE /* AppleAuthManager.swift */,
+				736127062B6B543A00943CD7 /* NaverAuthManager.swift */,
 				5AA82E5D2B67891E006EFC72 /* SmtpManager.swift */,
 				5A2DE0992B68915200EF3A6B /* SignUpInputer.swift */,
 				5A1A16952B6231870063D408 /* GoogleAuthManager.swift */,
@@ -475,6 +481,14 @@
 				5CE454962B68B8CA00874BCE /* AppleLoginView.swift */,
 			);
 			path = AppleLogin;
+			sourceTree = "<group>";
+		};
+		736127032B6B536C00943CD7 /* NaverLogin */ = {
+			isa = PBXGroup;
+			children = (
+				736127042B6B538800943CD7 /* NaverLoginView.swift */,
+			);
+			path = NaverLogin;
 			sourceTree = "<group>";
 		};
 		7BFA2AE0109ED85C6A9152AB /* Pods */ = {
@@ -537,6 +551,7 @@
 				5A7A4E1F2B61DFFD00F79C23 /* Frameworks */,
 				5A7A4E202B61DFFD00F79C23 /* Resources */,
 				3FDB86E0A4423C5527627E26 /* [CP] Copy Pods Resources */,
+				96DB17FC3E1B398A302A86CB /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -578,6 +593,7 @@
 				5A7A4E392B61DFFE00F79C23 /* Frameworks */,
 				5A7A4E3A2B61DFFE00F79C23 /* Resources */,
 				CBC581BB139EAE58B5EADB30 /* [CP] Copy Pods Resources */,
+				4907FE070A208A1264399B83 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -681,6 +697,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BookBridge/Pods-BookBridge-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		4907FE070A208A1264399B83 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BookBridge-BookBridgeUITests/Pods-BookBridge-BookBridgeUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BookBridge-BookBridgeUITests/Pods-BookBridge-BookBridgeUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BookBridge-BookBridgeUITests/Pods-BookBridge-BookBridgeUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6F59E5411193109960F7F95E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -701,6 +734,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		96DB17FC3E1B398A302A86CB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BookBridge/Pods-BookBridge-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BookBridge/Pods-BookBridge-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BookBridge/Pods-BookBridge-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CBC581BB139EAE58B5EADB30 /* [CP] Copy Pods Resources */ = {
@@ -795,12 +845,17 @@
 				5ADE79DA2B6B2C99005BB3ED /* CertiResult.swift in Sources */,
 				5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */,
 				91C60CE82B67492500A1E8E4 /* StorageManager.swift in Sources */,
+
 				1D71C6C52B6C766300EEC95D /* BookSearchBar.swift in Sources */,
+
+				736127052B6B538800943CD7 /* NaverLoginView.swift in Sources */,
+
 				91B80A472B6799B7000D5339 /* ChangePostingView.swift in Sources */,
 				F623A5272B6A1DFE00B5C159 /* FindPostingViewModel.swift in Sources */,
 				1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */,
 				5ADE79DE2B6B3305005BB3ED /* GoogleAuthModel.swift in Sources */,
 				5ADE79E22B6B34D0005BB3ED /* GoogleAuthViewModel.swift in Sources */,
+				736127072B6B543A00943CD7 /* NaverAuthManager.swift in Sources */,
 				5AA82E5E2B67891E006EFC72 /* SmtpManager.swift in Sources */,
 				5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */,
 				5A5041CE2B6A637A00211CF2 /* PathType.swift in Sources */,
