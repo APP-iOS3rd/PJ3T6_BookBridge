@@ -32,7 +32,7 @@ struct TabBarView: View {
                 }
             
             // 책장
-            EmptyView()
+            BookShelfView()
                 .tabItem {
                     Image(systemName: "book.fill")
                     Text("Bookshelf")
