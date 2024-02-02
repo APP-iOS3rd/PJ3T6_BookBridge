@@ -27,7 +27,7 @@ struct BookView: View {
     var body: some View {
         ScrollView {
             LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(books, id: \.id) { book in
+                ForEach(viewModel.filteredBooks, id: \.id) { book in
                     VStack {
                         if let urlString = book.volumeInfo.imageLinks?.smallThumbnail, let url = URL(string: urlString) {
                             AsyncImage(url: url)

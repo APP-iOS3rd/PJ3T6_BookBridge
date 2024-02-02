@@ -23,8 +23,15 @@ class BookShelfViewModel: ObservableObject {
         }
     }
     
-    func fetchBooks() {
-        // wishBooks와 holdBooks에 데이터 로드
+    
+    func fetchBooks(for tap : tapInfo) {
+        if tap == .wish {
+            filteredBooks = (wishBooks).flatMap { $0.items }
+        }
+        else {
+            filteredBooks = (holdBooks).flatMap { $0.items }
+        }
+        
     }
     
     //하드 코딩용 자료입니다.

@@ -32,6 +32,8 @@ struct BookShelfView: View {
         }
     }
     
+    
+    
     var body: some View {
         ZStack{
             VStack {
@@ -41,12 +43,17 @@ struct BookShelfView: View {
                     }
                 }
                 .pickerStyle(.segmented)
-                
+                .onChange(of: selectedPicker) { newValue in
+                    viewModel.fetchBooks(for: newValue)
+                }
                 Spacer()
                     .frame(height: 20)
                 
                 
                 BookSearchBar(text: $searchText, placeholder: searchBarPlaceholder)
+                    .onChange(of: searchText) { newValue in
+                        viewModel.filterBooks(for: selectedPicker, searchText: newValue)
+                    }
                 
                 
                 Spacer()
@@ -55,19 +62,26 @@ struct BookShelfView: View {
                 BookView(selectedBook: $selectedBook, tap: selectedPicker)
                     .environmentObject(viewModel)
                     .sheet(item: $selectedBook) { book in
-                                BookDetailView(book: book)
-                                    .navigationTitle("도서정보")
-                            }
+                        
+                            BookDetailView(book: book)
+                            .presentationDetents([.large])
+                                
+                        
+                        
+                    }
+                
                 
             }
             .padding(20)
-            
+            .onAppear{
+                viewModel.fetchBooks(for: .wish)
+            }
             AddBookBtnView(showingSheet: $showingSheet)
-                            .padding(.trailing, 20)
-                            .padding(.bottom, 50)
-                            .sheet(isPresented: $showingSheet) {
-                                SearchBooksView()
-                            }
+                .padding(.trailing, 20)
+                .padding(.bottom, 50)
+                .sheet(isPresented: $showingSheet) {
+                    SearchBooksView()
+                }
         }
         
     }
