@@ -3,7 +3,7 @@ import SwiftUI
 
 struct NoticeBoard: Identifiable {
     //@DocumentID var id:
-    let id = UUID().uuidString
+    var id = UUID().uuidString
     var userId: String
     var noticeBoardTitle: String
     var noticeBoardDetail: String
@@ -21,6 +21,7 @@ struct NoticeBoard: Identifiable {
             "noticeBoardTitle": noticeBoardTitle,
             "noticeBoardDetail": noticeBoardDetail,
             "noticeImageLink": noticeImageLink,
+            "noticeLocation": noticeLocation,
             "isChange": isChange,
             "state": state,
             "date": date

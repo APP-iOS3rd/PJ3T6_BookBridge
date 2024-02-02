@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ChangePostingView: View {
+    @Environment(\.dismiss) private var dismiss
+    
     @StateObject var viewModel = PostingViewModel()
     
     @State private var selectedImages: [UIImage] = []
@@ -92,7 +94,7 @@ struct ChangePostingView: View {
                     Button(action: {
                         viewModel.uploadPost(isChange: true, images: selectedImages)
                     }) {
-                        Text("확인")
+                        Text("게시물 등록")
                             .fontWeight(.bold)
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -103,9 +105,6 @@ struct ChangePostingView: View {
                     .padding(.bottom, 20)
                 }
             }
-            .padding()
-            .navigationTitle("바꿔요")
-            .navigationBarTitleDisplayMode(.inline)
             .confirmationDialog(
                 "",
                 isPresented: $showActionSheet,
@@ -123,6 +122,20 @@ struct ChangePostingView: View {
                 message: {
                 }
             )
+            .padding()
+            .navigationTitle("바꿔요")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 16))
+                            .foregroundStyle(.black)
+                    }
+                }
+            }
         }
         .fullScreenCover(isPresented: $showImagePicker) {
             ImagePicker(isVisible: $showImagePicker, images: $selectedImages, sourceType: sourceType)

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct FindPostingView: View {
+    @Environment(\.dismiss) private var dismiss
+    
     @StateObject var viewModel = PostingViewModel()
     
     var body: some View {
@@ -63,7 +65,7 @@ struct FindPostingView: View {
                     NavigationLink(destination: SearchBooksView(hopeBooks: $viewModel.noticeBoard.hopeBook)) {
                         HStack {
                             Text(
-                                viewModel.noticeBoard.hopeBook.isEmpty ? "희망도서 선택" : "\(viewModel.noticeBoard.hopeBook[0].volumeInfo.title ?? "") 외 \(viewModel.noticeBoard.hopeBook.count - 1)권"
+                                viewModel.noticeBoard.hopeBook.isEmpty ? "희망도서 선택" : viewModel.noticeBoard.hopeBook.count == 1 ? "\(viewModel.noticeBoard.hopeBook[0].volumeInfo.title ?? "")" : "\(viewModel.noticeBoard.hopeBook[0].volumeInfo.title ?? "") 외 \(viewModel.noticeBoard.hopeBook.count - 1)권"
                             )
                                 .foregroundColor(.black)
                             Spacer()
@@ -112,7 +114,7 @@ struct FindPostingView: View {
                     Button {
                         viewModel.uploadPost(isChange: false, images: [])
                     } label: {
-                        Text("확인")
+                        Text("게시물 등록")
                             .fontWeight(.bold)
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -126,6 +128,17 @@ struct FindPostingView: View {
             .padding()
             .navigationTitle("구해요")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 16))
+                            .foregroundStyle(.black)
+                    }
+                }
+            }
         }
     }
 }
