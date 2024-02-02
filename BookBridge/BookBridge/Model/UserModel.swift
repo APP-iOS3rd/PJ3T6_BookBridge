@@ -16,8 +16,8 @@ struct UserModel: Codable, Identifiable {
     var nickname: String?                //닉네임
     var phoneNumber: String?            //보류
     var profileURL: String?                //프사
-    var location: [[Double?]]?            //내 동네
     var distance: Int?                    //내 위치에서의 거리(원)
     var joinDate: Date?                  //가입일 (파베는 number
     var fcmToken: String?                //fcm 토큰
+    var dong: [String?]?                  // 동 이름
 }

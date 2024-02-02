@@ -190,25 +190,68 @@ class SignUpViewModel: ObservableObject {
     func convertUserModelToDictionary(user: UserModel) -> [String : Any] {
 
         let userData = [
-            "id" : user.id,  // change these according to you model
-            "email": user.email,
-            "password": user.passsword,
-            "nickname": user.nickname,
-            "phoneNumber": user.phoneNumber,
-        ]
+            "id" : user.id ?? "",  // change these according to you model
+            "email": user.email ?? "",
+            "password": user.passsword ?? "",
+            "nickname": user.nickname ?? "",
+            "phoneNumber": user.phoneNumber ?? "",
+            "profileURL": user.profileURL ?? "person.fill",
+            "distance": user.distance ?? 1,
+            "joinDate": user.joinDate ?? "",
+            "dong": user.dong ?? ""
+        ] as [String : Any]
         
         return userData as [String : Any]
     }
     
-    func userSave(id: String) {
-        let user = UserModel(id: id, email: email, passsword: password, nickname: nickname, phoneNumber: phoneNumer)
-        let userData = convertUserModelToDictionary(user: user)
+    func convertLocationToDictionary(location: Location) -> [String : Any] {
+        let locationData = [
+            "id": location.id ?? "",
+            "lat": location.lat ?? 37.49235,
+            "long": location.long ?? 127.0056634,
+        ] as [String : Any]
         
+        return locationData as [String : Any]
+    }
+                
+    func addUser(id: String) {
+        let user = UserModel(
+            id: id,
+            email: email,
+            passsword: password,
+            nickname: nickname,
+            phoneNumber: phoneNumer,
+            profileURL: "person.fill", // 기본 system image
+            distance: 1,
+            joinDate: Date(),
+            dong: ["방배 2동"] // 임의 값
+        )
+        let userData = convertUserModelToDictionary(user: user)
+              
         db.collection("User").document(id).setData(userData)  { err in
             if let err = err {
                 print(err.localizedDescription)
             } else {
                 print("User has been saved!")
+            }
+        }
+    }
+                   
+    func addUserLocation(userId: String) {
+        let document = db.collection("User").document(userId).collection("Location").document()
+        let documentId = document.documentID
+        let location = Location (
+            id: documentId,
+            lat: 37.49235, // 임의값
+            long: 127.0056634 // 임의값
+        )
+        let locationData = convertLocationToDictionary(location: location)
+        
+        document.setData(locationData, merge: false) { err in
+            if let err = err {
+                print(err.localizedDescription)
+            } else {
+                print("Location has been saved!")
             }
         }
     }
@@ -230,8 +273,8 @@ class SignUpViewModel: ObservableObject {
                 print(error.localizedDescription)
             } else {
                 guard let user = result?.user else { return }
-                self.userSave(id: user.uid)
-                print("Authentication 저장완료!")
+                self.addUser(id: user.uid)
+                self.addUserLocation(userId: user.uid)
                 completion()
             }
         }
