@@ -841,6 +841,9 @@ PODS:
   - nanopb/decode (2.30909.1)
   - nanopb/encode (2.30909.1)
   - naveridlogin-sdk-ios (4.2.0)
+  - NMapsGeometry (1.0.1)
+  - NMapsMap (3.17.0):
+    - NMapsGeometry
   - PromisesObjC (2.3.1)
   - RecaptchaInterop (100.0.0)
 
@@ -857,6 +860,7 @@ DEPENDENCIES:
   - KakaoSDKAuth
   - KakaoSDKUser
   - naveridlogin-sdk-ios
+  - NMapsMap
 
 SPEC REPOS:
   trunk:
@@ -891,6 +895,8 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - naveridlogin-sdk-ios
+    - NMapsGeometry
+    - NMapsMap
     - PromisesObjC
     - RecaptchaInterop
 
@@ -926,9 +932,11 @@ SPEC CHECKSUMS:
   leveldb-library: f03246171cce0484482ec291f88b6d563699ee06
   nanopb: d4d75c12cd1316f4a64e3c6963f879ecd4b5e0d5
   naveridlogin-sdk-ios: 03fa42741249ab10b804f6b2574b56b6d89045ba
+  NMapsGeometry: 53c573ead66466681cf123f99f698dc8071a4b83
+  NMapsMap: a5b909a31b6f3d27a670f6eb2ddc913c38975474
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
 
-PODFILE CHECKSUM: 34c65b37685d99d39b8531f2f07605a811b8584f
+PODFILE CHECKSUM: 8b24044cf1ada04774551a15a18d4766b9ede0c1
 
 COCOAPODS: 1.15.0
