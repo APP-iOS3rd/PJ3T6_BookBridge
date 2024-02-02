@@ -18,7 +18,7 @@ struct EmailSignUpView: View {
             VStack {
                 Image("Character")
                 
-                SignUpInputBoxView(signUpVM: signUpVM, inputer: SignUpInputer(input: .nickName), validator: Validator(signUpVM: signUpVM))
+                SignUpInputBoxView(signUpVM: signUpVM, inputer: SignUpInputer(input: .nickName))
                     .padding()
                 
                 SignUpInputView(signUpVm: signUpVM, manager: SignUpInputManager(input: .phone))
@@ -44,7 +44,9 @@ struct EmailSignUpView: View {
         Button {
             signUpVM.signUp { success in
                 if success {
-                    pathModel.paths.removeAll()
+                    pathModel.paths.removeSubrange(0...pathModel.paths.count-1)
+                } else {
+                    print("등록 실패")
                 }
             }
         } label: {

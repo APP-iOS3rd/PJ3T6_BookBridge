@@ -26,25 +26,26 @@ struct EmailCertiView: View {
             .padding()
             
             
-            SignUpInputBoxView(signUpVM: signUpVM, inputer: SignUpInputer(input: .email), validator: Validator(signUpVM: signUpVM))
+            SignUpInputBoxView(signUpVM: signUpVM, inputer: SignUpInputer(input: .email))
                 .padding()
             
             if signUpVM.isCertiActive {
                 SignUpAuthCodeBoxView(signUpVm: signUpVM)
                     .padding()
+
             }
-                            
+                                                    
             Spacer()
             
             Button {
                 signUpVM.isCertiCode()
-                
                 if let certiResult = signUpVM.isCertiClear {
                     switch certiResult {
                     case .right:
+                        signUpVM.reset()
                         pathModel.paths.append(.signUp)
                     case .wrong:
-                        print("잘못된 인증번호입니다. ")
+                        print("잘못된 인증번호입니다.")
                     case .timeOut:
                         signUpVM.isCertiClear = .wrong
                     }

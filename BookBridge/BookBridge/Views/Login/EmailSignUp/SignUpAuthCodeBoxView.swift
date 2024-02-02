@@ -29,39 +29,25 @@ struct SignUpAuthCodeBoxView: View {
                         
             HStack {
                 TextField("인증번호를 입력해주세요", text: $signUpVm.userAuthCode)
-                    .padding()
-                    .foregroundColor(Color(hex: "3C3C43"))
-                    .frame(height: 36)
-                    .frame(maxWidth: .infinity)
-                    .background(Color(hex: "F7F8FC"))
-                    .cornerRadius(5.0)
+                    .modifier(InputTextFieldStyle())
                 
-                ResendBtn()
+                Button {
+                    signUpVm.sendMail()
+                } label: {
+                    Text("재전송")
+                        .modifier(MiddleWhiteBtnStyle())
+                }
             }
                         
             if let certiResult = signUpVm.isCertiClear {
                 if certiResult == .wrong {
-                    StatusText(text: "잘못된 인증번호 입니다.", color: "F80B0B")
+                    StatusTextView(text: "잘못된 인증번호 입니다.", color: "F80B0B")
                 }
             }
             
         }
     }
     
-    @ViewBuilder
-    func ResendBtn() -> some View {
-        Button {
-            signUpVm.sendMail()
-        } label: {
-            Text("재전송")
-                .font(.system(size: 17))
-                .foregroundStyle(Color(hex: "59AAE0"))
-                .frame(width: 100, height: 36)
-                .border(Color(hex: "59AAE0"), width: 2)
-                .background(.white)
-                .cornerRadius(5.0)
-        }
-    }
 }
 
 #Preview {

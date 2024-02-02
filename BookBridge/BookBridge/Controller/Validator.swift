@@ -13,38 +13,38 @@ struct Validator {
     let format = FormatValidator()
     let redundant = RedundantValidator()
             
-    func isValidEmail() {
-        redundant.isValidEmail(email: signUpVM.email) { success in
-            if success {
-                if format.isValidEmail(email: signUpVM.email) {
-                    print("이메일 인증 성공")
-                    signUpVM.emailError = .success
-                    signUpVM.isCertiActive = true
-                    signUpVM.sendMail()
-                } else {
-                    print("이메일 인증 실패")
-                    signUpVM.emailError = .invalid
-                }
-            } else {
-                signUpVM.emailError = .redundant
-            }
-        }
-    }
-    
-    func isValidNickname() {
-        redundant.isValidNickname(nickname: signUpVM.nickname) { success in
-            if success {
-                if format.isValidNickname(nickname: signUpVM.nickname) {
-                    print("닉네임 인증 성공")
-                    signUpVM.nicknameError = .success
-                } else {
-                    print("닉네임 인증 실패")
-                    signUpVM.nicknameError = .invalid
-                }
-            } else {
-                signUpVM.nicknameError = .redundant
-            }
-        }
-    }
+//    func isValidEmail() {
+//        redundant.isValidEmail(email: signUpVM.email) { success in
+//            if success {
+//                if format.isValidEmail(email: signUpVM.email) {
+//                    print("이메일 인증 성공")
+//                    signUpVM.emailError = .success
+//                    signUpVM.isCertiActive = true
+//                    signUpVM.sendMail()
+//                } else {
+//                    print("이메일 인증 실패")
+//                    signUpVM.emailError = .invalid
+//                }
+//            } else {
+//                signUpVM.emailError = .redundant
+//            }
+//        }
+//    }
+//    
+//    func isValidNickname() {
+//        redundant.isValidNickname(nickname: signUpVM.nickname) { success in
+//            if success {
+//                if format.isValidNickname(nickname: signUpVM.nickname) {
+//                    print("닉네임 인증 성공")
+//                    signUpVM.nicknameError = .success
+//                } else {
+//                    print("닉네임 인증 실패")
+//                    signUpVM.nicknameError = .invalid
+//                }
+//            } else {
+//                signUpVM.nicknameError = .redundant
+//            }
+//        }
+//    }
         
 }

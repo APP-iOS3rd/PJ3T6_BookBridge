@@ -7,30 +7,6 @@
 
 import SwiftUI
 
-enum SignUpInputType {
-    case phone
-    case pwd
-    case pwdConfirm
-}
-
-enum PhoneError: String {
-    case invalid = "휴대폰 번호가 올바르지 않습니다."
-    case empty = "휴대폰 번호가 입력되지 않았습니다."
-    case none = ""
-}
-
-enum PwdError: String {
-    case empty = "비밀번호가 입력되지 않았습니다."
-    case none = ""
-}
-
-enum PwdConfirmError: String {
-    case wrong = "비밀번호가 서로 일치하지 않습니다."
-    case invalid = "비밀번호를 영어, 숫자, 특수문자를 사용하여 8~16글자 로 작성해주세요"
-    case empty = "비밀번호 확인이 입력되지 않았습니다."
-    case none = ""
-}
-
 struct SignUpInputView: View {
     @StateObject var signUpVm: SignUpViewModel
     var manager: SignUpInputManager
@@ -42,15 +18,17 @@ struct SignUpInputView: View {
             switch manager.type {
             case .phone:
                 inputField(text: $signUpVm.phoneNumer, placeholder: manager.placeholder)
-                errorText(text: signUpVm.phError?.rawValue ?? "")
+                StatusTextView(text: signUpVm.phError?.rawValue ?? "", color: "F80B0B")
+                
                 
             case .pwd:
                 pwdField(text: $signUpVm.password, placeholder: manager.placeholder)
-                errorText(text: signUpVm.pwdError?.rawValue ?? "")
+                StatusTextView(text: signUpVm.pwdError?.rawValue ?? "", color: "F80B0B")
+                
                                 
             case .pwdConfirm:
                 pwdField(text: $signUpVm.passwordConfirm, placeholder: manager.placeholder)
-                errorText(text: signUpVm.pwdConfirmError?.rawValue ?? "")
+                StatusTextView(text: signUpVm.pwdConfirmError?.rawValue ?? "", color: "F80B0B")
                 
             }
             
@@ -73,33 +51,14 @@ extension SignUpInputView {
     
     func inputField(text: Binding<String>, placeholder: String) -> some View {
         return TextField(placeholder, text: text)
-            .padding()
-            .foregroundColor(Color(hex: "3C3C43"))
-            .frame(height: 36)
-            .frame(maxWidth: .infinity)
-            .background(Color(hex: "F7F8FC"))
-            .cornerRadius(5.0)
+            .modifier(InputTextFieldStyle())
     }
     
     func pwdField(text: Binding<String>, placeholder: String) -> some View {
         return SecureField(placeholder, text: text)
-            .padding()
-            .foregroundColor(Color(hex: "3C3C43"))
-            .frame(height: 36)
-            .frame(maxWidth: .infinity)
-            .background(Color(hex: "F7F8FC"))
-            .cornerRadius(5.0)
+            .modifier(InputTextFieldStyle())
     }
-    
-    func errorText(text: String) -> some View {
-        return HStack {
-            Text(text)
-                .font(.system(size: 10))
-                .foregroundStyle(Color(hex: "F80B0B"))
-            
-            Spacer()
-        }
-    }
+        
 }
 
 #Preview {

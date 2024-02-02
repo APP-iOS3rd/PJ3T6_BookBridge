@@ -56,6 +56,8 @@ class SignUpViewModel: ObservableObject {
         showingTime()
     }
     
+// MARK: - 타이머
+    
     func showingTime() {
         timerReset()
         
@@ -77,12 +79,22 @@ class SignUpViewModel: ObservableObject {
         }
     }
     
+    func reset() {
+        authCode = nil
+        isCertiActive = false
+        isCertiClear = nil
+        timerReset()
+    }
+    
     func timerReset() {
+        self.timeLabel = ""
         self.timeRemaining = 30
         self.timer?.invalidate()
         self.timer = nil
     }
-                    
+    
+// MARK: - 유효성 검사
+    
     func isValidPhone() -> Bool {
         if self.phoneNumer == "" {
             print("휴대폰번호를 입력해주세요")
@@ -131,7 +143,41 @@ class SignUpViewModel: ObservableObject {
         
         return true
     }
-            
+    
+    func isValidEmail() {
+        redundant.isValidEmail(email: email) { success in
+            if success {
+                if self.format.isValidEmail(email: self.email) {
+                    print("이메일 인증 성공")
+                    self.emailError = .success
+                    self.isCertiActive = true
+                    self.sendMail()
+                } else {
+                    print("이메일 인증 실패")
+                    self.emailError = .invalid
+                }
+            } else {
+                self.emailError = .redundant
+            }
+        }
+    }
+    
+    func isValidNickname() {
+        redundant.isValidNickname(nickname: nickname) { success in
+            if success {
+                if self.format.isValidNickname(nickname: self.nickname) {
+                    print("닉네임 인증 성공")
+                    self.nicknameError = .success
+                } else {
+                    print("닉네임 인증 실패")
+                    self.nicknameError = .invalid
+                }
+            } else {
+                self.nicknameError = .redundant
+            }
+        }
+    }
+    
     func isCertiCode() {
         if userAuthCode == self.authCode {
             self.isCertiClear = .right
@@ -140,6 +186,7 @@ class SignUpViewModel: ObservableObject {
         }
     }
     
+// MARK: - User 저장
     func convertUserModelToDictionary(user: UserModel) -> [String : Any] {
 
         let userData = [
