@@ -7,6 +7,8 @@
 
 import Foundation
 import Firebase
+import FirebaseFirestore
+
 class BookShelfViewModel: ObservableObject {
     @Published var wishBooks: [Book] = []
     @Published var holdBooks: [Book] = []
@@ -46,3 +48,4 @@ class BookShelfViewModel: ObservableObject {
 
     
 }
+
