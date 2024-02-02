@@ -7,12 +7,15 @@
 
 import Foundation
 import NMapsMap
+import Alamofire
+import SwiftyJSON
 
-final class NaverMapCoordinator: NSObject, ObservableObject, NMFMapViewCameraDelegate, NMFMapViewTouchDelegate, CLLocationManagerDelegate {
+final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDelegate, NMFMapViewTouchDelegate, CLLocationManagerDelegate {
     @Published var coord: (Double, Double) = (0.0, 0.0)
-    @Published var userLocation: (Double, Double) = (0.0, 0.0)
+    @Published var userLocation: (Double, Double) = (0.0, 0.0) // lat, lng
+    @Published var distriction: String?
     
-    static let shared = NaverMapCoordinator()
+    static let shared = LocationViewModel()
     let view = NMFNaverMapView(frame: .zero)
     var locationManager: CLLocationManager?
                         
@@ -54,6 +57,13 @@ final class NaverMapCoordinator: NSObject, ObservableObject, NMFMapViewCameraDel
             // fetchUserLocation()
             print("userLocation: \(userLocation)")
             
+            getDistrict(long: userLocation.1, lat: userLocation.0) { district in
+                if let district = district {
+                    self.distriction = district
+                    print(self.distriction ?? "error")
+                }
+            }
+            
         @unknown default:
             break
         }
@@ -81,7 +91,7 @@ final class NaverMapCoordinator: NSObject, ObservableObject, NMFMapViewCameraDel
         // 카메라의 위치가 변경되면 호출되는 함수
     }
     
-    // 사용자 현제 위치 지도에 표시
+    // 사용자 현재 위치 지도에 표시
     func fetchUserLocation() {
         if let locationManager = locationManager {
             let lat = locationManager.location?.coordinate.latitude
@@ -105,5 +115,30 @@ final class NaverMapCoordinator: NSObject, ObservableObject, NMFMapViewCameraDel
     
     func getNaverMapView() -> NMFNaverMapView {
         view
+    }
+    
+    func getDistrict(long: Double, lat: Double, completion: @escaping (String?) -> Void) {
+        let urlStr = NaverMapApiManager.ADDRESS_URL
+        let param: Parameters = [
+            "coords":"\(long),\(lat)",
+            "output":"json"
+        ]
+        let header1 = HTTPHeader(name: "X-NCP-APIGW-API-KEY-ID", value: NaverMapApiManager.NAVER_API_ID)
+        let header2 = HTTPHeader(name: "X-NCP-APIGW-API-KEY", value: NaverMapApiManager.NAVER_API_KEY)
+        let headers = HTTPHeaders([header1,header2])
+
+        let alamo = AF.request(urlStr, method: .get, parameters: param, headers: headers)
+        alamo.validate().responseJSON { response in
+            switch response.result {
+            case .success(let value) :
+                let json = JSON(value)
+                let data = json["results"]
+                let district = data[0]["region"]["area2"]["name"].string ?? ""
+                completion(district)
+            case .failure(let error):
+                print(error)
+                completion(nil)
+            }
+        }
     }
 }

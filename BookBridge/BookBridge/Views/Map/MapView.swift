@@ -10,7 +10,7 @@ import NMapsMap
 
 struct MapView: View {
     
-    @StateObject var naverMapCoordinator: NaverMapCoordinator = NaverMapCoordinator.shared
+    @StateObject var naverMapCoordinator: LocationViewModel = LocationViewModel.shared
     
     var body: some View {
         VStack {

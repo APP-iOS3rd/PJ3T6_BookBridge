@@ -1,5 +1,6 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '14.0'
+use_frameworks!
 
 target 'BookBridge' do
   use_frameworks! :linkage => :static
@@ -14,8 +15,8 @@ target 'BookBridge' do
   pod 'KakaoSDKAuth'
   pod 'naveridlogin-sdk-ios'
   pod 'Alamofire'
-
   pod 'NMapsMap'
+  pod 'SwiftyJSON', '~> 4.0'
 
   # Add the Firebase pod for Google Analytics
   pod 'FirebaseAnalytics'

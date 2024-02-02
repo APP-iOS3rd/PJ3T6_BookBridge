@@ -822,7 +822,7 @@ PODS:
   - GTMAppAuth (2.0.0):
     - AppAuth/Core (~> 1.6)
     - GTMSessionFetcher/Core (< 4.0, >= 1.5)
-  - GTMSessionFetcher/Core (3.2.0)
+  - GTMSessionFetcher/Core (3.3.1)
   - KakaoSDKAuth (2.20.0):
     - KakaoSDKCommon (= 2.20.0)
   - KakaoSDKCommon (2.20.0):
@@ -846,6 +846,7 @@ PODS:
     - NMapsGeometry
   - PromisesObjC (2.3.1)
   - RecaptchaInterop (100.0.0)
+  - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -861,6 +862,7 @@ DEPENDENCIES:
   - KakaoSDKUser
   - naveridlogin-sdk-ios
   - NMapsMap
+  - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   trunk:
@@ -899,6 +901,7 @@ SPEC REPOS:
     - NMapsMap
     - PromisesObjC
     - RecaptchaInterop
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
   abseil: 926fb7a82dc6d2b8e1f2ed7f3a718bce691d1e46
@@ -925,7 +928,7 @@ SPEC CHECKSUMS:
   "gRPC-C++": 2df8cba576898bdacd29f0266d5236fa0e26ba6a
   gRPC-Core: a21a60aefc08c68c247b439a9ef97174b0c54f96
   GTMAppAuth: 99fb010047ba3973b7026e45393f51f27ab965ae
-  GTMSessionFetcher: 41b9ef0b4c08a6db4b7eb51a21ae5183ec99a2c8
+  GTMSessionFetcher: 8a1b34ad97ebe6f909fb8b9b77fba99943007556
   KakaoSDKAuth: 02742f4681af6da8c4aa7b0f71df98ca9e7df834
   KakaoSDKCommon: 060a8085733a215a048f9bf9b39a846d1be1daee
   KakaoSDKUser: 0594b37675fb634304da3ecc83830c0ec84ceef5
@@ -936,7 +939,8 @@ SPEC CHECKSUMS:
   NMapsMap: a5b909a31b6f3d27a670f6eb2ddc913c38975474
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 8b24044cf1ada04774551a15a18d4766b9ede0c1
+PODFILE CHECKSUM: 07f4898abfc8bc0e428788725e2a7030bd507c25
 
 COCOAPODS: 1.15.0

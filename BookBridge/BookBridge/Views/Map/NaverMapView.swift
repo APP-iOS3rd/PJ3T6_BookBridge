@@ -15,7 +15,7 @@ struct NaverMapView: UIViewRepresentable {
 //    }
         
     func makeUIView(context: Context) -> NMFNaverMapView {        
-        NaverMapCoordinator.shared.getNaverMapView()
+        LocationViewModel.shared.getNaverMapView()
     }
         
     func updateUIView(_ uiView: NMFNaverMapView, context: Context) {}

@@ -27,8 +27,8 @@
 		5A2DE09E2B68DBB700EF3A6B /* SignUpPasswordBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2DE09D2B68DBB700EF3A6B /* SignUpPasswordBoxView.swift */; };
 		5A3A441E2B6C88E300B66C81 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A441D2B6C88E300B66C81 /* MapView.swift */; };
 		5A3A44202B6C890900B66C81 /* NaverMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A441F2B6C890900B66C81 /* NaverMapView.swift */; };
-		5A3A44222B6C89AE00B66C81 /* NaverMapCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44212B6C89AE00B66C81 /* NaverMapCoordinator.swift */; };
-		5A3A44242B6CA46100B66C81 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44232B6CA46100B66C81 /* StartView.swift */; };
+		5A3A44222B6C89AE00B66C81 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44212B6C89AE00B66C81 /* LocationViewModel.swift */; };
+		5A3A44282B6CC7BA00B66C81 /* NaverMapApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44272B6CC7BA00B66C81 /* NaverMapApiManager.swift */; };
 		5A5041CC2B6A635C00211CF2 /* PathViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5041CB2B6A635C00211CF2 /* PathViewModel.swift */; };
 		5A5041CE2B6A637A00211CF2 /* PathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5041CD2B6A637A00211CF2 /* PathType.swift */; };
 		5A7A4E262B61DFFD00F79C23 /* BookBridgeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A4E252B61DFFD00F79C23 /* BookBridgeApp.swift */; };
@@ -120,8 +120,8 @@
 		5A2DE09D2B68DBB700EF3A6B /* SignUpPasswordBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpPasswordBoxView.swift; sourceTree = "<group>"; };
 		5A3A441D2B6C88E300B66C81 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		5A3A441F2B6C890900B66C81 /* NaverMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMapView.swift; sourceTree = "<group>"; };
-		5A3A44212B6C89AE00B66C81 /* NaverMapCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMapCoordinator.swift; sourceTree = "<group>"; };
-		5A3A44232B6CA46100B66C81 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		5A3A44212B6C89AE00B66C81 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
+		5A3A44272B6CC7BA00B66C81 /* NaverMapApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMapApiManager.swift; sourceTree = "<group>"; };
 		5A5041CB2B6A635C00211CF2 /* PathViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathViewModel.swift; sourceTree = "<group>"; };
 		5A5041CD2B6A637A00211CF2 /* PathType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathType.swift; sourceTree = "<group>"; };
 		5A7A4E222B61DFFD00F79C23 /* BookBridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookBridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -278,10 +278,8 @@
 		5A3A441C2B6C882900B66C81 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				5A3A44232B6CA46100B66C81 /* StartView.swift */,
 				5A3A441D2B6C88E300B66C81 /* MapView.swift */,
 				5A3A441F2B6C890900B66C81 /* NaverMapView.swift */,
-				5A3A44212B6C89AE00B66C81 /* NaverMapCoordinator.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -440,7 +438,9 @@
 			isa = PBXGroup;
 			children = (
 				5ADE79DC2B6B2EDC005BB3ED /* Login */,
+				91C60CE72B67492500A1E8E4 /* StorageManager.swift */,
 				73C962A82B68C38D00D34D3F /* BookAPIManger.swift */,
+				5A3A44272B6CC7BA00B66C81 /* NaverMapApiManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -513,9 +513,9 @@
 				5AA82E512B6761BD006EFC72 /* SignUpViewModel.swift */,
 				91B80A412B676EEE000D5339 /* ImagePicker.swift */,
 				73C962AA2B68C4D800D34D3F /* SearchBooksViewModel.swift */,
-				91C60CE72B67492500A1E8E4 /* StorageManager.swift */,
 				F623A51A2B68BFBC00B5C159 /* ChangePostingViewModel.swift */,
 				F623A5262B6A1DFE00B5C159 /* FindPostingViewModel.swift */,
+				5A3A44212B6C89AE00B66C81 /* LocationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -818,6 +818,7 @@
 				5AA82E542B6764DF006EFC72 /* SignUpAuthCodeBoxView.swift in Sources */,
 				5CE454902B68B79000874BCE /* FirestoreService.swift in Sources */,
 				5AA82E522B6761BD006EFC72 /* SignUpViewModel.swift in Sources */,
+				5A3A44282B6CC7BA00B66C81 /* NaverMapApiManager.swift in Sources */,
 				73C962A12B6883A700D34D3F /* SearchBooksView.swift in Sources */,
 				5A7A4E552B62269600F79C23 /* LoginView.swift in Sources */,
 				73C962A92B68C38D00D34D3F /* BookAPIManger.swift in Sources */,
@@ -848,14 +849,13 @@
 				5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */,
 				5A5041CE2B6A637A00211CF2 /* PathType.swift in Sources */,
 				73C962A32B68880500D34D3F /* SearchBarView.swift in Sources */,
-				5A3A44222B6C89AE00B66C81 /* NaverMapCoordinator.swift in Sources */,
+				5A3A44222B6C89AE00B66C81 /* LocationViewModel.swift in Sources */,
 				73C962A52B688D4200D34D3F /* BookModel.swift in Sources */,
 				73DDA5DF2B6A336100B25FB8 /* SelectBooksView.swift in Sources */,
 				5A1A16942B622BB10063D408 /* GoogleLoginViewController.swift in Sources */,
 				5AA82E4D2B675E26006EFC72 /* EmailSignUpView.swift in Sources */,
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
 				73DDA5E12B6A34A500B25FB8 /* SearchResultView.swift in Sources */,
-				5A3A44242B6CA46100B66C81 /* StartView.swift in Sources */,
 				91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */,
 				F623A5292B6A1E0C00B5C159 /* FindPostingModel.swift in Sources */,
 				5CE454992B68B8EF00874BCE /* AppleAuthManager.swift in Sources */,
@@ -1040,6 +1040,7 @@
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = KVX67TSKSQ;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_TESTING_SEARCH_PATHS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BookBridge/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "사진 기능을 사용하려면 사진/비디오 접근권한을 허용해야 합니다.";
@@ -1079,6 +1080,7 @@
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = KVX67TSKSQ;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_TESTING_SEARCH_PATHS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BookBridge/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "사진 기능을 사용하려면 사진/비디오 접근권한을 허용해야 합니다.";

@@ -13,9 +13,7 @@ import NaverThirdPartyLogin
 
 @main
 struct BookBridgeApp: App {
-    
-    
-    
+            
     init() {
         // Kakao SDK 초기화
         KakaoSDK.initSDK(appKey: "3faeb18730ff6edf468b5e43fc5fea19")
@@ -33,14 +31,14 @@ struct BookBridgeApp: App {
     
     var body: some Scene {
         WindowGroup {
-            MapView()
+            LoginView()
                 .onOpenURL { url in // 뷰가 속한 Window에 대한 URL을 받았을 때 호출할 Handler를 등록하는 함수
                     if AuthApi.isKakaoTalkLoginUrl(url) {
                         _ = AuthController.handleOpenUrl(url: url)
                     }
                 }
                 .onAppear() {
-                    NaverMapCoordinator.shared.checkIfLocationServiceIsEnabled()
+                    LocationViewModel.shared.checkIfLocationServiceIsEnabled()
                 }
         }
     }
