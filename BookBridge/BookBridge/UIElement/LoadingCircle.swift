@@ -21,7 +21,7 @@ struct LoadingCircle: View {
     var body: some View {
         Circle()
             .trim(from: 0, to: 0.7)
-            .stroke(Color(hex: color), lineWidth: 2)
+            .stroke(Color(hex: color), lineWidth: 1)
             .frame(width: size, height: size)
             .rotationEffect(Angle(degrees: isLoading ? 360 : 0))
             .onAppear() {

@@ -35,6 +35,8 @@
 		5A3A44172B6C779200B66C81 /* PwdError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44162B6C779200B66C81 /* PwdError.swift */; };
 		5A3A44192B6C77A300B66C81 /* PwdConfirmError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44182B6C77A300B66C81 /* PwdConfirmError.swift */; };
 		5A3A44262B6CB36900B66C81 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44252B6CB36900B66C81 /* Location.swift */; };
+		5A3E020B2B6F9FCD008F8CFD /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3E020A2B6F9FCD008F8CFD /* TestView.swift */; };
+		5A3E020D2B6FA001008F8CFD /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3E020C2B6FA001008F8CFD /* TestViewModel.swift */; };
 		5A4F281B2B6BAF9F00FF5483 /* LargeBtnStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4F281A2B6BAF9F00FF5483 /* LargeBtnStyle.swift */; };
 		5A5041CC2B6A635C00211CF2 /* PathViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5041CB2B6A635C00211CF2 /* PathViewModel.swift */; };
 		5A5041CE2B6A637A00211CF2 /* PathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5041CD2B6A637A00211CF2 /* PathType.swift */; };
@@ -139,6 +141,8 @@
 		5A3A44162B6C779200B66C81 /* PwdError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdError.swift; sourceTree = "<group>"; };
 		5A3A44182B6C77A300B66C81 /* PwdConfirmError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdConfirmError.swift; sourceTree = "<group>"; };
 		5A3A44252B6CB36900B66C81 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		5A3E020A2B6F9FCD008F8CFD /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		5A3E020C2B6FA001008F8CFD /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
 		5A4F281A2B6BAF9F00FF5483 /* LargeBtnStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeBtnStyle.swift; sourceTree = "<group>"; };
 		5A5041CB2B6A635C00211CF2 /* PathViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathViewModel.swift; sourceTree = "<group>"; };
 		5A5041CD2B6A637A00211CF2 /* PathType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathType.swift; sourceTree = "<group>"; };
@@ -309,6 +313,15 @@
 			path = SignUp;
 			sourceTree = "<group>";
 		};
+		5A3E02092B6F9FC1008F8CFD /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				5A3E020A2B6F9FCD008F8CFD /* TestView.swift */,
+				5A3E020C2B6FA001008F8CFD /* TestViewModel.swift */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
 		5A4F28192B6BAF8100FF5483 /* UIElement */ = {
 			isa = PBXGroup;
 			children = (
@@ -410,6 +423,7 @@
 		5A7A4E532B62268A00F79C23 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5A3E02092B6F9FC1008F8CFD /* Test */,
 				5A1A168C2B6228150063D408 /* Login */,
 				91C60CE22B67459E00A1E8E4 /* Posting */,
 				5ADE79D62B6B2B02005BB3ED /* SearchBook */,
@@ -860,6 +874,7 @@
 				5ADE79E22B6B34D0005BB3ED /* GoogleAuthViewModel.swift in Sources */,
 				5A3A44192B6C77A300B66C81 /* PwdConfirmError.swift in Sources */,
 				5AA82E5E2B67891E006EFC72 /* SmtpManager.swift in Sources */,
+				5A3E020B2B6F9FCD008F8CFD /* TestView.swift in Sources */,
 				5ADE79EA2B6B6715005BB3ED /* SignUpInputManager.swift in Sources */,
 				5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */,
 				5A5041CE2B6A637A00211CF2 /* PathType.swift in Sources */,
@@ -882,6 +897,7 @@
 				5A2DE09A2B68915200EF3A6B /* SignUpInputer.swift in Sources */,
 				5A2DE0972B6884BE00EF3A6B /* EmailCertiView.swift in Sources */,
 				F623A51D2B68C01E00B5C159 /* ChangePostModel.swift in Sources */,
+				5A3E020D2B6FA001008F8CFD /* TestViewModel.swift in Sources */,
 				5A1A168E2B6228290063D408 /* GoogleLoginView.swift in Sources */,
 				5A5041CC2B6A635C00211CF2 /* PathViewModel.swift in Sources */,
 				5A7A4E262B61DFFD00F79C23 /* BookBridgeApp.swift in Sources */,

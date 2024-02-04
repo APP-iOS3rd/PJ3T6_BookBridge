@@ -29,27 +29,29 @@ struct EmailCertiView: View {
             SignUpInputBoxView(signUpVM: signUpVM, inputer: SignUpInputer(input: .email))
                 .padding()
             
-            if let certiActive = signUpVM.isCertiActive, certiActive {
+            if signUpVM.isEmailCertified {
                 SignUpAuthCodeBoxView(signUpVm: signUpVM)
+                    .transition(.scale)
                     .padding()
-
             }
+            
+//            if let certiActive = signUpVM.isCertiActive, certiActive {
+//                SignUpAuthCodeBoxView(signUpVm: signUpVM)
+//                    .padding()
+//
+//            }
                                                                                         
             Spacer()
             
             Button {
-                signUpVM.isCertiCode()
-                if let certiResult = signUpVM.isCertiClear {
-                    switch certiResult {
-                    case .right:
+                signUpVM.validAuthCode() { success in
+                    if success {
                         signUpVM.reset()
                         pathModel.paths.append(.signUp)
-                    case .wrong:
-                        print("잘못된 인증번호입니다.")
-                    case .timeOut:
-                        signUpVM.isCertiClear = .wrong
+                    } else {
+                        signUpVM.isEmailWrong = true
                     }
-                }
+                }                                                
             } label: {
                 LargeBtnStyle(title: "인증완료")
             }

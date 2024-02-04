@@ -18,7 +18,7 @@ struct SignUpAuthCodeBoxView: View {
                     .font(.system(size: 10))
                     .foregroundStyle(Color(hex: "999999"))
                                             
-                if signUpVm.timeLabel != "" {
+                if !signUpVm.timeLabel.isEmpty {
                     Text(signUpVm.timeLabel)
                         .font(.system(size: 10))
                         .foregroundStyle(Color(hex: "FF0000"))
@@ -33,12 +33,12 @@ struct SignUpAuthCodeBoxView: View {
                 
                 HStack {
                     if isLoading {
-                        LoadingCircle(size: 10, color: "999999")
+                        LoadingCircle(size: 10, color: "59AAE0")
                     }
                     
                     Button {
                         isLoading = true
-                        signUpVm.sendMail() {
+                        signUpVm.validEmail() {
                             isLoading = false
                         }
                     } label: {
@@ -46,14 +46,11 @@ struct SignUpAuthCodeBoxView: View {
                     }
                 }
                 .modifier(MiddleWhiteBtnStyle())
-            }            
-                        
-            if let certiResult = signUpVm.isCertiClear {
-                if certiResult == .wrong {
-                    StatusTextView(text: "잘못된 인증번호 입니다.", color: "F80B0B")
-                }
             }
             
+            if signUpVm.isEmailWrong {
+                StatusTextView(text: "잘못된 인증번호 입니다.", color: "F80B0B")
+            }
         }
     }
     

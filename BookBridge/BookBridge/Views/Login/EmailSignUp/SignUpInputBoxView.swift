@@ -37,20 +37,20 @@ struct SignUpInputBoxView: View {
                     switch inputer.type {
                     case .email:
                         isLoading = true
-                        signUpVM.isValidEmail() {
+                        signUpVM.validEmail() {
                             isLoading = false
                         }
     
                     case .nickName:
                         isLoading = true
-                        signUpVM.isValidNickname() {
+                        signUpVM.validNickname() {
                             isLoading = false                            
                         }
                     }
                 } label: {
                     HStack {
                         if isLoading {
-                            LoadingCircle(size: 10, color: "999999")
+                            LoadingCircle(size: 10, color: "FFFFFF")
                         }
                         
                         Text(inputer.btnTitle)
