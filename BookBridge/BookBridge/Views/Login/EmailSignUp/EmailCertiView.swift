@@ -10,7 +10,7 @@ import SwiftUI
 struct EmailCertiView: View {
     @StateObject var signUpVM: SignUpViewModel
     @EnvironmentObject private var pathModel: PathViewModel
-    @State var tag: Int? = nil
+    @State var isEamilCertified = false
     
     var body: some View {
         VStack {
@@ -29,12 +29,12 @@ struct EmailCertiView: View {
             SignUpInputBoxView(signUpVM: signUpVM, inputer: SignUpInputer(input: .email))
                 .padding()
             
-            if signUpVM.isCertiActive {
+            if let certiActive = signUpVM.isCertiActive, certiActive {
                 SignUpAuthCodeBoxView(signUpVm: signUpVM)
                     .padding()
 
             }
-                                                    
+                                                                                        
             Spacer()
             
             Button {
@@ -56,6 +56,7 @@ struct EmailCertiView: View {
             .padding()
                                             
         }
+        
         .navigationBarTitle("회원가입", displayMode: .inline)
         .navigationBarItems(leading: CustomBackButtonView())
         

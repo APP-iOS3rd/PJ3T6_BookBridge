@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SignUpAuthCodeBoxView: View {
     @StateObject var signUpVm: SignUpViewModel    
-    @State var status: Bool?
+    @State var isLoading = false
     
     var body: some View {
         VStack {
@@ -31,13 +31,22 @@ struct SignUpAuthCodeBoxView: View {
                 TextField("인증번호를 입력해주세요", text: $signUpVm.userAuthCode)
                     .modifier(InputTextFieldStyle())
                 
-                Button {
-                    signUpVm.sendMail()
-                } label: {
-                    Text("재전송")
-                        .modifier(MiddleWhiteBtnStyle())
+                HStack {
+                    if isLoading {
+                        LoadingCircle(size: 10, color: "999999")
+                    }
+                    
+                    Button {
+                        isLoading = true
+                        signUpVm.sendMail() {
+                            isLoading = false
+                        }
+                    } label: {
+                        Text("재전송")
+                    }
                 }
-            }
+                .modifier(MiddleWhiteBtnStyle())
+            }            
                         
             if let certiResult = signUpVm.isCertiClear {
                 if certiResult == .wrong {
