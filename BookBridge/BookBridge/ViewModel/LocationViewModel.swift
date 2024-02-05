@@ -13,7 +13,7 @@ import SwiftyJSON
 final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDelegate, NMFMapViewTouchDelegate, CLLocationManagerDelegate {
     @Published var coord: (Double, Double) = (0.0, 0.0)
     @Published var userLocation: (Double, Double) = (0.0, 0.0) // lat, lng
-    @Published var distriction: String?
+    
     
     static let shared = LocationViewModel()
     let view = NMFNaverMapView(frame: .zero)
@@ -59,8 +59,9 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
             
             getDistrict(long: userLocation.1, lat: userLocation.0) { district in
                 if let district = district {
-                    self.distriction = district
-                    print(self.distriction ?? "error")
+                    LocationManager.shared.setLocation(lat: self.userLocation.0, long: self.userLocation.1, distriction: district)
+                                        
+                    print("(\(LocationManager.shared.long),\(LocationManager.shared.lat)), \(LocationManager.shared.distriction)")
                 }
             }
             
@@ -137,7 +138,9 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
                 let json = JSON(value)
                 let data = json["results"]
                 let district = data[0]["region"]["area2"]["name"].string ?? ""
-                completion(district)
+                let dong = data[0]["region"]["area3"]["name"].string ?? ""
+                let result = "\(district),\(dong)"
+                completion(result)
             case .failure(let error):
                 print(error)
                 completion(nil)

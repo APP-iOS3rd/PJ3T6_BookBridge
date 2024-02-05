@@ -72,6 +72,7 @@
 		5AA82E592B6779DD006EFC72 /* SwiftSMTP in Frameworks */ = {isa = PBXBuildFile; productRef = 5AA82E582B6779DD006EFC72 /* SwiftSMTP */; };
 		5AA82E5E2B67891E006EFC72 /* SmtpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E5D2B67891E006EFC72 /* SmtpManager.swift */; };
 		5AA97F812B70725D00EF4081 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA97F802B70725D00EF4081 /* StorageManager.swift */; };
+		5AA97F832B70754D00EF4081 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA97F822B70754D00EF4081 /* LocationManager.swift */; };
 		5ADE79D32B6B2798005BB3ED /* SwiftSMTP in Frameworks */ = {isa = PBXBuildFile; productRef = 5ADE79D22B6B2798005BB3ED /* SwiftSMTP */; };
 		5ADE79D52B6B291C005BB3ED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ADE79D42B6B291C005BB3ED /* GoogleService-Info.plist */; };
 		5ADE79DA2B6B2C99005BB3ED /* CertiResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79D92B6B2C99005BB3ED /* CertiResult.swift */; };
@@ -198,6 +199,7 @@
 		5AA82E532B6764DF006EFC72 /* SignUpAuthCodeBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAuthCodeBoxView.swift; sourceTree = "<group>"; };
 		5AA82E5D2B67891E006EFC72 /* SmtpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmtpManager.swift; sourceTree = "<group>"; };
 		5AA97F802B70725D00EF4081 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StorageManager.swift; path = ../StorageManager.swift; sourceTree = "<group>"; };
+		5AA97F822B70754D00EF4081 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		5ADE79D42B6B291C005BB3ED /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5ADE79D92B6B2C99005BB3ED /* CertiResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertiResult.swift; sourceTree = "<group>"; };
 		5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthModel.swift; sourceTree = "<group>"; };
@@ -571,6 +573,7 @@
 				5A3A44272B6CC7BA00B66C81 /* NaverMapApiManager.swift */,
 				5A3A44292B6CDB8A00B66C81 /* KeychainManager.swift */,
 				5AA97F802B70725D00EF4081 /* StorageManager.swift */,
+				5AA97F822B70754D00EF4081 /* LocationManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1029,6 +1032,7 @@
 				5A3A44152B6C778200B66C81 /* SignUpInputType.swift in Sources */,
 				5A3A440D2B6C73D500B66C81 /* MiddleBlueBtnStyle.swift in Sources */,
 				5A2DE09A2B68915200EF3A6B /* SignUpInputer.swift in Sources */,
+				5AA97F832B70754D00EF4081 /* LocationManager.swift in Sources */,
 				1D71C6C12B6C743900EEC95D /* BookView.swift in Sources */,
 				5A2DE0972B6884BE00EF3A6B /* EmailCertiView.swift in Sources */,
 				F623A51D2B68C01E00B5C159 /* NoticeBoardModel.swift in Sources */,

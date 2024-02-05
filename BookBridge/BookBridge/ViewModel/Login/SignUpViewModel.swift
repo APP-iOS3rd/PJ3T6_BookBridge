@@ -227,7 +227,6 @@ class SignUpViewModel: ObservableObject {
             
 // MARK: - User 저장
     func convertUserModelToDictionary(user: UserModel) -> [String : Any] {
-
         let userData = [
             "id" : user.id ?? "",  // change these according to you model
             "email": user.email ?? "",
@@ -263,7 +262,7 @@ class SignUpViewModel: ObservableObject {
             profileURL: "person.fill", // 기본 system image
             distance: 1,
             joinDate: Date(),
-            dong: ["방배 2동"] // 임의 값
+            dong: [LocationManager.shared.distriction]
         )
         let userData = convertUserModelToDictionary(user: user)
               
@@ -281,8 +280,8 @@ class SignUpViewModel: ObservableObject {
         let documentId = document.documentID
         let location = Location (
             id: documentId,
-            lat: 37.49235, // 임의값
-            long: 127.0056634 // 임의값
+            lat: LocationManager.shared.lat,
+            long: LocationManager.shared.long
         )
         let locationData = convertLocationToDictionary(location: location)
         
