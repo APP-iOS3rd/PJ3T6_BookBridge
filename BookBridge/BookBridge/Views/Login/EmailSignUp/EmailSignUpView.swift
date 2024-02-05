@@ -7,53 +7,53 @@
 
 import SwiftUI
 
+
+
 struct EmailSignUpView: View {
+    @EnvironmentObject private var pathModel: PathViewModel
     @StateObject var signUpVM: SignUpViewModel
     
     var body: some View {
-        NavigationStack {
+        
             VStack {
                 Image("Character")
-                                                                                
-                SignUpInputBoxView(signUpVM: signUpVM, inputer: SignUpInputer(input: .id))
-                    .padding()
-                
-                SignUpInputBoxView(signUpVM: signUpVM, inputer: SignUpInputer(input: .nickName))
-                    .padding()
+                    .padding(.bottom, 30)
                                                 
-                SignUpPasswordBoxView(signUpVm: signUpVM)
-                    .padding()
+                SignUpInputBoxView(signUpVM: signUpVM, inputer: SignUpInputer(input: .nickName))
+                        .padding(.bottom)
+                    
+                SignUpInputView(signUpVm: signUpVM, manager: SignUpInputManager(input: .phone))
+                    .padding(.bottom)
                 
+                SignUpInputView(signUpVm: signUpVM, manager: SignUpInputManager(input: .pwd))
+                    .padding(.bottom)
+                
+                SignUpInputView(signUpVm: signUpVM, manager: SignUpInputManager(input: .pwdConfirm))
+                    .padding(.bottom)
+                                                                                                    
                 Spacer()
                 
                 AuthConfirmBtn()
-                    .padding()
             }
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("회원가입")
-                        .font(.headline)
-                }
-            }
-        }
+            .padding(.horizontal)
+            .navigationBarTitle("회원가입", displayMode: .inline)
+            .navigationBarItems(leading: CustomBackButtonView())        
     }
     
     @ViewBuilder
     func AuthConfirmBtn() -> some View {
         Button {
-//            signUpVM.register {
-//                
-//            }
+            signUpVM.signUp { success in
+                if success {
+                    pathModel.paths.removeSubrange(0...pathModel.paths.count-1)
+                } else {
+                    print("등록 실패")
+                }
+            }
         } label: {
-            Text("확인")
-                .font(.system(size: 20))
-                .foregroundStyle(.white)
-                .frame(height: 50)
-                .frame(maxWidth: .infinity)
-                .background(Color(hex: "59AAE0"))
-                .cornerRadius(10.0)
+            LargeBtnStyle(title: "확인")
         }
+        
     }
 }
 

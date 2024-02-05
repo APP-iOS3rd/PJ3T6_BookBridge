@@ -10,15 +10,23 @@
 		1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0A68352B638403006F8A4A /* KakaoLoginView.swift */; };
 		1D2B61842B63929900945EE2 /* KakaoLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2B61832B63929900945EE2 /* KakaoLoginViewModel.swift */; };
 		1D357CAC2B6A13510064B87D /* ChangePasswordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D357CAB2B6A13510064B87D /* ChangePasswordVM.swift */; };
+		1D71C6C12B6C743900EEC95D /* BookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71C6C02B6C743900EEC95D /* BookView.swift */; };
+		1D71C6C32B6C763900EEC95D /* AddBookBtnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71C6C22B6C763900EEC95D /* AddBookBtnView.swift */; };
+		1D71C6C52B6C766300EEC95D /* BookSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71C6C42B6C766300EEC95D /* BookSearchBar.swift */; };
+		1D71C6C72B6C8D4400EEC95D /* WishBookAddBtnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71C6C62B6C8D4400EEC95D /* WishBookAddBtnView.swift */; };
 		1D84019B2B6779CB00ADEEB5 /* IdLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D84019A2B6779CB00ADEEB5 /* IdLoginView.swift */; };
 		1D84019E2B677B3B00ADEEB5 /* IdLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D84019D2B677B3B00ADEEB5 /* IdLoginViewModel.swift */; };
 		1DA6E06C2B68D9EB00D631D5 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6E06B2B68D9EB00D631D5 /* ChangePasswordView.swift */; };
 		1DA6E06E2B68E2EA00D631D5 /* FindIdResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6E06D2B68E2EA00D631D5 /* FindIdResultView.swift */; };
+		1DB39DBA2B6B57B100C1B489 /* BookShelfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DB92B6B57B100C1B489 /* BookShelfView.swift */; };
+		1DB39DBC2B6B57F100C1B489 /* BookShelfViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */; };
+		1DB39DC02B6B8A5300C1B489 /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DBF2B6B8A5300C1B489 /* BookDetailView.swift */; };
 		1DCFB01E2B687D7000250D55 /* FindIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB01D2B687D7000250D55 /* FindIdView.swift */; };
 		1DCFB0222B68CB4400250D55 /* FindIdVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0212B68CB4400250D55 /* FindIdVM.swift */; };
 		1DCFB0242B68CD3100250D55 /* FindPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */; };
 		1E9CA8884DE9A470795B434C /* Pods_BookBridge_BookBridgeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38996D702CA8C661E33E70C8 /* Pods_BookBridge_BookBridgeUITests.framework */; };
 		34927C483CF1E10C21B09E15 /* Pods_BookBridgeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */; };
+		5A0242152B6D36FF00137AA6 /* LoadingCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0242142B6D36FF00137AA6 /* LoadingCircle.swift */; };
 		5A1A168E2B6228290063D408 /* GoogleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A168D2B6228290063D408 /* GoogleLoginView.swift */; };
 		5A1A16942B622BB10063D408 /* GoogleLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A16932B622BB10063D408 /* GoogleLoginViewController.swift */; };
 		5A1A16962B6231870063D408 /* GoogleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A16952B6231870063D408 /* GoogleAuthManager.swift */; };
@@ -30,8 +38,24 @@
 		5A3A44222B6C89AE00B66C81 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44212B6C89AE00B66C81 /* LocationViewModel.swift */; };
 		5A3A44282B6CC7BA00B66C81 /* NaverMapApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44272B6CC7BA00B66C81 /* NaverMapApiManager.swift */; };
 		5A3A442A2B6CDB8A00B66C81 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44292B6CDB8A00B66C81 /* KeychainManager.swift */; };
+		5A3A44092B6C724500B66C81 /* EmailError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44082B6C724500B66C81 /* EmailError.swift */; };
+		5A3A440B2B6C726100B66C81 /* NicknameError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A440A2B6C726100B66C81 /* NicknameError.swift */; };
+		5A3A440D2B6C73D500B66C81 /* MiddleBlueBtnStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A440C2B6C73D500B66C81 /* MiddleBlueBtnStyle.swift */; };
+		5A3A440F2B6C741200B66C81 /* InputTextFieldStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A440E2B6C741200B66C81 /* InputTextFieldStyle.swift */; };
+		5A3A44112B6C75F500B66C81 /* MiddleWhiteBtnStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44102B6C75F500B66C81 /* MiddleWhiteBtnStyle.swift */; };
+		5A3A44132B6C775D00B66C81 /* PhoneError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44122B6C775D00B66C81 /* PhoneError.swift */; };
+		5A3A44152B6C778200B66C81 /* SignUpInputType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44142B6C778200B66C81 /* SignUpInputType.swift */; };
+		5A3A44172B6C779200B66C81 /* PwdError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44162B6C779200B66C81 /* PwdError.swift */; };
+		5A3A44192B6C77A300B66C81 /* PwdConfirmError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44182B6C77A300B66C81 /* PwdConfirmError.swift */; };
+		5A3A44262B6CB36900B66C81 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44252B6CB36900B66C81 /* Location.swift */; };
+		5A3E020B2B6F9FCD008F8CFD /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3E020A2B6F9FCD008F8CFD /* TestView.swift */; };
+		5A3E020D2B6FA001008F8CFD /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3E020C2B6FA001008F8CFD /* TestViewModel.swift */; };
+		5A4F281B2B6BAF9F00FF5483 /* LargeBtnStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4F281A2B6BAF9F00FF5483 /* LargeBtnStyle.swift */; };
 		5A5041CC2B6A635C00211CF2 /* PathViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5041CB2B6A635C00211CF2 /* PathViewModel.swift */; };
 		5A5041CE2B6A637A00211CF2 /* PathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5041CD2B6A637A00211CF2 /* PathType.swift */; };
+		5A6CC5212B6B192F0037429F /* FormatValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CC5202B6B192F0037429F /* FormatValidator.swift */; };
+		5A6CC5232B6B19510037429F /* RedundantValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CC5222B6B19510037429F /* RedundantValidator.swift */; };
+		5A6CC5252B6B19630037429F /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CC5242B6B19630037429F /* Validator.swift */; };
 		5A7A4E262B61DFFD00F79C23 /* BookBridgeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A4E252B61DFFD00F79C23 /* BookBridgeApp.swift */; };
 		5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A7A4E292B61DFFE00F79C23 /* Assets.xcassets */; };
 		5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A7A4E2C2B61DFFE00F79C23 /* Preview Assets.xcassets */; };
@@ -54,12 +78,20 @@
 		5ADE79DE2B6B3305005BB3ED /* GoogleAuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */; };
 		5ADE79E02B6B3351005BB3ED /* GoogleSignResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79DF2B6B3351005BB3ED /* GoogleSignResultModel.swift */; };
 		5ADE79E22B6B34D0005BB3ED /* GoogleAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E12B6B34D0005BB3ED /* GoogleAuthViewModel.swift */; };
+		5ADE79E62B6B565F005BB3ED /* SignUpInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E52B6B565F005BB3ED /* SignUpInputView.swift */; };
+		5ADE79E82B6B5963005BB3ED /* StatusTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E72B6B5963005BB3ED /* StatusTextView.swift */; };
+		5ADE79EA2B6B6715005BB3ED /* SignUpInputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */; };
 		5CE454902B68B79000874BCE /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4548F2B68B79000874BCE /* FirestoreService.swift */; };
 		5CE454932B68B7CB00874BCE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454922B68B7CB00874BCE /* UserModel.swift */; };
 		5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454962B68B8CA00874BCE /* AppleLoginView.swift */; };
 		5CE454992B68B8EF00874BCE /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454982B68B8EF00874BCE /* AppleAuthManager.swift */; };
 		736127052B6B538800943CD7 /* NaverLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736127042B6B538800943CD7 /* NaverLoginView.swift */; };
 		736127072B6B543A00943CD7 /* NaverAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736127062B6B543A00943CD7 /* NaverAuthManager.swift */; };
+		736127092B6B82B400943CD7 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736127082B6B82B400943CD7 /* ImageScrollView.swift */; };
+		7361270B2B6B82F100943CD7 /* ImageEditorModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7361270A2B6B82F100943CD7 /* ImageEditorModalView.swift */; };
+		7361270D2B6B83AC00943CD7 /* CameraButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7361270C2B6B83AC00943CD7 /* CameraButtonView.swift */; };
+		7361270F2B6B83BF00943CD7 /* DeleteImageButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7361270E2B6B83BF00943CD7 /* DeleteImageButtonView.swift */; };
+		736127112B6B84AC00943CD7 /* PostingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736127102B6B84AC00943CD7 /* PostingViewModel.swift */; };
 		73C962A12B6883A700D34D3F /* SearchBooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C962A02B6883A700D34D3F /* SearchBooksView.swift */; };
 		73C962A32B68880500D34D3F /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C962A22B68880500D34D3F /* SearchBarView.swift */; };
 		73C962A52B688D4200D34D3F /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C962A42B688D4200D34D3F /* BookModel.swift */; };
@@ -67,16 +99,15 @@
 		73C962AB2B68C4D800D34D3F /* SearchBooksViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C962AA2B68C4D800D34D3F /* SearchBooksViewModel.swift */; };
 		73DDA5DF2B6A336100B25FB8 /* SelectBooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DDA5DE2B6A336100B25FB8 /* SelectBooksView.swift */; };
 		73DDA5E12B6A34A500B25FB8 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DDA5E02B6A34A500B25FB8 /* SearchResultView.swift */; };
+		910F48F92B6CB42D00C0563E /* ImageDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910F48F82B6CB42D00C0563E /* ImageDropDelegate.swift */; };
+		910F491C2B6CC66900C0563E /* CameraModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 910F491B2B6CC66900C0563E /* CameraModalView.swift */; };
 		91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91392F282B68BE0E0092052A /* FindPostingView.swift */; };
 		91B80A422B676EEE000D5339 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A412B676EEE000D5339 /* ImagePicker.swift */; };
 		91B80A452B6798B9000D5339 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A442B6798B9000D5339 /* TabBarView.swift */; };
 		91B80A472B6799B7000D5339 /* ChangePostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A462B6799B7000D5339 /* ChangePostingView.swift */; };
 		91C60CE82B67492500A1E8E4 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C60CE72B67492500A1E8E4 /* StorageManager.swift */; };
 		AFE5B788F315503A86355ABB /* Pods_BookBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0208E9110CB38EDE3D59A6 /* Pods_BookBridge.framework */; };
-		F623A51B2B68BFBC00B5C159 /* ChangePostingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F623A51A2B68BFBC00B5C159 /* ChangePostingViewModel.swift */; };
-		F623A51D2B68C01E00B5C159 /* ChangePostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F623A51C2B68C01E00B5C159 /* ChangePostModel.swift */; };
-		F623A5272B6A1DFE00B5C159 /* FindPostingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F623A5262B6A1DFE00B5C159 /* FindPostingViewModel.swift */; };
-		F623A5292B6A1E0C00B5C159 /* FindPostingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F623A5282B6A1E0B00B5C159 /* FindPostingModel.swift */; };
+		F623A51D2B68C01E00B5C159 /* NoticeBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F623A51C2B68C01E00B5C159 /* NoticeBoardModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,16 +133,24 @@
 		1D0A68352B638403006F8A4A /* KakaoLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginView.swift; sourceTree = "<group>"; };
 		1D2B61832B63929900945EE2 /* KakaoLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginViewModel.swift; sourceTree = "<group>"; };
 		1D357CAB2B6A13510064B87D /* ChangePasswordVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVM.swift; sourceTree = "<group>"; };
+		1D71C6C02B6C743900EEC95D /* BookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookView.swift; sourceTree = "<group>"; };
+		1D71C6C22B6C763900EEC95D /* AddBookBtnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookBtnView.swift; sourceTree = "<group>"; };
+		1D71C6C42B6C766300EEC95D /* BookSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchBar.swift; sourceTree = "<group>"; };
+		1D71C6C62B6C8D4400EEC95D /* WishBookAddBtnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishBookAddBtnView.swift; sourceTree = "<group>"; };
 		1D84019A2B6779CB00ADEEB5 /* IdLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdLoginView.swift; sourceTree = "<group>"; };
 		1D84019D2B677B3B00ADEEB5 /* IdLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdLoginViewModel.swift; sourceTree = "<group>"; };
 		1DA6E06B2B68D9EB00D631D5 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		1DA6E06D2B68E2EA00D631D5 /* FindIdResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdResultView.swift; sourceTree = "<group>"; };
+		1DB39DB92B6B57B100C1B489 /* BookShelfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfView.swift; sourceTree = "<group>"; };
+		1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfViewModel.swift; sourceTree = "<group>"; };
+		1DB39DBF2B6B8A5300C1B489 /* BookDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
 		1DCFB01D2B687D7000250D55 /* FindIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdView.swift; sourceTree = "<group>"; };
 		1DCFB0212B68CB4400250D55 /* FindIdVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdVM.swift; sourceTree = "<group>"; };
 		1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordView.swift; sourceTree = "<group>"; };
 		2C64B1A5C532C5F1A934328D /* Pods-BookBridge-BookBridgeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge-BookBridgeUITests.release.xcconfig"; path = "Target Support Files/Pods-BookBridge-BookBridgeUITests/Pods-BookBridge-BookBridgeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		38996D702CA8C661E33E70C8 /* Pods_BookBridge_BookBridgeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridge_BookBridgeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		38E83709A8699EFCEF75F30C /* Pods-BookBridge-BookBridgeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge-BookBridgeUITests.debug.xcconfig"; path = "Target Support Files/Pods-BookBridge-BookBridgeUITests/Pods-BookBridge-BookBridgeUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		5A0242142B6D36FF00137AA6 /* LoadingCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCircle.swift; sourceTree = "<group>"; };
 		5A1A168D2B6228290063D408 /* GoogleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginView.swift; sourceTree = "<group>"; };
 		5A1A168F2B62285A0063D408 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A1A16932B622BB10063D408 /* GoogleLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginViewController.swift; sourceTree = "<group>"; };
@@ -124,8 +163,24 @@
 		5A3A44212B6C89AE00B66C81 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		5A3A44272B6CC7BA00B66C81 /* NaverMapApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMapApiManager.swift; sourceTree = "<group>"; };
 		5A3A44292B6CDB8A00B66C81 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		5A3A44082B6C724500B66C81 /* EmailError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailError.swift; sourceTree = "<group>"; };
+		5A3A440A2B6C726100B66C81 /* NicknameError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameError.swift; sourceTree = "<group>"; };
+		5A3A440C2B6C73D500B66C81 /* MiddleBlueBtnStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleBlueBtnStyle.swift; sourceTree = "<group>"; };
+		5A3A440E2B6C741200B66C81 /* InputTextFieldStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextFieldStyle.swift; sourceTree = "<group>"; };
+		5A3A44102B6C75F500B66C81 /* MiddleWhiteBtnStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleWhiteBtnStyle.swift; sourceTree = "<group>"; };
+		5A3A44122B6C775D00B66C81 /* PhoneError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneError.swift; sourceTree = "<group>"; };
+		5A3A44142B6C778200B66C81 /* SignUpInputType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputType.swift; sourceTree = "<group>"; };
+		5A3A44162B6C779200B66C81 /* PwdError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdError.swift; sourceTree = "<group>"; };
+		5A3A44182B6C77A300B66C81 /* PwdConfirmError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdConfirmError.swift; sourceTree = "<group>"; };
+		5A3A44252B6CB36900B66C81 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		5A3E020A2B6F9FCD008F8CFD /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
+		5A3E020C2B6FA001008F8CFD /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
+		5A4F281A2B6BAF9F00FF5483 /* LargeBtnStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeBtnStyle.swift; sourceTree = "<group>"; };
 		5A5041CB2B6A635C00211CF2 /* PathViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathViewModel.swift; sourceTree = "<group>"; };
 		5A5041CD2B6A637A00211CF2 /* PathType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathType.swift; sourceTree = "<group>"; };
+		5A6CC5202B6B192F0037429F /* FormatValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatValidator.swift; sourceTree = "<group>"; };
+		5A6CC5222B6B19510037429F /* RedundantValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedundantValidator.swift; sourceTree = "<group>"; };
+		5A6CC5242B6B19630037429F /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		5A7A4E222B61DFFD00F79C23 /* BookBridge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookBridge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A7A4E252B61DFFD00F79C23 /* BookBridgeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookBridgeApp.swift; sourceTree = "<group>"; };
 		5A7A4E292B61DFFE00F79C23 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -149,6 +204,9 @@
 		5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthModel.swift; sourceTree = "<group>"; };
 		5ADE79DF2B6B3351005BB3ED /* GoogleSignResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignResultModel.swift; sourceTree = "<group>"; };
 		5ADE79E12B6B34D0005BB3ED /* GoogleAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthViewModel.swift; sourceTree = "<group>"; };
+		5ADE79E52B6B565F005BB3ED /* SignUpInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputView.swift; sourceTree = "<group>"; };
+		5ADE79E72B6B5963005BB3ED /* StatusTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTextView.swift; sourceTree = "<group>"; };
+		5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputManager.swift; sourceTree = "<group>"; };
 		5CE4548F2B68B79000874BCE /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		5CE454922B68B7CB00874BCE /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		5CE454962B68B8CA00874BCE /* AppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginView.swift; sourceTree = "<group>"; };
@@ -156,6 +214,11 @@
 		5CE4549A2B68C93A00874BCE /* BookBridge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookBridge.entitlements; sourceTree = "<group>"; };
 		736127042B6B538800943CD7 /* NaverLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginView.swift; sourceTree = "<group>"; };
 		736127062B6B543A00943CD7 /* NaverAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverAuthManager.swift; sourceTree = "<group>"; };
+		736127082B6B82B400943CD7 /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
+		7361270A2B6B82F100943CD7 /* ImageEditorModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageEditorModalView.swift; sourceTree = "<group>"; };
+		7361270C2B6B83AC00943CD7 /* CameraButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraButtonView.swift; sourceTree = "<group>"; };
+		7361270E2B6B83BF00943CD7 /* DeleteImageButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteImageButtonView.swift; sourceTree = "<group>"; };
+		736127102B6B84AC00943CD7 /* PostingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingViewModel.swift; sourceTree = "<group>"; };
 		73C962A02B6883A700D34D3F /* SearchBooksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksView.swift; sourceTree = "<group>"; };
 		73C962A22B68880500D34D3F /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		73C962A42B688D4200D34D3F /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
@@ -164,6 +227,8 @@
 		73DDA5DE2B6A336100B25FB8 /* SelectBooksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectBooksView.swift; sourceTree = "<group>"; };
 		73DDA5E02B6A34A500B25FB8 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		7C8CB12351EDD2306C897CC8 /* Pods-BookBridgeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridgeTests.debug.xcconfig"; path = "Target Support Files/Pods-BookBridgeTests/Pods-BookBridgeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		910F48F82B6CB42D00C0563E /* ImageDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDropDelegate.swift; sourceTree = "<group>"; };
+		910F491B2B6CC66900C0563E /* CameraModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraModalView.swift; sourceTree = "<group>"; };
 		91392F282B68BE0E0092052A /* FindPostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPostingView.swift; sourceTree = "<group>"; };
 		91B80A412B676EEE000D5339 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		91B80A442B6798B9000D5339 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
@@ -172,10 +237,7 @@
 		A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridgeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5811A49FE2A9EF629A77C52 /* Pods-BookBridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.debug.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.debug.xcconfig"; sourceTree = "<group>"; };
 		CD38D177426E7831566653B2 /* Pods-BookBridge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.release.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.release.xcconfig"; sourceTree = "<group>"; };
-		F623A51A2B68BFBC00B5C159 /* ChangePostingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePostingViewModel.swift; sourceTree = "<group>"; };
-		F623A51C2B68C01E00B5C159 /* ChangePostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePostModel.swift; sourceTree = "<group>"; };
-		F623A5262B6A1DFE00B5C159 /* FindPostingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPostingViewModel.swift; sourceTree = "<group>"; };
-		F623A5282B6A1E0B00B5C159 /* FindPostingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPostingModel.swift; sourceTree = "<group>"; };
+		F623A51C2B68C01E00B5C159 /* NoticeBoardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +304,19 @@
 			path = KaKaoLogin;
 			sourceTree = "<group>";
 		};
+		1DB39DB82B6B579A00C1B489 /* BookShelf */ = {
+			isa = PBXGroup;
+			children = (
+				1DB39DB92B6B57B100C1B489 /* BookShelfView.swift */,
+				1D71C6C42B6C766300EEC95D /* BookSearchBar.swift */,
+				1D71C6C02B6C743900EEC95D /* BookView.swift */,
+				1D71C6C22B6C763900EEC95D /* AddBookBtnView.swift */,
+				1DB39DBF2B6B8A5300C1B489 /* BookDetailView.swift */,
+				1D71C6C62B6C8D4400EEC95D /* WishBookAddBtnView.swift */,
+			);
+			path = BookShelf;
+			sourceTree = "<group>";
+		};
 		1DCFB01C2B687D4B00250D55 /* Find */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,6 +344,7 @@
 		5A1A16922B622B9F0063D408 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				910F48FA2B6CBB9600C0563E /* Delegate */,
 				5ADE79E42B6B3633005BB3ED /* Extension */,
 				5ADE79E32B6B361D005BB3ED /* Manager */,
 				5A1A16932B622BB10063D408 /* GoogleLoginViewController.swift */,
@@ -286,11 +362,56 @@
 			path = Map;
 			sourceTree = "<group>";
 		};
+		5A3A44072B6C722A00B66C81 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				5A3A44082B6C724500B66C81 /* EmailError.swift */,
+				5A3A440A2B6C726100B66C81 /* NicknameError.swift */,
+				5A3A44122B6C775D00B66C81 /* PhoneError.swift */,
+				5A3A44142B6C778200B66C81 /* SignUpInputType.swift */,
+				5A3A44162B6C779200B66C81 /* PwdError.swift */,
+				5A3A44182B6C77A300B66C81 /* PwdConfirmError.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		5A3E02092B6F9FC1008F8CFD /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				5A3E020A2B6F9FCD008F8CFD /* TestView.swift */,
+				5A3E020C2B6FA001008F8CFD /* TestViewModel.swift */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
+		5A4F28192B6BAF8100FF5483 /* UIElement */ = {
+			isa = PBXGroup;
+			children = (
+				5ADE79E72B6B5963005BB3ED /* StatusTextView.swift */,
+				5A4F281A2B6BAF9F00FF5483 /* LargeBtnStyle.swift */,
+				5A3A440C2B6C73D500B66C81 /* MiddleBlueBtnStyle.swift */,
+				5A3A440E2B6C741200B66C81 /* InputTextFieldStyle.swift */,
+				5A3A44102B6C75F500B66C81 /* MiddleWhiteBtnStyle.swift */,
+				5A0242142B6D36FF00137AA6 /* LoadingCircle.swift */,
+			);
+			path = UIElement;
+			sourceTree = "<group>";
+		};
 		5A5041C82B6A612A00211CF2 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		5A6CC51F2B6B19170037429F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				5A6CC5202B6B192F0037429F /* FormatValidator.swift */,
+				5A6CC5222B6B19510037429F /* RedundantValidator.swift */,
+				5A6CC5242B6B19630037429F /* Validator.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		5A7A4E192B61DFFD00F79C23 = {
@@ -321,10 +442,13 @@
 		5A7A4E242B61DFFD00F79C23 /* BookBridge */ = {
 			isa = PBXGroup;
 			children = (
+				5A4F28192B6BAF8100FF5483 /* UIElement */,
+				5A6CC51F2B6B19170037429F /* Controller */,
 				5CE454912B68B7C000874BCE /* Model */,
 				5A1A16922B622B9F0063D408 /* Utility */,
 				91C60CE62B6747C400A1E8E4 /* ViewModel */,
 				5A7A4E532B62268A00F79C23 /* Views */,
+				91B80A442B6798B9000D5339 /* TabBarView.swift */,
 				5A7A4E252B61DFFD00F79C23 /* BookBridgeApp.swift */,
 				5A7A4E292B61DFFE00F79C23 /* Assets.xcassets */,
 				5A1A168F2B62285A0063D408 /* Info.plist */,
@@ -363,10 +487,11 @@
 			isa = PBXGroup;
 			children = (
 				5A3A441C2B6C882900B66C81 /* Map */,
+				5A3E02092B6F9FC1008F8CFD /* Test */,
 				5A1A168C2B6228150063D408 /* Login */,
 				91C60CE22B67459E00A1E8E4 /* Posting */,
 				5ADE79D62B6B2B02005BB3ED /* SearchBook */,
-				91B80A442B6798B9000D5339 /* TabBarView.swift */,
+				1DB39DB82B6B579A00C1B489 /* BookShelf */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -383,10 +508,10 @@
 			isa = PBXGroup;
 			children = (
 				5A2DE0962B6884BE00EF3A6B /* EmailCertiView.swift */,
-				5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */,
 				5AA82E4E2B6760C7006EFC72 /* SignUpInputBoxView.swift */,
 				5AA82E532B6764DF006EFC72 /* SignUpAuthCodeBoxView.swift */,
-				5A2DE09D2B68DBB700EF3A6B /* SignUpPasswordBoxView.swift */,
+				5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */,
+				5ADE79E52B6B565F005BB3ED /* SignUpInputView.swift */,
 			);
 			path = EmailSignUp;
 			sourceTree = "<group>";
@@ -405,8 +530,10 @@
 		5ADE79D82B6B2C8B005BB3ED /* Enum */ = {
 			isa = PBXGroup;
 			children = (
+				5A3A44072B6C722A00B66C81 /* SignUp */,
 				5A5041CD2B6A637A00211CF2 /* PathType.swift */,
 				5ADE79D92B6B2C99005BB3ED /* CertiResult.swift */,
+				5A3A44252B6CB36900B66C81 /* Location.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -414,6 +541,7 @@
 		5ADE79DB2B6B2D5F005BB3ED /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				5AA82E512B6761BD006EFC72 /* SignUpViewModel.swift */,
 				1D2B61832B63929900945EE2 /* KakaoLoginViewModel.swift */,
 				1D84019D2B677B3B00ADEEB5 /* IdLoginViewModel.swift */,
 				1D357CAB2B6A13510064B87D /* ChangePasswordVM.swift */,
@@ -432,6 +560,7 @@
 				5A2DE0992B68915200EF3A6B /* SignUpInputer.swift */,
 				5A1A16952B6231870063D408 /* GoogleAuthManager.swift */,
 				5A9A33842B628D9E00982E92 /* GoogleSignManager.swift */,
+				5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -461,8 +590,7 @@
 			children = (
 				5ADE79D82B6B2C8B005BB3ED /* Enum */,
 				73C962A42B688D4200D34D3F /* BookModel.swift */,
-				F623A5282B6A1E0B00B5C159 /* FindPostingModel.swift */,
-				F623A51C2B68C01E00B5C159 /* ChangePostModel.swift */,
+				F623A51C2B68C01E00B5C159 /* NoticeBoardModel.swift */,
 				5CE454922B68B7CB00874BCE /* UserModel.swift */,
 				5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */,
 				5ADE79DF2B6B3351005BB3ED /* GoogleSignResultModel.swift */,
@@ -499,11 +627,24 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		910F48FA2B6CBB9600C0563E /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				910F48F82B6CB42D00C0563E /* ImageDropDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
 		91C60CE22B67459E00A1E8E4 /* Posting */ = {
 			isa = PBXGroup;
 			children = (
 				91B80A462B6799B7000D5339 /* ChangePostingView.swift */,
+				7361270C2B6B83AC00943CD7 /* CameraButtonView.swift */,
+				910F491B2B6CC66900C0563E /* CameraModalView.swift */,
+				7361270E2B6B83BF00943CD7 /* DeleteImageButtonView.swift */,
 				91392F282B68BE0E0092052A /* FindPostingView.swift */,
+				736127082B6B82B400943CD7 /* ImageScrollView.swift */,
+				7361270A2B6B82F100943CD7 /* ImageEditorModalView.swift */,
 			);
 			path = Posting;
 			sourceTree = "<group>";
@@ -513,12 +654,14 @@
 			children = (
 				5ADE79DB2B6B2D5F005BB3ED /* Login */,
 				5A5041CB2B6A635C00211CF2 /* PathViewModel.swift */,
-				5AA82E512B6761BD006EFC72 /* SignUpViewModel.swift */,
 				91B80A412B676EEE000D5339 /* ImagePicker.swift */,
 				73C962AA2B68C4D800D34D3F /* SearchBooksViewModel.swift */,
+				91C60CE72B67492500A1E8E4 /* StorageManager.swift */,
+				736127102B6B84AC00943CD7 /* PostingViewModel.swift */,
 				F623A51A2B68BFBC00B5C159 /* ChangePostingViewModel.swift */,
 				F623A5262B6A1DFE00B5C159 /* FindPostingViewModel.swift */,
 				5A3A44212B6C89AE00B66C81 /* LocationViewModel.swift */,
+				1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -818,62 +961,97 @@
 				1DCFB0242B68CD3100250D55 /* FindPasswordView.swift in Sources */,
 				1D2B61842B63929900945EE2 /* KakaoLoginViewModel.swift in Sources */,
 				1D84019B2B6779CB00ADEEB5 /* IdLoginView.swift in Sources */,
+				5ADE79E82B6B5963005BB3ED /* StatusTextView.swift in Sources */,
+				910F48F92B6CB42D00C0563E /* ImageDropDelegate.swift in Sources */,
+				736127112B6B84AC00943CD7 /* PostingViewModel.swift in Sources */,
 				5AA82E542B6764DF006EFC72 /* SignUpAuthCodeBoxView.swift in Sources */,
+				5A3A44092B6C724500B66C81 /* EmailError.swift in Sources */,
 				5CE454902B68B79000874BCE /* FirestoreService.swift in Sources */,
 				5AA82E522B6761BD006EFC72 /* SignUpViewModel.swift in Sources */,
 				5A3A44282B6CC7BA00B66C81 /* NaverMapApiManager.swift in Sources */,
 				73C962A12B6883A700D34D3F /* SearchBooksView.swift in Sources */,
 				5A7A4E552B62269600F79C23 /* LoginView.swift in Sources */,
+				5A0242152B6D36FF00137AA6 /* LoadingCircle.swift in Sources */,
 				73C962A92B68C38D00D34D3F /* BookAPIManger.swift in Sources */,
 				5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */,
 				1D84019E2B677B3B00ADEEB5 /* IdLoginViewModel.swift in Sources */,
 				5A3A442A2B6CDB8A00B66C81 /* KeychainManager.swift in Sources */,
+				5A6CC5212B6B192F0037429F /* FormatValidator.swift in Sources */,
 				1DCFB0222B68CB4400250D55 /* FindIdVM.swift in Sources */,
+				5A4F281B2B6BAF9F00FF5483 /* LargeBtnStyle.swift in Sources */,
 				5ADE79E02B6B3351005BB3ED /* GoogleSignResultModel.swift in Sources */,
 				1DCFB01E2B687D7000250D55 /* FindIdView.swift in Sources */,
 				1D357CAC2B6A13510064B87D /* ChangePasswordVM.swift in Sources */,
+				5A6CC5252B6B19630037429F /* Validator.swift in Sources */,
 				1DA6E06C2B68D9EB00D631D5 /* ChangePasswordView.swift in Sources */,
-				5A2DE09E2B68DBB700EF3A6B /* SignUpPasswordBoxView.swift in Sources */,
 				73C962AB2B68C4D800D34D3F /* SearchBooksViewModel.swift in Sources */,
 				5A3A44202B6C890900B66C81 /* NaverMapView.swift in Sources */,
+				5A3A44172B6C779200B66C81 /* PwdError.swift in Sources */,
 				91B80A452B6798B9000D5339 /* TabBarView.swift in Sources */,
 				91B80A422B676EEE000D5339 /* ImagePicker.swift in Sources */,
-				F623A51B2B68BFBC00B5C159 /* ChangePostingViewModel.swift in Sources */,
+				736127092B6B82B400943CD7 /* ImageScrollView.swift in Sources */,
 				5ADE79DA2B6B2C99005BB3ED /* CertiResult.swift in Sources */,
+				5ADE79E62B6B565F005BB3ED /* SignUpInputView.swift in Sources */,
 				5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */,
 				91C60CE82B67492500A1E8E4 /* StorageManager.swift in Sources */,
+				5A3A440F2B6C741200B66C81 /* InputTextFieldStyle.swift in Sources */,
+
+				1D71C6C52B6C766300EEC95D /* BookSearchBar.swift in Sources */,
+
 				736127052B6B538800943CD7 /* NaverLoginView.swift in Sources */,
+
 				91B80A472B6799B7000D5339 /* ChangePostingView.swift in Sources */,
-				F623A5272B6A1DFE00B5C159 /* FindPostingViewModel.swift in Sources */,
 				1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */,
+				5A6CC5232B6B19510037429F /* RedundantValidator.swift in Sources */,
+				5A3A440B2B6C726100B66C81 /* NicknameError.swift in Sources */,
+				5AA82E5E2B67891E006EFC72 /* SmtpManager.swift in Sources */,
+				5A3A44262B6CB36900B66C81 /* Location.swift in Sources */,
 				5ADE79DE2B6B3305005BB3ED /* GoogleAuthModel.swift in Sources */,
 				5ADE79E22B6B34D0005BB3ED /* GoogleAuthViewModel.swift in Sources */,
+				5A3A44192B6C77A300B66C81 /* PwdConfirmError.swift in Sources */,
 				736127072B6B543A00943CD7 /* NaverAuthManager.swift in Sources */,
 				5AA82E5E2B67891E006EFC72 /* SmtpManager.swift in Sources */,
+				5A3E020B2B6F9FCD008F8CFD /* TestView.swift in Sources */,
+				5ADE79EA2B6B6715005BB3ED /* SignUpInputManager.swift in Sources */,
+				7361270D2B6B83AC00943CD7 /* CameraButtonView.swift in Sources */,
 				5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */,
 				5A5041CE2B6A637A00211CF2 /* PathType.swift in Sources */,
+				7361270F2B6B83BF00943CD7 /* DeleteImageButtonView.swift in Sources */,
 				73C962A32B68880500D34D3F /* SearchBarView.swift in Sources */,
 				5A3A44222B6C89AE00B66C81 /* LocationViewModel.swift in Sources */,
 				73C962A52B688D4200D34D3F /* BookModel.swift in Sources */,
 				73DDA5DF2B6A336100B25FB8 /* SelectBooksView.swift in Sources */,
 				5A1A16942B622BB10063D408 /* GoogleLoginViewController.swift in Sources */,
+				1DB39DBC2B6B57F100C1B489 /* BookShelfViewModel.swift in Sources */,
 				5AA82E4D2B675E26006EFC72 /* EmailSignUpView.swift in Sources */,
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
 				73DDA5E12B6A34A500B25FB8 /* SearchResultView.swift in Sources */,
+				5A3A44112B6C75F500B66C81 /* MiddleWhiteBtnStyle.swift in Sources */,
+				1D71C6C72B6C8D4400EEC95D /* WishBookAddBtnView.swift in Sources */,
 				91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */,
-				F623A5292B6A1E0C00B5C159 /* FindPostingModel.swift in Sources */,
 				5CE454992B68B8EF00874BCE /* AppleAuthManager.swift in Sources */,
 				5A1A16962B6231870063D408 /* GoogleAuthManager.swift in Sources */,
 				5AA82E4F2B6760C7006EFC72 /* SignUpInputBoxView.swift in Sources */,
 				1DA6E06E2B68E2EA00D631D5 /* FindIdResultView.swift in Sources */,
 				5A3A441E2B6C88E300B66C81 /* MapView.swift in Sources */,
+				5A3A44152B6C778200B66C81 /* SignUpInputType.swift in Sources */,
+				5A3A440D2B6C73D500B66C81 /* MiddleBlueBtnStyle.swift in Sources */,
 				5A2DE09A2B68915200EF3A6B /* SignUpInputer.swift in Sources */,
+				1D71C6C12B6C743900EEC95D /* BookView.swift in Sources */,
 				5A2DE0972B6884BE00EF3A6B /* EmailCertiView.swift in Sources */,
+				F623A51D2B68C01E00B5C159 /* NoticeBoardModel.swift in Sources */,
+				1DB39DBA2B6B57B100C1B489 /* BookShelfView.swift in Sources */,
 				F623A51D2B68C01E00B5C159 /* ChangePostModel.swift in Sources */,
+				5A3E020D2B6FA001008F8CFD /* TestViewModel.swift in Sources */,
 				5A1A168E2B6228290063D408 /* GoogleLoginView.swift in Sources */,
+				910F491C2B6CC66900C0563E /* CameraModalView.swift in Sources */,
 				5A5041CC2B6A635C00211CF2 /* PathViewModel.swift in Sources */,
+				7361270B2B6B82F100943CD7 /* ImageEditorModalView.swift in Sources */,
+				1DB39DC02B6B8A5300C1B489 /* BookDetailView.swift in Sources */,
+				1D71C6C32B6C763900EEC95D /* AddBookBtnView.swift in Sources */,
 				5A7A4E262B61DFFD00F79C23 /* BookBridgeApp.swift in Sources */,
 				5CE454932B68B7CB00874BCE /* UserModel.swift in Sources */,
+				5A3A44132B6C775D00B66C81 /* PhoneError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

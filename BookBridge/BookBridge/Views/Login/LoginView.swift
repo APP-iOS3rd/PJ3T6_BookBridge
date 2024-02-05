@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     @StateObject private var pathModel = PathViewModel()
+    @StateObject var signUpVM = SignUpViewModel()
     
     var body: some View {
         NavigationStack(path: $pathModel.paths){
@@ -68,7 +69,7 @@ struct LoginView: View {
                         .font(.system(size: 16, weight: .light))
                     
                     Button(action: {
-                        pathModel.paths.append(.login)
+                        pathModel.paths.append(.home)
                     }, label: {
                         Text("둘러보기")
                             .foregroundColor(Color(hex: "3A87FD"))
@@ -114,9 +115,10 @@ struct LoginView: View {
             .navigationDestination(for: PathType.self) { pathType in
                 switch pathType {
                 case .home:
-                    EmptyView()
+                    TabBarView()
+                        .navigationBarBackButtonHidden()
                 case .certi:
-                    EmailCertiView()
+                    EmailCertiView(signUpVM: signUpVM)
                         .navigationBarBackButtonHidden()
                 case .findId:
                     FindIdView()
@@ -132,6 +134,9 @@ struct LoginView: View {
                         .navigationBarBackButtonHidden()
                 case .changepassword:
                     ChangePasswordView()
+                        .navigationBarBackButtonHidden()
+                case .signUp:
+                    EmailSignUpView(signUpVM: signUpVM)
                         .navigationBarBackButtonHidden()
                 }
             }

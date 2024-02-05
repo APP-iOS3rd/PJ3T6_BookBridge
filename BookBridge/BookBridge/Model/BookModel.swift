@@ -36,3 +36,10 @@ struct IndustryIdentifier: Codable {
 struct ImageLinks: Codable {
     var smallThumbnail: String?
 }
+
+
+
+
+
+
+
