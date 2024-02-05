@@ -77,6 +77,7 @@ class SignUpViewModel: ObservableObject {
             }
         }
     }
+    
 // MARK: - 타이머
     
     func showingTime() {
