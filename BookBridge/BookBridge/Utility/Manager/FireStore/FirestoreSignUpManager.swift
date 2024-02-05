@@ -98,4 +98,19 @@ class FirestoreSignUpManager {
             }
         }
     }
+    
+    func getUserData(email: String, completion: @escaping ([String: Any]?) -> Void) {
+        db.collection("User").whereField("email", isEqualTo: email).getDocuments { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+                completion(nil)
+            } else {
+                if let document = querySnapshot?.documents.first {
+                    completion(document.data())
+                } else {
+                    completion(nil)
+                }
+            }
+        }
+    }
 }
