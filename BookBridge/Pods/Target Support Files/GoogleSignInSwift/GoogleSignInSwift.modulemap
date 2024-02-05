@@ -1,0 +1,6 @@
+framework module GoogleSignInSwift {
+  umbrella header "GoogleSignInSwift-umbrella.h"
+
+  export *
+  module * { export * }
+}
