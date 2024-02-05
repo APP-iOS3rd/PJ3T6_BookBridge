@@ -9,8 +9,6 @@ import SwiftUI
 import GoogleSignIn
 import GoogleSignInSwift
 
-
-
 struct GoogleLoginView: View {
     @StateObject private var viewModel = GoogleAuthViewModel()
     
