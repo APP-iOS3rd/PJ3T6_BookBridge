@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct BookDetailView: View {
-    var book: Item    
+    @EnvironmentObject var viewModel: BookShelfViewModel
+    
+    var book: Item
     var body: some View {
         ScrollView{
             VStack{
@@ -19,11 +21,21 @@ struct BookDetailView: View {
                     .font(.system(size: 20, weight: .bold))
                 
                 if let urlString = book.volumeInfo.imageLinks?.smallThumbnail, let url = URL(string: urlString) {
-                    AsyncImage(url: url)
+                    AsyncImage(url: url){
+                        image in
+                        image
+                            .frame(width: 150, height: 200)
+                    } placeholder: {
+                        ProgressView()
+                            .frame(width: 150, height: 200)
+                    }
+                } else {
+                    Image("imageNil")
+                        .resizable()
                         .frame(width: 150, height: 200)
-                    
-                    
+                        
                 }
+                
                 Text("\(book.volumeInfo.title!)")
                     .font(.system(size: 24, weight: .bold))
                 
@@ -31,7 +43,9 @@ struct BookDetailView: View {
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundColor(Color(hex: "999999"))
                 
-                WishBookAddBtnView()
+                WishBookAddBtnView(book: book)
+                    .environmentObject(viewModel)
+                    
                 
                 Spacer()
                     .frame(height: 10)
@@ -70,13 +84,13 @@ struct BookDetailView: View {
                                 Text(isbnString(volumeInfo: book.volumeInfo))
                                     .font(.system(size: 15, weight: .semibold))
                                     .foregroundColor(Color(hex: "9A9A9A"))
-                                Text("\(book.volumeInfo.pageCount!)")
+                                Text("\(book.volumeInfo.categories?.first ?? "정보 없음")")
                                     .font(.system(size: 15, weight: .semibold))
                                     .foregroundColor(Color(hex: "9A9A9A"))
                                 Text("\(book.volumeInfo.publishedDate!)")
                                     .font(.system(size: 15, weight: .semibold))
                                     .foregroundColor(Color(hex: "9A9A9A"))
-                                Text("\(book.volumeInfo.pageCount!)")
+                              Text("\(book.volumeInfo.pageCount.map(String.init) ?? "정보 없음")")
                                     .font(.system(size: 15, weight: .semibold))
                                     .foregroundColor(Color(hex: "9A9A9A"))
                             }
@@ -94,7 +108,7 @@ struct BookDetailView: View {
                             .frame(height: 1)
                         
                         
-                        Text("\(book.volumeInfo.description!)")
+                        Text("\(book.volumeInfo.description ?? "정보 없음")")
                     }
                     .padding(.vertical,20)
                     .padding(.horizontal, 40)

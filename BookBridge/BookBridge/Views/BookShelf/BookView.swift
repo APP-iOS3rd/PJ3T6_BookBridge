@@ -16,9 +16,9 @@ struct BookView: View {
     var books: [Item] {
         switch tap {
         case .wish:
-            return viewModel.wishBooks.flatMap { $0.items }
+            return viewModel.wishBooks
         case .hold:
-            return viewModel.holdBooks.flatMap { $0.items }
+            return viewModel.holdBooks
         }
     }
     
@@ -30,15 +30,29 @@ struct BookView: View {
                 ForEach(viewModel.filteredBooks, id: \.id) { book in
                     VStack {
                         if let urlString = book.volumeInfo.imageLinks?.smallThumbnail, let url = URL(string: urlString) {
-                            AsyncImage(url: url)
+                            AsyncImage(url: url){
+                                image in
+                                image
+                                    .frame(width: (UIScreen.main.bounds.width - 60) / 3, height: 164)
+                                    .cornerRadius(8)
+                                    .onTapGesture{
+                                        selectedBook = book
+                                    }
+                            } placeholder: {
+                                ProgressView()
+                                    .frame(width: 60, height: 80)
+                            }
+                        } else {
+                            Image("imageNil")
+                                .resizable()
                                 .frame(width: (UIScreen.main.bounds.width - 60) / 3, height: 164)
-                                .cornerRadius(8)
+                                .cornerRadius(5)
                                 .onTapGesture{
                                     selectedBook = book
                                 }
                         }
-                        Text(book.volumeInfo.title ?? "Unknown Title")
-                            .frame(maxWidth: .infinity, alignment: .center) // 텍스트 뷰 크기 조정
+                        
+                        
                     }
                     .frame(width: (UIScreen.main.bounds.width - 60) / 3) // VStack에 대한 프레임 설정
                 }
