@@ -62,7 +62,7 @@ struct FindPostingView: View {
                         .bold()
                     
                     
-                    NavigationLink(destination: SearchBooksView(hopeBooks: $viewModel.noticeBoard.hopeBook)) {
+                    NavigationLink(destination: SearchBooksView(hopeBooks: $viewModel.noticeBoard.hopeBook, isWish: .wish)) {
                         HStack {
                             Text(
                                 viewModel.noticeBoard.hopeBook.isEmpty ? "희망도서 선택" : viewModel.noticeBoard.hopeBook.count == 1 ? "\(viewModel.noticeBoard.hopeBook[0].volumeInfo.title ?? "")" : "\(viewModel.noticeBoard.hopeBook[0].volumeInfo.title ?? "") 외 \(viewModel.noticeBoard.hopeBook.count - 1)권"

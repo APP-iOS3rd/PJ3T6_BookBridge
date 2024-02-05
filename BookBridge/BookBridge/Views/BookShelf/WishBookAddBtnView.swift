@@ -8,10 +8,17 @@
 import SwiftUI
 
 struct WishBookAddBtnView: View {
+    @EnvironmentObject var viewModel: BookShelfViewModel
+    @Environment(\.dismiss) private var dismiss
+    var book : Item
     var body: some View {
         Button(
             action: {
-                                    
+                if !(viewModel.wishBooks.contains{ $0.id == book.id }){
+                    viewModel.wishBooks.append(book)
+                }
+                
+                dismiss()
             },
             label: {
                 Text("나의 희망도서로 등록")
@@ -27,6 +34,8 @@ struct WishBookAddBtnView: View {
     }
 }
 
-#Preview {
-    WishBookAddBtnView()
-}
+
+
+//#Preview {
+//    WishBookAddBtnView()
+//}
