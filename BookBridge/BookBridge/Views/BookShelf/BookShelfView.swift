@@ -63,10 +63,11 @@ struct BookShelfView: View {
                 BookView(selectedBook: $selectedBook, tap: selectedPicker)
                     .environmentObject(viewModel)
                     .sheet(item: $selectedBook) { book in
-                            BookDetailView(book: book)
+                        BookDetailView(book: book)
+                            .environmentObject(viewModel)
                             .presentationDetents([.large])
-                                
-                                            
+                        
+                        
                     }
                 
                 
@@ -81,17 +82,23 @@ struct BookShelfView: View {
                 .padding(.bottom, 50)
                 .fullScreenCover(isPresented: $showingSheet, onDismiss: {
                     // MARK: hopebook 처리 할 예정
-                    //취소 클릭시 아닐경우 나눈후 아닐경우 중복 처리후 wishbook에 입력 취소시 배열 초기화  
+                    //취소 클릭시 아닐경우 나눈후 아닐경우 중복 처리후 wishbook에 입력 취소시 배열 초기화
                     if hopeBooks.isEmpty {
                         // 취소눌렀을 경우
                     }
                     else {
                         // 확인 눌렀을 경우
                         if selectedPicker == .wish {
+                            viewModel.wishBooks.removeAll { item in
+                                hopeBooks.contains(where: { $0.id == item.id })
+                            }
                             viewModel.wishBooks.append(contentsOf: hopeBooks)
                             viewModel.fetchBooks(for: .wish)
                         }
                         else {
+                            viewModel.holdBooks.removeAll { item in
+                                hopeBooks.contains(where: { $0.id == item.id })
+                            }
                             viewModel.holdBooks.append(contentsOf: hopeBooks)
                             viewModel.fetchBooks(for: .hold)
                         }
@@ -99,13 +106,13 @@ struct BookShelfView: View {
                     }
                 }, content: {
                     
-                        
-                        SearchBooksView(hopeBooks: $hopeBooks, isWish: selectedPicker)
+                    
+                    SearchBooksView(hopeBooks: $hopeBooks, isWish: selectedPicker)
                     
                     
-                }) 
-                    
-                
+                })
+            
+            
         }
         
     }
