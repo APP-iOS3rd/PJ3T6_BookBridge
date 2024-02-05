@@ -69,7 +69,7 @@ struct LoginView: View {
                         .font(.system(size: 16, weight: .light))
                     
                     Button(action: {
-                        pathModel.paths.append(.login)
+                        pathModel.paths.append(.home)
                     }, label: {
                         Text("둘러보기")
                             .foregroundColor(Color(hex: "3A87FD"))
@@ -100,6 +100,7 @@ struct LoginView: View {
 
 
                 HStack(spacing: 20){
+                    NaverLoginView()
                     GoogleLoginView()
                     KakaoLoginView()
                     AppleLoginView()

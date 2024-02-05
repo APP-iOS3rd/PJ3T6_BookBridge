@@ -9,6 +9,7 @@ import SwiftUI
 import Firebase
 import KakaoSDKCommon
 import KakaoSDKAuth
+import NaverThirdPartyLogin
 
 @main
 struct BookBridgeApp: App {
@@ -16,6 +17,14 @@ struct BookBridgeApp: App {
     init() {
         // Kakao SDK 초기화
         KakaoSDK.initSDK(appKey: "3faeb18730ff6edf468b5e43fc5fea19")
+        
+        // Naver SDK 초기화
+        NaverThirdPartyLoginConnection.getSharedInstance()?.isInAppOauthEnable = true
+        
+        NaverThirdPartyLoginConnection.getSharedInstance().serviceUrlScheme = kServiceAppUrlScheme
+        NaverThirdPartyLoginConnection.getSharedInstance().consumerKey = kConsumerKey
+        NaverThirdPartyLoginConnection.getSharedInstance().consumerSecret = kConsumerSecret
+        NaverThirdPartyLoginConnection.getSharedInstance().appName = kServiceAppName
     }
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate

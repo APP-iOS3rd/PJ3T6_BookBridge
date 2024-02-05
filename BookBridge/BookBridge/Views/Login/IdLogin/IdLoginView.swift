@@ -120,8 +120,6 @@ struct IdLoginView: View {
         .navigationBarTitle("로그인", displayMode: .inline)
         .navigationBarItems(leading: CustomBackButtonView())
         
-        
-        
     }
     
 }
