@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SignUpAuthCodeBoxView: View {
     @StateObject var signUpVm: SignUpViewModel    
-    @State var status: Bool?
+    @State var isLoading = false
     
     var body: some View {
         VStack {
@@ -18,7 +18,7 @@ struct SignUpAuthCodeBoxView: View {
                     .font(.system(size: 10))
                     .foregroundStyle(Color(hex: "999999"))
                                             
-                if signUpVm.timeLabel != "" {
+                if !signUpVm.timeLabel.isEmpty {
                     Text(signUpVm.timeLabel)
                         .font(.system(size: 10))
                         .foregroundStyle(Color(hex: "FF0000"))
@@ -29,39 +29,31 @@ struct SignUpAuthCodeBoxView: View {
                         
             HStack {
                 TextField("인증번호를 입력해주세요", text: $signUpVm.userAuthCode)
-                    .padding()
-                    .foregroundColor(Color(hex: "3C3C43"))
-                    .frame(height: 36)
-                    .frame(maxWidth: .infinity)
-                    .background(Color(hex: "F7F8FC"))
-                    .cornerRadius(5.0)
+                    .modifier(InputTextFieldStyle())
                 
-                ResendBtn()
-            }
-                        
-            if let certiResult = signUpVm.isCertiClear {
-                if certiResult == .wrong {
-                    StatusText(text: "잘못된 인증번호 입니다.", color: "F80B0B")
+                HStack {
+                    if isLoading {
+                        LoadingCircle(size: 10, color: "59AAE0")
+                    }
+                    
+                    Button {
+                        isLoading = true
+                        signUpVm.validEmail() {
+                            isLoading = false
+                        }
+                    } label: {
+                        Text("재전송")
+                    }
                 }
+                .modifier(MiddleWhiteBtnStyle())
             }
             
+            if signUpVm.isEmailWrong {
+                StatusTextView(text: "잘못된 인증번호 입니다.", color: "F80B0B")
+            }
         }
     }
     
-    @ViewBuilder
-    func ResendBtn() -> some View {
-        Button {
-            signUpVm.sendMail()
-        } label: {
-            Text("재전송")
-                .font(.system(size: 17))
-                .foregroundStyle(Color(hex: "59AAE0"))
-                .frame(width: 100, height: 36)
-                .border(Color(hex: "59AAE0"), width: 2)
-                .background(.white)
-                .cornerRadius(5.0)
-        }
-    }
 }
 
 #Preview {
