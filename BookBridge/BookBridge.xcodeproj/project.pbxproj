@@ -75,8 +75,8 @@
 		5AA97F832B70754D00EF4081 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA97F822B70754D00EF4081 /* LocationManager.swift */; };
 		5AA97F862B709C4000EF4081 /* FirestoreSignUpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA97F852B709C4000EF4081 /* FirestoreSignUpManager.swift */; };
 		5AA97F892B70BCF000EF4081 /* BundleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA97F882B70BCF000EF4081 /* BundleExtension.swift */; };
+		5AA97F8B2B70C2A600EF4081 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5AA97F8A2B70C2A600EF4081 /* GoogleService-Info.plist */; };
 		5ADE79D32B6B2798005BB3ED /* SwiftSMTP in Frameworks */ = {isa = PBXBuildFile; productRef = 5ADE79D22B6B2798005BB3ED /* SwiftSMTP */; };
-		5ADE79D52B6B291C005BB3ED /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ADE79D42B6B291C005BB3ED /* GoogleService-Info.plist */; };
 		5ADE79DA2B6B2C99005BB3ED /* CertiResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79D92B6B2C99005BB3ED /* CertiResult.swift */; };
 		5ADE79DE2B6B3305005BB3ED /* GoogleAuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */; };
 		5ADE79E02B6B3351005BB3ED /* GoogleSignResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79DF2B6B3351005BB3ED /* GoogleSignResultModel.swift */; };
@@ -206,6 +206,7 @@
 		5AA97F882B70BCF000EF4081 /* BundleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtension.swift; sourceTree = "<group>"; };
 		5AA97F922B70C94500EF4081 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		5ADE79D42B6B291C005BB3ED /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5AA97F8A2B70C2A600EF4081 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5ADE79D92B6B2C99005BB3ED /* CertiResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertiResult.swift; sourceTree = "<group>"; };
 		5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthModel.swift; sourceTree = "<group>"; };
 		5ADE79DF2B6B3351005BB3ED /* GoogleSignResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignResultModel.swift; sourceTree = "<group>"; };
@@ -423,8 +424,9 @@
 			isa = PBXGroup;
 			children = (
 				5AA97F922B70C94500EF4081 /* Secrets.xcconfig */,
+				5AA97F8A2B70C2A600EF4081 /* GoogleService-Info.plist */,
+				5AA97F872B70BA3700EF4081 /* Secrets.xcconfig */,
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
-				5ADE79D42B6B291C005BB3ED /* GoogleService-Info.plist */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
 				5A7A4E352B61DFFE00F79C23 /* BookBridgeTests */,
 				5A7A4E3F2B61DFFE00F79C23 /* BookBridgeUITests */,
@@ -809,7 +811,7 @@
 			files = (
 				5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */,
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
-				5ADE79D52B6B291C005BB3ED /* GoogleService-Info.plist in Resources */,
+				5AA97F8B2B70C2A600EF4081 /* GoogleService-Info.plist in Resources */,
 				5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
