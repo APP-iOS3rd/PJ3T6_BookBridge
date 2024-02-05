@@ -12,12 +12,12 @@ import FirebaseFirestore
 struct RedundantValidator {
     let db = Firestore.firestore()
             
+    
     func isValidEmail(email: String, completion: @escaping(Bool) -> Void) {
         let userDB = db.collection("User")
         let query = userDB.whereField("email", isEqualTo: email)
-        
+                
         query.getDocuments() { (qs, err) in
-            
             if qs!.documents.isEmpty {
                 print("이메일 중복 없음")
                 completion(true)
@@ -25,7 +25,7 @@ struct RedundantValidator {
                 print("이메일 중복")
                 completion(false)
             }
-        }
+        }        
     }
            
     func isValidNickname(nickname: String, completion: @escaping(Bool) -> Void) {

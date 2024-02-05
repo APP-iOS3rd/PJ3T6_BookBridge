@@ -12,12 +12,15 @@ import SwiftSMTP
 import FirebaseFirestore
 
 class SignUpViewModel: ObservableObject {
+    // Email Certify
     @Published var email: String = ""
     @Published var userAuthCode: String = ""
     @Published var timeRemaining = 0
     @Published var timeLabel: String = ""
-    @Published var isCertiClear: CertiResult?
+    @Published var isEmailWrong = false
+    @Published var isEmailCertified = false
     
+    // SignUp
     @Published var id: String = ""
     @Published var phoneNumer: String = ""
     @Published var nickname: String = ""
@@ -25,6 +28,7 @@ class SignUpViewModel: ObservableObject {
     @Published var passwordConfirm: String = ""
     @Published var pwdStatus: PwdError?
     
+    // Error
     @Published var nicknameError: NicknameError?
     @Published var emailError: EmailError?
     @Published var phError: PhoneError?
@@ -37,10 +41,10 @@ class SignUpViewModel: ObservableObject {
     let db = Firestore.firestore()
     
     let validator = Validator(signUpVM: SignUpViewModel())
-    var isCertiActive = false
+    // var isCertiActive: Bool?
     var timer: Timer?
-    
-    func sendMail() {
+        
+    func sendMail(completion: @escaping() -> Void) {
         let mail_to = Mail.User(name: "mail_to", email: email)
         authCode = createEmailCode()
         let mail = Mail(
@@ -49,13 +53,30 @@ class SignUpViewModel: ObservableObject {
             subject: "북다리 이메일 인증번호",
             text: emailContent(code: authCode ?? "")
         )
-        self.userAuthCode = ""
-        self.isCertiClear = nil
-        self.isCertiActive = true
-        smtp.send(mail)
-        showingTime()
+        
+        DispatchQueue.global(qos: .background).async {
+            smtp.send(mail){ error in
+                if let error = error {
+                    print(error.localizedDescription)
+                    
+                    DispatchQueue.main.async {
+                        completion()
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        print("메일 전송에 성공하였습니다.")
+                        self.userAuthCode = ""
+                        self.isEmailWrong = false
+                        withAnimation() {
+                            self.isEmailCertified = true
+                        }                        
+                        self.showingTime()
+                        completion()
+                    }
+                }
+            }
+        }
     }
-    
 // MARK: - 타이머
     
     func showingTime() {
@@ -73,7 +94,7 @@ class SignUpViewModel: ObservableObject {
             } else {
                 self.authCode = nil
                 self.timeLabel = "인증시간만료"
-                self.isCertiClear = .timeOut
+                self.isEmailWrong = false
                 timer.invalidate()
             }
         }
@@ -81,8 +102,8 @@ class SignUpViewModel: ObservableObject {
     
     func reset() {
         authCode = nil
-        isCertiActive = false
-        isCertiClear = nil
+        isEmailCertified = false
+        isEmailWrong = false
         timerReset()
     }
     
@@ -144,48 +165,66 @@ class SignUpViewModel: ObservableObject {
         return true
     }
     
-    func isValidEmail() {
+    func validEmail(completion: @escaping() -> Void) {
         redundant.isValidEmail(email: email) { success in
             if success {
                 if self.format.isValidEmail(email: self.email) {
-                    print("이메일 인증 성공")
-                    self.emailError = .success
-                    self.isCertiActive = true
-                    self.sendMail()
+                    self.sendMail() {
+                        DispatchQueue.main.async {
+                            print("이메일 인증 성공")
+                            self.emailError = .success
+                            completion()
+                        }
+                    }
                 } else {
-                    print("이메일 인증 실패")
-                    self.emailError = .invalid
+                    DispatchQueue.main.async {
+                        print("이메일 인증 실패")
+                        self.emailError = .invalid
+                        completion()
+                    }
                 }
             } else {
-                self.emailError = .redundant
+                DispatchQueue.main.async {
+                    self.emailError = .redundant
+                    completion()
+                }
             }
         }
     }
     
-    func isValidNickname() {
+    func validNickname(completion: @escaping() -> Void) {
         redundant.isValidNickname(nickname: nickname) { success in
             if success {
                 if self.format.isValidNickname(nickname: self.nickname) {
-                    print("닉네임 인증 성공")
-                    self.nicknameError = .success
+                    DispatchQueue.main.async {
+                        print("닉네임 인증 성공")
+                        self.nicknameError = .success
+                        completion()
+                    }
                 } else {
-                    print("닉네임 인증 실패")
-                    self.nicknameError = .invalid
+                    DispatchQueue.main.async {
+                        print("닉네임 인증 실패")
+                        self.nicknameError = .invalid
+                        completion()
+                    }
                 }
             } else {
-                self.nicknameError = .redundant
+                DispatchQueue.main.async {
+                    self.nicknameError = .redundant
+                    completion()
+                }
             }
         }
     }
     
-    func isCertiCode() {
+    func validAuthCode(completion: @escaping(Bool) -> Void) {
         if userAuthCode == self.authCode {
-            self.isCertiClear = .right
+            completion(true)
         } else {
-            self.isCertiClear = .wrong
+            completion(false)
         }
     }
-    
+            
 // MARK: - User 저장
     func convertUserModelToDictionary(user: UserModel) -> [String : Any] {
 

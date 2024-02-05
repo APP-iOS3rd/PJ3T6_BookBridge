@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SignUpInputBoxView: View {
     @StateObject var signUpVM: SignUpViewModel
-    @State var status: Bool?
+    @State var isLoading = false
     var inputer: SignUpInputer
             
     var body: some View {
@@ -36,14 +36,26 @@ struct SignUpInputBoxView: View {
                 Button {
                     switch inputer.type {
                     case .email:
-                        signUpVM.isValidEmail()
-                                                                                                    
+                        isLoading = true
+                        signUpVM.validEmail() {
+                            isLoading = false
+                        }
+    
                     case .nickName:
-                        signUpVM.isValidNickname()
+                        isLoading = true
+                        signUpVM.validNickname() {
+                            isLoading = false                            
+                        }
                     }
                 } label: {
-                    Text(inputer.btnTitle)
-                        .modifier(MiddleBlueBtnStyle())
+                    HStack {
+                        if isLoading {
+                            LoadingCircle(size: 10, color: "FFFFFF")
+                        }
+                        
+                        Text(inputer.btnTitle)
+                    }
+                    .modifier(MiddleBlueBtnStyle())
                 }
             }
             

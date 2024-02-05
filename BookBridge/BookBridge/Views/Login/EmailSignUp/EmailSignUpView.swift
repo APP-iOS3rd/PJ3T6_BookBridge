@@ -17,24 +17,25 @@ struct EmailSignUpView: View {
         
             VStack {
                 Image("Character")
-                
+                    .padding(.bottom, 30)
+                                                
                 SignUpInputBoxView(signUpVM: signUpVM, inputer: SignUpInputer(input: .nickName))
-                    .padding()
-                
+                        .padding(.bottom)
+                    
                 SignUpInputView(signUpVm: signUpVM, manager: SignUpInputManager(input: .phone))
-                    .padding()
+                    .padding(.bottom)
                 
                 SignUpInputView(signUpVm: signUpVM, manager: SignUpInputManager(input: .pwd))
-                    .padding()
+                    .padding(.bottom)
                 
                 SignUpInputView(signUpVm: signUpVM, manager: SignUpInputManager(input: .pwdConfirm))
-                    .padding()
-                                                            
+                    .padding(.bottom)
+                                                                                                    
                 Spacer()
                 
                 AuthConfirmBtn()
-                    .padding()
             }
+            .padding(.horizontal)
             .navigationBarTitle("회원가입", displayMode: .inline)
             .navigationBarItems(leading: CustomBackButtonView())        
     }

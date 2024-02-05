@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SignUpAuthCodeBoxView: View {
     @StateObject var signUpVm: SignUpViewModel    
-    @State var status: Bool?
+    @State var isLoading = false
     
     var body: some View {
         VStack {
@@ -18,7 +18,7 @@ struct SignUpAuthCodeBoxView: View {
                     .font(.system(size: 10))
                     .foregroundStyle(Color(hex: "999999"))
                                             
-                if signUpVm.timeLabel != "" {
+                if !signUpVm.timeLabel.isEmpty {
                     Text(signUpVm.timeLabel)
                         .font(.system(size: 10))
                         .foregroundStyle(Color(hex: "FF0000"))
@@ -31,20 +31,26 @@ struct SignUpAuthCodeBoxView: View {
                 TextField("인증번호를 입력해주세요", text: $signUpVm.userAuthCode)
                     .modifier(InputTextFieldStyle())
                 
-                Button {
-                    signUpVm.sendMail()
-                } label: {
-                    Text("재전송")
-                        .modifier(MiddleWhiteBtnStyle())
+                HStack {
+                    if isLoading {
+                        LoadingCircle(size: 10, color: "59AAE0")
+                    }
+                    
+                    Button {
+                        isLoading = true
+                        signUpVm.validEmail() {
+                            isLoading = false
+                        }
+                    } label: {
+                        Text("재전송")
+                    }
                 }
-            }
-                        
-            if let certiResult = signUpVm.isCertiClear {
-                if certiResult == .wrong {
-                    StatusTextView(text: "잘못된 인증번호 입니다.", color: "F80B0B")
-                }
+                .modifier(MiddleWhiteBtnStyle())
             }
             
+            if signUpVm.isEmailWrong {
+                StatusTextView(text: "잘못된 인증번호 입니다.", color: "F80B0B")
+            }
         }
     }
     
