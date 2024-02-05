@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseAuth
+import FirebaseFirestore
 
 class IdLoginViewModel: ObservableObject {
     @Published var state: SignInState = .signedOut
