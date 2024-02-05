@@ -44,6 +44,7 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
         switch locationManager.authorizationStatus {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
+            checkLocationAuthorization()
         case .restricted:
             print("위치 정보 접근이 제한되었습니다.")
         case .denied:
@@ -62,6 +63,8 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
                     LocationManager.shared.setLocation(lat: self.userLocation.0, long: self.userLocation.1, distriction: district)
                                         
                     print("(\(LocationManager.shared.long),\(LocationManager.shared.lat)), \(LocationManager.shared.distriction)")
+                } else {
+                    print("위치정보를 받아오지 못함")
                 }
             }
             
@@ -69,7 +72,7 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
             break
         }
     }
-    
+            
     func checkIfLocationServiceIsEnabled() {
         DispatchQueue.global().async {
             if CLLocationManager.locationServicesEnabled() {
