@@ -122,15 +122,24 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
     }
     
     func getDistrict(long: Double, lat: Double, completion: @escaping (String?) -> Void) {
-                
-        
         let urlStr = NaverMapApiManager.ADDRESS_URL
         let param: Parameters = [
             "coords":"\(long),\(lat)",
             "output":"json"
         ]
-        let header1 = HTTPHeader(name: "X-NCP-APIGW-API-KEY-ID", value: NaverMapApiManager.NAVER_API_ID ?? "")
-        let header2 = HTTPHeader(name: "X-NCP-APIGW-API-KEY", value: NaverMapApiManager.NAVER_API_KEY ?? "")
+        
+        guard let naverKeyId = Bundle.main.naverKeyId else {
+            print("naverKeyId 키를 로드하지 못했습니다.")
+            return
+        }
+                
+        guard let naverKey = Bundle.main.naverKey else {
+            print("naverKey 키를 로드하지 못했습니다.")
+            return
+        }
+                        
+        let header1 = HTTPHeader(name: "X-NCP-APIGW-API-KEY-ID", value: naverKeyId)
+        let header2 = HTTPHeader(name: "X-NCP-APIGW-API-KEY", value: naverKey)
         let headers = HTTPHeaders([header1,header2])
         
 
