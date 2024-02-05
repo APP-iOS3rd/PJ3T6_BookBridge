@@ -1,8 +1,15 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,xcode,swift
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,xcode,swift
 
+### API KEY ###
+*.xcconfig
+
 ### Firebase ###
 GoogleService-Info.plist
+
+### Apple Account ###
+bookBridgeDistribution.mobileprovision
+BookBrigeProfile.mobileprovision
 
 ### macOS ###
 # General
