@@ -13,7 +13,7 @@ import SwiftyJSON
 final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDelegate, NMFMapViewTouchDelegate, CLLocationManagerDelegate {
     @Published var coord: (Double, Double) = (0.0, 0.0)
     @Published var userLocation: (Double, Double) = (0.0, 0.0) // lat, lng
-    @Published var distriction: String?
+    
     
     static let shared = LocationViewModel()
     let view = NMFNaverMapView(frame: .zero)
@@ -44,6 +44,7 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
         switch locationManager.authorizationStatus {
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
+            checkLocationAuthorization()
         case .restricted:
             print("위치 정보 접근이 제한되었습니다.")
         case .denied:
@@ -59,8 +60,11 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
             
             getDistrict(long: userLocation.1, lat: userLocation.0) { district in
                 if let district = district {
-                    self.distriction = district
-                    print(self.distriction ?? "error")
+                    LocationManager.shared.setLocation(lat: self.userLocation.0, long: self.userLocation.1, distriction: district)
+                                        
+                    print("(\(LocationManager.shared.long),\(LocationManager.shared.lat)), \(LocationManager.shared.distriction)")
+                } else {
+                    print("위치정보를 받아오지 못함")
                 }
             }
             
@@ -68,7 +72,7 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
             break
         }
     }
-    
+            
     func checkIfLocationServiceIsEnabled() {
         DispatchQueue.global().async {
             if CLLocationManager.locationServicesEnabled() {
@@ -137,7 +141,9 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
                 let json = JSON(value)
                 let data = json["results"]
                 let district = data[0]["region"]["area2"]["name"].string ?? ""
-                completion(district)
+                let dong = data[0]["region"]["area3"]["name"].string ?? ""
+                let result = "\(district),\(dong)"
+                completion(result)
             case .failure(let error):
                 print(error)
                 completion(nil)
