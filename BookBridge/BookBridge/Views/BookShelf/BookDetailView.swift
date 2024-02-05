@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BookDetailView: View {
-    var book: Item
+    var book: Item    
     var body: some View {
         ScrollView{
             VStack{
