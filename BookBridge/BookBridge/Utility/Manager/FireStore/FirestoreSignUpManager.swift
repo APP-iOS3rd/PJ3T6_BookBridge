@@ -42,9 +42,9 @@ class FirestoreSignUpManager {
     func addUser(
         id: String,
         email: String,
-        password: String,
-        nickname: String,
-        phoneNumber: String = ""
+        password: String?,
+        nickname: String?,
+        phoneNumber: String?
     ) {
         let user = UserModel(
             id: id,
