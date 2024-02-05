@@ -22,6 +22,7 @@ struct BookShelfView: View {
     @State private var showingSheet = false // 시트 표시 여부를 위한 상태 변수
     @State private var searchText = ""
     @State private var selectedBook: Item?
+    @State private var hopeBooks: [Item] = []
     
     var searchBarPlaceholder: String {
         switch selectedPicker {
@@ -76,11 +77,15 @@ struct BookShelfView: View {
             .onAppear{
                 viewModel.fetchBooks(for: .wish)
             }
+            
             AddBookBtnView(showingSheet: $showingSheet)
                 .padding(.trailing, 20)
                 .padding(.bottom, 50)
-                .sheet(isPresented: $showingSheet) {
-                    SearchBooksView()
+                .sheet(isPresented: $showingSheet, onDismiss: {
+                    // MARK: hopebook 처리 할 예정
+                    //취소 클릭시 아닐경우 나눈후 아닐경우 중복 처리후 wishbook에 입력 취소시 배열 초기화
+                }) {
+                    SearchBooksView(hopeBooks: $hopeBooks)
                 }
         }
         
