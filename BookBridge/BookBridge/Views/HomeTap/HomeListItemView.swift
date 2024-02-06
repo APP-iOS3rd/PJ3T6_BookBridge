@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeListItemView: View {
     @State var url = URL(string: "")
     
-    var storageManager = StorageManager.shared
+    var storageManager = HomeFirebaseManager.shared
     
     var author: String
     var bookmark: Bool
