@@ -14,7 +14,6 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
     @Published var coord: (Double, Double) = (0.0, 0.0)
     @Published var userLocation: (Double, Double) = (0.0, 0.0) // lat, lng
     
-    
     static let shared = LocationViewModel()
     let view = NMFNaverMapView(frame: .zero)
     var locationManager: CLLocationManager?
@@ -39,9 +38,10 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
     }
     
     func checkLocationAuthorization() {
-        guard let locationManager = locationManager else { return }
+        guard let locationManager = locationManager else { return }        
         
         switch locationManager.authorizationStatus {
+            
         case .notDetermined:
             locationManager.requestWhenInUseAuthorization()
             checkLocationAuthorization()
@@ -72,14 +72,23 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
             break
         }
     }
+    
+    func requestUseAuthorization(completion: @escaping () -> Void) {
+        self.locationManager = CLLocationManager()
+        self.locationManager?.delegate = self
+        if let locationManager = self.locationManager {
+            locationManager.requestWhenInUseAuthorization()
+        }
+        completion()
+    }
             
     func checkIfLocationServiceIsEnabled() {
         DispatchQueue.global().async {
             if CLLocationManager.locationServicesEnabled() {
                 DispatchQueue.main.async {
-                    self.locationManager = CLLocationManager()
-                    self.locationManager!.delegate = self
-                    self.checkLocationAuthorization()
+                    self.requestUseAuthorization {
+                        self.checkLocationAuthorization()
+                    }
                 }
             } else {
                 print("Show an alert letting them know this is off and to go turn i on")
