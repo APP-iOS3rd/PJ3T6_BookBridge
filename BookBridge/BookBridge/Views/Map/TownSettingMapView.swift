@@ -9,19 +9,17 @@ import SwiftUI
 import UIKit
 import NMapsMap
 
-struct NaverMapView: UIViewRepresentable {
-//    func makeCoordinator() -> Coordinator {
-//        NaverMapCoordinator.shared
-//    }
-        
+struct TownSettingMapView: UIViewRepresentable {
     func makeUIView(context: Context) -> NMFNaverMapView {        
         LocationViewModel.shared.getNaverMapView()
     }
         
-    func updateUIView(_ uiView: NMFNaverMapView, context: Context) {}
+    func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
+        
+    }
     
 }
 
 #Preview {
-    NaverMapView()
+    TownSettingMapView()
 }

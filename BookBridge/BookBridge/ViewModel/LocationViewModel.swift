@@ -9,32 +9,50 @@ import Foundation
 import NMapsMap
 import Alamofire
 import SwiftyJSON
+import SwiftUI
 
 final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDelegate, NMFMapViewTouchDelegate, CLLocationManagerDelegate {
     @Published var coord: (Double, Double) = (0.0, 0.0)
     @Published var userLocation: (Double, Double) = (0.0, 0.0) // lat, lng
-    
+    var prevCirclrRadius: CGFloat = 100
+    @Published var circleRadius: CGFloat = 100 {
+        didSet {
+            if isUpdated(cur: circleRadius, prev: prevCirclrRadius) {
+                prevCirclrRadius = circleRadius
+                fetchUserLocation(circle: circle)
+            }
+        }
+    }
+    let circle = NMFCircleOverlay()
     static let shared = LocationViewModel()
     let view = NMFNaverMapView(frame: .zero)
     var locationManager: CLLocationManager?
+    var isSliding = false
                         
+    func isUpdated(cur: CGFloat, prev: CGFloat) -> Bool {
+        return cur != prev
+    }
+    
     override init() {
         super.init()
         
         view.mapView.positionMode = .direction
         view.mapView.isNightModeEnabled = true
         
-        view.mapView.zoomLevel = 15
-        view.mapView.minZoomLevel = 10 // 최소 줌 레벨
+        view.mapView.zoomLevel = 8
+        view.mapView.minZoomLevel = 8 // 최소 줌 레벨
         view.mapView.maxZoomLevel = 17 // 최대 줌 레벨
         
-        view.showLocationButton = true
-        view.showZoomControls = true // 줌 확대, 축소 버튼 활성화
+        view.showLocationButton = false
+        view.showZoomControls = false // 줌 확대, 축소 버튼 활성화
         view.showCompass = false
         view.showScaleBar = false
         
+        view.mapView.isScrollGestureEnabled = false
         view.mapView.addCameraDelegate(delegate: self)
         view.mapView.touchDelegate = self
+        
+        
     }
     
     func checkLocationAuthorization() {
@@ -55,7 +73,7 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
             coord = (Double(locationManager.location?.coordinate.latitude ?? 0.0), Double(locationManager.location?.coordinate.longitude ?? 0.0))
             userLocation = (Double(locationManager.location?.coordinate.latitude ?? 0.0), Double(locationManager.location?.coordinate.longitude ?? 0.0))
             
-            // fetchUserLocation()
+            fetchUserLocation(circle: circle)
             print("userLocation: \(userLocation)")
             
             getDistrict(long: userLocation.1, lat: userLocation.0) { district in
@@ -105,11 +123,27 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
     }
     
     // 사용자 현재 위치 지도에 표시
-    func fetchUserLocation() {
+    func fetchUserLocation(circle: NMFCircleOverlay) {
         if let locationManager = locationManager {
             let lat = locationManager.location?.coordinate.latitude
             let lng = locationManager.location?.coordinate.longitude
-            let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: lat ?? 0.0, lng: lng ?? 0.0), zoomTo: 15)
+            var zoom: Double = 0
+            print("circleRadius: \(circleRadius)")
+            
+            if circleRadius == 100 {
+               zoom = 13
+            }
+            
+            if circleRadius == 110 {
+                zoom = 12
+            }
+            
+            if circleRadius == 120 {
+                zoom = 11.7
+            }
+            
+            let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: lat ?? 0.0, lng: lng ?? 0.0), zoomTo: zoom)
+                        
             cameraUpdate.animation = .easeIn
             cameraUpdate.animationDuration = 1
             
@@ -117,15 +151,22 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
             locationOverlay.location = NMGLatLng(lat: lat ?? 0.0, lng: lng ?? 0.0)
             locationOverlay.hidden = false
             
-            locationOverlay.icon = NMFOverlayImage(name: "location_overlay_icon")
-            locationOverlay.iconWidth = CGFloat(NMF_LOCATION_OVERLAY_SIZE_AUTO)
-            locationOverlay.iconHeight = CGFloat(NMF_LOCATION_OVERLAY_SIZE_AUTO)
+            locationOverlay.icon = NMFOverlayImage(name: "marker")
+            locationOverlay.iconWidth = CGFloat(42)
+            locationOverlay.iconHeight = CGFloat(42)
             locationOverlay.anchor = CGPoint(x: 0.5, y: 1)
+            locationOverlay.circleRadius = self.circleRadius
             
+            // let circle = NMFCircleOverlay()
+//            circle.center = NMGLatLng(lat: lat ?? 0.0, lng: lng ?? 0.0)
+//            circle.radius = circleRadius
+//            circle.mapView = view.mapView
+            
+                                                                                
             view.mapView.moveCamera(cameraUpdate)
         }
     }
-    
+            
     func getNaverMapView() -> NMFNaverMapView {
         view
     }
@@ -151,7 +192,6 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
         let header2 = HTTPHeader(name: "X-NCP-APIGW-API-KEY", value: naverKey)
         let headers = HTTPHeaders([header1,header2])
         
-
         let alamo = AF.request(urlStr, method: .get, parameters: param, headers: headers)
         alamo.validate().responseJSON { response in
             switch response.result {
@@ -167,5 +207,9 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
                 completion(nil)
             }
         }
+    }
+    
+    func update() {
+        print("update")
     }
 }
