@@ -98,7 +98,7 @@ struct IdLoginView: View {
             Button(action: {
                 viewModel.login()
                 if viewModel.state == .signedIn {
-                    pathModel.paths.append(.home)
+                    pathModel.paths.append(.home(userId: nil))
                 }
             }, label: {
                 Text("로그인")
@@ -110,7 +110,7 @@ struct IdLoginView: View {
             .cornerRadius(10)
             .onChange(of: viewModel.state) { newState in
                 if newState == .signedIn {
-                    pathModel.paths.append(.home)
+                    pathModel.paths.append(.home(userId:nil))
                 }
             }
         }
