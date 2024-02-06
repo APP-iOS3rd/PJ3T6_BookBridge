@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct WishBookAddBtnView: View {
+    
     @EnvironmentObject var viewModel: BookShelfViewModel
+    
     @Environment(\.dismiss) private var dismiss
     var book : Item
     var body: some View {
