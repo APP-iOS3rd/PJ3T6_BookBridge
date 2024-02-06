@@ -74,7 +74,6 @@
 		5AA82E542B6764DF006EFC72 /* SignUpAuthCodeBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E532B6764DF006EFC72 /* SignUpAuthCodeBoxView.swift */; };
 		5AA82E592B6779DD006EFC72 /* SwiftSMTP in Frameworks */ = {isa = PBXBuildFile; productRef = 5AA82E582B6779DD006EFC72 /* SwiftSMTP */; };
 		5AA82E5E2B67891E006EFC72 /* SmtpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E5D2B67891E006EFC72 /* SmtpManager.swift */; };
-		5AA97F812B70725D00EF4081 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA97F802B70725D00EF4081 /* StorageManager.swift */; };
 		5AA97F832B70754D00EF4081 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA97F822B70754D00EF4081 /* LocationManager.swift */; };
 		5AA97F862B709C4000EF4081 /* FirestoreSignUpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA97F852B709C4000EF4081 /* FirestoreSignUpManager.swift */; };
 		5AA97F892B70BCF000EF4081 /* BundleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA97F882B70BCF000EF4081 /* BundleExtension.swift */; };
@@ -208,7 +207,6 @@
 		5AA82E512B6761BD006EFC72 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		5AA82E532B6764DF006EFC72 /* SignUpAuthCodeBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpAuthCodeBoxView.swift; sourceTree = "<group>"; };
 		5AA82E5D2B67891E006EFC72 /* SmtpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmtpManager.swift; sourceTree = "<group>"; };
-		5AA97F802B70725D00EF4081 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StorageManager.swift; path = ../StorageManager.swift; sourceTree = "<group>"; };
 		5AA97F822B70754D00EF4081 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		5AA97F852B709C4000EF4081 /* FirestoreSignUpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreSignUpManager.swift; sourceTree = "<group>"; };
 		5AA97F882B70BCF000EF4081 /* BundleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtension.swift; sourceTree = "<group>"; };
@@ -600,7 +598,6 @@
 				73C962A82B68C38D00D34D3F /* BookAPIManger.swift */,
 				5A3A44272B6CC7BA00B66C81 /* NaverMapApiManager.swift */,
 				5A3A44292B6CDB8A00B66C81 /* KeychainManager.swift */,
-				5AA97F802B70725D00EF4081 /* StorageManager.swift */,
 				5AA97F822B70754D00EF4081 /* LocationManager.swift */,
 			);
 			path = Manager;
@@ -1027,7 +1024,6 @@
 				5A3A440F2B6C741200B66C81 /* InputTextFieldStyle.swift in Sources */,
 				1D71C6C52B6C766300EEC95D /* BookSearchBar.swift in Sources */,
 				736127052B6B538800943CD7 /* NaverLoginView.swift in Sources */,
-				5AA97F812B70725D00EF4081 /* StorageManager.swift in Sources */,
 				91B80A472B6799B7000D5339 /* ChangePostingView.swift in Sources */,
 				1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */,
 				5A6CC5232B6B19510037429F /* RedundantValidator.swift in Sources */,
