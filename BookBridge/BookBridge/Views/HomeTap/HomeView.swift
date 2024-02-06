@@ -42,7 +42,8 @@ struct HomeView: View {
             HomeTapView(viewModel: viewModel, tapCategory: selectedPicker)
         }
         .onAppear {
-            viewModel.gettingAllDocs()
+            viewModel.gettingFindNoticeBoards()
+            viewModel.gettingChangeNoticeBoards()
         }
     }
     
