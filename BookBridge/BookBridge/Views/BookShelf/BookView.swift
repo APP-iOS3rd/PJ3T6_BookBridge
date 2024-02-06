@@ -33,8 +33,9 @@ struct BookView: View {
                             AsyncImage(url: url){
                                 image in
                                 image
+                                    .resizable()
                                     .frame(width: (UIScreen.main.bounds.width - 60) / 3, height: 164)
-                                    .cornerRadius(8)
+                                    .shadow(color: .gray, radius: 5, x: 0, y: 2)
                                     .onTapGesture{
                                         selectedBook = book
                                     }
@@ -45,8 +46,8 @@ struct BookView: View {
                         } else {
                             Image("imageNil")
                                 .resizable()
+                                .shadow(color: .gray, radius: 5, x: 0, y: 2)
                                 .frame(width: (UIScreen.main.bounds.width - 60) / 3, height: 164)
-                                .cornerRadius(5)
                                 .onTapGesture{
                                     selectedBook = book
                                 }
