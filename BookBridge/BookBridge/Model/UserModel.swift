@@ -9,7 +9,7 @@ import Foundation
 
 //User라고 할 경우 AuthDataResultModel에 User와 충돌 이슈
 struct UserModel: Codable, Identifiable {
-    var id: String?                    //고유 아이디 CI 값
+    var id: String?                   //고유 아이디 CI 값
     var email: String?                //로그인 아이디
     var loginId: String?
     var passsword: String?                //비밀번호

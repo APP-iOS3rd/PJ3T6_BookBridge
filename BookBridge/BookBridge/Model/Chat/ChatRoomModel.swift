@@ -2,12 +2,12 @@
 //  ChatListModel.swift
 //  BookBridge
 //
-//  Created by jmyeong on 2/5/24.
+//  Created by 이현호 on 2/5/24.
 //
 
 import Foundation
 
-struct ChatList: Hashable, Identifiable {
+struct ChatRoom: Codable, Hashable, Identifiable {
     var id: String                         //보류
     var userId: String                     //나
     var noticeBoardId: String              //게시물 아이디
@@ -18,5 +18,18 @@ struct ChatList: Hashable, Identifiable {
     var isAlarm: Bool                      //채팅방 알림 여부(푸시)
     var state: [Int]                       //채팅방 상태 [아무것도 없음, 예약중, 교환완료
     var exchangeLocation: [Double?]        // 0번은 위도, 1번은 경도
+    
+    init(id: String = UUID().uuidString, userId: String, noticeBoardId: String, opponentId: String, noticeBoardTitle: String, message: String? = nil, date: Date? = nil, isAlarm: Bool, state: [Int], exchangeLocation: [Double?]) {
+        self.id = id
+        self.userId = userId
+        self.noticeBoardId = noticeBoardId
+        self.opponentId = opponentId
+        self.noticeBoardTitle = noticeBoardTitle
+        self.message = message
+        self.date = date
+        self.isAlarm = isAlarm
+        self.state = state
+        self.exchangeLocation = exchangeLocation
+    }
     
 }
