@@ -9,59 +9,74 @@ import Foundation
 import FirebaseFirestore
 import FirebaseStorage
 
-class HomeViewModel : ObservableObject {
-    static let share = HomeViewModel()
+class HomeViewModel: ObservableObject {
+    @Published var noticeBoards: [NoticeBoard] = []
+    
     let db = Firestore.firestore()
-
-    
-    @Published var noticeBoards : [NoticeBoard] = []
-    
-    var thumnailImage : String = ""
-    
 }
 
 extension HomeViewModel {
     func gettingAllDocs() {
-        
         db.collection("noticeBoard").getDocuments() { (querySnapshot, err) in
-            
             if let err = err {
                 print("Error getting documents: \(err)")
             } else {
-                    guard let documents = querySnapshot?.documents else {return}
-                    
+                guard let documents = querySnapshot?.documents else { return }
+                
                 for document in documents {
-                    
-                    self.db.collection("noticeBoard").document(document.data()["noticeBoardId"] as! String).collection("hopeBooks").getDocuments { (QuerySnapshot, Error) in
+                    self.db.collection("noticeBoard").document(document.documentID).collection("hopeBooks").getDocuments { (QuerySnapshot, Error) in
                         
-                        guard let hopeDocuments = QuerySnapshot?.documents else {return}
+                        guard let hopeDocuments = QuerySnapshot?.documents else { return }
+                        
+                        var hopeBooks: [Item] = []
+                        var thumnailImage = ""
+                        
                         if document.data()["date"] is Timestamp {
                             guard let stamp = document.data()["date"] as? Timestamp else {
                                 return
                             }
                             
-                            if (document.data()["isChange"] as! Bool) {
-                                
-                                if (document.data()["noticeImageLink"] as! [String]).isEmpty {
-                                    self.thumnailImage = ""
+                            if (document.data()["isChange"] as? Bool ?? false ) {
+                                if (document.data()["noticeImageLink"] as? [String] ?? []).isEmpty {
+                                    thumnailImage = ""
                                 } else {
-                                    self.thumnailImage = (document.data()["noticeImageLink"] as! [String])[0]
+                                    //TODO: 대표 이미지로 바껴야됨
+                                    thumnailImage = (document.data()["noticeImageLink"] as! [String])[0]
                                 }
-                                
                             } else {
-                                print(document.data()["isChange"] as! Bool)
                                 for doc in hopeDocuments {
                                     if doc.exists {
-                                        if doc.data()["imageLinks"] as! String != "" {
-                                            self.thumnailImage = (doc.data()["imageLinks"] as! String)
+                                        if (doc.data()["imageLinks"] as? String ?? "") != "" {
+                                            thumnailImage = (doc.data()["imageLinks"] as? String ?? "")
                                         } else {
-                                            self.thumnailImage = ""
+                                            thumnailImage = ""
+                                        }
+                                        
+                                        self.db.collection("noticeBoard").document(document.documentID).collection("hopeBooks").document(doc.documentID).collection("industryIdentifiers").getDocuments { (querySnapshot, error) in
+                                            guard let industryIdentifiers = querySnapshot?.documents else { return }
+                                            
+                                            var isbn: [IndustryIdentifier] = []
+                                            for industryIdentifier in industryIdentifiers {
+                                                isbn.append(IndustryIdentifier(identifier: industryIdentifier.documentID))
+                                            }
+                                            
+                                            let item = Item(id: doc.documentID, volumeInfo: VolumeInfo(
+                                                title: doc.data()["title"] as? String ?? "",
+                                                authors: (doc.data()["authors"] as? [String] ?? [""]),
+                                                publisher: doc.data()["publisher"] as? String ?? "",
+                                                publishedDate: doc.data()["publishedDate"] as? String ?? "",
+                                                description: doc.data()["description"] as? String ?? "",
+                                                industryIdentifiers: isbn,
+                                                pageCount: doc.data()["pageCount"] as? Int ?? 0,
+                                                categories: doc.data()["categories"] as? [String] ?? [""],
+                                                imageLinks: ImageLinks(smallThumbnail: doc.data()["imageLinks"] as? String ?? "")))
+                                            
+                                            hopeBooks.append(item)
                                         }
                                     } else {
-                                        self.thumnailImage = ""
+                                        thumnailImage = ""
                                     }
                                 }
-                                
                             }
                             
                             let noticeBoard = NoticeBoard(
@@ -74,12 +89,10 @@ extension HomeViewModel {
                                 isChange: document.data()["isChange"] as! Bool,
                                 state: document.data()["state"] as! Int,
                                 date: stamp.dateValue(),
-                                hopeBook: []
+                                hopeBook: hopeBooks
                             )
+                            print(noticeBoard)
                             
-                            
-                            
-                            print(self.thumnailImage)
                             DispatchQueue.main.async {
                                 self.noticeBoards.append(noticeBoard)
                             }
