@@ -14,11 +14,8 @@ import FirebaseFirestore
 
 class KakaoLoginViewModel : ObservableObject {
     @Published var state: SignInState = .signedOut
-    
-    enum SignInState{
-        case signedIn
-        case signedOut
-    }
+    @Published var userId : String? = nil
+
     
     func emailAuthSignUp(email: String, userName: String, password: String, completion: (() -> Void)?) {
         
@@ -45,7 +42,7 @@ class KakaoLoginViewModel : ObservableObject {
             }
             if result != nil {
                 self.state = .signedIn
-                print("사용자 이메일: \(String(describing: result?.user.email))")
+                self.userId = result?.user.uid
                 completion(true)
             } else {
                 completion(false)
@@ -164,10 +161,11 @@ class KakaoLoginViewModel : ObservableObject {
                 if success {
                     // 로그인 성공
                     FirestoreSignUpManager.shared.getUserData(email: email) { userData in
-                        if let userData = userData {
+                        if let userData = userData, let uid = userData["id"] as? String {
                             // 사용자 정보 처리
-                            print(userData)
                             self.state = .signedIn
+                            self.userId = uid
+                            
                         } else {
                             // 사용자 데이터를 찾을 수 없음. 필요한 경우 오류 처리
                             print("ERROR")
@@ -177,10 +175,11 @@ class KakaoLoginViewModel : ObservableObject {
                     // 로그인 실패, 새 사용자 등록
                     FirestoreSignUpManager.shared.register(email: email, password: password, nickname: userName) {
                         FirestoreSignUpManager.shared.getUserData(email: email) { userData in
-                            if let userData = userData {
-                                // 사용자 정보 처리                                
-                                print(userData)
-                                self.state = .signedIn
+                            if let userData = userData, let uid = userData["id"] as? String {
+                                // 사용자 정보 처리
+                                self.state = .signedIn                                
+                                self.userId = uid
+                                
                             } else {
                                 // 사용자 데이터를 찾을 수 없음. 필요한 경우 오류 처리
                                 print("ERROR")

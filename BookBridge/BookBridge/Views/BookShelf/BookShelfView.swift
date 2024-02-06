@@ -10,11 +10,7 @@ import SwiftUI
 
 
 
-enum tapInfo: String, CaseIterable {
-    case wish = "희망도서"
-    case hold = "보유도서"
-    
-}
+
 
 struct BookShelfView: View {
     @StateObject private var viewModel = BookShelfViewModel()
@@ -23,6 +19,8 @@ struct BookShelfView: View {
     @State private var searchText = ""
     @State private var selectedBook: Item?
     @State private var hopeBooks: [Item] = []
+    
+    var userId : String?
     
     var searchBarPlaceholder: String {
         switch selectedPicker {
@@ -36,6 +34,7 @@ struct BookShelfView: View {
     
     
     var body: some View {
+    
         ZStack{
             VStack {
                 Picker("선택", selection: $selectedPicker) {
@@ -47,6 +46,12 @@ struct BookShelfView: View {
                 .onChange(of: selectedPicker) { newValue in
                     viewModel.fetchBooks(for: newValue)
                 }
+                
+                Text("UserId: \(userId ?? "Unknown")")
+                     .foregroundColor(.gray)
+                     .font(.caption)
+                     .padding(.top, 5)
+                
                 Spacer()
                     .frame(height: 20)
                 
