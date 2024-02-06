@@ -5,10 +5,10 @@
 //  Created by 이현호 on 2/6/24.
 //
 
-import UIKit
+import UIKit    
 import SwiftUI
 
-struct ImagePicker2: UIViewControllerRepresentable {
+struct ProfileImagePicker: UIViewControllerRepresentable {
 
     @Binding var image: UIImage?
 
@@ -20,9 +20,9 @@ struct ImagePicker2: UIViewControllerRepresentable {
 
     class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-        let parent: ImagePicker2
+        let parent: ProfileImagePicker
 
-        init(parent: ImagePicker2) {
+        init(parent: ProfileImagePicker) {
             self.parent = parent
         }
 

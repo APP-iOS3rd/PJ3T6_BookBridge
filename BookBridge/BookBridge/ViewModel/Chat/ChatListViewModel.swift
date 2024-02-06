@@ -11,18 +11,22 @@ import FirebaseFirestore
 class ChatListViewModel: ObservableObject {
     
     @Published var errorMessage = ""
+    @Published var chatUser: ChatUser?
+    @Published var isUserCurrentlyLoggedOut = false
     
     init() {
+        DispatchQueue.main.async {
+            self.isUserCurrentlyLoggedOut = FirebaseManager.shared.auth.currentUser?.uid == nil
+        }
+        
         fetchCurrentUser()
     }
     
-    private func fetchCurrentUser() {
-        
+    func fetchCurrentUser() {
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
             self.errorMessage = "Could not find firebase uid"
             return
         }
-        
         
         FirebaseManager.shared.firestore.collection("ChatUsers").document(uid).getDocument { snapshot, error in
             if let error = error {
@@ -37,9 +41,13 @@ class ChatListViewModel: ObservableObject {
                 self.errorMessage = "No data found"
                 return
             }
-//            print(data)
             
-            self.errorMessage = "\(data.description)"
+            self.chatUser = .init(data: data)
         }
+    }
+    
+    func handleSignOut() {
+        isUserCurrentlyLoggedOut.toggle()
+        try? FirebaseManager.shared.auth.signOut()
     }
 }

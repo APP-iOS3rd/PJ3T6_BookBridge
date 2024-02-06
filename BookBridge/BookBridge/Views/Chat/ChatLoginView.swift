@@ -10,20 +10,25 @@ import Firebase
 import FirebaseFirestore
 
 struct ChatLoginView: View {
+    
+    let didCompleteLoginProcess: () -> ()
+    
     @State var isLoginMode = false
     @State var email = ""
     @State var password = ""
     
     @State var showImagePicker = false
+    @State var image: UIImage?
+    @State var loginStatusMessage = ""
     
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 16) {
                     Picker(selection: $isLoginMode, label: Text("Picker here")) {
-                        Text("Login")
+                        Text("로그인")
                             .tag(true)
-                        Text("Create Account")
+                        Text("회원가입")
                             .tag(false)
                     }
                     .pickerStyle(SegmentedPickerStyle())
@@ -54,10 +59,10 @@ struct ChatLoginView: View {
                         }
                     }
                     Group {
-                        TextField("Email", text: $email)
+                        TextField("이메일", text: $email)
                             .keyboardType(.emailAddress)
                             .textInputAutocapitalization(.none)
-                        SecureField("Email", text: $password)
+                        SecureField("패스워드", text: $password)
                     }
                     .padding(12)
                     .background(.white)
@@ -68,7 +73,7 @@ struct ChatLoginView: View {
                     } label: {
                         HStack {
                             Spacer()
-                            Text(isLoginMode ? "Login" : "Create Account")
+                            Text(isLoginMode ? "로그인" : "회원가입")
                                 .foregroundStyle(.white)
                                 .padding(.vertical, 10)
                                 .font(.system(size: 14, weight: .semibold))
@@ -82,16 +87,14 @@ struct ChatLoginView: View {
                 }
                 .padding()
             }
-            .navigationTitle(isLoginMode ? "Login" : "Creat Account")
+            .navigationTitle(isLoginMode ? "로그인" : "회원가입")
             .background(Color(.init(white: 0, alpha: 0.05))
                 .ignoresSafeArea())
         }
         .fullScreenCover(isPresented: $showImagePicker, onDismiss: nil) {
-            ImagePicker2(image: $image)
+            ProfileImagePicker(image: $image)
         }
     }
-    
-    @State var image: UIImage?
     
     private func handleAction() {
         if isLoginMode {
@@ -115,13 +118,19 @@ struct ChatLoginView: View {
             print("Successfully logged in as user: \(result?.user.uid ?? "")")
             
             self.loginStatusMessage = "Successfully logged in as user: \(result?.user.uid ?? "")"
+            
+            self.didCompleteLoginProcess()
         }
     }
     
-    @State var loginStatusMessage = ""
-    
     // 계정생성
     private func createNewAccount() {
+        // 프로필 이미지 선택 경고
+        if self.image == nil {
+            self.loginStatusMessage = "You must select an avatar image"
+            return
+        }
+        
         FirebaseManager.shared.auth.createUser(withEmail: email, password: password) { result, err in
             if let err = err {
                 print("Failed to create user:", err)
@@ -176,10 +185,14 @@ struct ChatLoginView: View {
             }
             
             print("Success")
+            
+            self.didCompleteLoginProcess()
         }
     }
 }
 
 #Preview {
-    ChatLoginView()
+    ChatLoginView(didCompleteLoginProcess: {
+        
+    })
 }
