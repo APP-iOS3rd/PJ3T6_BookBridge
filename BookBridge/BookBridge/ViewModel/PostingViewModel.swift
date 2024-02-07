@@ -8,9 +8,28 @@
 import Foundation
 import FirebaseFirestore
 import FirebaseStorage
+import NMapsMap
 
 class PostingViewModel: ObservableObject {
-    @Published var noticeBoard: NoticeBoard = NoticeBoard(userId: "", noticeBoardTitle: "", noticeBoardDetail: "", noticeImageLink: [], noticeLocation: [], isChange: false, state: 0, date: Date(), hopeBook: [])
+    @Published var noticeBoard: NoticeBoard = NoticeBoard(userId: "", noticeBoardTitle: "", noticeBoardDetail: "", noticeImageLink: [], noticeLocation: [],noticeLocationName: "교환장소 선택", isChange: false, state: 0, date: Date(), hopeBook: [])
+    @Published var markerCoord: NMGLatLng? //사용자가 저장 전에 마커 좌표변경을 할 경우 대비
+
+    // 교환 장소 위도,경도
+    func updateNoticeLocation(lat: Double?, lng: Double?){
+        guard let lat = lat, let lng = lng else {return}
+        
+        if noticeBoard.noticeLocation.count >= 2 {
+            noticeBoard.noticeLocation[0] = lat
+            noticeBoard.noticeLocation[1] = lng
+        }else{
+            noticeBoard.noticeLocation = [lat, lng]
+        }
+    }
+    
+    // 교환 장소 도로명
+    func updateNoticeLocationName(name: String) {
+        noticeBoard.noticeLocationName = name
+    }
     
     private var db = Firestore.firestore()
     private var storage = Storage.storage()
@@ -29,7 +48,7 @@ extension PostingViewModel {
         }
         
         // 게시물 정보 생성
-        let post = NoticeBoard(id: noticeBoard.id, userId: "joo", noticeBoardTitle: noticeBoard.noticeBoardTitle, noticeBoardDetail: noticeBoard.noticeBoardDetail, noticeImageLink: noticeBoard.noticeImageLink, noticeLocation: [], isChange: isChange, state: 0, date: Date(), hopeBook: noticeBoard.hopeBook)
+        let post = NoticeBoard(id: noticeBoard.id, userId: "joo", noticeBoardTitle: noticeBoard.noticeBoardTitle, noticeBoardDetail: noticeBoard.noticeBoardDetail, noticeImageLink: noticeBoard.noticeImageLink, noticeLocation: noticeBoard.noticeLocation, noticeLocationName: noticeBoard.noticeLocationName, isChange: isChange, state: 0, date: Date(), hopeBook: noticeBoard.hopeBook)
         
         // 모든 게시물  noticeBoard/noticeBoardId/
         let linkNoticeBoard = db.collection("noticeBoard").document(noticeBoard.id)
