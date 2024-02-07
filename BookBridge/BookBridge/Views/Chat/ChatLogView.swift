@@ -11,50 +11,68 @@ struct ChatLogView: View {
     
     let chatUser: ChatUser?
     
-    @State var chatText = ""
+    static let emptyScrollToString = "Empty"
     
-    @ObservedObject var chatLogVM = ChatLogViewModel()
+    init(chatUser: ChatUser?) {
+        self.chatUser = chatUser
+        self.chatLogVM = .init(chatUser: chatUser)
+    }
+    
+    @ObservedObject var chatLogVM: ChatLogViewModel
     
     var body: some View {
         VStack {
-            messagesView
+            ZStack {
+                messagesView
+                Text(chatLogVM.errorMessage)
+            }
             chatBottomBar
         }
         .navigationTitle(chatUser?.email ?? "")
         .navigationBarTitleDisplayMode(.inline)
+        // 최근 메세지 자동 스크롤
+//        .navigationBarItems(trailing: Button(action: {
+//            chatLogVM.count += 1
+//        }, label: {
+//            Text("Count: \(chatLogVM.count)")
+//        }))
     }
-
+    
     private var messagesView: some View {
         ScrollView {
-            ForEach(0..<10) { num in
-                HStack {
-                    Spacer()
-                    HStack {
-                        Text("FAK MESSAGE FOR NOW")
-                            .foregroundStyle(.white)
+            ScrollViewReader { ScrollViewProxy in
+                VStack {
+                    ForEach(chatLogVM.chatMessages) { message in
+                        MessageView(message: message)
                     }
-                    .padding()
-                    .background(Color.blue)
-                    .cornerRadius(10)
+                    HStack { Spacer() }
+                        .id(Self.emptyScrollToString)
                 }
-                .padding(.horizontal)
-                .padding(.top, 8)
-            }
-            HStack {
-                Spacer()
+                .onReceive(chatLogVM.$count) { _ in
+                    withAnimation(.easeOut(duration: 0.5)) {
+                        ScrollViewProxy.scrollTo("Empty", anchor: .bottom)
+                    }
+                }
             }
         }
         .background(Color(.init(white: 0.95, alpha: 1)))
     }
     
+    // 메세지 입력 부분
     private var chatBottomBar: some View {
         HStack(spacing: 16) {
             Image(systemName: "photo.on.rectangle")
                 .font(.system(size: 24))
                 .foregroundStyle(Color(.darkGray))
-            TextField("Description", text: $chatText)
+            ZStack {
+                DescriptionPlaceholder()
+                TextEditor(text: $chatLogVM.chatText)
+                    .opacity(chatLogVM.chatText.isEmpty ? 0.5 : 1)
+            }
+            .frame(height: 40)
+            
             Button {
-                chatLogVM.handleSend(text: self.chatText)
+                chatLogVM.handleSend(text: chatLogVM.chatText)
             } label: {
                 Text("Send")
                     .foregroundStyle(.white)
@@ -69,8 +87,58 @@ struct ChatLogView: View {
     }
 }
 
+// 메세지 풍선
+struct MessageView: View {
+    
+    let message: ChatMessage
+    
+    var body: some View {
+        VStack {
+            if message.fromId == FirebaseManager.shared.auth.currentUser?.uid {
+                HStack {
+                    Spacer()
+                    HStack {
+                        Text(message.text)
+                            .foregroundStyle(.white)
+                    }
+                    .padding()
+                    .background(Color(hex:"59AAE0"))
+                    .cornerRadius(10)
+                }
+            } else {
+                HStack {
+                    HStack {
+                        Text(message.text)
+                            .foregroundStyle(.white)
+                    }
+                    .padding()
+                    .background(Color(hex:"767676"))
+                    .cornerRadius(10)
+                    Spacer()
+                }
+            }
+        }
+        .padding(.horizontal)
+        .padding(.top, 8)
+    }
+}
+
+private struct DescriptionPlaceholder: View {
+    var body: some View {
+        HStack {
+            Text("Description")
+                .foregroundColor(Color(.gray))
+                .font(.system(size: 17))
+                .padding(.leading, 5)
+                .padding(.top, -4)
+            Spacer()
+        }
+    }
+}
+
 #Preview {
     NavigationStack {
-        ChatLogView(chatUser: .init(data: ["uid": "IFIoThJg7DPvxdS5CaCDfHzUeFl2", "email": "testchat@chat.com"]))
+//        ChatLogView(chatUser: .init(data: ["uid": "IFIoThJg7DPvxdS5CaCDfHzUeFl2", "email": "testchat@chat.com"]))
+        ChatListView()
     }
 }

@@ -114,7 +114,7 @@
 		914600502B7240D800E0E24F /* ChatLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9146004F2B7240D800E0E24F /* ChatLogViewModel.swift */; };
 		91B7F0AA2B70DD9700B4C475 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 91B7F0A92B70DD9700B4C475 /* Secrets.xcconfig */; };
 		91B7F0AC2B70DDA900B4C475 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91B7F0AB2B70DDA900B4C475 /* GoogleService-Info.plist */; };
-		91B7F0B02B70DE8800B4C475 /* ChatRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B7F0AF2B70DE8800B4C475 /* ChatRoomModel.swift */; };
+		91B7F0B02B70DE8800B4C475 /* ChatMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B7F0AF2B70DE8800B4C475 /* ChatMessageModel.swift */; };
 		91B7F0B42B71B90F00B4C475 /* ChatListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B7F0B32B71B90F00B4C475 /* ChatListViewModel.swift */; };
 		91B7F0BB2B71E82200B4C475 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B7F0BA2B71E82200B4C475 /* FirebaseManager.swift */; };
 		91B7F0C12B71EA4700B4C475 /* ChatLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B7F0C02B71EA4700B4C475 /* ChatLoginView.swift */; };
@@ -256,7 +256,7 @@
 		9146004F2B7240D800E0E24F /* ChatLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogViewModel.swift; sourceTree = "<group>"; };
 		91B7F0A92B70DD9700B4C475 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		91B7F0AB2B70DDA900B4C475 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		91B7F0AF2B70DE8800B4C475 /* ChatRoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomModel.swift; sourceTree = "<group>"; };
+		91B7F0AF2B70DE8800B4C475 /* ChatMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageModel.swift; sourceTree = "<group>"; };
 		91B7F0B32B71B90F00B4C475 /* ChatListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewModel.swift; sourceTree = "<group>"; };
 		91B7F0BA2B71E82200B4C475 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		91B7F0C02B71EA4700B4C475 /* ChatLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLoginView.swift; sourceTree = "<group>"; };
@@ -695,7 +695,7 @@
 			isa = PBXGroup;
 			children = (
 				914600442B72150900E0E24F /* ChatUserModel.swift */,
-				91B7F0AF2B70DE8800B4C475 /* ChatRoomModel.swift */,
+				91B7F0AF2B70DE8800B4C475 /* ChatMessageModel.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -1062,7 +1062,7 @@
 				5AA97F862B709C4000EF4081 /* FirestoreSignUpManager.swift in Sources */,
 				1DCFB01E2B687D7000250D55 /* FindIdView.swift in Sources */,
 				1D357CAC2B6A13510064B87D /* ChangePasswordVM.swift in Sources */,
-				91B7F0B02B70DE8800B4C475 /* ChatRoomModel.swift in Sources */,
+				91B7F0B02B70DE8800B4C475 /* ChatMessageModel.swift in Sources */,
 				5A6CC5252B6B19630037429F /* Validator.swift in Sources */,
 				1DA6E06C2B68D9EB00D631D5 /* ChangePasswordView.swift in Sources */,
 				73C962AB2B68C4D800D34D3F /* SearchBooksViewModel.swift in Sources */,
