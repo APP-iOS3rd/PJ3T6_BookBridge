@@ -16,9 +16,12 @@ struct WishBookAddBtnView: View {
     var body: some View {
         Button(
             action: {
-                if !(viewModel.wishBooks.contains{ $0.id == book.id }){
-                    viewModel.wishBooks.append(book)
+                viewModel.loadBooksFromFirestore(collection: "wishBooks"){
+                    if !(viewModel.wishBooks.contains{ $0.id == book.id }){
+                        viewModel.saveBooksToFirestore(books: [book], collection: "wishBooks")
+                    }                    
                 }
+                print(book)
                 
                 dismiss()
             },
