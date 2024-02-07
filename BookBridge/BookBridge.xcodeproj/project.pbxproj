@@ -100,6 +100,10 @@
 		73441FAB2B733E0700446E0F /* StyleSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441FAA2B733E0700446E0F /* StyleSettingView.swift */; };
 		73441FAD2B733E2200446E0F /* StyleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441FAC2B733E2200446E0F /* StyleListView.swift */; };
 		73441FAF2B733E3500446E0F /* StyleModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441FAE2B733E3500446E0F /* StyleModalView.swift */; };
+		73441FB12B73444500446E0F /* NoticeBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441FB02B73444500446E0F /* NoticeBoardView.swift */; };
+		73441FB32B73465700446E0F /* MyPagePostTapType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441FB22B73465700446E0F /* MyPagePostTapType.swift */; };
+		73441FB52B734BBE00446E0F /* NoticeBoardTapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441FB42B734BBE00446E0F /* NoticeBoardTapView.swift */; };
+		73441FB72B734F2F00446E0F /* NoticeBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441FB62B734F2F00446E0F /* NoticeBoardViewModel.swift */; };
 		736127052B6B538800943CD7 /* NaverLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736127042B6B538800943CD7 /* NaverLoginView.swift */; };
 		736127072B6B543A00943CD7 /* NaverAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736127062B6B543A00943CD7 /* NaverAuthManager.swift */; };
 		736127092B6B82B400943CD7 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736127082B6B82B400943CD7 /* ImageScrollView.swift */; };
@@ -249,6 +253,10 @@
 		73441FAA2B733E0700446E0F /* StyleSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleSettingView.swift; sourceTree = "<group>"; };
 		73441FAC2B733E2200446E0F /* StyleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleListView.swift; sourceTree = "<group>"; };
 		73441FAE2B733E3500446E0F /* StyleModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleModalView.swift; sourceTree = "<group>"; };
+		73441FB02B73444500446E0F /* NoticeBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardView.swift; sourceTree = "<group>"; };
+		73441FB22B73465700446E0F /* MyPagePostTapType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPagePostTapType.swift; sourceTree = "<group>"; };
+		73441FB42B734BBE00446E0F /* NoticeBoardTapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardTapView.swift; sourceTree = "<group>"; };
+		73441FB62B734F2F00446E0F /* NoticeBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardViewModel.swift; sourceTree = "<group>"; };
 		736127042B6B538800943CD7 /* NaverLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginView.swift; sourceTree = "<group>"; };
 		736127062B6B543A00943CD7 /* NaverAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverAuthManager.swift; sourceTree = "<group>"; };
 		736127082B6B82B400943CD7 /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
@@ -591,6 +599,7 @@
 				5A3A44252B6CB36900B66C81 /* Location.swift */,
 				1DFDD1BB2B71BF3D00B320F7 /* tapInfo.swift */,
 				738EDA9E2B71EB240066ADE7 /* TapCategory.swift */,
+				73441FB22B73465700446E0F /* MyPagePostTapType.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -680,6 +689,8 @@
 				73441FAA2B733E0700446E0F /* StyleSettingView.swift */,
 				73441FAC2B733E2200446E0F /* StyleListView.swift */,
 				73441FAE2B733E3500446E0F /* StyleModalView.swift */,
+				73441FB02B73444500446E0F /* NoticeBoardView.swift */,
+				73441FB42B734BBE00446E0F /* NoticeBoardTapView.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -749,6 +760,7 @@
 				736127102B6B84AC00943CD7 /* PostingViewModel.swift */,
 				5A3A44212B6C89AE00B66C81 /* LocationViewModel.swift */,
 				1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */,
+				73441FB62B734F2F00446E0F /* NoticeBoardViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1058,6 +1070,7 @@
 				5A3A44282B6CC7BA00B66C81 /* NaverMapApiManager.swift in Sources */,
 				73C962A12B6883A700D34D3F /* SearchBooksView.swift in Sources */,
 				5A7A4E552B62269600F79C23 /* LoginView.swift in Sources */,
+				73441FB72B734F2F00446E0F /* NoticeBoardViewModel.swift in Sources */,
 				5A0242152B6D36FF00137AA6 /* LoadingCircle.swift in Sources */,
 				73C962A92B68C38D00D34D3F /* BookAPIManger.swift in Sources */,
 				5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */,
@@ -1089,6 +1102,7 @@
 				1D71C6C52B6C766300EEC95D /* BookSearchBar.swift in Sources */,
 				736127052B6B538800943CD7 /* NaverLoginView.swift in Sources */,
 				91B80A472B6799B7000D5339 /* ChangePostingView.swift in Sources */,
+				73441FB32B73465700446E0F /* MyPagePostTapType.swift in Sources */,
 				73441FAB2B733E0700446E0F /* StyleSettingView.swift in Sources */,
 				1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */,
 				5A6CC5232B6B19510037429F /* RedundantValidator.swift in Sources */,
@@ -1117,6 +1131,7 @@
 				73C962A52B688D4200D34D3F /* BookModel.swift in Sources */,
 				73DDA5DF2B6A336100B25FB8 /* SelectBooksView.swift in Sources */,
 				5A1A16942B622BB10063D408 /* GoogleLoginViewController.swift in Sources */,
+				73441FB52B734BBE00446E0F /* NoticeBoardTapView.swift in Sources */,
 				1DB39DBC2B6B57F100C1B489 /* BookShelfViewModel.swift in Sources */,
 				5AA82E4D2B675E26006EFC72 /* EmailSignUpView.swift in Sources */,
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
@@ -1156,6 +1171,7 @@
 				1DB39DC02B6B8A5300C1B489 /* BookDetailView.swift in Sources */,
 				1D71C6C32B6C763900EEC95D /* AddBookBtnView.swift in Sources */,
 				5A7A4E262B61DFFD00F79C23 /* BookBridgeApp.swift in Sources */,
+				73441FB12B73444500446E0F /* NoticeBoardView.swift in Sources */,
 				5CE454932B68B7CB00874BCE /* UserModel.swift in Sources */,
 				5A3A44132B6C775D00B66C81 /* PhoneError.swift in Sources */,
 			);

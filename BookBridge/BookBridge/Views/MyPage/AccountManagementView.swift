@@ -35,8 +35,8 @@ struct AccountManagementView: View {
                 )
             }
             
-            NavigationLink {
-                MyProfileView()
+            NavigationLink {                //관심목록 경로가 아직없음
+                //MyProfileView()
             } label: {
                 HStack {
                     Text("관심목록")
