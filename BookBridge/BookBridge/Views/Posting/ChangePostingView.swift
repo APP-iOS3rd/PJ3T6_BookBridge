@@ -17,6 +17,7 @@ struct ChangePostingView: View {
     @State private var showImagePicker = false
     @State private var sourceType = 0
     
+    
     var body: some View {
         NavigationView {
             ScrollView(showsIndicators: false) {
@@ -69,10 +70,9 @@ struct ChangePostingView: View {
                     Text("교환 희망 장소")
                         .bold()
                     
-                    //EmptyView에 지훈님이 만든 네이버 맵 화면
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink(destination: ExchangeHopeView( viewModel: viewModel)) {
                         HStack {
-                            Text("교환장소 선택")
+                            Text("\(viewModel.noticeBoard.noticeLocationName )")
                                 .foregroundColor(.black)
                             Spacer()
                             Image(systemName: "chevron.right")
@@ -133,6 +133,6 @@ struct ChangePostingView: View {
     }
 }
 
-#Preview {
-    ChangePostingView()
-}
+//#Preview {
+//    ChangePostingView()
+//}
