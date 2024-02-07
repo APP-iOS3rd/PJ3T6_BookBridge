@@ -13,6 +13,9 @@ class NoticeBoardViewModel: ObservableObject {
     @Published var changeNoticeBoards: [NoticeBoard] = []
     @Published var findNoticeBoards: [NoticeBoard] = []
     
+    @Published var filterChangeNoticeBoards: [NoticeBoard] = []
+    @Published var filterFindNoticeBoards: [NoticeBoard] = []
+    
     let db = Firestore.firestore()
     let nestedGroup = DispatchGroup()
 }
@@ -118,6 +121,16 @@ extension NoticeBoardViewModel {
                     }
                 }
             }
+        }
+    }
+    
+    func getfilterNoticeBoard(noticeBoard: [NoticeBoard], index: Int) -> [NoticeBoard] {
+        let changeIndex = index - 1
+        
+        if changeIndex == -1 {                  //전체
+            return noticeBoard
+        } else {                                //0 진행중, 1 예약중, 2 교환완료
+            return noticeBoard.filter { $0.state == changeIndex }
         }
     }
 }
