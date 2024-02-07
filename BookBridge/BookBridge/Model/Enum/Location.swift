@@ -15,4 +15,16 @@ struct Location: Codable, Identifiable {
     var distriction: String?
     var dong: String?
     var distance: Int?
+    
+    var dictionaryRepresentation: [String: Any] {
+        return [
+            "id": id ?? "",
+            "lat": lat ?? "",
+            "long": long ?? "",
+            "city": city ?? "",
+            "distriction": distriction ?? "",
+            "dong": dong ?? "",
+            "distance": distance ?? 1,
+        ]
+    }
 }

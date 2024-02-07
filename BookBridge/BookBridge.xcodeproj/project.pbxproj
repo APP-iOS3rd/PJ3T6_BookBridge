@@ -35,6 +35,8 @@
 		5A2CC1182B71C230000A8776 /* TownSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2CC1172B71C230000A8776 /* TownSettingView.swift */; };
 		5A2DE0972B6884BE00EF3A6B /* EmailCertiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2DE0962B6884BE00EF3A6B /* EmailCertiView.swift */; };
 		5A2DE09A2B68915200EF3A6B /* SignUpInputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2DE0992B68915200EF3A6B /* SignUpInputer.swift */; };
+		5A32514D2B7325E7008A16A9 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A32514C2B7325E7008A16A9 /* UserManager.swift */; };
+		5A32514F2B734D83008A16A9 /* UserLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A32514E2B734D83008A16A9 /* UserLocationViewModel.swift */; };
 		5A3A44092B6C724500B66C81 /* EmailError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44082B6C724500B66C81 /* EmailError.swift */; };
 		5A3A440B2B6C726100B66C81 /* NicknameError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A440A2B6C726100B66C81 /* NicknameError.swift */; };
 		5A3A440D2B6C73D500B66C81 /* MiddleBlueBtnStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A440C2B6C73D500B66C81 /* MiddleBlueBtnStyle.swift */; };
@@ -163,6 +165,8 @@
 		5A2CC1172B71C230000A8776 /* TownSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownSettingView.swift; sourceTree = "<group>"; };
 		5A2DE0962B6884BE00EF3A6B /* EmailCertiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCertiView.swift; sourceTree = "<group>"; };
 		5A2DE0992B68915200EF3A6B /* SignUpInputer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputer.swift; sourceTree = "<group>"; };
+		5A32514C2B7325E7008A16A9 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		5A32514E2B734D83008A16A9 /* UserLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationViewModel.swift; sourceTree = "<group>"; };
 		5A3A44082B6C724500B66C81 /* EmailError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailError.swift; sourceTree = "<group>"; };
 		5A3A440A2B6C726100B66C81 /* NicknameError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameError.swift; sourceTree = "<group>"; };
 		5A3A440C2B6C73D500B66C81 /* MiddleBlueBtnStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleBlueBtnStyle.swift; sourceTree = "<group>"; };
@@ -590,6 +594,7 @@
 				5A3A44292B6CDB8A00B66C81 /* KeychainManager.swift */,
 				5AA97F802B70725D00EF4081 /* StorageManager.swift */,
 				5AA97F822B70754D00EF4081 /* LocationManager.swift */,
+				5A32514C2B7325E7008A16A9 /* UserManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -677,6 +682,7 @@
 				736127102B6B84AC00943CD7 /* PostingViewModel.swift */,
 				5A3A44212B6C89AE00B66C81 /* LocationViewModel.swift */,
 				1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */,
+				5A32514E2B734D83008A16A9 /* UserLocationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1052,6 +1058,7 @@
 				5A3A44152B6C778200B66C81 /* SignUpInputType.swift in Sources */,
 				5A3A440D2B6C73D500B66C81 /* MiddleBlueBtnStyle.swift in Sources */,
 				5A2DE09A2B68915200EF3A6B /* SignUpInputer.swift in Sources */,
+				5A32514D2B7325E7008A16A9 /* UserManager.swift in Sources */,
 				5AA97F832B70754D00EF4081 /* LocationManager.swift in Sources */,
 				1D71C6C12B6C743900EEC95D /* BookView.swift in Sources */,
 				5A2DE0972B6884BE00EF3A6B /* EmailCertiView.swift in Sources */,
@@ -1063,6 +1070,7 @@
 				910F491C2B6CC66900C0563E /* CameraModalView.swift in Sources */,
 				5A5041CC2B6A635C00211CF2 /* PathViewModel.swift in Sources */,
 				7361270B2B6B82F100943CD7 /* ImageEditorModalView.swift in Sources */,
+				5A32514F2B734D83008A16A9 /* UserLocationViewModel.swift in Sources */,
 				1DB39DC02B6B8A5300C1B489 /* BookDetailView.swift in Sources */,
 				1D71C6C32B6C763900EEC95D /* AddBookBtnView.swift in Sources */,
 				5A7A4E262B61DFFD00F79C23 /* BookBridgeApp.swift in Sources */,

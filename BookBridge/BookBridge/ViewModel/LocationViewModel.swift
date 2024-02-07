@@ -14,7 +14,6 @@ import SwiftUI
 final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDelegate, NMFMapViewTouchDelegate, CLLocationManagerDelegate {
     @Published var coord: (Double, Double) = (0.0, 0.0)
     @Published var userLocation: (Double, Double) = (0.0, 0.0) // lat, lng
-    var prevCirclrRadius: CGFloat = 100
     @Published var circleRadius: CGFloat = 100 {
         didSet {
             if isUpdated(cur: circleRadius, prev: prevCirclrRadius) {
@@ -23,11 +22,11 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
             }
         }
     }
+    var prevCirclrRadius: CGFloat = 100
     let circle = NMFCircleOverlay()
     static let shared = LocationViewModel()
     let view = NMFNaverMapView(frame: .zero)
     var locationManager: CLLocationManager?
-    var isSliding = false
                         
     func isUpdated(cur: CGFloat, prev: CGFloat) -> Bool {
         return cur != prev
@@ -51,8 +50,6 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
         view.mapView.isScrollGestureEnabled = false
         view.mapView.addCameraDelegate(delegate: self)
         view.mapView.touchDelegate = self
-        
-        
     }
     
     func checkLocationAuthorization() {
@@ -120,14 +117,6 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
         }
     }
     
-    func mapView(_ mapView: NMFMapView, cameraWillChangeByReason reason: Int, animated: Bool) {
-        // 카메라 이동이 시작되기 전 호출되는 함수
-    }
-    
-    func mapView(_ mapView: NMFMapView, cameraIsChangingByReason reason: Int) {
-        // 카메라의 위치가 변경되면 호출되는 함수
-    }
-    
     // 사용자 현재 위치 지도에 표시
     func fetchUserLocation(circle: NMFCircleOverlay) {
         if let locationManager = locationManager {
@@ -168,7 +157,31 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
             view.mapView.moveCamera(cameraUpdate)
         }
     }
-            
+    
+    func fetchUserLoaction(circle: NMFCircleOverlay, lat: Double, lng: Double) {
+        var zoom: Double = 13
+        
+        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: lat, lng: lng), zoomTo: zoom)
+        
+        cameraUpdate.animation = .easeIn
+        cameraUpdate.animationDuration = 1
+        
+        let locationOverlay = view.mapView.locationOverlay
+        locationOverlay.location = NMGLatLng(lat: lat, lng: lng)
+        locationOverlay.hidden = false
+        
+        locationOverlay.icon = NMFOverlayImage(name: "marker")
+        locationOverlay.iconWidth = CGFloat(42)
+        locationOverlay.iconHeight = CGFloat(42)
+        locationOverlay.anchor = CGPoint(x: 0.5, y: 1)
+        locationOverlay.circleRadius = 100
+        locationOverlay.circleOutlineColor = Color(hex: "#a2c4fa").asUIColor()
+        locationOverlay.circleOutlineWidth = 2
+        
+        view.mapView.moveCamera(cameraUpdate)
+    }
+    
+    
     func getNaverMapView() -> NMFNaverMapView {
         view
     }
@@ -210,9 +223,5 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
                 completion(nil)
             }
         }
-    }
-    
-    func update() {
-        print("update")
     }
 }
