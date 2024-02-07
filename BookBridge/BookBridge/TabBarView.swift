@@ -37,7 +37,7 @@ struct TabBarView: View {
             BookShelfView(userId : userId)
                 .tabItem {
                     Image(systemName: "book.fill")
-                    Text("Bookshelf")
+                    Text("내 책장")
                 }
             
             //마이페이지

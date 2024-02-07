@@ -20,9 +20,7 @@ struct WishBookAddBtnView: View {
                     if !(viewModel.wishBooks.contains{ $0.id == book.id }){
                         viewModel.saveBooksToFirestore(books: [book], collection: "wishBooks")
                     }                    
-                }
-                print(book)
-                
+                }                
                 dismiss()
             },
             label: {

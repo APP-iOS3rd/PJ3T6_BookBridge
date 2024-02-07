@@ -44,77 +44,6 @@ class BookShelfViewModel: ObservableObject {
         }
     }
     
-    //    func saveBooksToFirestore(books:[Item],collection : String){
-    //        guard let userId = userId else { return }
-    //        let db = Firestore.firestore()
-    //
-    //
-    //
-    //        books.forEach { book in
-    //            let document = db.collection("User").document("\(userId)").collection(collection).document(book.id)
-    //            let bookInfo = book.volumeInfo
-    //
-    //            document.setData([
-    //                "title": bookInfo.title ?? "제목 미상",
-    //                "authors": bookInfo.authors ?? ["저자 미상"],
-    //                "publisher": bookInfo.publisher ?? "출판사 미상",
-    //                "publishedDate": bookInfo.publishedDate ?? "출판 날짜 미상",
-    //                "description": bookInfo.description ??  "설명이 없어요..",
-    //                "pageCount": bookInfo.pageCount ?? 0,
-    //                "categories": bookInfo.categories ?? ["장르 미상"],
-    //                "imageLinks": bookInfo.imageLinks?.smallThumbnail ?? ""
-    //            ])
-    //
-    //            document.collection("industryIdentifiers")
-    //                .document(bookInfo.industryIdentifiers?[0].identifier ?? "").setData([
-    //                    "identifier" : bookInfo.industryIdentifiers?[0].identifier ?? ""
-    //            ])
-    //
-    //        }
-    //    }
-    
-    //    func loadBooksFromFirestore(collection: String, completion: @escaping () -> Void) {
-    //        guard let userId = userId else { return }
-    //        let db = Firestore.firestore()
-    //
-    //        db.collection("User").document(userId).collection(collection).getDocuments { [weak self] (querySnapshot, error) in
-    //            if let error = error {
-    //                print("Error getting documents: \(error)")
-    //                return
-    //            }
-    //
-    //            var items: [Item] = []
-    //            for document in querySnapshot!.documents {
-    //                // 각 문서를 Item 타입으로 변환
-    //                let data = document.data()
-    //                let volumeInfo = VolumeInfo(
-    //                    title: data["title"] as? String,
-    //                    authors: data["authors"] as? [String],
-    //                    publisher: data["publisher"] as? String,
-    //                    publishedDate: data["publishedDate"] as? String,
-    //                    description: data["description"] as? String,
-    //                    industryIdentifiers: [IndustryIdentifier(identifier: (data["identifier"] as? String))],
-    //                    pageCount: data["pageCount"] as? Int,
-    //                    categories: data["categories"] as? [String],
-    //                    imageLinks: ImageLinks(smallThumbnail: data["imageLinks"] as? String)
-    //                )
-    //                let item = Item(id: document.documentID, volumeInfo: volumeInfo)
-    //                items.append(item)
-    //
-    //            }
-    //
-    //            DispatchQueue.main.async {
-    //                if collection == "wishBooks" {
-    //                    self?.wishBooks = items
-    //                    self?.filteredBooks = items
-    //                } else if collection == "holdBooks" {
-    //                    self?.holdBooks = items
-    //                    self?.filteredBooks = items
-    //                }
-    //            }
-    //            completion()
-    //        }
-    //    }
     
     func saveBooksToFirestore(books: [Item], collection: String) {
         guard let userId = userId else { return }
@@ -213,82 +142,10 @@ class BookShelfViewModel: ObservableObject {
         db.collection("User").document(userId).collection(collectionName).document(book.id).delete { error in
             if let error = error {
                 print("Error removing document: \(error)")
-            } else {
-                print("Document successfully removed!")
             }
         }
     }
 
 }
-
-
-
-//    func loadBooksFromFirestore(collection: String, completion: @escaping () -> Void) {
-//        guard let userId = userId else { return }
-//        let db = Firestore.firestore()
-//
-//        db.collection("User").document(userId).collection(collection).getDocuments { [weak self] (querySnapshot, error) in
-//            guard let documents = querySnapshot?.documents, error == nil else {
-//                print("Error getting documents: \(error?.localizedDescription ?? "")")
-//                return
-//            }
-//
-//            var items: [Item] = []
-//            let group = DispatchGroup()
-//
-//            for document in documents {
-//                group.enter()
-//                let data = document.data()
-//                let documentID = document.documentID
-//
-//                // industryIdentifiers 서브 컬렉션 로드
-//                db.collection("User").document(userId).collection(collection).document(documentID).collection("industryIdentifiers").getDocuments { (subQuerySnapshot, subError) in
-//                    var industryIdentifiers: [IndustryIdentifier] = []
-//                    if let subDocuments = subQuerySnapshot?.documents, subError == nil {
-//                        industryIdentifiers = subDocuments.compactMap { subDoc in
-//                            let identifier = subDoc.data()["identifier"] as? String
-//                            return identifier != nil ? IndustryIdentifier(identifier: identifier) : nil
-//                        }
-//                    }
-//
-//                    // Item 생성
-//                    let volumeInfo = VolumeInfo(
-//                        title: data["title"] as? String,
-//                        authors: data["authors"] as? [String],
-//                        publisher: data["publisher"] as? String,
-//                        publishedDate: data["publishedDate"] as? String,
-//                        description: data["description"] as? String,
-//                        industryIdentifiers: industryIdentifiers,
-//                        pageCount: data["pageCount"] as? Int,
-//                        categories: data["categories"] as? [String],
-//                        imageLinks: ImageLinks(smallThumbnail: data["imageLinks"] as? String)
-//                    )
-//                    let item = Item(id: documentID, volumeInfo: volumeInfo)
-//                    items.append(item)
-//                    print(item.volumeInfo.industryIdentifiers)
-//                    group.leave()
-//                }
-//            }
-//
-//            group.notify(queue: .main) {
-//                if collection == "wishBooks" {
-//                    self?.wishBooks = items
-//                    self?.filteredBooks = items
-//                } else if collection == "holdBooks" {
-//                    self?.holdBooks = items
-//                    self?.filteredBooks = items
-//                }
-//                completion()
-//            }
-//        }
-//    }
-
-
-
-
-
-
-
-
 
 
