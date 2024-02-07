@@ -21,10 +21,7 @@
 		1DB39DBA2B6B57B100C1B489 /* BookShelfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DB92B6B57B100C1B489 /* BookShelfView.swift */; };
 		1DB39DBC2B6B57F100C1B489 /* BookShelfViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */; };
 		1DB39DC02B6B8A5300C1B489 /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DBF2B6B8A5300C1B489 /* BookDetailView.swift */; };
-<<<<<<< Updated upstream
 		1DCF22782B70D4440078995D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DCF22772B70D4440078995D /* GoogleService-Info.plist */; };
-=======
->>>>>>> Stashed changes
 		1DCFB01E2B687D7000250D55 /* FindIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB01D2B687D7000250D55 /* FindIdView.swift */; };
 		1DCFB0222B68CB4400250D55 /* FindIdVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0212B68CB4400250D55 /* FindIdVM.swift */; };
 		1DCFB0242B68CD3100250D55 /* FindPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */; };
@@ -92,11 +89,6 @@
 		5CE454932B68B7CB00874BCE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454922B68B7CB00874BCE /* UserModel.swift */; };
 		5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454962B68B8CA00874BCE /* AppleLoginView.swift */; };
 		5CE454992B68B8EF00874BCE /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454982B68B8EF00874BCE /* AppleAuthManager.swift */; };
-		5CFA2EEA2B7209BA00917A55 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5CFA2EE92B7209BA00917A55 /* Secrets.xcconfig */; };
-		5CFA2EEE2B720D1B00917A55 /* NaverLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFA2EED2B720D1B00917A55 /* NaverLocationService.swift */; };
-		5CFA2EF02B720DCE00917A55 /* ExchangeHopeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFA2EEF2B720DCE00917A55 /* ExchangeHopeView.swift */; };
-		5CFA2EF22B720E2800917A55 /* ExchangeHopeExplainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFA2EF12B720E2800917A55 /* ExchangeHopeExplainView.swift */; };
-		5CFA2EF42B7212D100917A55 /* NaverReverseGeocoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CFA2EF32B7212D100917A55 /* NaverReverseGeocoding.swift */; };
 		736127052B6B538800943CD7 /* NaverLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736127042B6B538800943CD7 /* NaverLoginView.swift */; };
 		736127072B6B543A00943CD7 /* NaverAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736127062B6B543A00943CD7 /* NaverAuthManager.swift */; };
 		736127092B6B82B400943CD7 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736127082B6B82B400943CD7 /* ImageScrollView.swift */; };
@@ -162,10 +154,7 @@
 		1DB39DB92B6B57B100C1B489 /* BookShelfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfView.swift; sourceTree = "<group>"; };
 		1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfViewModel.swift; sourceTree = "<group>"; };
 		1DB39DBF2B6B8A5300C1B489 /* BookDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
-<<<<<<< Updated upstream
 		1DCF22772B70D4440078995D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-=======
->>>>>>> Stashed changes
 		1DCFB01D2B687D7000250D55 /* FindIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdView.swift; sourceTree = "<group>"; };
 		1DCFB0212B68CB4400250D55 /* FindIdVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdVM.swift; sourceTree = "<group>"; };
 		1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordView.swift; sourceTree = "<group>"; };
@@ -225,11 +214,7 @@
 		5AA97F822B70754D00EF4081 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		5AA97F852B709C4000EF4081 /* FirestoreSignUpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreSignUpManager.swift; sourceTree = "<group>"; };
 		5AA97F882B70BCF000EF4081 /* BundleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtension.swift; sourceTree = "<group>"; };
-<<<<<<< Updated upstream
 		5AA97F922B70C94500EF4081 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
-=======
-		5AA97F992B70CF6000EF4081 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
->>>>>>> Stashed changes
 		5ADE79D92B6B2C99005BB3ED /* CertiResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertiResult.swift; sourceTree = "<group>"; };
 		5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthModel.swift; sourceTree = "<group>"; };
 		5ADE79DF2B6B3351005BB3ED /* GoogleSignResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignResultModel.swift; sourceTree = "<group>"; };
@@ -242,11 +227,6 @@
 		5CE454962B68B8CA00874BCE /* AppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginView.swift; sourceTree = "<group>"; };
 		5CE454982B68B8EF00874BCE /* AppleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthManager.swift; sourceTree = "<group>"; };
 		5CE4549A2B68C93A00874BCE /* BookBridge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookBridge.entitlements; sourceTree = "<group>"; };
-		5CFA2EE92B7209BA00917A55 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
-		5CFA2EED2B720D1B00917A55 /* NaverLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLocationService.swift; sourceTree = "<group>"; };
-		5CFA2EEF2B720DCE00917A55 /* ExchangeHopeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeHopeView.swift; sourceTree = "<group>"; };
-		5CFA2EF12B720E2800917A55 /* ExchangeHopeExplainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeHopeExplainView.swift; sourceTree = "<group>"; };
-		5CFA2EF32B7212D100917A55 /* NaverReverseGeocoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverReverseGeocoding.swift; sourceTree = "<group>"; };
 		736127042B6B538800943CD7 /* NaverLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginView.swift; sourceTree = "<group>"; };
 		736127062B6B543A00943CD7 /* NaverAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverAuthManager.swift; sourceTree = "<group>"; };
 		736127082B6B82B400943CD7 /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
@@ -390,7 +370,6 @@
 				5ADE79E32B6B361D005BB3ED /* Manager */,
 				5A1A16932B622BB10063D408 /* GoogleLoginViewController.swift */,
 				5CE4548F2B68B79000874BCE /* FirestoreService.swift */,
-				5CFA2EED2B720D1B00917A55 /* NaverLocationService.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -460,13 +439,8 @@
 		5A7A4E192B61DFFD00F79C23 = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< Updated upstream
 				5AA97F922B70C94500EF4081 /* Secrets.xcconfig */,
 				1DCF22772B70D4440078995D /* GoogleService-Info.plist */,
-=======
-				5AA97F992B70CF6000EF4081 /* GoogleService-Info.plist */,
-				5CFA2EE92B7209BA00917A55 /* Secrets.xcconfig */,
->>>>>>> Stashed changes
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
 				5A7A4E352B61DFFE00F79C23 /* BookBridgeTests */,
@@ -657,7 +631,6 @@
 				5CE454922B68B7CB00874BCE /* UserModel.swift */,
 				5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */,
 				5ADE79DF2B6B3351005BB3ED /* GoogleSignResultModel.swift */,
-				5CFA2EF32B7212D100917A55 /* NaverReverseGeocoding.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -719,8 +692,6 @@
 				91392F282B68BE0E0092052A /* FindPostingView.swift */,
 				736127082B6B82B400943CD7 /* ImageScrollView.swift */,
 				7361270A2B6B82F100943CD7 /* ImageEditorModalView.swift */,
-				5CFA2EEF2B720DCE00917A55 /* ExchangeHopeView.swift */,
-				5CFA2EF12B720E2800917A55 /* ExchangeHopeExplainView.swift */,
 			);
 			path = Posting;
 			sourceTree = "<group>";
@@ -869,11 +840,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */,
-<<<<<<< Updated upstream
 				1DCF22782B70D4440078995D /* GoogleService-Info.plist in Resources */,
-=======
-				5CFA2EEA2B7209BA00917A55 /* Secrets.xcconfig in Resources */,
->>>>>>> Stashed changes
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
 				5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */,
 			);
@@ -1102,7 +1069,6 @@
 				5A3A44222B6C89AE00B66C81 /* LocationViewModel.swift in Sources */,
 				73C962A52B688D4200D34D3F /* BookModel.swift in Sources */,
 				73DDA5DF2B6A336100B25FB8 /* SelectBooksView.swift in Sources */,
-				5CFA2EF22B720E2800917A55 /* ExchangeHopeExplainView.swift in Sources */,
 				5A1A16942B622BB10063D408 /* GoogleLoginViewController.swift in Sources */,
 				1DB39DBC2B6B57F100C1B489 /* BookShelfViewModel.swift in Sources */,
 				5AA82E4D2B675E26006EFC72 /* EmailSignUpView.swift in Sources */,
@@ -1122,7 +1088,6 @@
 				738EDAA32B71ECA80066ADE7 /* HomeListItemView.swift in Sources */,
 				5A3A44152B6C778200B66C81 /* SignUpInputType.swift in Sources */,
 				5A3A440D2B6C73D500B66C81 /* MiddleBlueBtnStyle.swift in Sources */,
-				5CFA2EF42B7212D100917A55 /* NaverReverseGeocoding.swift in Sources */,
 				5A2DE09A2B68915200EF3A6B /* SignUpInputer.swift in Sources */,
 				5AA97F832B70754D00EF4081 /* LocationManager.swift in Sources */,
 				1D71C6C12B6C743900EEC95D /* BookView.swift in Sources */,
@@ -1131,13 +1096,11 @@
 				1DB39DBA2B6B57B100C1B489 /* BookShelfView.swift in Sources */,
 				F623A51D2B68C01E00B5C159 /* NoticeBoardModel.swift in Sources */,
 				5A3E020D2B6FA001008F8CFD /* TestViewModel.swift in Sources */,
-				5CFA2EEE2B720D1B00917A55 /* NaverLocationService.swift in Sources */,
 				5A1A168E2B6228290063D408 /* GoogleLoginView.swift in Sources */,
 				910F491C2B6CC66900C0563E /* CameraModalView.swift in Sources */,
 				5A5041CC2B6A635C00211CF2 /* PathViewModel.swift in Sources */,
 				7361270B2B6B82F100943CD7 /* ImageEditorModalView.swift in Sources */,
 				1DFDD1BA2B71B48400B320F7 /* SignInState.swift in Sources */,
-				5CFA2EF02B720DCE00917A55 /* ExchangeHopeView.swift in Sources */,
 				1DB39DC02B6B8A5300C1B489 /* BookDetailView.swift in Sources */,
 				1D71C6C32B6C763900EEC95D /* AddBookBtnView.swift in Sources */,
 				5A7A4E262B61DFFD00F79C23 /* BookBridgeApp.swift in Sources */,
@@ -1181,11 +1144,7 @@
 /* Begin XCBuildConfiguration section */
 		5A7A4E442B61DFFE00F79C23 /* Debug */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< Updated upstream
 			baseConfigurationReference = 5AA97F922B70C94500EF4081 /* Secrets.xcconfig */;
-=======
-			baseConfigurationReference = 5CFA2EE92B7209BA00917A55 /* Secrets.xcconfig */;
->>>>>>> Stashed changes
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1249,11 +1208,7 @@
 		};
 		5A7A4E452B61DFFE00F79C23 /* Release */ = {
 			isa = XCBuildConfiguration;
-<<<<<<< Updated upstream
 			baseConfigurationReference = 5AA97F922B70C94500EF4081 /* Secrets.xcconfig */;
-=======
-			baseConfigurationReference = 5CFA2EE92B7209BA00917A55 /* Secrets.xcconfig */;
->>>>>>> Stashed changes
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
