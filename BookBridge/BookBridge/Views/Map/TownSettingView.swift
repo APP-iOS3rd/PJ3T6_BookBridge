@@ -20,6 +20,7 @@ struct TownSettingView: View {
     @State var locations = [Location]()
     @State var type: TownSetting = .setting
     @State var selectedLocation: Location?
+    @State private var showAlert = false
     let db = Firestore.firestore()
     
     var body: some View {
@@ -46,6 +47,11 @@ struct TownSettingView: View {
                             
                             // 동네 삭제버튼
                             Button {
+                                
+                                if locations.count == 1 {
+                                    showAlert.toggle()
+                                    return
+                                }
                                 // index값 가져오기
                                 guard let index = locations.firstIndex(where: {$0.id == location.id}) else {
                                     print("선택한 Location을 찾을 수 없습니다.")
@@ -76,6 +82,15 @@ struct TownSettingView: View {
                                 Image(systemName: "multiply")
                             }
                             .padding(.trailing, 10)
+                            .alert(isPresented: $showAlert) {
+                                Alert(
+                                    title: Text("동네를 삭제할 수 없습니다."),
+                                    message: Text("동네는 적어도 한 개 이상 설정되어야 합니다."),
+                                    dismissButton: .default(Text("확인")) {
+                                        showAlert.toggle() // showAlert 변수 토글
+                                    }
+                                )
+                            }
                         }
                         .modifier(TownButtonStyle())
                     }
