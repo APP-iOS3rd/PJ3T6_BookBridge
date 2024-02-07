@@ -8,16 +8,19 @@
 import SwiftUI
 
 struct WishBookAddBtnView: View {
+    
     @EnvironmentObject var viewModel: BookShelfViewModel
+    
     @Environment(\.dismiss) private var dismiss
     var book : Item
     var body: some View {
         Button(
             action: {
-                if !(viewModel.wishBooks.contains{ $0.id == book.id }){
-                    viewModel.wishBooks.append(book)
-                }
-                
+                viewModel.loadBooksFromFirestore(collection: "wishBooks"){
+                    if !(viewModel.wishBooks.contains{ $0.id == book.id }){
+                        viewModel.saveBooksToFirestore(books: [book], collection: "wishBooks")
+                    }                    
+                }                
                 dismiss()
             },
             label: {
