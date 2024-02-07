@@ -14,12 +14,51 @@ class ChatListViewModel: ObservableObject {
     @Published var chatUser: ChatUser?
     @Published var isUserCurrentlyLoggedOut = false
     
+    @Published var recentMessages = [RecentMessage]()
+    
+    private var firestoreListener: ListenerRegistration?
+    
     init() {
         DispatchQueue.main.async {
             self.isUserCurrentlyLoggedOut = FirebaseManager.shared.auth.currentUser?.uid == nil
         }
         
         fetchCurrentUser()
+        
+        fetchRecentMessages()
+    }
+    
+    func fetchRecentMessages() {
+        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
+        
+        firestoreListener?.remove()
+        self.recentMessages.removeAll()
+        
+        firestoreListener = FirebaseManager.shared.firestore.collection("recent_messages")
+            .document(uid)
+            .collection("messages")
+            .order(by: "timestamp")
+            .addSnapshotListener { querySnapshot, error in
+                if let error = error {
+                    self.errorMessage = "Failed to listen for recent messages: \(error)"
+                    print(error)
+                    return
+                }
+                
+                // 최근 메세지
+                querySnapshot?.documentChanges.forEach({ change in
+                    let docId = change.document.documentID
+                    
+                    if let index = self.recentMessages.firstIndex(where: { rm in
+                        return rm.documentId == docId
+                    }) {
+                        self.recentMessages.remove(at: index)
+                    }
+                    
+                    // 목록의 맨 위로 추가
+                    self.recentMessages.insert(.init(documentId: docId, data: change.document.data()), at: 0)
+                })
+            }
     }
     
     func fetchCurrentUser() {
@@ -28,22 +67,22 @@ class ChatListViewModel: ObservableObject {
             return
         }
         
-        FirebaseManager.shared.firestore.collection("ChatUsers").document(uid).getDocument { snapshot, error in
-            if let error = error {
-                self.errorMessage = "Failed to fetch current user: \(error)"
-                print("Failed to fetch current user:", error)
-                return
+        FirebaseManager.shared.firestore.collection("ChatUsers")
+            .document(uid)
+            .getDocument { snapshot, error in
+                if let error = error {
+                    self.errorMessage = "Failed to fetch current user: \(error)"
+                    print("Failed to fetch current user:", error)
+                    return
+                }
+                
+                guard let data = snapshot?.data() else {
+                    self.errorMessage = "No data found"
+                    return
+                }
+                
+                self.chatUser = .init(data: data)
             }
-            
-            self.errorMessage = "123"
-            
-            guard let data = snapshot?.data() else {
-                self.errorMessage = "No data found"
-                return
-            }
-            
-            self.chatUser = .init(data: data)
-        }
     }
     
     func handleSignOut() {

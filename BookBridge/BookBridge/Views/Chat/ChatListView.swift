@@ -18,6 +18,8 @@ struct ChatListView: View {
     
     @ObservedObject private var chatListVM = ChatListViewModel()
     
+    private var chatLogViewModel = ChatLogViewModel(chatUser: nil)
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -25,7 +27,7 @@ struct ChatListView: View {
                 messagesView
             }
             .navigationDestination(isPresented: $navigateToChatLogView) {
-                ChatLogView(chatUser: self.chatUser)
+                ChatLogView(chatLogVM: chatLogViewModel)
                 }
             .overlay(
                 newMessageButton, alignment: .bottom)
@@ -70,6 +72,7 @@ struct ChatListView: View {
             } label: {
                 Image(systemName: "gearshape")
                     .font(.system(size: 24, weight: .bold))
+                    .foregroundStyle(Color(.label))
             }
         }
         .padding()
@@ -90,36 +93,52 @@ struct ChatListView: View {
             ChatLoginView(didCompleteLoginProcess: {
                 self.chatListVM.isUserCurrentlyLoggedOut = false
                 self.chatListVM.fetchCurrentUser()
+                self.chatListVM.fetchRecentMessages()
             })
         }
     }
     
     private var messagesView: some View {
         ScrollView {
-            ForEach(0..<10, id: \.self) { num in
+            ForEach(chatListVM.recentMessages) { recentMessage in
                 VStack {
-                    NavigationLink {
-                        Text("Destination")
+                    Button {
+                        let uid = FirebaseManager.shared.auth.currentUser?
+                            .uid == recentMessage.fromId ? recentMessage.toId : recentMessage.fromId
+                        self.chatUser = .init(data: [
+                            FirebaseConstants.email: recentMessage.email,
+                            FirebaseConstants.profileImageUrl: recentMessage.profileImageUrl,
+                            FirebaseConstants.uid: uid
+                        ])
+                        self.chatLogViewModel.chatUser = self.chatUser
+                        self.chatLogViewModel.fetchMessages()
+                        self.navigateToChatLogView.toggle()
                     } label: {
                         HStack(spacing: 16) {
-                            Image(systemName: "person.fill")
-                                .font(.system(size: 32))
-                                .padding(8)
+                            WebImage(url: URL(string: recentMessage.profileImageUrl))
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 64, height: 64)
+                                .clipped()
+                                .cornerRadius(64)
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: 44)
-                                        .stroke(Color(.label), lineWidth: 1)
+                                    RoundedRectangle(cornerRadius: 64)
+                                        .stroke(Color.black, lineWidth: 1)
                                 )
                             
-                            VStack(alignment: .leading) {
-                                Text("게시글 이름")
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text(recentMessage.email)
                                     .font(.system(size: 16, weight: .bold))
-                                Text("Message sent to user")
+                                    .foregroundStyle(Color(.label))
+                                    .multilineTextAlignment(.leading)
+                                Text(recentMessage.text)
                                     .font(.system(size: 14))
-                                    .foregroundStyle(Color(.lightGray))
+                                    .foregroundStyle(Color(hex:"8A8A8E"))
+                                    .multilineTextAlignment(.leading)
                             }
                             Spacer()
                             
-                            Text("오전 9:41")
+                            Text(recentMessage.timeAgo)
                                 .font(.system(size: 14, weight: .semibold))
                                 .foregroundStyle(Color(.lightGray))
                         }
@@ -155,6 +174,8 @@ struct ChatListView: View {
                 print(user.email)
                 self.navigateToChatLogView.toggle()
                 self.chatUser = user
+                self.chatLogViewModel.chatUser = user
+                self.chatLogViewModel.fetchMessages()
             })
         }
     }

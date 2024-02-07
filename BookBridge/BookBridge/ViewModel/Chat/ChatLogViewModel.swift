@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+import FirebaseFirestore
 
 class ChatLogViewModel: ObservableObject {
     
@@ -16,19 +17,22 @@ class ChatLogViewModel: ObservableObject {
     @Published var chatMessages = [ChatMessage]()
     @Published var count = 0
     
-    let chatUser: ChatUser?
+    var chatUser: ChatUser?
+    
+    var firestoreListener: ListenerRegistration?
     
     init(chatUser: ChatUser?) {
         self.chatUser = chatUser
         
         fetchMessages()
     }
-    
-    private func fetchMessages() {
+   
+    func fetchMessages() {
         guard let fromId = FirebaseManager.shared.auth.currentUser?.uid else { return }
         guard let toId = chatUser?.uid else { return }
-        FirebaseManager.shared.firestore
-            .collection("messages")
+        firestoreListener?.remove()
+        chatMessages.removeAll()
+        firestoreListener = FirebaseManager.shared.firestore.collection("messages")
             .document(fromId)
             .collection(toId)
             .order(by: "timestamp")
@@ -46,6 +50,11 @@ class ChatLogViewModel: ObservableObject {
                         self.chatMessages.append(.init(documentId: change.document.documentID, data: data))
                     }
                 })
+                
+                // 자동 스크롤 비동기
+                DispatchQueue.main.async {
+                    self.count += 1
+                }
             }
     }
     
@@ -56,8 +65,7 @@ class ChatLogViewModel: ObservableObject {
         guard let toId = chatUser?.uid else { return }
         
         // 발신자용
-        let document = FirebaseManager.shared.firestore
-            .collection("messages")
+        let document = FirebaseManager.shared.firestore.collection("messages")
             .document(fromId)
             .collection(toId)
             .document()
@@ -72,13 +80,15 @@ class ChatLogViewModel: ObservableObject {
             }
             
             print("Successfully saved current user sending message")
+            
+            self.persistRecentMessage()
+            
             self.chatText = ""
             self.count += 1
         }
         
         // 수신자용
-        let recipientMessageDocument = FirebaseManager.shared.firestore
-            .collection("messages")
+        let recipientMessageDocument = FirebaseManager.shared.firestore.collection("messages")
             .document(toId)
             .collection(fromId)
             .document()
@@ -91,6 +101,36 @@ class ChatLogViewModel: ObservableObject {
             }
             
             print("Recipient saved message as well")
+        }
+    }
+    
+    // 채팅목록 최근 메세지
+    private func persistRecentMessage() {
+        guard let chatUser = chatUser else { return }
+        
+        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
+        guard let toId = self.chatUser?.uid else { return }
+        
+        let document = FirebaseManager.shared.firestore.collection("recent_messages")
+            .document(uid)
+            .collection("messages")
+            .document(toId)
+        
+        let data = [
+            FirebaseConstants.timestamp: Timestamp(),
+            FirebaseConstants.text: self.chatText,
+            FirebaseConstants.fromId: uid,
+            FirebaseConstants.toId: toId,
+            FirebaseConstants.profileImageUrl: chatUser.profileImageUrl,
+            FirebaseConstants.email: chatUser.email
+        ] as [String: Any]
+        
+        document.setData(data) { error in
+            if let error = error {
+                self.errorMessage = "Failed to save recent message: \(error)"
+                print("Failed to save recent message: \(error)")
+                return
+            }
         }
     }
 }

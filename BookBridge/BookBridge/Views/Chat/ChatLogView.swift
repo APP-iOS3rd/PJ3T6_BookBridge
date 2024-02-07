@@ -7,16 +7,25 @@
 
 import SwiftUI
 
+struct FirebaseConstants {
+    static let timestamp = "timestamp"
+    static let text = "text"
+    static let fromId = "fromId"
+    static let toId = "toId"
+    static let profileImageUrl = "profileImageUrl"
+    static let email = "email"
+    static let uid = "uid"
+}
+
 struct ChatLogView: View {
     
-    let chatUser: ChatUser?
-    
     static let emptyScrollToString = "Empty"
-    
-    init(chatUser: ChatUser?) {
-        self.chatUser = chatUser
-        self.chatLogVM = .init(chatUser: chatUser)
-    }
+//    let chatUser: ChatUser?
+//
+//    init(chatUser: ChatUser?) {
+//        self.chatUser = chatUser
+//        self.chatLogVM = .init(chatUser: chatUser)
+//    }
     
     @ObservedObject var chatLogVM: ChatLogViewModel
     
@@ -28,19 +37,16 @@ struct ChatLogView: View {
             }
             chatBottomBar
         }
-        .navigationTitle(chatUser?.email ?? "")
+        .navigationTitle(chatLogVM.chatUser?.email ?? "")
         .navigationBarTitleDisplayMode(.inline)
-        // 최근 메세지 자동 스크롤
-//        .navigationBarItems(trailing: Button(action: {
-//            chatLogVM.count += 1
-//        }, label: {
-//            Text("Count: \(chatLogVM.count)")
-//        }))
+        .onDisappear {
+            chatLogVM.firestoreListener?.remove()
+        }
     }
     
     private var messagesView: some View {
         ScrollView {
-            ScrollViewReader { ScrollViewProxy in
+            ScrollViewReader { scrollViewProxy in
                 VStack {
                     ForEach(chatLogVM.chatMessages) { message in
                         MessageView(message: message)
@@ -48,9 +54,10 @@ struct ChatLogView: View {
                     HStack { Spacer() }
                         .id(Self.emptyScrollToString)
                 }
+                // 자동 스크롤
                 .onReceive(chatLogVM.$count) { _ in
                     withAnimation(.easeOut(duration: 0.5)) {
-                        ScrollViewProxy.scrollTo("Empty", anchor: .bottom)
+                        scrollViewProxy.scrollTo(Self.emptyScrollToString, anchor: .bottom)
                     }
                 }
             }

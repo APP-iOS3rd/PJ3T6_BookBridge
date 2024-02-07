@@ -7,12 +7,6 @@
 
 import Foundation
 
-struct FirebaseConstants {
-    static let fromId = "fromId"
-    static let toId = "toId"
-    static let text = "text"
-}
-
 struct ChatMessage: Identifiable {
     
     var id: String { documentId }
