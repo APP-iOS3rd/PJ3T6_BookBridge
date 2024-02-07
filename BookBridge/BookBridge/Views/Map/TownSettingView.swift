@@ -203,6 +203,10 @@ struct TownSettingView: View {
                         let locations = locationsFromArray(locationData)
                         self.locations = locations
                         print("Location 변환 성공!")
+                        
+                        // 초기 버튼 설정
+                        selectedLocation = locations[0]
+                        userLocationViewModel.setLocation(lat: selectedLocation?.lat ?? 0.0, lng: selectedLocation?.long ?? 0.0, distance: selectedLocation?.distance ?? 1)
                     } else {
                         print("Location field does not exist or is not in the expected format")
                     }
