@@ -76,11 +76,17 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
             fetchUserLocation(circle: circle)
             print("userLocation: \(userLocation)")
             
-            getDistrict(long: userLocation.1, lat: userLocation.0) { district in
-                if let district = district {
-                    LocationManager.shared.setLocation(lat: self.userLocation.0, long: self.userLocation.1, distriction: district)
+            getDistrict(long: userLocation.1, lat: userLocation.0) { result in
+                if let result = result {
+                    LocationManager.shared.setLocation(
+                        lat: self.userLocation.0,
+                        long: self.userLocation.1,
+                        city: result[0],
+                        distriction: result[1],
+                        dong: result[2]
+                    )
                                         
-                    print("(\(LocationManager.shared.long),\(LocationManager.shared.lat)), \(LocationManager.shared.distriction)")
+                    print("(\(LocationManager.shared.long),\(LocationManager.shared.lat)), \(LocationManager.shared.city) \(LocationManager.shared.distriction) \(LocationManager.shared.dong)")
                 } else {
                     print("위치정보를 받아오지 못함")
                 }
@@ -156,12 +162,8 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
             locationOverlay.iconHeight = CGFloat(42)
             locationOverlay.anchor = CGPoint(x: 0.5, y: 1)
             locationOverlay.circleRadius = self.circleRadius
-            
-            // let circle = NMFCircleOverlay()
-//            circle.center = NMGLatLng(lat: lat ?? 0.0, lng: lng ?? 0.0)
-//            circle.radius = circleRadius
-//            circle.mapView = view.mapView
-            
+            locationOverlay.circleOutlineColor = Color(hex: "#a2c4fa").asUIColor()
+            locationOverlay.circleOutlineWidth = 2
                                                                                 
             view.mapView.moveCamera(cameraUpdate)
         }
@@ -171,7 +173,7 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
         view
     }
     
-    func getDistrict(long: Double, lat: Double, completion: @escaping (String?) -> Void) {
+    func getDistrict(long: Double, lat: Double, completion: @escaping ([String]?) -> Void) {
         let urlStr = NaverMapApiManager.ADDRESS_URL
         let param: Parameters = [
             "coords":"\(long),\(lat)",
@@ -198,9 +200,10 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
             case .success(let value) :
                 let json = JSON(value)
                 let data = json["results"]
+                let city = data[0]["region"]["area1"]["name"].string ?? ""
                 let district = data[0]["region"]["area2"]["name"].string ?? ""
                 let dong = data[0]["region"]["area3"]["name"].string ?? ""
-                let result = "\(district),\(dong)"
+                let result = [city, district, dong]
                 completion(result)
             case .failure(let error):
                 print(error)

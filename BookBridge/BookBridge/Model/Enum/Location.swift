@@ -10,5 +10,9 @@ import Foundation
 struct Location: Codable, Identifiable {
     var id: String?
     var lat: Double?
-    var long: Double?    
+    var long: Double?
+    var city: String?
+    var distriction: String?
+    var dong: String?
+    var distance: Int?
 }

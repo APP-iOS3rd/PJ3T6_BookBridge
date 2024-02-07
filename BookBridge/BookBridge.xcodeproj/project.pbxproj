@@ -375,8 +375,8 @@
 		5A3A441C2B6C882900B66C81 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				5A3A441F2B6C890900B66C81 /* TownSettingMapView.swift */,
 				5A2CC1172B71C230000A8776 /* TownSettingView.swift */,
+				5A3A441F2B6C890900B66C81 /* TownSettingMapView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
