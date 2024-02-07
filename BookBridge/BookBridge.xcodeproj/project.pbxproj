@@ -89,6 +89,17 @@
 		5CE454932B68B7CB00874BCE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454922B68B7CB00874BCE /* UserModel.swift */; };
 		5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454962B68B8CA00874BCE /* AppleLoginView.swift */; };
 		5CE454992B68B8EF00874BCE /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454982B68B8EF00874BCE /* AppleAuthManager.swift */; };
+		73441F9B2B733CC200446E0F /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441F9A2B733CC200446E0F /* MyPageView.swift */; };
+		73441F9D2B733CD000446E0F /* MyScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441F9C2B733CD000446E0F /* MyScoreView.swift */; };
+		73441F9F2B733CE500446E0F /* MyPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441F9E2B733CE500446E0F /* MyPostView.swift */; };
+		73441FA12B733CF600446E0F /* AccountManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441FA02B733CF600446E0F /* AccountManagementView.swift */; };
+		73441FA32B733D3C00446E0F /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441FA22B733D3C00446E0F /* SettingView.swift */; };
+		73441FA52B733DAF00446E0F /* AlarmSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441FA42B733DAF00446E0F /* AlarmSettingView.swift */; };
+		73441FA72B733DC700446E0F /* MyProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441FA62B733DC700446E0F /* MyProfileView.swift */; };
+		73441FA92B733DEF00446E0F /* StyleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441FA82B733DEF00446E0F /* StyleModel.swift */; };
+		73441FAB2B733E0700446E0F /* StyleSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441FAA2B733E0700446E0F /* StyleSettingView.swift */; };
+		73441FAD2B733E2200446E0F /* StyleListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441FAC2B733E2200446E0F /* StyleListView.swift */; };
+		73441FAF2B733E3500446E0F /* StyleModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441FAE2B733E3500446E0F /* StyleModalView.swift */; };
 		736127052B6B538800943CD7 /* NaverLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736127042B6B538800943CD7 /* NaverLoginView.swift */; };
 		736127072B6B543A00943CD7 /* NaverAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736127062B6B543A00943CD7 /* NaverAuthManager.swift */; };
 		736127092B6B82B400943CD7 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736127082B6B82B400943CD7 /* ImageScrollView.swift */; };
@@ -227,6 +238,17 @@
 		5CE454962B68B8CA00874BCE /* AppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginView.swift; sourceTree = "<group>"; };
 		5CE454982B68B8EF00874BCE /* AppleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthManager.swift; sourceTree = "<group>"; };
 		5CE4549A2B68C93A00874BCE /* BookBridge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookBridge.entitlements; sourceTree = "<group>"; };
+		73441F9A2B733CC200446E0F /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
+		73441F9C2B733CD000446E0F /* MyScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyScoreView.swift; sourceTree = "<group>"; };
+		73441F9E2B733CE500446E0F /* MyPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostView.swift; sourceTree = "<group>"; };
+		73441FA02B733CF600446E0F /* AccountManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManagementView.swift; sourceTree = "<group>"; };
+		73441FA22B733D3C00446E0F /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		73441FA42B733DAF00446E0F /* AlarmSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlarmSettingView.swift; sourceTree = "<group>"; };
+		73441FA62B733DC700446E0F /* MyProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileView.swift; sourceTree = "<group>"; };
+		73441FA82B733DEF00446E0F /* StyleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleModel.swift; sourceTree = "<group>"; };
+		73441FAA2B733E0700446E0F /* StyleSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleSettingView.swift; sourceTree = "<group>"; };
+		73441FAC2B733E2200446E0F /* StyleListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleListView.swift; sourceTree = "<group>"; };
+		73441FAE2B733E3500446E0F /* StyleModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleModalView.swift; sourceTree = "<group>"; };
 		736127042B6B538800943CD7 /* NaverLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLoginView.swift; sourceTree = "<group>"; };
 		736127062B6B543A00943CD7 /* NaverAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverAuthManager.swift; sourceTree = "<group>"; };
 		736127082B6B82B400943CD7 /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
@@ -516,6 +538,7 @@
 				91C60CE22B67459E00A1E8E4 /* Posting */,
 				5ADE79D62B6B2B02005BB3ED /* SearchBook */,
 				1DB39DB82B6B579A00C1B489 /* BookShelf */,
+				73441F992B733C8900446E0F /* MyPage */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -631,6 +654,7 @@
 				5CE454922B68B7CB00874BCE /* UserModel.swift */,
 				5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */,
 				5ADE79DF2B6B3351005BB3ED /* GoogleSignResultModel.swift */,
+				73441FA82B733DEF00446E0F /* StyleModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -641,6 +665,23 @@
 				5CE454962B68B8CA00874BCE /* AppleLoginView.swift */,
 			);
 			path = AppleLogin;
+			sourceTree = "<group>";
+		};
+		73441F992B733C8900446E0F /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				73441F9A2B733CC200446E0F /* MyPageView.swift */,
+				73441F9C2B733CD000446E0F /* MyScoreView.swift */,
+				73441F9E2B733CE500446E0F /* MyPostView.swift */,
+				73441FA02B733CF600446E0F /* AccountManagementView.swift */,
+				73441FA22B733D3C00446E0F /* SettingView.swift */,
+				73441FA42B733DAF00446E0F /* AlarmSettingView.swift */,
+				73441FA62B733DC700446E0F /* MyProfileView.swift */,
+				73441FAA2B733E0700446E0F /* StyleSettingView.swift */,
+				73441FAC2B733E2200446E0F /* StyleListView.swift */,
+				73441FAE2B733E3500446E0F /* StyleModalView.swift */,
+			);
+			path = MyPage;
 			sourceTree = "<group>";
 		};
 		736127032B6B536C00943CD7 /* NaverLogin */ = {
@@ -1021,6 +1062,7 @@
 				73C962A92B68C38D00D34D3F /* BookAPIManger.swift in Sources */,
 				5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */,
 				1D84019E2B677B3B00ADEEB5 /* IdLoginViewModel.swift in Sources */,
+				73441F9D2B733CD000446E0F /* MyScoreView.swift in Sources */,
 				5A3A442A2B6CDB8A00B66C81 /* KeychainManager.swift in Sources */,
 				5A6CC5212B6B192F0037429F /* FormatValidator.swift in Sources */,
 				1DCFB0222B68CB4400250D55 /* FindIdVM.swift in Sources */,
@@ -1038,23 +1080,28 @@
 				91B80A452B6798B9000D5339 /* TabBarView.swift in Sources */,
 				91B80A422B676EEE000D5339 /* ImagePicker.swift in Sources */,
 				736127092B6B82B400943CD7 /* ImageScrollView.swift in Sources */,
+				73441FA52B733DAF00446E0F /* AlarmSettingView.swift in Sources */,
 				5ADE79DA2B6B2C99005BB3ED /* CertiResult.swift in Sources */,
 				5ADE79E62B6B565F005BB3ED /* SignUpInputView.swift in Sources */,
+				73441FAD2B733E2200446E0F /* StyleListView.swift in Sources */,
 				5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */,
 				5A3A440F2B6C741200B66C81 /* InputTextFieldStyle.swift in Sources */,
 				1D71C6C52B6C766300EEC95D /* BookSearchBar.swift in Sources */,
 				736127052B6B538800943CD7 /* NaverLoginView.swift in Sources */,
 				91B80A472B6799B7000D5339 /* ChangePostingView.swift in Sources */,
+				73441FAB2B733E0700446E0F /* StyleSettingView.swift in Sources */,
 				1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */,
 				5A6CC5232B6B19510037429F /* RedundantValidator.swift in Sources */,
 				F60BB0932B71D72400E27F38 /* HomeView.swift in Sources */,
 				5A3A440B2B6C726100B66C81 /* NicknameError.swift in Sources */,
+				73441FAF2B733E3500446E0F /* StyleModalView.swift in Sources */,
 				5AA82E5E2B67891E006EFC72 /* SmtpManager.swift in Sources */,
 				5A3A44262B6CB36900B66C81 /* Location.swift in Sources */,
 				5ADE79DE2B6B3305005BB3ED /* GoogleAuthModel.swift in Sources */,
 				5ADE79E22B6B34D0005BB3ED /* GoogleAuthViewModel.swift in Sources */,
 				5A3A44192B6C77A300B66C81 /* PwdConfirmError.swift in Sources */,
 				736127072B6B543A00943CD7 /* NaverAuthManager.swift in Sources */,
+				73441FA92B733DEF00446E0F /* StyleModel.swift in Sources */,
 				5AA82E5E2B67891E006EFC72 /* SmtpManager.swift in Sources */,
 				5A3E020B2B6F9FCD008F8CFD /* TestView.swift in Sources */,
 				738EDAA52B7225950066ADE7 /* UIImageExtension.swift in Sources */,
@@ -1076,6 +1123,9 @@
 				73DDA5E12B6A34A500B25FB8 /* SearchResultView.swift in Sources */,
 				738EDAA12B71EBA30066ADE7 /* HomeTapView.swift in Sources */,
 				5A3A44112B6C75F500B66C81 /* MiddleWhiteBtnStyle.swift in Sources */,
+				73441FA32B733D3C00446E0F /* SettingView.swift in Sources */,
+				73441FA72B733DC700446E0F /* MyProfileView.swift in Sources */,
+				73441F9F2B733CE500446E0F /* MyPostView.swift in Sources */,
 				1D71C6C72B6C8D4400EEC95D /* WishBookAddBtnView.swift in Sources */,
 				738EDA9F2B71EB240066ADE7 /* TapCategory.swift in Sources */,
 				91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */,
@@ -1085,6 +1135,7 @@
 				1DA6E06E2B68E2EA00D631D5 /* FindIdResultView.swift in Sources */,
 				5AA97F892B70BCF000EF4081 /* BundleExtension.swift in Sources */,
 				5A3A441E2B6C88E300B66C81 /* MapView.swift in Sources */,
+				73441F9B2B733CC200446E0F /* MyPageView.swift in Sources */,
 				738EDAA32B71ECA80066ADE7 /* HomeListItemView.swift in Sources */,
 				5A3A44152B6C778200B66C81 /* SignUpInputType.swift in Sources */,
 				5A3A440D2B6C73D500B66C81 /* MiddleBlueBtnStyle.swift in Sources */,
@@ -1100,6 +1151,7 @@
 				910F491C2B6CC66900C0563E /* CameraModalView.swift in Sources */,
 				5A5041CC2B6A635C00211CF2 /* PathViewModel.swift in Sources */,
 				7361270B2B6B82F100943CD7 /* ImageEditorModalView.swift in Sources */,
+				73441FA12B733CF600446E0F /* AccountManagementView.swift in Sources */,
 				1DFDD1BA2B71B48400B320F7 /* SignInState.swift in Sources */,
 				1DB39DC02B6B8A5300C1B489 /* BookDetailView.swift in Sources */,
 				1D71C6C32B6C763900EEC95D /* AddBookBtnView.swift in Sources */,

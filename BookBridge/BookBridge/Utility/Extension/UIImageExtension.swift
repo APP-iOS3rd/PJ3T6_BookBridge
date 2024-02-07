@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension UIImage {
     func aspectFittedToHeight(_ newHeight: CGFloat) -> UIImage {
