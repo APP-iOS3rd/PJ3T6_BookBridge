@@ -163,9 +163,8 @@ struct PostView: View {
                                     .font(.system(size: 20))
                                     .fontWeight(.bold)
                                 Spacer()
-                                Button {
-                                    
-                                } label: {
+                                
+                                NavigationLink(destination: BookShelfView(userId: postViewModel.user.id)) {
                                     Text("더보기")
                                         .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
                                 }
@@ -187,9 +186,7 @@ struct PostView: View {
                                     .font(.system(size: 20))
                                     .fontWeight(.bold)
                                 Spacer()
-                                Button {
-                                    
-                                } label: {
+                                NavigationLink(destination: BookShelfView(userId: postViewModel.user.id)) {
                                     Text("더보기")
                                         .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
                                 }
@@ -247,7 +244,7 @@ struct PostView: View {
                 postViewModel.gettingUserBookShelf(userId: noticeBoard.userId, collection: "wishBooks")
             }
             if noticeBoard.noticeLocation.count >= 2 {
-//                myCoord = (noticeBoard.noticeLocation[0], noticeBoard.noticeLocation[1])
+                //                myCoord = (noticeBoard.noticeLocation[0], noticeBoard.noticeLocation[1])
             }
         }
         .navigationTitle(noticeBoard.isChange ? "바꿔요" : "구해요")
@@ -275,7 +272,7 @@ struct PostView: View {
         //TODO : alert 대체 및 네비게이션 추가
         .alert(isPresented: $isPresented) {
             Alert(
-                title: Text("menu"), 
+                title: Text("menu"),
                 primaryButton: .default(
                     Text("관심목록 추가")
                 ) {
@@ -294,8 +291,6 @@ struct PostView: View {
 
 struct PostMapView: UIViewRepresentable {
     
-    
-    
     @Binding var lat: Double // 모델 좌표 lat
     @Binding var lng: Double // 모델 좌표 lng
     
@@ -306,7 +301,7 @@ struct PostMapView: UIViewRepresentable {
         let markerCoord = NMGLatLng(lat: lat, lng: lng)
         
         // 내 위치 활성화 버튼을 표시
-        mapView.showLocationButton = true
+        //        mapView.showLocationButton = true
         
         // 초기 카메라 위치를 마커의 위치로 설정하고 줌 레벨을 조정
         let cameraUpdate = NMFCameraUpdate(scrollTo: markerCoord, zoomTo: 15)
@@ -320,7 +315,7 @@ struct PostMapView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
-        let newMyCoord = NMGLatLng(lat: lat, lng: lng)
-        _ = NMFCameraUpdate(scrollTo: newMyCoord)
+        _ = NMGLatLng(lat: lat, lng: lng)
+        //        _ = NMFCameraUpdate(scrollTo: newMyCoord)
     }
 }
