@@ -27,7 +27,6 @@ struct AccountManagementView: View {
                         .font(.system(size: 17))
                         .foregroundStyle(Color(hex: "3C3C43"))
                 }
-                .frame(height: 40)
                 .background(
                     RoundedRectangle(cornerRadius: 0)
                         .foregroundColor(.white)
@@ -48,7 +47,6 @@ struct AccountManagementView: View {
                         .font(.system(size: 17))
                         .foregroundStyle(Color(hex: "3C3C43"))
                 }
-                .frame(height: 40)
                 .background(
                     RoundedRectangle(cornerRadius: 0)
                         .foregroundColor(.white)
@@ -69,7 +67,6 @@ struct AccountManagementView: View {
                         .font(.system(size: 17))
                         .foregroundStyle(Color(hex: "3C3C43"))
                 }
-                .frame(height: 40)
                 .background(
                     RoundedRectangle(cornerRadius: 0)
                         .foregroundColor(.white)
@@ -78,7 +75,8 @@ struct AccountManagementView: View {
             }*/
             
             NavigationLink {
-                StyleSettingView()
+                //유저 아이디에 사용자 아이디 넣기, 유저 스타일에 사용자 대표 칭호 넣기
+                StyleSettingView(userId: "", userStyle: "동네 보안관")
             } label: {
                 HStack {
                     Text("칭호관리")
@@ -90,7 +88,6 @@ struct AccountManagementView: View {
                         .font(.system(size: 17))
                         .foregroundStyle(Color(hex: "3C3C43"))
                 }
-                .frame(height: 50)
                 .background(
                     RoundedRectangle(cornerRadius: 0)
                         .foregroundColor(.white)

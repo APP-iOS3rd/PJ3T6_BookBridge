@@ -34,7 +34,6 @@ struct MyPostView: View {
                         .font(.system(size: 17))
                         .foregroundStyle(Color(hex: "3C3C43"))
                 }
-                .frame(height: 40)
                 .background(
                     RoundedRectangle(cornerRadius: 0)
                         .foregroundColor(.white)
@@ -62,7 +61,6 @@ struct MyPostView: View {
                         .font(.system(size: 17))
                         .foregroundStyle(Color(hex: "3C3C43"))
                 }
-                .frame(height: 40)
                 .background(
                     RoundedRectangle(cornerRadius: 0)
                         .foregroundColor(.white)

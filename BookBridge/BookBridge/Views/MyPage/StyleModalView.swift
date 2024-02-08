@@ -9,9 +9,8 @@ import SwiftUI
 
 struct StyleModalView: View {
     @Binding var isModal: Bool
-    @Binding var myStyles: [StyleModel]
-    @Binding var selectStyle: String
-    @Binding var style: StyleModel
+    
+    @StateObject var viewModel: StyleViewModel
     
     var body: some View {
         VStack {
@@ -21,29 +20,25 @@ struct StyleModalView: View {
                 .cornerRadius(5)
                 .padding(.top, 10)
             
-            Image(style.imageName)
+            Image(viewModel.style.imageName)
                 .resizable()
                 .frame(width: 90, height: 90)
                 .padding(.bottom, 10)
             
-            Text(style.title)
+            Text(viewModel.style.title)
                 .font(.system(size: 20, weight: .bold))
                 .padding(.bottom, 10)
             
-            Text(style.description)
+            Text(viewModel.style.description)
                 .font(.system(size: 17))
                 .padding(.bottom, 10)
             
-            if (myStyles.contains { $0.title == style.title }) {    //칭호 보유중
+            if (viewModel.myStyles.contains { $0.title == viewModel.style.title }) {    //칭호 보유중
                 Button {
-                    if selectStyle == style.title {         //선택취소
-                        selectStyle = ""
-                    } else {                                //선택완료
-                        selectStyle = style.title
-                    }
+                    viewModel.changeSelectedStyle()
                     isModal = false
                 } label: {
-                    Text(selectStyle == style.title ? "선택취소" : "선택완료")
+                    Text(viewModel.selectedStyle == viewModel.style.title ? "선택취소" : "선택완료")
                         .padding(.vertical, 5)
                         .padding(.horizontal,8)
                         .font(.system(size: 20, weight: .bold))

@@ -9,25 +9,22 @@ import SwiftUI
 
 struct StyleListView: View {
     @Binding var isModal: Bool
-    @Binding var myStyles: [StyleModel]
-    @Binding var selectedStyle: String
-    @Binding var style: StyleModel
     
-    var styleTypes: [StyleModel]
+    @StateObject var viewModel: StyleViewModel
     
     var body: some View {
         VStack {
-            ForEach(styleTypes) { style in
+            ForEach(viewModel.styleTypes) { style in
                 HStack(alignment: .center) {
                     Text(style.title)
                         .padding(.vertical, 10)
-                        .font(.system(size: 17, weight: (myStyles.contains { $0.title == style.title }) ? .semibold : .regular))
+                        .font(.system(size: 17, weight: (viewModel.myStyles.contains { $0.title == style.title }) ? .semibold : .regular))
                         .foregroundStyle(
-                            style.title == selectedStyle ? Color(hex: "59AAE0") : (myStyles.contains { $0.title == style.title }) ? .black : Color(hex: "767676")
+                            style.title == viewModel.selectedStyle ? Color(hex: "59AAE0") : (viewModel.myStyles.contains { $0.title == style.title }) ? .black : Color(hex: "767676")
                         )
                     Spacer()
                     
-                    if style.title == selectedStyle {
+                    if style.title == viewModel.selectedStyle {
                         Image(systemName: "checkmark.circle")
                             .font(.system(size: 17))
                             .foregroundStyle(Color(hex: "59AAE0"))
@@ -40,7 +37,7 @@ struct StyleListView: View {
                         .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
                 )
                 .onTapGesture {
-                    self.style = style
+                    viewModel.style = style
                     isModal = true
                 }
             }
