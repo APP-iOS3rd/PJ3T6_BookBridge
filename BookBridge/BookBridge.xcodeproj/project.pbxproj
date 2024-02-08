@@ -25,6 +25,7 @@
 		1DCFB01E2B687D7000250D55 /* FindIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB01D2B687D7000250D55 /* FindIdView.swift */; };
 		1DCFB0222B68CB4400250D55 /* FindIdVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0212B68CB4400250D55 /* FindIdVM.swift */; };
 		1DCFB0242B68CD3100250D55 /* FindPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */; };
+		1DE382A72B734E74009A7A15 /* HomeRecentSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE382A62B734E74009A7A15 /* HomeRecentSearchView.swift */; };
 		1DFDD1BA2B71B48400B320F7 /* SignInState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFDD1B92B71B48400B320F7 /* SignInState.swift */; };
 		1DFDD1BC2B71BF3D00B320F7 /* tapInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFDD1BB2B71BF3D00B320F7 /* tapInfo.swift */; };
 		1E9CA8884DE9A470795B434C /* Pods_BookBridge_BookBridgeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38996D702CA8C661E33E70C8 /* Pods_BookBridge_BookBridgeUITests.framework */; };
@@ -158,6 +159,7 @@
 		1DCFB01D2B687D7000250D55 /* FindIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdView.swift; sourceTree = "<group>"; };
 		1DCFB0212B68CB4400250D55 /* FindIdVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdVM.swift; sourceTree = "<group>"; };
 		1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordView.swift; sourceTree = "<group>"; };
+		1DE382A62B734E74009A7A15 /* HomeRecentSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRecentSearchView.swift; sourceTree = "<group>"; };
 		1DFDD1B92B71B48400B320F7 /* SignInState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInState.swift; sourceTree = "<group>"; };
 		1DFDD1BB2B71BF3D00B320F7 /* tapInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tapInfo.swift; sourceTree = "<group>"; };
 		2C64B1A5C532C5F1A934328D /* Pods-BookBridge-BookBridgeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge-BookBridgeUITests.release.xcconfig"; path = "Target Support Files/Pods-BookBridge-BookBridgeUITests/Pods-BookBridge-BookBridgeUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -657,6 +659,7 @@
 				F60BB0922B71D72400E27F38 /* HomeView.swift */,
 				738EDAA02B71EBA30066ADE7 /* HomeTapView.swift */,
 				738EDAA22B71ECA80066ADE7 /* HomeListItemView.swift */,
+				1DE382A62B734E74009A7A15 /* HomeRecentSearchView.swift */,
 			);
 			path = HomeTap;
 			sourceTree = "<group>";
@@ -1072,6 +1075,7 @@
 				5A1A16942B622BB10063D408 /* GoogleLoginViewController.swift in Sources */,
 				1DB39DBC2B6B57F100C1B489 /* BookShelfViewModel.swift in Sources */,
 				5AA82E4D2B675E26006EFC72 /* EmailSignUpView.swift in Sources */,
+				1DE382A72B734E74009A7A15 /* HomeRecentSearchView.swift in Sources */,
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
 				73DDA5E12B6A34A500B25FB8 /* SearchResultView.swift in Sources */,
 				738EDAA12B71EBA30066ADE7 /* HomeTapView.swift in Sources */,
