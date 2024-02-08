@@ -15,7 +15,7 @@ class FirestoreManager {
             
     // MARK: - 불러오기(fetch)
     
-    static func getLocations(id: String, completion: @escaping ([Location]) -> Void) {
+    static func getLocations(completion: @escaping ([Location]) -> Void) {
         let docRef = getUserDoc(id: UserManager.shared.uid)
         
         docRef.getDocument { (document, error) in

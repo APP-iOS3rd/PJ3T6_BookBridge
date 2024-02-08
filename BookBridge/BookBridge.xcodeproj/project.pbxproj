@@ -72,6 +72,9 @@
 		5A7A4E552B62269600F79C23 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A4E542B62269600F79C23 /* LoginView.swift */; };
 		5A8345852B746741000984C4 /* ConvertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8345842B746741000984C4 /* ConvertManager.swift */; };
 		5A8345872B746811000984C4 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8345862B746811000984C4 /* FirestoreManager.swift */; };
+		5A83458A2B749DEA000984C4 /* TownSelectButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8345892B749DEA000984C4 /* TownSelectButtonView.swift */; };
+		5A83458C2B74A0C0000984C4 /* TownAddButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A83458B2B74A0C0000984C4 /* TownAddButtonView.swift */; };
+		5A83458E2B74A279000984C4 /* TownSettingSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A83458D2B74A279000984C4 /* TownSettingSlideView.swift */; };
 		5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A33842B628D9E00982E92 /* GoogleSignManager.swift */; };
 		5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A33862B62960800982E92 /* ColorExtension.swift */; };
 		5AA82E4D2B675E26006EFC72 /* EmailSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */; };
@@ -221,6 +224,9 @@
 		5A7A4E542B62269600F79C23 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		5A8345842B746741000984C4 /* ConvertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertManager.swift; sourceTree = "<group>"; };
 		5A8345862B746811000984C4 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
+		5A8345892B749DEA000984C4 /* TownSelectButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownSelectButtonView.swift; sourceTree = "<group>"; };
+		5A83458B2B74A0C0000984C4 /* TownAddButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownAddButtonView.swift; sourceTree = "<group>"; };
+		5A83458D2B74A279000984C4 /* TownSettingSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownSettingSlideView.swift; sourceTree = "<group>"; };
 		5A9A33842B628D9E00982E92 /* GoogleSignManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignManager.swift; sourceTree = "<group>"; };
 		5A9A33862B62960800982E92 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignUpView.swift; sourceTree = "<group>"; };
@@ -411,13 +417,16 @@
 			path = SignUp;
 			sourceTree = "<group>";
 		};
-		5A3A441C2B6C882900B66C81 /* Map */ = {
+		5A3A441C2B6C882900B66C81 /* TownSetting */ = {
 			isa = PBXGroup;
 			children = (
 				5A2CC1172B71C230000A8776 /* TownSettingView.swift */,
 				5A3A441F2B6C890900B66C81 /* TownSettingMapView.swift */,
+				5A8345892B749DEA000984C4 /* TownSelectButtonView.swift */,
+				5A83458B2B74A0C0000984C4 /* TownAddButtonView.swift */,
+				5A83458D2B74A279000984C4 /* TownSettingSlideView.swift */,
 			);
-			path = Map;
+			path = TownSetting;
 			sourceTree = "<group>";
 		};
 		5A3E02092B6F9FC1008F8CFD /* Test */ = {
@@ -536,7 +545,7 @@
 			children = (
 				F6DFC8D12B7309D800931CF9 /* Post */,
 				738EDA9D2B71EAF20066ADE7 /* HomeTap */,
-				5A3A441C2B6C882900B66C81 /* Map */,
+				5A3A441C2B6C882900B66C81 /* TownSetting */,
 				5A3E02092B6F9FC1008F8CFD /* Test */,
 				5A1A168C2B6228150063D408 /* Login */,
 				91C60CE22B67459E00A1E8E4 /* Posting */,
@@ -1054,6 +1063,7 @@
 				5C8C0DD82B734B8C002963F1 /* NaverReverseGeocoding.swift in Sources */,
 				910F48F92B6CB42D00C0563E /* ImageDropDelegate.swift in Sources */,
 				736127112B6B84AC00943CD7 /* PostingViewModel.swift in Sources */,
+				5A83458E2B74A279000984C4 /* TownSettingSlideView.swift in Sources */,
 				F6DFC8D52B730A2A00931CF9 /* PostView.swift in Sources */,
 				5AA82E542B6764DF006EFC72 /* SignUpAuthCodeBoxView.swift in Sources */,
 				5A3A44092B6C724500B66C81 /* EmailError.swift in Sources */,
@@ -1063,6 +1073,7 @@
 				73C962A12B6883A700D34D3F /* SearchBooksView.swift in Sources */,
 				5A7A4E552B62269600F79C23 /* LoginView.swift in Sources */,
 				5A0242152B6D36FF00137AA6 /* LoadingCircle.swift in Sources */,
+				5A83458C2B74A0C0000984C4 /* TownAddButtonView.swift in Sources */,
 				73C962A92B68C38D00D34D3F /* BookAPIManger.swift in Sources */,
 				5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */,
 				1D84019E2B677B3B00ADEEB5 /* IdLoginViewModel.swift in Sources */,
@@ -1099,6 +1110,7 @@
 				5A3A44262B6CB36900B66C81 /* Location.swift in Sources */,
 				5C8C0DDE2B734CBA002963F1 /* ExchangeHopeView.swift in Sources */,
 				5ADE79DE2B6B3305005BB3ED /* GoogleAuthModel.swift in Sources */,
+				5A83458A2B749DEA000984C4 /* TownSelectButtonView.swift in Sources */,
 				5ADE79E22B6B34D0005BB3ED /* GoogleAuthViewModel.swift in Sources */,
 				5A3A44192B6C77A300B66C81 /* PwdConfirmError.swift in Sources */,
 				736127072B6B543A00943CD7 /* NaverAuthManager.swift in Sources */,
@@ -1134,7 +1146,6 @@
 				5AA82E4F2B6760C7006EFC72 /* SignUpInputBoxView.swift in Sources */,
 				1DA6E06E2B68E2EA00D631D5 /* FindIdResultView.swift in Sources */,
 				5AA97F892B70BCF000EF4081 /* BundleExtension.swift in Sources */,
-				5A3A441E2B6C88E300B66C81 /* MapView.swift in Sources */,
 				738EDAA32B71ECA80066ADE7 /* HomeListItemView.swift in Sources */,
 				5A3A44152B6C778200B66C81 /* SignUpInputType.swift in Sources */,
 				5A3A440D2B6C73D500B66C81 /* MiddleBlueBtnStyle.swift in Sources */,
@@ -1197,7 +1208,6 @@
 /* Begin XCBuildConfiguration section */
 		5A7A4E442B61DFFE00F79C23 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5A2CC1132B71C1BC000A8776 /* Secrets.xcconfig */;
 			baseConfigurationReference = 5AA97F922B70C94500EF4081 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1262,7 +1272,6 @@
 		};
 		5A7A4E452B61DFFE00F79C23 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5A2CC1132B71C1BC000A8776 /* Secrets.xcconfig */;
 			baseConfigurationReference = 5AA97F922B70C94500EF4081 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
