@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct BookDetailView: View {
     @EnvironmentObject var viewModel: BookShelfViewModel
     
@@ -81,7 +83,7 @@ struct BookDetailView: View {
                                 .frame(width: 30)
                             
                             VStack(alignment: .leading, spacing: 15){
-                                Text(isbnString(volumeInfo: book.volumeInfo))
+                                Text("\(book.volumeInfo.industryIdentifiers?[0].identifier ?? "정보 없음")")
                                     .font(.system(size: 15, weight: .semibold))
                                     .foregroundColor(Color(hex: "9A9A9A"))
                                 Text("\(book.volumeInfo.categories?.first ?? "정보 없음")")
@@ -121,15 +123,5 @@ struct BookDetailView: View {
         }
     }
     
-    func isbnString(volumeInfo: VolumeInfo) -> String {
-        if let identifiers = volumeInfo.industryIdentifiers {
-            let identifierStrings = identifiers.map { $0.identifier ?? "" }
-            return identifierStrings.joined(separator: ", ")
-        }
-        return "No ISBN"
-    }
+
 }
-
-
-
-

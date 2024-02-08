@@ -69,7 +69,7 @@ struct LoginView: View {
                         .font(.system(size: 16, weight: .light))
                     
                     Button(action: {
-                        pathModel.paths.append(.home)
+                        pathModel.paths.append(.home(userId: nil))
                     }, label: {
                         Text("둘러보기")
                             .foregroundColor(Color(hex: "3A87FD"))
@@ -114,8 +114,8 @@ struct LoginView: View {
             .padding(20)
             .navigationDestination(for: PathType.self) { pathType in
                 switch pathType {
-                case .home:
-                    TabBarView()
+                case .home(let userId):
+                    TabBarView(userId: userId ?? "")
                         .navigationBarBackButtonHidden()
                 case .certi:
                     EmailCertiView(signUpVM: signUpVM)

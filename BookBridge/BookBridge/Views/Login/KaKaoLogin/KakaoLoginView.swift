@@ -32,9 +32,9 @@ struct KakaoLoginView: View {
             } else {
                 KakaoLoginStatusView(viewModel: viewModel)
             }
-        } .onChange(of: viewModel.state) { newState in
-            if newState == .signedIn {
-                pathModel.paths.append(.home)
+        }.onChange(of: viewModel.state) { newState in
+            if newState == .signedIn, let userId = viewModel.userId {
+                pathModel.paths.append(.home(userId: userId))
             }
         }
         
