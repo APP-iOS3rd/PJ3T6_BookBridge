@@ -53,10 +53,11 @@ struct StyleSettingView: View {
         .sheet(isPresented: $isModal, onDismiss: {
             isModal = false
         }, content: {
-            StyleModalView(isModal: $isModal, viewModel: viewModel)
+            StyleModalView(isModal: $isModal, viewModel: viewModel, userId: userId)
                 .presentationDetents([.height(250)])
         })
         .onAppear {
+            viewModel.getMyStyle(userId: userId)
             viewModel.selectedStyle = userStyle
         }
     }

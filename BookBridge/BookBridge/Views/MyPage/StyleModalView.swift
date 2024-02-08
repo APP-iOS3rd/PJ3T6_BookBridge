@@ -12,6 +12,8 @@ struct StyleModalView: View {
     
     @StateObject var viewModel: StyleViewModel
     
+    var userId: String
+    
     var body: some View {
         VStack {
             Rectangle()
@@ -33,9 +35,9 @@ struct StyleModalView: View {
                 .font(.system(size: 17))
                 .padding(.bottom, 10)
             
-            if (viewModel.myStyles.contains { $0.title == viewModel.style.title }) {    //칭호 보유중
+            if (viewModel.myStyles.contains { $0 == viewModel.style.title }) {    //칭호 보유중
                 Button {
-                    viewModel.changeSelectedStyle()
+                    viewModel.changeSelectedStyle(userId: userId)
                     isModal = false
                 } label: {
                     Text(viewModel.selectedStyle == viewModel.style.title ? "선택취소" : "선택완료")

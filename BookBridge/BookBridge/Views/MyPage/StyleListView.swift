@@ -18,9 +18,9 @@ struct StyleListView: View {
                 HStack(alignment: .center) {
                     Text(style.title)
                         .padding(.vertical, 10)
-                        .font(.system(size: 17, weight: (viewModel.myStyles.contains { $0.title == style.title }) ? .semibold : .regular))
+                        .font(.system(size: 17, weight: (viewModel.myStyles.contains { $0 == style.title }) ? .semibold : .regular))
                         .foregroundStyle(
-                            style.title == viewModel.selectedStyle ? Color(hex: "59AAE0") : (viewModel.myStyles.contains { $0.title == style.title }) ? .black : Color(hex: "767676")
+                            style.title == viewModel.selectedStyle ? Color(hex: "59AAE0") : (viewModel.myStyles.contains { $0 == style.title }) ? .black : Color(hex: "767676")
                         )
                     Spacer()
                     
