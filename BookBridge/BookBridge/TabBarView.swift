@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct TabBarView: View {
+    let userId : String
+    
     var body: some View {
         TabView {
             // 홈
@@ -32,10 +34,10 @@ struct TabBarView: View {
                 }
             
             // 책장
-            BookShelfView()
+            BookShelfView(userId : userId)
                 .tabItem {
                     Image(systemName: "book.fill")
-                    Text("Bookshelf")
+                    Text("내 책장")
                 }
             
             //마이페이지
@@ -48,6 +50,6 @@ struct TabBarView: View {
     }
 }
 
-#Preview {
-    TabBarView()
-}
+//#Preview {
+//    TabBarView()
+//}
