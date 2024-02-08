@@ -6,13 +6,12 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct ChatListView: View {
     
     @State var showLogoutOptions = false
     @State var navigateToChatLogView = false
-
+    
     @State var showNewMessageScreen = false
     @State var chatUser: ChatUser?
     
@@ -28,7 +27,7 @@ struct ChatListView: View {
             }
             .navigationDestination(isPresented: $navigateToChatLogView) {
                 ChatLogView(chatLogVM: chatLogViewModel)
-                }
+            }
             .overlay(
                 newMessageButton, alignment: .bottom)
             
@@ -40,24 +39,27 @@ struct ChatListView: View {
         HStack(spacing: 16) {
             
             // 프로필 이미지 가져오기
-            WebImage(url: URL(string: chatListVM.chatUser?.profileImageUrl ?? ""))
-                .resizable()
-                .scaledToFill()
-                .frame(width: 50, height: 50)
-                .clipped()
-                .cornerRadius(50)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 44)
-                        .stroke(Color(.label), lineWidth: 1)
-                )
-                .shadow(radius: 5)
+            AsyncImage(url: URL(string: chatListVM.chatUser?.profileImageUrl ?? "")) { image in
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 64, height: 64)
+                    .clipped()
+                    .cornerRadius(64)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 64)
+                            .stroke(Color.black, lineWidth: 1)
+                            .shadow(radius: 5)
+                    )
+            } placeholder: {
+                // Placeholder 이미지 (로딩 중 표시될 이미지)
+                ProgressView()
+            }
             
             VStack(alignment: .leading, spacing: 4) {
-//                let email = chatListVM.chatUser?.email ?? ""
                 let email = chatListVM.chatUser?.uid ?? ""
                 Text("\(email)")
                     .font(.system(size: 24, weight: .bold))
-                
                 HStack {
                     Circle()
                         .foregroundStyle(.green)
@@ -116,17 +118,21 @@ struct ChatListView: View {
                         self.navigateToChatLogView.toggle()
                     } label: {
                         HStack(spacing: 16) {
-                            WebImage(url: URL(string: recentMessage.profileImageUrl))
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 64, height: 64)
-                                .clipped()
-                                .cornerRadius(64)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 64)
-                                        .stroke(Color.black, lineWidth: 1)
-                                )
-                            
+                            AsyncImage(url: URL(string: recentMessage.profileImageUrl)) { image in
+                                image
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 50, height: 50)
+                                    .clipped()
+                                    .cornerRadius(50)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 44)
+                                            .stroke(Color(.label), lineWidth: 1)
+                                    )
+                            } placeholder: {
+                                // Placeholder 이미지 설정
+                                ProgressView()
+                            }
                             VStack(alignment: .leading, spacing: 8) {
                                 Text(recentMessage.email)
                                     .font(.system(size: 16, weight: .bold))
@@ -184,5 +190,5 @@ struct ChatListView: View {
 
 #Preview {
     ChatListView()
-//        .preferredColorScheme(.dark)
+    //        .preferredColorScheme(.dark)
 }

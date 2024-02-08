@@ -15,8 +15,7 @@ struct CreateNewMessageView: View {
     @Environment(\.dismiss) var dismiss
     
     @ObservedObject var createNewMessageVM = CreateNewMessageViewModel()
-    
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
