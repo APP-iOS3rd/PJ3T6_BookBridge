@@ -7,16 +7,6 @@
 
 import SwiftUI
 
-struct FirebaseConstants {
-    static let timestamp = "timestamp"
-    static let text = "text"
-    static let fromId = "fromId"
-    static let toId = "toId"
-    static let profileImageUrl = "profileImageUrl"
-    static let email = "email"
-    static let uid = "uid"
-}
-
 struct ChatLogView: View {
     
     static let emptyScrollToString = "Empty"

@@ -34,10 +34,11 @@ class ChatListViewModel: ObservableObject {
         firestoreListener?.remove()
         self.recentMessages.removeAll()
         
-        firestoreListener = FirebaseManager.shared.firestore.collection("recent_messages")
+        firestoreListener = FirebaseManager.shared.firestore
+            .collection(FirebaseConstants.recentMessages)
             .document(uid)
-            .collection("messages")
-            .order(by: "timestamp")
+            .collection(FirebaseConstants.messages)
+            .order(by: FirebaseConstants.timestamp)
             .addSnapshotListener { querySnapshot, error in
                 if let error = error {
                     self.errorMessage = "Failed to listen for recent messages: \(error)"
