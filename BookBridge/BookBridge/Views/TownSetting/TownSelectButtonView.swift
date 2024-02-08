@@ -21,7 +21,7 @@ struct TownSelectButtonView: View {
             selectedLocation = location
             userLocationViewModel.setLocation(lat: location.lat ?? 0.0, lng: location.long ?? 0.0, distance: location.distance ?? 1)
             
-            FirestoreManager.changeLocationOrder(locations: locations, location: location)
+            // FirestoreManager.changeLocationOrder(locations: locations, location: location)
         } label: {
             HStack {
                 Text(location.dong ?? "")
@@ -52,19 +52,19 @@ struct TownSelectButtonView: View {
                         title: Text("동네를 삭제할 수 없습니다."),
                         message: Text("동네는 적어도 한 개 이상 설정되어야 합니다."),
                         dismissButton: .default(Text("확인")) {
-                            showAlert.toggle() // showAlert 변수 토글
+                            showAlert.toggle()
                         }
                     )
                 }
             }
-            .modifier(TownButtonStyle(isSelected: selectedLocation == location))
+            .modifier(TownButtonStyle(isSelected: selectedLocation?.id == location.id))
         }
     }
 }
 
 extension TownSelectButtonView {
     struct TownButtonStyle: ViewModifier {
-        let isSelected: Bool
+        var isSelected: Bool
         
         func body(content: Content) -> some View {
             content

@@ -89,6 +89,10 @@ class FirestoreManager {
             }
         }
     }
+    
+    static func saveSelectedLocation() {
+        
+    }
         
 // MARK: - 위치변경
     

@@ -14,11 +14,13 @@ struct TownSettingView: View {
     @StateObject var locationViewModel = LocationViewModel.shared
     @StateObject var userLocationViewModel = UserLocationViewModel.shared
     @State private var sliderValue = 1.0
-    @State var locations = [Location]()    
+        
     @State var selectedLocation: Location?
     let locationManager = LocationManager.shared
     let db = Firestore.firestore()
     
+    @State var locations = [Location]()
+                
     var body: some View {
         VStack {
             // 지도
@@ -59,6 +61,8 @@ struct TownSettingView: View {
                     locations: locations,
                     circleRadius: Int(userLocationViewModel.circleRadius)
                 )
+                
+                
                 
                 // 저장 후 fetch
                 FirestoreManager.getLocations { locations in
