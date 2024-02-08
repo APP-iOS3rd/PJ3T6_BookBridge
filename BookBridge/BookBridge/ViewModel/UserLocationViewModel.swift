@@ -29,7 +29,7 @@ final class UserLocationViewModel: NSObject, ObservableObject, NMFMapViewCameraD
         didSet {
             if isUpdated(cur: circleRadius, prev: prevCircleRadius) {
                 prevCircleRadius = circleRadius
-                fetchUserLoaction(circle: circle)
+                fetchUserLoaction(circle: circle)                
             }
         }
     }
@@ -62,7 +62,7 @@ final class UserLocationViewModel: NSObject, ObservableObject, NMFMapViewCameraD
     
     func fetchUserLoaction(circle: NMFCircleOverlay) {
         if let lat = lat, let lng = lng {
-            var zoom: Double = getZoomValue(value: Int(self.circleRadius))
+            let zoom: Double = ConvertManager.getZoomValue(value: Int(self.circleRadius))
             
             let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: lat, lng: lng), zoomTo: zoom)
             
@@ -88,7 +88,7 @@ final class UserLocationViewModel: NSObject, ObservableObject, NMFMapViewCameraD
     func setLocation(lat: Double, lng: Double, distance: Int) {
         self.lat = lat
         self.lng = lng
-        self.circleRadius = CGFloat(changeDistanceToKilometer(value: distance))
+        self.circleRadius = CGFloat(ConvertManager.changeDistanceToKilometer(value: distance))
     }
     
     func reset() {
@@ -103,36 +103,5 @@ final class UserLocationViewModel: NSObject, ObservableObject, NMFMapViewCameraD
         view
     }
     
-    func changeDistanceToKilometer(value: Int) -> Int {
-        switch value {
-        case 2:
-            return 110
-        case 3:
-            return 120
-        default:
-            return 100
-        }
-    }
-    
-    func changeKilometerToDistance(value: Int) -> Int {
-        switch value {
-        case 110:
-            return 2
-        case 120:
-            return 3
-        default:
-            return 1
-        }
-    }
-    
-    func getZoomValue(value: Int) -> Double {
-        switch value {
-        case 110:
-            return 12
-        case 120:
-            return 11.7
-        default:
-            return 13
-        }
-    }
+
 }

@@ -17,3 +17,4 @@ class UserManager {
         self.uid = uid
     }
 }
+

@@ -67,6 +67,8 @@
 		5A7A4E432B61DFFE00F79C23 /* BookBridgeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A4E422B61DFFE00F79C23 /* BookBridgeUITestsLaunchTests.swift */; };
 		5A7A4E502B61E06600F79C23 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5A7A4E4F2B61E06600F79C23 /* .gitignore */; };
 		5A7A4E552B62269600F79C23 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A4E542B62269600F79C23 /* LoginView.swift */; };
+		5A8345852B746741000984C4 /* ConvertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8345842B746741000984C4 /* ConvertManager.swift */; };
+		5A8345872B746811000984C4 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8345862B746811000984C4 /* FirestoreManager.swift */; };
 		5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A33842B628D9E00982E92 /* GoogleSignManager.swift */; };
 		5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A33862B62960800982E92 /* ColorExtension.swift */; };
 		5AA82E4D2B675E26006EFC72 /* EmailSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */; };
@@ -200,6 +202,8 @@
 		5A7A4E422B61DFFE00F79C23 /* BookBridgeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookBridgeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5A7A4E4F2B61E06600F79C23 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		5A7A4E542B62269600F79C23 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		5A8345842B746741000984C4 /* ConvertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertManager.swift; sourceTree = "<group>"; };
+		5A8345862B746811000984C4 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
 		5A9A33842B628D9E00982E92 /* GoogleSignManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignManager.swift; sourceTree = "<group>"; };
 		5A9A33862B62960800982E92 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignUpView.swift; sourceTree = "<group>"; };
@@ -527,12 +531,13 @@
 			path = EmailSignUp;
 			sourceTree = "<group>";
 		};
-		5AA97F842B709C2400EF4081 /* FireStore */ = {
+		5AA97F842B709C2400EF4081 /* Firestore */ = {
 			isa = PBXGroup;
 			children = (
 				5AA97F852B709C4000EF4081 /* FirestoreSignUpManager.swift */,
+				5A8345862B746811000984C4 /* FirestoreManager.swift */,
 			);
-			path = FireStore;
+			path = Firestore;
 			sourceTree = "<group>";
 		};
 		5ADE79D62B6B2B02005BB3ED /* SearchBook */ = {
@@ -587,7 +592,7 @@
 		5ADE79E32B6B361D005BB3ED /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				5AA97F842B709C2400EF4081 /* FireStore */,
+				5AA97F842B709C2400EF4081 /* Firestore */,
 				5ADE79DC2B6B2EDC005BB3ED /* Login */,
 				73C962A82B68C38D00D34D3F /* BookAPIManger.swift */,
 				5A3A44272B6CC7BA00B66C81 /* NaverMapApiManager.swift */,
@@ -595,6 +600,7 @@
 				5AA97F802B70725D00EF4081 /* StorageManager.swift */,
 				5AA97F822B70754D00EF4081 /* LocationManager.swift */,
 				5A32514C2B7325E7008A16A9 /* UserManager.swift */,
+				5A8345842B746741000984C4 /* ConvertManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1051,6 +1057,7 @@
 				1D71C6C72B6C8D4400EEC95D /* WishBookAddBtnView.swift in Sources */,
 				91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */,
 				5CE454992B68B8EF00874BCE /* AppleAuthManager.swift in Sources */,
+				5A8345872B746811000984C4 /* FirestoreManager.swift in Sources */,
 				5A1A16962B6231870063D408 /* GoogleAuthManager.swift in Sources */,
 				5AA82E4F2B6760C7006EFC72 /* SignUpInputBoxView.swift in Sources */,
 				1DA6E06E2B68E2EA00D631D5 /* FindIdResultView.swift in Sources */,
@@ -1062,6 +1069,7 @@
 				5AA97F832B70754D00EF4081 /* LocationManager.swift in Sources */,
 				1D71C6C12B6C743900EEC95D /* BookView.swift in Sources */,
 				5A2DE0972B6884BE00EF3A6B /* EmailCertiView.swift in Sources */,
+				5A8345852B746741000984C4 /* ConvertManager.swift in Sources */,
 				F623A51D2B68C01E00B5C159 /* NoticeBoardModel.swift in Sources */,
 				1DB39DBA2B6B57B100C1B489 /* BookShelfView.swift in Sources */,
 				F623A51D2B68C01E00B5C159 /* NoticeBoardModel.swift in Sources */,

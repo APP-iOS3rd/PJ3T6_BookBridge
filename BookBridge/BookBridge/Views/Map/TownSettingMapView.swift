@@ -9,11 +9,6 @@ import SwiftUI
 import UIKit
 import NMapsMap
 
-enum TownSetting {
-    case add
-    case setting
-}
-
 struct TownSettingMapView: UIViewRepresentable {
     
     func makeUIView(context: Context) -> NMFNaverMapView {
