@@ -17,10 +17,10 @@ struct PostView: View {
     @StateObject private var postViewModel = PostViewModel()
     
     var storageManager = HomeFirebaseManager.shared
+    var menuHeight: Double = 80
     
     
     var body: some View {
-        NavigationView {
             ZStack {
                 ScrollView {
                     VStack {
@@ -214,6 +214,44 @@ struct PostView: View {
                     }
                     
                 }
+                .onTapGesture {
+                    withAnimation(.easeIn(duration: 0.2)) {
+                        isPresented = false
+                    }
+                }
+                VStack{
+                    HStack {
+                        Spacer()
+                        VStack {
+                            if isPresented {
+                                NavigationLink {
+                                    EmptyView()
+                                } label: {
+                                    Text("관심목록 추가")
+                                        .font(.system(size: 14))
+                                        .padding(1)
+                                }
+                                Divider()
+                                    .padding(1)
+                                NavigationLink {
+                                    EmptyView()
+                                } label: {
+                                    Text("신고하기")
+                                        .font(.system(size: 14))
+                                        .foregroundStyle(Color.red)
+                                        .padding(1)
+                                }
+                            }
+                        }
+                        .frame(width: 110, height: isPresented ? 80 : 0)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10, style: .circular)
+                                .foregroundColor(Color(red: 230/255, green: 230/255, blue: 230/255))
+                        )
+                        .padding(.trailing)
+                    }
+                    Spacer()
+                }
                 VStack {
                     Spacer()
                     Button {
@@ -228,7 +266,6 @@ struct PostView: View {
                 }
                 .frame(alignment: Alignment.bottom)
             }
-        }
         .onAppear {
             if !noticeBoard.noticeImageLink.isEmpty && noticeBoard.isChange {
                 Task {
@@ -264,29 +301,15 @@ struct PostView: View {
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    self.isPresented.toggle()
+                    withAnimation(.easeIn(duration: 0.2)) {
+                        isPresented.toggle()
+                    }
                 } label: {
                     Image(systemName: "ellipsis")
                         .font(.system(size: 16))
                         .foregroundStyle(.gray)
                 }
             }
-        }
-        //TODO : alert 대체 및 네비게이션 추가
-        .alert(isPresented: $isPresented) {
-            Alert(
-                title: Text("menu"), 
-                primaryButton: .default(
-                    Text("관심목록 추가")
-                ) {
-                    
-                },
-                secondaryButton: .destructive(
-                    Text("신고하기")
-                ) {
-                    
-                }
-            )
         }
         .navigationBarBackButtonHidden()
     }
