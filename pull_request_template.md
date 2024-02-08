@@ -32,6 +32,6 @@
 ## ➕ 이슈 링크
 
 - [레포 이름 #이슈번호](이슈 주소)
-- ex) [PJ3T6_BookBridge #84] https://github.com/APP-iOS3rd/PJ3T6_BookBridge/issues/84
+- ex) [PJ3T6_BookBridge #84]
 
 <br/>
