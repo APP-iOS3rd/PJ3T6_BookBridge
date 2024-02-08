@@ -123,6 +123,7 @@
 		F60BB0972B71D73900E27F38 /* HomeFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60BB0962B71D73800E27F38 /* HomeFirebaseManager.swift */; };
 		F623A51D2B68C01E00B5C159 /* NoticeBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F623A51C2B68C01E00B5C159 /* NoticeBoardModel.swift */; };
 		F6DFC8D52B730A2A00931CF9 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6DFC8D42B730A2A00931CF9 /* PostView.swift */; };
+		F6DFC8D82B735AE300931CF9 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6DFC8D72B735AE300931CF9 /* PostViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -269,6 +270,7 @@
 		F60BB0962B71D73800E27F38 /* HomeFirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeFirebaseManager.swift; sourceTree = "<group>"; };
 		F623A51C2B68C01E00B5C159 /* NoticeBoardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardModel.swift; sourceTree = "<group>"; };
 		F6DFC8D42B730A2A00931CF9 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		F6DFC8D72B735AE300931CF9 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -714,6 +716,7 @@
 		91C60CE62B6747C400A1E8E4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				F6DFC8D62B735ABF00931CF9 /* Post */,
 				F60BB0962B71D73800E27F38 /* HomeFirebaseManager.swift */,
 				F60BB0942B71D72F00E27F38 /* HomeViewModel.swift */,
 				5ADE79DB2B6B2D5F005BB3ED /* Login */,
@@ -741,6 +744,14 @@
 			isa = PBXGroup;
 			children = (
 				F6DFC8D42B730A2A00931CF9 /* PostView.swift */,
+			);
+			path = Post;
+			sourceTree = "<group>";
+		};
+		F6DFC8D62B735ABF00931CF9 /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				F6DFC8D72B735AE300931CF9 /* PostViewModel.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -1123,6 +1134,7 @@
 				F623A51D2B68C01E00B5C159 /* NoticeBoardModel.swift in Sources */,
 				1DB39DBA2B6B57B100C1B489 /* BookShelfView.swift in Sources */,
 				F623A51D2B68C01E00B5C159 /* NoticeBoardModel.swift in Sources */,
+				F6DFC8D82B735AE300931CF9 /* PostViewModel.swift in Sources */,
 				5A3E020D2B6FA001008F8CFD /* TestViewModel.swift in Sources */,
 				5A1A168E2B6228290063D408 /* GoogleLoginView.swift in Sources */,
 				910F491C2B6CC66900C0563E /* CameraModalView.swift in Sources */,

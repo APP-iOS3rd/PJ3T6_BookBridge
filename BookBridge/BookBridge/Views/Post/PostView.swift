@@ -6,15 +6,19 @@
 //
 
 import SwiftUI
+import NMapsMap
 
 struct PostView: View {
-    
-    @State var noticeBoard: NoticeBoard
-    @State var url: [URL] = []
     @Environment(\.dismiss) private var dismiss
     
+    @State private var isPresented = false
+    @State var noticeBoard: NoticeBoard
+    @State var url: [URL] = []
+    @StateObject private var postViewModel = PostViewModel()
+    
     var storageManager = HomeFirebaseManager.shared
-        
+    
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -34,6 +38,14 @@ struct PostView: View {
                                             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.5625)
                                             .foregroundStyle(Color(red: 217/255, green: 217/255, blue: 217/255))
                                     }
+                                    
+                                }
+                                if url.isEmpty {
+                                    Image("Character")
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.5625)
+                                        .foregroundStyle(.black)
                                 }
                             }
                             .tabViewStyle(.page)
@@ -47,7 +59,7 @@ struct PostView: View {
                         }
                         
                         HStack {
-                            Image(systemName: "scribble")
+                            Image(systemName: postViewModel.user.profileURL ?? "scribble")
                                 .resizable()
                                 .frame(width: 60, height: 60)
                                 .clipShape(Circle())
@@ -63,12 +75,12 @@ struct PostView: View {
                                     .background(
                                         RoundedRectangle(cornerRadius: 5)
                                             .foregroundStyle(Color(red: 217/255, green: 217/255, blue: 217/255)))
-                                Text("박하악")
+                                Text(postViewModel.user.nickname ?? "책벌레")
                                     .font(.system(size: 15))
                                     .fontWeight(.bold)
                                     .padding(.vertical, 1)
                                     .padding(.horizontal, 3)
-                                Text("광교 2동")
+                                Text(postViewModel.user.dong?[0] ?? "")
                                     .font(.system(size: 10))
                                     .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
                             }
@@ -119,44 +131,92 @@ struct PostView: View {
                                 .fontWeight(.bold)
                                 .padding(.horizontal)
                                 .padding(.top)
-                            //맵뷰
                             
-                            Text("어이동 어디")
+                            if noticeBoard.noticeLocation.count >= 2 {
+                                PostMapView(lat: $noticeBoard.noticeLocation[0], lng: $noticeBoard.noticeLocation[1])
+                            }
+                            
+                            Text(noticeBoard.noticeLocationName)
                                 .font(.system(size: 15))
-                                .padding()
+                                .padding(.horizontal)
                         }
                         .frame(
                             minWidth: UIScreen.main.bounds.width,
-                            minHeight: 200,
+                            minHeight: 400,
                             alignment: Alignment.topLeading
                         )
+                        .padding(.bottom)
                         
                         Divider()
                             .padding(.horizontal)
                         
                         //상대방 책장
                         VStack(alignment: .leading) {
-                            Text("님의 책장")
+                            Text("\(postViewModel.user.nickname ?? "책벌레")님의 책장")
                                 .font(.system(size: 25))
                                 .fontWeight(.bold)
-                                .padding(.horizontal)
-                                .padding(.top)
-                            //책장 리스트뷰
+                                .padding()
                             
+                            //책장 리스트뷰
+                            HStack{
+                                Text("보유 도서")
+                                    .font(.system(size: 20))
+                                    .fontWeight(.bold)
+                                Spacer()
+                                Button {
+                                    
+                                } label: {
+                                    Text("더보기")
+                                        .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
+                                }
+                            }
+                            .padding(.horizontal)
+                            
+                            List{
+                                ForEach(postViewModel.holdBooks) { element in
+                                    if let bookTitle = element.volumeInfo.title {
+                                        Text(bookTitle)
+                                    }
+                                }
+                            }
+                            .listStyle(PlainListStyle())
+                            .padding(.bottom)
+                            
+                            HStack{
+                                Text("희망 도서")
+                                    .font(.system(size: 20))
+                                    .fontWeight(.bold)
+                                Spacer()
+                                Button {
+                                    
+                                } label: {
+                                    Text("더보기")
+                                        .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
+                                }
+                            }
+                            .padding(.horizontal)
+                            
+                            List{
+                                ForEach(postViewModel.wishBooks) { element in
+                                    if let bookTitle = element.volumeInfo.title {
+                                        Text(bookTitle)
+                                    }
+                                }
+                            }
+                            .listStyle(PlainListStyle())
                         }
                         .frame(
                             minWidth: UIScreen.main.bounds.width,
-                            minHeight: 200,
+                            minHeight: 300,
                             alignment: Alignment.topLeading
                         )
-                        .padding(.bottom, 58)
+                        .padding(.bottom, 60)
                     }
                     
                 }
                 VStack {
                     Spacer()
                     Button {
-                        
                     } label: {
                         Text("채팅하기")
                             .foregroundStyle(Color.white)
@@ -167,8 +227,8 @@ struct PostView: View {
                     }
                 }
                 .frame(alignment: Alignment.bottom)
-                }
             }
+        }
         .onAppear {
             if !noticeBoard.noticeImageLink.isEmpty && noticeBoard.isChange {
                 Task {
@@ -179,6 +239,15 @@ struct PostView: View {
                         
                     }
                 }
+            }
+            
+            Task {
+                postViewModel.gettingUserInfo(userId: noticeBoard.userId)
+                postViewModel.gettingUserBookShelf(userId: noticeBoard.userId, collection: "holdBooks")
+                postViewModel.gettingUserBookShelf(userId: noticeBoard.userId, collection: "wishBooks")
+            }
+            if noticeBoard.noticeLocation.count >= 2 {
+//                myCoord = (noticeBoard.noticeLocation[0], noticeBoard.noticeLocation[1])
             }
         }
         .navigationTitle(noticeBoard.isChange ? "바꿔요" : "구해요")
@@ -193,7 +262,65 @@ struct PostView: View {
                         .foregroundStyle(.black)
                 }
             }
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    self.isPresented.toggle()
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .font(.system(size: 16))
+                        .foregroundStyle(.gray)
+                }
+            }
+        }
+        //TODO : alert 대체 및 네비게이션 추가
+        .alert(isPresented: $isPresented) {
+            Alert(
+                title: Text("menu"), 
+                primaryButton: .default(
+                    Text("관심목록 추가")
+                ) {
+                    
+                },
+                secondaryButton: .destructive(
+                    Text("신고하기")
+                ) {
+                    
+                }
+            )
         }
         .navigationBarBackButtonHidden()
+    }
+}
+
+struct PostMapView: UIViewRepresentable {
+    
+    
+    
+    @Binding var lat: Double // 모델 좌표 lat
+    @Binding var lng: Double // 모델 좌표 lng
+    
+    func makeUIView(context: Context) -> NMFNaverMapView {
+        let mapView = NMFNaverMapView()
+        
+        // 마커 좌표를 설정
+        let markerCoord = NMGLatLng(lat: lat, lng: lng)
+        
+        // 내 위치 활성화 버튼을 표시
+        mapView.showLocationButton = true
+        
+        // 초기 카메라 위치를 마커의 위치로 설정하고 줌 레벨을 조정
+        let cameraUpdate = NMFCameraUpdate(scrollTo: markerCoord, zoomTo: 15)
+        mapView.mapView.moveCamera(cameraUpdate)
+        
+        // 마커를 생성하고 지도에 표시
+        let marker = NMFMarker(position: markerCoord)
+        marker.mapView = mapView.mapView
+        
+        return mapView
+    }
+    
+    func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
+        let newMyCoord = NMGLatLng(lat: lat, lng: lng)
+        _ = NMFCameraUpdate(scrollTo: newMyCoord)
     }
 }

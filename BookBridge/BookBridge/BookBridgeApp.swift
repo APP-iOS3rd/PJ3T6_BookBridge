@@ -31,6 +31,7 @@ struct BookBridgeApp: App {
     
     var body: some Scene {
         WindowGroup {
+//            TabBarView(userId: "joo")
             HomeView()
         }
     }
