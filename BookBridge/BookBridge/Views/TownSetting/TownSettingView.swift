@@ -29,7 +29,7 @@ struct TownSettingView: View {
             
             // 동네버튼
             HStack(spacing: 20) {
-                ForEach(locations, id: \.id) { location in
+                ForEach(userLocationViewModel.locations ?? [], id: \.id) { location in
                     TownSelectButtonView(
                         selectedLocation: self.$selectedLocation,
                         locations: self.$locations,
@@ -37,7 +37,7 @@ struct TownSettingView: View {
                     )                                        
                 }
                 
-                if locations.count < 2 {
+                if userLocationViewModel.locations?.count ?? 0 < 2 {
                     TownAddButtonView(
                         selectedLocation: self.$selectedLocation,
                         locations: self.$locations
@@ -56,17 +56,8 @@ struct TownSettingView: View {
             
             // 저장버튼(임시)
             Button {
-                FirestoreManager.saveLocationDistance(
-                    id: selectedLocation?.id ?? "",
-                    locations: locations,
-                    circleRadius: Int(userLocationViewModel.circleRadius)
-                )
-                
-                
-                
-                // 저장 후 fetch
-                FirestoreManager.getLocations { locations in
-                    self.locations = locations
+                if let locations = userLocationViewModel.locations {
+                    FirestoreManager.saveLocations(locations: locations)
                 }
             } label: {
                 Text("저장하기")
@@ -97,9 +88,7 @@ struct TownSettingView: View {
         }
         .onAppear() {
             FirestoreManager.getLocations { locations in
-                self.locations = locations
-                selectedLocation = locations[0]
-                userLocationViewModel.setLocation(lat: selectedLocation?.lat ?? 0.0, lng: selectedLocation?.long ?? 0.0, distance: selectedLocation?.distance ?? 1)
+                userLocationViewModel.setLocation(locations: locations)
             }
         }
     }

@@ -18,10 +18,7 @@ struct TownSelectButtonView: View {
     
     var body: some View {
         Button {
-            selectedLocation = location
-            userLocationViewModel.setLocation(lat: location.lat ?? 0.0, lng: location.long ?? 0.0, distance: location.distance ?? 1)
-            
-            // FirestoreManager.changeLocationOrder(locations: locations, location: location)
+            userLocationViewModel.selectLocation(location: location)
         } label: {
             HStack {
                 Text(location.dong ?? "")
@@ -30,18 +27,12 @@ struct TownSelectButtonView: View {
                 
                 // 동네 삭제버튼
                 Button {
-                    if locations.count == 1 {
+                    if userLocationViewModel.locations?.count == 1 {
                         showAlert.toggle()
                         return
                     }
-                    // index값 가져오기
-                    guard let index = FirestoreManager.getIndexWithId(value: locations, id: location.id ?? "") else { return }
                     
-                    // locations의 해당 location 삭제
-                    locations.remove(at: index)
-                    
-                    // 삭제된 locations Firestore에 저장
-                    FirestoreManager.saveLocations(locations: locations)
+                    userLocationViewModel.deleteLocation(location: location)
                     
                 } label: {
                     Image(systemName: "multiply")
@@ -57,7 +48,7 @@ struct TownSelectButtonView: View {
                     )
                 }
             }
-            .modifier(TownButtonStyle(isSelected: selectedLocation?.id == location.id))
+            .modifier(TownButtonStyle(isSelected: userLocationViewModel.selectedLocation?.id == location.id))
         }
     }
 }

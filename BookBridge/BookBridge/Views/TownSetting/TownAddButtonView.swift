@@ -16,13 +16,9 @@ struct TownAddButtonView: View {
     
     var body: some View {
         Button {
-            let location = FirestoreManager.makeLocationByCurLocation()
-                                    
-            selectedLocation = location
-                
-            userLocationViewModel.setLocation(lat: location.lat ?? 0.0, lng: location.long ?? 0.0, distance: location.distance ?? 1)
-            
-            locations.append(location)
+            let location = userLocationViewModel.makeLocationByCurLocation()
+            userLocationViewModel.locations?.append(location)
+            userLocationViewModel.selectLocation(location: location)
         } label: {
             TownBtnText(text: "+", color: "59AAE0", backgroundColor: "F4F4F4")
         }

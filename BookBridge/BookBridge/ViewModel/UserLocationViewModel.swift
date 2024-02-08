@@ -11,31 +11,36 @@ import NMapsMap
 
 final class UserLocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDelegate, NMFMapViewTouchDelegate, CLLocationManagerDelegate {
     
-    @Published var lat: Double? {
+    @Published var lat: Double = 0.0 {
         didSet {
             reset()
             fetchUserLoaction(circle: circle)
         }
     }
     
-    @Published var lng: Double? {
+    @Published var lng: Double = 0.0 {
         didSet {
             reset()
             fetchUserLoaction(circle: circle)
         }
     }
-    
+                        
     @Published var circleRadius: CGFloat = 100 {
         didSet {
             if isUpdated(cur: circleRadius, prev: prevCircleRadius) {
                 prevCircleRadius = circleRadius
                 fetchUserLoaction(circle: circle)
-                
+                updateDistance()
             }
         }
     }
+    
+    @Published var locations: [Location]?
+    @Published var location: Location?
+    @Published var selectedLocation: Location?
                 
     static let shared = UserLocationViewModel()
+    let locationManager = LocationManager.shared
     let view = NMFNaverMapView(frame: .zero)
     var locationManger: CLLocationManager?
     var circle = NMFCircleOverlay()
@@ -63,36 +68,124 @@ final class UserLocationViewModel: NSObject, ObservableObject, NMFMapViewCameraD
     }
     
     func fetchUserLoaction(circle: NMFCircleOverlay) {
-        if let lat = lat, let lng = lng {
-            let zoom: Double = ConvertManager.getZoomValue(value: Int(self.circleRadius))
-            
-            let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: lat, lng: lng), zoomTo: zoom)
-            
-            cameraUpdate.animation = .easeIn
-            cameraUpdate.animationDuration = 1
-            
-            let locationOverlay = view.mapView.locationOverlay
-            locationOverlay.location = NMGLatLng(lat: lat, lng: lng)
-            locationOverlay.hidden = false
-            
-            locationOverlay.icon = NMFOverlayImage(name: "marker")
-            locationOverlay.iconWidth = CGFloat(42)
-            locationOverlay.iconHeight = CGFloat(42)
-            locationOverlay.anchor = CGPoint(x: 0.5, y: 1)
-            locationOverlay.circleRadius = 100
-            locationOverlay.circleOutlineColor = Color(hex: "#a2c4fa").asUIColor()
-            locationOverlay.circleOutlineWidth = 2
-            
-            view.mapView.moveCamera(cameraUpdate)
-        }
+       
+        let zoom: Double = ConvertManager.getZoomValue(value: Int(self.circleRadius))
+        
+        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: lat, lng: lng), zoomTo: zoom)
+        
+        cameraUpdate.animation = .easeIn
+        cameraUpdate.animationDuration = 0.8
+        
+        let locationOverlay = view.mapView.locationOverlay
+        locationOverlay.location = NMGLatLng(lat: lat, lng: lng)
+        locationOverlay.hidden = false
+        
+        locationOverlay.icon = NMFOverlayImage(name: "marker")
+        locationOverlay.iconWidth = CGFloat(42)
+        locationOverlay.iconHeight = CGFloat(42)
+        locationOverlay.anchor = CGPoint(x: 0.5, y: 1)
+        locationOverlay.circleRadius = self.circleRadius
+        locationOverlay.circleOutlineColor = Color(hex: "#a2c4fa").asUIColor()
+        locationOverlay.circleOutlineWidth = 2
+        
+        view.mapView.moveCamera(cameraUpdate)
+        
     }
     
     func setLocation(lat: Double, lng: Double, distance: Int) {
         self.lat = lat
         self.lng = lng
-        self.circleRadius = CGFloat(ConvertManager.changeDistanceToKilometer(value: distance))
+        
+        // prevCircleRadius, circleRadius 초기화
+        let radius = CGFloat(ConvertManager.changeDistanceToKilometer(value: distance))
+        self.prevCircleRadius = radius
+        self.circleRadius = radius
     }
+    
+    func setLocation(locations: [Location]) {
+        self.locations = locations
+        
+        // locations중 isSelected된 location 찾기
+        let location = locations.filter{ $0.isSelected == true }.first
+        
+        // selectLocation 실행
+        if let location = location {
+            selectLocation(location: location)
+        }
+    }
+    
+    func selectLocation(location: Location) {
+        // 현재 location 설정
+        self.selectedLocation = location
+                                
+        // 다른 location은 isSelected false
+        setSelectedLocation()
+                                                           
+        // 카메라 로케이션 설정
+        setLocation(lat: location.lat ?? 0.0, lng: location.long ?? 0.0, distance: location.distance ?? 1)
+        
+        // 카메라에 표시
+        reset()
+        fetchUserLoaction(circle: circle)
+    }
+    
+    func setSelectedLocation() {
+        if let locations = self.locations {
+            var targetLocations = locations
+            for index in targetLocations.indices  {
+                if targetLocations[index].id == selectedLocation?.id {
+                    targetLocations[index].isSelected = true
+                } else {
+                    targetLocations[index].isSelected = false
+                }
+            }
             
+            self.locations = targetLocations
+        }
+    }
+    
+    func deleteLocation(location: Location) {
+        // index값 가져오기
+            let index = findIndex(target: location)
+        
+        // 해당 index에 해당하는 값 지우기
+        // 해당 값이 isSelected이면 locations[0]을 isSelected로 만든후 selectedLocation도 locations[0]으로 만들기
+        if let index = index {
+            locations?.remove(at: index)
+           
+            selectedLocation = locations?[0]
+            
+            if let location = locations?[0] {
+                selectLocation(location: location)
+            }
+        }
+    }
+    
+    func updateDistance() {
+        guard let location = selectedLocation else { return }
+        let index = findIndex(target: location)
+                        
+        // 현제 Radius를 distance로 변경
+        let targetDistance = ConvertManager.changeKilometerToDistance(value: Int(circleRadius))
+        
+        // distance를 locations의 해당 location에 적용
+        if let index = index {
+            locations?[index].distance = targetDistance
+        }
+    }
+    
+    func findIndex(target: Location) -> Int? {
+        if let locations = locations {
+            for (index, location) in locations.enumerated() {
+                if location.id == target.id {
+                    return index
+                }
+            }
+        }
+        
+        return nil
+    }
+                    
     func reset() {
         circle = NMFCircleOverlay()
     }
@@ -105,5 +198,16 @@ final class UserLocationViewModel: NSObject, ObservableObject, NMFMapViewCameraD
         view
     }
     
+    func makeLocationByCurLocation() -> Location {
+        return Location(
+            id: UUID().uuidString,
+            lat: locationManager.lat,
+            long: locationManager.long,
+            city: locationManager.city,
+            distriction: locationManager.distriction,
+            dong: locationManager.dong,
+            distance: 1
+        )
+    }
 
 }

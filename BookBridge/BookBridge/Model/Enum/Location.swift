@@ -15,6 +15,7 @@ struct Location: Codable, Identifiable, Equatable {
     var distriction: String?
     var dong: String?
     var distance: Int?
+    var isSelected: Bool?
     
     var dictionaryRepresentation: [String: Any] {
         return [
@@ -25,6 +26,7 @@ struct Location: Codable, Identifiable, Equatable {
             "distriction": distriction ?? "",
             "dong": dong ?? "",
             "distance": distance ?? 1,
+            "isSelected": isSelected ?? false
         ]
     }
 }
