@@ -20,6 +20,8 @@ struct TownSelectButtonView: View {
         Button {
             selectedLocation = location
             userLocationViewModel.setLocation(lat: location.lat ?? 0.0, lng: location.long ?? 0.0, distance: location.distance ?? 1)
+            
+            FirestoreManager.changeLocationOrder(locations: locations, location: location)
         } label: {
             HStack {
                 Text(location.dong ?? "")
@@ -39,7 +41,7 @@ struct TownSelectButtonView: View {
                     locations.remove(at: index)
                     
                     // 삭제된 locations Firestore에 저장
-                    FirestoreManager.deleteLocation(id: UserManager.shared.uid, locations: locations)
+                    FirestoreManager.saveLocations(locations: locations)
                     
                 } label: {
                     Image(systemName: "multiply")
@@ -55,13 +57,15 @@ struct TownSelectButtonView: View {
                     )
                 }
             }
-            .modifier(TownButtonStyle())
+            .modifier(TownButtonStyle(isSelected: selectedLocation == location))
         }
     }
 }
 
 extension TownSelectButtonView {
     struct TownButtonStyle: ViewModifier {
+        let isSelected: Bool
+        
         func body(content: Content) -> some View {
             content
                 .padding(.vertical, 5)
@@ -69,8 +73,8 @@ extension TownSelectButtonView {
                 .font(.system(size: 16, weight: .medium))
                 .frame(maxWidth: .infinity)
                 .frame(height: 45)
-                .foregroundStyle(Color(hex: "FFFFFF"))
-                .background(Color(hex: "59AAE0"))
+                .foregroundStyle(isSelected ? Color(hex: "FFFFFF") : Color(hex: "59AAE0"))
+                .background(isSelected ? Color(hex: "59AAE0") : Color(hex: "F4F4F4"))
                 .cornerRadius(20)
         }
     }

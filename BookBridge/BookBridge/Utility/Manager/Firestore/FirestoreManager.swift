@@ -50,24 +50,7 @@ class FirestoreManager {
         return locations
     }
                     
-// MARK: - 삭제(delete)
-    
-    static func deleteLocation(id: String, locations: [Location]) {
-        let docRef = FirestoreManager.getUserDoc(id: id)
-        
-        let locationData = locations.map { $0.dictionaryRepresentation }
-        
-        docRef.updateData([
-            "location": locationData
-        ]) { err in
-            if let err = err {
-                print(err)
-                print("Location 삭제가 실패하였습니다.")
-            } else {
-                print("Location 삭제가 성공하였습니다.")
-            }
-        }
-    }
+
     
 // MARK: - 수정(update)
             
@@ -83,24 +66,51 @@ class FirestoreManager {
         // 변경된 값 저장하기
         if index < locations.count && (locations[index].distance != targetDistance) {
             targetLocations[index].distance = targetDistance
-            let locationData = targetLocations.map { $0.dictionaryRepresentation }
             
-            let docRef = db.collection("User").document(UserManager.shared.uid)
-            
-            docRef.updateData([
-                "location": locationData
-            ]) { err in
-                if let err = err {
-                    print(err)
-                    print("Location 업데이트에 실패하였습니다.")
-                } else {
-                    print("Location 업데이트가 성공하였습니다.")
-                }
-            }
+            saveLocations(locations: targetLocations)
         }
     }
     
-    // MARK: - 기타
+// MARK: - 저장(save)
+    
+    static func saveLocations(locations: [Location]) {
+        let docRef = FirestoreManager.getUserDoc(id: UserManager.shared.uid)
+        
+        let locationData = locations.map { $0.dictionaryRepresentation }
+        
+        docRef.updateData([
+            "location": locationData
+        ]) { err in
+            if let err = err {
+                print(err)
+                print("Location 저장에 실패하였습니다.")
+            } else {
+                print("Location 저장에 성공하였습니다.")
+            }
+        }
+    }
+        
+// MARK: - 위치변경
+    
+    static func changeLocationOrder(locations: [Location], location: Location) {
+        var targetLocations = locations
+        
+        // index값 가져오기
+        guard let index = getIndexWithId(value: targetLocations, id: location.id ?? "") 
+            else { return }
+        
+        // 해당 index의 값 지우기
+        targetLocations.remove(at: index)
+        
+        // location을 locations의 맨 앞에 넣기
+        targetLocations.insert(location, at: 0)
+        
+        // targetlocations를 Firestore에 save
+        saveLocations(locations: targetLocations)
+    }
+    
+    
+// MARK: - 기타
     
     // Location 생성
     static func makeLocationByCurLocation() -> Location {
