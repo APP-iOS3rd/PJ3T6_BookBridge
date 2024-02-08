@@ -33,9 +33,11 @@ class ChatLogViewModel: ObservableObject {
         guard let toId = chatUser?.uid else { return }
         firestoreListener?.remove()
         chatMessages.removeAll()
-        firestoreListener = FirebaseManager.shared.firestore.collection(FirebaseConstants.messages)
+        firestoreListener = FirebaseManager.shared.firestore.collection("chatUsers")
             .document(fromId)
-            .collection(toId)
+            .collection("messages")
+            .document(toId)
+            .collection("messages")
             .order(by: FirebaseConstants.timestamp)   // 채팅 메시지 오름차순 정렬
             .addSnapshotListener { querySnapshot, error in   // 실시간 업데이트 감시
                 if let error = error {
@@ -48,7 +50,7 @@ class ChatLogViewModel: ObservableObject {
                 querySnapshot?.documentChanges.forEach({ change in
                     if change.type == .added {
                         let data = change.document.data()
-                        self.chatMessages.append(.init(documentId: change.document.documentID, data: data))
+                        self.chatMessages.append(ChatMessage(documentId: change.document.documentID, data: data))
                     }
                 })
                 
@@ -67,9 +69,11 @@ class ChatLogViewModel: ObservableObject {
         guard let toId = chatUser?.uid else { return }
         
         // 발신자용 메시지 전송 저장
-        let senderDocument = FirebaseManager.shared.firestore.collection("messages") // messages 메인컬렉션 저장
+        let senderDocument = FirebaseManager.shared.firestore.collection("chatUsers")
             .document(fromId)
-            .collection(toId)
+            .collection("messages")
+            .document(toId)
+            .collection("messages")
             .document()
         
         let messageData = [
@@ -95,9 +99,11 @@ class ChatLogViewModel: ObservableObject {
         }
         
         // 수신자용 메시지 전송 저장
-        let recipientMessageDocument = FirebaseManager.shared.firestore.collection("messages")
+        let recipientMessageDocument = FirebaseManager.shared.firestore.collection("chatUsers")
             .document(toId)
-            .collection(fromId)
+            .collection("messages")
+            .document(fromId)
+            .collection("messages")
             .document()
         
         recipientMessageDocument.setData(messageData) { error in
@@ -128,9 +134,9 @@ class ChatLogViewModel: ObservableObject {
         ] as [String: Any]
         
         // 발신자의 최근 메시지 저장
-        let senderRmDocument = FirebaseManager.shared.firestore.collection(FirebaseConstants.recentMessages)
+        let senderRmDocument = FirebaseManager.shared.firestore.collection("chatUsers")
             .document(fromId) // 로그인 계정
-            .collection(FirebaseConstants.messages) // 서브컬렉션 messages 생성
+            .collection("recent_messages")
             .document(toId) // 메시지 수신자 계정 정보
         
         senderRmDocument.setData(rmData) { error in
@@ -142,9 +148,9 @@ class ChatLogViewModel: ObservableObject {
         }
         
         // 수신자 최근 메시지 저장
-        let recipientRmDocument = FirebaseManager.shared.firestore.collection(FirebaseConstants.recentMessages)
+        let recipientRmDocument = FirebaseManager.shared.firestore.collection("chatUsers")
             .document(toId) // 로그인 계정
-            .collection(FirebaseConstants.messages) // 서브컬렉션 messages 생성
+            .collection("recent_messages") // 서브컬렉션 messages 생성
             .document(fromId) // 메시지 수신자 계정 정보
         
         recipientRmDocument.setData(rmData) { error in

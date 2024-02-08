@@ -26,17 +26,14 @@ struct ChatLoginView: View {
             ScrollView {
                 VStack(spacing: 16) {
                     Picker(selection: $isLoginMode, label: Text("Picker here")) {
-                        Text("로그인")
-                            .tag(true)
-                        Text("회원가입")
-                            .tag(false)
+                        Text("로그인").tag(true)
+                        Text("회원가입").tag(false)
                     }
                     .pickerStyle(SegmentedPickerStyle())
                     
                     if !isLoginMode {
                         Button {
-                            showImagePicker
-                                .toggle()
+                            showImagePicker.toggle()
                         } label: {
                             VStack {
                                 if let image = self.image {
@@ -98,11 +95,9 @@ struct ChatLoginView: View {
     
     private func handleAction() {
         if isLoginMode {
-//            print("Should log into Firebase with existing credentials")
             loginUser()
         } else {
             createNewAccount()
-//            print("Register a new account inside of Firebase Auth and then store image in Storage somehow...")
         }
     }
     
@@ -110,14 +105,14 @@ struct ChatLoginView: View {
     private func loginUser() {
         FirebaseManager.shared.auth.signIn(withEmail: email, password: password) { result, err in
             if let err = err {
-                print("Failed to login user:", err)
-                self.loginStatusMessage = "Failed to login user: \(err)"
+                print("로그인 실패:", err)
+                self.loginStatusMessage = "로그인 실패: \(err)"
                 return
             }
             
-            print("Successfully logged in as user: \(result?.user.uid ?? "")")
+            print("로그인 성공: \(result?.user.uid ?? "")")
             
-            self.loginStatusMessage = "Successfully logged in as user: \(result?.user.uid ?? "")"
+            self.loginStatusMessage = "로그인 성공: \(result?.user.uid ?? "")"
             
             self.didCompleteLoginProcess()
         }
@@ -127,20 +122,20 @@ struct ChatLoginView: View {
     private func createNewAccount() {
         // 프로필 이미지 선택 경고
         if self.image == nil {
-            self.loginStatusMessage = "You must select an avatar image"
+            self.loginStatusMessage = "프로필 이미지를 선택하세요"
             return
         }
         
         FirebaseManager.shared.auth.createUser(withEmail: email, password: password) { result, err in
             if let err = err {
-                print("Failed to create user:", err)
-                self.loginStatusMessage = "Failed to create user: \(err)"
+                print("회원가입 실패", err)
+                self.loginStatusMessage = "회원가입 실패 \(err)"
                 return
             }
             
-            print("Successfully created user: \(result?.user.uid ?? "")")
+            print("회원가입 성공 \(result?.user.uid ?? "")")
             
-            self.loginStatusMessage = "Successfully crated user: \(result?.user.uid ?? "")"
+            self.loginStatusMessage = "회원가입 성공: \(result?.user.uid ?? "")"
             
             self.persistImageToStorage()
         }
@@ -165,7 +160,7 @@ struct ChatLoginView: View {
                 }
                 
                 self.loginStatusMessage = "Successfully stored image with url: \(url?.absoluteString ?? "")"
-                print(url?.absoluteString)
+                print(url?.absoluteString ?? "")
                 
                 guard let url = url else { return }
                 storeUserInformation(imageProfileUrl: url)
@@ -177,7 +172,7 @@ struct ChatLoginView: View {
     private func storeUserInformation(imageProfileUrl: URL) {
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
         let userData = ["email": self.email, "uid": uid, "profileImageUrl": imageProfileUrl.absoluteString]
-        FirebaseManager.shared.firestore.collection("ChatUsers").document(uid).setData(userData) { err in
+        FirebaseManager.shared.firestore.collection("chatUsers").document(uid).setData(userData) { err in
             if let err = err {
                 print(err)
                 self.loginStatusMessage = "\(err)"
