@@ -53,7 +53,8 @@ struct ChatListView: View {
                 .shadow(radius: 5)
             
             VStack(alignment: .leading, spacing: 4) {
-                let email = chatListVM.chatUser?.email ?? ""
+//                let email = chatListVM.chatUser?.email ?? ""
+                let email = chatListVM.chatUser?.uid ?? ""
                 Text("\(email)")
                     .font(.system(size: 24, weight: .bold))
                 
@@ -71,7 +72,7 @@ struct ChatListView: View {
                 showLogoutOptions.toggle()
             } label: {
                 Image(systemName: "gearshape")
-                    .font(.system(size: 24, weight: .bold))
+                    .font(.system(size: 24))
                     .foregroundStyle(Color(.label))
             }
         }

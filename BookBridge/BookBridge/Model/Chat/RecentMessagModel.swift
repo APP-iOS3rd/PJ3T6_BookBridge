@@ -9,7 +9,7 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 
-struct RecentMessage: Identifiable {
+struct RecentMessage: Codable, Identifiable {
     
     var id: String { documentId }
     

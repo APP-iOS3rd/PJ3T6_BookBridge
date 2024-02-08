@@ -26,7 +26,8 @@ class ChatLogViewModel: ObservableObject {
         
         fetchMessages()
     }
-   
+    
+    // 메시지 가져오기
     func fetchMessages() {
         guard let fromId = FirebaseManager.shared.auth.currentUser?.uid else { return }
         guard let toId = chatUser?.uid else { return }
@@ -35,8 +36,8 @@ class ChatLogViewModel: ObservableObject {
         firestoreListener = FirebaseManager.shared.firestore.collection(FirebaseConstants.messages)
             .document(fromId)
             .collection(toId)
-            .order(by: FirebaseConstants.timestamp)
-            .addSnapshotListener { querySnapshot, error in
+            .order(by: FirebaseConstants.timestamp)   // 채팅 메시지 오름차순 정렬
+            .addSnapshotListener { querySnapshot, error in   // 실시간 업데이트 감시
                 if let error = error {
                     self.errorMessage = "Failed to listen for messages: \(error)"
                     print(error)
@@ -58,21 +59,27 @@ class ChatLogViewModel: ObservableObject {
             }
     }
     
+    // 메시지 전송 저장
     func handleSend(text: String) {
         print(chatText)
         guard let fromId = FirebaseManager.shared.auth.currentUser?.uid else { return }
         
         guard let toId = chatUser?.uid else { return }
         
-        // 발신자용
-        let document = FirebaseManager.shared.firestore.collection("messages")
+        // 발신자용 메시지 전송 저장
+        let senderDocument = FirebaseManager.shared.firestore.collection("messages") // messages 메인컬렉션 저장
             .document(fromId)
             .collection(toId)
             .document()
         
-        let messageData = [FirebaseConstants.fromId: fromId, FirebaseConstants.toId: toId, FirebaseConstants.text: self.chatText, "timestamp": Timestamp()] as [String : Any]
+        let messageData = [
+            FirebaseConstants.fromId: fromId,
+            FirebaseConstants.toId: toId,
+            FirebaseConstants.text: self.chatText,
+            FirebaseConstants.timestamp: Timestamp()
+        ] as [String : Any]
         
-        document.setData(messageData) { error in
+        senderDocument.setData(messageData) { error in
             if let error = error {
                 print(error)
                 self.errorMessage = "Failed to save message into Firestore: \(error)"
@@ -84,10 +91,10 @@ class ChatLogViewModel: ObservableObject {
             self.persistRecentMessage()
             
             self.chatText = ""
-            self.count += 1
+            self.count += 1 // 채팅 화면 하단 갱신
         }
         
-        // 수신자용
+        // 수신자용 메시지 전송 저장
         let recipientMessageDocument = FirebaseManager.shared.firestore.collection("messages")
             .document(toId)
             .collection(fromId)
@@ -104,54 +111,48 @@ class ChatLogViewModel: ObservableObject {
         }
     }
     
-    // 채팅목록 최근 메세지
+    // 채팅목록 최근 메세지 저장
     private func persistRecentMessage() {
         guard let chatUser = chatUser else { return }
-        
-        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
+        guard let fromId = FirebaseManager.shared.auth.currentUser?.uid else { return }
         guard let toId = self.chatUser?.uid else { return }
         
-        let document = FirebaseManager.shared.firestore.collection(FirebaseConstants.recentMessages)
-            .document(uid)
-            .collection(FirebaseConstants.messages)
-            .document(toId)
-        
-        let data = [
+        // 발신자와 수신자의 데이터
+        let rmData = [
             FirebaseConstants.timestamp: Timestamp(),
             FirebaseConstants.text: self.chatText,
-            FirebaseConstants.fromId: uid,
+            FirebaseConstants.fromId: fromId,
             FirebaseConstants.toId: toId,
             FirebaseConstants.profileImageUrl: chatUser.profileImageUrl,
             FirebaseConstants.email: chatUser.email
         ] as [String: Any]
         
-        document.setData(data) { error in
+        // 발신자의 최근 메시지 저장
+        let senderRmDocument = FirebaseManager.shared.firestore.collection(FirebaseConstants.recentMessages)
+            .document(fromId) // 로그인 계정
+            .collection(FirebaseConstants.messages) // 서브컬렉션 messages 생성
+            .document(toId) // 메시지 수신자 계정 정보
+        
+        senderRmDocument.setData(rmData) { error in
             if let error = error {
                 self.errorMessage = "Failed to save recent message: \(error)"
                 print("Failed to save recent message: \(error)")
                 return
             }
         }
-        guard let currentUser = FirebaseManager.shared.currentUser else { return }
-        let recipientRecentMessageDictionary = [
-            FirebaseConstants.timestamp: Timestamp(),
-            FirebaseConstants.text: self.chatText,
-            FirebaseConstants.fromId: uid,
-            FirebaseConstants.toId: toId,
-            FirebaseConstants.profileImageUrl: currentUser.profileImageUrl,
-            FirebaseConstants.email: currentUser.email
-        ] as [String : Any]
         
-        FirebaseManager.shared.firestore
-            .collection(FirebaseConstants.recentMessages)
-            .document(toId)
-            .collection(FirebaseConstants.messages)
-            .document(currentUser.uid)
-            .setData(recipientRecentMessageDictionary) { error in
-                if let error = error {
-                    print("Failed to save recipient recent message: \(error)")
-                    return
-                }
+        // 수신자 최근 메시지 저장
+        let recipientRmDocument = FirebaseManager.shared.firestore.collection(FirebaseConstants.recentMessages)
+            .document(toId) // 로그인 계정
+            .collection(FirebaseConstants.messages) // 서브컬렉션 messages 생성
+            .document(fromId) // 메시지 수신자 계정 정보
+        
+        recipientRmDocument.setData(rmData) { error in
+            if let error = error {
+                self.errorMessage = "Failed to save recent message for recipient: \(error)"
+                print("Failed to save recent message for recipient: \(error)")
+                return
             }
+        }
     }
 }

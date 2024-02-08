@@ -709,8 +709,8 @@
 		91B7F0B72B71C28600B4C475 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
-				9146004F2B7240D800E0E24F /* ChatLogViewModel.swift */,
 				91B7F0B32B71B90F00B4C475 /* ChatListViewModel.swift */,
+				9146004F2B7240D800E0E24F /* ChatLogViewModel.swift */,
 				9146004B2B722F4100E0E24F /* CreateNewMessageViewModel.swift */,
 				914600402B71FD8700E0E24F /* ProfileImagePicker.swift */,
 			);
