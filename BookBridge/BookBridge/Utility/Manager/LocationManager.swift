@@ -19,6 +19,7 @@ class LocationManager {
     var distriction: String = ""
     var dong: String = ""
     var distance = 1
+    var isSelected = true
     
     func setLocation(lat: Double, long: Double, city: String, distriction: String, dong: String) {
         self.lat = lat

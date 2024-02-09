@@ -11,7 +11,7 @@ class UserManager {
     static let shared = UserManager()
     private init() {}
     
-    var uid = "Xy8rRkI7XiQvs3xR50BAflW2aXu2"
+    var uid = "38HP0OGCEpY9cpwjknZqflX1Jsy1"
     
     func setUser(uid: String) {
         self.uid = uid

@@ -26,7 +26,7 @@ struct Location: Codable, Identifiable, Equatable {
             "distriction": distriction ?? "",
             "dong": dong ?? "",
             "distance": distance ?? 1,
-            "isSelected": isSelected ?? false
+            "isSelected": isSelected ?? true
         ]
     }
 }

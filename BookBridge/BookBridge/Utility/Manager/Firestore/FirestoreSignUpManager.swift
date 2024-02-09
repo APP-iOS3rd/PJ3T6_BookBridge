@@ -36,7 +36,8 @@ class FirestoreSignUpManager {
             "city": location.city ?? "",
             "distriction": location.distriction ?? "",
             "dong": location.dong ?? "",
-            "distance": location.distance ?? 1
+            "distance": location.distance ?? 1,
+            "isSelected": location.isSelected ?? true
         ] as [String : Any]
         
         return locationData as [String : Any]
@@ -78,7 +79,8 @@ class FirestoreSignUpManager {
             city: LocationManager.shared.city,
             distriction: LocationManager.shared.distriction,
             dong: LocationManager.shared.dong,
-            distance: LocationManager.shared.distance
+            distance: LocationManager.shared.distance,
+            isSelected: LocationManager.shared.isSelected
         )
         let locationData = convertLocationToDictionary(location: location)
         

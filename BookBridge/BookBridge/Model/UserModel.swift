@@ -19,4 +19,12 @@ struct UserModel: Codable, Identifiable {
     var joinDate: Date?                  //가입일 (파베는 number
     var fcmToken: String?                //fcm 토큰
     var location: [Location?]?                  // 대표 위치
+    
+    func getSelectedLocation() -> Location? {
+        if let locations = location {
+            return locations.filter { $0?.isSelected == true }.first ?? nil
+        }
+        
+        return nil
+    }
 }
