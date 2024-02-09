@@ -14,16 +14,7 @@ import SwiftUI
 final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDelegate, NMFMapViewTouchDelegate, CLLocationManagerDelegate {
     @Published var coord: (Double, Double) = (0.0, 0.0)
     @Published var userLocation: (Double, Double) = (0.0, 0.0) // lat, lng
-    @Published var circleRadius: CGFloat = 100 {
-        didSet {
-            if isUpdated(cur: circleRadius, prev: prevCirclrRadius) {
-                prevCirclrRadius = circleRadius
-                fetchUserLocation(circle: circle)
-            }
-        }
-    }
-    var prevCirclrRadius: CGFloat = 100
-    let circle = NMFCircleOverlay()
+    
     static let shared = LocationViewModel()
     let view = NMFNaverMapView(frame: .zero)
     var locationManager: CLLocationManager?
@@ -69,8 +60,7 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
             
             coord = (Double(locationManager.location?.coordinate.latitude ?? 0.0), Double(locationManager.location?.coordinate.longitude ?? 0.0))
             userLocation = (Double(locationManager.location?.coordinate.latitude ?? 0.0), Double(locationManager.location?.coordinate.longitude ?? 0.0))
-            
-            fetchUserLocation(circle: circle)
+                        
             print("userLocation: \(userLocation)")
             
             getDistrict(long: userLocation.1, lat: userLocation.0) { result in
@@ -115,75 +105,6 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
                 print("Show an alert letting them know this is off and to go turn i on")
             }
         }
-    }
-    
-    // 사용자 현재 위치 지도에 표시
-    func fetchUserLocation(circle: NMFCircleOverlay) {
-        if let locationManager = locationManager {
-            let lat = locationManager.location?.coordinate.latitude
-            let lng = locationManager.location?.coordinate.longitude
-            var zoom: Double = 0
-            print("circleRadius: \(circleRadius)")
-            
-            if circleRadius == 100 {
-               zoom = 13
-            }
-            
-            if circleRadius == 110 {
-                zoom = 12
-            }
-            
-            if circleRadius == 120 {
-                zoom = 11.7
-            }
-            
-            let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: lat ?? 0.0, lng: lng ?? 0.0), zoomTo: zoom)
-                        
-            cameraUpdate.animation = .easeIn
-            cameraUpdate.animationDuration = 1
-            
-            let locationOverlay = view.mapView.locationOverlay
-            locationOverlay.location = NMGLatLng(lat: lat ?? 0.0, lng: lng ?? 0.0)
-            locationOverlay.hidden = false
-            
-            locationOverlay.icon = NMFOverlayImage(name: "marker")
-            locationOverlay.iconWidth = CGFloat(42)
-            locationOverlay.iconHeight = CGFloat(42)
-            locationOverlay.anchor = CGPoint(x: 0.5, y: 1)
-            locationOverlay.circleRadius = self.circleRadius
-            locationOverlay.circleOutlineColor = Color(hex: "#a2c4fa").asUIColor()
-            locationOverlay.circleOutlineWidth = 2
-                                                                                
-            view.mapView.moveCamera(cameraUpdate)
-        }
-    }
-    
-    func fetchUserLoaction(circle: NMFCircleOverlay, lat: Double, lng: Double) {
-        var zoom: Double = 13
-        
-        let cameraUpdate = NMFCameraUpdate(scrollTo: NMGLatLng(lat: lat, lng: lng), zoomTo: zoom)
-        
-        cameraUpdate.animation = .easeIn
-        cameraUpdate.animationDuration = 1
-        
-        let locationOverlay = view.mapView.locationOverlay
-        locationOverlay.location = NMGLatLng(lat: lat, lng: lng)
-        locationOverlay.hidden = false
-        
-        locationOverlay.icon = NMFOverlayImage(name: "marker")
-        locationOverlay.iconWidth = CGFloat(42)
-        locationOverlay.iconHeight = CGFloat(42)
-        locationOverlay.anchor = CGPoint(x: 0.5, y: 1)
-        locationOverlay.circleRadius = 100
-        locationOverlay.circleOutlineColor = Color(hex: "#a2c4fa").asUIColor()
-        locationOverlay.circleOutlineWidth = 2
-        
-        view.mapView.moveCamera(cameraUpdate)
-    }
-    
-    
-    func getNaverMapView() -> NMFNaverMapView {
-        view
     }
     
     func getDistrict(long: Double, lat: Double, completion: @escaping ([String]?) -> Void) {

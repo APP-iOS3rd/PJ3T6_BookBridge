@@ -45,8 +45,7 @@ final class UserLocationViewModel: NSObject, ObservableObject, NMFMapViewCameraD
     var locationManger: CLLocationManager?
     var circle = NMFCircleOverlay()
     var prevCircleRadius: CGFloat = 100
-    
-            
+                
     override init() {
         super.init()
         
@@ -102,7 +101,7 @@ final class UserLocationViewModel: NSObject, ObservableObject, NMFMapViewCameraD
         self.circleRadius = radius
     }
     
-    func setLocation(locations: [Location]) {
+    func setLocations(locations: [Location]) {
         self.locations = locations
         
         // locations중 isSelected된 location 찾기
