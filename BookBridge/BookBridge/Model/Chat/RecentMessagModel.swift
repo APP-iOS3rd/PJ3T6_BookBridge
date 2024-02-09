@@ -29,7 +29,6 @@ struct RecentMessage: Codable, Identifiable {
         self.email = data[FirebaseConstants.email] as? String ?? ""
         self.profileImageUrl = data[FirebaseConstants.profileImageUrl] as? String ?? ""
         self.timestamp = (data[FirebaseConstants.timestamp] as? Timestamp)?.dateValue() ?? Date()
-        
     }
     
     var timeAgo: String {
@@ -38,12 +37,4 @@ struct RecentMessage: Codable, Identifiable {
         formatter.unitsStyle = .full
         return formatter.localizedString(for: timestamp, relativeTo: Date())
     }
-    
-//    @DocumentID var id: String?
-//    let text: String
-//    let fromId: String
-//    let email: String
-//    let toId: String
-//    let profileImageUrl: String
-//    let timestamp: Date
 }

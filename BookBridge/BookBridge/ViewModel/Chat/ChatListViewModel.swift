@@ -60,13 +60,6 @@ class ChatListViewModel: ObservableObject {
         }
     }
     
-    // 사용자 데이터 가져오기
-    func fetchAllData() {
-        // 현재 사용자 정보 호출
-        fetchCurrentUser()
-        fetchRecentMessages()
-    }
-    
     // 현재 사용자 데이터 가져오기
     func fetchCurrentUser() {
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
@@ -129,6 +122,59 @@ class ChatListViewModel: ObservableObject {
                 })
             }
     }
+    
+    // 채팅목록 삭제
+    func deleteChatList(chatUserID: String) {
+        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
+        
+        // 채팅 데이터 삭제
+        FirebaseManager.shared.firestore.collection("chatUsers")
+            .document(uid)
+            .collection("messages")
+            .document(chatUserID)
+            .delete { error in
+                if let error = error {
+                    print("Failed to delete chat data: \(error)")
+                    return
+                }
+                print("Successfully deleted chat data")
+            }
+        
+        // 최근 메시지 삭제
+        FirebaseManager.shared.firestore.collection("chatUsers")
+            .document(uid)
+            .collection("recent_messages")
+            .document(chatUserID)
+            .delete { error in
+                if let error = error {
+                    print("Failed to delete recent message: \(error)")
+                    return
+                }
+                
+                print("Successfully deleted recent message")
+            }
+    }
+    
+//    // 새 메세지 갱신
+//    func listenForNewMessages() {
+//        guard let currentUserID = FirebaseManager.shared.currentUser?.uid else {
+//            print("Failed to listen for new messages: Current user not found")
+//            return
+//        }
+//        
+//        firestoreListener = FirebaseManager.shared.firestore.collection("chatUsers")
+//            .document(currentUserID)
+//            .collection("recent_messages")
+//            .addSnapshotListener { querySnapshot, error in
+//                if let error = error {
+//                    print("Failed to listen for new messages: \(error)")
+//                    return
+//                }
+//                
+//                // 새로운 메시지가 도착하면 최근 메시지 목록 갱신
+//                self.fetchRecentMessages()
+//            }
+//    }
     
     // 로그아웃 처리
     func handleSignOut() {

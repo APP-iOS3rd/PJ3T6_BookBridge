@@ -33,6 +33,10 @@ struct ChatListView: View {
             
             .toolbar(.hidden)
         }
+        //        .onAppear {
+        //            // 채팅 목록 화면이 나타날 때 새로운 메시지를 감시
+        //            chatListVM.listenForNewMessages()
+        //        }
     }
     
     private var customNavBar: some View {
@@ -43,11 +47,11 @@ struct ChatListView: View {
                 image
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 64, height: 64)
+                    .frame(width: 50, height: 50)
                     .clipped()
-                    .cornerRadius(64)
+                    .cornerRadius(50)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 64)
+                        RoundedRectangle(cornerRadius: 50)
                             .stroke(Color.black, lineWidth: 1)
                             .shadow(radius: 5)
                     )
@@ -102,12 +106,11 @@ struct ChatListView: View {
     }
     
     private var messagesView: some View {
-        ScrollView {
+        List {
             ForEach(chatListVM.recentMessages) { recentMessage in
                 VStack {
                     Button {
-                        let uid = FirebaseManager.shared.auth.currentUser?
-                            .uid == recentMessage.fromId ? recentMessage.toId : recentMessage.fromId
+                        let uid = FirebaseManager.shared.auth.currentUser?.uid == recentMessage.fromId ? recentMessage.toId : recentMessage.fromId
                         self.chatUser = .init(data: [
                             FirebaseConstants.email: recentMessage.email,
                             FirebaseConstants.profileImageUrl: recentMessage.profileImageUrl,
@@ -122,11 +125,11 @@ struct ChatListView: View {
                                 image
                                     .resizable()
                                     .scaledToFill()
-                                    .frame(width: 50, height: 50)
+                                    .frame(width: 64, height: 64)
                                     .clipped()
-                                    .cornerRadius(50)
+                                    .cornerRadius(64)
                                     .overlay(
-                                        RoundedRectangle(cornerRadius: 44)
+                                        RoundedRectangle(cornerRadius: 64)
                                             .stroke(Color(.label), lineWidth: 1)
                                     )
                             } placeholder: {
@@ -142,6 +145,8 @@ struct ChatListView: View {
                                     .font(.system(size: 14))
                                     .foregroundStyle(Color(hex:"8A8A8E"))
                                     .multilineTextAlignment(.leading)
+                                    .lineLimit(2) // 두 줄까지만 표시
+                                    .truncationMode(.tail) // 뒤에는 ...으로 표시
                             }
                             Spacer()
                             
@@ -150,13 +155,22 @@ struct ChatListView: View {
                                 .foregroundStyle(Color(.lightGray))
                         }
                     }
+                    .swipeActions(edge: .trailing) {
+                        Button(role: .destructive) {
+                            if let chatUserID = chatUser?.uid {
+                                chatListVM.deleteChatList(chatUserID: chatUserID)
+                            }
+                        } label: {
+                            Label("삭제", systemImage: "trash")
+                        }
+                    }
                     Divider()
-                        .padding(.vertical, 8)
                 }
-                .padding(.horizontal)
             }
-            .padding(.bottom, 50)
+            
+            .listRowSeparator(.hidden)
         }
+        .listStyle(.plain)
     }
     
     private var newMessageButton: some View {

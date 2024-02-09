@@ -37,7 +37,7 @@ class ChatLogViewModel: ObservableObject {
             .document(fromId)
             .collection("messages")
             .document(toId)
-            .collection("messages")
+            .collection("chatHistory")
             .order(by: FirebaseConstants.timestamp)   // 채팅 메시지 오름차순 정렬
             .addSnapshotListener { querySnapshot, error in   // 실시간 업데이트 감시
                 if let error = error {
@@ -51,6 +51,7 @@ class ChatLogViewModel: ObservableObject {
                     if change.type == .added {
                         let data = change.document.data()
                         self.chatMessages.append(ChatMessage(documentId: change.document.documentID, data: data))
+                        print("Appending chatMessag in ChatLogView\(Date())")
                     }
                 })
                 
@@ -64,16 +65,16 @@ class ChatLogViewModel: ObservableObject {
     // 메시지 전송 저장
     func handleSend(text: String) {
         print(chatText)
-        guard let fromId = FirebaseManager.shared.auth.currentUser?.uid else { return }
+        guard let fromId = FirebaseManager.shared.auth.currentUser?.uid else { return } // 로그인계정
         
-        guard let toId = chatUser?.uid else { return }
+        guard let toId = chatUser?.uid else { return } // 채팅 상대방
         
         // 발신자용 메시지 전송 저장
         let senderDocument = FirebaseManager.shared.firestore.collection("chatUsers")
             .document(fromId)
             .collection("messages")
             .document(toId)
-            .collection("messages")
+            .collection("chatHistory")
             .document()
         
         let messageData = [
@@ -103,7 +104,7 @@ class ChatLogViewModel: ObservableObject {
             .document(toId)
             .collection("messages")
             .document(fromId)
-            .collection("messages")
+            .collection("chatHistory")
             .document()
         
         recipientMessageDocument.setData(messageData) { error in
@@ -120,26 +121,26 @@ class ChatLogViewModel: ObservableObject {
     // 채팅목록 최근 메세지 저장
     private func persistRecentMessage() {
         guard let chatUser = chatUser else { return }
-        guard let fromId = FirebaseManager.shared.auth.currentUser?.uid else { return }
+        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
         guard let toId = self.chatUser?.uid else { return }
         
-        // 발신자와 수신자의 데이터
-        let rmData = [
+        // 발신자 최근 메시지 저장
+        let document = FirebaseManager.shared.firestore.collection("chatUsers")
+            .document(uid)
+            .collection("recent_messages")
+            .document(toId)
+        
+        // 발신자메시지 데이터
+        let senderMessageData = [
             FirebaseConstants.timestamp: Timestamp(),
             FirebaseConstants.text: self.chatText,
-            FirebaseConstants.fromId: fromId,
+            FirebaseConstants.fromId: uid,
             FirebaseConstants.toId: toId,
             FirebaseConstants.profileImageUrl: chatUser.profileImageUrl,
             FirebaseConstants.email: chatUser.email
-        ] as [String: Any]
+        ] as [String : Any]
         
-        // 발신자의 최근 메시지 저장
-        let senderRmDocument = FirebaseManager.shared.firestore.collection("chatUsers")
-            .document(fromId) // 로그인 계정
-            .collection("recent_messages")
-            .document(toId) // 메시지 수신자 계정 정보
-        
-        senderRmDocument.setData(rmData) { error in
+        document.setData(senderMessageData) { error in
             if let error = error {
                 self.errorMessage = "Failed to save recent message: \(error)"
                 print("Failed to save recent message: \(error)")
@@ -147,18 +148,29 @@ class ChatLogViewModel: ObservableObject {
             }
         }
         
-        // 수신자 최근 메시지 저장
-        let recipientRmDocument = FirebaseManager.shared.firestore.collection("chatUsers")
-            .document(toId) // 로그인 계정
-            .collection("recent_messages") // 서브컬렉션 messages 생성
-            .document(fromId) // 메시지 수신자 계정 정보
+        // 수신자 메시지 데이터
+        guard let currentUser = FirebaseManager.shared.currentUser else { return }
+        let recipientMessageData = [
+            FirebaseConstants.timestamp: Timestamp(),
+            FirebaseConstants.text: self.chatText,
+            FirebaseConstants.fromId: uid,
+            FirebaseConstants.toId: toId,
+            FirebaseConstants.profileImageUrl: chatUser.profileImageUrl,
+            FirebaseConstants.email: chatUser.email
+        ] as [String : Any]
         
-        recipientRmDocument.setData(rmData) { error in
-            if let error = error {
-                self.errorMessage = "Failed to save recent message for recipient: \(error)"
-                print("Failed to save recent message for recipient: \(error)")
-                return
+        // 수신자 최근 메시지 저장
+        FirebaseManager.shared.firestore
+            .collection("chatUsers")
+            .document(toId)
+            .collection("recent_messages")
+            .document(currentUser.uid)
+            .setData(recipientMessageData) { error in
+                if let error = error {
+                    print("Failed to save recipient recent message: \(error)")
+                    return
+                }
             }
-        }
     }
+
 }
