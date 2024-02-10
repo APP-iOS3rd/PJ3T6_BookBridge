@@ -221,10 +221,11 @@ struct PostView: View {
                         Spacer()
                         VStack {
                             if isPresented {
-                                NavigationLink {
-                                    EmptyView()
+                                Button {
+                                    postViewModel.bookMarkToggle(user: "joo", id: noticeBoard.id)
+                                    isPresented.toggle()
                                 } label: {
-                                    Text("관심목록 추가")
+                                    Text( postViewModel.bookMarks.contains(noticeBoard.id) ? "관심목록 삭제" : "관심목록 추가")
                                         .font(.system(size: 14))
                                         .padding(1)
                                 }
@@ -279,6 +280,7 @@ struct PostView: View {
                 postViewModel.gettingUserInfo(userId: noticeBoard.userId)
                 postViewModel.gettingUserBookShelf(userId: noticeBoard.userId, collection: "holdBooks")
                 postViewModel.gettingUserBookShelf(userId: noticeBoard.userId, collection: "wishBooks")
+                postViewModel.fetchBookMark(user: "joo")
             }
             if noticeBoard.noticeLocation.count >= 2 {
                 //                myCoord = (noticeBoard.noticeLocation[0], noticeBoard.noticeLocation[1])

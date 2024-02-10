@@ -9,6 +9,7 @@ import Foundation
 import FirebaseFirestore
 
 class PostViewModel: ObservableObject {
+    @Published var bookMarks: [String] = []
     @Published var user: UserModel = UserModel()
     @Published var wishBooks: [Item] = []
     @Published var holdBooks: [Item] = []
@@ -80,6 +81,44 @@ extension PostViewModel {
                     self?.holdBooks = items
                 }
             }
+        }
+    }
+    
+    func bookMarkToggle(user: String, id: String) {
+        var bookMarks: [String] = []
+        
+        db.collection("user").document(user).getDocument { documentSnapshot, error in
+            guard error == nil else { return }
+            guard let document = documentSnapshot else { return }
+            
+            bookMarks = document["bookMark"] as? [String] ?? []
+            
+            if (bookMarks.contains { $0 == id }) {
+                if let index = bookMarks.firstIndex(of: id) {
+                    bookMarks.remove(at: index)
+                }
+            } else {
+                bookMarks.append(id)
+            }
+            
+            self.db.collection("user").document(user).updateData([
+                "bookMark": bookMarks
+            ])
+            
+            self.bookMarks = bookMarks
+        }
+    }
+    
+    func fetchBookMark(user: String) {
+        var bookMarks: [String] = []
+        
+        db.collection("user").document(user).getDocument { documentSnapshot, error in
+            guard error == nil else { return }
+            guard let document = documentSnapshot else { return }
+            
+            bookMarks = document["bookMark"] as? [String] ?? []
+            
+            self.bookMarks = bookMarks
         }
     }
 }
