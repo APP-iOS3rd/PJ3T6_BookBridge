@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct TabBarView: View {
-    let userId : String
+    let userId : String?
     
     var body: some View {
         TabView {
             // 홈
-            EmptyView()
+            HomeView()
                 .tabItem {
                     Image(systemName: "house.fill")
                     Text("Home")

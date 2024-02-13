@@ -9,17 +9,18 @@ import SwiftUI
 
 struct HomeListItemView: View {
     @State var url = URL(string: "")
+    @EnvironmentObject var viewModel: HomeViewModel
     
     var storageManager = HomeFirebaseManager.shared
     
     var author: String
-    var bookmark: Bool
     var date: Date
     var id: String
     var imageLinks: [String]
     var isChange: Bool
     var locate: [Double]
     var title: String
+    var userId: String
     
     var body: some View {
         HStack {
@@ -83,10 +84,21 @@ struct HomeListItemView: View {
             }
             Spacer()
             VStack{
-                Image(systemName: "bookmark")
-                    .font(.system(size: 20))
-                    .padding()
-                    .foregroundColor(.black)
+                Button {
+                    viewModel.bookMarkToggle(user: userId, id: id)
+                } label: {
+                    if (viewModel.bookMarks.contains(id)) {
+                        Image(systemName: "bookmark.fill")
+                            .font(.system(size: 20))
+                            .padding()
+                            .foregroundColor(.black)
+                    } else {
+                        Image(systemName: "bookmark")
+                            .font(.system(size: 20))
+                            .padding()
+                            .foregroundColor(.black)
+                    }
+                }
                 
                 Spacer()
             }
