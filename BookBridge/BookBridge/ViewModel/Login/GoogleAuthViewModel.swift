@@ -17,7 +17,7 @@ final class GoogleAuthViewModel: ObservableObject {
             guard let email = result.email else { return }
             
             FirestoreSignUpManager.shared.getUserData(email: email) { userData in
-                if let userData = userData {
+                if userData != nil {
                     // 로그인
                 } else {
                     // 회원가입

@@ -11,7 +11,7 @@ import FirebaseStorage
 import NMapsMap
 
 class PostingViewModel: ObservableObject {
-    @Published var noticeBoard: NoticeBoard = NoticeBoard(userId: "", noticeBoardTitle: "", noticeBoardDetail: "", noticeImageLink: [], noticeLocation: [],noticeLocationName: "교환장소 선택", isChange: false, state: 0, date: Date(), hopeBook: [])
+    @Published var noticeBoard: NoticeBoard = NoticeBoard(userId: "", noticeBoardTitle: "", noticeBoardDetail: "", noticeImageLink: [], noticeLocation: [],noticeLocationName: "교환장소 선택", isChange: false, state: 0, date: Date(), hopeBook: [], geohash: "")
     @Published var markerCoord: NMGLatLng? //사용자가 저장 전에 마커 좌표변경을 할 경우 대비
 
     // 교환 장소 위도,경도
@@ -46,56 +46,68 @@ extension PostingViewModel {
                 uploadImage(image: img, name: (noticeBoard.id + "/" + imgName))
             }
         }
-        
-        // 게시물 정보 생성
-        let post = NoticeBoard(id: noticeBoard.id, userId: "joo", noticeBoardTitle: noticeBoard.noticeBoardTitle, noticeBoardDetail: noticeBoard.noticeBoardDetail, noticeImageLink: noticeBoard.noticeImageLink, noticeLocation: noticeBoard.noticeLocation, noticeLocationName: noticeBoard.noticeLocationName, isChange: isChange, state: 0, date: Date(), hopeBook: noticeBoard.hopeBook)
-
-        
-        // 모든 게시물  noticeBoard/noticeBoardId/
-        let linkNoticeBoard = db.collection("noticeBoard").document(noticeBoard.id)
-        
-        linkNoticeBoard.setData(post.dictionary)
-        
-        // 내 게시물   user/userId/myNoticeBoard/noticeBoardId
-        let user = db.collection("User").document(UserManager.shared.uid)
-        
-        user.collection("myNoticeBoard").document(noticeBoard.id).setData(post.dictionary)
-        
-        if !isChange && !noticeBoard.hopeBook.isEmpty{                      //구해요일 경우 희망 도서 정보 넣기
-            for book in noticeBoard.hopeBook {
-                let hopeBookInfo = book.volumeInfo
-                linkNoticeBoard.collection("hopeBooks").document(book.id).setData([
-                    "title": hopeBookInfo.title ?? "제목 미상",
-                    "authors": hopeBookInfo.authors ?? ["저자 미상"],
-                    "publisher": hopeBookInfo.publisher ?? "출판사 미상",
-                    "publishedDate": hopeBookInfo.publishedDate ?? "출판 날짜 미상",
-                    "description": hopeBookInfo.description ??  "설명이 없어요..",
-                    "pageCount": hopeBookInfo.pageCount ?? 0,
-                    "categories": hopeBookInfo.categories ?? ["장르 미상"],
-                    "imageLinks": hopeBookInfo.imageLinks?.smallThumbnail ?? ""
-                ])
-                
-                linkNoticeBoard.collection("hopeBooks").document(book.id).collection("industryIdentifiers").document(hopeBookInfo.industryIdentifiers?[0].identifier ?? "").setData([
-                    "identifier": hopeBookInfo.industryIdentifiers?[0].identifier ?? ""
-                ])
-                
-                user.collection("myNoticeBoard").document(noticeBoard.id).collection("hopeBooks").document(book.id).setData([
-                    "title": hopeBookInfo.title ?? "제목 미상",
-                    "authors": hopeBookInfo.authors ?? ["저자 미상"],
-                    "publisher": hopeBookInfo.publisher ?? "출판사 미상",
-                    "publishedDate": hopeBookInfo.publishedDate ?? "출판 날짜 미상",
-                    "description": hopeBookInfo.description ??  "설명이 없어요..",
-                    "pageCount": hopeBookInfo.pageCount ?? 0,
-                    "categories": hopeBookInfo.categories ?? ["장르 미상"],
-                    "imageLinks": hopeBookInfo.imageLinks?.smallThumbnail ?? ""
-                ])
-                
-                user.collection("myNoticeBoard").document(noticeBoard.id).collection("hopeBooks").document(book.id).collection("industryIdentifiers").document(hopeBookInfo.industryIdentifiers?[0].identifier ?? "").setData([
-                    "identifier": hopeBookInfo.industryIdentifiers?[0].identifier ?? ""
-                ])
+                        
+        FirestoreManager.fetchUserModel{ userModel in
+            let location = userModel?.getSelectedLocation()
+                        
+            let post = NoticeBoard(
+                id: self.noticeBoard.id,
+                userId: UserManager.shared.uid,
+                noticeBoardTitle: self.noticeBoard.noticeBoardTitle,
+                noticeBoardDetail: self.noticeBoard.noticeBoardDetail,
+                noticeImageLink: self.noticeBoard.noticeImageLink,
+                noticeLocation: self.noticeBoard.noticeLocation,
+                noticeLocationName: self.noticeBoard.noticeLocationName,
+                isChange: isChange,
+                state: 0,
+                date: Date(), hopeBook: self.noticeBoard.hopeBook,
+                geohash: location?.geohash ?? ""
+            )
+            
+            let linkNoticeBoard = self.db.collection("noticeBoard").document(self.noticeBoard.id)
+            
+            linkNoticeBoard.setData(post.dictionary)
+            
+            // 내 게시물   user/userId/myNoticeBoard/noticeBoardId
+            let user = self.db.collection("User").document(UserManager.shared.uid)
+            
+            user.collection("myNoticeBoard").document(self.noticeBoard.id).setData(post.dictionary)
+            
+            if !isChange && !self.noticeBoard.hopeBook.isEmpty{                      //구해요일 경우 희망 도서 정보 넣기
+                for book in self.noticeBoard.hopeBook {
+                    let hopeBookInfo = book.volumeInfo
+                    linkNoticeBoard.collection("hopeBooks").document(book.id).setData([
+                        "title": hopeBookInfo.title ?? "제목 미상",
+                        "authors": hopeBookInfo.authors ?? ["저자 미상"],
+                        "publisher": hopeBookInfo.publisher ?? "출판사 미상",
+                        "publishedDate": hopeBookInfo.publishedDate ?? "출판 날짜 미상",
+                        "description": hopeBookInfo.description ??  "설명이 없어요..",
+                        "pageCount": hopeBookInfo.pageCount ?? 0,
+                        "categories": hopeBookInfo.categories ?? ["장르 미상"],
+                        "imageLinks": hopeBookInfo.imageLinks?.smallThumbnail ?? ""
+                    ])
+                    
+                    linkNoticeBoard.collection("hopeBooks").document(book.id).collection("industryIdentifiers").document(hopeBookInfo.industryIdentifiers?[0].identifier ?? "").setData([
+                        "identifier": hopeBookInfo.industryIdentifiers?[0].identifier ?? ""
+                    ])
+                    
+                    user.collection("myNoticeBoard").document(self.noticeBoard.id).collection("hopeBooks").document(book.id).setData([
+                        "title": hopeBookInfo.title ?? "제목 미상",
+                        "authors": hopeBookInfo.authors ?? ["저자 미상"],
+                        "publisher": hopeBookInfo.publisher ?? "출판사 미상",
+                        "publishedDate": hopeBookInfo.publishedDate ?? "출판 날짜 미상",
+                        "description": hopeBookInfo.description ??  "설명이 없어요..",
+                        "pageCount": hopeBookInfo.pageCount ?? 0,
+                        "categories": hopeBookInfo.categories ?? ["장르 미상"],
+                        "imageLinks": hopeBookInfo.imageLinks?.smallThumbnail ?? ""
+                    ])
+                    
+                    user.collection("myNoticeBoard").document(self.noticeBoard.id).collection("hopeBooks").document(book.id).collection("industryIdentifiers").document(hopeBookInfo.industryIdentifiers?[0].identifier ?? "").setData([
+                        "identifier": hopeBookInfo.industryIdentifiers?[0].identifier ?? ""
+                    ])
+                }
             }
         }
-        
     }
 }
 

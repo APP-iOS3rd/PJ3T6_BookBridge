@@ -14,6 +14,7 @@ struct NoticeBoard: Identifiable {
     var state: Int                      //게시물 상태) 0 = 아무것도 없음, 1 = 예약중, 2 = 교환완료
     var date: Date
     var hopeBook: [Item]
+    var geohash: String
 
     var dictionary: [String: Any] {
         return [
@@ -26,7 +27,8 @@ struct NoticeBoard: Identifiable {
             "noticeLocationName": noticeLocationName,
             "isChange": isChange,
             "state": state,
-            "date": date
+            "date": date,
+            "geohash": geohash
         ]
     }
 }

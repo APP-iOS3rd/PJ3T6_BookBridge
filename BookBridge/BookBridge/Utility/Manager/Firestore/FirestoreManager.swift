@@ -12,6 +12,45 @@ import FirebaseFirestore
 class FirestoreManager {
     static let db = Firestore.firestore()
     static let locationManager = LocationManager.shared
+    
+    // MARK: - User 불러오기(fetch)
+    static func fetchUserModel(completion: @escaping (UserModel?) -> Void) {
+        // 사용자의 uid를 이용하여 해당 사용자의 문서를 가져옵니다.
+        let userDocRef = db.collection("User").document(UserManager.shared.uid)
+
+        // 문서를 가져옵니다.
+        userDocRef.getDocument { document, error in
+            if let error = error {
+                print("Error fetching user document: \(error)")
+                completion(nil)
+                return
+            }
+
+            // 문서가 존재하는 경우
+            if let document = document, document.exists {
+                // 문서 데이터를 UserModel로 변환합니다.
+                if let userData = document.data() {
+                    do {
+                        // JSON 데이터로 변환합니다.
+                        let jsonData = try JSONSerialization.data(withJSONObject: userData, options: [])
+                        
+                        // JSON 데이터를 사용하여 UserModel을 디코딩합니다.
+                        let userModel = try JSONDecoder().decode(UserModel.self, from: jsonData)
+                        completion(userModel)
+                    } catch {
+                        print("Error decoding UserModel: \(error)")
+                        completion(nil)
+                    }
+                } else {
+                    print("Error converting document data to UserModel")
+                    completion(nil)
+                }
+            } else {
+                print("User document not found")
+                completion(nil)
+            }
+        }
+    }
             
     // MARK: - 불러오기(fetch)
     
