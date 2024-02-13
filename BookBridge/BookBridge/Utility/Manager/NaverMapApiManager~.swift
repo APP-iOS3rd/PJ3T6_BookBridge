@@ -9,7 +9,7 @@ import Foundation
 
 class NaverMapApiManager {
     static let ADDRESS_URL = "https://naveropenapi.apigw.ntruss.com/map-reversegeocode/v2/gc"
-    static var NAVER_API_ID: String?
+    static var NAVER_API_ID: String?ㄱ
     static var NAVER_API_KEY: String?
     
     static func getNaverApiInfo() {

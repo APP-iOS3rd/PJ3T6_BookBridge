@@ -114,7 +114,7 @@
 		9146004C2B722F4100E0E24F /* CreateNewMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9146004B2B722F4100E0E24F /* CreateNewMessageViewModel.swift */; };
 		9146004E2B7238EB00E0E24F /* ChatLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9146004D2B7238EB00E0E24F /* ChatLogView.swift */; };
 		914600502B7240D800E0E24F /* ChatLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9146004F2B7240D800E0E24F /* ChatLogViewModel.swift */; };
-		91B7F0AA2B70DD9700B4C475 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 91B7F0A92B70DD9700B4C475 /* Secrets.xcconfig */; };
+		91B513582B7B4B8A00E400AD /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 91B513572B7B4B8A00E400AD /* Secrets.xcconfig */; };
 		91B7F0AC2B70DDA900B4C475 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91B7F0AB2B70DDA900B4C475 /* GoogleService-Info.plist */; };
 		91B7F0B02B70DE8800B4C475 /* ChatMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B7F0AF2B70DE8800B4C475 /* ChatMessageModel.swift */; };
 		91B7F0B42B71B90F00B4C475 /* ChatListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B7F0B32B71B90F00B4C475 /* ChatListViewModel.swift */; };
@@ -258,7 +258,7 @@
 		9146004B2B722F4100E0E24F /* CreateNewMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewMessageViewModel.swift; sourceTree = "<group>"; };
 		9146004D2B7238EB00E0E24F /* ChatLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogView.swift; sourceTree = "<group>"; };
 		9146004F2B7240D800E0E24F /* ChatLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogViewModel.swift; sourceTree = "<group>"; };
-		91B7F0A92B70DD9700B4C475 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		91B513572B7B4B8A00E400AD /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		91B7F0AB2B70DDA900B4C475 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		91B7F0AF2B70DE8800B4C475 /* ChatMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageModel.swift; sourceTree = "<group>"; };
 		91B7F0B32B71B90F00B4C475 /* ChatListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatListViewModel.swift; sourceTree = "<group>"; };
@@ -452,7 +452,7 @@
 		5A7A4E192B61DFFD00F79C23 = {
 			isa = PBXGroup;
 			children = (
-				91B7F0A92B70DD9700B4C475 /* Secrets.xcconfig */,
+				91B513572B7B4B8A00E400AD /* Secrets.xcconfig */,
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
 				91B7F0AB2B70DDA900B4C475 /* GoogleService-Info.plist */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
@@ -876,8 +876,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				91B7F0AC2B70DDA900B4C475 /* GoogleService-Info.plist in Resources */,
+				91B513582B7B4B8A00E400AD /* Secrets.xcconfig in Resources */,
 				5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */,
-				91B7F0AA2B70DD9700B4C475 /* Secrets.xcconfig in Resources */,
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
 				5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */,
 			);
@@ -1186,7 +1186,6 @@
 /* Begin XCBuildConfiguration section */
 		5A7A4E442B61DFFE00F79C23 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 91B7F0A92B70DD9700B4C475 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1250,7 +1249,6 @@
 		};
 		5A7A4E452B61DFFE00F79C23 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 91B7F0A92B70DD9700B4C475 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

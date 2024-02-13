@@ -37,7 +37,7 @@ struct ChatListView: View {
         //            // 채팅 목록 화면이 나타날 때 새로운 메시지를 감시
         //            chatListVM.listenForNewMessages()
         //        }
-    }   
+    }
     
     private var customNavBar: some View {
         HStack(spacing: 16) {
