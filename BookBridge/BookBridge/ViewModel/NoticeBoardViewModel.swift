@@ -19,10 +19,38 @@ class NoticeBoardViewModel: ObservableObject {
     let db = Firestore.firestore()
     let nestedGroup = DispatchGroup()
 }
+
+//MARK: 게시물의 상태에 따른 필터
 extension NoticeBoardViewModel {
-    func gettingChangeNoticeBoards() {
-        db.collection("user").document("joo").collection("myNoticeBoard").whereField("isChange", isEqualTo: true).getDocuments { querySnapshot, err in
-            guard err == nil else { return }
+    func getfilterNoticeBoard(noticeBoard: [NoticeBoard], index: Int, isRequests: Bool) -> [NoticeBoard] {
+        let changeIndex = index - 1
+        
+        if changeIndex == -1 {                  //전체
+            return noticeBoard
+        } else {
+            if isRequests {                     //1 예약중, 2 교환완료
+                return noticeBoard.filter { $0.state == changeIndex + 1 }
+            } else {                            //0 진행중, 1 예약중, 2 교환완료
+                return noticeBoard.filter { $0.state == changeIndex }
+            }
+        }
+    }
+}
+
+//MARK: FireStore에서 게시물 정보 가져오기
+extension NoticeBoardViewModel {
+    //바꿔요
+    func gettingChangeNoticeBoards(whereIndex: Int, noticeBoardArray: [String]) {
+        var query: Query
+        
+        if whereIndex == 0 {                    //내 게시물
+            query = db.collection("user").document("joo").collection("myNoticeBoard").whereField("isChange", isEqualTo: true)
+        } else {                                //요청 내역 및 관심목록
+            query = db.collection("noticeBoard").whereField("noticeBoardId", in: noticeBoardArray).whereField("isChange", isEqualTo: true)
+        }
+        
+        query.getDocuments { querySnapshot, error in
+            guard error == nil else { return }
             guard let documents = querySnapshot?.documents else { return }
             
             for document in documents {
@@ -51,9 +79,18 @@ extension NoticeBoardViewModel {
         }
     }
     
-    func gettingFindNoticeBoards() {
-        db.collection("user").document("joo").collection("myNoticeBoard").whereField("isChange", isEqualTo: false).getDocuments { querySnapshot, err in
-            guard err == nil else { return }
+    //구해요
+    func gettingFindNoticeBoards(whereIndex: Int, noticeBoardArray: [String]) {
+        var query: Query
+        
+        if whereIndex == 0 {                    //내 게시물
+            query = db.collection("user").document("joo").collection("myNoticeBoard").whereField("isChange", isEqualTo: false)
+        } else {                                //요청 내역 및 관심목록
+            query = db.collection("noticeBoard").whereField("noticeBoardId", in: noticeBoardArray).whereField("isChange", isEqualTo: false)
+        }
+        
+        query.getDocuments { querySnapshot, error in
+            guard error == nil else { return }
             guard let documents = querySnapshot?.documents else { return }
             
             for document in documents {
@@ -121,16 +158,6 @@ extension NoticeBoardViewModel {
                     }
                 }
             }
-        }
-    }
-    
-    func getfilterNoticeBoard(noticeBoard: [NoticeBoard], index: Int) -> [NoticeBoard] {
-        let changeIndex = index - 1
-        
-        if changeIndex == -1 {                  //전체
-            return noticeBoard
-        } else {                                //0 진행중, 1 예약중, 2 교환완료
-            return noticeBoard.filter { $0.state == changeIndex }
         }
     }
 }

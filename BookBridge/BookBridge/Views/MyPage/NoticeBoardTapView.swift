@@ -107,7 +107,7 @@ struct NoticeBoardTapView: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     switch myPagePostTapType {
                     case .find:             //TODO: imageLinks 부분 받아오기
-                        ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.findNoticeBoards, index: findIndex)) { element in
+                        ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.findNoticeBoards, index: findIndex, isRequests: sortTypes.count == 3 ? true : false)) { element in
                             if element.hopeBook.isEmpty {
                                 HomeListItemView(author: "", bookmark: true, date: element.date, id: element.id, imageLinks: [], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle)
                             } else {
@@ -120,7 +120,7 @@ struct NoticeBoardTapView: View {
                         .padding(.bottom, 10)
                         
                     case .change:
-                        ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.changeNoticeBoards, index: changeIndex)) { element in
+                        ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.changeNoticeBoards, index: changeIndex, isRequests: sortTypes.count == 3 ? true : false)) { element in
                             HomeListItemView(author: "", bookmark: true, date: element.date, id: element.id, imageLinks: element.noticeImageLink, isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle)
                         }
                         .padding(.horizontal)

@@ -90,7 +90,7 @@
 		5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454962B68B8CA00874BCE /* AppleLoginView.swift */; };
 		5CE454992B68B8EF00874BCE /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454982B68B8EF00874BCE /* AppleAuthManager.swift */; };
 		73441F9B2B733CC200446E0F /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441F9A2B733CC200446E0F /* MyPageView.swift */; };
-		73441F9D2B733CD000446E0F /* MyScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441F9C2B733CD000446E0F /* MyScoreView.swift */; };
+		73441F9D2B733CD000446E0F /* ReviewScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441F9C2B733CD000446E0F /* ReviewScoreView.swift */; };
 		73441F9F2B733CE500446E0F /* MyPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441F9E2B733CE500446E0F /* MyPostView.swift */; };
 		73441FA12B733CF600446E0F /* AccountManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441FA02B733CF600446E0F /* AccountManagementView.swift */; };
 		73441FA32B733D3C00446E0F /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441FA22B733D3C00446E0F /* SettingView.swift */; };
@@ -112,6 +112,8 @@
 		7361270D2B6B83AC00943CD7 /* CameraButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7361270C2B6B83AC00943CD7 /* CameraButtonView.swift */; };
 		7361270F2B6B83BF00943CD7 /* DeleteImageButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7361270E2B6B83BF00943CD7 /* DeleteImageButtonView.swift */; };
 		736127112B6B84AC00943CD7 /* PostingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736127102B6B84AC00943CD7 /* PostingViewModel.swift */; };
+		7369293D2B7B0B5700966503 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7369293C2B7B0B5700966503 /* MyPageViewModel.swift */; };
+		7369293F2B7B24FD00966503 /* ReviewScoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7369293E2B7B24FD00966503 /* ReviewScoreViewModel.swift */; };
 		738EDA9F2B71EB240066ADE7 /* TapCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738EDA9E2B71EB240066ADE7 /* TapCategory.swift */; };
 		738EDAA12B71EBA30066ADE7 /* HomeTapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738EDAA02B71EBA30066ADE7 /* HomeTapView.swift */; };
 		738EDAA32B71ECA80066ADE7 /* HomeListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738EDAA22B71ECA80066ADE7 /* HomeListItemView.swift */; };
@@ -246,7 +248,7 @@
 		5CE454982B68B8EF00874BCE /* AppleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleAuthManager.swift; sourceTree = "<group>"; };
 		5CE4549A2B68C93A00874BCE /* BookBridge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookBridge.entitlements; sourceTree = "<group>"; };
 		73441F9A2B733CC200446E0F /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
-		73441F9C2B733CD000446E0F /* MyScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyScoreView.swift; sourceTree = "<group>"; };
+		73441F9C2B733CD000446E0F /* ReviewScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewScoreView.swift; sourceTree = "<group>"; };
 		73441F9E2B733CE500446E0F /* MyPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostView.swift; sourceTree = "<group>"; };
 		73441FA02B733CF600446E0F /* AccountManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManagementView.swift; sourceTree = "<group>"; };
 		73441FA22B733D3C00446E0F /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
@@ -268,6 +270,8 @@
 		7361270C2B6B83AC00943CD7 /* CameraButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraButtonView.swift; sourceTree = "<group>"; };
 		7361270E2B6B83BF00943CD7 /* DeleteImageButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteImageButtonView.swift; sourceTree = "<group>"; };
 		736127102B6B84AC00943CD7 /* PostingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingViewModel.swift; sourceTree = "<group>"; };
+		7369293C2B7B0B5700966503 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
+		7369293E2B7B24FD00966503 /* ReviewScoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewScoreViewModel.swift; sourceTree = "<group>"; };
 		738EDA9E2B71EB240066ADE7 /* TapCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCategory.swift; sourceTree = "<group>"; };
 		738EDAA02B71EBA30066ADE7 /* HomeTapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTapView.swift; sourceTree = "<group>"; };
 		738EDAA22B71ECA80066ADE7 /* HomeListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListItemView.swift; sourceTree = "<group>"; };
@@ -687,7 +691,7 @@
 			isa = PBXGroup;
 			children = (
 				73441F9A2B733CC200446E0F /* MyPageView.swift */,
-				73441F9C2B733CD000446E0F /* MyScoreView.swift */,
+				73441F9C2B733CD000446E0F /* ReviewScoreView.swift */,
 				73441F9E2B733CE500446E0F /* MyPostView.swift */,
 				73441FA02B733CF600446E0F /* AccountManagementView.swift */,
 				73441FA22B733D3C00446E0F /* SettingView.swift */,
@@ -769,6 +773,8 @@
 				5A3A44212B6C89AE00B66C81 /* LocationViewModel.swift */,
 				1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */,
 				73E1FD522B7467320038FB95 /* StyleViewModel.swift */,
+				7369293C2B7B0B5700966503 /* MyPageViewModel.swift */,
+				7369293E2B7B24FD00966503 /* ReviewScoreViewModel.swift */,
 				73441FB62B734F2F00446E0F /* NoticeBoardViewModel.swift */,
 			);
 			path = ViewModel;
@@ -1081,11 +1087,12 @@
 				73C962A12B6883A700D34D3F /* SearchBooksView.swift in Sources */,
 				5A7A4E552B62269600F79C23 /* LoginView.swift in Sources */,
 				73441FB72B734F2F00446E0F /* NoticeBoardViewModel.swift in Sources */,
+				7369293D2B7B0B5700966503 /* MyPageViewModel.swift in Sources */,
 				5A0242152B6D36FF00137AA6 /* LoadingCircle.swift in Sources */,
 				73C962A92B68C38D00D34D3F /* BookAPIManger.swift in Sources */,
 				5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */,
 				1D84019E2B677B3B00ADEEB5 /* IdLoginViewModel.swift in Sources */,
-				73441F9D2B733CD000446E0F /* MyScoreView.swift in Sources */,
+				73441F9D2B733CD000446E0F /* ReviewScoreView.swift in Sources */,
 				5A3A442A2B6CDB8A00B66C81 /* KeychainManager.swift in Sources */,
 				5A6CC5212B6B192F0037429F /* FormatValidator.swift in Sources */,
 				1DCFB0222B68CB4400250D55 /* FindIdVM.swift in Sources */,
@@ -1178,6 +1185,7 @@
 				910F491C2B6CC66900C0563E /* CameraModalView.swift in Sources */,
 				5A5041CC2B6A635C00211CF2 /* PathViewModel.swift in Sources */,
 				7361270B2B6B82F100943CD7 /* ImageEditorModalView.swift in Sources */,
+				7369293F2B7B24FD00966503 /* ReviewScoreViewModel.swift in Sources */,
 				73441FA12B733CF600446E0F /* AccountManagementView.swift in Sources */,
 				1DFDD1BA2B71B48400B320F7 /* SignInState.swift in Sources */,
 				1DB39DC02B6B8A5300C1B489 /* BookDetailView.swift in Sources */,

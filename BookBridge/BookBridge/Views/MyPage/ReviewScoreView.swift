@@ -7,7 +7,11 @@
 
 import SwiftUI
 
-struct MyScoreView: View {
+struct ReviewScoreView: View {
+    @StateObject var viewModel = ReviewScoreViewModel()
+    
+    var userId: String
+    
     var body: some View {
         HStack {
             VStack(spacing: 5) {
@@ -19,7 +23,7 @@ struct MyScoreView: View {
                     .background(Color(hex: "EDD1AF"))
                     .cornerRadius(5)
                 
-                Text("70")
+                Text("\(viewModel.userReviewArr[0])")
                     .font(.system(size: 17, weight: .semibold))
             }
             
@@ -39,7 +43,7 @@ struct MyScoreView: View {
                     .background(Color(hex: "FBE6CA"))
                     .cornerRadius(5)
                 
-                Text("20")
+                Text("\(viewModel.userReviewArr[1])")
                     .font(.system(size: 17, weight: .semibold))
             }
             
@@ -59,7 +63,7 @@ struct MyScoreView: View {
                     .background(Color(hex: "FDF1E0"))
                     .cornerRadius(5)
                 
-                Text("10")
+                Text("\(viewModel.userReviewArr[2])")
                     .font(.system(size: 17, weight: .semibold))
             }
             
@@ -79,17 +83,19 @@ struct MyScoreView: View {
                     .background(Color(hex: "FFD9E5"))
                     .cornerRadius(5)
                 
-                Text("80점")
+                Text("\(viewModel.mannerScore)점")
                     .font(.system(size: 17, weight: .semibold))
             }
         }
         .frame(height: 45)
         .padding(.horizontal, 10)
         .padding(.bottom, 20)
+        .onAppear {
+            viewModel.getReviewsScore(userId: userId) { _ in
+                viewModel.getMannerScore()
+            }
+        }
     }
 }
 
-#Preview {
-    MyScoreView()
-}
 

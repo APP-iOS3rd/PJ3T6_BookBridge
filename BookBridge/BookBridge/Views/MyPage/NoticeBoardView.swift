@@ -24,6 +24,7 @@ struct NoticeBoardView: View {
     @Namespace private var animation
     
     var naviTitle: String
+    var noticeBoardArray: [String]
     var sortTypes: [String]
     
     var body: some View {
@@ -46,8 +47,8 @@ struct NoticeBoardView: View {
             }
         }
         .onAppear {
-            viewModel.gettingFindNoticeBoards()
-            viewModel.gettingChangeNoticeBoards()
+            viewModel.gettingFindNoticeBoards(whereIndex: naviTitle == "내 게시물" ? 0 : 1, noticeBoardArray: noticeBoardArray)
+            viewModel.gettingChangeNoticeBoards(whereIndex: naviTitle == "내 게시물" ? 0 : 1, noticeBoardArray: noticeBoardArray)
         }
     }
 }

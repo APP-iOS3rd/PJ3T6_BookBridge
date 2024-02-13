@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AccountManagementView: View {
+    @StateObject var viewModel: MyPageViewModel
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("계정 관리")
@@ -35,7 +37,7 @@ struct AccountManagementView: View {
             }
             
             NavigationLink {                //관심목록 경로가 아직없음
-                NoticeBoardView(naviTitle: "관심목록", sortTypes: ["전체", "예약중", "교환완료"])
+                NoticeBoardView(naviTitle: "관심목록", noticeBoardArray: viewModel.userBookMarks, sortTypes: ["전체", "진행중", "예약중", "교환완료"])
             } label: {
                 HStack {
                     Text("관심목록")
@@ -97,8 +99,3 @@ struct AccountManagementView: View {
         }
     }
 }
-
-#Preview {
-    AccountManagementView()
-}
-

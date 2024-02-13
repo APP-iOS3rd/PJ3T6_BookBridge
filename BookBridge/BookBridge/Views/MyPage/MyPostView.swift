@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MyPostView: View {
+    @StateObject var viewModel: MyPageViewModel
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("나의 게시물")
@@ -15,7 +17,7 @@ struct MyPostView: View {
                 .padding(.bottom, 10)
             
             NavigationLink {
-                NoticeBoardView(naviTitle: "내 게시물", sortTypes: ["전체", "진행중", "예약중", "교환완료"])
+                NoticeBoardView(naviTitle: "내 게시물", noticeBoardArray: [], sortTypes: ["전체", "진행중", "예약중", "교환완료"])
             } label: {
                 HStack(spacing: 10) {
                     Text("내 게시물")
@@ -25,7 +27,7 @@ struct MyPostView: View {
                     
                     Spacer()
                     
-                    Text("3")
+                    Text("\(viewModel.myNoticeBoardCount)")
                         .padding(.vertical, 10)
                         .font(.system(size: 17))
                         .foregroundStyle(.black)
@@ -42,7 +44,7 @@ struct MyPostView: View {
             }
             
             NavigationLink {                        //요청내역 경로가 아직없음
-                NoticeBoardView(naviTitle: "요청 내역", sortTypes: ["전체", "예약중", "교환완료"])
+                NoticeBoardView(naviTitle: "요청 내역", noticeBoardArray: viewModel.userRequests, sortTypes: ["전체", "예약중", "교환완료"])
             } label: {
                 HStack(spacing: 10) {
                     Text("요청 내역")
@@ -52,7 +54,7 @@ struct MyPostView: View {
                     
                     Spacer()
                     
-                    Text("2")
+                    Text("\(viewModel.userRequests.count)")
                         .padding(.vertical, 10)
                         .font(.system(size: 17))
                         .foregroundStyle(.black)
@@ -70,9 +72,5 @@ struct MyPostView: View {
         }
         .padding(.bottom, 20)
     }
-}
-
-#Preview {
-    MyPostView()
 }
 

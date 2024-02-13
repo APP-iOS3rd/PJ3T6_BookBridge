@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MyPageView: View {
+    @StateObject var viewModel = MyPageViewModel()
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -36,13 +38,13 @@ struct MyPageView: View {
                 .padding(.top, 10)
                 
                 //매너점수
-                MyScoreView()
+                ReviewScoreView(userId: "joo")
                 
                 //나의 게시물
-                MyPostView()
+                MyPostView(viewModel: viewModel)
                 
                 //계정 관리
-                AccountManagementView()
+                AccountManagementView(viewModel: viewModel)
                 
                 Spacer()
             }
@@ -57,6 +59,9 @@ struct MyPageView: View {
                             .foregroundStyle(.black)
                     }
                 }
+            }
+            .onAppear {
+                viewModel.getUserInfo()
             }
         }
     }
