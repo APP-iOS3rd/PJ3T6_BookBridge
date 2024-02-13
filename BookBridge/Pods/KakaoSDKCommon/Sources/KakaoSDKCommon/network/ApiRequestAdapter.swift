@@ -15,9 +15,7 @@
 import Foundation
 import Alamofire
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
+///:nodoc:
 public class ApiRequestAdapter : RequestInterceptor{
     private let kaHeader: String
     

@@ -5,10 +5,29 @@
 //  Created by Josh Kowarsky on 10/5/20.
 //
 
-import AuthenticationServices
-
 /// Delegate to receive authentication, user and/or error generated during sign in process.
 public protocol GoogleSignInDelegate: AnyObject {
+    /**
+     The sign in process occures in web. This method contains a custom URL to be launched by the application. The user be presented with their Google accounts and select which one they would like to sign into your app with and then is redirected back to your app.
+
+     ~~~
+     // example usage:
+     func googleSignIn(shouldOpen url: URL) {
+         if #available(iOS 10.0, *) {
+             UIApplication
+                 .shared
+                 .open(url, options: [:])
+         } else {
+             UIApplication.shared.openURL(url)
+         }
+     }
+     ~~~
+
+     - Parameters:
+         - url: `URL` to open.
+     */
+    func googleSignIn(shouldOpen url: URL)
+
     /**
      Called when sign in process completes.
 
@@ -40,10 +59,6 @@ public class GoogleSignIn {
         case jsonDecodeError
         /// No user.
         case noUser
-        /// No presentation window.
-        case noPresenter
-        /// Authentication error.
-        case authError
     }
     /// Completion block used when refreshing auth.
     public typealias RefreshBlock = (Auth?, Swift.Error?) -> Void
@@ -74,18 +89,6 @@ public class GoogleSignIn {
         }
         return Array(set)
     }
-    /// The presentation anchor for the authentication session.
-    public var presentingWindow: ASPresentationAnchor? {
-        set {
-            presenter.window = newValue
-        }
-        get {
-            presenter.window
-        }
-    }
-    private var currentSession: ASWebAuthenticationSession?
-    private var presenter = Presenter()
-
     private var privateScopes = Set<String>()
     /// Should fetch users profile. Default is `true`.
     public var profile = true
@@ -158,6 +161,25 @@ public class GoogleSignIn {
         }
     }
 
+    /**
+     Handle incoming URLs.
+
+     - Parameters:
+        - url: URL to handle
+    - Returns: `true` if handled.
+     */
+    @discardableResult
+    public func handleURL(_ url: URL) -> Bool {
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: true), components.scheme == redirectURI else {
+            return false
+        }
+        guard let code = components.queryItems?.first(where: { $0.name == "code" })?.value else {
+            return false
+        }
+        authenticate(with: code)
+        return true
+    }
+
     public func signInURL() throws -> URL {
         return try Request.auth(clientId: clientId, scopes: scopes, redirectURI: redirectURI).asURL()
     }
@@ -172,27 +194,9 @@ public class GoogleSignIn {
             delegate?.googleSignIn(didSignIn: nil, user: nil, error: Error.noScope)
             return
         }
-        guard presenter.window != nil else {
-            delegate?.googleSignIn(didSignIn: nil, user: nil, error: Error.noPresenter)
-            return
-        }
         do {
             let url = try signInURL()
-            let currentSession = ASWebAuthenticationSession(url: url, callbackURLScheme: redirectURI) { [weak self] callbackURL, error in
-                if let error = error {
-                    self?.delegate?.googleSignIn(didSignIn: nil, user: nil, error: error)
-                    return
-                }
-                guard let callbackURL = callbackURL, let components = URLComponents(url: callbackURL, resolvingAgainstBaseURL: true), let code = components.queryItems?.first(where: { $0.name == "code" })?.value else {
-                    self?.delegate?.googleSignIn(didSignIn: nil, user: nil, error: Error.authError)
-                    return
-                }
-                self?.authenticate(with: code)
-                self?.currentSession = nil
-            }
-            currentSession.presentationContextProvider = presenter
-            currentSession.start()
-            self.currentSession = currentSession
+            delegate?.googleSignIn(shouldOpen: url)
         } catch {
             delegate?.googleSignIn(didSignIn: nil, user: nil, error: error)
         }

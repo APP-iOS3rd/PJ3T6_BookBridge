@@ -14,9 +14,7 @@
 
 import Foundation
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
+///:nodoc:
 public class SdkUtils {
     static public func castOrThrow<T>(_ resultType: T.Type, _ object: Any) throws -> T {
         guard let returnValue = object as? T else {
@@ -51,11 +49,9 @@ public class SdkUtils {
     }
 }
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
+///:nodoc:
 extension SdkUtils {
-    ///launchMethod 추가 익스텐션
+    /// :nodoc: //launchMethod 추가 익스텐션
     static public func makeUrlWithParameters(url:String, parameters:[String:Any]?, launchMethod:LaunchMethod? = nil) -> URL? {
         if let launchMethod = launchMethod, launchMethod == .UniversalLink {
             if let customSchemeUrl = makeUrlWithParameters(url, parameters: parameters) {
@@ -70,18 +66,5 @@ extension SdkUtils {
         else {
             return makeUrlWithParameters(url, parameters: parameters)
         }
-    }
-}
-
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
-extension SdkUtils {
-    static public func makeParametersForApps() -> [String:Any] {
-        var parameters = [String:Any]()
-        parameters["app_key"] = try! KakaoSDK.shared.appKey()
-        parameters["return_url"] = KakaoSDK.shared.redirectUri()
-        parameters["ka"] = Constants.kaHeader
-        return parameters
     }
 }
