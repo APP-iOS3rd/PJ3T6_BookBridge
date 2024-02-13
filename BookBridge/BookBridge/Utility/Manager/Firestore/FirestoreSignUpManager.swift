@@ -37,7 +37,8 @@ class FirestoreSignUpManager {
             "distriction": location.distriction ?? "",
             "dong": location.dong ?? "",
             "distance": location.distance ?? 1,
-            "isSelected": location.isSelected ?? true
+            "isSelected": location.isSelected ?? true,
+            "geohash": location.geohash ?? ""
         ] as [String : Any]
         
         return locationData as [String : Any]
@@ -80,7 +81,8 @@ class FirestoreSignUpManager {
             distriction: LocationManager.shared.distriction,
             dong: LocationManager.shared.dong,
             distance: LocationManager.shared.distance,
-            isSelected: LocationManager.shared.isSelected
+            isSelected: LocationManager.shared.isSelected,
+            geohash: LocationManager.shared.geohash
         )
         let locationData = convertLocationToDictionary(location: location)
         

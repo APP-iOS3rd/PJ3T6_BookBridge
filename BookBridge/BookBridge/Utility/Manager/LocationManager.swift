@@ -20,6 +20,7 @@ class LocationManager {
     var dong: String = ""
     var distance = 1
     var isSelected = true
+    var geohash = ""
     
     func setLocation(lat: Double, long: Double, city: String, distriction: String, dong: String) {
         self.lat = lat
@@ -27,5 +28,6 @@ class LocationManager {
         self.city = city        
         self.distriction = distriction
         self.dong = dong
+        self.geohash = GeohashManager.storeGeoHash(lat: lat, long: long)
     }
 }

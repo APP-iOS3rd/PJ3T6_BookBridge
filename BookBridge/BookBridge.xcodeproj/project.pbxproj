@@ -59,6 +59,8 @@
 		5A6BCD2E2B7B284B006BF6B9 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5A6BCD2C2B7B284B006BF6B9 /* Secrets.xcconfig */; };
 		5A6BCD2F2B7B284B006BF6B9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A6BCD2D2B7B284B006BF6B9 /* GoogleService-Info.plist */; };
 		5A6BCD312B7B2950006BF6B9 /* GeohashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6BCD302B7B2950006BF6B9 /* GeohashManager.swift */; };
+		5A6BCD352B7B385E006BF6B9 /* GeohashTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6BCD342B7B385E006BF6B9 /* GeohashTestView.swift */; };
+		5A6BCD372B7B3FF7006BF6B9 /* Temp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6BCD362B7B3FF7006BF6B9 /* Temp.swift */; };
 		5A6CC5212B6B192F0037429F /* FormatValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CC5202B6B192F0037429F /* FormatValidator.swift */; };
 		5A6CC5232B6B19510037429F /* RedundantValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CC5222B6B19510037429F /* RedundantValidator.swift */; };
 		5A6CC5252B6B19630037429F /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CC5242B6B19630037429F /* Validator.swift */; };
@@ -209,6 +211,8 @@
 		5A6BCD2C2B7B284B006BF6B9 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = "../../Dependency File/Secrets.xcconfig"; sourceTree = "<group>"; };
 		5A6BCD2D2B7B284B006BF6B9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Dependency File/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5A6BCD302B7B2950006BF6B9 /* GeohashManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeohashManager.swift; sourceTree = "<group>"; };
+		5A6BCD342B7B385E006BF6B9 /* GeohashTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeohashTestView.swift; sourceTree = "<group>"; };
+		5A6BCD362B7B3FF7006BF6B9 /* Temp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temp.swift; sourceTree = "<group>"; };
 		5A6CC5202B6B192F0037429F /* FormatValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatValidator.swift; sourceTree = "<group>"; };
 		5A6CC5222B6B19510037429F /* RedundantValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedundantValidator.swift; sourceTree = "<group>"; };
 		5A6CC5242B6B19630037429F /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
@@ -550,6 +554,7 @@
 				91C60CE22B67459E00A1E8E4 /* Posting */,
 				5ADE79D62B6B2B02005BB3ED /* SearchBook */,
 				1DB39DB82B6B579A00C1B489 /* BookShelf */,
+				5A6BCD342B7B385E006BF6B9 /* GeohashTestView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -600,7 +605,6 @@
 				5A3A44072B6C722A00B66C81 /* SignUp */,
 				5A5041CD2B6A637A00211CF2 /* PathType.swift */,
 				5ADE79D92B6B2C99005BB3ED /* CertiResult.swift */,
-				5A3A44252B6CB36900B66C81 /* Location.swift */,
 				1DFDD1BB2B71BF3D00B320F7 /* tapInfo.swift */,
 				738EDA9E2B71EB240066ADE7 /* TapCategory.swift */,
 			);
@@ -670,6 +674,8 @@
 				5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */,
 				5ADE79DF2B6B3351005BB3ED /* GoogleSignResultModel.swift */,
 				5C8C0DD72B734B8C002963F1 /* NaverReverseGeocoding.swift */,
+				5A3A44252B6CB36900B66C81 /* Location.swift */,
+				5A6BCD362B7B3FF7006BF6B9 /* Temp.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1087,6 +1093,7 @@
 				5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */,
 				1D84019E2B677B3B00ADEEB5 /* IdLoginViewModel.swift in Sources */,
 				5A3A442A2B6CDB8A00B66C81 /* KeychainManager.swift in Sources */,
+				5A6BCD372B7B3FF7006BF6B9 /* Temp.swift in Sources */,
 				5A6CC5212B6B192F0037429F /* FormatValidator.swift in Sources */,
 				1DCFB0222B68CB4400250D55 /* FindIdVM.swift in Sources */,
 				5A4F281B2B6BAF9F00FF5483 /* LargeBtnStyle.swift in Sources */,
@@ -1146,6 +1153,7 @@
 				73DDA5E12B6A34A500B25FB8 /* SearchResultView.swift in Sources */,
 				738EDAA12B71EBA30066ADE7 /* HomeTapView.swift in Sources */,
 				5A3A44112B6C75F500B66C81 /* MiddleWhiteBtnStyle.swift in Sources */,
+				5A6BCD352B7B385E006BF6B9 /* GeohashTestView.swift in Sources */,
 				1D71C6C72B6C8D4400EEC95D /* WishBookAddBtnView.swift in Sources */,
 				738EDA9F2B71EB240066ADE7 /* TapCategory.swift in Sources */,
 				91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */,
@@ -1218,6 +1226,7 @@
 /* Begin XCBuildConfiguration section */
 		5A7A4E442B61DFFE00F79C23 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A6BCD2C2B7B284B006BF6B9 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1281,6 +1290,7 @@
 		};
 		5A7A4E452B61DFFE00F79C23 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A6BCD2C2B7B284B006BF6B9 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
