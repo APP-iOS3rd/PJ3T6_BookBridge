@@ -10,22 +10,23 @@ import FirebaseFirestore
 import FirebaseStorage
 
 class HomeViewModel: ObservableObject {
+    @Published var bookMarks: [String] = []
     @Published var changeNoticeBoards: [NoticeBoard] = []
     @Published var findNoticeBoards: [NoticeBoard] = []
-    
-    //@Published var noticeBoards: [NoticeBoard] = []
     
     let db = Firestore.firestore()
     let nestedGroup = DispatchGroup()
 }
+
 extension HomeViewModel {
     func gettingChangeNoticeBoards() {
+        self.changeNoticeBoards = []
+        
         db.collection("noticeBoard").whereField("isChange", isEqualTo: true).getDocuments { querySnapshot, err in
             guard err == nil else { return }
             guard let documents = querySnapshot?.documents else { return }
             
             for document in documents {
-                var thumnailImage = ""
                 
                 guard let stamp = document.data()["date"] as? Timestamp else { return }
                 
@@ -42,7 +43,6 @@ extension HomeViewModel {
                     date: stamp.dateValue(),
                     hopeBook: []
                 )
-                print(noticeBoard)
                 
                 DispatchQueue.main.async {
                     self.changeNoticeBoards.append(noticeBoard)
@@ -52,6 +52,8 @@ extension HomeViewModel {
     }
     
     func gettingFindNoticeBoards() {
+        self.findNoticeBoards = []
+        
         db.collection("noticeBoard").whereField("isChange", isEqualTo: false).getDocuments { querySnapshot, err in
             guard err == nil else { return }
             guard let documents = querySnapshot?.documents else { return }
@@ -121,6 +123,44 @@ extension HomeViewModel {
                     }
                 }
             }
+        }
+    }
+    
+    func bookMarkToggle(user: String, id: String) {
+        var bookMarks: [String] = []
+        
+        db.collection("user").document(user).getDocument { documentSnapshot, error in
+            guard error == nil else { return }
+            guard let document = documentSnapshot else { return }
+            
+            bookMarks = document["bookMark"] as? [String] ?? []
+            
+            if (bookMarks.contains { $0 == id }) {
+                if let index = bookMarks.firstIndex(of: id) {
+                    bookMarks.remove(at: index)
+                }
+            } else {
+                bookMarks.append(id)
+            }
+            
+            self.db.collection("user").document(user).updateData([
+                "bookMark": bookMarks
+            ])
+            
+            self.bookMarks = bookMarks
+        }
+    }
+    
+    func fetchBookMark(user: String) {
+        var bookMarks: [String] = []
+        
+        db.collection("user").document(user).getDocument { documentSnapshot, error in
+            guard error == nil else { return }
+            guard let document = documentSnapshot else { return }
+            
+            bookMarks = document["bookMark"] as? [String] ?? []
+            
+            self.bookMarks = bookMarks
         }
     }
 }
