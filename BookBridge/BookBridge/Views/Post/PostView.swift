@@ -19,7 +19,6 @@ struct PostView: View {
     var storageManager = HomeFirebaseManager.shared
         
     var body: some View {
-        NavigationView {
             ZStack {
                 ScrollView {
                     VStack {
@@ -162,9 +161,8 @@ struct PostView: View {
                                     .font(.system(size: 20))
                                     .fontWeight(.bold)
                                 Spacer()
-                                Button {
-                                    
-                                } label: {
+                                
+                                NavigationLink(destination: BookShelfView(userId: postViewModel.user.id)) {
                                     Text("더보기")
                                         .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
                                 }
@@ -186,9 +184,7 @@ struct PostView: View {
                                     .font(.system(size: 20))
                                     .fontWeight(.bold)
                                 Spacer()
-                                Button {
-                                    
-                                } label: {
+                                NavigationLink(destination: BookShelfView(userId: postViewModel.user.id)) {
                                     Text("더보기")
                                         .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
                                 }
@@ -213,6 +209,45 @@ struct PostView: View {
                     }
                     
                 }
+                .onTapGesture {
+                    withAnimation(.easeIn(duration: 0.2)) {
+                        isPresented = false
+                    }
+                }
+                VStack{
+                    HStack {
+                        Spacer()
+                        VStack {
+                            if isPresented {
+                                Button {
+                                    postViewModel.bookMarkToggle(user: "joo", id: noticeBoard.id)
+                                    isPresented.toggle()
+                                } label: {
+                                    Text( postViewModel.bookMarks.contains(noticeBoard.id) ? "관심목록 삭제" : "관심목록 추가")
+                                        .font(.system(size: 14))
+                                        .padding(1)
+                                }
+                                Divider()
+                                    .padding(1)
+                                NavigationLink {
+                                    EmptyView()
+                                } label: {
+                                    Text("신고하기")
+                                        .font(.system(size: 14))
+                                        .foregroundStyle(Color.red)
+                                        .padding(1)
+                                }
+                            }
+                        }
+                        .frame(width: 110, height: isPresented ? 80 : 0)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10, style: .circular)
+                                .foregroundColor(Color(red: 230/255, green: 230/255, blue: 230/255))
+                        )
+                        .padding(.trailing)
+                    }
+                    Spacer()
+                }
                 VStack {
                     Spacer()
                     Button {
@@ -227,7 +262,6 @@ struct PostView: View {
                 }
                 .frame(alignment: Alignment.bottom)
             }
-        }
         .onAppear {
             if !noticeBoard.noticeImageLink.isEmpty && noticeBoard.isChange {
                 Task {
@@ -244,9 +278,10 @@ struct PostView: View {
                 postViewModel.gettingUserInfo(userId: noticeBoard.userId)
                 postViewModel.gettingUserBookShelf(userId: noticeBoard.userId, collection: "holdBooks")
                 postViewModel.gettingUserBookShelf(userId: noticeBoard.userId, collection: "wishBooks")
+                postViewModel.fetchBookMark(user: "joo")
             }
             if noticeBoard.noticeLocation.count >= 2 {
-//                myCoord = (noticeBoard.noticeLocation[0], noticeBoard.noticeLocation[1])
+                //                myCoord = (noticeBoard.noticeLocation[0], noticeBoard.noticeLocation[1])
             }
         }
         .navigationTitle(noticeBoard.isChange ? "바꿔요" : "구해요")
@@ -263,7 +298,9 @@ struct PostView: View {
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    self.isPresented.toggle()
+                    withAnimation(.easeIn(duration: 0.2)) {
+                        isPresented.toggle()
+                    }
                 } label: {
                     Image(systemName: "ellipsis")
                         .font(.system(size: 16))
@@ -271,29 +308,11 @@ struct PostView: View {
                 }
             }
         }
-        //TODO : alert 대체 및 네비게이션 추가
-        .alert(isPresented: $isPresented) {
-            Alert(
-                title: Text("menu"), 
-                primaryButton: .default(
-                    Text("관심목록 추가")
-                ) {
-                    
-                },
-                secondaryButton: .destructive(
-                    Text("신고하기")
-                ) {
-                    
-                }
-            )
-        }
         .navigationBarBackButtonHidden()
     }
 }
 
 struct PostMapView: UIViewRepresentable {
-    
-    
     
     @Binding var lat: Double // 모델 좌표 lat
     @Binding var lng: Double // 모델 좌표 lng
@@ -305,7 +324,7 @@ struct PostMapView: UIViewRepresentable {
         let markerCoord = NMGLatLng(lat: lat, lng: lng)
         
         // 내 위치 활성화 버튼을 표시
-        mapView.showLocationButton = true
+        //        mapView.showLocationButton = true
         
         // 초기 카메라 위치를 마커의 위치로 설정하고 줌 레벨을 조정
         let cameraUpdate = NMFCameraUpdate(scrollTo: markerCoord, zoomTo: 15)
@@ -319,7 +338,7 @@ struct PostMapView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
-        let newMyCoord = NMGLatLng(lat: lat, lng: lng)
-        _ = NMFCameraUpdate(scrollTo: newMyCoord)
+        _ = NMGLatLng(lat: lat, lng: lng)
+        //        _ = NMFCameraUpdate(scrollTo: newMyCoord)
     }
 }

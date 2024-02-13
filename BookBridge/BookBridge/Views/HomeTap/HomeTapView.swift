@@ -71,7 +71,7 @@ struct HomeTapView: View {
                         NavigationLink {
                             PostView(noticeBoard: element)
                         } label: {
-                            HomeListItemView(author: "", bookmark: true, date: element.date, id: element.id, imageLinks: [], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle)
+                            HomeListItemView(author: "", date: element.date, id: element.id, imageLinks: [], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
                         }
                     } else {
                         //TODO: 나중에 썸네일 이미지, 저자 바꾸기
@@ -79,7 +79,7 @@ struct HomeTapView: View {
                         NavigationLink {
                             PostView(noticeBoard: element)
                         } label: {
-                            HomeListItemView(author: element.hopeBook[0].volumeInfo.authors?[0] ?? "", bookmark: true, date: element.date, id: element.id, imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle)
+                            HomeListItemView(author: element.hopeBook[0].volumeInfo.authors?[0] ?? "", date: element.date, id: element.id, imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
                         }
                         
                     }
@@ -92,7 +92,7 @@ struct HomeTapView: View {
                     NavigationLink {
                         PostView(noticeBoard: element)
                     } label: {
-                        HomeListItemView(author: "", bookmark: true, date: element.date, id: element.id, imageLinks: element.noticeImageLink, isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle)
+                        HomeListItemView(author: "", date: element.date, id: element.id, imageLinks: element.noticeImageLink, isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
                     }
                 }
                 .padding(.horizontal)
@@ -101,6 +101,10 @@ struct HomeTapView: View {
             case .recommend:          //TODO: 추천도서 로직 및 뷰
                 EmptyView()
             }
+        }
+        .environmentObject(viewModel)
+        .onAppear {
+            viewModel.fetchBookMark(user: "joo")
         }
     }
 }
