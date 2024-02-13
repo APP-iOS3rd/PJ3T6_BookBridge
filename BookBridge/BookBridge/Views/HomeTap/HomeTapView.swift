@@ -91,10 +91,19 @@ struct HomeTapView: View {
                 case .find:             //TODO: imageLinks 부분 받아오기
                     ForEach(viewModel.findNoticeBoards) { element in
                         if element.hopeBook.isEmpty {
-                            HomeListItemView(author: "", bookmark: true, date: element.date, id: element.id, imageLinks: [], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle)
+                            NavigationLink {
+                                PostView(noticeBoard: element)
+                            } label: {
+                                HomeListItemView(author: "", date: element.date, id: element.id, imageLinks: [], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
+                            }
                         } else {
                             //TODO: 나중에 썸네일 이미지, 저자 바꾸기
-                            HomeListItemView(author: element.hopeBook[0].volumeInfo.authors?[0] ?? "", bookmark: true, date: element.date, id: element.id, imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle)
+                            
+                            NavigationLink {
+                                PostView(noticeBoard: element)
+                            } label: {
+                                HomeListItemView(author: element.hopeBook[0].volumeInfo.authors?[0] ?? "", date: element.date, id: element.id, imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
+                            }
                             
                         }
                     }
@@ -103,7 +112,11 @@ struct HomeTapView: View {
                     
                 case .change:
                     ForEach(viewModel.changeNoticeBoards) { element in
-                        HomeListItemView(author: "", bookmark: true, date: element.date, id: element.id, imageLinks: element.noticeImageLink, isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle)
+                        NavigationLink {
+                            PostView(noticeBoard: element)
+                        } label: {
+                            HomeListItemView(author: "", date: element.date, id: element.id, imageLinks: element.noticeImageLink, isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
+                        }
                     }
                     .padding(.horizontal)
                     .padding(.bottom, 10)
@@ -112,7 +125,7 @@ struct HomeTapView: View {
                     EmptyView()
                 }
             }
-
+            
             if isOutsideXmark {
                 HomeRecentSearchView()
                     .background(Color.white)
@@ -127,47 +140,48 @@ struct HomeTapView: View {
                     .onDisappear {
                         showRecentSearchView = false
                     }
-
-            .padding(.vertical, 10)
-            .padding(.horizontal, 20)
-            
-            switch tapCategory {
-            case .find:             //TODO: imageLinks 부분 받아오기
-                ForEach(viewModel.findNoticeBoards) { element in
-                    if element.hopeBook.isEmpty {
+                
+                    .padding(.vertical, 10)
+                    .padding(.horizontal, 20)
+                
+                switch tapCategory {
+                case .find:             //TODO: imageLinks 부분 받아오기
+                    ForEach(viewModel.findNoticeBoards) { element in
+                        if element.hopeBook.isEmpty {
+                            NavigationLink {
+                                PostView(noticeBoard: element)
+                            } label: {
+                                HomeListItemView(author: "", date: element.date, id: element.id, imageLinks: [], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
+                            }
+                        } else {
+                            //TODO: 나중에 썸네일 이미지, 저자 바꾸기
+                            
+                            NavigationLink {
+                                PostView(noticeBoard: element)
+                            } label: {
+                                HomeListItemView(author: element.hopeBook[0].volumeInfo.authors?[0] ?? "", date: element.date, id: element.id, imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
+                            }
+                            
+                        }
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom, 10)
+                    
+                case .change:
+                    ForEach(viewModel.changeNoticeBoards) { element in
                         NavigationLink {
                             PostView(noticeBoard: element)
                         } label: {
-                            HomeListItemView(author: "", date: element.date, id: element.id, imageLinks: [], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
+                            HomeListItemView(author: "", date: element.date, id: element.id, imageLinks: element.noticeImageLink, isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
                         }
-                    } else {
-                        //TODO: 나중에 썸네일 이미지, 저자 바꾸기
-                        
-                        NavigationLink {
-                            PostView(noticeBoard: element)
-                        } label: {
-                            HomeListItemView(author: element.hopeBook[0].volumeInfo.authors?[0] ?? "", date: element.date, id: element.id, imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
-                        }
-                        
                     }
+                    .padding(.horizontal)
+                    .padding(.bottom, 10)
+                    
+                case .recommend:          //TODO: 추천도서 로직 및 뷰
+                    EmptyView()
+                    
                 }
-                .padding(.horizontal)
-                .padding(.bottom, 10)
-                
-            case .change:
-                ForEach(viewModel.changeNoticeBoards) { element in
-                    NavigationLink {
-                        PostView(noticeBoard: element)
-                    } label: {
-                        HomeListItemView(author: "", date: element.date, id: element.id, imageLinks: element.noticeImageLink, isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
-                    }
-                }
-                .padding(.horizontal)
-                .padding(.bottom, 10)
-                
-            case .recommend:          //TODO: 추천도서 로직 및 뷰
-                EmptyView()
-
             }
             
         }
@@ -177,3 +191,4 @@ struct HomeTapView: View {
         }
     }
 }
+

@@ -14,6 +14,8 @@
 		1D71C6C32B6C763900EEC95D /* AddBookBtnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71C6C22B6C763900EEC95D /* AddBookBtnView.swift */; };
 		1D71C6C52B6C766300EEC95D /* BookSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71C6C42B6C766300EEC95D /* BookSearchBar.swift */; };
 		1D71C6C72B6C8D4400EEC95D /* WishBookAddBtnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71C6C62B6C8D4400EEC95D /* WishBookAddBtnView.swift */; };
+		1D7BA1B92B7B4A4F002F24FB /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1D7BA1B82B7B4A4F002F24FB /* Secrets.xcconfig */; };
+		1D7BA1BB2B7B4AA1002F24FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D7BA1BA2B7B4AA1002F24FB /* GoogleService-Info.plist */; };
 		1D84019B2B6779CB00ADEEB5 /* IdLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D84019A2B6779CB00ADEEB5 /* IdLoginView.swift */; };
 		1D84019E2B677B3B00ADEEB5 /* IdLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D84019D2B677B3B00ADEEB5 /* IdLoginViewModel.swift */; };
 		1DA6E06C2B68D9EB00D631D5 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6E06B2B68D9EB00D631D5 /* ChangePasswordView.swift */; };
@@ -160,6 +162,8 @@
 		1D71C6C22B6C763900EEC95D /* AddBookBtnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookBtnView.swift; sourceTree = "<group>"; };
 		1D71C6C42B6C766300EEC95D /* BookSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchBar.swift; sourceTree = "<group>"; };
 		1D71C6C62B6C8D4400EEC95D /* WishBookAddBtnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishBookAddBtnView.swift; sourceTree = "<group>"; };
+		1D7BA1B82B7B4A4F002F24FB /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = ../../../../Downloads/Secrets.xcconfig; sourceTree = "<group>"; };
+		1D7BA1BA2B7B4AA1002F24FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1D84019A2B6779CB00ADEEB5 /* IdLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdLoginView.swift; sourceTree = "<group>"; };
 		1D84019D2B677B3B00ADEEB5 /* IdLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdLoginViewModel.swift; sourceTree = "<group>"; };
 		1DA6E06B2B68D9EB00D631D5 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
@@ -468,6 +472,8 @@
 		5A7A4E192B61DFFD00F79C23 = {
 			isa = PBXGroup;
 			children = (
+				1D7BA1B82B7B4A4F002F24FB /* Secrets.xcconfig */,
+				1D7BA1BA2B7B4AA1002F24FB /* GoogleService-Info.plist */,
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
 				5A7A4E352B61DFFE00F79C23 /* BookBridgeTests */,
@@ -892,7 +898,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D7BA1B92B7B4A4F002F24FB /* Secrets.xcconfig in Resources */,
 				5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */,
+				1D7BA1BB2B7B4AA1002F24FB /* GoogleService-Info.plist in Resources */,
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
 				5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */,
 			);
