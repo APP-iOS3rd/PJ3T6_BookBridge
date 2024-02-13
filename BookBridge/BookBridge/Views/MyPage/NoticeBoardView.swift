@@ -14,27 +14,26 @@ struct NoticeBoardView: View {
     
     @State private var selectedPicker: MyPagePostTapType = .find
     
-    @State private var findHeight: CGFloat = 0.0
     @State private var changeHeight: CGFloat = 0.0
-    @State private var findIndex: Int = 0
     @State private var changeIndex: Int = 0
+    @State private var findHeight: CGFloat = 0.0
+    @State private var findIndex: Int = 0
     @State private var isFindAnimating: Bool = false
     @State private var isChangeAnimating: Bool = false
     
     @Namespace private var animation
     
-    let sortTypes: [String] = ["전체", "진행중", "예약중", "교환완료"]
-    
-    var naviTile: String
+    var naviTitle: String
+    var sortTypes: [String]
     
     var body: some View {
         VStack {
             TapAnimation()
             
-            NoticeBoardTapView(viewModel: viewModel, findHeight: $findHeight, changeHeight: $changeHeight, findIndex: $findIndex, changeIndex: $changeIndex, isFindAnimating: $isFindAnimating, isChangeAnimating: $isChangeAnimating, sortTypes: sortTypes, myPagePostTapType: selectedPicker)
+            NoticeBoardTapView(viewModel: viewModel, changeHeight: $changeHeight, changeIndex: $changeIndex, findHeight: $findHeight, findIndex: $findIndex, isFindAnimating: $isFindAnimating, isChangeAnimating: $isChangeAnimating, sortTypes: sortTypes, myPagePostTapType: selectedPicker)
         }
         .navigationBarBackButtonHidden()
-        .navigationTitle(naviTile)
+        .navigationTitle(naviTitle)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {

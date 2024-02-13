@@ -35,7 +35,7 @@ struct AccountManagementView: View {
             }
             
             NavigationLink {                //관심목록 경로가 아직없음
-                //MyProfileView()
+                NoticeBoardView(naviTitle: "관심목록", sortTypes: ["전체", "예약중", "교환완료"])
             } label: {
                 HStack {
                     Text("관심목록")

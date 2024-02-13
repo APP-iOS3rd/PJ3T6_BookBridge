@@ -10,10 +10,10 @@ import SwiftUI
 struct NoticeBoardTapView: View {
     @StateObject var viewModel: NoticeBoardViewModel
     
-    @Binding var findHeight: CGFloat
     @Binding var changeHeight: CGFloat
-    @Binding var findIndex: Int
     @Binding var changeIndex: Int
+    @Binding var findHeight: CGFloat
+    @Binding var findIndex: Int
     @Binding var isFindAnimating: Bool
     @Binding var isChangeAnimating: Bool
     
@@ -38,10 +38,18 @@ struct NoticeBoardTapView: View {
                                 isFindAnimating = true
                             }
                             withAnimation {
-                                if findHeight == 150.0 {
-                                    findHeight = 0.0
+                                if sortTypes.count == 4 {
+                                    if findHeight == 150.0 {
+                                        findHeight = 0.0
+                                    } else {
+                                        findHeight = 150.0
+                                    }
                                 } else {
-                                    findHeight = 150.0
+                                    if findHeight == 110.0 {
+                                        findHeight = 0.0
+                                    } else {
+                                        findHeight = 110.0
+                                    }
                                 }
                             }
                         } label: {
@@ -66,10 +74,18 @@ struct NoticeBoardTapView: View {
                                 isChangeAnimating = true
                             }
                             withAnimation {
-                                if changeHeight == 150.0 {
-                                    changeHeight = 0.0
+                                if sortTypes.count == 4 {
+                                    if changeHeight == 150.0 {
+                                        changeHeight = 0.0
+                                    } else {
+                                        changeHeight = 150.0
+                                    }
                                 } else {
-                                    changeHeight = 150.0
+                                    if changeHeight == 110.0 {
+                                        changeHeight = 0.0
+                                    } else {
+                                        changeHeight = 110.0
+                                    }
                                 }
                             }
                         } label: {

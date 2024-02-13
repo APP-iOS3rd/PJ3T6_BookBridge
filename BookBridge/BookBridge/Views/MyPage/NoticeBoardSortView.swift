@@ -41,7 +41,9 @@ struct NoticeBoardSortView: View {
         .cornerRadius(5)
         .background(
             RoundedRectangle(cornerRadius: 5)
+                .foregroundStyle(.red)
                 .shadow(color: Color.init(hex: "767676"), radius: 1, x: 0, y: 1)
+                //.shadow(color: Color.init(hex: "767676"), radius: 1, x: 0, y: -1)
         )
     }
 }
