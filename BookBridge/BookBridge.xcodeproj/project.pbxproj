@@ -58,6 +58,7 @@
 		5A5041CE2B6A637A00211CF2 /* PathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5041CD2B6A637A00211CF2 /* PathType.swift */; };
 		5A6BCD232B7B05F5006BF6B9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A6BCD212B7B05F5006BF6B9 /* GoogleService-Info.plist */; };
 		5A6BCD242B7B05F5006BF6B9 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5A6BCD222B7B05F5006BF6B9 /* Secrets.xcconfig */; };
+		5A6BCD2B2B7B104E006BF6B9 /* GeopointManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6BCD2A2B7B104E006BF6B9 /* GeopointManager.swift */; };
 		5A6CC5212B6B192F0037429F /* FormatValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CC5202B6B192F0037429F /* FormatValidator.swift */; };
 		5A6CC5232B6B19510037429F /* RedundantValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CC5222B6B19510037429F /* RedundantValidator.swift */; };
 		5A6CC5252B6B19630037429F /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CC5242B6B19630037429F /* Validator.swift */; };
@@ -208,6 +209,7 @@
 		5A6BCD212B7B05F5006BF6B9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Dependency File/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5A6BCD222B7B05F5006BF6B9 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = "../../Dependency File/Secrets.xcconfig"; sourceTree = "<group>"; };
 		5A6BCD252B7B08EC006BF6B9 /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
+		5A6BCD2A2B7B104E006BF6B9 /* GeopointManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeopointManager.swift; sourceTree = "<group>"; };
 		5A6CC5202B6B192F0037429F /* FormatValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatValidator.swift; sourceTree = "<group>"; };
 		5A6CC5222B6B19510037429F /* RedundantValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedundantValidator.swift; sourceTree = "<group>"; };
 		5A6CC5242B6B19630037429F /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
@@ -644,6 +646,7 @@
 				5AA97F822B70754D00EF4081 /* LocationManager.swift */,
 				5A32514C2B7325E7008A16A9 /* UserManager.swift */,
 				5A8345842B746741000984C4 /* ConvertManager.swift */,
+				5A6BCD2A2B7B104E006BF6B9 /* GeopointManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1147,6 +1150,7 @@
 				1D71C6C72B6C8D4400EEC95D /* WishBookAddBtnView.swift in Sources */,
 				738EDA9F2B71EB240066ADE7 /* TapCategory.swift in Sources */,
 				91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */,
+				5A6BCD2B2B7B104E006BF6B9 /* GeopointManager.swift in Sources */,
 				5CE454992B68B8EF00874BCE /* AppleAuthManager.swift in Sources */,
 				5A8345872B746811000984C4 /* FirestoreManager.swift in Sources */,
 				5A1A16962B6231870063D408 /* GoogleAuthManager.swift in Sources */,

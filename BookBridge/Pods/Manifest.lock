@@ -714,6 +714,7 @@ PODS:
     - FirebaseCore (~> 10.0)
     - FirebaseCoreExtension (~> 10.0)
     - GTMSessionFetcher/Core (< 4.0, >= 2.1)
+  - GeoFire/Utils (5.0.0)
   - GoogleAppMeasurement (10.21.0):
     - GoogleAppMeasurement/AdIdSupport (= 10.21.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.11)
@@ -856,6 +857,7 @@ DEPENDENCIES:
   - FirebaseCore
   - FirebaseFirestore
   - FirebaseStorage
+  - GeoFire/Utils
   - GoogleSignIn
   - GoogleSignInSwift
   - KakaoSDKAuth
@@ -883,6 +885,7 @@ SPEC REPOS:
     - FirebaseInstallations
     - FirebaseSharedSwift
     - FirebaseStorage
+    - GeoFire
     - GoogleAppMeasurement
     - GoogleSignIn
     - GoogleSignInSwift
@@ -921,6 +924,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: 390ea1d10a4d02b20c965cbfd527ee9b3b412acb
   FirebaseSharedSwift: 19b3f709993d6fa1d84941d41c01e3c4c11eab93
   FirebaseStorage: 93d7a4b4ed8dea9b7295314fb3fcb7de4deb2ac6
+  GeoFire: a579ffdcdcf6fe74ef9efd7f887d4082598d6d1f
   GoogleAppMeasurement: a65314d316443969ed3d3709b3a187448ed6418f
   GoogleSignIn: b232380cf495a429b8095d3178a8d5855b42e842
   GoogleSignInSwift: c9f78b7af65e1bc4b6307450ca2a151d4aa47c62
@@ -941,6 +945,6 @@ SPEC CHECKSUMS:
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 44829df3f137f1bd5da70ffbf1dc3333198d7348
+PODFILE CHECKSUM: 538712334c520223d6163ed44c5d6a00f2750e3d
 
 COCOAPODS: 1.15.0

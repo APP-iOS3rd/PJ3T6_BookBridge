@@ -6,7 +6,7 @@ target 'BookBridge' do
   use_frameworks! :linkage => :static
   pod 'Firebase', :modular_headers => true
   pod 'FirebaseCore', :modular_headers => true
-
+  pod 'GeoFire/Utils'
   pod 'FirebaseAuth'
   pod 'FirebaseStorage'
   pod 'GoogleSignIn'
