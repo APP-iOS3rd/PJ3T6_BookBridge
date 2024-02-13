@@ -15,4 +15,8 @@ extension Bundle {
     var naverKey: String? {
         return infoDictionary?["naverKey"] as? String
     }
+    
+    var KakaoappKey : String? {
+        return infoDictionary?["KakaoappKey"] as? String
+    }
 }
