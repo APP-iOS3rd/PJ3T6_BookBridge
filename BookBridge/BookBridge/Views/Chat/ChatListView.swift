@@ -47,11 +47,19 @@ struct ChatListView: View {
                 image
                     .resizable()
                     .scaledToFill()
+<<<<<<< HEAD
                     .frame(width: 50, height: 50)
                     .clipped()
                     .cornerRadius(50)
                     .overlay(
                         RoundedRectangle(cornerRadius: 50)
+=======
+                    .frame(width: 64, height: 64)
+                    .clipped()
+                    .cornerRadius(64)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 64)
+>>>>>>> e3291eb2c47e7b489e62d48de0b459c1cc8e5698
                             .stroke(Color.black, lineWidth: 1)
                             .shadow(radius: 5)
                     )
@@ -125,11 +133,19 @@ struct ChatListView: View {
                                 image
                                     .resizable()
                                     .scaledToFill()
+<<<<<<< HEAD
                                     .frame(width: 64, height: 64)
                                     .clipped()
                                     .cornerRadius(64)
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 64)
+=======
+                                    .frame(width: 50, height: 50)
+                                    .clipped()
+                                    .cornerRadius(50)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 44)
+>>>>>>> e3291eb2c47e7b489e62d48de0b459c1cc8e5698
                                             .stroke(Color(.label), lineWidth: 1)
                                     )
                             } placeholder: {
