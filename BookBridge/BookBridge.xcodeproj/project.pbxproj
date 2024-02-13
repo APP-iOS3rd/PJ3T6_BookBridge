@@ -21,7 +21,6 @@
 		1DB39DBA2B6B57B100C1B489 /* BookShelfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DB92B6B57B100C1B489 /* BookShelfView.swift */; };
 		1DB39DBC2B6B57F100C1B489 /* BookShelfViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */; };
 		1DB39DC02B6B8A5300C1B489 /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DBF2B6B8A5300C1B489 /* BookDetailView.swift */; };
-		1DCF22782B70D4440078995D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DCF22772B70D4440078995D /* GoogleService-Info.plist */; };
 		1DCFB01E2B687D7000250D55 /* FindIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB01D2B687D7000250D55 /* FindIdView.swift */; };
 		1DCFB0222B68CB4400250D55 /* FindIdVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0212B68CB4400250D55 /* FindIdVM.swift */; };
 		1DCFB0242B68CD3100250D55 /* FindPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */; };
@@ -34,8 +33,11 @@
 		5A1A168E2B6228290063D408 /* GoogleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A168D2B6228290063D408 /* GoogleLoginView.swift */; };
 		5A1A16942B622BB10063D408 /* GoogleLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A16932B622BB10063D408 /* GoogleLoginViewController.swift */; };
 		5A1A16962B6231870063D408 /* GoogleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A16952B6231870063D408 /* GoogleAuthManager.swift */; };
+		5A2CC1182B71C230000A8776 /* TownSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2CC1172B71C230000A8776 /* TownSettingView.swift */; };
 		5A2DE0972B6884BE00EF3A6B /* EmailCertiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2DE0962B6884BE00EF3A6B /* EmailCertiView.swift */; };
 		5A2DE09A2B68915200EF3A6B /* SignUpInputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2DE0992B68915200EF3A6B /* SignUpInputer.swift */; };
+		5A32514D2B7325E7008A16A9 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A32514C2B7325E7008A16A9 /* UserManager.swift */; };
+		5A32514F2B734D83008A16A9 /* UserLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A32514E2B734D83008A16A9 /* UserLocationViewModel.swift */; };
 		5A3A44092B6C724500B66C81 /* EmailError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44082B6C724500B66C81 /* EmailError.swift */; };
 		5A3A440B2B6C726100B66C81 /* NicknameError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A440A2B6C726100B66C81 /* NicknameError.swift */; };
 		5A3A440D2B6C73D500B66C81 /* MiddleBlueBtnStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A440C2B6C73D500B66C81 /* MiddleBlueBtnStyle.swift */; };
@@ -45,8 +47,7 @@
 		5A3A44152B6C778200B66C81 /* SignUpInputType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44142B6C778200B66C81 /* SignUpInputType.swift */; };
 		5A3A44172B6C779200B66C81 /* PwdError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44162B6C779200B66C81 /* PwdError.swift */; };
 		5A3A44192B6C77A300B66C81 /* PwdConfirmError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44182B6C77A300B66C81 /* PwdConfirmError.swift */; };
-		5A3A441E2B6C88E300B66C81 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A441D2B6C88E300B66C81 /* MapView.swift */; };
-		5A3A44202B6C890900B66C81 /* NaverMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A441F2B6C890900B66C81 /* NaverMapView.swift */; };
+		5A3A44202B6C890900B66C81 /* TownSettingMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A441F2B6C890900B66C81 /* TownSettingMapView.swift */; };
 		5A3A44222B6C89AE00B66C81 /* LocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44212B6C89AE00B66C81 /* LocationViewModel.swift */; };
 		5A3A44262B6CB36900B66C81 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44252B6CB36900B66C81 /* Location.swift */; };
 		5A3A44282B6CC7BA00B66C81 /* NaverMapApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A3A44272B6CC7BA00B66C81 /* NaverMapApiManager.swift */; };
@@ -67,6 +68,11 @@
 		5A7A4E432B61DFFE00F79C23 /* BookBridgeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A4E422B61DFFE00F79C23 /* BookBridgeUITestsLaunchTests.swift */; };
 		5A7A4E502B61E06600F79C23 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 5A7A4E4F2B61E06600F79C23 /* .gitignore */; };
 		5A7A4E552B62269600F79C23 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7A4E542B62269600F79C23 /* LoginView.swift */; };
+		5A8345852B746741000984C4 /* ConvertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8345842B746741000984C4 /* ConvertManager.swift */; };
+		5A8345872B746811000984C4 /* FirestoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8345862B746811000984C4 /* FirestoreManager.swift */; };
+		5A83458A2B749DEA000984C4 /* TownSelectButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8345892B749DEA000984C4 /* TownSelectButtonView.swift */; };
+		5A83458C2B74A0C0000984C4 /* TownAddButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A83458B2B74A0C0000984C4 /* TownAddButtonView.swift */; };
+		5A83458E2B74A279000984C4 /* TownSettingSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A83458D2B74A279000984C4 /* TownSettingSlideView.swift */; };
 		5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A33842B628D9E00982E92 /* GoogleSignManager.swift */; };
 		5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A33862B62960800982E92 /* ColorExtension.swift */; };
 		5AA82E4D2B675E26006EFC72 /* EmailSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */; };
@@ -86,6 +92,10 @@
 		5ADE79E62B6B565F005BB3ED /* SignUpInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E52B6B565F005BB3ED /* SignUpInputView.swift */; };
 		5ADE79E82B6B5963005BB3ED /* StatusTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E72B6B5963005BB3ED /* StatusTextView.swift */; };
 		5ADE79EA2B6B6715005BB3ED /* SignUpInputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */; };
+		5C8C0DD82B734B8C002963F1 /* NaverReverseGeocoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0DD72B734B8C002963F1 /* NaverReverseGeocoding.swift */; };
+		5C8C0DDA2B734BE0002963F1 /* NaverLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0DD92B734BE0002963F1 /* NaverLocationService.swift */; };
+		5C8C0DDC2B734CAC002963F1 /* ExchangeHopeExplainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0DDB2B734CAC002963F1 /* ExchangeHopeExplainView.swift */; };
+		5C8C0DDE2B734CBA002963F1 /* ExchangeHopeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0DDD2B734CBA002963F1 /* ExchangeHopeView.swift */; };
 		5CE454902B68B79000874BCE /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4548F2B68B79000874BCE /* FirestoreService.swift */; };
 		5CE454932B68B7CB00874BCE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454922B68B7CB00874BCE /* UserModel.swift */; };
 		5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454962B68B8CA00874BCE /* AppleLoginView.swift */; };
@@ -119,6 +129,8 @@
 		F60BB0952B71D72F00E27F38 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60BB0942B71D72F00E27F38 /* HomeViewModel.swift */; };
 		F60BB0972B71D73900E27F38 /* HomeFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60BB0962B71D73800E27F38 /* HomeFirebaseManager.swift */; };
 		F623A51D2B68C01E00B5C159 /* NoticeBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F623A51C2B68C01E00B5C159 /* NoticeBoardModel.swift */; };
+		F6DFC8D52B730A2A00931CF9 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6DFC8D42B730A2A00931CF9 /* PostView.swift */; };
+		F6DFC8D82B735AE300931CF9 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6DFC8D72B735AE300931CF9 /* PostViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,7 +167,6 @@
 		1DB39DB92B6B57B100C1B489 /* BookShelfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfView.swift; sourceTree = "<group>"; };
 		1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfViewModel.swift; sourceTree = "<group>"; };
 		1DB39DBF2B6B8A5300C1B489 /* BookDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
-		1DCF22772B70D4440078995D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1DCFB01D2B687D7000250D55 /* FindIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdView.swift; sourceTree = "<group>"; };
 		1DCFB0212B68CB4400250D55 /* FindIdVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdVM.swift; sourceTree = "<group>"; };
 		1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordView.swift; sourceTree = "<group>"; };
@@ -170,8 +181,11 @@
 		5A1A168F2B62285A0063D408 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A1A16932B622BB10063D408 /* GoogleLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginViewController.swift; sourceTree = "<group>"; };
 		5A1A16952B6231870063D408 /* GoogleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthManager.swift; sourceTree = "<group>"; };
+		5A2CC1172B71C230000A8776 /* TownSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownSettingView.swift; sourceTree = "<group>"; };
 		5A2DE0962B6884BE00EF3A6B /* EmailCertiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCertiView.swift; sourceTree = "<group>"; };
 		5A2DE0992B68915200EF3A6B /* SignUpInputer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputer.swift; sourceTree = "<group>"; };
+		5A32514C2B7325E7008A16A9 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		5A32514E2B734D83008A16A9 /* UserLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationViewModel.swift; sourceTree = "<group>"; };
 		5A3A44082B6C724500B66C81 /* EmailError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailError.swift; sourceTree = "<group>"; };
 		5A3A440A2B6C726100B66C81 /* NicknameError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NicknameError.swift; sourceTree = "<group>"; };
 		5A3A440C2B6C73D500B66C81 /* MiddleBlueBtnStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleBlueBtnStyle.swift; sourceTree = "<group>"; };
@@ -181,8 +195,7 @@
 		5A3A44142B6C778200B66C81 /* SignUpInputType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputType.swift; sourceTree = "<group>"; };
 		5A3A44162B6C779200B66C81 /* PwdError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdError.swift; sourceTree = "<group>"; };
 		5A3A44182B6C77A300B66C81 /* PwdConfirmError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PwdConfirmError.swift; sourceTree = "<group>"; };
-		5A3A441D2B6C88E300B66C81 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
-		5A3A441F2B6C890900B66C81 /* NaverMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMapView.swift; sourceTree = "<group>"; };
+		5A3A441F2B6C890900B66C81 /* TownSettingMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownSettingMapView.swift; sourceTree = "<group>"; };
 		5A3A44212B6C89AE00B66C81 /* LocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewModel.swift; sourceTree = "<group>"; };
 		5A3A44252B6CB36900B66C81 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		5A3A44272B6CC7BA00B66C81 /* NaverMapApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverMapApiManager.swift; sourceTree = "<group>"; };
@@ -206,6 +219,11 @@
 		5A7A4E422B61DFFE00F79C23 /* BookBridgeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookBridgeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		5A7A4E4F2B61E06600F79C23 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		5A7A4E542B62269600F79C23 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		5A8345842B746741000984C4 /* ConvertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertManager.swift; sourceTree = "<group>"; };
+		5A8345862B746811000984C4 /* FirestoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager.swift; sourceTree = "<group>"; };
+		5A8345892B749DEA000984C4 /* TownSelectButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownSelectButtonView.swift; sourceTree = "<group>"; };
+		5A83458B2B74A0C0000984C4 /* TownAddButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownAddButtonView.swift; sourceTree = "<group>"; };
+		5A83458D2B74A279000984C4 /* TownSettingSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownSettingSlideView.swift; sourceTree = "<group>"; };
 		5A9A33842B628D9E00982E92 /* GoogleSignManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignManager.swift; sourceTree = "<group>"; };
 		5A9A33862B62960800982E92 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignUpView.swift; sourceTree = "<group>"; };
@@ -216,7 +234,6 @@
 		5AA97F822B70754D00EF4081 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		5AA97F852B709C4000EF4081 /* FirestoreSignUpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreSignUpManager.swift; sourceTree = "<group>"; };
 		5AA97F882B70BCF000EF4081 /* BundleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtension.swift; sourceTree = "<group>"; };
-		5AA97F922B70C94500EF4081 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		5ADE79D92B6B2C99005BB3ED /* CertiResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertiResult.swift; sourceTree = "<group>"; };
 		5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthModel.swift; sourceTree = "<group>"; };
 		5ADE79DF2B6B3351005BB3ED /* GoogleSignResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignResultModel.swift; sourceTree = "<group>"; };
@@ -224,6 +241,10 @@
 		5ADE79E52B6B565F005BB3ED /* SignUpInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputView.swift; sourceTree = "<group>"; };
 		5ADE79E72B6B5963005BB3ED /* StatusTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTextView.swift; sourceTree = "<group>"; };
 		5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputManager.swift; sourceTree = "<group>"; };
+		5C8C0DD72B734B8C002963F1 /* NaverReverseGeocoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverReverseGeocoding.swift; sourceTree = "<group>"; };
+		5C8C0DD92B734BE0002963F1 /* NaverLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLocationService.swift; sourceTree = "<group>"; };
+		5C8C0DDB2B734CAC002963F1 /* ExchangeHopeExplainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeHopeExplainView.swift; sourceTree = "<group>"; };
+		5C8C0DDD2B734CBA002963F1 /* ExchangeHopeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeHopeView.swift; sourceTree = "<group>"; };
 		5CE4548F2B68B79000874BCE /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		5CE454922B68B7CB00874BCE /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		5CE454962B68B8CA00874BCE /* AppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginView.swift; sourceTree = "<group>"; };
@@ -261,6 +282,8 @@
 		F60BB0942B71D72F00E27F38 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		F60BB0962B71D73800E27F38 /* HomeFirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeFirebaseManager.swift; sourceTree = "<group>"; };
 		F623A51C2B68C01E00B5C159 /* NoticeBoardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardModel.swift; sourceTree = "<group>"; };
+		F6DFC8D42B730A2A00931CF9 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		F6DFC8D72B735AE300931CF9 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -372,6 +395,7 @@
 				5ADE79E32B6B361D005BB3ED /* Manager */,
 				5A1A16932B622BB10063D408 /* GoogleLoginViewController.swift */,
 				5CE4548F2B68B79000874BCE /* FirestoreService.swift */,
+				5C8C0DD92B734BE0002963F1 /* NaverLocationService.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -390,13 +414,16 @@
 			path = SignUp;
 			sourceTree = "<group>";
 		};
-		5A3A441C2B6C882900B66C81 /* Map */ = {
+		5A3A441C2B6C882900B66C81 /* TownSetting */ = {
 			isa = PBXGroup;
 			children = (
-				5A3A441D2B6C88E300B66C81 /* MapView.swift */,
-				5A3A441F2B6C890900B66C81 /* NaverMapView.swift */,
+				5A2CC1172B71C230000A8776 /* TownSettingView.swift */,
+				5A3A441F2B6C890900B66C81 /* TownSettingMapView.swift */,
+				5A8345892B749DEA000984C4 /* TownSelectButtonView.swift */,
+				5A83458B2B74A0C0000984C4 /* TownAddButtonView.swift */,
+				5A83458D2B74A279000984C4 /* TownSettingSlideView.swift */,
 			);
-			path = Map;
+			path = TownSetting;
 			sourceTree = "<group>";
 		};
 		5A3E02092B6F9FC1008F8CFD /* Test */ = {
@@ -441,8 +468,6 @@
 		5A7A4E192B61DFFD00F79C23 = {
 			isa = PBXGroup;
 			children = (
-				5AA97F922B70C94500EF4081 /* Secrets.xcconfig */,
-				1DCF22772B70D4440078995D /* GoogleService-Info.plist */,
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
 				5A7A4E352B61DFFE00F79C23 /* BookBridgeTests */,
@@ -511,8 +536,9 @@
 		5A7A4E532B62268A00F79C23 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F6DFC8D12B7309D800931CF9 /* Post */,
 				738EDA9D2B71EAF20066ADE7 /* HomeTap */,
-				5A3A441C2B6C882900B66C81 /* Map */,
+				5A3A441C2B6C882900B66C81 /* TownSetting */,
 				5A3E02092B6F9FC1008F8CFD /* Test */,
 				5A1A168C2B6228150063D408 /* Login */,
 				91C60CE22B67459E00A1E8E4 /* Posting */,
@@ -542,12 +568,13 @@
 			path = EmailSignUp;
 			sourceTree = "<group>";
 		};
-		5AA97F842B709C2400EF4081 /* FireStore */ = {
+		5AA97F842B709C2400EF4081 /* Firestore */ = {
 			isa = PBXGroup;
 			children = (
 				5AA97F852B709C4000EF4081 /* FirestoreSignUpManager.swift */,
+				5A8345862B746811000984C4 /* FirestoreManager.swift */,
 			);
-			path = FireStore;
+			path = Firestore;
 			sourceTree = "<group>";
 		};
 		5ADE79D62B6B2B02005BB3ED /* SearchBook */ = {
@@ -604,12 +631,14 @@
 		5ADE79E32B6B361D005BB3ED /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				5AA97F842B709C2400EF4081 /* FireStore */,
+				5AA97F842B709C2400EF4081 /* Firestore */,
 				5ADE79DC2B6B2EDC005BB3ED /* Login */,
 				73C962A82B68C38D00D34D3F /* BookAPIManger.swift */,
 				5A3A44272B6CC7BA00B66C81 /* NaverMapApiManager.swift */,
 				5A3A44292B6CDB8A00B66C81 /* KeychainManager.swift */,
 				5AA97F822B70754D00EF4081 /* LocationManager.swift */,
+				5A32514C2B7325E7008A16A9 /* UserManager.swift */,
+				5A8345842B746741000984C4 /* ConvertManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -633,6 +662,7 @@
 				5CE454922B68B7CB00874BCE /* UserModel.swift */,
 				5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */,
 				5ADE79DF2B6B3351005BB3ED /* GoogleSignResultModel.swift */,
+				5C8C0DD72B734B8C002963F1 /* NaverReverseGeocoding.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -695,6 +725,8 @@
 				91392F282B68BE0E0092052A /* FindPostingView.swift */,
 				736127082B6B82B400943CD7 /* ImageScrollView.swift */,
 				7361270A2B6B82F100943CD7 /* ImageEditorModalView.swift */,
+				5C8C0DDB2B734CAC002963F1 /* ExchangeHopeExplainView.swift */,
+				5C8C0DDD2B734CBA002963F1 /* ExchangeHopeView.swift */,
 			);
 			path = Posting;
 			sourceTree = "<group>";
@@ -702,6 +734,7 @@
 		91C60CE62B6747C400A1E8E4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				F6DFC8D62B735ABF00931CF9 /* Post */,
 				F60BB0962B71D73800E27F38 /* HomeFirebaseManager.swift */,
 				F60BB0942B71D72F00E27F38 /* HomeViewModel.swift */,
 				5ADE79DB2B6B2D5F005BB3ED /* Login */,
@@ -711,6 +744,7 @@
 				736127102B6B84AC00943CD7 /* PostingViewModel.swift */,
 				5A3A44212B6C89AE00B66C81 /* LocationViewModel.swift */,
 				1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */,
+				5A32514E2B734D83008A16A9 /* UserLocationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -723,6 +757,22 @@
 				A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F6DFC8D12B7309D800931CF9 /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				F6DFC8D42B730A2A00931CF9 /* PostView.swift */,
+			);
+			path = Post;
+			sourceTree = "<group>";
+		};
+		F6DFC8D62B735ABF00931CF9 /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				F6DFC8D72B735AE300931CF9 /* PostViewModel.swift */,
+			);
+			path = Post;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -843,7 +893,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */,
-				1DCF22782B70D4440078995D /* GoogleService-Info.plist in Resources */,
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
 				5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */,
 			);
@@ -1011,8 +1060,11 @@
 				1D2B61842B63929900945EE2 /* KakaoLoginViewModel.swift in Sources */,
 				1D84019B2B6779CB00ADEEB5 /* IdLoginView.swift in Sources */,
 				5ADE79E82B6B5963005BB3ED /* StatusTextView.swift in Sources */,
+				5C8C0DD82B734B8C002963F1 /* NaverReverseGeocoding.swift in Sources */,
 				910F48F92B6CB42D00C0563E /* ImageDropDelegate.swift in Sources */,
 				736127112B6B84AC00943CD7 /* PostingViewModel.swift in Sources */,
+				5A83458E2B74A279000984C4 /* TownSettingSlideView.swift in Sources */,
+				F6DFC8D52B730A2A00931CF9 /* PostView.swift in Sources */,
 				5AA82E542B6764DF006EFC72 /* SignUpAuthCodeBoxView.swift in Sources */,
 				5A3A44092B6C724500B66C81 /* EmailError.swift in Sources */,
 				5CE454902B68B79000874BCE /* FirestoreService.swift in Sources */,
@@ -1021,6 +1073,7 @@
 				73C962A12B6883A700D34D3F /* SearchBooksView.swift in Sources */,
 				5A7A4E552B62269600F79C23 /* LoginView.swift in Sources */,
 				5A0242152B6D36FF00137AA6 /* LoadingCircle.swift in Sources */,
+				5A83458C2B74A0C0000984C4 /* TownAddButtonView.swift in Sources */,
 				73C962A92B68C38D00D34D3F /* BookAPIManger.swift in Sources */,
 				5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */,
 				1D84019E2B677B3B00ADEEB5 /* IdLoginViewModel.swift in Sources */,
@@ -1036,7 +1089,7 @@
 				5A6CC5252B6B19630037429F /* Validator.swift in Sources */,
 				1DA6E06C2B68D9EB00D631D5 /* ChangePasswordView.swift in Sources */,
 				73C962AB2B68C4D800D34D3F /* SearchBooksViewModel.swift in Sources */,
-				5A3A44202B6C890900B66C81 /* NaverMapView.swift in Sources */,
+				5A3A44202B6C890900B66C81 /* TownSettingMapView.swift in Sources */,
 				5A3A44172B6C779200B66C81 /* PwdError.swift in Sources */,
 				91B80A452B6798B9000D5339 /* TabBarView.swift in Sources */,
 				91B80A422B676EEE000D5339 /* ImagePicker.swift in Sources */,
@@ -1049,12 +1102,15 @@
 				736127052B6B538800943CD7 /* NaverLoginView.swift in Sources */,
 				91B80A472B6799B7000D5339 /* ChangePostingView.swift in Sources */,
 				1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */,
+				5C8C0DDA2B734BE0002963F1 /* NaverLocationService.swift in Sources */,
 				5A6CC5232B6B19510037429F /* RedundantValidator.swift in Sources */,
 				F60BB0932B71D72400E27F38 /* HomeView.swift in Sources */,
 				5A3A440B2B6C726100B66C81 /* NicknameError.swift in Sources */,
 				5AA82E5E2B67891E006EFC72 /* SmtpManager.swift in Sources */,
 				5A3A44262B6CB36900B66C81 /* Location.swift in Sources */,
+				5C8C0DDE2B734CBA002963F1 /* ExchangeHopeView.swift in Sources */,
 				5ADE79DE2B6B3305005BB3ED /* GoogleAuthModel.swift in Sources */,
+				5A83458A2B749DEA000984C4 /* TownSelectButtonView.swift in Sources */,
 				5ADE79E22B6B34D0005BB3ED /* GoogleAuthViewModel.swift in Sources */,
 				5A3A44192B6C77A300B66C81 /* PwdConfirmError.swift in Sources */,
 				736127072B6B543A00943CD7 /* NaverAuthManager.swift in Sources */,
@@ -1067,12 +1123,14 @@
 				F60BB0972B71D73900E27F38 /* HomeFirebaseManager.swift in Sources */,
 				5A5041CE2B6A637A00211CF2 /* PathType.swift in Sources */,
 				7361270F2B6B83BF00943CD7 /* DeleteImageButtonView.swift in Sources */,
+				5A2CC1182B71C230000A8776 /* TownSettingView.swift in Sources */,
 				1DFDD1BC2B71BF3D00B320F7 /* tapInfo.swift in Sources */,
 				73C962A32B68880500D34D3F /* SearchBarView.swift in Sources */,
 				5A3A44222B6C89AE00B66C81 /* LocationViewModel.swift in Sources */,
 				73C962A52B688D4200D34D3F /* BookModel.swift in Sources */,
 				73DDA5DF2B6A336100B25FB8 /* SelectBooksView.swift in Sources */,
 				5A1A16942B622BB10063D408 /* GoogleLoginViewController.swift in Sources */,
+				5C8C0DDC2B734CAC002963F1 /* ExchangeHopeExplainView.swift in Sources */,
 				1DB39DBC2B6B57F100C1B489 /* BookShelfViewModel.swift in Sources */,
 				5AA82E4D2B675E26006EFC72 /* EmailSignUpView.swift in Sources */,
 				1DE382A72B734E74009A7A15 /* HomeRecentSearchView.swift in Sources */,
@@ -1084,26 +1142,30 @@
 				738EDA9F2B71EB240066ADE7 /* TapCategory.swift in Sources */,
 				91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */,
 				5CE454992B68B8EF00874BCE /* AppleAuthManager.swift in Sources */,
+				5A8345872B746811000984C4 /* FirestoreManager.swift in Sources */,
 				5A1A16962B6231870063D408 /* GoogleAuthManager.swift in Sources */,
 				5AA82E4F2B6760C7006EFC72 /* SignUpInputBoxView.swift in Sources */,
 				1DA6E06E2B68E2EA00D631D5 /* FindIdResultView.swift in Sources */,
 				5AA97F892B70BCF000EF4081 /* BundleExtension.swift in Sources */,
-				5A3A441E2B6C88E300B66C81 /* MapView.swift in Sources */,
 				738EDAA32B71ECA80066ADE7 /* HomeListItemView.swift in Sources */,
 				5A3A44152B6C778200B66C81 /* SignUpInputType.swift in Sources */,
 				5A3A440D2B6C73D500B66C81 /* MiddleBlueBtnStyle.swift in Sources */,
 				5A2DE09A2B68915200EF3A6B /* SignUpInputer.swift in Sources */,
+				5A32514D2B7325E7008A16A9 /* UserManager.swift in Sources */,
 				5AA97F832B70754D00EF4081 /* LocationManager.swift in Sources */,
 				1D71C6C12B6C743900EEC95D /* BookView.swift in Sources */,
 				5A2DE0972B6884BE00EF3A6B /* EmailCertiView.swift in Sources */,
+				5A8345852B746741000984C4 /* ConvertManager.swift in Sources */,
 				F623A51D2B68C01E00B5C159 /* NoticeBoardModel.swift in Sources */,
 				1DB39DBA2B6B57B100C1B489 /* BookShelfView.swift in Sources */,
 				F623A51D2B68C01E00B5C159 /* NoticeBoardModel.swift in Sources */,
+				F6DFC8D82B735AE300931CF9 /* PostViewModel.swift in Sources */,
 				5A3E020D2B6FA001008F8CFD /* TestViewModel.swift in Sources */,
 				5A1A168E2B6228290063D408 /* GoogleLoginView.swift in Sources */,
 				910F491C2B6CC66900C0563E /* CameraModalView.swift in Sources */,
 				5A5041CC2B6A635C00211CF2 /* PathViewModel.swift in Sources */,
 				7361270B2B6B82F100943CD7 /* ImageEditorModalView.swift in Sources */,
+				5A32514F2B734D83008A16A9 /* UserLocationViewModel.swift in Sources */,
 				1DFDD1BA2B71B48400B320F7 /* SignInState.swift in Sources */,
 				1DB39DC02B6B8A5300C1B489 /* BookDetailView.swift in Sources */,
 				1D71C6C32B6C763900EEC95D /* AddBookBtnView.swift in Sources */,
@@ -1148,7 +1210,6 @@
 /* Begin XCBuildConfiguration section */
 		5A7A4E442B61DFFE00F79C23 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5AA97F922B70C94500EF4081 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1212,7 +1273,6 @@
 		};
 		5A7A4E452B61DFFE00F79C23 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5AA97F922B70C94500EF4081 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
