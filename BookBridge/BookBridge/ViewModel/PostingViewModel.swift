@@ -57,7 +57,7 @@ extension PostingViewModel {
         linkNoticeBoard.setData(post.dictionary)
         
         // 내 게시물   user/userId/myNoticeBoard/noticeBoardId
-        let user = db.collection("user").document("joo")
+        let user = db.collection("User").document(UserManager.shared.uid)
         
         user.collection("myNoticeBoard").document(noticeBoard.id).setData(post.dictionary)
         
