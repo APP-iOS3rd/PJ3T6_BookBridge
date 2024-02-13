@@ -83,6 +83,40 @@ class ChatListViewModel: ObservableObject {
                 
                 self.chatUser = .init(data: data)
             }
+        }
+    }
+    
+    // 사용자 데이터 가져오기
+    func fetchAllData() {
+        // 현재 사용자 정보 호출
+        fetchCurrentUser()
+        fetchRecentMessages()
+    }
+    
+    // 현재 사용자 데이터 가져오기
+    func fetchCurrentUser() {
+        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else {
+            self.errorMessage = "Could not find firebase uid"
+            return
+        }
+        
+        FirebaseManager.shared.firestore.collection("chatUsers")
+            .document(uid)
+            .getDocument { snapshot, error in
+                if let error = error {
+                    self.errorMessage = "Failed to fetch current user: \(error)"
+                    print("Failed to fetch current user:", error)
+                    return
+                }
+                
+                guard let data = snapshot?.data() else {
+                    self.errorMessage = "No data found"
+                    return
+                }
+                
+                self.chatUser = .init(data: data)
+            }
+        
     }
     
     // 최근 메시지 가져오기
@@ -161,7 +195,7 @@ class ChatListViewModel: ObservableObject {
 //            print("Failed to listen for new messages: Current user not found")
 //            return
 //        }
-//
+//        
 //        firestoreListener = FirebaseManager.shared.firestore.collection("chatUsers")
 //            .document(currentUserID)
 //            .collection("recent_messages")
@@ -170,12 +204,12 @@ class ChatListViewModel: ObservableObject {
 //                    print("Failed to listen for new messages: \(error)")
 //                    return
 //                }
-//
+//                
 //                // 새로운 메시지가 도착하면 최근 메시지 목록 갱신
 //                self.fetchRecentMessages()
 //            }
 //    }
-    
+
     // 로그아웃 처리
     func handleSignOut() {
         isUserCurrentlyLoggedOut.toggle()

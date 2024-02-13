@@ -37,7 +37,11 @@ class ChatLogViewModel: ObservableObject {
             .document(fromId)
             .collection("messages")
             .document(toId)
+<<<<<<< HEAD
             .collection("chatHistory")
+=======
+            .collection("messages")
+>>>>>>> e3291eb2c47e7b489e62d48de0b459c1cc8e5698
             .order(by: FirebaseConstants.timestamp)   // 채팅 메시지 오름차순 정렬
             .addSnapshotListener { querySnapshot, error in   // 실시간 업데이트 감시
                 if let error = error {
@@ -51,7 +55,10 @@ class ChatLogViewModel: ObservableObject {
                     if change.type == .added {
                         let data = change.document.data()
                         self.chatMessages.append(ChatMessage(documentId: change.document.documentID, data: data))
+<<<<<<< HEAD
                         print("Appending chatMessag in ChatLogView\(Date())")
+=======
+>>>>>>> e3291eb2c47e7b489e62d48de0b459c1cc8e5698
                     }
                 })
                 
@@ -74,7 +81,11 @@ class ChatLogViewModel: ObservableObject {
             .document(fromId)
             .collection("messages")
             .document(toId)
+<<<<<<< HEAD
             .collection("chatHistory")
+=======
+            .collection("messages")
+>>>>>>> e3291eb2c47e7b489e62d48de0b459c1cc8e5698
             .document()
         
         let messageData = [
@@ -104,7 +115,11 @@ class ChatLogViewModel: ObservableObject {
             .document(toId)
             .collection("messages")
             .document(fromId)
+<<<<<<< HEAD
             .collection("chatHistory")
+=======
+            .collection("messages")
+>>>>>>> e3291eb2c47e7b489e62d48de0b459c1cc8e5698
             .document()
         
         recipientMessageDocument.setData(messageData) { error in
@@ -141,7 +156,17 @@ class ChatLogViewModel: ObservableObject {
             FirebaseConstants.email: chatUser.email
         ] as [String : Any]
         
+<<<<<<< HEAD
         senderDocument.setData(senderMessageData) { error in
+=======
+        // 발신자의 최근 메시지 저장
+        let senderRmDocument = FirebaseManager.shared.firestore.collection("chatUsers")
+            .document(fromId) // 로그인 계정
+            .collection("recent_messages")
+            .document(toId) // 메시지 수신자 계정 정보
+        
+        senderRmDocument.setData(rmData) { error in
+>>>>>>> e3291eb2c47e7b489e62d48de0b459c1cc8e5698
             if let error = error {
                 self.errorMessage = "Failed to save recent message: \(error)"
                 print("Failed to save recent message: \(error)")
@@ -149,6 +174,7 @@ class ChatLogViewModel: ObservableObject {
             }
         }
         
+<<<<<<< HEAD
         // 수신자 메시지 데이터
         let recipientMessageData = [
             FirebaseConstants.timestamp: Timestamp(),
@@ -158,6 +184,13 @@ class ChatLogViewModel: ObservableObject {
             FirebaseConstants.profileImageUrl: chatUser.profileImageUrl,
             FirebaseConstants.email: chatUser.email
         ] as [String : Any]
+=======
+        // 수신자 최근 메시지 저장
+        let recipientRmDocument = FirebaseManager.shared.firestore.collection("chatUsers")
+            .document(toId) // 로그인 계정
+            .collection("recent_messages") // 서브컬렉션 messages 생성
+            .document(fromId) // 메시지 수신자 계정 정보
+>>>>>>> e3291eb2c47e7b489e62d48de0b459c1cc8e5698
         
         // 수신자 최근 메시지 저장
         let recipientDocument = FirebaseManager.shared.firestore.collection("chatUsers")
