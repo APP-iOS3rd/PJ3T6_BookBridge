@@ -119,16 +119,17 @@ class ChatLogViewModel: ObservableObject {
     }
     
     // 채팅목록 최근 메세지 저장
-    private func persistRecentMessage() {
+    func persistRecentMessage() {
         guard let chatUser = chatUser else { return }
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
         guard let toId = self.chatUser?.uid else { return }
         
         // 발신자 최근 메시지 저장
-        let document = FirebaseManager.shared.firestore.collection("chatUsers")
+        let senderDocument = FirebaseManager.shared.firestore.collection("chatUsers")
             .document(uid)
             .collection("recent_messages")
             .document(toId)
+        print("발신자 메시지 = uid:\(uid), toid:\(toId), document: \(senderDocument.path)")
         
         // 발신자메시지 데이터
         let senderMessageData = [
@@ -140,7 +141,7 @@ class ChatLogViewModel: ObservableObject {
             FirebaseConstants.email: chatUser.email
         ] as [String : Any]
         
-        document.setData(senderMessageData) { error in
+        senderDocument.setData(senderMessageData) { error in
             if let error = error {
                 self.errorMessage = "Failed to save recent message: \(error)"
                 print("Failed to save recent message: \(error)")
@@ -149,7 +150,6 @@ class ChatLogViewModel: ObservableObject {
         }
         
         // 수신자 메시지 데이터
-        guard let currentUser = FirebaseManager.shared.currentUser else { return }
         let recipientMessageData = [
             FirebaseConstants.timestamp: Timestamp(),
             FirebaseConstants.text: self.chatText,
@@ -160,17 +160,18 @@ class ChatLogViewModel: ObservableObject {
         ] as [String : Any]
         
         // 수신자 최근 메시지 저장
-        FirebaseManager.shared.firestore
-            .collection("chatUsers")
+        let recipientDocument = FirebaseManager.shared.firestore.collection("chatUsers")
             .document(toId)
             .collection("recent_messages")
-            .document(currentUser.uid)
-            .setData(recipientMessageData) { error in
+            .document(uid)
+        
+        print("수신자 메시지 = uid:\(uid), toid:\(toId), document: \(recipientDocument.path)")
+            
+        recipientDocument.setData(recipientMessageData) { error in
                 if let error = error {
-                    print("Failed to save recipient recent message: \(error)")
+                    print("Failed to save recipient recent message: ")
                     return
                 }
             }
     }
-
 }
