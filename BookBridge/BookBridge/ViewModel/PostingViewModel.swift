@@ -16,12 +16,12 @@ class PostingViewModel: ObservableObject {
 
     // 교환 장소 위도,경도
     func updateNoticeLocation(lat: Double?, lng: Double?){
-        guard let lat = lat, let lng = lng else {return}
+        guard let lat = lat, let lng = lng else { return }
         
         if noticeBoard.noticeLocation.count >= 2 {
             noticeBoard.noticeLocation[0] = lat
             noticeBoard.noticeLocation[1] = lng
-        }else{
+        } else {
             noticeBoard.noticeLocation = [lat, lng]
         }
     }
@@ -48,8 +48,6 @@ extension PostingViewModel {
         }
                         
         FirestoreManager.fetchUserModel{ userModel in
-            let location = userModel?.getSelectedLocation()
-                        
             let post = NoticeBoard(
                 id: self.noticeBoard.id,
                 userId: UserManager.shared.uid,
@@ -61,7 +59,7 @@ extension PostingViewModel {
                 isChange: isChange,
                 state: 0,
                 date: Date(), hopeBook: self.noticeBoard.hopeBook,
-                geohash: location?.geohash ?? ""
+                geohash: userModel?.getSelectedLocation()?.geohash ?? ""
             )
             
             let linkNoticeBoard = self.db.collection("noticeBoard").document(self.noticeBoard.id)

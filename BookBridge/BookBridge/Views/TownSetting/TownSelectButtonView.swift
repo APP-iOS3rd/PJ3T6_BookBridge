@@ -11,8 +11,7 @@ import FirebaseFirestore
 
 struct TownSelectButtonView: View {
     @StateObject var userLocationViewModel = UserLocationViewModel.shared
-    @Binding var selectedLocation: Location?
-    @Binding var locations: [Location]
+    @Binding var selectedLocation: Location?    
     @State private var showAlert = false
     var location: Location
     

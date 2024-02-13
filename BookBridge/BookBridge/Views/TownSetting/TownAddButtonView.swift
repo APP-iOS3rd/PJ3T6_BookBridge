@@ -11,12 +11,11 @@ import FirebaseFirestore
 
 struct TownAddButtonView: View {
     @StateObject var userLocationViewModel = UserLocationViewModel.shared
-    @Binding var selectedLocation: Location?
-    @Binding var locations: [Location]
+    @Binding var selectedLocation: Location?    
     
     var body: some View {
         Button {
-            let location = userLocationViewModel.makeLocationByCurLocation()
+            let location = FirestoreManager.makeLocationByCurLocation()
             userLocationViewModel.locations?.append(location)
             userLocationViewModel.selectLocation(location: location)
         } label: {

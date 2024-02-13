@@ -14,13 +14,10 @@ struct TownSettingView: View {
     @StateObject var locationViewModel = LocationViewModel.shared
     @StateObject var userLocationViewModel = UserLocationViewModel.shared
     @State private var sliderValue = 1.0
-        
     @State var selectedLocation: Location?
     let locationManager = LocationManager.shared
     let db = Firestore.firestore()
-    
-    @State var locations = [Location]()
-                
+                        
     var body: some View {
         VStack {
             // 지도
@@ -32,16 +29,12 @@ struct TownSettingView: View {
                 ForEach(userLocationViewModel.locations ?? [], id: \.id) { location in
                     TownSelectButtonView(
                         selectedLocation: self.$selectedLocation,
-                        locations: self.$locations,
                         location: location
                     )                                        
                 }
                 
                 if userLocationViewModel.locations?.count ?? 0 < 2 {
-                    TownAddButtonView(
-                        selectedLocation: self.$selectedLocation,
-                        locations: self.$locations
-                    )
+                    TownAddButtonView(selectedLocation: self.$selectedLocation)
                 }
             }
             .padding(.bottom, 20)

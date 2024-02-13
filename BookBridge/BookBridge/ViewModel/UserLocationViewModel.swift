@@ -40,9 +40,7 @@ final class UserLocationViewModel: NSObject, ObservableObject, NMFMapViewCameraD
     @Published var selectedLocation: Location?
                 
     static let shared = UserLocationViewModel()
-    let locationManager = LocationManager.shared
     let view = NMFNaverMapView(frame: .zero)
-    var locationManger: CLLocationManager?
     var circle = NMFCircleOverlay()
     var prevCircleRadius: CGFloat = 100
                 
@@ -196,17 +194,4 @@ final class UserLocationViewModel: NSObject, ObservableObject, NMFMapViewCameraD
     func getNaverMapView() -> NMFNaverMapView {
         view
     }
-    
-    func makeLocationByCurLocation() -> Location {
-        return Location(
-            id: UUID().uuidString,
-            lat: locationManager.lat,
-            long: locationManager.long,
-            city: locationManager.city,
-            distriction: locationManager.distriction,
-            dong: locationManager.dong,
-            distance: 1
-        )
-    }
-
 }

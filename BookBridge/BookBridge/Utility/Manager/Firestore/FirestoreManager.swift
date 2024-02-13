@@ -157,7 +157,17 @@ class FirestoreManager {
     
     // Location 생성
     static func makeLocationByCurLocation() -> Location {
-        return Location(id: UUID().uuidString, lat: locationManager.lat, long: locationManager.long, city: locationManager.city, distriction: locationManager.distriction, dong: locationManager.dong, distance: 1)
+        return 
+            Location(
+                id: UUID().uuidString,
+                lat: locationManager.lat,
+                long: locationManager.long,
+                city: locationManager.city,
+                distriction: locationManager.distriction,
+                dong: locationManager.dong,
+                distance: 1,
+                geohash: locationManager.geohash
+            )
     }
     
     // User documnet 가져오기
