@@ -14,9 +14,7 @@
 
 import Foundation
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
+///:nodoc:
 extension URL {
   public func params() -> [String:Any]? {
     var dict = [String:Any]()
@@ -34,9 +32,7 @@ extension URL {
   }
 }
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
+///:nodoc:
 extension URL {
     public func oauthResult() -> (code: String?, error: Error?, state: String?) {
         var parameters = [String: String]()
@@ -60,27 +56,6 @@ extension URL {
             } else {
                 return (nil, SdkError(parameters: parameters), state)
             }
-        }
-    }
-
-    public func appsResult() -> (result:[String:String]?, error: Error?) {
-        var parameters = [String: String]()
-        if let queryItems = URLComponents(string: self.absoluteString)?.queryItems {
-            for item in queryItems {
-                parameters[item.name] = item.value
-            }
-        }
-        
-        let _ = parameters["method"]
-        guard let status = parameters["status"] else {
-            return (nil, SdkError(reason: .IllegalState))
-        }
-        
-        if status == "error" {
-            return (nil, SdkError(appsParameters: parameters))
-        }
-        else {
-            return (parameters, nil)
         }
     }
 }

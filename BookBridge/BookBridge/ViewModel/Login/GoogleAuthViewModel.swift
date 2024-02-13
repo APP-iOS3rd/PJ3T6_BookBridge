@@ -19,6 +19,7 @@ final class GoogleAuthViewModel: ObservableObject {
             FirestoreSignUpManager.shared.getUserData(email: email) { userData in
                 if let userData = userData {
                     // 로그인
+                    UserManager.shared.login(uid: result.uid)
                 } else {
                     // 회원가입
                     FirestoreSignUpManager.shared.addUser(id: result.uid, email: email, password: nil, nickname: nil, phoneNumber: nil)

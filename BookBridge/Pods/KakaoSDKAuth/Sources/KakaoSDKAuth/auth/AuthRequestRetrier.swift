@@ -16,9 +16,7 @@ import Foundation
 import Alamofire
 import KakaoSDKCommon
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
+///:nodoc:
 @available(iOSApplicationExtension, unavailable)
 public class AuthRequestRetrier : RequestInterceptor {
     private var requestsToRetry: [(RetryResult) -> Void] = []
@@ -38,7 +36,7 @@ public class AuthRequestRetrier : RequestInterceptor {
         if let sdkError = API.getSdkError(error: error) {
             if !sdkError.isApiFailed {
                 SdkLog.e("\(logString)\n error:\(error)\n not api error -> pass through\n\n")
-                completion(.doNotRetryWithError(sdkError))
+                completion(.doNotRetryWithError(SdkError(message:"not api error -> pass through")))
                 return
             }
 
@@ -48,10 +46,8 @@ public class AuthRequestRetrier : RequestInterceptor {
                 SdkLog.e("\(logString)\n\n")
 
                 if shouldRefreshToken(request) {
-//                    SdkLog.d("---------------------------- enqueue completion\n request: \(request) \n\n")
-                    if let urlString = request.request?.url?.absoluteString, urlString.hasSuffix(Paths.checkAccessToken) == false {
-                        requestsToRetry.append(completion)
-                    }
+                    //SdkLog.d("---------------------------- enqueue completion\n request: \(request) \n\n")
+                    requestsToRetry.append(completion)
 
                     if !isRefreshing {
                         isRefreshing = true

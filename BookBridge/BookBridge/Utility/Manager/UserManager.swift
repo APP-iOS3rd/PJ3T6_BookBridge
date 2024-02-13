@@ -11,10 +11,21 @@ class UserManager {
     static let shared = UserManager()
     private init() {}
     
-    var uid = "38HP0OGCEpY9cpwjknZqflX1Jsy1"
+    var uid = ""
+    var isLogin = false
     
     func setUser(uid: String) {
         self.uid = uid
+    }
+    
+    func login(uid: String) {
+        self.uid = uid
+        self.isLogin = true
+    }
+    
+    func logout() {
+        self.uid = ""
+        self.isLogin = false
     }
 }
 

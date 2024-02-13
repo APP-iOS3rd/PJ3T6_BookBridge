@@ -17,47 +17,33 @@ import SafariServices
 import AuthenticationServices
 import KakaoSDKCommon
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
 @available(iOSApplicationExtension, unavailable)
 let AUTH_CONTROLLER = AuthController.shared
 
-/// 동의 화면 요청 시 추가 상호작용을 요청할 때 사용
+/// 인가 코드 요청 시 추가 상호작용을 요청하고자 할 때 전달하는 파라미터입니다.
 public enum Prompt : String {
     
-    /// 기존 사용자 인증 여부와 상관없이 사용자에게 카카오계정 로그인 화면을 출력하여 다시 사용자 인증을 수행하고자 할 때 사용
+    /// 기본 웹 브라우저에 카카오계정 쿠키(cookie)가 이미 있더라도 이를 무시하고 무조건 카카오계정 로그인 화면을 보여주도록 합니다.
     case Login = "login"
     
-    /// 인증 로그인을 요청할 때 사용
+    /// 보안 로그인을 요청합니다. 보안 로그인은 카카오 인증서 기반의 사용자 전자서명 과정을 포함합니다.
     case Cert = "cert"
     
-    /// 사용자가 카카오계정 신규 가입 후 로그인하도록 할 때 사용
+    /// 카카오계정 가입 페이지로 이동 후, 카카오계정 가입 완료 후 동의 화면 출력
     case Create = "create"
     
-#if swift(>=5.8)
-    @_documentation(visibility: private)
-#endif
+    ///:nodoc:
     case UnifyDaum = "unify_daum"
-    
-    /// 카카오계정 간편 로그인을 요청할 때 사용
-    case SelectAccount = "select_account"
 }
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
 @available(iOS 13.0, *)
 @available(iOSApplicationExtension, unavailable)
-public class DefaultASWebAuthenticationPresentationContextProvider: NSObject, ASWebAuthenticationPresentationContextProviding {
+class DefaultPresentationContextProvider: NSObject, ASWebAuthenticationPresentationContextProviding {
     public func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-        return UIApplication.sdkKeyWindow() ?? ASPresentationAnchor()
+        return UIApplication.shared.keyWindow ?? ASPresentationAnchor()
     }
 }
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
 @available(iOSApplicationExtension, unavailable)
 public class AuthController {
     
@@ -68,7 +54,7 @@ public class AuthController {
    
     public var presentationContextProvider: Any?
     
-    public var authenticationSession : ASWebAuthenticationSession?
+    public var authenticationSession : Any?
     
     public var authorizeWithTalkCompletionHandler : ((URL) -> Void)?
 
@@ -80,12 +66,20 @@ public class AuthController {
     public var codeVerifier : String?
     
     //내부 디폴트브라우져용 time delay
+    /// :nodoc:
     public static let delayForAuthenticationSession : Double = 0.4
     
     public init() {
         AUTH_API.checkMigrationAndInitSession()
+        
         resetCodeVerifier()
-        self.presentationContextProvider = DefaultASWebAuthenticationPresentationContextProvider()
+        
+        if #available(iOS 13.0, *) {
+            self.presentationContextProvider = DefaultPresentationContextProvider()
+        }
+        else {
+            self.presentationContextProvider = nil
+        }
     }
     
     public func resetCodeVerifier() {
@@ -93,6 +87,7 @@ public class AuthController {
     }
     
     // MARK: Login with KakaoTalk
+    /// :nodoc:
     public func _authorizeWithTalk(launchMethod: LaunchMethod? = nil,
                                   prompts: [Prompt]? = nil,
                                   state: String? = nil,
@@ -129,8 +124,7 @@ public class AuthController {
                                                     state:state,
                                                     channelPublicIds: channelPublicIds,
                                                     serviceTerms: serviceTerms,
-                                                    nonce:nonce,
-                                                    launchMethod:launchMethod)
+                                                    nonce:nonce)
 
         guard let url = SdkUtils.makeUrlWithParameters(url:Urls.compose(.TalkAuth, path:Paths.authTalk),
                                                        parameters: parameters,
@@ -142,50 +136,12 @@ public class AuthController {
         
         UIApplication.shared.open(url, options: [:]) { (result) in
             if (result) {
-                SdkLog.i("카카오톡 실행: \(url.absoluteString)")
+                SdkLog.d("카카오톡 실행: \(url.absoluteString)")
             }
             else {
-                //유니버셜링크 방식일때 톡이 설치되어 있지만 톡을 실행하지 못하는 현상 대응
-                if launchMethod == .UniversalLink {
-                    self._retryOpen(withLaunchMethod:.CustomScheme, parameters: parameters, completion: completion)
-                }
-                else {
-                    SdkLog.e("카카오톡 실행 실패")
-                    completion(nil, SdkError(reason: .NotSupported))
-                    return
-                }
-            }
-        }
-    }
-    
-    func _retryOpen(withLaunchMethod:LaunchMethod, parameters:[String:Any], completion: @escaping (OAuthToken?, Error?) -> Void) {
-        var modifiedParameters = [String:Any]()
-        
-        for (key, value) in parameters {
-            if key == "deep_link_method" {
-                modifiedParameters[key] = "\(value),\(withLaunchMethod.rawValue)"
-            }    
-            else {
-                modifiedParameters[key] = value
-            }
-        }
-
-        guard let url = SdkUtils.makeUrlWithParameters(url:Urls.compose(.TalkAuth, path:Paths.authTalk),
-                                                       parameters: modifiedParameters,
-                                                       launchMethod: withLaunchMethod) else {
-            SdkLog.e("(\(withLaunchMethod) retry) Bad Parameter - make URL error")
-            completion(nil, SdkError(reason: .BadParameter, message:"(\(withLaunchMethod) retry) Bad Parameter - make URL error"))
-            return
-        }
-        
-        UIApplication.shared.open(url, options: [:]) { (result) in
-            if (result) {
-                SdkLog.i("(\(withLaunchMethod) retry) 카카오톡 실행: \(url.absoluteString)")
-            }
-            else {
-                SdkLog.e("(\(withLaunchMethod) retry) 카카오톡 실행 실패 \n url:\(url.absoluteString)")
-               completion(nil, SdkError(reason: .NotSupported, message: "(\(withLaunchMethod) retry) KakaoTalk launch failed."))
-               return
+                SdkLog.e("카카오톡 실행 취소")
+                completion(nil, SdkError(reason: .Cancelled, message: "The KakaoTalk authentication has been canceled by user."))
+                return
             }
         }
     }
@@ -212,6 +168,7 @@ public class AuthController {
         return false
     }
     
+    /// :nodoc:
     public func _authorizeByAgtWithAuthenticationSession(scopes:[String],
                                                          state: String? = nil,
                                                          nonce: String? = nil,
@@ -252,6 +209,7 @@ public class AuthController {
         }
     }
     
+    /// :nodoc:
     public func _authorizeWithAuthenticationSession(prompts: [Prompt]? = nil,
                                                     state: String? = nil,
                                                     agtToken: String? = nil,
@@ -269,19 +227,21 @@ public class AuthController {
             [weak self] (callbackUrl:URL?, error:Error?) in
             
             guard let callbackUrl = callbackUrl else {
-                if let error = error as? ASWebAuthenticationSessionError {
+                if #available(iOS 12.0, *), let error = error as? ASWebAuthenticationSessionError {
                     if error.code == ASWebAuthenticationSessionError.canceledLogin {
                         SdkLog.e("The authentication session has been canceled by user.")
                         completion(nil, SdkError(reason: .Cancelled, message: "The authentication session has been canceled by user."))
                         return
-                    }
-                    else {
+                    } else {
                         SdkLog.e("An error occurred on executing authentication session.\n reason: \(error)")
                         completion(nil, SdkError(reason: .Unknown, message: "An error occurred on executing authentication session."))
                         return
                     }
-                }
-                else {
+                } else if let error = error as? SFAuthenticationError, error.code == SFAuthenticationError.canceledLogin {
+                    SdkLog.e("The authentication session has been canceled by user.")
+                    completion(nil, SdkError(reason: .Cancelled, message: "The authentication session has been canceled by user."))
+                    return
+                } else {
                     SdkLog.e("An unknown authentication session error occurred.")
                     completion(nil, SdkError(reason: .Unknown, message: "An unknown authentication session error occurred."))
                     return
@@ -339,18 +299,28 @@ public class AuthController {
         
         if let url = url {
             SdkLog.d("\n===================================================================================================")
-            SdkLog.i("request: \n url:\(url)\n")
+            SdkLog.d("request: \n url:\(url)\n")
             
-            let authenticationSession = ASWebAuthenticationSession(url: url,
-                                                                   callbackURLScheme: (try! KakaoSDK.shared.scheme()),
-                                                                   completionHandler:authenticationSessionCompletionHandler)
-            
-            authenticationSession.presentationContextProvider = AUTH_CONTROLLER.presentationContextProvider as? ASWebAuthenticationPresentationContextProviding
-            if agtToken != nil {
-                authenticationSession.prefersEphemeralWebBrowserSession = true
-            }            
-            AUTH_CONTROLLER.authenticationSession = authenticationSession
-            AUTH_CONTROLLER.authenticationSession?.start()
+            if #available(iOS 12.0, *) {
+                let authenticationSession = ASWebAuthenticationSession(url: url,
+                                                                       callbackURLScheme: (try! KakaoSDK.shared.scheme()),
+                                                                       completionHandler:authenticationSessionCompletionHandler)
+                if #available(iOS 13.0, *) {
+                    authenticationSession.presentationContextProvider = AUTH_CONTROLLER.presentationContextProvider as? ASWebAuthenticationPresentationContextProviding
+                    if agtToken != nil {
+                        authenticationSession.prefersEphemeralWebBrowserSession = true
+                    }
+                }
+                AUTH_CONTROLLER.authenticationSession = authenticationSession
+                (AUTH_CONTROLLER.authenticationSession as? ASWebAuthenticationSession)?.start()
+                
+            }
+            else {
+                AUTH_CONTROLLER.authenticationSession = SFAuthenticationSession(url: url,
+                                                                               callbackURLScheme: (try! KakaoSDK.shared.scheme()),
+                                                                               completionHandler:authenticationSessionCompletionHandler)
+                (AUTH_CONTROLLER.authenticationSession as? SFAuthenticationSession)?.start()
+            }
         }
     }
 }
@@ -359,14 +329,13 @@ public class AuthController {
 extension AuthController {
     //Rx 공통 Helper
     
+    /// :nodoc:
     public func makeParametersForTalk(prompts: [Prompt]? = nil,
                                       state: String? = nil,
                                       channelPublicIds: [String]? = nil,
                                       serviceTerms: [String]? = nil,
                                       nonce: String? = nil,
-                                      settleId: String? = nil,
-                                      kauthTxId: String? = nil,
-                                      launchMethod: LaunchMethod? = nil) -> [String:Any] {
+                                      settleId: String? = nil) -> [String:Any] {
         self.resetCodeVerifier()
         
         var parameters = [String:Any]()
@@ -374,10 +343,6 @@ extension AuthController {
         parameters["redirect_uri"] = KakaoSDK.shared.redirectUri()
         parameters["response_type"] = Constants.responseType
         parameters["headers"] = ["KA": Constants.kaHeader].toJsonString()
-        
-        if let launchMethod = launchMethod {
-            parameters["deep_link_method"] = launchMethod.rawValue
-        }
         
         var extraParameters = [String: Any]()
         
@@ -402,9 +367,7 @@ extension AuthController {
         if let settleId = settleId {
             extraParameters["settle_id"] = settleId
         }
-        if let kauthTxId = kauthTxId {
-            extraParameters["kauth_tx_id"] = kauthTxId
-        }
+        
         if let approvalType = KakaoSDK.shared.approvalType().type {
             extraParameters["approval_type"] = approvalType
         }
@@ -438,8 +401,7 @@ extension AuthController {
                                nonce: String? = nil,
                                accountsSkipIntro: Bool? = nil,
                                accountsTalkLoginVisible: Bool? = nil,
-                               settleId: String? = nil,
-                               kauthTxId: String? = nil) -> [String:Any] {
+                               settleId: String? = nil) -> [String:Any] {
         self.resetCodeVerifier()
         
         var parameters = [String:Any]()
@@ -499,10 +461,6 @@ extension AuthController {
             parameters["settle_id"] = settleId
         }
         
-        if let kauthTxId = kauthTxId {
-            parameters["kauth_tx_id"] = kauthTxId
-        }
-        
         self.codeVerifier = SdkCrypto.shared.generateCodeVerifier()
         if let codeVerifier = self.codeVerifier {
             SdkLog.d("code_verifier: \(codeVerifier)")
@@ -521,13 +479,15 @@ extension AuthController {
 @available(iOSApplicationExtension, unavailable)
 extension AuthController {
 
+    /// :nodoc:
     public func _certAuthorizeWithTalk(launchMethod: LaunchMethod? = nil,
-                                       prompts: [Prompt]? = nil,
-                                       channelPublicIds: [String]? = nil,
-                                       serviceTerms: [String]? = nil,
-                                       nonce: String? = nil,
-                                       kauthTxId: String? = nil,
-                                       completion: @escaping (CertTokenInfo?, Error?) -> Void) {
+                                      prompts: [Prompt]? = nil,
+                                      state: String? = nil,
+                                      channelPublicIds: [String]? = nil,
+                                      serviceTerms: [String]? = nil,
+                                      nonce: String? = nil,
+                                      settleId: String? = nil,
+                                      completion: @escaping (CertTokenInfo?, Error?) -> Void) {
         
         AUTH_CONTROLLER.authorizeWithTalkCompletionHandler = { (callbackUrl) in
             let parseResult = callbackUrl.oauthResult()
@@ -555,13 +515,14 @@ extension AuthController {
         if let prompts = prompts {
             certPrompts = prompts + certPrompts
         }
-                   
+        
         let parameters = self.makeParametersForTalk(prompts:certPrompts,
+                                                    state:state,
                                                     channelPublicIds: channelPublicIds,
                                                     serviceTerms: serviceTerms,
                                                     nonce: nonce,
-                                                    kauthTxId: kauthTxId)
-        
+                                                    settleId: settleId)
+
         guard let url = SdkUtils.makeUrlWithParameters(url:Urls.compose(.TalkAuth, path:Paths.authTalk),
                                                        parameters: parameters,
                                                        launchMethod: launchMethod) else {
@@ -582,21 +543,23 @@ extension AuthController {
         }
     }
     
+    /// :nodoc:
     public func _certAuthorizeWithAuthenticationSession(prompts: [Prompt]? = nil,
-                                                        agtToken: String? = nil,
-                                                        scopes:[String]? = nil,
-                                                        channelPublicIds: [String]? = nil,
-                                                        serviceTerms: [String]? = nil,
-                                                        loginHint: String? = nil,
-                                                        nonce: String? = nil,
-                                                        kauthTxId: String? = nil,
-                                                        completion: @escaping (CertTokenInfo?, Error?) -> Void) {
+                                                       state: String? = nil,
+                                                       agtToken: String? = nil,
+                                                       scopes:[String]? = nil,
+                                                       channelPublicIds: [String]? = nil,
+                                                       serviceTerms: [String]? = nil,
+                                                       loginHint: String? = nil,
+                                                       nonce: String? = nil,
+                                                       settleId: String? = nil,
+                                                       completion: @escaping (CertTokenInfo?, Error?) -> Void) {
         
         let authenticationSessionCompletionHandler : (URL?, Error?) -> Void = {
             [weak self] (callbackUrl:URL?, error:Error?) in
             
             guard let callbackUrl = callbackUrl else {
-                if let error = error as? ASWebAuthenticationSessionError {
+                if #available(iOS 12.0, *), let error = error as? ASWebAuthenticationSessionError {
                     if error.code == ASWebAuthenticationSessionError.canceledLogin {
                         SdkLog.e("The authentication session has been canceled by user.")
                         completion(nil, SdkError(reason: .Cancelled, message: "The authentication session has been canceled by user."))
@@ -606,8 +569,11 @@ extension AuthController {
                         completion(nil, SdkError(reason: .Unknown, message: "An error occurred on executing authentication session."))
                         return
                     }
-                }
-                else {
+                } else if let error = error as? SFAuthenticationError, error.code == SFAuthenticationError.canceledLogin {
+                    SdkLog.e("The authentication session has been canceled by user.")
+                    completion(nil, SdkError(reason: .Cancelled, message: "The authentication session has been canceled by user."))
+                    return
+                } else {
                     SdkLog.e("An unknown authentication session error occurred.")
                     completion(nil, SdkError(reason: .Unknown, message: "An unknown authentication session error occurred."))
                     return
@@ -644,30 +610,40 @@ extension AuthController {
             certPrompts = prompts + certPrompts
         }
         
-        let parameters = self.makeParameters(prompts: certPrompts,                                             
+        let parameters = self.makeParameters(prompts: certPrompts,
+                                             state: state,
                                              agtToken: agtToken,
                                              scopes: scopes,
                                              channelPublicIds: channelPublicIds,
                                              serviceTerms: serviceTerms,
                                              loginHint: loginHint,
                                              nonce: nonce,
-                                             kauthTxId: kauthTxId)
+                                             settleId: settleId)
         
         if let url = SdkUtils.makeUrlWithParameters(Urls.compose(.Kauth, path:Paths.authAuthorize), parameters:parameters) {
             SdkLog.d("\n===================================================================================================")
             SdkLog.d("request: \n url:\(url)\n parameters: \(parameters) \n")
             
-            
-            let authenticationSession = ASWebAuthenticationSession(url: url,
-                                                                   callbackURLScheme: (try! KakaoSDK.shared.scheme()),
-                                                                   completionHandler:authenticationSessionCompletionHandler)
-            
-            authenticationSession.presentationContextProvider = AUTH_CONTROLLER.presentationContextProvider as? ASWebAuthenticationPresentationContextProviding
-            if agtToken != nil {
-                authenticationSession.prefersEphemeralWebBrowserSession = true
+            if #available(iOS 12.0, *) {
+                let authenticationSession = ASWebAuthenticationSession(url: url,
+                                                                       callbackURLScheme: (try! KakaoSDK.shared.scheme()),
+                                                                       completionHandler:authenticationSessionCompletionHandler)
+                if #available(iOS 13.0, *) {
+                    authenticationSession.presentationContextProvider = AUTH_CONTROLLER.presentationContextProvider as? ASWebAuthenticationPresentationContextProviding
+                    if agtToken != nil {
+                        authenticationSession.prefersEphemeralWebBrowserSession = true
+                    }
+                }
+                AUTH_CONTROLLER.authenticationSession = authenticationSession
+                (AUTH_CONTROLLER.authenticationSession as? ASWebAuthenticationSession)?.start()
+                
             }
-            AUTH_CONTROLLER.authenticationSession = authenticationSession
-            AUTH_CONTROLLER.authenticationSession?.start()
+            else {
+                AUTH_CONTROLLER.authenticationSession = SFAuthenticationSession(url: url,
+                                                                               callbackURLScheme: (try! KakaoSDK.shared.scheme()),
+                                                                               completionHandler:authenticationSessionCompletionHandler)
+                (AUTH_CONTROLLER.authenticationSession as? SFAuthenticationSession)?.start()
+            }
         }
     }
 }

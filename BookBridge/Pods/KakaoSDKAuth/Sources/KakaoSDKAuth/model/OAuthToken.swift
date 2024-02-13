@@ -21,19 +21,13 @@ public struct OAuthToken: Codable {
     
     // MARK: Fields
     
-#if swift(>=5.8)
-    @_documentation(visibility: private)
-#endif
-    /// 토큰 타입. 현재는 "Bearer" 타입만 사용됩니다.
+    /// :nodoc: 토큰 타입. 현재는 "Bearer" 타입만 사용됩니다.
     public let tokenType: String
 
     /// 액세스 토큰
     public let accessToken: String
     
-#if swift(>=5.8)
-    @_documentation(visibility: private)
-#endif
-    /// 액세스 토큰의 남은 만료시간 (단위: 초)
+    /// :nodoc: 액세스 토큰의 남은 만료시간 (단위: 초)
     public let expiresIn: TimeInterval
     
     /// 액세스 토큰의 만료 시각
@@ -42,18 +36,13 @@ public struct OAuthToken: Codable {
     /// 리프레시 토큰
     public let refreshToken: String
     
-#if swift(>=5.8)
-    @_documentation(visibility: private)
-#endif
-    /// 리프레시 토큰의 남은 만료시간 (단위: 초)
+    /// :nodoc: 리프레시 토큰의 남은 만료시간 (단위: 초)
     public let refreshTokenExpiresIn: TimeInterval
     
     /// 리프레시 토큰의 만료 시각
     public let refreshTokenExpiredAt: Date
     
-#if swift(>=5.8)
-    @_documentation(visibility: private)
-#endif
+    /// :nodoc:
     public let scope: String? //space delimited string
     
     /// 현재까지 사용자로부터 획득에 성공한 scope (동의항목) 목록. 인증코드를 통한 토큰 신규 발급 시점에만 저장되며 이후 같은 값으로 유지됩니다. 토큰 갱신으로는 최신정보로 업데이트되지 않습니다.
@@ -68,9 +57,7 @@ public struct OAuthToken: Codable {
     
     
     // MARK: Initializers
-#if swift(>=5.8)
-    @_documentation(visibility: private)
-#endif
+    /// :nodoc:
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         
@@ -86,9 +73,7 @@ public struct OAuthToken: Codable {
         self.idToken = try? values.decode(String.self, forKey: .idToken)
     }
     
-#if swift(>=5.8)
-    @_documentation(visibility: private)
-#endif
+    /// :nodoc:
     public init(accessToken: String,
                 expiresIn: TimeInterval? = nil,
                 expiredAt: Date? = nil,
@@ -171,9 +156,7 @@ public struct OAuthToken: Codable {
 //    }
 }
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
+/// :nodoc:
 public struct Token: Codable {
     public let accessToken: String
     public let expiresIn: TimeInterval
@@ -203,10 +186,7 @@ public struct Token: Codable {
 }
 
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
-/// internal use only
+/// :nodoc: internal use only
 public struct CertOAuthToken: Codable {
     public let tokenType: String
     public let accessToken: String
@@ -253,21 +233,10 @@ public struct CertTokenInfo: Codable {
     ///전자서명 접수번호
     public let txId: String
     
-#if swift(>=5.8)
-    @_documentation(visibility: private)
-#endif
+    /// :nodoc:
     public init(token:OAuthToken,
                 txId:String) {
         self.token = token
         self.txId = txId
     }
-}
-
-/// 상품 코드
-public enum CertType: String {
-    /// 카카오톡 인증 로그인
-    case K2100 = "k2100"
-    
-    /// 카카오톡 축약서명
-    case K2220 = "k2220"
 }

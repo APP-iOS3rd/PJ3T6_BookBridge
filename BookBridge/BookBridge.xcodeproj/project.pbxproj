@@ -56,6 +56,8 @@
 		5A4F281B2B6BAF9F00FF5483 /* LargeBtnStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A4F281A2B6BAF9F00FF5483 /* LargeBtnStyle.swift */; };
 		5A5041CC2B6A635C00211CF2 /* PathViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5041CB2B6A635C00211CF2 /* PathViewModel.swift */; };
 		5A5041CE2B6A637A00211CF2 /* PathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A5041CD2B6A637A00211CF2 /* PathType.swift */; };
+		5A6BCD232B7B05F5006BF6B9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A6BCD212B7B05F5006BF6B9 /* GoogleService-Info.plist */; };
+		5A6BCD242B7B05F5006BF6B9 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5A6BCD222B7B05F5006BF6B9 /* Secrets.xcconfig */; };
 		5A6CC5212B6B192F0037429F /* FormatValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CC5202B6B192F0037429F /* FormatValidator.swift */; };
 		5A6CC5232B6B19510037429F /* RedundantValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CC5222B6B19510037429F /* RedundantValidator.swift */; };
 		5A6CC5252B6B19630037429F /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A6CC5242B6B19630037429F /* Validator.swift */; };
@@ -203,6 +205,9 @@
 		5A4F281A2B6BAF9F00FF5483 /* LargeBtnStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeBtnStyle.swift; sourceTree = "<group>"; };
 		5A5041CB2B6A635C00211CF2 /* PathViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathViewModel.swift; sourceTree = "<group>"; };
 		5A5041CD2B6A637A00211CF2 /* PathType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathType.swift; sourceTree = "<group>"; };
+		5A6BCD212B7B05F5006BF6B9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Dependency File/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5A6BCD222B7B05F5006BF6B9 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = "../../Dependency File/Secrets.xcconfig"; sourceTree = "<group>"; };
+		5A6BCD252B7B08EC006BF6B9 /* CoreAudioTypes.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudioTypes.framework; path = System/Library/Frameworks/CoreAudioTypes.framework; sourceTree = SDKROOT; };
 		5A6CC5202B6B192F0037429F /* FormatValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatValidator.swift; sourceTree = "<group>"; };
 		5A6CC5222B6B19510037429F /* RedundantValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedundantValidator.swift; sourceTree = "<group>"; };
 		5A6CC5242B6B19630037429F /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
@@ -466,6 +471,8 @@
 		5A7A4E192B61DFFD00F79C23 = {
 			isa = PBXGroup;
 			children = (
+				5A6BCD212B7B05F5006BF6B9 /* GoogleService-Info.plist */,
+				5A6BCD222B7B05F5006BF6B9 /* Secrets.xcconfig */,
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
 				5A7A4E352B61DFFE00F79C23 /* BookBridgeTests */,
@@ -749,6 +756,7 @@
 		E0BEB9434AD39B31FC1C04DF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5A6BCD252B7B08EC006BF6B9 /* CoreAudioTypes.framework */,
 				0D0208E9110CB38EDE3D59A6 /* Pods_BookBridge.framework */,
 				38996D702CA8C661E33E70C8 /* Pods_BookBridge_BookBridgeUITests.framework */,
 				A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */,
@@ -890,6 +898,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */,
+				5A6BCD242B7B05F5006BF6B9 /* Secrets.xcconfig in Resources */,
+				5A6BCD232B7B05F5006BF6B9 /* GoogleService-Info.plist in Resources */,
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
 				5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */,
 			);
@@ -1206,6 +1216,7 @@
 /* Begin XCBuildConfiguration section */
 		5A7A4E442B61DFFE00F79C23 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A6BCD222B7B05F5006BF6B9 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1269,6 +1280,7 @@
 		};
 		5A7A4E452B61DFFE00F79C23 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A6BCD222B7B05F5006BF6B9 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

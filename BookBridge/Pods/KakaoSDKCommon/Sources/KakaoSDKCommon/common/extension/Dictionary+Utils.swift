@@ -14,9 +14,7 @@
 
 import Foundation
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
+///:nodoc:
 extension Dictionary {
     public var queryParameters: String {
         var parts: [String] = []
@@ -40,9 +38,7 @@ extension Dictionary {
     }
 }
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
+///:nodoc:
 extension Dictionary where Key == String, Value == Any? {
     public func filterNil() -> [String:Any]? {
         let filteredNil = self.filter({ $0.value != nil }).mapValues({ $0! })
@@ -50,9 +46,7 @@ extension Dictionary where Key == String, Value == Any? {
     }
 }
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
+///:nodoc:
 extension Dictionary where Key == String, Value: Any {
     public func toJsonString() -> String? {
         if let data = try? JSONSerialization.data(withJSONObject: self, options:[]) {
@@ -64,9 +58,7 @@ extension Dictionary where Key == String, Value: Any {
     }
 }
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
+///:nodoc:
 public extension Dictionary {
     mutating func merge(_ dictionary: [Key: Value]) {
         for (key, value) in dictionary {

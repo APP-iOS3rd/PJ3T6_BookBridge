@@ -15,9 +15,7 @@
 import Foundation
 import UIKit
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
+///:nodoc:
 public class Constants {
     static public let responseType = "code"
     
@@ -63,17 +61,13 @@ public class Constants {
     }
 }
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
+///:nodoc:
 public enum SdkType : String {
     case Swift = "swift"
     case RxSwift = "rx_swift"
 }
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
+///:nodoc:
 public class ApprovalType {
     public static let shared = ApprovalType()
     public var type : String?
@@ -83,18 +77,13 @@ public class ApprovalType {
     }
 }
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
+///:nodoc:
 public enum ApiType {
     case KApi
     case KAuth
-    case Apps
 }
 
-#if swift(>=5.8)
-@_documentation(visibility: private)
-#endif
+///:nodoc:
 public class SdkIdentifier {
     public let customIdentifier : String?
     
@@ -107,8 +96,8 @@ public class SdkIdentifier {
 public enum LaunchMethod: String {
     
     /// 커스텀 스킴
-    case CustomScheme = "uri_scheme"
+    case CustomScheme
     
     /// 유니버셜 링크
-    case UniversalLink = "universal_link"
+    case UniversalLink
 }

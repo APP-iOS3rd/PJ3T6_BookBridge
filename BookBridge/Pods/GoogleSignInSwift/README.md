@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/cocoapods/l/GoogleSignInSwift.svg?style=flat)](https://cocoapods.org/pods/GoogleSignInSwift)
 [![Platform](https://img.shields.io/cocoapods/p/GoogleSignInSwift.svg?style=flat)](https://cocoapods.org/pods/GoogleSignInSwift)
 
-`GoogleSignInSwift` uses OAuth 2.0 to to obtain a users Google authentication credentials and/or their profile information. `GoogleSignInSwift` is written 100% in Swift. You can find more information about Google OAuth 2.0 sign in protocol [here](https://developers.google.com/identity/protocols/oauth2)
+`GoogleSignInSwift` uses OAuth 2.0 to to obtain a users Google authentication credentials and/or their profile information. `GoogleSignInSwift` is written 100% in Swift and requires **ZERO** dependencies. It uses fast-app-switching with `Safari` to securely and conveniently sign the user in. You can find more information about Google OAuth 2.0 sign in protocol [here](https://developers.google.com/identity/protocols/oauth2)
 
 ## Installation
 
@@ -26,10 +26,21 @@ GoogleSignIn.shared.addScope("<Google API Scope>")
 ### Sign in
 ```swift
 GoogleSignIn.shared.delegate = self
-GoogleSignIn.shared.presentingWindow = view.window
 GoogleSignIn.shared.signIn()
 ```
-listen for completion by conforming to `GoogleSignInDelegate`
+for the process to continue, you must implement `googleSignIn(shouldOpen url:)` and launch provided `URL`.
+```swift
+func googleSignIn(shouldOpen url: URL) {
+    if #available(iOS 10.0, *) {
+        UIApplication
+            .shared
+            .open(url, options: [:])
+    } else {
+        UIApplication.shared.openURL(url)
+    }
+}
+```
+listen for completion by implementing
 ```swift
 func googleSignIn(didSignIn auth: GoogleSignIn.Auth?, user: GoogleSignIn.User?, error: Error?) {
     if let error = error {
@@ -39,10 +50,24 @@ func googleSignIn(didSignIn auth: GoogleSignIn.Auth?, user: GoogleSignIn.User?, 
     // Route user to app
 }
 ```
+### Handle Sign in
+After user signs into Google account in Safari, it will redirect to your app. Implement this to capture the results.
+```swift
+func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+    guard let urlContext = URLContexts.first else { return }
+    GoogleSignIn.shared.handleURL(url)
+}
+```
+or
+```swift
+func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    return GoogleSignIn.shared.handleURL(url)
+}
+```
 ### Use Access Token
 Although you can access the token via `GoogleSignIn.shared.auth?.accessToken` it is recommended you use `GoogleSignIn.shared.refreshingAccessToken`. If the token is expired, this method will refresh and return a new valid token.
 ```swift
-GoogleSignIn.shared.refreshingAccessToken { token, _ in
+GoogleSignIn.shared.refreshingAccessToken { [weak self] token, _ in
     guard token != nil else {
         return
     }
@@ -59,7 +84,6 @@ GoogleSignIn.shared.getProfile { user, error in
     //
 }
 ```
-note: this is done for you once by default when user logs in.
 #### Get user email with sign in
 To get a users email, make sure that you set this before sign in.
 ```swift
