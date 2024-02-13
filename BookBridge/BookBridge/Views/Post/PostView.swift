@@ -17,9 +17,7 @@ struct PostView: View {
     @StateObject private var postViewModel = PostViewModel()
     
     var storageManager = HomeFirebaseManager.shared
-    var menuHeight: Double = 80
-    
-    
+        
     var body: some View {
             ZStack {
                 ScrollView {
@@ -80,7 +78,7 @@ struct PostView: View {
                                     .fontWeight(.bold)
                                     .padding(.vertical, 1)
                                     .padding(.horizontal, 3)
-                                Text(postViewModel.user.dong?[0] ?? "")
+                                Text(postViewModel.user.getSelectedLocation()?.dong ?? "")
                                     .font(.system(size: 10))
                                     .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
                             }

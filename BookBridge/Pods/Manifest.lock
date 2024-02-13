@@ -834,7 +834,7 @@ PODS:
     - KakaoSDKCommon/Common (= 2.20.0)
   - KakaoSDKUser (2.20.0):
     - KakaoSDKAuth (= 2.20.0)
-  - leveldb-library (1.22.2)
+  - leveldb-library (1.22.3)
   - nanopb (2.30909.1):
     - nanopb/decode (= 2.30909.1)
     - nanopb/encode (= 2.30909.1)
@@ -932,7 +932,7 @@ SPEC CHECKSUMS:
   KakaoSDKAuth: 02742f4681af6da8c4aa7b0f71df98ca9e7df834
   KakaoSDKCommon: 060a8085733a215a048f9bf9b39a846d1be1daee
   KakaoSDKUser: 0594b37675fb634304da3ecc83830c0ec84ceef5
-  leveldb-library: f03246171cce0484482ec291f88b6d563699ee06
+  leveldb-library: e74c27d8fbd22854db7cb467968a0b8aa1db7126
   nanopb: d4d75c12cd1316f4a64e3c6963f879ecd4b5e0d5
   naveridlogin-sdk-ios: 03fa42741249ab10b804f6b2574b56b6d89045ba
   NMapsGeometry: 53c573ead66466681cf123f99f698dc8071a4b83

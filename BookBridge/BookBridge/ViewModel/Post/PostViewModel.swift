@@ -37,7 +37,8 @@ extension PostViewModel {
                         email: data["email"] as? String,
                         nickname: data["nickname"] as? String,
                         profileURL: data["profileURL"] as? String,
-                        dong: data["dong"] as? [String]
+                        joinDate: data["joinDate"] as? Date,
+                        location: data["location"] as? [Location]
                     )
                     
                     DispatchQueue.main.async {
