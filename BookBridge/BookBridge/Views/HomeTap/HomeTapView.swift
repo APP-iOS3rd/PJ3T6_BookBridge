@@ -104,7 +104,9 @@ struct HomeTapView: View {
         }
         .environmentObject(viewModel)
         .onAppear {
-            viewModel.fetchBookMark(user: "joo")
+            if UserManager.shared.isLogin {
+                viewModel.fetchBookMark()
+            }
         }
     }
 }
