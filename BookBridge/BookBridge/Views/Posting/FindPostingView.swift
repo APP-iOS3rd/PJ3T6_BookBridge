@@ -91,7 +91,7 @@ struct FindPostingView: View {
                     //EmptyView에 지훈님이 만든 네이버 맵 화면
                     NavigationLink(destination: EmptyView()) {
                         HStack {
-                            Text("교환장소 선택")
+                            Text(viewModel.noticeBoard.noticeLocationName)
                                 .foregroundColor(.black)
                             Spacer()
                             Image(systemName: "chevron.right")
@@ -138,6 +138,9 @@ struct FindPostingView: View {
                             .foregroundStyle(.black)
                     }
                 }
+            }
+            .onAppear {
+                viewModel.gettingUserInfo()
             }
         }
     }

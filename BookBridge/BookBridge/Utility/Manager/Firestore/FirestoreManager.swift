@@ -13,6 +13,46 @@ class FirestoreManager {
     static let db = Firestore.firestore()
     static let locationManager = LocationManager.shared
     
+    // MARK: - Location 불러오기(fetch)
+        static func fetchUserLocation(completion: @escaping ([Location]?) -> Void) {
+            // 사용자의 uid를 이용하여 해당 사용자의 문서를 가져옵니다.
+            let userDocRef = db.collection("User").document(UserManager.shared.uid)
+
+            // 문서를 가져옵니다.
+            userDocRef.getDocument { document, error in
+                if let error = error {
+                    print("Error fetching user document: \(error)")
+                    completion(nil)
+                    return
+                }
+
+                // 문서가 존재하는 경우
+                if let document = document, document.exists {
+                    // 문서 데이터에서 location 필드만 가져옵니다.
+                    if let userData = document.data(),
+                       let locationData = userData["location"] as? [Any] {
+                        do {
+                            // location 데이터를 다시 JSON 데이터로 변환합니다.
+                            let locationJsonData = try JSONSerialization.data(withJSONObject: locationData, options: [])
+                            
+                            // JSON 데이터를 사용하여 [Location]을 디코딩합니다.
+                            let userLocations = try JSONDecoder().decode([Location].self, from: locationJsonData)
+                            completion(userLocations)
+                        } catch {
+                            print("Error decoding User locations: \(error)")
+                            completion(nil)
+                        }
+                    } else {
+                        print("Error converting document location data to [Location]")
+                        completion(nil)
+                    }
+                } else {
+                    print("User document not found")
+                    completion(nil)
+                }
+            }
+        }
+    
     // MARK: - User 불러오기(fetch)
     static func fetchUserModel(completion: @escaping (UserModel?) -> Void) {
         // 사용자의 uid를 이용하여 해당 사용자의 문서를 가져옵니다.

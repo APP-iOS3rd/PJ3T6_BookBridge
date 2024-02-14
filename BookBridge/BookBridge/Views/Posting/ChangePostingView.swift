@@ -129,6 +129,11 @@ struct ChangePostingView: View {
                     }
                 }
             }
+            .onAppear {
+                Task{
+                    viewModel.gettingUserInfo()
+                }
+            }
         }
     }
 }
