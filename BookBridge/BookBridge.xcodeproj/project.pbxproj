@@ -14,6 +14,7 @@
 		1D71C6C32B6C763900EEC95D /* AddBookBtnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71C6C22B6C763900EEC95D /* AddBookBtnView.swift */; };
 		1D71C6C52B6C766300EEC95D /* BookSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71C6C42B6C766300EEC95D /* BookSearchBar.swift */; };
 		1D71C6C72B6C8D4400EEC95D /* WishBookAddBtnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71C6C62B6C8D4400EEC95D /* WishBookAddBtnView.swift */; };
+		1D7BA1B92B7B4A4F002F24FB /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1D7BA1B82B7B4A4F002F24FB /* Secrets.xcconfig */; };
 		1D84019B2B6779CB00ADEEB5 /* IdLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D84019A2B6779CB00ADEEB5 /* IdLoginView.swift */; };
 		1D84019E2B677B3B00ADEEB5 /* IdLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D84019D2B677B3B00ADEEB5 /* IdLoginViewModel.swift */; };
 		1DA6E06C2B68D9EB00D631D5 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6E06B2B68D9EB00D631D5 /* ChangePasswordView.swift */; };
@@ -24,6 +25,7 @@
 		1DCFB01E2B687D7000250D55 /* FindIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB01D2B687D7000250D55 /* FindIdView.swift */; };
 		1DCFB0222B68CB4400250D55 /* FindIdVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0212B68CB4400250D55 /* FindIdVM.swift */; };
 		1DCFB0242B68CD3100250D55 /* FindPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */; };
+		1DE382A72B734E74009A7A15 /* HomeRecentSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE382A62B734E74009A7A15 /* HomeRecentSearchView.swift */; };
 		1DFDD1BA2B71B48400B320F7 /* SignInState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFDD1B92B71B48400B320F7 /* SignInState.swift */; };
 		1DFDD1BC2B71BF3D00B320F7 /* tapInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFDD1BB2B71BF3D00B320F7 /* tapInfo.swift */; };
 		1E9CA8884DE9A470795B434C /* Pods_BookBridge_BookBridgeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38996D702CA8C661E33E70C8 /* Pods_BookBridge_BookBridgeUITests.framework */; };
@@ -91,12 +93,12 @@
 		5ADE79E62B6B565F005BB3ED /* SignUpInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E52B6B565F005BB3ED /* SignUpInputView.swift */; };
 		5ADE79E82B6B5963005BB3ED /* StatusTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E72B6B5963005BB3ED /* StatusTextView.swift */; };
 		5ADE79EA2B6B6715005BB3ED /* SignUpInputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */; };
+		5C85D1672B7C45130065940D /* ReportCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C85D1662B7C45130065940D /* ReportCellView.swift */; };
 		5C8C0DD82B734B8C002963F1 /* NaverReverseGeocoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0DD72B734B8C002963F1 /* NaverReverseGeocoding.swift */; };
 		5C8C0DDA2B734BE0002963F1 /* NaverLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0DD92B734BE0002963F1 /* NaverLocationService.swift */; };
 		5C8C0DDC2B734CAC002963F1 /* ExchangeHopeExplainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0DDB2B734CAC002963F1 /* ExchangeHopeExplainView.swift */; };
 		5C8C0DDE2B734CBA002963F1 /* ExchangeHopeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0DDD2B734CBA002963F1 /* ExchangeHopeView.swift */; };
 		5C8C0E322B7B2934002963F1 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0E312B7B2934002963F1 /* ReportView.swift */; };
-		5C8C0E342B7B296D002963F1 /* ReportCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0E332B7B296D002963F1 /* ReportCellView.swift */; };
 		5C8C0E362B7B298C002963F1 /* ReportDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0E352B7B298C002963F1 /* ReportDetailView.swift */; };
 		5C8C0E3A2B7B29C6002963F1 /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0E392B7B29C6002963F1 /* ReportViewModel.swift */; };
 		5C8C0E3C2B7B29F7002963F1 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0E3B2B7B29F7002963F1 /* Report.swift */; };
@@ -165,6 +167,7 @@
 		1D71C6C22B6C763900EEC95D /* AddBookBtnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookBtnView.swift; sourceTree = "<group>"; };
 		1D71C6C42B6C766300EEC95D /* BookSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchBar.swift; sourceTree = "<group>"; };
 		1D71C6C62B6C8D4400EEC95D /* WishBookAddBtnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishBookAddBtnView.swift; sourceTree = "<group>"; };
+		1D7BA1B82B7B4A4F002F24FB /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = ../../../../Downloads/Secrets.xcconfig; sourceTree = "<group>"; };
 		1D84019A2B6779CB00ADEEB5 /* IdLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdLoginView.swift; sourceTree = "<group>"; };
 		1D84019D2B677B3B00ADEEB5 /* IdLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdLoginViewModel.swift; sourceTree = "<group>"; };
 		1DA6E06B2B68D9EB00D631D5 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
@@ -175,6 +178,7 @@
 		1DCFB01D2B687D7000250D55 /* FindIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdView.swift; sourceTree = "<group>"; };
 		1DCFB0212B68CB4400250D55 /* FindIdVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdVM.swift; sourceTree = "<group>"; };
 		1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordView.swift; sourceTree = "<group>"; };
+		1DE382A62B734E74009A7A15 /* HomeRecentSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRecentSearchView.swift; sourceTree = "<group>"; };
 		1DFDD1B92B71B48400B320F7 /* SignInState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInState.swift; sourceTree = "<group>"; };
 		1DFDD1BB2B71BF3D00B320F7 /* tapInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tapInfo.swift; sourceTree = "<group>"; };
 		2C64B1A5C532C5F1A934328D /* Pods-BookBridge-BookBridgeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge-BookBridgeUITests.release.xcconfig"; path = "Target Support Files/Pods-BookBridge-BookBridgeUITests/Pods-BookBridge-BookBridgeUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -245,12 +249,12 @@
 		5ADE79E52B6B565F005BB3ED /* SignUpInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputView.swift; sourceTree = "<group>"; };
 		5ADE79E72B6B5963005BB3ED /* StatusTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTextView.swift; sourceTree = "<group>"; };
 		5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputManager.swift; sourceTree = "<group>"; };
+		5C85D1662B7C45130065940D /* ReportCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCellView.swift; sourceTree = "<group>"; };
 		5C8C0DD72B734B8C002963F1 /* NaverReverseGeocoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverReverseGeocoding.swift; sourceTree = "<group>"; };
 		5C8C0DD92B734BE0002963F1 /* NaverLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLocationService.swift; sourceTree = "<group>"; };
 		5C8C0DDB2B734CAC002963F1 /* ExchangeHopeExplainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeHopeExplainView.swift; sourceTree = "<group>"; };
 		5C8C0DDD2B734CBA002963F1 /* ExchangeHopeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeHopeView.swift; sourceTree = "<group>"; };
 		5C8C0E312B7B2934002963F1 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
-		5C8C0E332B7B296D002963F1 /* ReportCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ReportCellView.swift; path = ../../../../../../../ReportCellView.swift; sourceTree = "<group>"; };
 		5C8C0E352B7B298C002963F1 /* ReportDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportDetailView.swift; sourceTree = "<group>"; };
 		5C8C0E392B7B29C6002963F1 /* ReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
 		5C8C0E3B2B7B29F7002963F1 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
@@ -478,6 +482,7 @@
 		5A7A4E192B61DFFD00F79C23 = {
 			isa = PBXGroup;
 			children = (
+				1D7BA1B82B7B4A4F002F24FB /* Secrets.xcconfig */,
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
 				5C8C0E3D2B7B2B3F002963F1 /* GoogleService-Info.plist */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
@@ -669,8 +674,8 @@
 			isa = PBXGroup;
 			children = (
 				5C8C0E312B7B2934002963F1 /* ReportView.swift */,
-				5C8C0E332B7B296D002963F1 /* ReportCellView.swift */,
 				5C8C0E352B7B298C002963F1 /* ReportDetailView.swift */,
+				5C85D1662B7C45130065940D /* ReportCellView.swift */,
 			);
 			path = Report;
 			sourceTree = "<group>";
@@ -720,6 +725,7 @@
 				F60BB0922B71D72400E27F38 /* HomeView.swift */,
 				738EDAA02B71EBA30066ADE7 /* HomeTapView.swift */,
 				738EDAA22B71ECA80066ADE7 /* HomeListItemView.swift */,
+				1DE382A62B734E74009A7A15 /* HomeRecentSearchView.swift */,
 			);
 			path = HomeTap;
 			sourceTree = "<group>";
@@ -923,6 +929,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D7BA1B92B7B4A4F002F24FB /* Secrets.xcconfig in Resources */,
 				5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */,
 				5C8C0E3E2B7B2B3F002963F1 /* GoogleService-Info.plist in Resources */,
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
@@ -1125,6 +1132,7 @@
 				73C962AB2B68C4D800D34D3F /* SearchBooksViewModel.swift in Sources */,
 				5A3A44202B6C890900B66C81 /* TownSettingMapView.swift in Sources */,
 				5A3A44172B6C779200B66C81 /* PwdError.swift in Sources */,
+				5C85D1672B7C45130065940D /* ReportCellView.swift in Sources */,
 				91B80A452B6798B9000D5339 /* TabBarView.swift in Sources */,
 				91B80A422B676EEE000D5339 /* ImagePicker.swift in Sources */,
 				736127092B6B82B400943CD7 /* ImageScrollView.swift in Sources */,
@@ -1167,6 +1175,7 @@
 				5C8C0DDC2B734CAC002963F1 /* ExchangeHopeExplainView.swift in Sources */,
 				1DB39DBC2B6B57F100C1B489 /* BookShelfViewModel.swift in Sources */,
 				5AA82E4D2B675E26006EFC72 /* EmailSignUpView.swift in Sources */,
+				1DE382A72B734E74009A7A15 /* HomeRecentSearchView.swift in Sources */,
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
 				73DDA5E12B6A34A500B25FB8 /* SearchResultView.swift in Sources */,
 				738EDAA12B71EBA30066ADE7 /* HomeTapView.swift in Sources */,
@@ -1181,7 +1190,6 @@
 				1DA6E06E2B68E2EA00D631D5 /* FindIdResultView.swift in Sources */,
 				5AA97F892B70BCF000EF4081 /* BundleExtension.swift in Sources */,
 				738EDAA32B71ECA80066ADE7 /* HomeListItemView.swift in Sources */,
-				5C8C0E342B7B296D002963F1 /* ReportCellView.swift in Sources */,
 				5A3A44152B6C778200B66C81 /* SignUpInputType.swift in Sources */,
 				5A3A440D2B6C73D500B66C81 /* MiddleBlueBtnStyle.swift in Sources */,
 				5A2DE09A2B68915200EF3A6B /* SignUpInputer.swift in Sources */,
