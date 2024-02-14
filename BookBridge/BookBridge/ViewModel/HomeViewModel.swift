@@ -154,7 +154,7 @@ extension HomeViewModel {
     func fetchBookMark() {
         var bookMarks: [String] = []
         
-        db.collection("USser").document(UserManager.shared.uid).getDocument { documentSnapshot, error in
+        db.collection("User").document(UserManager.shared.uid).getDocument { documentSnapshot, error in
             guard error == nil else { return }
             guard let document = documentSnapshot else { return }
             
