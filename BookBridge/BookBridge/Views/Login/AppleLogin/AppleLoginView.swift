@@ -10,17 +10,15 @@ import SwiftUI
 import AuthenticationServices
 
 struct AppleLoginView: View {
-    var appleAuthManager = AppleAuthManager()
-    @State private var isSignedIn = false
-    @State private var currentUser: UserModel?
+    @StateObject private var appleAuthManager = AppleAuthManager()
 
     var body: some View {
         VStack {
-            if isSignedIn, let user = currentUser {
+            if appleAuthManager.isSignedIn {
                 Text("Apple로그인 성공~")
 //                HomeView(user: user)
             } else {
-                Button(action: startAppleSignIn) {
+                Button(action: appleAuthManager.startSignInWithAppleFlow) {
                     ZStack {
                         Image("AppleLogo")
                             .resizable()
@@ -28,25 +26,20 @@ struct AppleLoginView: View {
                             .clipShape(Circle())
                     }
                 }
-//                .frame(width: UIScreen.main.bounds.width * 0.9, height: 50)
-//                .cornerRadius(5)
+
+            }
+        }
+        .onAppear {
+            appleAuthManager.didChangeSignInStatus = { signedIn in
+                if signedIn {
+                    // 로그인 성공
+                } else {
+                    // 로그인 실패
+                }
             }
         }
 
+
     }
 
-    private func startAppleSignIn() {
-        
-        appleAuthManager.didChangeSignInStatus = { signedIn, user in
-            self.isSignedIn = signedIn
-            self.currentUser = user
-        }
-        
-        let request = ASAuthorizationAppleIDProvider().createRequest()
-        request.requestedScopes = [.fullName, .email]
-
-        let controller = ASAuthorizationController(authorizationRequests: [request])
-        controller.delegate = appleAuthManager
-        controller.performRequests()
-    }
 }
