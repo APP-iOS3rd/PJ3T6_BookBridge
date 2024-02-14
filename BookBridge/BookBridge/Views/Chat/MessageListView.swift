@@ -35,6 +35,6 @@ struct MessageListView: View {
                 }
             }
         }
-        .background(Color(.init(white: 0.95, alpha: 1)))
+//        .background(Color(.init(white: 0.95, alpha: 1)))
     }
 }

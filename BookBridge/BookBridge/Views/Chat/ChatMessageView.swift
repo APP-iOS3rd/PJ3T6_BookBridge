@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChatMessageView: View {
     @StateObject var viewModel = ChatMessageViewModel()
+    @Environment(\.dismiss) var dismiss
     
     var chatRoomListId: String
     var isFirst: Bool                   //true: 채팅 한번 안함, false: 이미 방이있음
@@ -18,11 +19,47 @@ struct ChatMessageView: View {
     
     var body: some View {
         VStack {
+            noticeBoardChatView()
             MessageListView(viewModel: viewModel, partnerId: partnerId, uid: uid)
             ChatBottomBarView(viewModel: viewModel, chatRoomListId: chatRoomListId, partnerId: partnerId, uid: uid)
         }
-        .navigationTitle(noticeBoardTitle)
+//        .navigationTitle(noticeBoardTitle)
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.backward")
+                        .foregroundStyle(.black)
+                }
+            }
+            
+            ToolbarItem(placement: .principal) {
+                VStack {
+                    HStack {
+                        Image(systemName: "graduationcap.fill")
+                            .font(.caption)
+                            .foregroundStyle(.black)
+                        Text("동네보안관")
+                            .font(.caption)
+                            .foregroundStyle(.red)
+                    }
+                    Text(noticeBoardTitle)
+                        .font(.headline)
+                }
+            }
+            
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    
+                } label: {
+                    Image(systemName: "ellipsis")
+                        .foregroundStyle(.black)
+                }
+            }
+        }
         .onAppear {
             viewModel.fetchMessages(uid: uid, chatRoomListId: chatRoomListId)
         }

@@ -16,9 +16,13 @@ struct ChatBottomBarView: View {
     
     var body: some View {
         HStack(spacing: 16) {
-            Image(systemName: "photo.on.rectangle")
-                .font(.system(size: 24))
-                .foregroundStyle(Color(.darkGray))
+            Button {
+                
+            } label: {
+                Image(systemName: "plus")
+                    .font(.system(size: 24))
+                    .foregroundStyle(Color(.darkGray))
+            }
             ZStack {
                 HStack {
                     Text("내용을 입력해주세요")
@@ -32,17 +36,21 @@ struct ChatBottomBarView: View {
                 TextEditor(text: $viewModel.chatText)
                     .opacity(viewModel.chatText.isEmpty ? 0.5 : 1)
             }
+//            .overlay(
+//                RoundedRectangle(cornerRadius: 18)
+//                    .stroke(Color.gray, lineWidth: 1)
+//            )
             .frame(height: 40)
             
             Button {
                 viewModel.handleSend(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId)
             } label: {
-                Text("Send")
-                    .foregroundStyle(.white)
+                Image(systemName: "paperplane")
+                    .font(.system(size: 24))
+                    .foregroundStyle(.gray)
             }
             .padding(.horizontal)
             .padding(.vertical, 8)
-            .background(Color.blue)
             .cornerRadius(4)
         }
         .padding(.horizontal)

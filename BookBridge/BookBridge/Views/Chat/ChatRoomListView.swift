@@ -10,14 +10,15 @@ import SwiftUI
 struct ChatRoomListView: View {
     @StateObject var viewModel = ChatRoomListViewModel()
     
-    @State var showNewMessageScreen = false
-    
+    var searchText: String = ""
     var uid: String
     
     var body: some View {
         NavigationStack {
             VStack {
-                CustomNavBarView(viewModel: viewModel)
+                SearchChatListView()
+                    .padding()
+//                CustomNavBarView(viewModel: viewModel)
                 
                 RoomListView(viewModel: viewModel)
             }
@@ -35,26 +36,8 @@ struct ChatRoomListView: View {
         }
          */
     }
-    /*
-    private var newMessageButton: some View {
-        Button {
-            showNewMessageScreen.toggle()
-        } label: {
-            HStack {
-                Spacer()
-                Text("+ New Message")
-                    .font(.system(size: 16, weight: .bold))
-                Spacer()
-            }
-            .foregroundStyle(.white)
-            .padding(.vertical)
-            .background(Color.blue)
-            .cornerRadius(32)
-            .padding(.horizontal)
-            .shadow(radius: 15)
-        }
-        .fullScreenCover(isPresented: $showNewMessageScreen) {
-           
-        }
-    }*/
+}
+
+#Preview {
+    ChatRoomListView(uid: "lee")
 }

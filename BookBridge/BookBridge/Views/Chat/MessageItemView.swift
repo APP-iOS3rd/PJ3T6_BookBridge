@@ -17,6 +17,13 @@ struct MessageItemView: View {
             if messageModel.sender == uid {
                 HStack {
                     Spacer()
+                    VStack {
+                        Spacer()
+                        Text("오전 12:30")
+                            .font(.caption)
+                            .foregroundStyle(.gray)
+                    }
+                    
                     HStack {
                         Text(messageModel.message)
                             .foregroundStyle(.white)
@@ -27,6 +34,8 @@ struct MessageItemView: View {
                 }
             } else {
                 HStack {
+                    Image(systemName: "circle.fill")
+                        .font(.system(size: 30))
                     HStack {
                         Text(messageModel.message)
                             .foregroundStyle(.white)
@@ -34,6 +43,12 @@ struct MessageItemView: View {
                     .padding()
                     .background(Color(hex:"767676"))
                     .cornerRadius(10)
+                    VStack {
+                        Spacer()
+                        Text("오전 12:30")
+                            .font(.caption)
+                            .foregroundStyle(.gray)
+                    }
                     Spacer()
                 }
             }

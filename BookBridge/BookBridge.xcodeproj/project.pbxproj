@@ -133,6 +133,8 @@
 		9146004E2B7238EB00E0E24F /* ChatMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9146004D2B7238EB00E0E24F /* ChatMessageView.swift */; };
 		914600502B7240D800E0E24F /* ChatMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9146004F2B7240D800E0E24F /* ChatMessageViewModel.swift */; };
 		915FD1DA2B7C403D0008C38B /* ChatRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FD1D92B7C403D0008C38B /* ChatRoomModel.swift */; };
+		915FD1DC2B7CA6A40008C38B /* SearchChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FD1DB2B7CA6A40008C38B /* SearchChatListView.swift */; };
+		915FD1DE2B7CB7E80008C38B /* noticeBoardChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FD1DD2B7CB7E70008C38B /* noticeBoardChatView.swift */; };
 		91B513582B7B4B8A00E400AD /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 91B513572B7B4B8A00E400AD /* Secrets.xcconfig */; };
 		91B7F0AC2B70DDA900B4C475 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91B7F0AB2B70DDA900B4C475 /* GoogleService-Info.plist */; };
 		91B7F0B02B70DE8800B4C475 /* ChatMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B7F0AF2B70DE8800B4C475 /* ChatMessageModel.swift */; };
@@ -300,6 +302,8 @@
 		9146004D2B7238EB00E0E24F /* ChatMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageView.swift; sourceTree = "<group>"; };
 		9146004F2B7240D800E0E24F /* ChatMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageViewModel.swift; sourceTree = "<group>"; };
 		915FD1D92B7C403D0008C38B /* ChatRoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomModel.swift; sourceTree = "<group>"; };
+		915FD1DB2B7CA6A40008C38B /* SearchChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchChatListView.swift; sourceTree = "<group>"; };
+		915FD1DD2B7CB7E70008C38B /* noticeBoardChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = noticeBoardChatView.swift; sourceTree = "<group>"; };
 		91B513572B7B4B8A00E400AD /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		91B7F0AB2B70DDA900B4C475 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		91B7F0AF2B70DE8800B4C475 /* ChatMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageModel.swift; sourceTree = "<group>"; };
@@ -765,6 +769,8 @@
 				73D077E52B7C9E300007DDEB /* MessageListView.swift */,
 				73D077EB2B7CA0330007DDEB /* MessageItemView.swift */,
 				73D077E72B7C9F290007DDEB /* ChatBottomBarView.swift */,
+				915FD1DB2B7CA6A40008C38B /* SearchChatListView.swift */,
+				915FD1DD2B7CB7E70008C38B /* noticeBoardChatView.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -1143,6 +1149,7 @@
 				736127112B6B84AC00943CD7 /* PostingViewModel.swift in Sources */,
 				5A83458E2B74A279000984C4 /* TownSettingSlideView.swift in Sources */,
 				F6DFC8D52B730A2A00931CF9 /* PostView.swift in Sources */,
+				915FD1DE2B7CB7E80008C38B /* noticeBoardChatView.swift in Sources */,
 				5AA82E542B6764DF006EFC72 /* SignUpAuthCodeBoxView.swift in Sources */,
 				5A3A44092B6C724500B66C81 /* EmailError.swift in Sources */,
 				5CE454902B68B79000874BCE /* FirestoreService.swift in Sources */,
@@ -1204,6 +1211,7 @@
 				7361270D2B6B83AC00943CD7 /* CameraButtonView.swift in Sources */,
 				5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */,
 				F60BB0972B71D73900E27F38 /* HomeFirebaseManager.swift in Sources */,
+				915FD1DC2B7CA6A40008C38B /* SearchChatListView.swift in Sources */,
 				5A5041CE2B6A637A00211CF2 /* PathType.swift in Sources */,
 				7361270F2B6B83BF00943CD7 /* DeleteImageButtonView.swift in Sources */,
 				5A2CC1182B71C230000A8776 /* TownSettingView.swift in Sources */,
