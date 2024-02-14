@@ -30,6 +30,8 @@
 		1E9CA8884DE9A470795B434C /* Pods_BookBridge_BookBridgeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38996D702CA8C661E33E70C8 /* Pods_BookBridge_BookBridgeUITests.framework */; };
 		34927C483CF1E10C21B09E15 /* Pods_BookBridgeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */; };
 		5A0242152B6D36FF00137AA6 /* LoadingCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0242142B6D36FF00137AA6 /* LoadingCircle.swift */; };
+		5A17A02C2B7C78A000C60F69 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5A17A02A2B7C78A000C60F69 /* Secrets.xcconfig */; };
+		5A17A02D2B7C78A000C60F69 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A17A02B2B7C78A000C60F69 /* GoogleService-Info.plist */; };
 		5A1A168E2B6228290063D408 /* GoogleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A168D2B6228290063D408 /* GoogleLoginView.swift */; };
 		5A1A16942B622BB10063D408 /* GoogleLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A16932B622BB10063D408 /* GoogleLoginViewController.swift */; };
 		5A1A16962B6231870063D408 /* GoogleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A16952B6231870063D408 /* GoogleAuthManager.swift */; };
@@ -93,8 +95,6 @@
 		5ADE79E82B6B5963005BB3ED /* StatusTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E72B6B5963005BB3ED /* StatusTextView.swift */; };
 		5ADE79EA2B6B6715005BB3ED /* SignUpInputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */; };
 		5C85D1672B7C45130065940D /* ReportCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C85D1662B7C45130065940D /* ReportCellView.swift */; };
-		5C85D16B2B7C4B920065940D /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5C85D16A2B7C4B920065940D /* Secrets.xcconfig */; };
-		5C85D16D2B7C4BB40065940D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5C85D16C2B7C4BB40065940D /* GoogleService-Info.plist */; };
 		5C8C0DD82B734B8C002963F1 /* NaverReverseGeocoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0DD72B734B8C002963F1 /* NaverReverseGeocoding.swift */; };
 		5C8C0DDA2B734BE0002963F1 /* NaverLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0DD92B734BE0002963F1 /* NaverLocationService.swift */; };
 		5C8C0DDC2B734CAC002963F1 /* ExchangeHopeExplainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0DDB2B734CAC002963F1 /* ExchangeHopeExplainView.swift */; };
@@ -184,6 +184,8 @@
 		38996D702CA8C661E33E70C8 /* Pods_BookBridge_BookBridgeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridge_BookBridgeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		38E83709A8699EFCEF75F30C /* Pods-BookBridge-BookBridgeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge-BookBridgeUITests.debug.xcconfig"; path = "Target Support Files/Pods-BookBridge-BookBridgeUITests/Pods-BookBridge-BookBridgeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5A0242142B6D36FF00137AA6 /* LoadingCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCircle.swift; sourceTree = "<group>"; };
+		5A17A02A2B7C78A000C60F69 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = "../../Dependency File/Secrets.xcconfig"; sourceTree = "<group>"; };
+		5A17A02B2B7C78A000C60F69 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Dependency File/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5A1A168D2B6228290063D408 /* GoogleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginView.swift; sourceTree = "<group>"; };
 		5A1A168F2B62285A0063D408 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A1A16932B622BB10063D408 /* GoogleLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginViewController.swift; sourceTree = "<group>"; };
@@ -249,8 +251,6 @@
 		5ADE79E72B6B5963005BB3ED /* StatusTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTextView.swift; sourceTree = "<group>"; };
 		5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputManager.swift; sourceTree = "<group>"; };
 		5C85D1662B7C45130065940D /* ReportCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCellView.swift; sourceTree = "<group>"; };
-		5C85D16A2B7C4B920065940D /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
-		5C85D16C2B7C4BB40065940D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5C8C0DD72B734B8C002963F1 /* NaverReverseGeocoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverReverseGeocoding.swift; sourceTree = "<group>"; };
 		5C8C0DD92B734BE0002963F1 /* NaverLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLocationService.swift; sourceTree = "<group>"; };
 		5C8C0DDB2B734CAC002963F1 /* ExchangeHopeExplainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeHopeExplainView.swift; sourceTree = "<group>"; };
@@ -482,8 +482,8 @@
 		5A7A4E192B61DFFD00F79C23 = {
 			isa = PBXGroup;
 			children = (
-				5C85D16C2B7C4BB40065940D /* GoogleService-Info.plist */,
-				5C85D16A2B7C4B920065940D /* Secrets.xcconfig */,
+				5A17A02B2B7C78A000C60F69 /* GoogleService-Info.plist */,
+				5A17A02A2B7C78A000C60F69 /* Secrets.xcconfig */,
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
 				5A7A4E352B61DFFE00F79C23 /* BookBridgeTests */,
@@ -929,11 +929,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C85D16B2B7C4B920065940D /* Secrets.xcconfig in Resources */,
 				5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */,
-				5C85D16D2B7C4BB40065940D /* GoogleService-Info.plist in Resources */,
+				5A17A02C2B7C78A000C60F69 /* Secrets.xcconfig in Resources */,
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
 				5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */,
+				5A17A02D2B7C78A000C60F69 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1254,7 +1254,7 @@
 /* Begin XCBuildConfiguration section */
 		5A7A4E442B61DFFE00F79C23 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C85D16A2B7C4B920065940D /* Secrets.xcconfig */;
+			baseConfigurationReference = 5A17A02A2B7C78A000C60F69 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1318,7 +1318,7 @@
 		};
 		5A7A4E452B61DFFE00F79C23 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C85D16A2B7C4B920065940D /* Secrets.xcconfig */;
+			baseConfigurationReference = 5A17A02A2B7C78A000C60F69 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
