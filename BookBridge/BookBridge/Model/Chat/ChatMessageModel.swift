@@ -6,20 +6,21 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
-struct ChatMessage: Identifiable {
+struct ChatMessageModel: Identifiable {
     
-    var id: String { documentId }
+    let id = UUID().uuidString
+    var date: Date
+    var imageURL: String
+    var location: [String]
+    var message: String
+    var sender: String
     
-    let documentId: String
-    let fromId: String
-    let toId: String
-    let text: String
-    
-    init(documentId: String, data: [String: Any]) {
-        self.documentId = documentId
-        self.fromId = data[FirebaseConstants.fromId] as? String ?? ""
-        self.toId = data[FirebaseConstants.toId] as? String ?? ""
-        self.text = data[FirebaseConstants.text] as? String ?? ""
+    var timeAgo: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "a h:mm"
+        formatter.locale = Locale(identifier: "ko_KR")
+        return formatter.string(from: date)
     }
 }
