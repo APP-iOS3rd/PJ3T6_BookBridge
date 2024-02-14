@@ -11,7 +11,7 @@ import CoreLocation
 
 struct ExchangeHopeView: View {
     
-    @State var myCoord: (Double, Double) = (LocationManager.shared.lat,LocationManager.shared.long)
+    @State var myCoord: (Double, Double) = (0, 0)
     @ObservedObject var viewModel: PostingViewModel
     
     //이전화면으로 돌아가기
@@ -54,6 +54,10 @@ struct ExchangeHopeView: View {
                 
             }
         }
+        .onAppear{
+            // LocationManager로부터 초기 위치 데이터를 받아오는 로직
+            self.myCoord = (LocationManager.shared.lat,LocationManager.shared.long)
+        }
         
     }
     
@@ -80,7 +84,7 @@ struct UIExchangeHopeView: UIViewRepresentable {
         if let cameraCoord = markerCoord {
             cameraUpdate = NMFCameraUpdate(scrollTo: cameraCoord, zoomTo: 15)
         }else {
-            cameraUpdate = NMFCameraUpdate(scrollTo:NMGLatLng(lat: myCoord.1, lng: myCoord.0), zoomTo: 15)
+            cameraUpdate = NMFCameraUpdate(scrollTo:NMGLatLng(lat: myCoord.0, lng: myCoord.1), zoomTo: 15)
         }
         
         mapView.mapView.moveCamera(cameraUpdate)
@@ -89,17 +93,18 @@ struct UIExchangeHopeView: UIViewRepresentable {
     
     // View 변경시 호출
     func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
+        // 새로운 내 위치 또는 마커 위치로 카메라 업데이트
+        let cameraUpdate: NMFCameraUpdate
         
-        let newMyCoord = NMGLatLng(lat: myCoord.1, lng: myCoord.0)
-        let cameraUpdate = NMFCameraUpdate(scrollTo: newMyCoord)
-        cameraUpdate.animation = .fly
-        cameraUpdate.animationDuration = 1
-        //uiView.mapView.moveCamera(cameraUpdate)
-        
-        // Maker좌표 변경
-        if let coord = markerCoord {
-            context.coordinator.updateMarkerPosition(coord, on: uiView.mapView)
+        if let markerCoord = markerCoord {
+            context.coordinator.updateMarkerPosition(markerCoord, on: uiView.mapView)
+            cameraUpdate = NMFCameraUpdate(scrollTo: markerCoord, zoomTo: 15)
+        } else {
+            let newMyCoord = NMGLatLng(lat: myCoord.0, lng: myCoord.1)
+            cameraUpdate = NMFCameraUpdate(scrollTo: newMyCoord, zoomTo: 15)
         }
+        
+        uiView.mapView.moveCamera(cameraUpdate)
     }
     
     func makeCoordinator() -> Coordinator {
