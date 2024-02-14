@@ -5,7 +5,7 @@
 //  Created by 김지훈 on 2024/02/14.
 //
 
-import Foundation
+import SwiftUI
 
 struct ReportCellView: View {
     
