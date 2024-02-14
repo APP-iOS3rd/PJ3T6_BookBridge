@@ -127,7 +127,7 @@ class ChatLogViewModel: ObservableObject {
         // 발신자 최근 메시지 저장
         let senderDocument = FirebaseManager.shared.firestore.collection("chatUsers")
             .document(uid)
-            .collection("recent_messages")
+            .collection("recent_messages")/*.whereField("toId", isEqualTo: "\(toId)")*/
             .document(toId)
         print("발신자 메시지 = uid:\(uid), toid:\(toId), document: \(senderDocument.path)")
         
