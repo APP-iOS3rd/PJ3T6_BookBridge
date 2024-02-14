@@ -9,7 +9,7 @@ struct NoticeBoard: Identifiable {
     var noticeBoardDetail: String
     var noticeImageLink: [String]
     var noticeLocation: [Double]        //index 0번은 위도, 1번은 경도
-    var noticeLocationName: String // 교환 희망 장소
+    var noticeLocationName: String      // 교환 희망 장소
     var isChange: Bool
     var state: Int                      //게시물 상태) 0 = 아무것도 없음, 1 = 예약중, 2 = 교환완료
     var date: Date

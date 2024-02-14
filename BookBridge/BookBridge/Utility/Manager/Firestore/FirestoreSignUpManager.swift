@@ -21,9 +21,8 @@ class FirestoreSignUpManager {
             "password": user.passsword ?? "",
             "nickname": user.nickname ?? "",
             "phoneNumber": user.phoneNumber ?? "",
-            "distance": user.distance ?? 1,
             "joinDate": user.joinDate ?? "",
-            "dong": user.dong ?? ""
+            "location": user.location ?? [],
         ] as [String : Any]
         
         return userData as [String : Any]
@@ -34,6 +33,11 @@ class FirestoreSignUpManager {
             "id": location.id ?? "",
             "lat": location.lat ?? 37.49235,
             "long": location.long ?? 127.0056634,
+            "city": location.city ?? "",
+            "distriction": location.distriction ?? "",
+            "dong": location.dong ?? "",
+            "distance": location.distance ?? 1,
+            "isSelected": location.isSelected ?? true
         ] as [String : Any]
         
         return locationData as [String : Any]
@@ -52,9 +56,7 @@ class FirestoreSignUpManager {
             passsword: password,
             nickname: nickname,
             phoneNumber: phoneNumber,
-            distance: 1,
-            joinDate: Date(),
-            dong: [LocationManager.shared.distriction]
+            joinDate: Date()            
         )
         let userData = convertUserModelToDictionary(user: user)
               
@@ -73,15 +75,29 @@ class FirestoreSignUpManager {
         let location = Location (
             id: documentId,
             lat: LocationManager.shared.lat,
-            long: LocationManager.shared.long
+            long: LocationManager.shared.long,
+            city: LocationManager.shared.city,
+            distriction: LocationManager.shared.distriction,
+            dong: LocationManager.shared.dong,
+            distance: LocationManager.shared.distance,
+            isSelected: LocationManager.shared.isSelected
         )
         let locationData = convertLocationToDictionary(location: location)
         
-        document.setData(locationData, merge: false) { err in
-            if let err = err {
-                print(err.localizedDescription)
+        let userRef = self.db.collection("User").document(userId)
+        userRef.getDocument { (doc, err) in
+            if let doc = doc, doc.exists {
+                userRef.updateData([
+                    "location": FieldValue.arrayUnion([locationData])
+                ]) { err in
+                    if let err = err {
+                        print("Error adding location: \(err)")
+                    } else {
+                        print("Location added successfully")
+                    }
+                }
             } else {
-                print("Location has been saved!")
+                print("User document does not exist")
             }
         }
     }
@@ -94,6 +110,7 @@ class FirestoreSignUpManager {
                 guard let user = result?.user else { return }
                 self.addUser(id: user.uid, email: email, password: password, nickname: nickname, phoneNumber: phoneNumber)
                 self.addUserLocation(userId: user.uid)
+                
                 completion()
             }
         }

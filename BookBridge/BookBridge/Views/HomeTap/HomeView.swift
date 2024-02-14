@@ -18,28 +18,30 @@ struct HomeView: View {
     @Namespace private var animation
     
     var body: some View {
-        VStack {
-            HStack {
-                Button {
-                    self.isAnimating.toggle()
-                    
-                } label: {
-                    HStack{
-                        Text("광교 2동")
-                        Image(systemName: "chevron.down")
-                            .rotationEffect(.degrees(isAnimating ? 180 : 360))
-                            .animation(.linear(duration: 0.3), value: isAnimating)
+        NavigationView{
+            VStack {
+                HStack {
+                    Button {
+                        self.isAnimating.toggle()
+                        
+                    } label: {
+                        HStack{
+                            Text("광교 2동")
+                            Image(systemName: "chevron.down")
+                                .rotationEffect(.degrees(isAnimating ? 180 : 360))
+                                .animation(.linear(duration: 0.3), value: isAnimating)
+                        }
+                        .padding(.leading, 20)
+                        .foregroundStyle(.black)
+                        
                     }
-                    .padding(.leading, 20)
-                    .foregroundStyle(.black)
-                    
+                    Spacer()
                 }
-                Spacer()
+                
+                tapAnimation()
+                
+                HomeTapView(viewModel: viewModel, tapCategory: selectedPicker)
             }
-            
-            tapAnimation()
-            
-            HomeTapView(viewModel: viewModel, tapCategory: selectedPicker)
         }
         .onAppear {
             viewModel.gettingFindNoticeBoards()

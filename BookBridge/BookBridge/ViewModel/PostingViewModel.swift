@@ -49,6 +49,7 @@ extension PostingViewModel {
         
         // 게시물 정보 생성
         let post = NoticeBoard(id: noticeBoard.id, userId: "joo", noticeBoardTitle: noticeBoard.noticeBoardTitle, noticeBoardDetail: noticeBoard.noticeBoardDetail, noticeImageLink: noticeBoard.noticeImageLink, noticeLocation: noticeBoard.noticeLocation, noticeLocationName: noticeBoard.noticeLocationName, isChange: isChange, state: 0, date: Date(), hopeBook: noticeBoard.hopeBook)
+
         
         // 모든 게시물  noticeBoard/noticeBoardId/
         let linkNoticeBoard = db.collection("noticeBoard").document(noticeBoard.id)

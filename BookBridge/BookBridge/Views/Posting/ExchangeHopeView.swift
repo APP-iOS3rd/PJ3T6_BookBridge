@@ -30,7 +30,7 @@ struct ExchangeHopeView: View {
                     .navigationBarBackButtonHidden(true) // 뒤로 가기 버튼 숨기기
                 
                 Button(action: {
-                    // 교환 희망 장소 위치 
+                    // 교환 희망 장소 위치
                     if let lat = viewModel.markerCoord?.lat, let lng = viewModel.markerCoord?.lng {
                         viewModel.updateNoticeLocation(lat: lat, lng: lng)
                     }
@@ -48,14 +48,11 @@ struct ExchangeHopeView: View {
                         .cornerRadius(10)
                     
                 }
-                .frame(width: geometry.size.width * 0.5, height: geometry.size.height * 0.08) // 버튼의 크기를 설정합니다.
+                .frame(width: geometry.size.width * 0.5, height: geometry.size.height * 0.08) // 버튼의 크기를 설정
                 .position(x: geometry.size.width / 2, y: geometry.size.height * 0.91) // 하단에 위치
                 .padding(.bottom, geometry.safeAreaInsets.bottom) // 하단 세이프 에어리어만큼 패딩 추가
                 
-            }.onAppear{
-                print(myCoord)
             }
-            
         }
         
     }
