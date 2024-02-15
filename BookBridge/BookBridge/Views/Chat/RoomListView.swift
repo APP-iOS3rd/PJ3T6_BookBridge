@@ -13,9 +13,14 @@ struct RoomListView: View {
     var body: some View {
         List {
             ForEach(viewModel.chatRoomList) { chatRoom in
-                NavigationLink {
-                    ChatMessageView(chatRoomListId: chatRoom.id, isFirst: false, noticeBoardTitle: chatRoom.noticeBoardTitle, partnerId: chatRoom.partnerId, uid: chatRoom.userId)
-                } label: {
+                ZStack {
+                    NavigationLink {
+                        ChatMessageView(chatRoomListId: chatRoom.id, isFirst: false, noticeBoardTitle: chatRoom.noticeBoardTitle, partnerId: chatRoom.partnerId, uid: chatRoom.userId)
+                    } label: {
+                        EmptyView()
+                    }
+                    .opacity(0.0)
+                    
                     HStack(spacing: 16) {
                         AsyncImage(url: URL(string: "")) { image in
                             image
@@ -51,36 +56,36 @@ struct RoomListView: View {
                             .foregroundStyle(Color(.lightGray))
                     }
                 }
-
+                
+                
                 /*
-                VStack {
-                    Button {
-                        let uid = FirebaseManager.shared.auth.currentUser?.uid == recentMessage.fromId ? recentMessage.toId : recentMessage.fromId
-                        self.chatUser = .init(data: [
-                            FirebaseConstants.email: recentMessage.email,
-                            FirebaseConstants.profileImageUrl: recentMessage.profileImageUrl,
-                            FirebaseConstants.uid: uid
-                        ])
-                        self.chatLogViewModel.chatUser = self.chatUser
-                        self.chatLogViewModel.fetchMessages()
-                        self.navigateToChatLogView.toggle()
-                    } label: {
-                        
-                    }
-                    .swipeActions(edge: .trailing) {
-                        Button(role: .destructive) {
-                            if let chatUserID = chatUser?.uid {
-                                chatListVM.deleteChatList(chatUserID: chatUserID)
-                            }
-                        } label: {
-                            Label("삭제", systemImage: "trash")
-                        }
-                    }
-                    Divider()
-                }
+                 VStack {
+                 Button {
+                 let uid = FirebaseManager.shared.auth.currentUser?.uid == recentMessage.fromId ? recentMessage.toId : recentMessage.fromId
+                 self.chatUser = .init(data: [
+                 FirebaseConstants.email: recentMessage.email,
+                 FirebaseConstants.profileImageUrl: recentMessage.profileImageUrl,
+                 FirebaseConstants.uid: uid
+                 ])
+                 self.chatLogViewModel.chatUser = self.chatUser
+                 self.chatLogViewModel.fetchMessages()
+                 self.navigateToChatLogView.toggle()
+                 } label: {
+                 
+                 }
+                 .swipeActions(edge: .trailing) {
+                 Button(role: .destructive) {
+                 if let chatUserID = chatUser?.uid {
+                 chatListVM.deleteChatList(chatUserID: chatUserID)
+                 }
+                 } label: {
+                 Label("삭제", systemImage: "trash")
+                 }
+                 }
+                 Divider()
+                 }
                  */
             }
-            
             .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
