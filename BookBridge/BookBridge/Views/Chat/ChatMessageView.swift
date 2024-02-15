@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct ChatMessageView: View {
-    @StateObject var viewModel = ChatMessageViewModel()
     @Environment(\.dismiss) var dismiss
     
+    @StateObject var viewModel = ChatMessageViewModel()
+    
     var chatRoomListId: String
-    var isFirst: Bool                   //true: 채팅 한번 안함, false: 이미 방이있음
+    var noticeBoardId: String
     var noticeBoardTitle: String
     var partnerId: String
     var partnerImageURL: String
@@ -20,7 +21,7 @@ struct ChatMessageView: View {
     
     var body: some View {
         VStack {
-            noticeBoardChatView()
+            noticeBoardChatView(viewModel: viewModel)
             MessageListView(viewModel: viewModel, partnerId: partnerId, partnerImageURL: partnerImageURL, uid: uid)
             ChatBottomBarView(viewModel: viewModel, chatRoomListId: chatRoomListId, partnerId: partnerId, uid: uid)
         }
@@ -64,6 +65,7 @@ struct ChatMessageView: View {
         .onAppear {
             viewModel.initNewCount(uid: uid, chatRoomId: chatRoomListId)
             viewModel.fetchMessages(uid: uid, chatRoomListId: chatRoomListId)
+            viewModel.getNoticeBoardInfo(noticeBoardId: noticeBoardId)
         }
         .onDisappear {
             viewModel.firestoreListener?.remove()

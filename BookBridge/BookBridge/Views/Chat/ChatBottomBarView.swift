@@ -72,7 +72,7 @@ struct ChatBottomBarView: View {
             .padding(.horizontal)
             .padding(.vertical, 8)
             
-            if !isPlusBtn {
+            
                 HStack {
                     
                     Spacer()
@@ -147,9 +147,6 @@ struct ChatBottomBarView: View {
                     Spacer()
                     
                 }
-                .padding(.top, 30)
-                .padding(.bottom, 30)
-            }
         }
     }
 }

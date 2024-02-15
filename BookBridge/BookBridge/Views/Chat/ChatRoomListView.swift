@@ -10,7 +10,6 @@ import SwiftUI
 struct ChatRoomListView: View {
     @StateObject var viewModel = ChatRoomListViewModel()
     
-    var searchText: String = ""
     var uid: String
     
     var body: some View {
