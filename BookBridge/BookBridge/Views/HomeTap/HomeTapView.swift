@@ -87,6 +87,7 @@ struct HomeTapView: View {
                 .padding(.horizontal)
                 .padding(.bottom, 10)
                 
+                
             case .change:
                 ForEach(viewModel.changeNoticeBoards) { element in
                     NavigationLink {
@@ -106,6 +107,17 @@ struct HomeTapView: View {
         .onAppear {
             if UserManager.shared.isLogin {
                 viewModel.fetchBookMark()
+                
+            }
+        }
+        // 게시물 불러오는 기능
+        .onChange(of: LocationManager.shared.dong) { _ in
+            if UserManager.shared.isLogin {
+                // 로그인 했을 경우
+            } else {
+                Task {
+                    viewModel.changeNoticeBoards = await GeohashManager.geoQuery(lat: LocationManager.shared.lat, long: LocationManager.shared.long, distance: 1)
+                }
             }
         }
     }

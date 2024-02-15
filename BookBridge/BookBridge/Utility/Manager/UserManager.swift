@@ -12,6 +12,7 @@ class UserManager {
     private init() {}
     
     var uid = "LXZQd1GmWOYFpxmRtoW4WpLS8Uy2"
+    
     var isLogin = false
     
     func setUser(uid: String) {
