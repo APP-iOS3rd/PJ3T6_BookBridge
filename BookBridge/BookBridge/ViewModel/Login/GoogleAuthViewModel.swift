@@ -17,12 +17,14 @@ final class GoogleAuthViewModel: ObservableObject {
             guard let email = result.email else { return }
             
             FirestoreSignUpManager.shared.getUserData(email: email) { userData in
-                if let userData = userData {
+                if userData != nil {
                     // 로그인
+                    UserManager.shared.login(uid: result.uid)
                 } else {
                     // 회원가입
-                    FirestoreSignUpManager.shared.addUser(id: result.uid, email: email, password: nil, nickname: nil, phoneNumber: nil)
-                    FirestoreSignUpManager.shared.addUserLocation(userId: result.uid)
+                    FirestoreSignUpManager.shared.addUser(id: result.uid, email: email, password: nil, nickname: nil, phoneNumber: nil) {                        
+                        UserManager.shared.login(uid: result.uid)
+                    }                    
                 }
             }
         } catch let err {
