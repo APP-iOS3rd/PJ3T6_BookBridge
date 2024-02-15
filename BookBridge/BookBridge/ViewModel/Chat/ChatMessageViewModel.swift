@@ -38,7 +38,7 @@ class ChatMessageViewModel: ObservableObject {
                     sender: document.data()["sender"] as? String ?? ""
                 ))
             }
-    
+            
             // 자동 스크롤 비동기
             DispatchQueue.main.async {
                 self.count += 1
@@ -77,7 +77,6 @@ class ChatMessageViewModel: ObservableObject {
         
         myQuery.updateData([
             "date": timestamp,
-            "newCount": 1,
             "recentMessage": self.chatText
         ])
         
@@ -91,10 +90,23 @@ class ChatMessageViewModel: ObservableObject {
             print("Recipient saved message as well")
         }
         
-        partnerQuery.updateData([
-            "date": timestamp,
-            "newCount": 1,
-            "recentMessage": self.chatText
+        partnerQuery.getDocument { documentSnapshot, error in
+            guard error == nil else { return }
+            guard let document = documentSnapshot else { return }
+            
+            
+            partnerQuery.updateData([
+                "date": timestamp,
+                "newCount": (document.data()?["newCount"] as? Int ?? 0) + 1,
+                "recentMessage": self.chatText
+            ])
+        }
+    }
+    
+    //채팅방 입장시 newCount 초기화
+    func initNewCount(uid: String, chatRoomId: String) {
+        FirebaseManager.shared.firestore.collection("user").document(uid).collection("chatRoomList").document(chatRoomId).updateData([
+            "newCount": 0
         ])
     }
 }

@@ -61,6 +61,7 @@ struct ChatMessageView: View {
             }
         }
         .onAppear {
+            viewModel.initNewCount(uid: uid, chatRoomId: chatRoomListId)
             viewModel.fetchMessages(uid: uid, chatRoomListId: chatRoomListId)
         }
         .onDisappear {
