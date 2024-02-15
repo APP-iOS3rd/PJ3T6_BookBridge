@@ -1,5 +1,5 @@
 //
-//  ChatLogView.swift
+//  ChatMessageView.swift
 //  BookBridge
 //
 //  Created by 이현호 on 2/6/24.
@@ -15,12 +15,13 @@ struct ChatMessageView: View {
     var isFirst: Bool                   //true: 채팅 한번 안함, false: 이미 방이있음
     var noticeBoardTitle: String
     var partnerId: String
+    var partnerImageURL: String
     var uid: String
     
     var body: some View {
         VStack {
             noticeBoardChatView()
-            MessageListView(viewModel: viewModel, partnerId: partnerId, uid: uid)
+            MessageListView(viewModel: viewModel, partnerId: partnerId, partnerImageURL: partnerImageURL, uid: uid)
             ChatBottomBarView(viewModel: viewModel, chatRoomListId: chatRoomListId, partnerId: partnerId, uid: uid)
         }
 //        .navigationTitle(noticeBoardTitle)

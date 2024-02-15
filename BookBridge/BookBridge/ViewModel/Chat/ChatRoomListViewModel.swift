@@ -11,11 +11,14 @@ import FirebaseFirestore
 class ChatRoomListViewModel: ObservableObject {
     
     @Published var chatRoomList: [ChatRoomListModel] = []
-    @Published var chatRoomPartnerImages: [String] = []
+    @Published var chatRoomPartnerImagesURL: [(String, String, String)] = []
+    @Published var chatRoomPartnerUIImages: [UIImage] = []
     @Published var currentUser: UserModel?
     @Published var isLogout = false
     
     var firestoreListener: ListenerRegistration?
+    
+    let nestedGroup = DispatchGroup()
 }
 
 //MARK: 로그인 여부 확인
@@ -64,12 +67,16 @@ extension ChatRoomListViewModel {
             self.chatRoomList.removeAll()
             
             for document in documents.documents {
+                self.nestedGroup.enter()
                 guard let changeTime = document.data()["date"] as? Timestamp else { return }
+                guard let partnerId = document.data()["partnerId"] as? String else { return }
+                guard let noticeBoardId = document.data()["noticeBoardId"] as? String else { return }
+                
                 self.chatRoomList.append(ChatRoomListModel(
                     id: document.data()["id"] as? String ?? "",
                     userId: document.data()["userId"] as? String ?? "",
-                    noticeBoardId: document.data()["noticeBoardId"] as? String ?? "",
-                    partnerId: document.data()["partnerId"] as? String ?? "",
+                    noticeBoardId: noticeBoardId,
+                    partnerId: partnerId,
                     noticeBoardTitle: document.data()["noticeBoardTitle"] as? String ?? "",
                     recentMessage: document.data()["recentMessage"] as? String ?? "",
                     date: changeTime.dateValue(),
@@ -78,7 +85,7 @@ extension ChatRoomListViewModel {
                     state: document.data()["state"] as? [Int] ?? [1, 0, 0]
                 ))
                 
-                self.getPartnerImage(partnerId: document.data()["partnerId"] as? String ?? "")
+                self.getPartnerImage(partnerId: partnerId, noticeBoardId: noticeBoardId)
             }
         }
     }
@@ -122,15 +129,46 @@ extension ChatRoomListViewModel {
     }
 }
 
-//MARK: 스토리지 관련
+//MARK: 상대방 이미지 관련
 extension ChatRoomListViewModel {
     //상대방 프로필 이미지 가져오기
-    func getPartnerImage(partnerId: String) {
-        FirebaseManager.shared.firestore.collection("user").document("partnerId").getDocument { documentSnapshot, error in
+    func getPartnerImage(partnerId: String, noticeBoardId: String) {
+        FirebaseManager.shared.firestore.collection("user").document(partnerId).getDocument { documentSnapshot, error in
             guard error == nil else { return }
             guard let document = documentSnapshot else { return }
             
-            self.chatRoomPartnerImages.append(document.data()?["profileImageUrl"] as? String ?? "")
+            self.chatRoomPartnerImagesURL.append(
+                (
+                    partnerId,
+                    noticeBoardId,
+                    document.data()?["profileImageUrl"] as? String ?? ""
+                )
+            )
+            
+            self.nestedGroup.leave()
+        }
+    }
+    
+    //상대방 프로필 인덱스 찾기
+    func getPartnerImageIndex(partnerId: String, noticeBoardId: String) -> String {
+        if let index = self.chatRoomPartnerImagesURL.firstIndex(where: { $0.0 == partnerId && $0.1 == noticeBoardId }) {
+            return self.chatRoomPartnerImagesURL[index].2
+        } else {
+            return ""
+        }
+    }
+    
+    func getUIImage() {
+        for i in self.chatRoomPartnerImagesURL {
+            if let url = URL(string: i.2) {
+                URLSession.shared.dataTask(with: url) { (data, response, error) in
+                    guard let imageData = data else { return }
+                    
+                    DispatchQueue.main.async {
+                        self.chatRoomPartnerUIImages.append(UIImage(data: imageData) ?? UIImage(named: "imageNil")!)
+                    }
+                }.resume()
+            }
         }
     }
 }

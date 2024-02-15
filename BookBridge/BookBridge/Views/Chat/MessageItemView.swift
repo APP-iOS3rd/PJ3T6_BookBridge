@@ -10,6 +10,7 @@ import SwiftUI
 struct MessageItemView: View {
     var messageModel: ChatMessageModel
     var partnerId: String
+    var partnerImageURL: String
     var uid: String
     
     var body: some View {
@@ -28,21 +29,44 @@ struct MessageItemView: View {
                         Text(messageModel.message)
                             .foregroundStyle(.white)
                     }
-                    .padding()
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 12)
                     .background(Color(hex:"59AAE0"))
                     .cornerRadius(10)
                 }
             } else {
                 HStack {
-                    Image(systemName: "circle.fill")
-                        .font(.system(size: 30))
+                    AsyncImage(url: URL(string: partnerImageURL)) { image in
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 30, height: 30)
+                            .clipped()
+                            .cornerRadius(15)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 64)
+                                    .stroke(Color(.label), lineWidth: 1)
+                            )
+                    } placeholder: {
+//                        ProgressView()
+//                            .frame(width: 30, height: 30)
+                        Image("DefaultImage")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 30, height: 30)
+                            .clipped()
+                            .cornerRadius(15)
+                    }
+                    
                     HStack {
                         Text(messageModel.message)
                             .foregroundStyle(.white)
                     }
-                    .padding()
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 12)
                     .background(Color(hex:"767676"))
                     .cornerRadius(10)
+                    
                     VStack {
                         Spacer()
                         Text("오전 12:30")
@@ -56,4 +80,9 @@ struct MessageItemView: View {
         .padding(.horizontal)
         .padding(.top, 8)
     }
+}
+
+
+#Preview {
+    ChatRoomListView(uid: "lee")
 }

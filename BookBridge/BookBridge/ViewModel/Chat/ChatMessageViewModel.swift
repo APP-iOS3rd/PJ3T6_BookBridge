@@ -71,7 +71,6 @@ class ChatMessageViewModel: ObservableObject {
             
             print("Successfully saved current user sending message")
             
-            self.chatText = ""
             self.count += 1 // 채팅 화면 하단 갱신
         }
         
@@ -100,6 +99,8 @@ class ChatMessageViewModel: ObservableObject {
                 "newCount": (document.data()?["newCount"] as? Int ?? 0) + 1,
                 "recentMessage": self.chatText
             ])
+            
+            self.chatText = ""
         }
     }
     

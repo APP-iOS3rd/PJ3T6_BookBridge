@@ -15,15 +15,22 @@ struct noticeBoardChatView: View {
     var body: some View {
         HStack {
             Image(systemName: "book.closed.fill")
-                .font(.system(size: 50))
+                .resizable()
+                .scaledToFit()
+                .frame(width: 28, height: 41)
+                .padding(.trailing, 4)
             VStack(alignment:.leading) {
-                Text("난중일지와 교환해 봅니다")
-                    .padding(.bottom, 2)
+                Text("난중일지와 교환해봅니다")
+                    .bold()
+                    .padding(.bottom, 1)
+                    .multilineTextAlignment(.leading)
                 Text("광교 2동")
                     .font(.system(size: 14))
                     .foregroundStyle(.gray)
             }
             .padding(.trailing)
+            
+            Spacer()
             
             Button(action: {
                 isReserved.toggle()
@@ -58,6 +65,7 @@ struct noticeBoardChatView: View {
             }
         }
         .padding(.top, 8)
+        .padding(.horizontal)
         Divider()
     }
 }

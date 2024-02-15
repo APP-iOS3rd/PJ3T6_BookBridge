@@ -15,33 +15,40 @@ struct RoomListView: View {
             ForEach(viewModel.chatRoomList) { chatRoom in
                 ZStack {
                     NavigationLink {
-                        ChatMessageView(chatRoomListId: chatRoom.id, isFirst: false, noticeBoardTitle: chatRoom.noticeBoardTitle, partnerId: chatRoom.partnerId, uid: chatRoom.userId)
+                        ChatMessageView(chatRoomListId: chatRoom.id, isFirst: false, noticeBoardTitle: chatRoom.noticeBoardTitle, partnerId: chatRoom.partnerId, partnerImageURL: viewModel.getPartnerImageIndex(partnerId: chatRoom.partnerId, noticeBoardId: chatRoom.noticeBoardId), uid: chatRoom.userId)
                     } label: {
                         EmptyView()
                     }
                     .opacity(0.0)
                     
                     HStack(spacing: 16) {
-                        AsyncImage(url: URL(string: "")) { image in
+                        AsyncImage(url: URL(string: viewModel.getPartnerImageIndex(partnerId: chatRoom.partnerId, noticeBoardId: chatRoom.noticeBoardId))) { image in
                             image
                                 .resizable()
                                 .scaledToFill()
-                                .frame(width: 64, height: 64)
+                                .frame(width: 50, height: 50)
                                 .clipped()
-                                .cornerRadius(64)
+                                .cornerRadius(25)
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: 64)
+                                    RoundedRectangle(cornerRadius: 25)
                                         .stroke(Color(.label), lineWidth: 1)
                                 )
                         } placeholder: {
                             // Placeholder 이미지 설정
-                            ProgressView()
+                            Image("DefaultImage")
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 50, height: 50)
+                                .clipped()
+                                .cornerRadius(50)
                         }
+                        
                         VStack(alignment: .leading, spacing: 8) {
                             Text(chatRoom.noticeBoardTitle)
                                 .font(.system(size: 16, weight: .bold))
                                 .foregroundStyle(Color(.label))
                                 .multilineTextAlignment(.leading)
+                            
                             Text(chatRoom.recentMessage)
                                 .font(.system(size: 14))
                                 .foregroundStyle(Color(hex:"8A8A8E"))
@@ -56,38 +63,13 @@ struct RoomListView: View {
                             .foregroundStyle(Color(.lightGray))
                     }
                 }
-                
-                
-                /*
-                 VStack {
-                 Button {
-                 let uid = FirebaseManager.shared.auth.currentUser?.uid == recentMessage.fromId ? recentMessage.toId : recentMessage.fromId
-                 self.chatUser = .init(data: [
-                 FirebaseConstants.email: recentMessage.email,
-                 FirebaseConstants.profileImageUrl: recentMessage.profileImageUrl,
-                 FirebaseConstants.uid: uid
-                 ])
-                 self.chatLogViewModel.chatUser = self.chatUser
-                 self.chatLogViewModel.fetchMessages()
-                 self.navigateToChatLogView.toggle()
-                 } label: {
-                 
-                 }
-                 .swipeActions(edge: .trailing) {
-                 Button(role: .destructive) {
-                 if let chatUserID = chatUser?.uid {
-                 chatListVM.deleteChatList(chatUserID: chatUserID)
-                 }
-                 } label: {
-                 Label("삭제", systemImage: "trash")
-                 }
-                 }
-                 Divider()
-                 }
-                 */
             }
             .listRowSeparator(.hidden)
         }
         .listStyle(.plain)
     }
+}
+
+#Preview {
+    ChatRoomListView(uid: "lee")
 }
