@@ -10,7 +10,7 @@ import SwiftUI
 struct IdLoginView: View {
     @EnvironmentObject private var pathModel: PathViewModel
     @StateObject private var viewModel = IdLoginViewModel()
-    
+    @Binding var showingLoginView: Bool
     var body: some View {
         
         VStack{
@@ -98,7 +98,7 @@ struct IdLoginView: View {
             Button(action: {
                 viewModel.login()
                 if viewModel.state == .signedIn {
-                    pathModel.paths.append(.home(userId: nil))
+                    showingLoginView = false
                 }
             }, label: {
                 Text("로그인")
@@ -110,7 +110,7 @@ struct IdLoginView: View {
             .cornerRadius(10)
             .onChange(of: viewModel.state) { newState in
                 if newState == .signedIn {
-                    pathModel.paths.append(.home(userId:nil))
+                    showingLoginView = false
                 }
             }
         }
@@ -142,6 +142,6 @@ struct CustomBackButtonView: View {
 
 
 
-#Preview {
-    IdLoginView()
-}
+//#Preview {
+//    IdLoginView()
+//}
