@@ -41,7 +41,8 @@ extension HomeViewModel {
                     isChange: document.data()["isChange"] as! Bool,
                     state: document.data()["state"] as! Int,
                     date: stamp.dateValue(),
-                    hopeBook: []
+                    hopeBook: [],
+                    geoHash: document.data()["geohash"] as? String
                 )
                 
                 DispatchQueue.main.async {

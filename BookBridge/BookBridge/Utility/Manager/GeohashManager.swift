@@ -20,61 +20,90 @@ class GeohashManager {
         return geoHash
     }
     
-//    static func geoQuery(lat: Double, long: Double, distance: Int, completion: @escaping ([Temp]) -> ()) async {
-//        let center = CLLocationCoordinate2D(latitude: lat, longitude: long)
-//        let radiusInM: Double = Double(distance) * 1000
-//
-//        let queryBounds = GFUtils.queryBounds(forLocation: center, withRadius: radiusInM)
-//        let queries = queryBounds.map { bound -> Query in
-//            return db.collection("Location")
-//                .order(by: "geohash")
-//                .start(at: [bound.startValue])
-//                .end(at: [bound.endValue])
-//        }
-//
-//        @Sendable func fetchMatchingDocs(from query: Query,
-//                                         center: CLLocationCoordinate2D,
-//                                         radiusInMeters: Double) async throws -> [Temp] {
-//            let snapshot = try await query.getDocuments()
-//            let tempArray = snapshot.documents.compactMap { document -> Temp? in
-//                    guard let data = document.data() as? [String: Any] else {
-//                        print("Error: Unable to retrieve document data")
-//                        return nil
-//                    }
-//                    
-//                    let name = data["name"] as? String ?? ""
-//                    let lat = data["lat"] as? Double ?? 0.0
-//                    let long = data["long"] as? Double ?? 0.0
-//                    let geohash = data["geohash"] as? String ?? ""
-//                    
-//                    let temp = Temp(name: name, lat: lat, long: long, geohash: geohash)
-//                    return temp
-//                }
-//            return tempArray.filter { temp -> Bool in
-//                let coordinates = CLLocation(latitude: temp.lat, longitude: temp.long)
-//                let centerPoint = CLLocation(latitude: center.latitude, longitude: center.longitude)
-//                let distance = GFUtils.distance(from: centerPoint, to: coordinates)
-//                return distance <= radiusInMeters
-//            }
-//        }
-//
-//        do {
-//            let matchingTempArray = try await withThrowingTaskGroup(of: [Temp].self) { group -> [Temp] in
-//                for query in queries {
-//                    group.addTask {
-//                        try await fetchMatchingDocs(from: query, center: center, radiusInMeters: radiusInM)
-//                    }
-//                }
-//                var matchingTempArray = [Temp]()
-//                for try await tempArray in group {
-//                    matchingTempArray.append(contentsOf: tempArray)
-//                }
-//                return matchingTempArray
-//            }
-//            completion(matchingTempArray)
-//        } catch {
-//            print("Unable to fetch snapshot data. \(error)")
-//            completion([])
-//        }
-//    }
+    static func geoQuery(lat: Double, long: Double, distance: Int) async -> [NoticeBoard] {
+        let center = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        let radiusInM: Double = Double(distance) * 1000
+
+        let queryBounds = GFUtils.queryBounds(forLocation: center, withRadius: radiusInM)
+        let queries = queryBounds.map { bound -> Query in
+            return db.collection("noticeBoard")
+                .order(by: "geoHash")
+                .start(at: [bound.startValue])
+                .end(at: [bound.endValue])
+        }
+
+        @Sendable func fetchMatchingDocs(from query: Query,
+                                         center: CLLocationCoordinate2D,
+                                         radiusInMeters: Double) async throws -> [NoticeBoard] {
+            let snapshot = try await query.getDocuments()
+            let tempArray = snapshot.documents.compactMap { document -> NoticeBoard? in
+                    guard let data = document.data() as? [String: Any] else {
+                        print("Error: Unable to retrieve document data")
+                        return nil
+                    }
+                
+                    guard let timestamp = document.data()["date"] as? Timestamp else { return nil }
+                    
+                    let id = data["noticeBoardId"] as? String ?? ""
+                    let userId = document.data()["userId"] as? String ?? ""
+                    let noticeBoardTitle = document.data()["noticeBoardTitle"] as? String ?? ""
+                    let noticeBoardDetail = document.data()["noticeBoardDetail"] as? String ?? ""
+                    let noticeImageLink = document.data()["noticeImageLink"] as? [String] ?? []
+                    let noticeLocation = document.data()["noticeLocation"] as? [Double] ?? []
+                    let noticeLocationName = document.data()["noticeLocationName"] as? String ?? ""
+                    let isChange = document.data()["isChange"] as? Bool ?? false
+                    let state = document.data()["state"] as? Int ?? 0
+                    let date = timestamp.dateValue()
+                    let hopeBook: [Item] = []
+                    let geoHash = document.data()["geohash"] as? String ?? ""
+                    
+                    let noticeBoard = NoticeBoard(
+                        id: id,
+                        userId: userId,
+                        noticeBoardTitle: noticeBoardTitle,
+                        noticeBoardDetail: noticeBoardDetail,
+                        noticeImageLink: noticeImageLink,
+                        noticeLocation: noticeLocation,
+                        noticeLocationName: noticeLocationName,
+                        isChange: isChange,
+                        state: state,
+                        date: date,
+                        hopeBook: hopeBook,
+                        geoHash: geoHash
+                    )
+
+                    return noticeBoard
+                }
+            return tempArray.filter { noticeBoard -> Bool in
+                let coordinates = CLLocation(
+                    latitude: noticeBoard.noticeLocation[0],
+                    longitude: noticeBoard.noticeLocation[1]
+                )
+                let centerPoint = CLLocation(latitude: center.latitude, longitude: center.longitude)
+                let distance = GFUtils.distance(from: centerPoint, to: coordinates)
+                return distance <= radiusInMeters
+            }
+        }
+
+        do {
+            let matchingTempArray = try await withThrowingTaskGroup(of: [NoticeBoard].self) { group -> [NoticeBoard] in
+                for query in queries {
+                    group.addTask {
+                        try await fetchMatchingDocs(from: query, center: center, radiusInMeters: radiusInM)
+                    }
+                }
+                var matchingTempArray = [NoticeBoard]()
+                for try await tempArray in group {
+                    matchingTempArray.append(contentsOf: tempArray)
+                }
+                return matchingTempArray
+            }
+            
+            return matchingTempArray
+        } catch {
+            print("Unable to fetch snapshot data. \(error)")
+            return []
+        }
+    }
+    
 }
