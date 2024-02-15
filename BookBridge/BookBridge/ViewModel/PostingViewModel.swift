@@ -126,7 +126,7 @@ extension PostingViewModel {
 
 extension PostingViewModel {
     func gettingUserInfo() {
-        FirestoreManager.fetchUserLocation { location1 in
+        FirestoreManager.fetchUserLocation(uid: UserManager.shared.uid) { location1 in
             if let location = location1 {
                 self.noticeBoard.noticeLocation = [location.first?.lat ?? 36, location.first?.long ?? 127]
                 self.noticeBoard.noticeLocationName = location.first?.dong ?? "교환지역 선택"
