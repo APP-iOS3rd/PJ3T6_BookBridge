@@ -1,7 +1,9 @@
 //
 //  AppleLoginView.swift
-//  BookBridge
 //
+//  1. Apple 인증완료시 appleAuthManager.isSignedIn ture
+//  2. onChange에서 isSignedIn 관찰
+//  3. showingLoginView 를 false로 변경함으로서 TabBarView로 돌아감
 //  Created by 김지훈 on 2024/01/30.
 //
 
@@ -11,12 +13,13 @@ import AuthenticationServices
 
 struct AppleLoginView: View {
     @StateObject private var appleAuthManager = AppleAuthManager()
+    @Binding var showingLoginView: Bool
 
     var body: some View {
         VStack {
-            if appleAuthManager.isSignedIn {
-                Text("Apple로그인 성공~")
-//                HomeView(user: user)
+            if UserManager.shared.isLogin {
+                TabBarView(userId: UserManager.shared.user?.id)
+                
             } else {
                 Button(action: appleAuthManager.startSignInWithAppleFlow) {
                     ZStack {
@@ -29,17 +32,13 @@ struct AppleLoginView: View {
 
             }
         }
-        .onAppear {
-            appleAuthManager.didChangeSignInStatus = { signedIn in
-                if signedIn {
-                    // 로그인 성공
-                } else {
-                    // 로그인 실패
-                }
+        .onChange(of: appleAuthManager.isSignedIn){ result in
+            if result{
+                // 로그인 성공
+                //UserManager.shared.isLogin = true
+                showingLoginView = false
             }
         }
-
-
     }
 
 }
