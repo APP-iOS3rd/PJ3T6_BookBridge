@@ -132,7 +132,7 @@ struct PostView: View {
  
                                 Spacer()
                                 
-                                NavigationLink(destination: PostMapView(lat: $noticeBoard.noticeLocation[0], lng: $noticeBoard.noticeLocation[1])) {
+                                NavigationLink(destination: PostMapSeeMoreView(lat: $noticeBoard.noticeLocation[0], lng: $noticeBoard.noticeLocation[1], noticeBoard: $noticeBoard)) {
                                     Text("더보기")
                                         .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
                                 }
