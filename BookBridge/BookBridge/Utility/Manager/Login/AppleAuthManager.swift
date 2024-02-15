@@ -51,14 +51,18 @@ class AppleAuthManager: NSObject, ASAuthorizationControllerDelegate, ObservableO
                 }
                 
                 if let user = authResult?.user{
+                    
                     FirestoreSignUpManager.shared.getUserData(email: user.email ?? "") { userData in
                         if userData != nil {
                             // 로그인
+                            UserManager.shared.login(uid: user.uid)
                         } else {
                             guard let email = user.email else {return}
                             // 회원가입
-                            FirestoreSignUpManager.shared.addUser(id: user.uid, email: email, password: nil, nickname: nil, phoneNumber: nil)
-                            FirestoreSignUpManager.shared.addUserLocation(userId: user.uid)
+                            FirestoreSignUpManager.shared.addUser(id: user.uid, email: email, password: nil, nickname: nil, phoneNumber: nil){
+                                UserManager.shared.login(uid: user.uid)
+                            }
+                  
                         }
                     }
                     
