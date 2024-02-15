@@ -25,6 +25,7 @@
 		1DCFB0222B68CB4400250D55 /* FindIdVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0212B68CB4400250D55 /* FindIdVM.swift */; };
 		1DCFB0242B68CD3100250D55 /* FindPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */; };
 		1DE382A72B734E74009A7A15 /* HomeRecentSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE382A62B734E74009A7A15 /* HomeRecentSearchView.swift */; };
+		1DF1CF772B7CA382008870FB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DF1CF762B7CA382008870FB /* GoogleService-Info.plist */; };
 		1DFDD1BA2B71B48400B320F7 /* SignInState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFDD1B92B71B48400B320F7 /* SignInState.swift */; };
 		1DFDD1BC2B71BF3D00B320F7 /* tapInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFDD1BB2B71BF3D00B320F7 /* tapInfo.swift */; };
 		1E9CA8884DE9A470795B434C /* Pods_BookBridge_BookBridgeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38996D702CA8C661E33E70C8 /* Pods_BookBridge_BookBridgeUITests.framework */; };
@@ -178,6 +179,7 @@
 		1DCFB0212B68CB4400250D55 /* FindIdVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdVM.swift; sourceTree = "<group>"; };
 		1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordView.swift; sourceTree = "<group>"; };
 		1DE382A62B734E74009A7A15 /* HomeRecentSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRecentSearchView.swift; sourceTree = "<group>"; };
+		1DF1CF762B7CA382008870FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1DFDD1B92B71B48400B320F7 /* SignInState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInState.swift; sourceTree = "<group>"; };
 		1DFDD1BB2B71BF3D00B320F7 /* tapInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tapInfo.swift; sourceTree = "<group>"; };
 		2C64B1A5C532C5F1A934328D /* Pods-BookBridge-BookBridgeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge-BookBridgeUITests.release.xcconfig"; path = "Target Support Files/Pods-BookBridge-BookBridgeUITests/Pods-BookBridge-BookBridgeUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -482,8 +484,13 @@
 		5A7A4E192B61DFFD00F79C23 = {
 			isa = PBXGroup;
 			children = (
+
+				1DF1CF762B7CA382008870FB /* GoogleService-Info.plist */,
+				1D7BA1B82B7B4A4F002F24FB /* Secrets.xcconfig */,
+
 				5A17A02B2B7C78A000C60F69 /* GoogleService-Info.plist */,
 				5A17A02A2B7C78A000C60F69 /* Secrets.xcconfig */,
+
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
 				5A7A4E352B61DFFE00F79C23 /* BookBridgeTests */,
@@ -930,6 +937,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */,
+
+				1DF1CF772B7CA382008870FB /* GoogleService-Info.plist in Resources */,
 				5A17A02C2B7C78A000C60F69 /* Secrets.xcconfig in Resources */,
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
 				5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */,
@@ -1254,7 +1263,11 @@
 /* Begin XCBuildConfiguration section */
 		5A7A4E442B61DFFE00F79C23 /* Debug */ = {
 			isa = XCBuildConfiguration;
+
+			baseConfigurationReference = 1D7BA1B82B7B4A4F002F24FB /* Secrets.xcconfig */;
+
 			baseConfigurationReference = 5A17A02A2B7C78A000C60F69 /* Secrets.xcconfig */;
+
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1318,7 +1331,11 @@
 		};
 		5A7A4E452B61DFFE00F79C23 /* Release */ = {
 			isa = XCBuildConfiguration;
+
+			baseConfigurationReference = 1D7BA1B82B7B4A4F002F24FB /* Secrets.xcconfig */;
+
 			baseConfigurationReference = 5A17A02A2B7C78A000C60F69 /* Secrets.xcconfig */;
+
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

@@ -14,7 +14,7 @@ import SwiftUI
 
 struct BookShelfView: View {
     @StateObject private var viewModel: BookShelfViewModel
-    @State private var selectedPicker: tapInfo = .wish
+    @State private var selectedPicker: tapInfo
     @State private var showingSheet = false // 시트 표시 여부를 위한 상태 변수
     @State private var searchText = ""
     @State private var selectedBook: Item?
@@ -24,9 +24,11 @@ struct BookShelfView: View {
     var userId : String?
     
     
-    init(userId: String?) {
+    
+    init(userId: String?,initialTapInfo: tapInfo) {
         _viewModel = StateObject(wrappedValue: BookShelfViewModel(userId: userId))
         self.userId = userId
+        _selectedPicker = State(initialValue: initialTapInfo)
     }
     
     
@@ -47,14 +49,17 @@ struct BookShelfView: View {
         
         ZStack{
             
-                        
+            
             VStack {
                 ZStack{
-                    if userId == userId  {
+                    if userId == UserManager.shared.uid  {
+                        Text("내 책장")
+                    }
+                    else if userId == nil {
                         Text("내 책장")
                     }
                     else {
-                        Text("OOO님의 책장")
+                        Text("유저의 책장")
                     }
                     
                     HStack{
@@ -100,19 +105,19 @@ struct BookShelfView: View {
                 
                 BookView(selectedBook: $selectedBook, isEditing: $isEditing ,tap: selectedPicker)
                     .environmentObject(viewModel)
-                    .sheet(item: $selectedBook) { book in
-                        BookDetailView(book: book)
+                    .sheet(item: $selectedBook,onDismiss: {viewModel.fetchBooks(for: selectedPicker)}) { book in
+                        BookDetailView(selectedPicker: $selectedPicker, book: book)
                             .environmentObject(viewModel)
                             .presentationDetents([.large])
-                        
-                        
+                            
                     }
+                
                 
                 
             }
             .padding(.horizontal)
             .onAppear{
-                viewModel.fetchBooks(for: .wish)
+                viewModel.fetchBooks(for: selectedPicker)
             }
             
             
@@ -134,7 +139,7 @@ struct BookShelfView: View {
                             viewModel.wishBooks.append(contentsOf: hopeBooks)
                             viewModel.saveBooksToFirestore(books: hopeBooks, collection: "wishBooks")
                             viewModel.fetchBooks(for: .wish)
-                            print(hopeBooks[0].volumeInfo)
+                            
                         }
                         else {
                             viewModel.holdBooks.removeAll { item in
@@ -143,6 +148,7 @@ struct BookShelfView: View {
                             viewModel.holdBooks.append(contentsOf: hopeBooks)
                             viewModel.saveBooksToFirestore(books: hopeBooks, collection: "holdBooks")
                             viewModel.fetchBooks(for: .hold)
+                            
                         }
                         hopeBooks.removeAll()
                     }
