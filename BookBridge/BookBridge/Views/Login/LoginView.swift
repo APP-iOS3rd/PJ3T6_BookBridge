@@ -10,11 +10,10 @@ import SwiftUI
 struct LoginView: View {
     @StateObject private var pathModel = PathViewModel()
     @StateObject var signUpVM = SignUpViewModel()
-    
+    @Binding var showingLoginView: Bool
     var body: some View {
         NavigationStack(path: $pathModel.paths){
-            // NavigationDestination 정의
-
+            
             VStack{
                 Image("Character")
                 VStack(alignment: .leading,spacing : 10){
@@ -69,7 +68,7 @@ struct LoginView: View {
                         .font(.system(size: 16, weight: .light))
                     
                     Button(action: {
-                        pathModel.paths.append(.home(userId: nil))
+                        showingLoginView = false
                     }, label: {
                         Text("둘러보기")
                             .foregroundColor(Color(hex: "3A87FD"))
@@ -102,7 +101,7 @@ struct LoginView: View {
                 HStack(spacing: 20){
                     NaverLoginView()
                     GoogleLoginView()
-                    KakaoLoginView()
+                    KakaoLoginView(showingLoginView: $showingLoginView)
                     AppleLoginView()
                 }
                 Spacer()
@@ -114,9 +113,6 @@ struct LoginView: View {
             .padding(20)
             .navigationDestination(for: PathType.self) { pathType in
                 switch pathType {
-                case .home(let userId):
-                    TabBarView(userId: userId ?? "")
-                        .navigationBarBackButtonHidden()
                 case .certi:
                     EmailCertiView(signUpVM: signUpVM)
                         .navigationBarBackButtonHidden()
@@ -127,7 +123,7 @@ struct LoginView: View {
                     FindPasswordView()
                         .navigationBarBackButtonHidden()
                 case .login:
-                    IdLoginView()
+                    IdLoginView(showingLoginView: $showingLoginView)
                         .navigationBarBackButtonHidden()
                 case .resultId:
                     FindIdResultView()
@@ -150,6 +146,6 @@ struct LoginView: View {
         
 }
 
-#Preview {
-    LoginView()
-}
+//#Preview {
+//    LoginView()
+//}

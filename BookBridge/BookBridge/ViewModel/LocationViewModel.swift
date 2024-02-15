@@ -18,10 +18,6 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
     static let shared = LocationViewModel()
     let view = NMFNaverMapView(frame: .zero)
     var locationManager: CLLocationManager?
-                        
-    func isUpdated(cur: CGFloat, prev: CGFloat) -> Bool {
-        return cur != prev
-    }
     
     override init() {
         super.init()
@@ -43,14 +39,17 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
         view.mapView.touchDelegate = self
     }
     
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+            checkLocationAuthorization()
+        }
+    
     func checkLocationAuthorization() {
-        guard let locationManager = locationManager else { return }        
+        guard let locationManager = locationManager else { return }
         
         switch locationManager.authorizationStatus {
             
         case .notDetermined:
-            locationManager.requestWhenInUseAuthorization()
-            checkLocationAuthorization()
+            print("위치 정보 접근이 선택되지 않았습니다.")
         case .restricted:
             print("위치 정보 접근이 제한되었습니다.")
         case .denied:
@@ -84,6 +83,7 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
         }
     }
     
+    // 권한 요청하기
     func requestUseAuthorization(completion: @escaping () -> Void) {
         self.locationManager = CLLocationManager()
         self.locationManager?.delegate = self
