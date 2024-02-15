@@ -343,7 +343,7 @@ struct PostMapView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
-        _ = NMGLatLng(lat: lat, lng: lng)
+//        _ = NMGLatLng(lat: lat, lng: lng)
         //        _ = NMFCameraUpdate(scrollTo: newMyCoord)
     }
 }

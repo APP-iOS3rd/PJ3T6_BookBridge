@@ -18,6 +18,7 @@ class PostViewModel: ObservableObject {
 }
 
 extension PostViewModel {
+    // MARK: 게시자 정보 fetch
     func gettingUserInfo(userId : String) {
         let docRef = db.collection("User").document(userId)
         print(userId)
@@ -49,6 +50,7 @@ extension PostViewModel {
         }
     }
     
+    // MARK: 게시자 책장 정보 fetch
     func gettingUserBookShelf(userId: String, collection: String) {
         
         db.collection("User").document(userId).collection(collection).getDocuments { [weak self] (querySnapshot, error) in
@@ -85,6 +87,7 @@ extension PostViewModel {
         }
     }
     
+    // MARK: 사용자 북마크 설정
     func bookMarkToggle(id: String) {
         var bookMarks: [String] = []
         
@@ -110,6 +113,7 @@ extension PostViewModel {
         }
     }
     
+    // MARK: 사용자 북마크 정보 fetch
     func fetchBookMark() {
         var bookMarks: [String] = []
         
@@ -122,4 +126,25 @@ extension PostViewModel {
             self.bookMarks = bookMarks
         }
     }
+}
+
+
+// TODO: 채팅하기 벼튼 및 네비게이션을 위한 data fetch
+/*
+ 내 게시글
+    - ChatRoomListView 로 감  w. (noticeBoardId)
+    - User/userid/chatRoomList/ 에 where noticeBoardid 가 일치하는 갯수 가져옴
+ 다른 사람 게시글
+    - 진행중인 채팅방이 있을 경우
+        - User/userid/chatRoomList/ 에 where noticeBoardid 가 일치하는 채팅 모델을 가져옴
+        - status 판단 후 status에 따른 뷰 설정
+        - (chatRoomId, userId, noticeBoardId, 게시글 작성자 id)
+    - 진행중인 채팅방이 없을 경우
+        - User/userid/chatRoomList/ 에 where noticeBoardid 가 일치하는 채팅 모델 검색 후 없으면
+        - 채팅하기 로 뷰 설정
+        - (chatRoomId = "", userId, noticeBoardId, 게시글 작성자 id)
+ */
+
+extension PostViewModel {
+    
 }
