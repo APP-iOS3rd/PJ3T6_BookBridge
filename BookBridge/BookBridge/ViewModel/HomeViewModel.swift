@@ -41,8 +41,7 @@ extension HomeViewModel {
                     isChange: document.data()["isChange"] as! Bool,
                     state: document.data()["state"] as! Int,
                     date: stamp.dateValue(),
-                    hopeBook: [],
-                    geoHash: document.data()["geohash"] as? String
+                    hopeBook: []
                 )
                 
                 DispatchQueue.main.async {
@@ -127,10 +126,10 @@ extension HomeViewModel {
         }
     }
     
-    func bookMarkToggle(id: String) {
+    func bookMarkToggle(user: String, id: String) {
         var bookMarks: [String] = []
         
-        db.collection("User").document(UserManager.shared.uid).getDocument { documentSnapshot, error in
+        db.collection("user").document(user).getDocument { documentSnapshot, error in
             guard error == nil else { return }
             guard let document = documentSnapshot else { return }
             
@@ -144,7 +143,7 @@ extension HomeViewModel {
                 bookMarks.append(id)
             }
             
-            self.db.collection("User").document(UserManager.shared.uid).updateData([
+            self.db.collection("user").document(user).updateData([
                 "bookMark": bookMarks
             ])
             
@@ -152,10 +151,10 @@ extension HomeViewModel {
         }
     }
     
-    func fetchBookMark() {
+    func fetchBookMark(user: String) {
         var bookMarks: [String] = []
         
-        db.collection("User").document(UserManager.shared.uid).getDocument { documentSnapshot, error in
+        db.collection("user").document(user).getDocument { documentSnapshot, error in
             guard error == nil else { return }
             guard let document = documentSnapshot else { return }
             

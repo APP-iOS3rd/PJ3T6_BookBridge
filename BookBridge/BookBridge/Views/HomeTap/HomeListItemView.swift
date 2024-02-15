@@ -85,11 +85,7 @@ struct HomeListItemView: View {
             Spacer()
             VStack{
                 Button {
-                    if UserManager.shared.isLogin {
-                        viewModel.bookMarkToggle(id: id)
-                    } else {
-                        
-                    }
+                    viewModel.bookMarkToggle(user: userId, id: id)
                 } label: {
                     if (viewModel.bookMarks.contains(id)) {
                         Image(systemName: "bookmark.fill")
