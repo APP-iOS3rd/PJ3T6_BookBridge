@@ -85,10 +85,10 @@ extension PostViewModel {
         }
     }
     
-    func bookMarkToggle(user: String, id: String) {
+    func bookMarkToggle(id: String) {
         var bookMarks: [String] = []
         
-        db.collection("user").document(user).getDocument { documentSnapshot, error in
+        db.collection("User").document(UserManager.shared.uid).getDocument { documentSnapshot, error in
             guard error == nil else { return }
             guard let document = documentSnapshot else { return }
             
@@ -102,7 +102,7 @@ extension PostViewModel {
                 bookMarks.append(id)
             }
             
-            self.db.collection("user").document(user).updateData([
+            self.db.collection("User").document(UserManager.shared.uid).updateData([
                 "bookMark": bookMarks
             ])
             
@@ -110,10 +110,10 @@ extension PostViewModel {
         }
     }
     
-    func fetchBookMark(user: String) {
+    func fetchBookMark() {
         var bookMarks: [String] = []
         
-        db.collection("user").document(user).getDocument { documentSnapshot, error in
+        db.collection("User").document(UserManager.shared.uid).getDocument { documentSnapshot, error in
             guard error == nil else { return }
             guard let document = documentSnapshot else { return }
             

@@ -30,6 +30,7 @@
 		1E9CA8884DE9A470795B434C /* Pods_BookBridge_BookBridgeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38996D702CA8C661E33E70C8 /* Pods_BookBridge_BookBridgeUITests.framework */; };
 		34927C483CF1E10C21B09E15 /* Pods_BookBridgeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */; };
 		5A0242152B6D36FF00137AA6 /* LoadingCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0242142B6D36FF00137AA6 /* LoadingCircle.swift */; };
+		5A17A0212B7C4BF000C60F69 /* GeohashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A17A0202B7C4BF000C60F69 /* GeohashManager.swift */; };
 		5A1A168E2B6228290063D408 /* GoogleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A168D2B6228290063D408 /* GoogleLoginView.swift */; };
 		5A1A16942B622BB10063D408 /* GoogleLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A16932B622BB10063D408 /* GoogleLoginViewController.swift */; };
 		5A1A16962B6231870063D408 /* GoogleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A16952B6231870063D408 /* GoogleAuthManager.swift */; };
@@ -185,6 +186,7 @@
 		38996D702CA8C661E33E70C8 /* Pods_BookBridge_BookBridgeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridge_BookBridgeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		38E83709A8699EFCEF75F30C /* Pods-BookBridge-BookBridgeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge-BookBridgeUITests.debug.xcconfig"; path = "Target Support Files/Pods-BookBridge-BookBridgeUITests/Pods-BookBridge-BookBridgeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5A0242142B6D36FF00137AA6 /* LoadingCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCircle.swift; sourceTree = "<group>"; };
+		5A17A0202B7C4BF000C60F69 /* GeohashManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeohashManager.swift; sourceTree = "<group>"; };
 		5A1A168D2B6228290063D408 /* GoogleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginView.swift; sourceTree = "<group>"; };
 		5A1A168F2B62285A0063D408 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A1A16932B622BB10063D408 /* GoogleLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginViewController.swift; sourceTree = "<group>"; };
@@ -467,6 +469,7 @@
 		5A5041C82B6A612A00211CF2 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
+				1DF1CF762B7CA382008870FB /* GoogleService-Info.plist */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -658,6 +661,7 @@
 				5AA97F822B70754D00EF4081 /* LocationManager.swift */,
 				5A32514C2B7325E7008A16A9 /* UserManager.swift */,
 				5A8345842B746741000984C4 /* ConvertManager.swift */,
+				5A17A0202B7C4BF000C60F69 /* GeohashManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1099,6 +1103,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1DCFB0242B68CD3100250D55 /* FindPasswordView.swift in Sources */,
+				5A17A0212B7C4BF000C60F69 /* GeohashManager.swift in Sources */,
 				1D2B61842B63929900945EE2 /* KakaoLoginViewModel.swift in Sources */,
 				1D84019B2B6779CB00ADEEB5 /* IdLoginView.swift in Sources */,
 				5ADE79E82B6B5963005BB3ED /* StatusTextView.swift in Sources */,
