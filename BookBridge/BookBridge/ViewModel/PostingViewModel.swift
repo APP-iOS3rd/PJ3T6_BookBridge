@@ -11,8 +11,9 @@ import FirebaseStorage
 import NMapsMap
 
 class PostingViewModel: ObservableObject {
-    @Published var noticeBoard: NoticeBoard = NoticeBoard(userId: "", noticeBoardTitle: "", noticeBoardDetail: "", noticeImageLink: [], noticeLocation: [],noticeLocationName: "교환장소 선택", isChange: false, state: 0, date: Date(), hopeBook: [])
+    @Published var noticeBoard: NoticeBoard = NoticeBoard(userId: "", noticeBoardTitle: "", noticeBoardDetail: "", noticeImageLink: [], noticeLocation: [], noticeLocationName: "교환장소 선택", isChange: false, state: 0, date: Date(), hopeBook: [], geoHash: "")
     @Published var markerCoord: NMGLatLng? //사용자가 저장 전에 마커 좌표변경을 할 경우 대비
+    @Published var user: UserModel = UserModel()
 
     // 교환 장소 위도,경도
     func updateNoticeLocation(lat: Double?, lng: Double?){
@@ -48,7 +49,7 @@ extension PostingViewModel {
         }
         
         // 게시물 정보 생성
-        let post = NoticeBoard(id: noticeBoard.id, userId: "joo", noticeBoardTitle: noticeBoard.noticeBoardTitle, noticeBoardDetail: noticeBoard.noticeBoardDetail, noticeImageLink: noticeBoard.noticeImageLink, noticeLocation: noticeBoard.noticeLocation, noticeLocationName: noticeBoard.noticeLocationName, isChange: isChange, state: 0, date: Date(), hopeBook: noticeBoard.hopeBook)
+        let post = NoticeBoard(id: noticeBoard.id, userId: UserManager.shared.uid, noticeBoardTitle: noticeBoard.noticeBoardTitle, noticeBoardDetail: noticeBoard.noticeBoardDetail, noticeImageLink: noticeBoard.noticeImageLink, noticeLocation: noticeBoard.noticeLocation, noticeLocationName: noticeBoard.noticeLocationName, isChange: isChange, state: 0, date: Date(), hopeBook: noticeBoard.hopeBook, geoHash: noticeBoard.geoHash)
 
         
         // 모든 게시물  noticeBoard/noticeBoardId/
@@ -57,7 +58,7 @@ extension PostingViewModel {
         linkNoticeBoard.setData(post.dictionary)
         
         // 내 게시물   user/userId/myNoticeBoard/noticeBoardId
-        let user = db.collection("user").document("joo")
+        let user = db.collection("User").document(UserManager.shared.uid)
         
         user.collection("myNoticeBoard").document(noticeBoard.id).setData(post.dictionary)
         
@@ -118,6 +119,18 @@ extension PostingViewModel {
             
             if let metadata = metadata {
                 print("metadata: \(metadata)")
+            }
+        }
+    }
+}
+
+extension PostingViewModel {
+    func gettingUserInfo() {
+        FirestoreManager.fetchUserLocation { location1 in
+            if let location = location1 {
+                self.noticeBoard.noticeLocation = [location.first?.lat ?? 36, location.first?.long ?? 127]
+                self.noticeBoard.noticeLocationName = location.first?.dong ?? "교환지역 선택"
+                self.noticeBoard.geoHash = GeohashManager.getGeoHash(lat: location.first?.lat ?? 36, long: location.first?.long ?? 127)
             }
         }
     }
