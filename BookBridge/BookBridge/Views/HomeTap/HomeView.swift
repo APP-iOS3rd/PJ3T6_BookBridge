@@ -35,14 +35,17 @@ struct HomeView: View {
                         .foregroundStyle(.black)
                         
                     }
-                    Spacer()
+                    .padding(.leading, 20)
+                    .foregroundStyle(.black)
+                    
                 }
-                
-                tapAnimation()
-                
-                HomeTapView(viewModel: viewModel, tapCategory: selectedPicker)
+                Spacer()
             }
-        }
+            
+            tapAnimation()
+            
+            HomeTapView(viewModel: viewModel, tapCategory: selectedPicker)
+        }        
         .onAppear {
             viewModel.gettingFindNoticeBoards()
             viewModel.gettingChangeNoticeBoards()
@@ -58,7 +61,7 @@ struct HomeView: View {
                         .font(.title3)
                         .frame(maxWidth: .infinity/3, minHeight: 50)
                         .foregroundColor(selectedPicker == item ? .black : .gray)
-
+                    
                     if selectedPicker == item {
                         Capsule()
                             .foregroundColor(.black)
