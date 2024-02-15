@@ -104,6 +104,9 @@
 		5C8C0E362B7B298C002963F1 /* ReportDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0E352B7B298C002963F1 /* ReportDetailView.swift */; };
 		5C8C0E3A2B7B29C6002963F1 /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0E392B7B29C6002963F1 /* ReportViewModel.swift */; };
 		5C8C0E3C2B7B29F7002963F1 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0E3B2B7B29F7002963F1 /* Report.swift */; };
+		5CD606412B7D967A00AC53DD /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5CD6063F2B7D967A00AC53DD /* Secrets.xcconfig */; };
+		5CD606422B7D967A00AC53DD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5CD606402B7D967A00AC53DD /* GoogleService-Info.plist */; };
+		5CD606442B7DAABF00AC53DD /* PostMapSeeMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD606432B7DAABE00AC53DD /* PostMapSeeMoreView.swift */; };
 		5CE454902B68B79000874BCE /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4548F2B68B79000874BCE /* FirestoreService.swift */; };
 		5CE454932B68B7CB00874BCE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454922B68B7CB00874BCE /* UserModel.swift */; };
 		5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454962B68B8CA00874BCE /* AppleLoginView.swift */; };
@@ -179,7 +182,6 @@
 		1DCFB0212B68CB4400250D55 /* FindIdVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdVM.swift; sourceTree = "<group>"; };
 		1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordView.swift; sourceTree = "<group>"; };
 		1DE382A62B734E74009A7A15 /* HomeRecentSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRecentSearchView.swift; sourceTree = "<group>"; };
-		1DF1CF762B7CA382008870FB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1DFDD1B92B71B48400B320F7 /* SignInState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInState.swift; sourceTree = "<group>"; };
 		1DFDD1BB2B71BF3D00B320F7 /* tapInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tapInfo.swift; sourceTree = "<group>"; };
 		2C64B1A5C532C5F1A934328D /* Pods-BookBridge-BookBridgeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge-BookBridgeUITests.release.xcconfig"; path = "Target Support Files/Pods-BookBridge-BookBridgeUITests/Pods-BookBridge-BookBridgeUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -262,6 +264,9 @@
 		5C8C0E352B7B298C002963F1 /* ReportDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportDetailView.swift; sourceTree = "<group>"; };
 		5C8C0E392B7B29C6002963F1 /* ReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
 		5C8C0E3B2B7B29F7002963F1 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
+		5CD6063F2B7D967A00AC53DD /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		5CD606402B7D967A00AC53DD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5CD606432B7DAABE00AC53DD /* PostMapSeeMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMapSeeMoreView.swift; sourceTree = "<group>"; };
 		5CE4548F2B68B79000874BCE /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		5CE454922B68B7CB00874BCE /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		5CE454962B68B8CA00874BCE /* AppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginView.swift; sourceTree = "<group>"; };
@@ -805,6 +810,7 @@
 			isa = PBXGroup;
 			children = (
 				F6DFC8D42B730A2A00931CF9 /* PostView.swift */,
+				5CD606432B7DAABE00AC53DD /* PostMapSeeMoreView.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -934,6 +940,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CD606412B7D967A00AC53DD /* Secrets.xcconfig in Resources */,
 				5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */,
 				5A2119802B7DB0A30057915C /* Secrets.xcconfig in Resources */,
 				5A21197E2B7DB09D0057915C /* GoogleService-Info.plist in Resources */,
@@ -1141,6 +1148,7 @@
 				5C85D1672B7C45130065940D /* ReportCellView.swift in Sources */,
 				91B80A452B6798B9000D5339 /* TabBarView.swift in Sources */,
 				91B80A422B676EEE000D5339 /* ImagePicker.swift in Sources */,
+				5CD606442B7DAABF00AC53DD /* PostMapSeeMoreView.swift in Sources */,
 				736127092B6B82B400943CD7 /* ImageScrollView.swift in Sources */,
 				5ADE79DA2B6B2C99005BB3ED /* CertiResult.swift in Sources */,
 				5ADE79E62B6B565F005BB3ED /* SignUpInputView.swift in Sources */,
