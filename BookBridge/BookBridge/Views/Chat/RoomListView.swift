@@ -12,7 +12,7 @@ struct RoomListView: View {
     
     var body: some View {
         List {
-            ForEach(viewModel.chatRoomList) { chatRoom in
+            ForEach(viewModel.searchChatRoomList()) { chatRoom in
                 ZStack {
                     NavigationLink {
                         ChatMessageView(chatRoomListId: chatRoom.id, isFirst: false, noticeBoardTitle: chatRoom.noticeBoardTitle, partnerId: chatRoom.partnerId, partnerImageURL: viewModel.getPartnerImageIndex(partnerId: chatRoom.partnerId, noticeBoardId: chatRoom.noticeBoardId), uid: chatRoom.userId)

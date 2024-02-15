@@ -16,7 +16,7 @@ struct ChatRoomListView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                SearchChatListView()
+                SearchChatListView(viewModel: viewModel)
                     .padding()
 //                CustomNavBarView(viewModel: viewModel)
                 

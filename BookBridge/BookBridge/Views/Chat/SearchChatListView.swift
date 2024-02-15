@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct SearchChatListView: View {
+    @StateObject var viewModel: ChatRoomListViewModel
+    
     @State var isEditing = false
-    @State private var text = ""
     
     var body: some View {
         HStack {
@@ -19,10 +20,10 @@ struct SearchChatListView: View {
                 .padding(.leading, 8)
                 .foregroundStyle(.gray)
             
-            TextField("검색어를 입력해주세요", text: $text)
+            TextField("검색어를 입력해주세요", text: $viewModel.searchText)
                 .padding(7)
-                .onChange(of: text) { _ in
-                    if text != "" {
+                .onChange(of: viewModel.searchText) { _ in
+                    if viewModel.searchText != "" {
                         isEditing = true
                     } else {
                         isEditing = false
@@ -32,7 +33,7 @@ struct SearchChatListView: View {
             if isEditing {
                 Button {
                     isEditing = false
-                    text = ""
+                    viewModel.searchText = ""
                 } label: {
                     Image(systemName: "xmark.circle.fill")
                         .resizable()
@@ -43,15 +44,7 @@ struct SearchChatListView: View {
                 .padding(.trailing, 8)
             }
         }
-        .overlay(
-            RoundedRectangle(cornerRadius: 8)
-                .stroke(Color.gray, lineWidth: 1)
-        )
         .background(Color(.systemGray6))
-        .cornerRadius(8)
+        .cornerRadius(10)
     }
-}
-
-#Preview {
-    SearchChatListView()
 }

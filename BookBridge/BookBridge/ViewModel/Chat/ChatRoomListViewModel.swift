@@ -15,10 +15,22 @@ class ChatRoomListViewModel: ObservableObject {
     @Published var chatRoomPartnerUIImages: [UIImage] = []
     @Published var currentUser: UserModel?
     @Published var isLogout = false
+    @Published var searchText: String = ""
     
     var firestoreListener: ListenerRegistration?
     
     let nestedGroup = DispatchGroup()
+}
+
+//MARK: 채팅방 검색
+extension ChatRoomListViewModel {
+    func searchChatRoomList() -> [ChatRoomListModel] {
+        if self.searchText == "" {
+            return chatRoomList
+        } else {
+            return chatRoomList.filter { $0.noticeBoardTitle.contains(searchText) }
+        }
+    }
 }
 
 //MARK: 로그인 여부 확인
