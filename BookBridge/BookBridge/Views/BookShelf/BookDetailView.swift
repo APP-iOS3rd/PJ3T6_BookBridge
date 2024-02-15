@@ -11,6 +11,7 @@ import SwiftUI
 
 struct BookDetailView: View {
     @EnvironmentObject var viewModel: BookShelfViewModel
+    @Binding var selectedPicker: tapInfo
     
     var book: Item
     var body: some View {
@@ -45,7 +46,7 @@ struct BookDetailView: View {
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundColor(Color(hex: "999999"))
                 
-                WishBookAddBtnView(book: book)
+                WishBookAddBtnView(selectedPicker: $selectedPicker, book: book)
                     .environmentObject(viewModel)
                     
                 
@@ -114,9 +115,7 @@ struct BookDetailView: View {
                     }
                     .padding(.vertical,20)
                     .padding(.horizontal, 40)
-                    
-                    
-                    
+                                                            
                 }
                 
             }

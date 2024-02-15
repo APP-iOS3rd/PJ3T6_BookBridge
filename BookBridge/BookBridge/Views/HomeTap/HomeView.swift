@@ -18,31 +18,30 @@ struct HomeView: View {
     @Namespace private var animation
     
     var body: some View {
-        NavigationView{
-            VStack {
-                HStack {
-                    Button {
-                        self.isAnimating.toggle()
-                        
-                    } label: {
-                        HStack{
-                            Text("광교 2동")
-                            Image(systemName: "chevron.down")
-                                .rotationEffect(.degrees(isAnimating ? 180 : 360))
-                                .animation(.linear(duration: 0.3), value: isAnimating)
-                        }
-                        .padding(.leading, 20)
-                        .foregroundStyle(.black)
-                        
+        
+        VStack {
+            HStack {
+                Button {
+                    self.isAnimating.toggle()
+                    
+                } label: {
+                    HStack{
+                        Text("광교 2동")
+                        Image(systemName: "chevron.down")
+                            .rotationEffect(.degrees(isAnimating ? 180 : 360))
+                            .animation(.linear(duration: 0.3), value: isAnimating)
                     }
-                    Spacer()
+                    .padding(.leading, 20)
+                    .foregroundStyle(.black)
+                    
                 }
-                
-                tapAnimation()
-                
-                HomeTapView(viewModel: viewModel, tapCategory: selectedPicker)
+                Spacer()
             }
-        }
+            
+            tapAnimation()
+            
+            HomeTapView(viewModel: viewModel, tapCategory: selectedPicker)
+        }        
         .onAppear {
             viewModel.gettingFindNoticeBoards()
             viewModel.gettingChangeNoticeBoards()
@@ -58,7 +57,7 @@ struct HomeView: View {
                         .font(.title3)
                         .frame(maxWidth: .infinity/3, minHeight: 50)
                         .foregroundColor(selectedPicker == item ? .black : .gray)
-
+                    
                     if selectedPicker == item {
                         Capsule()
                             .foregroundColor(.black)

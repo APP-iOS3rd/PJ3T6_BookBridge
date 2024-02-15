@@ -12,7 +12,6 @@ enum PathType: Hashable {
     case resultId
     case findpassword
     case changepassword
-    case certi
-    case home(userId: String?)
+    case certi    
     case signUp
 }
