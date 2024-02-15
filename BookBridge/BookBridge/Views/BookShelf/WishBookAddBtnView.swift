@@ -10,8 +10,9 @@ import SwiftUI
 struct WishBookAddBtnView: View {
     
     @EnvironmentObject var viewModel: BookShelfViewModel
-    
+    @Binding var selectedPicker: tapInfo
     @Environment(\.dismiss) private var dismiss
+    
     var book : Item
     var body: some View {
         Button(
@@ -19,8 +20,9 @@ struct WishBookAddBtnView: View {
                 viewModel.loadBooksFromFirestore(collection: "wishBooks"){
                     if !(viewModel.wishBooks.contains{ $0.id == book.id }){
                         viewModel.saveBooksToFirestore(books: [book], collection: "wishBooks")
-                    }                    
-                }                
+                        viewModel.fetchBooks(for: selectedPicker)
+                    }
+                }
                 dismiss()
             },
             label: {
