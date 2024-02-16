@@ -15,7 +15,7 @@ class ChatMessageViewModel: ObservableObject {
     @Published var chatText = ""
     @Published var count = 0
     @Published var noticeBoardInfo: NoticeBoard = NoticeBoard(userId: "", noticeBoardTitle: "", noticeBoardDetail: "", noticeImageLink: [], noticeLocation: [], noticeLocationName: "", isChange: false, state: 0, date: Date(), hopeBook: [])
-    
+
     var firestoreListener: ListenerRegistration?
     
     let nestedGroup = DispatchGroup()

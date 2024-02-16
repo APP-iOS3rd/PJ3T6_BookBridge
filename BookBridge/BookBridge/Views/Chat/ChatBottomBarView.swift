@@ -10,7 +10,13 @@ import SwiftUI
 struct ChatBottomBarView: View {
     @StateObject var viewModel: ChatMessageViewModel
     @State var chatTextArr: [Substring] = []
-    @State var isPlusBtn = true
+    @State var isShowingPhoto = false
+    @State var isShowingCamera = false
+    @State var selectedImages: [UIImage] = []
+    @State private var keyboardHeight: CGFloat = 0
+    
+    @FocusState.Binding var isShowKeyboard: Bool
+    @Binding var isPlusBtn: Bool
     
     var chatRoomListId: String
     var partnerId: String
@@ -20,9 +26,10 @@ struct ChatBottomBarView: View {
         VStack {
             HStack (spacing: 12) {
                 Button {
-                    withAnimation {
+                    withAnimation(.linear(duration: 0.2)) {
                         isPlusBtn.toggle()
                     }
+                    isShowKeyboard = false
                 } label: {
                     Image(systemName: "plus")
                         .resizable()
@@ -36,7 +43,7 @@ struct ChatBottomBarView: View {
                         Text("내용을 입력해주세요")
                             .foregroundColor(Color(.gray))
                             .font(.system(size: 17))
-                            .padding(.leading, 10)
+                            .padding(.leading, 12)
                         Spacer()
                     }
                     
@@ -45,7 +52,12 @@ struct ChatBottomBarView: View {
                         .padding(.leading, 6)
                         .padding(.trailing, 6)
                         .frame(minHeight: 40, maxHeight: 120)
+                        .focused($isShowKeyboard)
                         .fixedSize(horizontal: false, vertical: true)
+                        .onTapGesture {
+                            isPlusBtn = true
+                            isShowKeyboard = false
+                        }
                         .onChange(of: viewModel.chatText) { _ in
                             withAnimation {
                                 chatTextArr = viewModel.chatText.split{ $0 == " " || $0 == "\n"}
@@ -56,6 +68,7 @@ struct ChatBottomBarView: View {
                     RoundedRectangle(cornerRadius: 22)
                         .stroke(Color.gray, lineWidth: 1)
                 )
+                
                 
                 Button {
                     if !chatTextArr.isEmpty {
@@ -79,7 +92,7 @@ struct ChatBottomBarView: View {
                     
                     VStack {
                         Button(action: {
-                            // 사진 버튼 기능 구현
+                            isShowingPhoto = true
                         }) {
                             VStack {
                                 Image(systemName: "photo.on.rectangle")
@@ -103,7 +116,7 @@ struct ChatBottomBarView: View {
                     
                     VStack {
                         Button(action: {
-                            // 카메라 버튼 기능 구현
+                            isShowingCamera = true
                         }) {
                             Image(systemName: "camera.fill")
                                 .resizable()
@@ -147,8 +160,18 @@ struct ChatBottomBarView: View {
                     Spacer()
                     
                 }
-                .padding(.vertical, 20)
+                .padding(.top, 80)
+                .padding(.bottom, 80)
+                .transition(.move(edge: .bottom))
             }
+        }
+        .fullScreenCover(isPresented: $isShowingPhoto) {
+            ImagePicker(isVisible: $isShowingPhoto, images: $selectedImages, sourceType: 1)
+                .ignoresSafeArea(.all)
+        }
+        .fullScreenCover(isPresented: $isShowingCamera) {
+            ImagePicker(isVisible: $isShowingCamera, images: $selectedImages, sourceType: 0)
+                .ignoresSafeArea(.all)
         }
     }
 }

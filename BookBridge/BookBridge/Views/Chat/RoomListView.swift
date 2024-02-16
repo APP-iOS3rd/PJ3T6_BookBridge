@@ -24,7 +24,7 @@ struct RoomListView: View {
                         EmptyView()
                     }
                     .opacity(0.0)
-                    
+
                     VStack {
                         HStack(alignment: .top, spacing: 16) {
                             Image(uiImage: viewModel.getPartnerImageIndex(partnerId: chatRoom.partnerId, noticeBoardId: chatRoom.noticeBoardId).1)

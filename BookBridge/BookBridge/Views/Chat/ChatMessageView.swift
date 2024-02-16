@@ -9,9 +9,13 @@ import SwiftUI
 
 struct ChatMessageView: View {
     @Environment(\.dismiss) var dismiss
-    
+
     @StateObject var viewModel = ChatMessageViewModel()
-    
+  
+    @State private var isPlusBtn = true
+  
+    @FocusState var isShowKeyboard: Bool
+  
     var chatRoomListId: String
     var noticeBoardTitle: String
     var chatRoomPartner: ChatPartnerModel
@@ -22,10 +26,17 @@ struct ChatMessageView: View {
             noticeBoardChatView(viewModel: viewModel)
             
             MessageListView(viewModel: viewModel, partnerId: chatRoomPartner.partnerId, partnerImage: chatRoomPartner.partnerImage, uid: uid)
-            
-            ChatBottomBarView(viewModel: viewModel, chatRoomListId: chatRoomListId, partnerId: chatRoomPartner.partnerId, uid: uid)
+
+            ChatBottomBarView(viewModel: viewModel, isShowKeyboard: $isShowKeyboard, isPlusBtn: $isPlusBtn, chatRoomListId: chatRoomListId, partnerId: chatRoomPartner.partnerId, uid: uid)
         }
-//        .navigationTitle(noticeBoardTitle)
+        .onTapGesture {
+            withAnimation(.linear(duration: 0.2)) {
+                isPlusBtn = true
+            }
+            isShowKeyboard = false
+        }
+        .transition(.move(edge: .bottom))
+        //        .navigationTitle(noticeBoardTitle)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
