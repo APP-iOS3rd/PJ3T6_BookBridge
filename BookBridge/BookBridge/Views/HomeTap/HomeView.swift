@@ -10,20 +10,26 @@ import FirebaseStorage
 
 struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
-    
     @State private var isAnimating = false
     @State private var rotation = 0.0
-    @State private var selectedPicker: TapCategory = .find
-    
+    @State private var selectedPicker: TapCategory = .find    
+    @State private var showingLoginView = false
+    @State private var showingTownSettingView = false
+        
     @Namespace private var animation
     
     var body: some View {
-        
         VStack {
             HStack {
                 Button {
-                    self.isAnimating.toggle()
-                    
+                    if UserManager.shared.isLogin {
+                        // 로그인시
+                        showingTownSettingView.toggle()
+                        
+                    } else {
+                        // 비로그인시
+                        showingLoginView.toggle()
+                    }
                 } label: {
                     HStack{
                         Text("광교 2동")
@@ -41,11 +47,17 @@ struct HomeView: View {
             tapAnimation()
             
             HomeTapView(viewModel: viewModel, tapCategory: selectedPicker)
-        }        
+        }
         .onAppear {
             viewModel.gettingFindNoticeBoards()
             viewModel.gettingChangeNoticeBoards()
         }
+        .sheet(isPresented: $showingLoginView) {
+            LoginView(showingLoginView: $showingLoginView)
+        }
+        .navigationDestination(isPresented: $showingTownSettingView) {
+              TownSettingView()
+          }
     }
     
     @ViewBuilder

@@ -85,7 +85,7 @@ struct TownSettingView: View {
                         .foregroundStyle(.black)
                 }
             }
-        }
+        }        
         .onAppear() {
             FirestoreManager.getLocations { locations in
                 userLocationViewModel.setLocations(locations: locations)
