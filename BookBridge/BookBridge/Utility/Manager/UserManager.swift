@@ -20,12 +20,11 @@ class UserManager: ObservableObject {
     }
     
     @Published var currentDong = ""
+    @Published var isLogin = false
     var uid = ""
     var user: UserModel?
     var currentUser: Firebase.User?
-            
-    @Published var isLogin = false
-    
+                    
     func setUser(uid: String) {
         self.uid = uid
     }
@@ -48,5 +47,10 @@ class UserManager: ObservableObject {
         self.currentUser = nil
         try? Auth.auth().signOut()
         print("사용자가 logout하였습니다.")
+    }
+    
+    func chageLocation(locations: [Location]) {
+        user?.location = locations
+        currentDong = user?.getSelectedLocation()?.dong ?? ""
     }
 }
