@@ -1,7 +1,9 @@
 //
 //  AppleLoginView.swift
-//  BookBridge
 //
+//  1. Apple 인증완료시 appleAuthManager.isSignedIn ture
+//  2. onChange에서 isSignedIn 관찰
+//  3. showingLoginView 를 false로 변경함으로서 TabBarView로 돌아감
 //  Created by 김지훈 on 2024/01/30.
 //
 
@@ -10,17 +12,16 @@ import SwiftUI
 import AuthenticationServices
 
 struct AppleLoginView: View {
-    var appleAuthManager = AppleAuthManager()
-    @State private var isSignedIn = false
-    @State private var currentUser: UserModel?
+    @StateObject private var appleAuthManager = AppleAuthManager()
+    @Binding var showingLoginView: Bool
 
     var body: some View {
         VStack {
-            if isSignedIn, let user = currentUser {
-                Text("Apple로그인 성공~")
-//                HomeView(user: user)
+            if UserManager.shared.isLogin {
+                TabBarView(userId: UserManager.shared.user?.id)
+                
             } else {
-                Button(action: startAppleSignIn) {
+                Button(action: appleAuthManager.startSignInWithAppleFlow) {
                     ZStack {
                         Image("AppleLogo")
                             .resizable()
@@ -28,25 +29,16 @@ struct AppleLoginView: View {
                             .clipShape(Circle())
                     }
                 }
-//                .frame(width: UIScreen.main.bounds.width * 0.9, height: 50)
-//                .cornerRadius(5)
+
             }
         }
-
-    }
-
-    private func startAppleSignIn() {
-        
-        appleAuthManager.didChangeSignInStatus = { signedIn, user in
-            self.isSignedIn = signedIn
-            self.currentUser = user
+        .onChange(of: appleAuthManager.isSignedIn){ result in
+            if result{
+                // 로그인 성공
+                //UserManager.shared.isLogin = true
+                showingLoginView = false
+            }
         }
-        
-        let request = ASAuthorizationAppleIDProvider().createRequest()
-        request.requestedScopes = [.fullName, .email]
-
-        let controller = ASAuthorizationController(authorizationRequests: [request])
-        controller.delegate = appleAuthManager
-        controller.performRequests()
     }
+
 }
