@@ -102,7 +102,7 @@ struct LoginView: View {
                     NaverLoginView()
                     GoogleLoginView()
                     KakaoLoginView(showingLoginView: $showingLoginView)
-                    AppleLoginView()
+                    AppleLoginView(showingLoginView: $showingLoginView)
                 }
                 Spacer()
                     .frame(height: 50)

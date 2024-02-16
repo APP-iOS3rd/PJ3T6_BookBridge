@@ -15,6 +15,7 @@ class FirestoreService {
 
     private init() {}
 
+    //현재는 민호님꺼랑 통합해서 사용해서 사용안함
     func saveUserToFirestore(user: UserModel) {
         let db = Firestore.firestore()
 
