@@ -10,38 +10,43 @@ import FirebaseStorage
 
 struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
-    @State private var isAnimating = false
-    @State private var rotation = 0.0
-    @State private var selectedPicker: TapCategory = .find    
+    @StateObject var userManager = UserManager.shared
+    @StateObject var locationManager = LocationManager.shared    
+    @State private var selectedPicker: TapCategory = .find
     @State private var showingLoginView = false
     @State private var showingTownSettingView = false
         
     @Namespace private var animation
-    
+        
     var body: some View {
         VStack {
             HStack {
                 Button {
-                    if UserManager.shared.isLogin {
+                    if userManager.isLogin {
                         // 로그인시
                         showingTownSettingView.toggle()
-                        
                     } else {
                         // 비로그인시
                         showingLoginView.toggle()
                     }
                 } label: {
                     HStack{
-                        Text("광교 2동")
+                        Text(userManager.isLogin ? userManager.currentDong : locationManager.dong)
                         Image(systemName: "chevron.down")
-                            .rotationEffect(.degrees(isAnimating ? 180 : 360))
-                            .animation(.linear(duration: 0.3), value: isAnimating)
                     }
                     .padding(.leading, 20)
                     .foregroundStyle(.black)
                     
                 }
                 Spacer()
+                
+                // 임시로 만든 로그아웃 버튼입니다.
+                Button {
+                    userManager.logout()
+                } label: {
+                    Text("로그아웃")
+                }
+                .padding(.trailing, 20)
             }
             
             tapAnimation()

@@ -6,16 +6,25 @@
 //
 
 import Foundation
+import Firebase
+import FirebaseAuth
 
-
-class UserManager {
+class UserManager: ObservableObject {
     static let shared = UserManager()
-    private init() {}
+    private init() {
+        currentUser = Auth.auth().currentUser
+        if let userdata = currentUser {
+            self.uid = userdata.uid
+            login(uid: userdata.uid)
+        }
+    }
     
-    var uid = "LXZQd1GmWOYFpxmRtoW4WpLS8Uy2"
+    @Published var currentDong = ""
+    var uid = ""
     var user: UserModel?
-    
-    var isLogin = false
+    var currentUser: Firebase.User?
+            
+    @Published var isLogin = false
     
     func setUser(uid: String) {
         self.uid = uid
@@ -28,6 +37,7 @@ class UserManager {
             self.user = user
             print("사용자가 login에 성공하였습니다.")
             print(user ?? "user가 없습니다.")
+            self.currentDong = user?.getSelectedLocation()?.dong ?? ""
         }
     }
     
@@ -35,6 +45,8 @@ class UserManager {
         self.uid = ""
         self.isLogin = false
         self.user = nil
+        self.currentUser = nil
+        try? Auth.auth().signOut()
         print("사용자가 logout하였습니다.")
     }
 }
