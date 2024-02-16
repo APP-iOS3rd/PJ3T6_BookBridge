@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct noticeBoardChatView: View {
+struct NoticeBoardChatView: View {
     @StateObject var viewModel: ChatMessageViewModel
     
     var body: some View {

@@ -129,8 +129,8 @@ struct ChatBottomBarView: View {
                         .background(
                             Circle()
                                 .frame(width: 60, height: 60)
-                                .foregroundColor(Color(hex: "D9D9D9"))
-                                .opacity(0.4)
+                                .foregroundColor(Color.brown)
+                                .opacity(0.6)
                         )
                         Text("카메라")
                     }
@@ -151,8 +151,9 @@ struct ChatBottomBarView: View {
                         .background(
                             Circle()
                                 .frame(width: 60, height: 60)
-                                .foregroundColor(Color(hex: "D9D9D9"))
-                                .opacity(0.4)
+                                .foregroundColor(Color.yellow)
+                                .opacity(0.6)
+                            
                         )
                         Text("위치공유")
                     }

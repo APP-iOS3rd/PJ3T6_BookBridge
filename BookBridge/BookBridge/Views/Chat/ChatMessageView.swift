@@ -23,7 +23,7 @@ struct ChatMessageView: View {
     
     var body: some View {
         VStack {
-            noticeBoardChatView(viewModel: viewModel)
+            NoticeBoardChatView(viewModel: viewModel)
             
             MessageListView(viewModel: viewModel, partnerId: chatRoomPartner.partnerId, partnerImage: chatRoomPartner.partnerImage, uid: uid)
 
