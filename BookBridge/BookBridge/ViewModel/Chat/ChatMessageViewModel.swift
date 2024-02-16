@@ -20,6 +20,10 @@ class ChatMessageViewModel: ObservableObject {
     
     let nestedGroup = DispatchGroup()
     
+}
+
+//MARK: 정보 가져오기
+extension ChatMessageViewModel {
     // 메시지 가져오기
     func fetchMessages(uid: String, chatRoomListId: String) {
         // 실시간 업데이트 감시
@@ -59,7 +63,6 @@ class ChatMessageViewModel: ObservableObject {
             guard error == nil else { return }
             guard let document = documentSnapshot else { return }
             guard let stamp = document.data()?["date"] as? Timestamp else { return }
-            print("Sadsdadsa")
             
             if document.data()?["isChange"] as? Bool ?? true {          //바꿔요 게시물
                 let noticeBoard = NoticeBoard(
@@ -145,7 +148,10 @@ class ChatMessageViewModel: ObservableObject {
             }
         }
     }
-    
+}
+
+//MARK: 메시지 전송
+extension ChatMessageViewModel {
     // 메시지 전송 저장
     func handleSend(uid: String, partnerId: String, chatRoomListId: String) {
         let timestamp = Date()
@@ -203,7 +209,10 @@ class ChatMessageViewModel: ObservableObject {
             self.chatText = ""
         }
     }
-    
+}
+
+//MARK: newCount 초기화
+extension ChatMessageViewModel {
     //채팅방 입장시 newCount 초기화
     func initNewCount(uid: String, chatRoomId: String) {
         FirebaseManager.shared.firestore.collection("user").document(uid).collection("chatRoomList").document(chatRoomId).updateData([

@@ -11,7 +11,7 @@ struct MessageListView: View {
     @StateObject var viewModel: ChatMessageViewModel
 
     var partnerId: String
-    var partnerImageURL: String
+    var partnerImage: UIImage
     var uid: String
 
     static let emptyScrollToString = "Empty"
@@ -21,7 +21,7 @@ struct MessageListView: View {
             ScrollViewReader { scrollViewProxy in
                 VStack {
                     ForEach(viewModel.chatMessages) { chatMessage in
-                        MessageItemView(messageModel: ChatMessageModel(date: chatMessage.date, imageURL: chatMessage.imageURL, location: chatMessage.location, message: chatMessage.message, sender: chatMessage.sender), partnerId: partnerId, partnerImageURL: partnerImageURL, uid: uid)
+                        MessageItemView(messageModel: ChatMessageModel(date: chatMessage.date, imageURL: chatMessage.imageURL, location: chatMessage.location, message: chatMessage.message, sender: chatMessage.sender), partnerId: partnerId, partnerImage: partnerImage, uid: uid)
                     }
                     HStack {
                         Spacer()

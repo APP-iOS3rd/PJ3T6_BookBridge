@@ -16,13 +16,15 @@ struct ChatMessageView: View {
     var noticeBoardId: String
     var noticeBoardTitle: String
     var partnerId: String
-    var partnerImageURL: String
+    var partnerImage: UIImage
     var uid: String
     
     var body: some View {
         VStack {
             noticeBoardChatView(viewModel: viewModel)
-            MessageListView(viewModel: viewModel, partnerId: partnerId, partnerImageURL: partnerImageURL, uid: uid)
+            
+            MessageListView(viewModel: viewModel, partnerId: partnerId, partnerImage: partnerImage, uid: uid)
+            
             ChatBottomBarView(viewModel: viewModel, chatRoomListId: chatRoomListId, partnerId: partnerId, uid: uid)
         }
 //        .navigationTitle(noticeBoardTitle)
@@ -31,6 +33,7 @@ struct ChatMessageView: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
+                    viewModel.firestoreListener?.remove()
                     dismiss()
                 } label: {
                     Image(systemName: "chevron.backward")
@@ -66,9 +69,6 @@ struct ChatMessageView: View {
             viewModel.initNewCount(uid: uid, chatRoomId: chatRoomListId)
             viewModel.fetchMessages(uid: uid, chatRoomListId: chatRoomListId)
             viewModel.getNoticeBoardInfo(noticeBoardId: noticeBoardId)
-        }
-        .onDisappear {
-            viewModel.firestoreListener?.remove()
         }
     }
 }

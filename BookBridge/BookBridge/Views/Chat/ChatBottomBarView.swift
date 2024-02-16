@@ -21,8 +21,8 @@ struct ChatBottomBarView: View {
             HStack (spacing: 12) {
                 Button {
                     withAnimation {
-                            isPlusBtn.toggle()
-                        }
+                        isPlusBtn.toggle()
+                    }
                 } label: {
                     Image(systemName: "plus")
                         .resizable()
@@ -72,7 +72,7 @@ struct ChatBottomBarView: View {
             .padding(.horizontal)
             .padding(.vertical, 8)
             
-            
+            if !isPlusBtn {
                 HStack {
                     
                     Spacer()
@@ -147,6 +147,8 @@ struct ChatBottomBarView: View {
                     Spacer()
                     
                 }
+                .padding(.vertical, 20)
+            }
         }
     }
 }

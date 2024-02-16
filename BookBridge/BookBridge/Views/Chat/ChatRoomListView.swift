@@ -21,14 +21,15 @@ struct ChatRoomListView: View {
                 
                 RoomListView(viewModel: viewModel)
             }
+            .onAppear {
+                viewModel.checkUserLoginStatus(uid: uid)
+                
+            }
+            .onDisappear {
+                viewModel.firestoreListener?.remove()
+            }
         }
         .toolbar(.hidden)
-        .onAppear {
-            viewModel.checkUserLoginStatus(uid: uid)
-        }
-        .onDisappear {
-            viewModel.firestoreListener?.remove()
-        }
         /*
         .fullScreenCover(isPresented: $viewModel.isLogout) {
             //TODO: 우리 로그인 창 띄우기 LoginView에 @Binding var isLogout 필요

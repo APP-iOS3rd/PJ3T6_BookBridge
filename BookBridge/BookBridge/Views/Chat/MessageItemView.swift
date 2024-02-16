@@ -10,7 +10,7 @@ import SwiftUI
 struct MessageItemView: View {
     var messageModel: ChatMessageModel
     var partnerId: String
-    var partnerImageURL: String
+    var partnerImage: UIImage
     var uid: String
     
     var body: some View {
@@ -36,7 +36,7 @@ struct MessageItemView: View {
                 }
             } else {
                 HStack {
-                    Image("DefaultImage")
+                    Image(uiImage: partnerImage)
                         .resizable()
                         .scaledToFill()
                         .frame(width: 30, height: 30)

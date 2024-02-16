@@ -11,8 +11,7 @@ import FirebaseFirestore
 class ChatRoomListViewModel: ObservableObject {
     
     @Published var chatRoomList: [ChatRoomListModel] = []
-    @Published var chatRoomPartnerImagesURL: [(String, String, String)] = []
-    @Published var chatRoomPartnerUIImages: [UIImage] = []
+    @Published var chatRoomPartnerImages: [(String, String, UIImage)] = []
     @Published var currentUser: UserModel?
     @Published var isLogout = false
     @Published var searchText: String = ""
@@ -42,6 +41,7 @@ extension ChatRoomListViewModel {
             self.isLogout = false
             
             fetchCurrentUser(uid: uid)
+            print("fetchCurrentUser1")
         } else {
             //TODO: 우리 로그인창 띄우기
             // 사용자가 로그인되지 않은 상태인 경우 로그아웃 상태로 처리
@@ -62,7 +62,8 @@ extension ChatRoomListViewModel {
                 profileURL: data["profileImageUrl"] as? String ?? ""
             )
             
-            self.getChatRoomList(uid: uid) // 최근 메시지 가져오기
+            self.getChatRoomList(uid: uid) // 채팅방 리스트 가져오기
+            print("getChatRoomList1")
         }
     }
 }
@@ -71,37 +72,45 @@ extension ChatRoomListViewModel {
 extension ChatRoomListViewModel {
     //채팅방 가져오기
     func getChatRoomList(uid: String) {
+        self.firestoreListener?.remove()
         // Firestore에서 최근 메시지를 가져오는 리스너 설정
+        print("ccccc")
+        self.chatRoomList.removeAll()
         firestoreListener = FirebaseManager.shared.firestore.collection("user").document(uid).collection("chatRoomList").order(by: "date", descending: true).addSnapshotListener { querySnapshot, error in
             guard error == nil else { return }
             guard let documents = querySnapshot else { return }
             
-            self.chatRoomList.removeAll()
+            print("bbbbb")
             
-            for document in documents.documents {
-                self.nestedGroup.enter()
-                guard let changeTime = document.data()["date"] as? Timestamp else { return }
-                guard let partnerId = document.data()["partnerId"] as? String else { return }
-                guard let noticeBoardId = document.data()["noticeBoardId"] as? String else { return }
-                
-                self.chatRoomList.append(ChatRoomListModel(
-                    id: document.data()["id"] as? String ?? "",
-                    userId: document.data()["userId"] as? String ?? "",
-                    noticeBoardId: noticeBoardId,
-                    partnerId: partnerId,
-                    noticeBoardTitle: document.data()["noticeBoardTitle"] as? String ?? "",
-                    recentMessage: document.data()["recentMessage"] as? String ?? "",
-                    date: changeTime.dateValue(),
-                    isAlarm: document.data()["isAlarm"] as? Bool ?? true,
-                    newCount: document.data()["newCount"] as? Int ?? 0,
-                    state: document.data()["state"] as? [Int] ?? [1, 0, 0]
-                ))
-                
-                self.getPartnerImage(partnerId: partnerId, noticeBoardId: noticeBoardId)
+            for documentChange in documents.documentChanges {
+                if documentChange.type == .added {
+                    self.nestedGroup.enter()
+                    
+                    guard let changeTime = documentChange.document.data()["date"] as? Timestamp else { return }
+                    guard let partnerId = documentChange.document.data()["partnerId"] as? String else { return }
+                    guard let noticeBoardId = documentChange.document.data()["noticeBoardId"] as? String else { return }
+                    
+                    self.chatRoomList.append(ChatRoomListModel(
+                        id: documentChange.document.data()["id"] as? String ?? "",
+                        userId: documentChange.document.data()["userId"] as? String ?? "",
+                        noticeBoardId: noticeBoardId,
+                        partnerId: partnerId,
+                        noticeBoardTitle: documentChange.document.data()["noticeBoardTitle"] as? String ?? "",
+                        recentMessage: documentChange.document.data()["recentMessage"] as? String ?? "",
+                        date: changeTime.dateValue(),
+                        isAlarm: documentChange.document.data()["isAlarm"] as? Bool ?? true,
+                        newCount: documentChange.document.data()["newCount"] as? Int ?? 0,
+                        state: documentChange.document.data()["state"] as? [Int] ?? [1, 0, 0]
+                    ))
+                    print(self.chatRoomList)
+                    
+                    self.getPartnerImage(partnerId: partnerId, noticeBoardId: noticeBoardId)
+                }
             }
         }
     }
     
+    /*
     // 채팅목록 삭제
     func deleteChatList(chatUserID: String) {
         guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
@@ -139,6 +148,7 @@ extension ChatRoomListViewModel {
         isLogout = true
         try? FirebaseManager.shared.auth.signOut()
     }
+     */
 }
 
 //MARK: 상대방 이미지 관련
@@ -148,39 +158,40 @@ extension ChatRoomListViewModel {
         FirebaseManager.shared.firestore.collection("user").document(partnerId).getDocument { documentSnapshot, error in
             guard error == nil else { return }
             guard let document = documentSnapshot else { return }
+            guard let urlString = document.data()?["profileImageUrl"] as? String else { return }
             
-            self.chatRoomPartnerImagesURL.append(
-                (
-                    partnerId,
-                    noticeBoardId,
-                    document.data()?["profileImageUrl"] as? String ?? ""
-                )
-            )
+            print("aaaaaa")
             
+            //TODO: 여기서 상대방 이름, 칭호 등 가져오기
+            
+            if !self.chatRoomPartnerImages.contains(where: { $0.0 == partnerId && $0.1 == noticeBoardId }){
+                if let url = URL(string: urlString) {
+                    URLSession.shared.dataTask(with: url) { (data, response, error) in
+                        guard let imageData = data else { return }
+                        
+                        DispatchQueue.main.async {
+                            self.chatRoomPartnerImages.append(
+                                (
+                                    partnerId,
+                                    noticeBoardId,
+                                    UIImage(data: imageData) ?? UIImage(named: "DefaultImage")!
+                                )
+                            )
+                            print(self.chatRoomPartnerImages)
+                        }
+                    }.resume()
+                }
+            }
             self.nestedGroup.leave()
         }
     }
     
     //상대방 프로필 인덱스 찾기
-    func getPartnerImageIndex(partnerId: String, noticeBoardId: String) -> String {
-        if let index = self.chatRoomPartnerImagesURL.firstIndex(where: { $0.0 == partnerId && $0.1 == noticeBoardId }) {
-            return self.chatRoomPartnerImagesURL[index].2
+    func getPartnerImageIndex(partnerId: String, noticeBoardId: String) -> UIImage {
+        if let index = self.chatRoomPartnerImages.firstIndex(where: { $0.0 == partnerId && $0.1 == noticeBoardId }) {
+            return self.chatRoomPartnerImages[index].2
         } else {
-            return ""
-        }
-    }
-    
-    func getUIImage() {
-        for i in self.chatRoomPartnerImagesURL {
-            if let url = URL(string: i.2) {
-                URLSession.shared.dataTask(with: url) { (data, response, error) in
-                    guard let imageData = data else { return }
-                    
-                    DispatchQueue.main.async {
-                        self.chatRoomPartnerUIImages.append(UIImage(data: imageData) ?? UIImage(named: "imageNil")!)
-                    }
-                }.resume()
-            }
+            return UIImage(named: "DefaultImage")!
         }
     }
 }
