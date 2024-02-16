@@ -11,9 +11,9 @@ struct LoginView: View {
     @StateObject private var pathModel = PathViewModel()
     @StateObject var signUpVM = SignUpViewModel()
     @Binding var showingLoginView: Bool
+    
     var body: some View {
-        NavigationStack(path: $pathModel.paths){
-            
+        NavigationStack(path: $pathModel.paths){            
             VStack{
                 Image("Character")
                 VStack(alignment: .leading,spacing : 10){
