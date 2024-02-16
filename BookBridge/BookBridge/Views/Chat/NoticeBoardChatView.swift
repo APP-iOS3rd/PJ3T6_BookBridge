@@ -24,7 +24,7 @@ struct NoticeBoardChatView: View {
                         .bold()
                         .padding(.bottom, 1)
                         .multilineTextAlignment(.leading)
-                    Text(viewModel.noticeBoardInfo.noticeBoardTitle)
+                    Text(viewModel.noticeBoardInfo.noticeLocationName)
                         .font(.system(size: 14))
                         .foregroundStyle(.gray)
                 }
