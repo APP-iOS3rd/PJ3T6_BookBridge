@@ -14,7 +14,7 @@ class ChatMessageViewModel: ObservableObject {
     @Published var chatMessages: [ChatMessageModel] = []
     @Published var chatText = ""
     @Published var count = 0
-    
+
     var firestoreListener: ListenerRegistration?
     
     // 메시지 가져오기

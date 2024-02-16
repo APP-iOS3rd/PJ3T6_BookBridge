@@ -36,27 +36,13 @@ struct MessageItemView: View {
                 }
             } else {
                 HStack {
-                    AsyncImage(url: URL(string: partnerImageURL)) { image in
-                        image
+                    Image("DefaultImage")
                             .resizable()
                             .scaledToFill()
                             .frame(width: 30, height: 30)
                             .clipped()
                             .cornerRadius(15)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 64)
-                                    .stroke(Color(.label), lineWidth: 1)
-                            )
-                    } placeholder: {
-//                        ProgressView()
-//                            .frame(width: 30, height: 30)
-                        Image("DefaultImage")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 30, height: 30)
-                            .clipped()
-                            .cornerRadius(15)
-                    }
+                  
                     
                     HStack {
                         Text(messageModel.message)
