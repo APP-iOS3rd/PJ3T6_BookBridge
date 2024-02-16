@@ -10,7 +10,7 @@ import SwiftUI
 struct TabBarView: View {
     let userId : String?
     
-    @StateObject private var pathModel = PathViewModel()
+    
     @State private var isLogin = UserManager.shared.isLogin
     @State private var showingLoginAlert = false
     @State private var showingLoginView = false
@@ -93,7 +93,6 @@ struct TabBarView: View {
         }
     }
 }
-
 
 //#Preview {
 //    TabBarView()
