@@ -107,6 +107,7 @@
 		7361270D2B6B83AC00943CD7 /* CameraButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7361270C2B6B83AC00943CD7 /* CameraButtonView.swift */; };
 		7361270F2B6B83BF00943CD7 /* DeleteImageButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7361270E2B6B83BF00943CD7 /* DeleteImageButtonView.swift */; };
 		736127112B6B84AC00943CD7 /* PostingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736127102B6B84AC00943CD7 /* PostingViewModel.swift */; };
+		738654DD2B7F453400373E30 /* ChatPartnerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738654DC2B7F453400373E30 /* ChatPartnerModel.swift */; };
 		738EDA9F2B71EB240066ADE7 /* TapCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738EDA9E2B71EB240066ADE7 /* TapCategory.swift */; };
 		738EDAA12B71EBA30066ADE7 /* HomeTapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738EDAA02B71EBA30066ADE7 /* HomeTapView.swift */; };
 		738EDAA32B71ECA80066ADE7 /* HomeListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738EDAA22B71ECA80066ADE7 /* HomeListItemView.swift */; };
@@ -276,6 +277,7 @@
 		7361270C2B6B83AC00943CD7 /* CameraButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraButtonView.swift; sourceTree = "<group>"; };
 		7361270E2B6B83BF00943CD7 /* DeleteImageButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteImageButtonView.swift; sourceTree = "<group>"; };
 		736127102B6B84AC00943CD7 /* PostingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingViewModel.swift; sourceTree = "<group>"; };
+		738654DC2B7F453400373E30 /* ChatPartnerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPartnerModel.swift; sourceTree = "<group>"; };
 		738EDA9E2B71EB240066ADE7 /* TapCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCategory.swift; sourceTree = "<group>"; };
 		738EDAA02B71EBA30066ADE7 /* HomeTapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTapView.swift; sourceTree = "<group>"; };
 		738EDAA22B71ECA80066ADE7 /* HomeListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListItemView.swift; sourceTree = "<group>"; };
@@ -780,6 +782,7 @@
 			children = (
 				91B7F0AF2B70DE8800B4C475 /* ChatMessageModel.swift */,
 				915FD1D92B7C403D0008C38B /* ChatRoomModel.swift */,
+				738654DC2B7F453400373E30 /* ChatPartnerModel.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -1177,6 +1180,7 @@
 				5A6CC5252B6B19630037429F /* Validator.swift in Sources */,
 				1DA6E06C2B68D9EB00D631D5 /* ChangePasswordView.swift in Sources */,
 				73C962AB2B68C4D800D34D3F /* SearchBooksViewModel.swift in Sources */,
+				738654DD2B7F453400373E30 /* ChatPartnerModel.swift in Sources */,
 				5A3A44202B6C890900B66C81 /* TownSettingMapView.swift in Sources */,
 				5A3A44172B6C779200B66C81 /* PwdError.swift in Sources */,
 				91B80A452B6798B9000D5339 /* TabBarView.swift in Sources */,

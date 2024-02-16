@@ -61,7 +61,7 @@ struct CustomNavBarView: View {
                 buttons: [
                     .destructive(Text("로그아웃"), action: {
                         print("handle sign out")
-                        viewModel.doSignOut()
+                        //viewModel.doSignOut()
                     }),
                     .cancel()
                 ]

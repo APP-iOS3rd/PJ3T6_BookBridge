@@ -8,23 +8,26 @@
 import SwiftUI
 
 struct ChatMessageView: View {
-    @StateObject var viewModel = ChatMessageViewModel()
     @Environment(\.dismiss) var dismiss
-    @State private var isPlusBtn = true
-    @FocusState var isShowKeyboard: Bool
 
+    @StateObject var viewModel = ChatMessageViewModel()
+  
+    @State private var isPlusBtn = true
+  
+    @FocusState var isShowKeyboard: Bool
+  
     var chatRoomListId: String
-    var isFirst: Bool                   //true: 채팅 한번 안함, false: 이미 방이있음
     var noticeBoardTitle: String
-    var partnerId: String
-    var partnerImageURL: String
+    var chatRoomPartner: ChatPartnerModel
     var uid: String
     
     var body: some View {
         VStack {
-            noticeBoardChatView()
-            MessageListView(viewModel: viewModel, partnerId: partnerId, partnerImageURL: partnerImageURL, uid: uid)
-            ChatBottomBarView(viewModel: viewModel, isShowKeyboard: $isShowKeyboard, isPlusBtn: $isPlusBtn, chatRoomListId: chatRoomListId, partnerId: partnerId, uid: uid)
+            noticeBoardChatView(viewModel: viewModel)
+            
+            MessageListView(viewModel: viewModel, partnerId: chatRoomPartner.partnerId, partnerImage: chatRoomPartner.partnerImage, uid: uid)
+
+            ChatBottomBarView(viewModel: viewModel, isShowKeyboard: $isShowKeyboard, isPlusBtn: $isPlusBtn, chatRoomListId: chatRoomListId, partnerId: chatRoomPartner.partnerId, uid: uid)
         }
         .onTapGesture {
             withAnimation(.linear(duration: 0.2)) {
@@ -39,6 +42,7 @@ struct ChatMessageView: View {
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
+                    viewModel.firestoreListener?.remove()
                     dismiss()
                 } label: {
                     Image(systemName: "chevron.backward")
@@ -52,11 +56,11 @@ struct ChatMessageView: View {
                         Image(systemName: "graduationcap.fill")
                             .font(.caption)
                             .foregroundStyle(.black)
-                        Text("동네보안관")
+                        Text(chatRoomPartner.style)
                             .font(.caption)
                             .foregroundStyle(.red)
                     }
-                    Text(noticeBoardTitle)
+                    Text(chatRoomPartner.nickname)
                         .font(.headline)
                 }
             }
@@ -73,9 +77,7 @@ struct ChatMessageView: View {
         .onAppear {
             viewModel.initNewCount(uid: uid, chatRoomId: chatRoomListId)
             viewModel.fetchMessages(uid: uid, chatRoomListId: chatRoomListId)
-        }
-        .onDisappear {
-            viewModel.firestoreListener?.remove()
+            viewModel.getNoticeBoardInfo(noticeBoardId: chatRoomPartner.noticeBoardId)
         }
     }
 }

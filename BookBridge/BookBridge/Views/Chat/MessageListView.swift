@@ -19,7 +19,7 @@ struct MessageListView: View {
     @State var heigtVStackMain: CGFloat = 0
     
     var partnerId: String
-    var partnerImageURL: String
+    var partnerImage: UIImage
     var uid: String
     
     static let emptyScrollToString = "Empty"
