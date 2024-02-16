@@ -13,19 +13,17 @@ struct ChatMessageView: View {
     @StateObject var viewModel = ChatMessageViewModel()
     
     var chatRoomListId: String
-    var noticeBoardId: String
     var noticeBoardTitle: String
-    var partnerId: String
-    var partnerImage: UIImage
+    var chatRoomPartner: ChatPartnerModel
     var uid: String
     
     var body: some View {
         VStack {
             noticeBoardChatView(viewModel: viewModel)
             
-            MessageListView(viewModel: viewModel, partnerId: partnerId, partnerImage: partnerImage, uid: uid)
+            MessageListView(viewModel: viewModel, partnerId: chatRoomPartner.partnerId, partnerImage: chatRoomPartner.partnerImage, uid: uid)
             
-            ChatBottomBarView(viewModel: viewModel, chatRoomListId: chatRoomListId, partnerId: partnerId, uid: uid)
+            ChatBottomBarView(viewModel: viewModel, chatRoomListId: chatRoomListId, partnerId: chatRoomPartner.partnerId, uid: uid)
         }
 //        .navigationTitle(noticeBoardTitle)
         .navigationBarTitleDisplayMode(.inline)
@@ -47,11 +45,11 @@ struct ChatMessageView: View {
                         Image(systemName: "graduationcap.fill")
                             .font(.caption)
                             .foregroundStyle(.black)
-                        Text("동네보안관")
+                        Text(chatRoomPartner.style)
                             .font(.caption)
                             .foregroundStyle(.red)
                     }
-                    Text(noticeBoardTitle)
+                    Text(chatRoomPartner.nickname)
                         .font(.headline)
                 }
             }
@@ -68,7 +66,7 @@ struct ChatMessageView: View {
         .onAppear {
             viewModel.initNewCount(uid: uid, chatRoomId: chatRoomListId)
             viewModel.fetchMessages(uid: uid, chatRoomListId: chatRoomListId)
-            viewModel.getNoticeBoardInfo(noticeBoardId: noticeBoardId)
+            viewModel.getNoticeBoardInfo(noticeBoardId: chatRoomPartner.noticeBoardId)
         }
     }
 }

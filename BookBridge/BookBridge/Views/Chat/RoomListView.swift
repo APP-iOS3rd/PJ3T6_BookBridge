@@ -15,7 +15,11 @@ struct RoomListView: View {
             ForEach(viewModel.searchChatRoomList()) { chatRoom in
                 ZStack {
                     NavigationLink {
-                        ChatMessageView(chatRoomListId: chatRoom.id, noticeBoardId: chatRoom.noticeBoardId, noticeBoardTitle: chatRoom.noticeBoardTitle, partnerId: chatRoom.partnerId, partnerImage: viewModel.getPartnerImageIndex(partnerId: chatRoom.partnerId, noticeBoardId: chatRoom.noticeBoardId), uid: chatRoom.userId)
+                        ChatMessageView(
+                            chatRoomListId: chatRoom.id,
+                            noticeBoardTitle: chatRoom.noticeBoardTitle,
+                            chatRoomPartner: viewModel.getPartnerImageIndex(partnerId: chatRoom.partnerId, noticeBoardId: chatRoom.noticeBoardId).0 == -1 ? ChatPartnerModel(nickname: "닉네임 없음", noticeBoardId: chatRoom.noticeBoardId, partnerId: chatRoom.partnerId, partnerImage: UIImage(named: "DefaultImage")!, style: "칭호 미아") : viewModel.chatRoomPartners[viewModel.getPartnerImageIndex(partnerId: chatRoom.partnerId, noticeBoardId: chatRoom.noticeBoardId).0],
+                            uid: chatRoom.userId)
                     } label: {
                         EmptyView()
                     }
@@ -23,7 +27,7 @@ struct RoomListView: View {
                     
                     VStack {
                         HStack(alignment: .top, spacing: 16) {
-                            Image(uiImage: viewModel.getPartnerImageIndex(partnerId: chatRoom.partnerId, noticeBoardId: chatRoom.noticeBoardId))
+                            Image(uiImage: viewModel.getPartnerImageIndex(partnerId: chatRoom.partnerId, noticeBoardId: chatRoom.noticeBoardId).1)
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 50, height: 50)
