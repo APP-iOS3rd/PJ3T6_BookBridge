@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeTapView: View {
     @StateObject var viewModel: HomeViewModel
+    @StateObject var locationManager = LocationManager.shared
     
     @State private var isInsideXmark: Bool = false
     @State private var isOutsideXmark: Bool = false
@@ -189,14 +190,10 @@ struct HomeTapView: View {
         .onAppear {
             viewModel.fetchBookMark(user: "joo")
         }
-        .onChange(of: LocationManager.shared.dong) { _ in
-            if UserManager.shared.isLogin {
-                // 로그인 했을 경우
-            } else {
-                Task {
-                    viewModel.changeNoticeBoards = await GeohashManager.geoQuery(lat: LocationManager.shared.lat, long: LocationManager.shared.long, distance: 1)
-                }
-            }
-        }
+//        .onChange(of: locationManager.dong) { _ in
+//            Task {
+//                viewModel.changeNoticeBoards = await GeohashManager.geoQuery(lat: LocationManager.shared.lat, long: LocationManager.shared.long, distance: 1)
+//            }            
+//        }
     }
 }

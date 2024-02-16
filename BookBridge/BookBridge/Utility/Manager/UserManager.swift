@@ -21,6 +21,7 @@ class UserManager: ObservableObject {
     
     @Published var currentDong = ""
     @Published var isLogin = false
+    @Published var isChanged = false
     var uid = ""
     var user: UserModel?
     var currentUser: Firebase.User?
@@ -52,5 +53,6 @@ class UserManager: ObservableObject {
     func chageLocation(locations: [Location]) {
         user?.location = locations
         currentDong = user?.getSelectedLocation()?.dong ?? ""
+        self.isChanged.toggle()
     }
 }
