@@ -105,7 +105,6 @@
 		5C8C0E3A2B7B29C6002963F1 /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0E392B7B29C6002963F1 /* ReportViewModel.swift */; };
 		5C8C0E3C2B7B29F7002963F1 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0E3B2B7B29F7002963F1 /* Report.swift */; };
 		5CD606412B7D967A00AC53DD /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5CD6063F2B7D967A00AC53DD /* Secrets.xcconfig */; };
-		5CD606422B7D967A00AC53DD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5CD606402B7D967A00AC53DD /* GoogleService-Info.plist */; };
 		5CD606442B7DAABF00AC53DD /* PostMapSeeMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD606432B7DAABE00AC53DD /* PostMapSeeMoreView.swift */; };
 		5CE454902B68B79000874BCE /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4548F2B68B79000874BCE /* FirestoreService.swift */; };
 		5CE454932B68B7CB00874BCE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454922B68B7CB00874BCE /* UserModel.swift */; };
@@ -265,7 +264,6 @@
 		5C8C0E392B7B29C6002963F1 /* ReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
 		5C8C0E3B2B7B29F7002963F1 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		5CD6063F2B7D967A00AC53DD /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
-		5CD606402B7D967A00AC53DD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5CD606432B7DAABE00AC53DD /* PostMapSeeMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMapSeeMoreView.swift; sourceTree = "<group>"; };
 		5CE4548F2B68B79000874BCE /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		5CE454922B68B7CB00874BCE /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -473,7 +471,7 @@
 		5A5041C82B6A612A00211CF2 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				1DF1CF762B7CA382008870FB /* GoogleService-Info.plist */,
+				5CD6063F2B7D967A00AC53DD /* Secrets.xcconfig */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -780,11 +778,11 @@
 		91C60CE62B6747C400A1E8E4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				5ADE79DB2B6B2D5F005BB3ED /* Login */,
 				5C8C0E372B7B29A9002963F1 /* Report */,
 				F6DFC8D62B735ABF00931CF9 /* Post */,
 				F60BB0962B71D73800E27F38 /* HomeFirebaseManager.swift */,
 				F60BB0942B71D72F00E27F38 /* HomeViewModel.swift */,
-				5ADE79DB2B6B2D5F005BB3ED /* Login */,
 				5A5041CB2B6A635C00211CF2 /* PathViewModel.swift */,
 				91B80A412B676EEE000D5339 /* ImagePicker.swift */,
 				73C962AA2B68C4D800D34D3F /* SearchBooksViewModel.swift */,
