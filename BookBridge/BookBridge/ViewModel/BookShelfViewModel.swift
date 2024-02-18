@@ -122,7 +122,7 @@ class BookShelfViewModel: ObservableObject {
     }
     
     func deleteBook(_ book: Item, for tap: tapInfo) {
-        // 내부 배열에서 책 제거
+        
         switch tap {
         case .wish:
             if let index = wishBooks.firstIndex(where: { $0.id == book.id }) {

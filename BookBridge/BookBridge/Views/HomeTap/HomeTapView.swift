@@ -28,9 +28,10 @@ struct HomeTapView: View {
                             .padding(.leading, 8)
                         
                         TextField("검색어를 입력해주세요", text: $text, onCommit: {
-                            // 'Done' 버튼을 누를 때의 동작
+                            viewModel.addRecentSearch(user: UserManager.shared.uid, text: text)
                             isOutsideXmark = false
                             isInsideXmark = false
+                            
                         })
                         .padding(7)
                         .onChange(of: text) { _ in
@@ -127,7 +128,7 @@ struct HomeTapView: View {
             }
             
             if isOutsideXmark {
-                HomeRecentSearchView()
+                HomeRecentSearchView(viewModel: viewModel)
                     .background(Color.white)
                     .zIndex(1)
                     .padding(.top, 60)
@@ -139,10 +140,7 @@ struct HomeTapView: View {
                     }
                     .onDisappear {
                         showRecentSearchView = false
-                    }
-                
-                    .padding(.vertical, 10)
-                    .padding(.horizontal, 20)
+                    }                    
                 
                 switch tapCategory {
                 case .find:             //TODO: imageLinks 부분 받아오기
