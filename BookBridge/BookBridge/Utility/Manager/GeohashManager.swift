@@ -12,7 +12,7 @@ import CoreLocation
 
 enum BoardType {
     case change
-    case want
+    case find
 }
 
 class GeohashManager {
@@ -37,9 +37,8 @@ class GeohashManager {
                 .end(at: [bound.endValue])
         }
 
-        @Sendable func fetchMatchingDocs(from query: Query,
-                                         center: CLLocationCoordinate2D,
-                                         radiusInMeters: Double) async throws -> [NoticeBoard] {
+        @Sendable func fetchMatchingDocs(from query: Query, center: CLLocationCoordinate2D, radiusInMeters: Double) async throws -> [NoticeBoard] {
+                                         
             let snapshot = try await query.getDocuments()
             let tempArray = snapshot.documents.compactMap { document -> NoticeBoard? in
                     guard let data = document.data() as? [String: Any] else {
@@ -85,7 +84,7 @@ class GeohashManager {
                     if noticeBoard.isChange {
                         return isWithinRadius(location: noticeBoard.noticeLocation, center: center, radiusInMeters: radiusInMeters)
                     }
-                case .want:
+                case .find:
                     if !noticeBoard.isChange {
                         return isWithinRadius(location: noticeBoard.noticeLocation, center: center, radiusInMeters: radiusInMeters)
                     }
