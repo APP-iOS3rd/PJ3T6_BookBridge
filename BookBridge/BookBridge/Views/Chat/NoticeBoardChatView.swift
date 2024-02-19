@@ -12,23 +12,30 @@ struct NoticeBoardChatView: View {
     
     var body: some View {
         HStack {
-            HStack {
-                Image(systemName: "book.closed.fill")
+            NavigationLink {
+                PostView(noticeBoard: viewModel.noticeBoardInfo)
+            } label: {
+                HStack {
+                    Image(uiImage: viewModel.bookImage)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 28, height: 41)
+                    .foregroundStyle(.black)
                     .padding(.trailing, 4)
-                
-                VStack(alignment:.leading) {
-                    Text(viewModel.noticeBoardInfo.noticeBoardTitle)
-                        .bold()
-                        .padding(.bottom, 1)
-                        .multilineTextAlignment(.leading)
-                    Text(viewModel.noticeBoardInfo.noticeLocationName)
-                        .font(.system(size: 14))
-                        .foregroundStyle(.gray)
+                    
+                    VStack(alignment:.leading) {
+                        Text(viewModel.noticeBoardInfo.noticeBoardTitle)
+                            .padding(.bottom, 1)
+                            .font(.system(size: 17, weight: .bold))
+                            .lineLimit(1)
+                            .foregroundStyle(.black)
+                        Text(viewModel.noticeBoardInfo.noticeLocationName)
+                            .font(.system(size: 14))
+                            .lineLimit(1)
+                            .foregroundStyle(.gray)
+                    }
+                    .padding(.trailing)
                 }
-                .padding(.trailing)
             }
             
             Spacer()

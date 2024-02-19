@@ -9,13 +9,15 @@ import SwiftUI
 
 struct ChatBottomBarView: View {
     @StateObject var viewModel: ChatMessageViewModel
+    
     @State var chatTextArr: [Substring] = []
     @State var isShowingPhoto = false
     @State var isShowingCamera = false
-    @State var selectedImages: [UIImage] = []
+    
     @State private var keyboardHeight: CGFloat = 0
     
     @FocusState.Binding var isShowKeyboard: Bool
+    
     @Binding var isPlusBtn: Bool
     
     var chatRoomListId: String
@@ -165,12 +167,22 @@ struct ChatBottomBarView: View {
                 .transition(.move(edge: .bottom))
             }
         }
-        .fullScreenCover(isPresented: $isShowingPhoto) {
-            ImagePicker(isVisible: $isShowingPhoto, images: $selectedImages, sourceType: 1)
+        .fullScreenCover(isPresented: $isShowingPhoto, onDismiss: {
+            withAnimation(.linear(duration: 0.2)) {
+                isPlusBtn.toggle()
+            }
+            viewModel.handleSendImage(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId)
+        }) {
+            ImagePicker(isVisible: $isShowingPhoto, images: $viewModel.selectedImages, sourceType: 1)
                 .ignoresSafeArea(.all)
         }
-        .fullScreenCover(isPresented: $isShowingCamera) {
-            ImagePicker(isVisible: $isShowingCamera, images: $selectedImages, sourceType: 0)
+        .fullScreenCover(isPresented: $isShowingCamera, onDismiss: {
+            withAnimation(.linear(duration: 0.2)) {
+                isPlusBtn.toggle()
+            }
+            viewModel.handleSendImage(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId)
+        }) {
+            ImagePicker(isVisible: $isShowingCamera, images: $viewModel.selectedImages, sourceType: 0)
                 .ignoresSafeArea(.all)
         }
     }

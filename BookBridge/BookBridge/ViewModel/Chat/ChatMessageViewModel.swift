@@ -11,14 +11,18 @@ import FirebaseFirestore
 
 class ChatMessageViewModel: ObservableObject {
     
+    @Published var bookImage: UIImage = UIImage(named: "DefaultImage")!
+    @Published var chatImages: [String: UIImage] = [:]
     @Published var chatMessages: [ChatMessageModel] = []
     @Published var chatText = ""
     @Published var count = 0
     @Published var noticeBoardInfo: NoticeBoard = NoticeBoard(userId: "", noticeBoardTitle: "", noticeBoardDetail: "", noticeImageLink: [], noticeLocation: [], noticeLocationName: "", isChange: false, state: 0, date: Date(), hopeBook: [])
+    @Published var selectedImages: [UIImage] = []
 
     var firestoreListener: ListenerRegistration?
     
     let nestedGroup = DispatchGroup()
+    let nestedGroupImage = DispatchGroup()
     
 }
 
@@ -63,14 +67,16 @@ extension ChatMessageViewModel {
             guard error == nil else { return }
             guard let document = documentSnapshot else { return }
             guard let stamp = document.data()?["date"] as? Timestamp else { return }
+            guard let isChange = document.data()?["isChange"] as? Bool else { return }
+            guard let noticeImageLink = document.data()?["noticeImageLink"] as? [String] else { return }
             
-            if document.data()?["isChange"] as? Bool ?? true {          //바꿔요 게시물
+            if isChange {          //바꿔요 게시물
                 let noticeBoard = NoticeBoard(
                     id: document.data()?["noticeBoardId"] as? String ?? "",
                     userId: document.data()?["userId"] as? String ?? "",
                     noticeBoardTitle: document.data()?["noticeBoardTitle"] as? String ?? "",
                     noticeBoardDetail: document.data()?["noticeBoardDetail"] as? String ?? "",
-                    noticeImageLink: document.data()?["noticeImageLink"] as? [String] ?? [],
+                    noticeImageLink: noticeImageLink,
                     noticeLocation: document.data()?["noticeLocation"] as? [Double] ?? [],
                     noticeLocationName: document.data()?["noticeLocationName"] as? String ?? "",
                     isChange: document.data()?["isChange"] as? Bool ?? false,
@@ -78,6 +84,8 @@ extension ChatMessageViewModel {
                     date: stamp.dateValue(),
                     hopeBook: []
                 )
+                
+                self.getNoticeBoardImage(urlString: noticeImageLink[0])
                 
                 DispatchQueue.main.async {
                     self.noticeBoardInfo = noticeBoard
@@ -140,6 +148,12 @@ extension ChatMessageViewModel {
                             hopeBook: hopeBooks
                         )
                         
+                        if hopeBooks.isEmpty {
+                            self.bookImage = UIImage(named: "DefaultImage")!
+                        } else {
+                            self.getNoticeBoardImage(urlString: hopeBooks[0].volumeInfo.imageLinks?.smallThumbnail ?? "")
+                        }
+                        
                         DispatchQueue.main.async {
                             self.noticeBoardInfo = noticeBoard
                         }
@@ -150,7 +164,7 @@ extension ChatMessageViewModel {
     }
 }
 
-//MARK: 메시지 전송
+//MARK: 메시지 전송 (Text)
 extension ChatMessageViewModel {
     // 메시지 전송 저장
     func handleSend(uid: String, partnerId: String, chatRoomListId: String) {
@@ -211,6 +225,121 @@ extension ChatMessageViewModel {
     }
 }
 
+//MARK: 메시지 전송 (Image)
+extension ChatMessageViewModel {
+    func handleSendImage(uid: String, partnerId: String, chatRoomListId: String) {
+        let timestamp = Date()
+        
+        for image in self.selectedImages {
+            self.nestedGroupImage.enter()
+            
+            saveImage(image: image, chatRoomListId: chatRoomListId) { urlString in
+                let messageData = [
+                    "date": timestamp,
+                    "imageURL": urlString,
+                    "location": ["100", "200"],
+                    "message": "",
+                    "sender": uid
+                ] as [String : Any]
+                
+                
+                // 발신자용 메시지 전송 저장
+                let myQuery = FirebaseManager.shared.firestore.collection("user")
+                    .document(uid)
+                    .collection("chatRoomList").document(chatRoomListId)
+                
+                let senderDocument = myQuery.collection("messages").document()
+                
+                senderDocument.setData(messageData) { error in
+                    guard error == nil else { return }
+                    
+                    print("Successfully saved current user sending message")
+                    
+                    self.count += 1 // 채팅 화면 하단 갱신
+                }
+                
+                myQuery.updateData([
+                    "date": timestamp,
+                    "recentMessage": "사진"
+                ])
+                
+                // 수신자용 메시지 전송 저장
+                let partnerQuery = FirebaseManager.shared.firestore.collection("user").document(partnerId).collection("chatRoomList").document(chatRoomListId)
+                
+                let recipientMessageDocument = partnerQuery.collection("messages").document()
+                
+                recipientMessageDocument.setData(messageData) { error in
+                    guard error == nil else { return }
+                    print("Recipient saved message as well")
+                }
+                
+                partnerQuery.getDocument { documentSnapshot, error in
+                    guard error == nil else { return }
+                    guard let document = documentSnapshot else { return }
+                    
+                    
+                    partnerQuery.updateData([
+                        "date": timestamp,
+                        "newCount": (document.data()?["newCount"] as? Int ?? 0) + 1,
+                        "recentMessage": "사진"
+                    ])
+                }
+            }
+            self.nestedGroupImage.leave()
+        }
+        
+        self.nestedGroup.notify(queue: .main) {
+            self.selectedImages.removeAll()
+        }
+    }
+    
+    //이미지 저장
+    func saveImage(image: UIImage, chatRoomListId: String, completion: @escaping(String) -> ()) {
+        guard let imageData = image.jpegData(compressionQuality: 0.2) else { return }
+        
+        let ref = FirebaseManager.shared.storage.reference().child("ChatRoom/\(chatRoomListId)/\(UUID().uuidString)")
+        
+        ref.putData(imageData, metadata: nil) { metadata, err in
+            guard err == nil else { return }
+            
+            ref.downloadURL { url, error in
+                guard error == nil else { return }
+                guard let url = url else { return }
+                
+                completion(url.absoluteString)
+            }
+        }
+    }
+    
+    //이미지 불러오기
+    func getChatImage(urlString: String) {
+        if !self.chatImages.contains(where: { $0.key == urlString }) {
+            if let url = URL(string: urlString) {
+                URLSession.shared.dataTask(with: url) { (data, response, error) in
+                    guard let imageData = data else { return }
+                    
+                    DispatchQueue.main.async {
+                        self.chatImages.updateValue(UIImage(data: imageData) ?? UIImage(named: "DefaultImage")!, forKey: urlString)
+                    }
+                }.resume()
+            }
+        }
+    }
+}
+
+//MARK: 게시물 이미지 가져오기
+extension ChatMessageViewModel {
+    func getNoticeBoardImage(urlString: String) {
+        if let url = URL(string: urlString) {
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                guard let imageData = data else { return }
+                
+                DispatchQueue.main.async {
+                    self.bookImage = UIImage(data: imageData) ?? UIImage(named: "DefaultImage")!
+                }
+            }.resume()
+        }
+      
 extension ChatMessageViewModel {
     func changeAlarm(uid: String, chatRoomListId: String, isAlarm: Bool) {
         let myQuery = FirebaseManager.shared.firestore.collection("user")
