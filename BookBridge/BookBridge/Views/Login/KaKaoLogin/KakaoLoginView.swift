@@ -10,6 +10,7 @@ import SwiftUI
 struct KakaoLoginView: View {
     @StateObject private var viewModel = KakaoLoginViewModel()
     @EnvironmentObject private var pathModel: PathViewModel
+    @Binding var showingLoginView: Bool
     
     var body: some View {
         VStack {
@@ -33,8 +34,10 @@ struct KakaoLoginView: View {
                 KakaoLoginStatusView(viewModel: viewModel)
             }
         }.onChange(of: viewModel.state) { newState in
-            if newState == .signedIn, let userId = viewModel.userId {
-                pathModel.paths.append(.home(userId: userId))
+            if newState == .signedIn {
+                UserManager.shared.isLogin = true
+                UserManager.shared.setUser(uid: viewModel.userId!)
+                showingLoginView = false
             }
         }
         
@@ -55,7 +58,7 @@ struct KakaoLoginStatusView: View {
     }
 }
 
-
-#Preview {
-    KakaoLoginView()
-}
+//
+//#Preview {
+//    KakaoLoginView()
+//}
