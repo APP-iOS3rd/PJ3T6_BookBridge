@@ -219,25 +219,49 @@ struct PostView: View {
                     Spacer()
                     VStack {
                         if isPresented {
-                            Button {
-                                if UserManager.shared.isLogin {
-                                    postViewModel.bookMarkToggle(id: noticeBoard.id)
+                            if UserManager.shared.uid != noticeBoard.userId {
+                                Button {
+                                    if UserManager.shared.isLogin {
+                                        postViewModel.bookMarkToggle(id: noticeBoard.id)
+                                    }
+                                    isPresented.toggle()
+                                } label: {
+                                    Text( postViewModel.bookMarks.contains(noticeBoard.id) ? "관심목록 삭제" : "관심목록 추가")
+                                        .font(.system(size: 14))
+                                        .padding(1)
                                 }
-                                isPresented.toggle()
-                            } label: {
-                                Text( postViewModel.bookMarks.contains(noticeBoard.id) ? "관심목록 삭제" : "관심목록 추가")
-                                    .font(.system(size: 14))
+                                Divider()
                                     .padding(1)
-                            }
-                            Divider()
-                                .padding(1)
-                            NavigationLink {
-                                EmptyView()
-                            } label: {
-                                Text("신고하기")
-                                    .font(.system(size: 14))
-                                    .foregroundStyle(Color.red)
+                                NavigationLink {
+                                    EmptyView()
+                                } label: {
+                                    Text("신고하기")
+                                        .font(.system(size: 14))
+                                        .foregroundStyle(Color.red)
+                                        .padding(1)
+                                }
+                            } else {
+                                NavigationLink {
+                                    if noticeBoard.isChange {
+                                        ChangePostingModifyView(noticeBoard: $noticeBoard)
+                                    } else {
+                                        FindPostingModifyView(noticeBoard: $noticeBoard)
+                                    }
+                                } label: {
+                                    Text("수정하기")
+                                        .font(.system(size: 14))
+                                        .padding(1)
+                                }
+                                Divider()
                                     .padding(1)
+                                Button {
+                                    
+                                } label: {
+                                    Text("삭제하기")
+                                        .font(.system(size: 14))
+                                        .foregroundStyle(Color.red)
+                                        .padding(1)
+                                }
                             }
                         }
                     }
