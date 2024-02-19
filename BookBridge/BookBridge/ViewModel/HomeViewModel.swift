@@ -167,7 +167,7 @@ extension HomeViewModel {
         }
     }
     
-
+    
     func fetchRecentSearch(user: String) {
         db.collection("user").document(user).collection("recentsearch").getDocuments { [weak self] (querySnapshot, error) in
             guard let self = self else { return }
@@ -265,7 +265,8 @@ extension HomeViewModel {
         }
         
         self.fetchRecentSearch(user: user)
-
+    }
+    
     func updateNoticeBoards() {
         Task {
             var lat: Double?
@@ -296,6 +297,6 @@ extension HomeViewModel {
                 }
             }
         }
-
+        
     }
 }

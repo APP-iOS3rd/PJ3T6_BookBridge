@@ -10,6 +10,10 @@
 #endif
 #endif
 
+#import "GeoFire.h"
+#import "GFCircleQuery.h"
+#import "GFQuery.h"
+#import "GFRegionQuery.h"
 #import "GFBase32Utils.h"
 #import "GFGeoHash.h"
 #import "GFGeoHashQuery.h"
