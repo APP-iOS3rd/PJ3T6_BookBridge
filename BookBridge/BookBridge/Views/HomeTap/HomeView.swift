@@ -87,6 +87,7 @@ struct HomeView: View {
         }
     }
     
+    
     @ViewBuilder
     private func tapAnimation() -> some View {
         HStack {
@@ -116,3 +117,4 @@ struct HomeView: View {
         .overlay(Rectangle().frame(width: nil, height: 1, alignment: .bottom).foregroundColor(Color(red: 200/255, green: 200/255, blue: 200/255)), alignment: .bottom)
     }
 }
+
