@@ -165,6 +165,7 @@ class KakaoLoginViewModel : ObservableObject {
                             // 사용자 정보 처리
                             self.state = .signedIn
                             self.userId = uid
+                            UserManager.shared.login(uid: uid)
                             
                         } else {
                             // 사용자 데이터를 찾을 수 없음. 필요한 경우 오류 처리
@@ -179,6 +180,7 @@ class KakaoLoginViewModel : ObservableObject {
                                 // 사용자 정보 처리
                                 self.state = .signedIn                                
                                 self.userId = uid
+                                UserManager.shared.login(uid: uid)
                                 
                             } else {
                                 // 사용자 데이터를 찾을 수 없음. 필요한 경우 오류 처리
