@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 class ChatMessageViewModel: ObservableObject {
     
+    @Published var bookImage: UIImage = UIImage(named: "DefaultImage")!
     @Published var chatMessages: [ChatMessageModel] = []
     @Published var chatText = ""
     @Published var count = 0
@@ -63,14 +64,16 @@ extension ChatMessageViewModel {
             guard error == nil else { return }
             guard let document = documentSnapshot else { return }
             guard let stamp = document.data()?["date"] as? Timestamp else { return }
+            guard let isChange = document.data()?["isChange"] as? Bool else { return }
+            guard let noticeImageLink = document.data()?["noticeImageLink"] as? [String] else { return }
             
-            if document.data()?["isChange"] as? Bool ?? true {          //바꿔요 게시물
+            if isChange {          //바꿔요 게시물
                 let noticeBoard = NoticeBoard(
                     id: document.data()?["noticeBoardId"] as? String ?? "",
                     userId: document.data()?["userId"] as? String ?? "",
                     noticeBoardTitle: document.data()?["noticeBoardTitle"] as? String ?? "",
                     noticeBoardDetail: document.data()?["noticeBoardDetail"] as? String ?? "",
-                    noticeImageLink: document.data()?["noticeImageLink"] as? [String] ?? [],
+                    noticeImageLink: noticeImageLink,
                     noticeLocation: document.data()?["noticeLocation"] as? [Double] ?? [],
                     noticeLocationName: document.data()?["noticeLocationName"] as? String ?? "",
                     isChange: document.data()?["isChange"] as? Bool ?? false,
@@ -78,6 +81,8 @@ extension ChatMessageViewModel {
                     date: stamp.dateValue(),
                     hopeBook: []
                 )
+                
+                self.getNoticeBoardImage(urlString: noticeImageLink[0])
                 
                 DispatchQueue.main.async {
                     self.noticeBoardInfo = noticeBoard
@@ -139,6 +144,12 @@ extension ChatMessageViewModel {
                             date: stamp.dateValue(),
                             hopeBook: hopeBooks
                         )
+                        
+                        if hopeBooks.isEmpty {
+                            self.bookImage = UIImage(named: "DefaultImage")!
+                        } else {
+                            self.getNoticeBoardImage(urlString: hopeBooks[0].volumeInfo.imageLinks?.smallThumbnail ?? "")
+                        }
                         
                         DispatchQueue.main.async {
                             self.noticeBoardInfo = noticeBoard
@@ -207,6 +218,21 @@ extension ChatMessageViewModel {
             ])
             
             self.chatText = ""
+        }
+    }
+}
+
+//MARK: 게시물 이미지 가져오기
+extension ChatMessageViewModel {
+    func getNoticeBoardImage(urlString: String) {
+        if let url = URL(string: urlString) {
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                guard let imageData = data else { return }
+                
+                DispatchQueue.main.async {
+                    self.bookImage = UIImage(data: imageData) ?? UIImage(named: "DefaultImage")!
+                }
+            }.resume()
         }
     }
 }
