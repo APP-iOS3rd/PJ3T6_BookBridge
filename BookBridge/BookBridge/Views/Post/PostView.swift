@@ -261,30 +261,11 @@ struct PostView: View {
                             .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
                             .background(Color(hex: "59AAE0"))
                             .padding(1)
-                        if postViewModel.chatRoomList.isEmpty {
-                            Text("채팅하기")
-                                .foregroundStyle(Color.white)
-                                .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
-                                .background(Color(hex: "59AAE0"))
-                                .padding(1)
-                        } else {
-                            Text("예약중")
-                                .foregroundStyle(Color.white)
-                                .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
-                                .background(Color(hex: "59AAE0"))
-                                .padding(1)
-                        }
-                        //패딩이 없으면 아래를 다 채워버림
                     }
                 } else {
                     Button {
                         
                     } label: {
-                        Text("대화중인 채팅방 \(postViewModel.chatRoomList.count)")
-                            .foregroundStyle(Color.white)
-                            .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
-                            .background(Color(hex: "59AAE0"))
-                            .padding(1)
                         if postViewModel.chatRoomList.isEmpty {
                             Text("채팅하기")
                                 .foregroundStyle(Color.white)
@@ -298,7 +279,6 @@ struct PostView: View {
                                 .background(Color(hex: "59AAE0"))
                                 .padding(1)
                         }
-                        //패딩이 없으면 아래를 다 채워버림
                     }
                 }
             }
