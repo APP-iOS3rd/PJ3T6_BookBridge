@@ -35,6 +35,8 @@
 	</array>
 	<key>GIDClientID</key>
 	<string>301482998840-1vmnt9ul95saa58vhg4sn873rsir7mgt.apps.googleusercontent.com</string>
+	<key>KakaoAppKey</key>
+	<string>$(KakaoAppKey)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>naversearchapp</string>

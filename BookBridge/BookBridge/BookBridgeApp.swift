@@ -16,8 +16,10 @@ struct BookBridgeApp: App {
             
     init() {
         // Kakao SDK 초기화
-        if let kakaoAppKey = Bundle.main.object(forInfoDictionaryKey: "KakaoAppKey") as? String {
+        if let kakaoAppKey = Bundle.main.KakaoAppKey {
             KakaoSDK.initSDK(appKey: kakaoAppKey)
+        } else {
+            print("kakaoAppKey를 찾을 수 없습니다.")
         }
 
         

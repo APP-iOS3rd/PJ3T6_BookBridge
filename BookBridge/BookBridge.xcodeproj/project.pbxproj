@@ -21,7 +21,6 @@
 		1DB39DBA2B6B57B100C1B489 /* BookShelfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DB92B6B57B100C1B489 /* BookShelfView.swift */; };
 		1DB39DBC2B6B57F100C1B489 /* BookShelfViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */; };
 		1DB39DC02B6B8A5300C1B489 /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DBF2B6B8A5300C1B489 /* BookDetailView.swift */; };
-		1DCA7F112B831CE90096E862 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1DCA7F102B831CE90096E862 /* Secrets.xcconfig */; };
 		1DCFB01E2B687D7000250D55 /* FindIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB01D2B687D7000250D55 /* FindIdView.swift */; };
 		1DCFB0222B68CB4400250D55 /* FindIdVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0212B68CB4400250D55 /* FindIdVM.swift */; };
 		1DCFB0242B68CD3100250D55 /* FindPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */; };
@@ -88,6 +87,8 @@
 		5AA97F832B70754D00EF4081 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA97F822B70754D00EF4081 /* LocationManager.swift */; };
 		5AA97F862B709C4000EF4081 /* FirestoreSignUpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA97F852B709C4000EF4081 /* FirestoreSignUpManager.swift */; };
 		5AA97F892B70BCF000EF4081 /* BundleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA97F882B70BCF000EF4081 /* BundleExtension.swift */; };
+		5AB3C7792B832D0700D8C317 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5AB3C7782B832D0700D8C317 /* GoogleService-Info.plist */; };
+		5AB3C77B2B83307500D8C317 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5AB3C77A2B83307500D8C317 /* Secrets.xcconfig */; };
 		5ADE79D32B6B2798005BB3ED /* SwiftSMTP in Frameworks */ = {isa = PBXBuildFile; productRef = 5ADE79D22B6B2798005BB3ED /* SwiftSMTP */; };
 		5ADE79DA2B6B2C99005BB3ED /* CertiResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79D92B6B2C99005BB3ED /* CertiResult.swift */; };
 		5ADE79DE2B6B3305005BB3ED /* GoogleAuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */; };
@@ -178,7 +179,6 @@
 		1DB39DB92B6B57B100C1B489 /* BookShelfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfView.swift; sourceTree = "<group>"; };
 		1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfViewModel.swift; sourceTree = "<group>"; };
 		1DB39DBF2B6B8A5300C1B489 /* BookDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
-		1DCA7F102B831CE90096E862 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		1DCFB01D2B687D7000250D55 /* FindIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdView.swift; sourceTree = "<group>"; };
 		1DCFB0212B68CB4400250D55 /* FindIdVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdVM.swift; sourceTree = "<group>"; };
 		1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordView.swift; sourceTree = "<group>"; };
@@ -249,6 +249,8 @@
 		5AA97F822B70754D00EF4081 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		5AA97F852B709C4000EF4081 /* FirestoreSignUpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreSignUpManager.swift; sourceTree = "<group>"; };
 		5AA97F882B70BCF000EF4081 /* BundleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtension.swift; sourceTree = "<group>"; };
+		5AB3C7782B832D0700D8C317 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Dependency File/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5AB3C77A2B83307500D8C317 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		5ADE79D92B6B2C99005BB3ED /* CertiResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertiResult.swift; sourceTree = "<group>"; };
 		5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthModel.swift; sourceTree = "<group>"; };
 		5ADE79DF2B6B3351005BB3ED /* GoogleSignResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignResultModel.swift; sourceTree = "<group>"; };
@@ -491,7 +493,8 @@
 		5A7A4E192B61DFFD00F79C23 = {
 			isa = PBXGroup;
 			children = (
-				1DCA7F102B831CE90096E862 /* Secrets.xcconfig */,
+				5AB3C7782B832D0700D8C317 /* GoogleService-Info.plist */,
+				5AB3C77A2B83307500D8C317 /* Secrets.xcconfig */,
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
 				5A7A4E352B61DFFE00F79C23 /* BookBridgeTests */,
@@ -943,9 +946,10 @@
 			files = (
 				5CD606412B7D967A00AC53DD /* Secrets.xcconfig in Resources */,
 				5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */,
-				1DCA7F112B831CE90096E862 /* Secrets.xcconfig in Resources */,
+				5AB3C77B2B83307500D8C317 /* Secrets.xcconfig in Resources */,
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
 				5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */,
+				5AB3C7792B832D0700D8C317 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1270,7 +1274,7 @@
 /* Begin XCBuildConfiguration section */
 		5A7A4E442B61DFFE00F79C23 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1DCA7F102B831CE90096E862 /* Secrets.xcconfig */;
+			baseConfigurationReference = 5AB3C77A2B83307500D8C317 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1334,7 +1338,7 @@
 		};
 		5A7A4E452B61DFFE00F79C23 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1DCA7F102B831CE90096E862 /* Secrets.xcconfig */;
+			baseConfigurationReference = 5AB3C77A2B83307500D8C317 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
