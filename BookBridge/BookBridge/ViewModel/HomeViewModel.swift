@@ -13,6 +13,7 @@ class HomeViewModel: ObservableObject {
     @Published var bookMarks: [String] = []
     @Published var changeNoticeBoards: [NoticeBoard] = []
     @Published var findNoticeBoards: [NoticeBoard] = []
+    @Published var recentSearch : [String] = []
     
     let db = Firestore.firestore()
     let nestedGroup = DispatchGroup()
@@ -166,6 +167,106 @@ extension HomeViewModel {
         }
     }
     
+    
+    func fetchRecentSearch(user: String) {
+        db.collection("user").document(user).collection("recentsearch").getDocuments { [weak self] (querySnapshot, error) in
+            guard let self = self else { return }
+            if let error = error {
+                print("Error getting recent searches: \(error)")
+                return
+            }
+            
+            var searches: [String] = []
+            for document in querySnapshot!.documents {
+                if let search = document.data()["searchTerm"] as? String {
+                    searches.append(search)
+                }
+            }
+            DispatchQueue.main.async {
+                self.recentSearch = searches
+            }
+        }
+    }
+    
+    func recentSearchDeleteAll(user: String) {
+        recentSearch.removeAll()
+        
+        // Firestore에서 해당 사용자의 모든 최근 검색 데이터 삭제
+        let collectionRef = db.collection("user").document(user).collection("recentsearch")
+        collectionRef.getDocuments { (snapshot, error) in
+            guard let documents = snapshot?.documents else {
+                print("No documents in 'recentsearch'")
+                return
+            }
+            
+            for document in documents {
+                collectionRef.document(document.documentID).delete() { err in
+                    if let err = err {
+                        print("Error removing document: \(err)")
+                    } else {
+                        print("Document successfully removed!")
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    func deleteRecentSearch(user: String, search: String) {
+        if let index = recentSearch.firstIndex(of: search) {
+            recentSearch.remove(at: index)
+            
+            // Firestore에서 해당 검색어 삭제
+            db.collection("User").document(user).collection("recentsearch").whereField("searchTerm", isEqualTo: search).getDocuments { (snapshot, error) in
+                guard let documents = snapshot?.documents else {
+                    print("No documents found")
+                    return
+                }
+                
+                for document in documents {
+                    document.reference.delete() { err in
+                        if let err = err {
+                            print("Error removing document: \(err)")
+                        } else {
+                            print("Document successfully removed!")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func addRecentSearch(user: String, text: String) {
+        // Firestore에 검색어를 추가하는 로직
+        let recentSearchRef = db.collection("User").document(user).collection("recentsearch")
+        
+        // 중복 검색어 방지
+        recentSearchRef.whereField("searchTerm", isEqualTo: text).getDocuments { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else if querySnapshot!.documents.isEmpty {
+                // 문서가 없으면 새로운 검색어 추가
+                recentSearchRef.addDocument(data: ["searchTerm": text]) { err in
+                    if let err = err {
+                        print("Error adding document: \(err)")
+                    } else {
+                        print("Document added with ID: \(recentSearchRef.document().documentID)")
+                        DispatchQueue.main.async {
+                            if !self.recentSearch.contains(text) {
+                                self.recentSearch.append(text)
+                            }
+                        }
+                    }
+                }
+            } else {
+                // 이미 존재하는 검색어는 배열에 추가하지 않음
+                print("Search term already exists.")
+            }
+        }
+        
+        self.fetchRecentSearch(user: user)
+    }
+    
     func updateNoticeBoards() {
         Task {
             var lat: Double?
@@ -196,5 +297,6 @@ extension HomeViewModel {
                 }
             }
         }
+        
     }
 }
