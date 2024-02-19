@@ -31,7 +31,8 @@ struct BookBridgeApp: App {
     }
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-        
+    @StateObject private var pathModel = PathViewModel()
+    
     var body: some Scene {
         WindowGroup {            
             TabBarView(userId: UserManager.shared.uid)

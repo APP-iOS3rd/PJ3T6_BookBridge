@@ -19,6 +19,7 @@ struct HomeView: View {
     @Namespace private var animation
         
     var body: some View {
+        
         VStack {
             HStack {
                 Button {
@@ -68,6 +69,7 @@ struct HomeView: View {
         }
         .navigationDestination(isPresented: $showingTownSettingView) {
               TownSettingView()
+                .toolbar(.hidden, for: .tabBar)
         }
         .onChange(of: userManager.isLogin) { _ in
             print("로그인 변동 감지")

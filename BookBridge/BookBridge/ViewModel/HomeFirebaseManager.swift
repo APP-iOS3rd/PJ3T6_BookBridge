@@ -22,7 +22,7 @@ class HomeFirebaseManager {
             
             completion(url)
         } catch {
-            print("error")
+            print("error!")
         }
     }
 }
