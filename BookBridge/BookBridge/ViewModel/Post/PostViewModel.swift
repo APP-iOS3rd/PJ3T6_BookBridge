@@ -10,6 +10,7 @@ import FirebaseFirestore
 
 class PostViewModel: ObservableObject {
     @Published var bookMarks: [String] = []
+    @Published var chatRoomList: [String] = []
     @Published var user: UserModel = UserModel()
     @Published var wishBooks: [Item] = []
     @Published var holdBooks: [Item] = []
@@ -21,7 +22,6 @@ extension PostViewModel {
     // MARK: 게시자 정보 fetch
     func gettingUserInfo(userId : String) {
         let docRef = db.collection("User").document(userId)
-        print(userId)
         
         docRef.getDocument { document, error in
             guard error == nil else {
@@ -146,5 +146,27 @@ extension PostViewModel {
  */
 
 extension PostViewModel {
-    
+    func fetchChatList(noticeBoardId: String) {
+        
+        let docRef = db.collection("user").document(UserManager.shared.uid).collection("chatRoomList").whereField("noticeBoardId", isEqualTo: noticeBoardId)
+            
+        docRef.getDocuments { [weak self] (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents, error == nil else {
+                print("Error getting documents: \(error?.localizedDescription ?? "")")
+                return
+            }
+            
+            var items: [String] = []
+            for document in documents {
+                let data = document.data()
+                
+                let item = data["id"] as? String
+                items.append(item ?? "")
+            }
+            
+            DispatchQueue.main.async {
+                self?.chatRoomList = items
+            }
+        }
+    }
 }
