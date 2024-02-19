@@ -648,6 +648,9 @@ PODS:
     - FirebaseAnalytics (~> 10.20.0)
   - Firebase/CoreOnly (10.20.0):
     - FirebaseCore (= 10.20.0)
+  - Firebase/Database (10.20.0):
+    - Firebase/CoreOnly
+    - FirebaseDatabase (~> 10.20.0)
   - FirebaseAnalytics (10.20.0):
     - FirebaseAnalytics/AdIdSupport (= 10.20.0)
     - FirebaseCore (~> 10.0)
@@ -683,6 +686,11 @@ PODS:
     - FirebaseCore (~> 10.0)
   - FirebaseCoreInternal (10.20.0):
     - "GoogleUtilities/NSData+zlib (~> 7.8)"
+  - FirebaseDatabase (10.20.0):
+    - FirebaseAppCheckInterop (~> 10.17)
+    - FirebaseCore (~> 10.0)
+    - FirebaseSharedSwift (~> 10.0)
+    - leveldb-library (~> 1.22)
   - FirebaseFirestore (10.20.0):
     - FirebaseCore (~> 10.0)
     - FirebaseCoreExtension (~> 10.0)
@@ -714,6 +722,11 @@ PODS:
     - FirebaseCore (~> 10.0)
     - FirebaseCoreExtension (~> 10.0)
     - GTMSessionFetcher/Core (< 4.0, >= 2.1)
+  - GeoFire (5.0.0):
+    - GeoFire/Database (= 5.0.0)
+  - GeoFire/Database (5.0.0):
+    - Firebase/Database (< 12.0.0, > 7.0.0)
+    - GeoFire/Utils
   - GeoFire/Utils (5.0.0)
   - GoogleAppMeasurement (10.20.0):
     - GoogleAppMeasurement/AdIdSupport (= 10.20.0)
@@ -857,7 +870,7 @@ DEPENDENCIES:
   - FirebaseCore
   - FirebaseFirestore
   - FirebaseStorage
-  - GeoFire/Utils
+  - GeoFire (~> 5.0)
   - GoogleSignIn
   - GoogleSignInSwift
   - KakaoSDKAuth
@@ -880,6 +893,7 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseCoreExtension
     - FirebaseCoreInternal
+    - FirebaseDatabase
     - FirebaseFirestore
     - FirebaseFirestoreInternal
     - FirebaseInstallations
@@ -919,6 +933,7 @@ SPEC CHECKSUMS:
   FirebaseCore: 28045c1560a2600d284b9c45a904fe322dc890b6
   FirebaseCoreExtension: 0659f035b88c5a7a15a9763c48c2e6ca8c0a2977
   FirebaseCoreInternal: efeeb171ac02d623bdaefe121539939821e10811
+  FirebaseDatabase: 7e838abb62ac2e1a1c792cbeb51df3c4b6607f54
   FirebaseFirestore: 21be9ea244830f6cac15464550c2975c43f9dffc
   FirebaseFirestoreInternal: 0dc0762afd68192e9d45c31d3dd3017accc84333
   FirebaseInstallations: 558b1da7d65afeb996fd5c814332f013234ece4e
@@ -945,6 +960,6 @@ SPEC CHECKSUMS:
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 33a57d5fa23088f69325c7e21c4a6de8fea5c5ed
+PODFILE CHECKSUM: 5ecbc2bd731045e92bd2b00eea9d954220092f08
 
 COCOAPODS: 1.15.0
