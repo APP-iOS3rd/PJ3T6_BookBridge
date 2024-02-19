@@ -133,7 +133,7 @@ struct LoginView: View {
                         .navigationBarBackButtonHidden()
                 }
             }
-            .environmentObject(pathModel)
+            // .environmentObject(pathModel)
         }
         .environmentObject(pathModel)
     }
