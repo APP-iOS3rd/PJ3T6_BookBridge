@@ -43,7 +43,7 @@ struct LoginView: View {
                 .frame(width: 353, height: 50) // 여기에 프레임을 설정
                 .background(Color(hex: "59AAE0"))
                 .cornerRadius(10)
-      
+                
                 
                 Spacer()
                     .frame(height: 20)
@@ -84,25 +84,25 @@ struct LoginView: View {
                     Rectangle()
                         .frame(width: 100, height: 1)
                         .foregroundColor(Color(hex:"A7A7A7"))
-
+                    
                     Text("SNS 계정으로")
                         .font(.system(size: 12))
                         .foregroundColor(Color(hex:"A7A7A7"))
                         .padding(.horizontal, 10)
-
+                    
                     // 오른쪽 가로 Divider
                     Rectangle()
-                        .frame(width: 100, height: 1) 
+                        .frame(width: 100, height: 1)
                         .foregroundColor(Color(hex:"A7A7A7"))
                 }
-
-
-
+                
+                
+                
                 HStack(spacing: 20){
                     NaverLoginView()
                     GoogleLoginView()
                     KakaoLoginView(showingLoginView: $showingLoginView)
-                    AppleLoginView()
+                    AppleLoginView(showingLoginView: $showingLoginView)
                 }
                 Spacer()
                     .frame(height: 50)
@@ -135,17 +135,17 @@ struct LoginView: View {
                     EmailSignUpView(signUpVM: signUpVM)
                         .navigationBarBackButtonHidden()
                 }
+                
             }
+            .environmentObject(pathModel)
+            
+            
             
         }
-        .environmentObject(pathModel)
-        
-        
         
     }
-        
+    
+    //#Preview {
+    //    LoginView()
+    //}
 }
-
-//#Preview {
-//    LoginView()
-//}

@@ -51,23 +51,17 @@ struct TownSettingView: View {
             TownSettingSlideView()
                 .frame(maxWidth: .infinity)
                 .padding(.horizontal)
-            
-            Spacer()
-            
-            // 저장버튼(임시)
-            Button {
-                if let locations = userLocationViewModel.locations {
-                    FirestoreManager.saveLocations(locations: locations)
-                }
-            } label: {
-                Text("저장하기")
-            }
+                        
         }
         .navigationBarBackButtonHidden()
         .navigationTitle("동네설정")
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
+                    if let locations = userLocationViewModel.locations {
+                        UserManager.shared.chageLocation(locations: locations)
+                        FirestoreManager.saveLocations(locations: locations)
+                    }
                     dismiss()
                 } label: {
                     Image(systemName: "chevron.backward")
@@ -75,17 +69,7 @@ struct TownSettingView: View {
                         .foregroundStyle(.black)
                 }
             }
-            
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    
-                } label: {
-                    Text("확인")
-                        .font(.system(size: 16))
-                        .foregroundStyle(.black)
-                }
-            }
-        }
+        }        
         .onAppear() {
             FirestoreManager.getLocations { locations in
                 userLocationViewModel.setLocations(locations: locations)

@@ -17,6 +17,8 @@ class HomeViewModel: ObservableObject {
     
     let db = Firestore.firestore()
     let nestedGroup = DispatchGroup()
+    let userManager = UserManager.shared
+    let locationManager = LocationManager.shared
 }
 
 extension HomeViewModel {
@@ -165,6 +167,7 @@ extension HomeViewModel {
         }
     }
     
+
     func fetchRecentSearch(user: String) {
         db.collection("user").document(user).collection("recentsearch").getDocuments { [weak self] (querySnapshot, error) in
             guard let self = self else { return }
@@ -262,5 +265,37 @@ extension HomeViewModel {
         }
         
         self.fetchRecentSearch(user: user)
+
+    func updateNoticeBoards() {
+        Task {
+            var lat: Double?
+            var long: Double?
+            var distance: Int?
+            
+            if userManager.isLogin {
+                if let selectedLocation = userManager.user?.getSelectedLocation() {
+                    lat = selectedLocation.lat ?? 0.0
+                    long = selectedLocation.long ?? 0.0
+                    distance = selectedLocation.distance ?? 1
+                }
+            } else {
+                lat = LocationManager.shared.lat
+                long = LocationManager.shared.long
+                distance = 1
+            }
+            
+            if let lat = lat, let long = long, let distance = distance {
+                let boards = await GeohashManager.geoQuery(
+                    lat: lat,
+                    long: long,
+                    distance: distance
+                )
+                
+                DispatchQueue.main.async {
+                    self.changeNoticeBoards = boards
+                }
+            }
+        }
+
     }
 }
