@@ -128,19 +128,22 @@ struct HomeTapView: View {
             }
             
             if isOutsideXmark {
-                HomeRecentSearchView(viewModel: viewModel)
-                    .background(Color.white)
-                    .zIndex(1)
-                    .padding(.top, 60)
-                    .opacity(showRecentSearchView ? 1 : 0)
-                    .onAppear {
-                        withAnimation(.easeOut(duration: 0.5)) {
-                            showRecentSearchView = true
+                if UserManager.shared.isLogin {
+                    HomeRecentSearchView(viewModel: viewModel)
+                        .background(Color.white)
+                        .zIndex(1)
+                        .padding(.top, 60)
+                        .opacity(showRecentSearchView ? 1 : 0)
+                        .onAppear {
+                            withAnimation(.easeOut(duration: 0.5)) {
+                                showRecentSearchView = true
+                            }
                         }
-                    }
-                    .onDisappear {
-                        showRecentSearchView = false
-                    }                    
+                        .onDisappear {
+                            showRecentSearchView = false
+                        }
+                }
+                                    
                 
                 switch tapCategory {
                 case .find:             //TODO: imageLinks 부분 받아오기

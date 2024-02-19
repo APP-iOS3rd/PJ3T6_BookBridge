@@ -214,7 +214,7 @@ extension HomeViewModel {
             recentSearch.remove(at: index)
             
             // Firestore에서 해당 검색어 삭제
-            db.collection("user").document(user).collection("recentsearch").whereField("searchTerm", isEqualTo: search).getDocuments { (snapshot, error) in
+            db.collection("User").document(user).collection("recentsearch").whereField("searchTerm", isEqualTo: search).getDocuments { (snapshot, error) in
                 guard let documents = snapshot?.documents else {
                     print("No documents found")
                     return
@@ -235,7 +235,7 @@ extension HomeViewModel {
     
     func addRecentSearch(user: String, text: String) {
         // Firestore에 검색어를 추가하는 로직
-        let recentSearchRef = db.collection("user").document(user).collection("recentsearch")
+        let recentSearchRef = db.collection("User").document(user).collection("recentsearch")
         
         // 중복 검색어 방지
         recentSearchRef.whereField("searchTerm", isEqualTo: text).getDocuments { (querySnapshot, err) in

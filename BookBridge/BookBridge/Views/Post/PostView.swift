@@ -162,7 +162,9 @@ struct PostView: View {
                                     .fontWeight(.bold)
                                 Spacer()
                                 
-                                NavigationLink(destination: BookShelfView(userId: postViewModel.user.id, initialTapInfo: .hold)) {
+                                NavigationLink(destination: BookShelfView(userId: postViewModel.user.id, initialTapInfo: .hold, isBack: true)
+                                    .navigationBarBackButtonHidden()
+                                ) {
                                     Text("더보기")
                                         .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
                                 }
@@ -184,7 +186,8 @@ struct PostView: View {
                                     .font(.system(size: 20))
                                     .fontWeight(.bold)
                                 Spacer()
-                                NavigationLink(destination: BookShelfView(userId: postViewModel.user.id,initialTapInfo: .wish)) {
+                                NavigationLink(destination: BookShelfView(userId: postViewModel.user.id,initialTapInfo: .wish,isBack: true)
+                                    .navigationBarBackButtonHidden()) {
                                     Text("더보기")
                                         .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
                                 }

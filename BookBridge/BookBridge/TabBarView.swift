@@ -94,10 +94,10 @@ struct TabBarView: View {
             // 책장
             NavigationStack{
                 if isLogin {
-                    BookShelfView(userId : UserManager.shared.uid,initialTapInfo: .wish)
+                    BookShelfView(userId : UserManager.shared.uid,initialTapInfo: .wish, isBack: false)
                 }
                 else {
-                    BookShelfView(userId: nil,initialTapInfo: .wish)
+                    BookShelfView(userId: nil,initialTapInfo: .wish, isBack: false)
                         .onAppear {
 //                            showingLoginAlert = true
                         }
