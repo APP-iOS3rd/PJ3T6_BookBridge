@@ -61,6 +61,8 @@ struct ImagePicker: UIViewControllerRepresentable {
                             if self.parent.images.count < ImagePicker.maxSelections {
                                 self.parent.images.append(image)
                             }
+                            // 이미지가 선택되면 배열에 저장되었는지 확인하기 위한 print 문
+                            print("선택된 이미지: \(self.parent.images)")
                         }
                     }
                     imageLoadGroup.leave()
@@ -77,6 +79,8 @@ struct ImagePicker: UIViewControllerRepresentable {
                 if parent.images.count < ImagePicker.maxSelections {
                     parent.images.append(image)
                 }
+                // 이미지가 선택되면 배열에 저장되었는지 확인하기 위한 print 문
+                print("선택된 이미지: \(self.parent.images)")
             }
             parent.isVisible = false
         }

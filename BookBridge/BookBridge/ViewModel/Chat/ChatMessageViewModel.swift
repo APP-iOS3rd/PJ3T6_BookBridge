@@ -211,6 +211,17 @@ extension ChatMessageViewModel {
     }
 }
 
+extension ChatMessageViewModel {
+    func changeAlarm(uid: String, chatRoomListId: String, isAlarm: Bool) {
+        let myQuery = FirebaseManager.shared.firestore.collection("user")
+            .document(uid)
+            .collection("chatRoomList").document(chatRoomListId)
+        myQuery.updateData([
+            "isAlarm": isAlarm ? false : true ,
+        ])
+    }
+}
+
 //MARK: newCount 초기화
 extension ChatMessageViewModel {
     //채팅방 입장시 newCount 초기화

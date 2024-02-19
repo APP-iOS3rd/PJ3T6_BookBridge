@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MessageItemView: View {
+       
     var messageModel: ChatMessageModel
     var partnerId: String
     var partnerImage: UIImage
@@ -34,6 +35,7 @@ struct MessageItemView: View {
                     .background(Color(hex:"59AAE0"))
                     .cornerRadius(10)
                 }
+                
             } else {
                 HStack {
                     Image(uiImage: partnerImage)
