@@ -155,7 +155,6 @@ struct ChatBottomBarView: View {
                                 .frame(width: 60, height: 60)
                                 .foregroundColor(Color.yellow)
                                 .opacity(0.6)
-                            
                         )
                         Text("위치공유")
                     }

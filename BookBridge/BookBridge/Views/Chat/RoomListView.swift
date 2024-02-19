@@ -16,6 +16,7 @@ struct RoomListView: View {
                 ZStack {
                     NavigationLink {
                         ChatMessageView(
+                            isAlarm: chatRoom.isAlarm,
                             chatRoomListId: chatRoom.id,
                             noticeBoardTitle: chatRoom.noticeBoardTitle,
                             chatRoomPartner: viewModel.getPartnerImageIndex(partnerId: chatRoom.partnerId, noticeBoardId: chatRoom.noticeBoardId).0 == -1 ? ChatPartnerModel(nickname: "닉네임 없음", noticeBoardId: chatRoom.noticeBoardId, partnerId: chatRoom.partnerId, partnerImage: UIImage(named: "DefaultImage")!, style: "칭호 미아") : viewModel.chatRoomPartners[viewModel.getPartnerImageIndex(partnerId: chatRoom.partnerId, noticeBoardId: chatRoom.noticeBoardId).0],
@@ -40,6 +41,12 @@ struct RoomListView: View {
                                         .font(.system(size: 16, weight: .bold))
                                         .foregroundStyle(Color(.label))
                                         .multilineTextAlignment(.leading)
+                                    
+                                    if !chatRoom.isAlarm {
+                                        Image(systemName: "bell.slash.fill")
+                                            .font(.system(size: 16))
+                                            .foregroundStyle(Color(hex:"8A8A8E"))
+                                    }
                                     
                                     Spacer()
                                     

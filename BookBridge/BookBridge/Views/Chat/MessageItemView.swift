@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MessageItemView: View {
     @StateObject var viewModel: ChatMessageViewModel
-    
+
     var messageModel: ChatMessageModel
     var partnerId: String
     var partnerImage: UIImage
@@ -55,6 +55,7 @@ struct MessageItemView: View {
                             .cornerRadius(10)
                     }
                 }
+                
             } else {
                 if messageModel.imageURL == "" {
                     HStack {

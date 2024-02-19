@@ -339,6 +339,15 @@ extension ChatMessageViewModel {
                 }
             }.resume()
         }
+      
+extension ChatMessageViewModel {
+    func changeAlarm(uid: String, chatRoomListId: String, isAlarm: Bool) {
+        let myQuery = FirebaseManager.shared.firestore.collection("user")
+            .document(uid)
+            .collection("chatRoomList").document(chatRoomListId)
+        myQuery.updateData([
+            "isAlarm": isAlarm ? false : true ,
+        ])
     }
 }
 

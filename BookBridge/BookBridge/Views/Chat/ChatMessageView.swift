@@ -9,13 +9,15 @@ import SwiftUI
 
 struct ChatMessageView: View {
     @Environment(\.dismiss) var dismiss
-
+    
     @StateObject var viewModel = ChatMessageViewModel()
-  
+    
     @State private var isPlusBtn = true
-  
+
     @FocusState var isShowKeyboard: Bool
-  
+    
+    @State var isAlarm: Bool = true
+    
     var chatRoomListId: String
     var noticeBoardTitle: String
     var chatRoomPartner: ChatPartnerModel
@@ -26,7 +28,7 @@ struct ChatMessageView: View {
             NoticeBoardChatView(viewModel: viewModel)
             
             MessageListView(viewModel: viewModel, partnerId: chatRoomPartner.partnerId, partnerImage: chatRoomPartner.partnerImage, uid: uid)
-
+            
             ChatBottomBarView(viewModel: viewModel, isShowKeyboard: $isShowKeyboard, isPlusBtn: $isPlusBtn, chatRoomListId: chatRoomListId, partnerId: chatRoomPartner.partnerId, uid: uid)
         }
         .onTapGesture {
@@ -66,11 +68,34 @@ struct ChatMessageView: View {
             }
             
             ToolbarItem(placement: .topBarTrailing) {
-                Button {
+                Menu {
+                    Button {
+                        
+                    } label: {
+                        Text("신고하기")
+                    }
                     
+                    Button {
+                        viewModel.changeAlarm(uid: uid, chatRoomListId: chatRoomListId, isAlarm: isAlarm)
+                        isAlarm.toggle()
+                    } label: {
+                        if isAlarm {
+                            Text("알림 끄기")
+                        } else {
+                            Text("알림 켜기")
+                        }
+                    }
+                    
+                    Section {
+                        Button(role: .destructive) {
+                            
+                        } label: {
+                            Label("채팅방나가기", systemImage: "trash")
+                        }
+                    }
                 } label: {
                     Image(systemName: "ellipsis")
-                        .foregroundStyle(.black)
+                        .foregroundColor(.black)
                 }
             }
         }
