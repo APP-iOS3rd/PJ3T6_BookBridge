@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct HomeListItemView: View {
-    @State var url = URL(string: "")
     @EnvironmentObject var viewModel: HomeViewModel
     
-    var storageManager = HomeFirebaseManager.shared
+    var homeFirebaseManager = HomeFirebaseManager.shared
     
     var author: String
     var date: Date
@@ -32,32 +31,40 @@ struct HomeListItemView: View {
                     .foregroundStyle(.black)
                     .padding()
             } else {
-                if isChange {
-                    AsyncImage(url: url) { image in
-                        image
-                            .resizable()
-                            .frame(width: 75, height: 100)
-                            .foregroundStyle(.black)
-                            .padding()
-                    } placeholder: {
-                        ProgressView()
-                            .frame(width: 75, height: 100)
-                            .padding()
-                    }
-                } else {
-                    AsyncImage(url: URL(string: imageLinks[0])) { image in
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 75, height: 100)
-                            .foregroundStyle(.black)
-                            .padding()
-                    } placeholder: {
-                        ProgressView()
-                            .frame(width: 75, height: 100)
-                            .padding()
-                    }
-                }
+                Image(uiImage:
+                        (isChange ? viewModel.changeNoticeBoardsDic[id] : viewModel.findNoticeBoardsDic[id]) ?? UIImage(named: "Character")!
+                )
+                .resizable()
+                .frame(width: 75, height: 100)
+                .foregroundStyle(.black)
+                .padding()
+                
+                //                if isChange {
+                //                    AsyncImage(url: url) { image in
+                //                        image
+                //                            .resizable()
+                //                            .frame(width: 75, height: 100)
+                //                            .foregroundStyle(.black)
+                //                            .padding()
+                //                    } placeholder: {
+                //                        ProgressView()
+                //                            .frame(width: 75, height: 100)
+                //                            .padding()
+                //                    }
+                //                } else {
+                //                    AsyncImage(url: URL(string: imageLinks[0])) { image in
+                //                        image
+                //                            .resizable()
+                //                            .scaledToFit()
+                //                            .frame(width: 75, height: 100)
+                //                            .foregroundStyle(.black)
+                //                            .padding()
+                //                    } placeholder: {
+                //                        ProgressView()
+                //                            .frame(width: 75, height: 100)
+                //                            .padding()
+                //                    }
+                //                }
             }
             
             
@@ -109,12 +116,8 @@ struct HomeListItemView: View {
                 .foregroundColor(Color(red: 230/255, green: 230/255, blue: 230/255))
         )
         .onAppear {
-            if !imageLinks.isEmpty && isChange {
-                Task {
-                    try await storageManager.downloadImage(noticeiId: id, imageId: imageLinks[0]) { url in
-                        self.url = url
-                    }
-                }
+            if !imageLinks.isEmpty {
+                viewModel.getDownLoadImage(isChange: isChange, noticeBoardId: id, urlString: imageLinks[0])
             }
         }
     }
