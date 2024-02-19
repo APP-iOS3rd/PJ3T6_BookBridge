@@ -80,9 +80,9 @@ struct ChatMessageView: View {
                         isAlarm.toggle()
                     } label: {
                         if isAlarm {
-                            Text("알림 끄기")
+                            Text("알림끄기")
                         } else {
-                            Text("알림 켜기")
+                            Text("알림켜기")
                         }
                     }
                     
