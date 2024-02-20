@@ -36,6 +36,7 @@
 		5A1A168E2B6228290063D408 /* GoogleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A168D2B6228290063D408 /* GoogleLoginView.swift */; };
 		5A1A16942B622BB10063D408 /* GoogleLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A16932B622BB10063D408 /* GoogleLoginViewController.swift */; };
 		5A1A16962B6231870063D408 /* GoogleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A16952B6231870063D408 /* GoogleAuthManager.swift */; };
+		5A2119802B7DB0A30057915C /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5A21197F2B7DB0A30057915C /* Secrets.xcconfig */; };
 		5A2CC1182B71C230000A8776 /* TownSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2CC1172B71C230000A8776 /* TownSettingView.swift */; };
 		5A2DE0972B6884BE00EF3A6B /* EmailCertiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2DE0962B6884BE00EF3A6B /* EmailCertiView.swift */; };
 		5A2DE09A2B68915200EF3A6B /* SignUpInputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2DE0992B68915200EF3A6B /* SignUpInputer.swift */; };
@@ -118,6 +119,7 @@
 		7361270F2B6B83BF00943CD7 /* DeleteImageButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7361270E2B6B83BF00943CD7 /* DeleteImageButtonView.swift */; };
 		736127112B6B84AC00943CD7 /* PostingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736127102B6B84AC00943CD7 /* PostingViewModel.swift */; };
 		738654DD2B7F453400373E30 /* ChatPartnerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738654DC2B7F453400373E30 /* ChatPartnerModel.swift */; };
+		736C0E032B84284000D6FD78 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 736C0E022B84284000D6FD78 /* GoogleService-Info.plist */; };
 		738EDA9F2B71EB240066ADE7 /* TapCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738EDA9E2B71EB240066ADE7 /* TapCategory.swift */; };
 		738EDAA12B71EBA30066ADE7 /* HomeTapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738EDAA02B71EBA30066ADE7 /* HomeTapView.swift */; };
 		738EDAA32B71ECA80066ADE7 /* HomeListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738EDAA22B71ECA80066ADE7 /* HomeListItemView.swift */; };
@@ -159,6 +161,12 @@
 		F60BB0952B71D72F00E27F38 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60BB0942B71D72F00E27F38 /* HomeViewModel.swift */; };
 		F60BB0972B71D73900E27F38 /* HomeFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60BB0962B71D73800E27F38 /* HomeFirebaseManager.swift */; };
 		F623A51D2B68C01E00B5C159 /* NoticeBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F623A51C2B68C01E00B5C159 /* NoticeBoardModel.swift */; };
+		F64B7EF02B7DD19C008AB919 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F64B7EEE2B7DD19B008AB919 /* Secrets.xcconfig */; };
+		F64B7EF12B7DD19C008AB919 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F64B7EEF2B7DD19C008AB919 /* GoogleService-Info.plist */; };
+		F64B7EF72B8323E6008AB919 /* ChangePostingModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64B7EF62B8323E6008AB919 /* ChangePostingModifyView.swift */; };
+		F64B7EF92B8324DA008AB919 /* FindPostingModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64B7EF82B8324DA008AB919 /* FindPostingModifyView.swift */; };
+		F64B7EFB2B8325C1008AB919 /* PostModifyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64B7EFA2B8325C1008AB919 /* PostModifyViewModel.swift */; };
+		F64B7EFD2B833135008AB919 /* ExChangeHopeModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64B7EFC2B833135008AB919 /* ExChangeHopeModifyView.swift */; };
 		F6DFC8D52B730A2A00931CF9 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6DFC8D42B730A2A00931CF9 /* PostView.swift */; };
 		F6DFC8D82B735AE300931CF9 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6DFC8D72B735AE300931CF9 /* PostViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -214,6 +222,7 @@
 		5A1A168F2B62285A0063D408 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A1A16932B622BB10063D408 /* GoogleLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginViewController.swift; sourceTree = "<group>"; };
 		5A1A16952B6231870063D408 /* GoogleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthManager.swift; sourceTree = "<group>"; };
+		5A21197F2B7DB0A30057915C /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		5A2CC1172B71C230000A8776 /* TownSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownSettingView.swift; sourceTree = "<group>"; };
 		5A2DE0962B6884BE00EF3A6B /* EmailCertiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCertiView.swift; sourceTree = "<group>"; };
 		5A2DE0992B68915200EF3A6B /* SignUpInputer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputer.swift; sourceTree = "<group>"; };
@@ -298,6 +307,7 @@
 		7361270E2B6B83BF00943CD7 /* DeleteImageButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteImageButtonView.swift; sourceTree = "<group>"; };
 		736127102B6B84AC00943CD7 /* PostingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingViewModel.swift; sourceTree = "<group>"; };
 		738654DC2B7F453400373E30 /* ChatPartnerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatPartnerModel.swift; sourceTree = "<group>"; };
+		736C0E022B84284000D6FD78 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		738EDA9E2B71EB240066ADE7 /* TapCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCategory.swift; sourceTree = "<group>"; };
 		738EDAA02B71EBA30066ADE7 /* HomeTapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTapView.swift; sourceTree = "<group>"; };
 		738EDAA22B71ECA80066ADE7 /* HomeListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListItemView.swift; sourceTree = "<group>"; };
@@ -341,6 +351,12 @@
 		F60BB0942B71D72F00E27F38 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		F60BB0962B71D73800E27F38 /* HomeFirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeFirebaseManager.swift; sourceTree = "<group>"; };
 		F623A51C2B68C01E00B5C159 /* NoticeBoardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardModel.swift; sourceTree = "<group>"; };
+		F64B7EEE2B7DD19B008AB919 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		F64B7EEF2B7DD19C008AB919 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F64B7EF62B8323E6008AB919 /* ChangePostingModifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePostingModifyView.swift; sourceTree = "<group>"; };
+		F64B7EF82B8324DA008AB919 /* FindPostingModifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPostingModifyView.swift; sourceTree = "<group>"; };
+		F64B7EFA2B8325C1008AB919 /* PostModifyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModifyViewModel.swift; sourceTree = "<group>"; };
+		F64B7EFC2B833135008AB919 /* ExChangeHopeModifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExChangeHopeModifyView.swift; sourceTree = "<group>"; };
 		F6DFC8D42B730A2A00931CF9 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		F6DFC8D72B735AE300931CF9 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -530,7 +546,9 @@
 		5A7A4E192B61DFFD00F79C23 = {
 			isa = PBXGroup;
 			children = (
-				91D7CB032B83528B00F7CFF8 /* Secrets.xcconfig */,
+				5A21197F2B7DB0A30057915C /* Secrets.xcconfig */,
+				736C0E022B84284000D6FD78 /* GoogleService-Info.plist */,
+				1DCA7F102B831CE90096E862 /* Secrets.xcconfig */,
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
 				91B7F0AB2B70DDA900B4C475 /* GoogleService-Info.plist */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
@@ -891,6 +909,9 @@
 			isa = PBXGroup;
 			children = (
 				F6DFC8D42B730A2A00931CF9 /* PostView.swift */,
+				F64B7EF62B8323E6008AB919 /* ChangePostingModifyView.swift */,
+				F64B7EF82B8324DA008AB919 /* FindPostingModifyView.swift */,
+				F64B7EFC2B833135008AB919 /* ExChangeHopeModifyView.swift */,
 				5CD606432B7DAABE00AC53DD /* PostMapSeeMoreView.swift */,
 			);
 			path = Post;
@@ -900,6 +921,7 @@
 			isa = PBXGroup;
 			children = (
 				F6DFC8D72B735AE300931CF9 /* PostViewModel.swift */,
+				F64B7EFA2B8325C1008AB919 /* PostModifyViewModel.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -1027,8 +1049,11 @@
 				5CD606412B7D967A00AC53DD /* Secrets.xcconfig in Resources */,
 				91D7CB042B83528B00F7CFF8 /* Secrets.xcconfig in Resources */,
 				5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */,
+				5A2119802B7DB0A30057915C /* Secrets.xcconfig in Resources */,
+				1DCA7F112B831CE90096E862 /* Secrets.xcconfig in Resources */,
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
 				5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */,
+				736C0E032B84284000D6FD78 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1210,6 +1235,7 @@
 				914600502B7240D800E0E24F /* ChatMessageViewModel.swift in Sources */,
 				73C962A12B6883A700D34D3F /* SearchBooksView.swift in Sources */,
 				5A7A4E552B62269600F79C23 /* LoginView.swift in Sources */,
+				F64B7EFB2B8325C1008AB919 /* PostModifyViewModel.swift in Sources */,
 				5A0242152B6D36FF00137AA6 /* LoadingCircle.swift in Sources */,
 				5A83458C2B74A0C0000984C4 /* TownAddButtonView.swift in Sources */,
 				73C962A92B68C38D00D34D3F /* BookAPIManger.swift in Sources */,
@@ -1229,6 +1255,7 @@
 				1D357CAC2B6A13510064B87D /* ChangePasswordVM.swift in Sources */,
 				91B7F0B02B70DE8800B4C475 /* ChatMessageModel.swift in Sources */,
 				5A6CC5252B6B19630037429F /* Validator.swift in Sources */,
+				F64B7EF92B8324DA008AB919 /* FindPostingModifyView.swift in Sources */,
 				1DA6E06C2B68D9EB00D631D5 /* ChangePasswordView.swift in Sources */,
 				73C962AB2B68C4D800D34D3F /* SearchBooksViewModel.swift in Sources */,
 				738654DD2B7F453400373E30 /* ChatPartnerModel.swift in Sources */,
@@ -1291,6 +1318,7 @@
 				738EDAA12B71EBA30066ADE7 /* HomeTapView.swift in Sources */,
 				5A3A44112B6C75F500B66C81 /* MiddleWhiteBtnStyle.swift in Sources */,
 				1D71C6C72B6C8D4400EEC95D /* WishBookAddBtnView.swift in Sources */,
+				F64B7EFD2B833135008AB919 /* ExChangeHopeModifyView.swift in Sources */,
 				738EDA9F2B71EB240066ADE7 /* TapCategory.swift in Sources */,
 				91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */,
 				5CE454992B68B8EF00874BCE /* AppleAuthManager.swift in Sources */,
@@ -1319,6 +1347,7 @@
 				5A3E020D2B6FA001008F8CFD /* TestViewModel.swift in Sources */,
 				5A1A168E2B6228290063D408 /* GoogleLoginView.swift in Sources */,
 				910F491C2B6CC66900C0563E /* CameraModalView.swift in Sources */,
+				F64B7EF72B8323E6008AB919 /* ChangePostingModifyView.swift in Sources */,
 				5A5041CC2B6A635C00211CF2 /* PathViewModel.swift in Sources */,
 				91B7F0BB2B71E82200B4C475 /* FirebaseManager.swift in Sources */,
 				73D077E82B7C9F290007DDEB /* ChatBottomBarView.swift in Sources */,

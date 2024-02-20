@@ -1,21 +1,29 @@
 //
-//  FindPostingView.swift
+//  ChangePostringModifyView.swift
 //  BookBridge
 //
-//  Created by 이현호 on 1/30/24.
+//  Created by jonghyun baik on 2/19/24.
 //
-
 import SwiftUI
 
-struct FindPostingView: View {
+struct ChangePostingModifyView: View {
     @Environment(\.dismiss) private var dismiss
     
-    @StateObject var viewModel = PostingViewModel()
+    @StateObject var viewModel = PostModifyViewModel()
+    @Binding var noticeBoard: NoticeBoard
+    @State private var selectedImages: [UIImage] = []
+    @State private var showActionSheet = false
+    @State private var showImagePicker = false
+    @State private var sourceType = 0
+    
     
     var body: some View {
         NavigationView {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading) {
+                    // 이미지 스크롤 뷰
+                    ImageScrollView(selectedImages: $selectedImages, showActionSheet: $showActionSheet)
+                    
                     // 제목 입력 필드
                     Text("제목")
                         .bold()
@@ -25,7 +33,7 @@ struct FindPostingView: View {
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.gray, lineWidth: 1)
                         )
-                        .padding(.bottom, 30)
+                        .padding(.bottom, 20)
                     
                     // 상세 설명 입력 필드
                     VStack(alignment: .leading) {
@@ -55,43 +63,16 @@ struct FindPostingView: View {
                         }
                         .frame(height: 200)
                     }
-                    .padding(.bottom, 30)
-                    
-                    // 희망도서 선택 버튼
-                    Text("희망도서(선택)")
-                        .bold()
-                    
-                    
-                    NavigationLink(destination: SearchBooksView(hopeBooks: $viewModel.noticeBoard.hopeBook, isWish: .wish)) {
-                        HStack {
-                            Text(
-                                viewModel.noticeBoard.hopeBook.isEmpty ? "희망도서 선택" : viewModel.noticeBoard.hopeBook.count == 1 ? "\(viewModel.noticeBoard.hopeBook[0].volumeInfo.title ?? "")" : "\(viewModel.noticeBoard.hopeBook[0].volumeInfo.title ?? "") 외 \(viewModel.noticeBoard.hopeBook.count - 1)권"
-                            )
-                                .foregroundColor(.black)
-                            Spacer()
-                            Image(systemName: "chevron.right")
-                                .foregroundColor(.black)
-                        }
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 50)
-                        .background(Color(hex: "EAEAEA"))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.gray, lineWidth: 1)
-                        )
-                        .cornerRadius(10)
-                    }
-                    .padding(.bottom, 30)
+                    .padding(.bottom, 20)
                     
                     // 교환 희망 장소 선택 버튼
                     Text("교환 희망 장소")
                         .bold()
                     
                     //EmptyView에 지훈님이 만든 네이버 맵 화면
-                    NavigationLink(destination: ExchangeHopeView(viewModel: viewModel)) {
+                    NavigationLink(destination: ExchangeHopeModifyView(viewModel: viewModel)) {
                         HStack {
-                            Text(viewModel.noticeBoard.noticeLocationName)
+                            Text("\(viewModel.noticeBoard.noticeLocationName)")
                                 .foregroundColor(.black)
                             Spacer()
                             Image(systemName: "chevron.right")
@@ -108,13 +89,13 @@ struct FindPostingView: View {
                         .cornerRadius(10)
                     }
                     .padding(.bottom, 30)
-                   
                     
                     // 확인 버튼
-                    Button {
-                        viewModel.uploadPost(isChange: false, images: [])
-                    } label: {
-                        Text("게시물 등록")
+                    Button(action: {
+                        viewModel.updatePost()
+                        dismiss()
+                    }) {
+                        Text("게시물 수정")
                             .fontWeight(.bold)
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -122,11 +103,21 @@ struct FindPostingView: View {
                             .background(Color(hex:"59AAE0"))
                             .cornerRadius(10)
                     }
-                    .padding(.bottom, 30)
+                    .padding(.bottom, 20)
                 }
             }
+            .sheet(isPresented: $showActionSheet, onDismiss: {
+                showImagePicker.toggle()
+            }, content: {
+                CameraModalView(selectedImages: $selectedImages, showActionSheet: $showActionSheet, sourceType: $sourceType)
+                    .presentationDetents([.height(150)])
+            })
+            .fullScreenCover(isPresented: $showImagePicker) {
+                ImagePicker(isVisible: $showImagePicker, images: $selectedImages, sourceType: sourceType)
+                    .ignoresSafeArea(.all)
+            }
             .padding()
-            .navigationTitle("구해요")
+            .navigationTitle("바꿔요")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -140,12 +131,8 @@ struct FindPostingView: View {
                 }
             }
             .onAppear {
-                viewModel.gettingUserInfo()
+                viewModel.fetchNoticeBoardInfo(noticeBoard: noticeBoard)
             }
         }
     }
-}
-
-#Preview {
-    FindPostingView()
 }
