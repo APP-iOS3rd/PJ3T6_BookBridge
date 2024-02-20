@@ -34,12 +34,21 @@ struct NoticeBoardChatView: View {
                             .font(.system(size: 17, weight: .bold))
                             .lineLimit(1)
                             .foregroundStyle(.black)
-                        Text(viewModel.noticeBoardInfo.noticeLocationName)
-                            .font(.system(size: 14))
-                            .lineLimit(1)
-                            .foregroundStyle(.gray)
+                            .padding(.trailing, 4)
+                        
+                        VStack(alignment:.leading) {
+                            Text(viewModel.noticeBoardInfo.noticeBoardTitle)
+                                .padding(.bottom, 1)
+                                .font(.system(size: 17, weight: .bold))
+                                .lineLimit(1)
+                                .foregroundStyle(.black)
+                            Text(viewModel.noticeBoardInfo.noticeLocationName)
+                                .font(.system(size: 14))
+                                .lineLimit(1)
+                                .foregroundStyle(.gray)
+                        }
+                        .padding(.trailing)
                     }
-                    .padding(.trailing)
                 }
                 .padding(.bottom, 5)
             }
@@ -93,6 +102,22 @@ struct NoticeBoardChatView: View {
                     }
                 }
             }
+            .padding(.top, 8)
+            .padding(.horizontal)
+            
+            Divider()
+            
+            ZStack {
+                Rectangle()
+                    .foregroundStyle(.orange)
+                    .opacity(0.8)
+                    .frame(maxWidth: .infinity, maxHeight: 30)
+                Text("현재 상대방과 예약 진행중입니다")
+                    .font(.system(size: 16))
+                    .foregroundStyle(.white)
+                    .bold()
+            }
+            .padding(-8)
         }
         .padding(.top, 8)
         .padding(.horizontal)
