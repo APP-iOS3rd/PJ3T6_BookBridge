@@ -9,15 +9,15 @@
 
 import Foundation
 
-class LocationManager {
+class LocationManager: ObservableObject {
     static let shared = LocationManager()
     private init() {}
     
+    @Published var dong: String = ""
     var lat = 0.0
     var long = 0.0
     var city: String = ""
     var distriction: String = ""
-    var dong: String = ""
     var distance = 1
     var isSelected = true
     

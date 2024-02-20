@@ -13,6 +13,7 @@ class BookShelfViewModel: ObservableObject {
     @Published var wishBooks: [Item] = []
     @Published var holdBooks: [Item] = []
     @Published var filteredBooks: [Item] = []
+    @Published var user: UserModel = UserModel()
     
     var userId : String?
     
@@ -122,7 +123,7 @@ class BookShelfViewModel: ObservableObject {
     }
     
     func deleteBook(_ book: Item, for tap: tapInfo) {
-        // 내부 배열에서 책 제거
+        
         switch tap {
         case .wish:
             if let index = wishBooks.firstIndex(where: { $0.id == book.id }) {
@@ -145,6 +146,41 @@ class BookShelfViewModel: ObservableObject {
             }
         }
     }
+    
+    func gettingUserInfo(userId : String) {
+        
+        let db = Firestore.firestore()
+        let docRef = db.collection("User").document(userId)
+        print(userId)
+        
+        docRef.getDocument { document, error in
+            guard error == nil else {
+                return
+            }
+            
+            if let document = document, document.exists {
+                let data = document.data()
+                if let data = data {
+                    print("data", data)
+                    
+                    let user = UserModel(
+                        id: data["id"] as? String,
+                        email: data["email"] as? String,
+                        nickname: data["nickname"] as? String,
+                        profileURL: data["profileURL"] as? String,
+                        joinDate: data["joinDate"] as? Date,
+                        location: data["location"] as? [Location]
+                    )
+                    
+                    DispatchQueue.main.async {
+                        self.user = user
+                    }
+                }
+            }
+        }
+    }
+
+
 
 }
 
