@@ -11,6 +11,8 @@ struct NoticeBoardChatView: View {
     @StateObject var viewModel: ChatMessageViewModel
     
     var chatRoomListId: String
+    var noticeBoardId: String
+    var partnerId: String
     var uid: String
     
     var body: some View {
@@ -20,11 +22,11 @@ struct NoticeBoardChatView: View {
             } label: {
                 HStack {
                     Image(uiImage: viewModel.bookImage)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 28, height: 41)
-                    .foregroundStyle(.black)
-                    .padding(.trailing, 4)
+                        .resizable()
+                        .frame(width: 40, height: 60)
+                        .scaledToFill()
+                        .foregroundStyle(.black)
+                        .padding(.trailing, 4)
                     
                     VStack(alignment:.leading) {
                         Text(viewModel.noticeBoardInfo.noticeBoardTitle)
@@ -39,37 +41,56 @@ struct NoticeBoardChatView: View {
                     }
                     .padding(.trailing)
                 }
+                .padding(.bottom, 5)
+            }
+            .onDisappear {
+                viewModel.firestoreListener?.remove()
             }
             
             Spacer()
             
-            Button(action: {
-                let newState = viewModel.noticeBoardInfo.state == 1 ? 0 : 1
-                
-                viewModel.changeState(uid: uid, chatRoomListId: chatRoomListId, state: newState)
-            }) {
+            if viewModel.noticeBoardInfo.userId != uid {
                 ZStack {
                     RoundedRectangle(cornerRadius: 20)
-                        .foregroundStyle(viewModel.noticeBoardInfo.state == 1 ? Color.blue : Color(.lightGray))
+                        .foregroundStyle(
+                            viewModel.noticeBoardInfo.state == 0 ? Color.white : (viewModel.noticeBoardInfo.state == 1 ? Color.blue : Color.green)
+                        )
                         .frame(width: 60, height: 30)
-                    Text("예약중")
-                        .font(.caption)
-                        .foregroundStyle(.white)
+                    Text(
+                        viewModel.noticeBoardInfo.state == 0 ? "" : (viewModel.noticeBoardInfo.state == 1 ? "예약중" : "교환완료")
+                    )
+                    .font(.caption)
+                    .foregroundStyle(.white)
                 }
-            }
-            
-            Button(action: {
-                let newState = viewModel.noticeBoardInfo.state == 2 ? 0 : 2
+            } else {
+                Button(action: {
+                    let newState = viewModel.noticeBoardInfo.state == 1 ? 0 : 1
+                    
+                    viewModel.changeState(state: newState, partnerId: partnerId, noticeBoardId: noticeBoardId)
+                }) {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 20)
+                            .foregroundStyle(viewModel.noticeBoardInfo.state == 1 ? Color.blue : Color(.lightGray))
+                            .frame(width: 60, height: 30)
+                        Text("예약중")
+                            .font(.caption)
+                            .foregroundStyle(.white)
+                    }
+                }
                 
-                viewModel.changeState(uid: uid, chatRoomListId: chatRoomListId, state: newState)
-            }) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 20)
-                        .foregroundStyle(viewModel.noticeBoardInfo.state == 2 ? Color.green : Color(.lightGray))
-                        .frame(width: 60, height: 30)
-                    Text("교환완료")
-                        .font(.caption)
-                        .foregroundStyle(.white)
+                Button(action: {
+                    let newState = viewModel.noticeBoardInfo.state == 2 ? 0 : 2
+                    
+                    viewModel.changeState(state: newState, partnerId: partnerId, noticeBoardId: noticeBoardId)
+                }) {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 20)
+                            .foregroundStyle(viewModel.noticeBoardInfo.state == 2 ? Color.green : Color(.lightGray))
+                            .frame(width: 60, height: 30)
+                        Text("교환완료")
+                            .font(.caption)
+                            .foregroundStyle(.white)
+                    }
                 }
             }
         }
@@ -77,6 +98,20 @@ struct NoticeBoardChatView: View {
         .padding(.horizontal)
         
         Divider()
+        
+        if viewModel.noticeBoardInfo.reservationId == partnerId {
+            ZStack {
+                Rectangle()
+                    .foregroundStyle(.orange)
+                    .opacity(0.8)
+                    .frame(maxWidth: .infinity, maxHeight: 30)
+                Text("현재 상대방과 예약 진행중입니다")
+                    .font(.system(size: 16))
+                    .foregroundStyle(.white)
+                    .bold()
+            }
+            .padding(-8)
+        }
     }
 }
 

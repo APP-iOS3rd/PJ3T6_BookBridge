@@ -18,7 +18,6 @@ struct ChatRoomListModel: Identifiable {
     var date: Date                              //채팅목록 최근 시간
     var isAlarm: Bool                           //채팅방 알림 여부(푸시)
     var newCount: Int                           //메시지알림 개수 표시
-    var state: [Int]                            //채팅방 상태 [진행중, 예약중, 교환완료]
     
     var timeAgo: String {
         let formatter = RelativeDateTimeFormatter()

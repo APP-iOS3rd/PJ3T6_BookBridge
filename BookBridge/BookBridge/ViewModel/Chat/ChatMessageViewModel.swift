@@ -16,7 +16,8 @@ class ChatMessageViewModel: ObservableObject {
     @Published var chatMessages: [ChatMessageModel] = []
     @Published var chatText = ""
     @Published var count = 0
-    @Published var noticeBoardInfo: NoticeBoard = NoticeBoard(userId: "", noticeBoardTitle: "", noticeBoardDetail: "", noticeImageLink: [], noticeLocation: [], noticeLocationName: "", isChange: false, state: 0, date: Date(), hopeBook: [])
+    @Published var noticeBoardInfo: NoticeBoard = NoticeBoard(userId: "", noticeBoardTitle: "", noticeBoardDetail: "", noticeImageLink: [], noticeLocation: [], noticeLocationName: "", isChange: false, state: 0, date: Date(), hopeBook: [], reservationId: "")
+    @Published var reservationName: String = ""
     @Published var selectedImages: [UIImage] = []
     
     var firestoreListener: ListenerRegistration?
@@ -69,7 +70,8 @@ extension ChatMessageViewModel {
             guard let stamp = document.data()?["date"] as? Timestamp else { return }
             guard let isChange = document.data()?["isChange"] as? Bool else { return }
             guard let noticeImageLink = document.data()?["noticeImageLink"] as? [String] else { return }
-            
+            guard let reservationId = document.data()?["reservationId"] as? String else { return }
+
             if isChange {          //바꿔요 게시물
                 let noticeBoard = NoticeBoard(
                     id: document.data()?["noticeBoardId"] as? String ?? "",
@@ -82,8 +84,13 @@ extension ChatMessageViewModel {
                     isChange: document.data()?["isChange"] as? Bool ?? false,
                     state: document.data()?["state"] as? Int ?? 0,
                     date: stamp.dateValue(),
-                    hopeBook: []
+                    hopeBook: [],
+                    reservationId: reservationId
                 )
+                
+                self.getReservationName(reservationId: reservationId)
+                
+                
                 
                 self.getNoticeBoardImage(urlString: noticeImageLink[0])
                 
@@ -108,6 +115,7 @@ extension ChatMessageViewModel {
                                 }
                                 
                                 var isbn: [IndustryIdentifier] = []
+                                
                                 for industryIdentifier in industryIdentifiers {
                                     isbn.append(IndustryIdentifier(identifier: industryIdentifier.documentID))
                                 }
@@ -145,12 +153,16 @@ extension ChatMessageViewModel {
                             isChange: document.data()?["isChange"] as? Bool ?? false,
                             state: document.data()?["state"] as? Int ?? 0,
                             date: stamp.dateValue(),
-                            hopeBook: hopeBooks
+                            hopeBook: hopeBooks,
+                            reservationId: document.data()?["reservationId"] as? String ?? ""
                         )
+                        
+                        self.getReservationName(reservationId: document.data()?["reservationId"] as? String ?? "")
                         
                         if hopeBooks.isEmpty {
                             self.bookImage = UIImage(named: "DefaultImage")!
                         } else {
+                            print(hopeBooks[0])
                             self.getNoticeBoardImage(urlString: hopeBooks[0].volumeInfo.imageLinks?.smallThumbnail ?? "")
                         }
                         
@@ -366,27 +378,38 @@ extension ChatMessageViewModel {
 
 //MARK: NoticeBoard 상태값 변경
 extension ChatMessageViewModel {
-    func changeState(uid: String, chatRoomListId: String, state: Int) {
-        var newState = [Int](repeating: 0, count: 3) // 기본 초기 배열 생성
-        newState[state] = 1
-
-        let myQuery = FirebaseManager.shared.firestore.collection("user")
-            .document(uid)
-            .collection("chatRoomList").document(chatRoomListId)
+    func changeState(state: Int, partnerId: String, noticeBoardId: String) {
+        let query = FirebaseManager.shared.firestore.collection("noticeBoard").document(noticeBoardId)
         
-        myQuery.updateData([
-            "state": newState
-        ]) { error in
-            if let error = error {
-                print("Error updating document: \(error)")
-            } else {
-                print("Document successfully updated")
-                print("현재 상태 값: \(newState)")
-                DispatchQueue.main.async {
-                    self.noticeBoardInfo.state = newState.firstIndex(of: 1) ?? 0
-                }
+        if state == 0 {
+            query.updateData([
+                "state": state,
+                "reservationId": ""
+            ])
+            self.noticeBoardInfo.reservationId = ""
+        } else {
+            query.updateData([
+                "state": state,
+                "reservationId": partnerId
+            ])
+            self.noticeBoardInfo.reservationId = partnerId
+        }
+        self.noticeBoardInfo.state = state
+    }
+}
+
+//MARK: 예약자명 가져오기
+extension ChatMessageViewModel {
+    func getReservationName(reservationId: String) {
+        if reservationId != "" {
+            let query = FirebaseManager.shared.firestore.collection("user").document(reservationId)
+            
+            query.getDocument { documentSnapshot, error in
+                guard error == nil else { return }
+                guard let document = documentSnapshot?.data() else { return }
+                
+                self.reservationName = document["nickname"] as? String ?? ""
             }
         }
     }
 }
-
