@@ -29,6 +29,7 @@ struct HomeListItemView: View {
                     .scaledToFit()
                     .frame(width: 75, height: 100)
                     .foregroundStyle(.black)
+                    .cornerRadius(10)
                     .padding()
             } else {
                 Image(uiImage:
@@ -37,34 +38,8 @@ struct HomeListItemView: View {
                 .resizable()
                 .frame(width: 75, height: 100)
                 .foregroundStyle(.black)
+                .cornerRadius(10)
                 .padding()
-                
-                //                if isChange {
-                //                    AsyncImage(url: url) { image in
-                //                        image
-                //                            .resizable()
-                //                            .frame(width: 75, height: 100)
-                //                            .foregroundStyle(.black)
-                //                            .padding()
-                //                    } placeholder: {
-                //                        ProgressView()
-                //                            .frame(width: 75, height: 100)
-                //                            .padding()
-                //                    }
-                //                } else {
-                //                    AsyncImage(url: URL(string: imageLinks[0])) { image in
-                //                        image
-                //                            .resizable()
-                //                            .scaledToFit()
-                //                            .frame(width: 75, height: 100)
-                //                            .foregroundStyle(.black)
-                //                            .padding()
-                //                    } placeholder: {
-                //                        ProgressView()
-                //                            .frame(width: 75, height: 100)
-                //                            .padding()
-                //                    }
-                //                }
             }
             
             
@@ -89,7 +64,9 @@ struct HomeListItemView: View {
                     .padding(.bottom, 10)
                     .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))
             }
+            
             Spacer()
+            
             VStack{
                 Button {
                     viewModel.bookMarkToggle(user: userId, id: id)
@@ -106,7 +83,6 @@ struct HomeListItemView: View {
                             .foregroundColor(.black)
                     }
                 }
-                
                 Spacer()
             }
         }

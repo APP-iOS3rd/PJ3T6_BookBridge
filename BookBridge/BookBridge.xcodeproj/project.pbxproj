@@ -116,11 +116,11 @@
 		7361270D2B6B83AC00943CD7 /* CameraButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7361270C2B6B83AC00943CD7 /* CameraButtonView.swift */; };
 		7361270F2B6B83BF00943CD7 /* DeleteImageButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7361270E2B6B83BF00943CD7 /* DeleteImageButtonView.swift */; };
 		736127112B6B84AC00943CD7 /* PostingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736127102B6B84AC00943CD7 /* PostingViewModel.swift */; };
+		736C0E032B84284000D6FD78 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 736C0E022B84284000D6FD78 /* GoogleService-Info.plist */; };
 		738EDA9F2B71EB240066ADE7 /* TapCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738EDA9E2B71EB240066ADE7 /* TapCategory.swift */; };
 		738EDAA12B71EBA30066ADE7 /* HomeTapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738EDAA02B71EBA30066ADE7 /* HomeTapView.swift */; };
 		738EDAA32B71ECA80066ADE7 /* HomeListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738EDAA22B71ECA80066ADE7 /* HomeListItemView.swift */; };
 		738EDAA52B7225950066ADE7 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738EDAA42B7225950066ADE7 /* UIImageExtension.swift */; };
-		73BD86402B82ECAD00B1E4BF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 73BD863F2B82ECAD00B1E4BF /* GoogleService-Info.plist */; };
 		73C962A12B6883A700D34D3F /* SearchBooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C962A02B6883A700D34D3F /* SearchBooksView.swift */; };
 		73C962A32B68880500D34D3F /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C962A22B68880500D34D3F /* SearchBarView.swift */; };
 		73C962A52B688D4200D34D3F /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C962A42B688D4200D34D3F /* BookModel.swift */; };
@@ -276,11 +276,11 @@
 		7361270C2B6B83AC00943CD7 /* CameraButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraButtonView.swift; sourceTree = "<group>"; };
 		7361270E2B6B83BF00943CD7 /* DeleteImageButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteImageButtonView.swift; sourceTree = "<group>"; };
 		736127102B6B84AC00943CD7 /* PostingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostingViewModel.swift; sourceTree = "<group>"; };
+		736C0E022B84284000D6FD78 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		738EDA9E2B71EB240066ADE7 /* TapCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapCategory.swift; sourceTree = "<group>"; };
 		738EDAA02B71EBA30066ADE7 /* HomeTapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTapView.swift; sourceTree = "<group>"; };
 		738EDAA22B71ECA80066ADE7 /* HomeListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListItemView.swift; sourceTree = "<group>"; };
 		738EDAA42B7225950066ADE7 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
-		73BD863F2B82ECAD00B1E4BF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		73C962A02B6883A700D34D3F /* SearchBooksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksView.swift; sourceTree = "<group>"; };
 		73C962A22B68880500D34D3F /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		73C962A42B688D4200D34D3F /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
@@ -490,7 +490,7 @@
 			isa = PBXGroup;
 			children = (
 				5A21197F2B7DB0A30057915C /* Secrets.xcconfig */,
-				73BD863F2B82ECAD00B1E4BF /* GoogleService-Info.plist */,
+				736C0E022B84284000D6FD78 /* GoogleService-Info.plist */,
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
 				5A7A4E352B61DFFE00F79C23 /* BookBridgeTests */,
@@ -943,7 +943,7 @@
 				5A2119802B7DB0A30057915C /* Secrets.xcconfig in Resources */,
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
 				5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */,
-				73BD86402B82ECAD00B1E4BF /* GoogleService-Info.plist in Resources */,
+				736C0E032B84284000D6FD78 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
