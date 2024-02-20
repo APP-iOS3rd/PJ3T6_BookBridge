@@ -12,7 +12,9 @@ import FirebaseStorage
 class HomeViewModel: ObservableObject {
     @Published var bookMarks: [String] = []
     @Published var changeNoticeBoards: [NoticeBoard] = []
+    @Published var changeNoticeBoardsDic: [String: UIImage] = [:]
     @Published var findNoticeBoards: [NoticeBoard] = []
+    @Published var findNoticeBoardsDic: [String: UIImage] = [:]
     @Published var recentSearch : [String] = []
     
     let db = Firestore.firestore()
@@ -298,5 +300,38 @@ extension HomeViewModel {
             }
         }
         
+    }
+}
+
+//MARK: 이미지 다운로드
+extension HomeViewModel {
+    func getDownLoadImage(isChange: Bool, noticeBoardId: String, urlString: String) {
+        if isChange {
+            if !self.changeNoticeBoardsDic.contains(where: { $0.key == noticeBoardId }){
+                if let url = URL(string: urlString) {
+                    URLSession.shared.dataTask(with: url) { (data, response, error) in
+                        guard error == nil else { return }
+                        guard let imageData = data else { return }
+                        
+                        DispatchQueue.main.async {
+                            self.changeNoticeBoardsDic.updateValue(UIImage(data: imageData) ?? UIImage(named: "Character")!, forKey: noticeBoardId)
+                        }
+                    }.resume()
+                }
+            }
+        } else {
+            if !self.findNoticeBoardsDic.contains(where: { $0.key == noticeBoardId }){
+                if let url = URL(string: urlString) {
+                    URLSession.shared.dataTask(with: url) { (data, response, error) in
+                        guard error == nil else { return }
+                        guard let imageData = data else { return }
+                        
+                        DispatchQueue.main.async {
+                            self.findNoticeBoardsDic.updateValue(UIImage(data: imageData) ?? UIImage(named: "Character")!, forKey: noticeBoardId)
+                        }
+                    }.resume()
+                }
+            }
+        }
     }
 }
