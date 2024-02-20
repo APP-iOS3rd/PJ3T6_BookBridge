@@ -19,6 +19,9 @@ struct UserModel: Codable, Identifiable, Equatable {
     var joinDate: Date?                  //가입일 (파베는 number
     var fcmToken: String?                //fcm 토큰
     var location: [Location?]?                  // 대표 위치
+    var bookMarks: [String]?
+    var requests: [String]?
+    var style: String?
     
     func getSelectedLocation() -> Location? {
         if let locations = location {
