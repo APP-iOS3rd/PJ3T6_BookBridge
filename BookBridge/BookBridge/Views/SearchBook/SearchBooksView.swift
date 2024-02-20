@@ -24,13 +24,19 @@ struct SearchBooksView: View {
                 if isWish == .wish {
                     Text("희망도서 추가")
                 }
+                else if isWish == .search {
+                    Text("희망도서 추가")
+                }
                 else {
                     Text("보유도서 추가")
                 }
                 
                 HStack{
                     Button {
-                        hopeBooks = []
+                        if !(isWish == .search) {
+                            hopeBooks = []
+                        }
+                                                
                         dismiss()
                     } label: {
                         Image(systemName: "xmark")
@@ -68,23 +74,6 @@ struct SearchBooksView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .navigationBarBackButtonHidden()
-//        .navigationTitle("희망도서")
-//        .toolbar {
-//            ToolbarItem(placement: .topBarLeading) {
-//             
-//            }
-//
-//            ToolbarItem(placement: .topBarTrailing) {
-//                Button {
-//                    hopeBooks = viewModel.selectBooks.items
-//                    dismiss()
-//                } label: {
-//                    Text("확인")
-//                        .font(.system(size: 16))
-//                        .foregroundStyle(.black)
-//                }
-//            }
-//        }
         .onAppear {
             viewModel.selectBooks.items = hopeBooks
         }

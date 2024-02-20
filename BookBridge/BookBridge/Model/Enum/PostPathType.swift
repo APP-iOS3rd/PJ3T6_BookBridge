@@ -9,4 +9,5 @@ import Foundation
 enum PostPathType: Hashable {
     case changePosting
     case findPosting
+
 }

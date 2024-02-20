@@ -11,12 +11,13 @@ struct TabBarView: View {
     let userId : String?
     
     @StateObject private var pathModel = PostPathViewModel()
-    @State private var isLogin = UserManager.shared.isLogin
+    @StateObject var postingviewModel = PostingViewModel()
+    @StateObject private var userManager = UserManager.shared
     @State private var showingLoginAlert = false
     @State private var showingLoginView = false
     @State private var selectedTab = 0
     @State private var shouldShowActionSheet = false
-    
+                   
     var body: some View {
         TabView(selection: $selectedTab) {
             // 홈
@@ -40,26 +41,19 @@ struct TabBarView: View {
             
             
             
-            
             // 게시글 작성
             NavigationStack(path: $pathModel.paths){
-                EmptyView()
+                HomeView()
                     .navigationDestination(for: PostPathType.self){ pathType in
                         switch pathType {
                         case .findPosting:
-                            ChangePostingView()
+                            ChangePostingView(selectedTab: $selectedTab)
                                 .toolbar(.hidden, for: .tabBar)
                                 .navigationBarBackButtonHidden()
-                                .onDisappear{
-                                    selectedTab = 0
-                                }
                         case .changePosting:
-                            FindPostingView()
+                            FindPostingView(selectedTab: $selectedTab)
                                 .toolbar(.hidden, for: .tabBar)
-                                .navigationBarBackButtonHidden()
-                                .onDisappear{
-                                    selectedTab = 0
-                                }
+                                .navigationBarBackButtonHidden()                            
                         }
                         
                     }
@@ -82,17 +76,16 @@ struct TabBarView: View {
                         selectedTab = 0
                     }
                 )
-                
             }
-            .onChange(of : showingLoginAlert){ _ in
-                print("showingLoginAlert \(showingLoginAlert)")
-            }
-            
+
             
             // 책장
             NavigationStack{
-                if isLogin {
-                    BookShelfView(userId : UserManager.shared.uid,initialTapInfo: .wish, isBack: false)
+                if userManager.isLogin {
+
+
+                    BookShelfView(userId : userManager.uid,initialTapInfo: .wish, isBack: false)
+
                 }
                 else {
                     BookShelfView(userId: nil,initialTapInfo: .wish, isBack: false)
@@ -119,10 +112,7 @@ struct TabBarView: View {
                 )
             }
             
-            
-            
-            
-            
+                                                
             //마이페이지
             NavigationStack{
                 EmptyView()
@@ -135,8 +125,9 @@ struct TabBarView: View {
         }
         .tint(Color(hex:"59AAE0"))
         .sheet(isPresented: $showingLoginView, onDismiss: {
-            if UserManager.shared.isLogin {
-                isLogin = true
+                
+
+            if userManager.isLogin {
                 showingLoginAlert = false
                 if selectedTab == 2 {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -160,7 +151,7 @@ struct TabBarView: View {
         }
         .onChange(of: selectedTab) { newTab in
             // 로그인 상태 확인
-            if isLogin {
+            if userManager.isLogin {
                 showingLoginAlert = false // 로그인 상태일 때는 알림을 띄우지 않음
                 if newTab == 2 {
                     shouldShowActionSheet = true
@@ -170,7 +161,6 @@ struct TabBarView: View {
                 showingLoginAlert = (newTab == 2 || newTab == 3)
             }
         }
-        
     }
     
     func find() {

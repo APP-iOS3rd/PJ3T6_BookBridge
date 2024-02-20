@@ -10,6 +10,11 @@ import FirebaseFirestore
 import GeoFire
 import CoreLocation
 
+enum BoardType {
+    case change
+    case find
+}
+
 class GeohashManager {
     static let db = Firestore.firestore()
     
@@ -20,7 +25,7 @@ class GeohashManager {
         return geoHash
     }
     
-    static func geoQuery(lat: Double, long: Double, distance: Int) async -> [NoticeBoard] {
+    static func geoQuery(lat: Double, long: Double, distance: Int, type: BoardType) async -> [NoticeBoard] {
         let center = CLLocationCoordinate2D(latitude: lat, longitude: long)
         let radiusInM: Double = Double(distance) * 1000
 
@@ -32,9 +37,8 @@ class GeohashManager {
                 .end(at: [bound.endValue])
         }
 
-        @Sendable func fetchMatchingDocs(from query: Query,
-                                         center: CLLocationCoordinate2D,
-                                         radiusInMeters: Double) async throws -> [NoticeBoard] {
+        @Sendable func fetchMatchingDocs(from query: Query, center: CLLocationCoordinate2D, radiusInMeters: Double) async throws -> [NoticeBoard] {
+                                         
             let snapshot = try await query.getDocuments()
             let tempArray = snapshot.documents.compactMap { document -> NoticeBoard? in
                     guard let data = document.data() as? [String: Any] else {
@@ -75,15 +79,28 @@ class GeohashManager {
                     return noticeBoard
                 }
             return tempArray.filter { noticeBoard -> Bool in
-                let coordinates = CLLocation(
-                    latitude: noticeBoard.noticeLocation[0],
-                    longitude: noticeBoard.noticeLocation[1]
-                )
-                let centerPoint = CLLocation(latitude: center.latitude, longitude: center.longitude)
-                let distance = GFUtils.distance(from: centerPoint, to: coordinates)
-                return distance <= radiusInMeters
+                switch type {
+                case .change:
+                    if noticeBoard.isChange {
+                        return isWithinRadius(location: noticeBoard.noticeLocation, center: center, radiusInMeters: radiusInMeters)
+                    }
+                case .find:
+                    if !noticeBoard.isChange {
+                        return isWithinRadius(location: noticeBoard.noticeLocation, center: center, radiusInMeters: radiusInMeters)
+                    }
+                }
+                                
+                return false
             }
         }
+        
+        @Sendable func isWithinRadius(location: [Double], center: CLLocationCoordinate2D, radiusInMeters: CLLocationDistance) -> Bool {
+            let coordinates = CLLocation(latitude: location[0], longitude: location[1])
+            let centerPoint = CLLocation(latitude: center.latitude, longitude: center.longitude)
+            let distance = GFUtils.distance(from: centerPoint, to: coordinates)
+            return distance <= radiusInMeters
+        }
+
 
         do {
             let matchingTempArray = try await withThrowingTaskGroup(of: [NoticeBoard].self) { group -> [NoticeBoard] in
@@ -105,5 +122,6 @@ class GeohashManager {
             return []
         }
     }
+    
     
 }
