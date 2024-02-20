@@ -142,6 +142,12 @@
 		F60BB0952B71D72F00E27F38 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60BB0942B71D72F00E27F38 /* HomeViewModel.swift */; };
 		F60BB0972B71D73900E27F38 /* HomeFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60BB0962B71D73800E27F38 /* HomeFirebaseManager.swift */; };
 		F623A51D2B68C01E00B5C159 /* NoticeBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F623A51C2B68C01E00B5C159 /* NoticeBoardModel.swift */; };
+		F64B7EF02B7DD19C008AB919 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = F64B7EEE2B7DD19B008AB919 /* Secrets.xcconfig */; };
+		F64B7EF12B7DD19C008AB919 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F64B7EEF2B7DD19C008AB919 /* GoogleService-Info.plist */; };
+		F64B7EF72B8323E6008AB919 /* ChangePostingModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64B7EF62B8323E6008AB919 /* ChangePostingModifyView.swift */; };
+		F64B7EF92B8324DA008AB919 /* FindPostingModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64B7EF82B8324DA008AB919 /* FindPostingModifyView.swift */; };
+		F64B7EFB2B8325C1008AB919 /* PostModifyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64B7EFA2B8325C1008AB919 /* PostModifyViewModel.swift */; };
+		F64B7EFD2B833135008AB919 /* ExChangeHopeModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64B7EFC2B833135008AB919 /* ExChangeHopeModifyView.swift */; };
 		F6DFC8D52B730A2A00931CF9 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6DFC8D42B730A2A00931CF9 /* PostView.swift */; };
 		F6DFC8D82B735AE300931CF9 /* PostViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6DFC8D72B735AE300931CF9 /* PostViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -308,6 +314,12 @@
 		F60BB0942B71D72F00E27F38 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		F60BB0962B71D73800E27F38 /* HomeFirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeFirebaseManager.swift; sourceTree = "<group>"; };
 		F623A51C2B68C01E00B5C159 /* NoticeBoardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardModel.swift; sourceTree = "<group>"; };
+		F64B7EEE2B7DD19B008AB919 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		F64B7EEF2B7DD19C008AB919 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F64B7EF62B8323E6008AB919 /* ChangePostingModifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePostingModifyView.swift; sourceTree = "<group>"; };
+		F64B7EF82B8324DA008AB919 /* FindPostingModifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPostingModifyView.swift; sourceTree = "<group>"; };
+		F64B7EFA2B8325C1008AB919 /* PostModifyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModifyViewModel.swift; sourceTree = "<group>"; };
+		F64B7EFC2B833135008AB919 /* ExChangeHopeModifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExChangeHopeModifyView.swift; sourceTree = "<group>"; };
 		F6DFC8D42B730A2A00931CF9 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		F6DFC8D72B735AE300931CF9 /* PostViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -817,6 +829,9 @@
 			isa = PBXGroup;
 			children = (
 				F6DFC8D42B730A2A00931CF9 /* PostView.swift */,
+				F64B7EF62B8323E6008AB919 /* ChangePostingModifyView.swift */,
+				F64B7EF82B8324DA008AB919 /* FindPostingModifyView.swift */,
+				F64B7EFC2B833135008AB919 /* ExChangeHopeModifyView.swift */,
 				5CD606432B7DAABE00AC53DD /* PostMapSeeMoreView.swift */,
 			);
 			path = Post;
@@ -826,6 +841,7 @@
 			isa = PBXGroup;
 			children = (
 				F6DFC8D72B735AE300931CF9 /* PostViewModel.swift */,
+				F64B7EFA2B8325C1008AB919 /* PostModifyViewModel.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -1133,6 +1149,7 @@
 				5A3A44282B6CC7BA00B66C81 /* NaverMapApiManager.swift in Sources */,
 				73C962A12B6883A700D34D3F /* SearchBooksView.swift in Sources */,
 				5A7A4E552B62269600F79C23 /* LoginView.swift in Sources */,
+				F64B7EFB2B8325C1008AB919 /* PostModifyViewModel.swift in Sources */,
 				5A0242152B6D36FF00137AA6 /* LoadingCircle.swift in Sources */,
 				5A83458C2B74A0C0000984C4 /* TownAddButtonView.swift in Sources */,
 				73C962A92B68C38D00D34D3F /* BookAPIManger.swift in Sources */,
@@ -1149,6 +1166,7 @@
 				1DCFB01E2B687D7000250D55 /* FindIdView.swift in Sources */,
 				1D357CAC2B6A13510064B87D /* ChangePasswordVM.swift in Sources */,
 				5A6CC5252B6B19630037429F /* Validator.swift in Sources */,
+				F64B7EF92B8324DA008AB919 /* FindPostingModifyView.swift in Sources */,
 				1DA6E06C2B68D9EB00D631D5 /* ChangePasswordView.swift in Sources */,
 				73C962AB2B68C4D800D34D3F /* SearchBooksViewModel.swift in Sources */,
 				5A3A44202B6C890900B66C81 /* TownSettingMapView.swift in Sources */,
@@ -1204,6 +1222,7 @@
 				738EDAA12B71EBA30066ADE7 /* HomeTapView.swift in Sources */,
 				5A3A44112B6C75F500B66C81 /* MiddleWhiteBtnStyle.swift in Sources */,
 				1D71C6C72B6C8D4400EEC95D /* WishBookAddBtnView.swift in Sources */,
+				F64B7EFD2B833135008AB919 /* ExChangeHopeModifyView.swift in Sources */,
 				738EDA9F2B71EB240066ADE7 /* TapCategory.swift in Sources */,
 				91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */,
 				5CE454992B68B8EF00874BCE /* AppleAuthManager.swift in Sources */,
@@ -1230,6 +1249,7 @@
 				5A3E020D2B6FA001008F8CFD /* TestViewModel.swift in Sources */,
 				5A1A168E2B6228290063D408 /* GoogleLoginView.swift in Sources */,
 				910F491C2B6CC66900C0563E /* CameraModalView.swift in Sources */,
+				F64B7EF72B8323E6008AB919 /* ChangePostingModifyView.swift in Sources */,
 				5A5041CC2B6A635C00211CF2 /* PathViewModel.swift in Sources */,
 				5C8C0E3A2B7B29C6002963F1 /* ReportViewModel.swift in Sources */,
 				7361270B2B6B82F100943CD7 /* ImageEditorModalView.swift in Sources */,

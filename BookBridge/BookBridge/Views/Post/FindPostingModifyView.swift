@@ -1,16 +1,17 @@
 //
-//  FindPostingView.swift
+//  FindPostingModifyView.swift
 //  BookBridge
 //
-//  Created by 이현호 on 1/30/24.
+//  Created by jonghyun baik on 2/19/24.
 //
 
 import SwiftUI
 
-struct FindPostingView: View {
+struct FindPostingModifyView: View {
     @Environment(\.dismiss) private var dismiss
     
-    @StateObject var viewModel = PostingViewModel()
+    @Binding var noticeBoard: NoticeBoard
+    @StateObject var viewModel = PostModifyViewModel()
     
     var body: some View {
         NavigationView {
@@ -89,7 +90,7 @@ struct FindPostingView: View {
                         .bold()
                     
                     //EmptyView에 지훈님이 만든 네이버 맵 화면
-                    NavigationLink(destination: ExchangeHopeView(viewModel: viewModel)) {
+                    NavigationLink(destination: EmptyView()) {
                         HStack {
                             Text(viewModel.noticeBoard.noticeLocationName)
                                 .foregroundColor(.black)
@@ -112,9 +113,10 @@ struct FindPostingView: View {
                     
                     // 확인 버튼
                     Button {
-                        viewModel.uploadPost(isChange: false, images: [])
+                        viewModel.updatePost()
+                        dismiss()
                     } label: {
-                        Text("게시물 등록")
+                        Text("게시물 수정")
                             .fontWeight(.bold)
                             .frame(maxWidth: .infinity)
                             .padding()
@@ -140,12 +142,8 @@ struct FindPostingView: View {
                 }
             }
             .onAppear {
-                viewModel.gettingUserInfo()
+                viewModel.fetchNoticeBoardInfo(noticeBoard: noticeBoard)
             }
         }
     }
-}
-
-#Preview {
-    FindPostingView()
 }
