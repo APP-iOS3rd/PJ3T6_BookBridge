@@ -22,7 +22,8 @@ class PostingViewModel: ObservableObject {
         state: 0,
         date: Date(),
         hopeBook: [],
-        geoHash: ""
+        geoHash: "",
+        reservationId: ""
     )
     @Published var markerCoord: NMGLatLng? //사용자가 저장 전에 마커 좌표변경을 할 경우 대비
     @Published var user: UserModel = UserModel()
@@ -76,12 +77,13 @@ extension PostingViewModel {
                 noticeBoardDetail: self.noticeBoard.noticeBoardDetail,
                 noticeImageLink: self.noticeBoard.noticeImageLink,
                 noticeLocation: [currentLat, currentLong],
-                noticeLocationName: self.noticeBoard.noticeLocationName,
+                noticeLocationName: UserManager.shared.currentDong,
                 isChange: isChange,
                 state: 0,
                 date: Date(),
                 hopeBook: self.noticeBoard.hopeBook,
-                geoHash: GeohashManager.getGeoHash(lat: currentLat, long: currentLong)
+                geoHash: GeohashManager.getGeoHash(lat: currentLat, long: currentLong),
+                reservationId: ""
             )
             
             // 모든 게시물  noticeBoard/noticeBoardId/
