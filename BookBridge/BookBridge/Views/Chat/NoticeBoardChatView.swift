@@ -10,6 +10,9 @@ import SwiftUI
 struct NoticeBoardChatView: View {
     @StateObject var viewModel: ChatMessageViewModel
     
+    var chatRoomListId: String
+    var uid: String
+    
     var body: some View {
         HStack {
             NavigationLink {
@@ -41,7 +44,9 @@ struct NoticeBoardChatView: View {
             Spacer()
             
             Button(action: {
-                viewModel.noticeBoardInfo.state = 1
+                let newState = viewModel.noticeBoardInfo.state == 1 ? 0 : 1
+                
+                viewModel.changeState(uid: uid, chatRoomListId: chatRoomListId, state: newState)
             }) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 20)
@@ -54,7 +59,9 @@ struct NoticeBoardChatView: View {
             }
             
             Button(action: {
-                viewModel.noticeBoardInfo.state = 2
+                let newState = viewModel.noticeBoardInfo.state == 2 ? 0 : 2
+                
+                viewModel.changeState(uid: uid, chatRoomListId: chatRoomListId, state: newState)
             }) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 20)

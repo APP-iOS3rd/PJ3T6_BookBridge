@@ -18,7 +18,7 @@ class ChatMessageViewModel: ObservableObject {
     @Published var count = 0
     @Published var noticeBoardInfo: NoticeBoard = NoticeBoard(userId: "", noticeBoardTitle: "", noticeBoardDetail: "", noticeImageLink: [], noticeLocation: [], noticeLocationName: "", isChange: false, state: 0, date: Date(), hopeBook: [])
     @Published var selectedImages: [UIImage] = []
-
+    
     var firestoreListener: ListenerRegistration?
     
     let nestedGroup = DispatchGroup()
@@ -341,7 +341,7 @@ extension ChatMessageViewModel {
         }
     }
 }
-      
+
 //MARK: newCount 초기화
 extension ChatMessageViewModel {
     //채팅방 입장시 newCount 초기화
@@ -363,3 +363,30 @@ extension ChatMessageViewModel {
         ])
     }
 }
+
+//MARK: NoticeBoard 상태값 변경
+extension ChatMessageViewModel {
+    func changeState(uid: String, chatRoomListId: String, state: Int) {
+        var newState = [Int](repeating: 0, count: 3) // 기본 초기 배열 생성
+        newState[state] = 1
+
+        let myQuery = FirebaseManager.shared.firestore.collection("user")
+            .document(uid)
+            .collection("chatRoomList").document(chatRoomListId)
+        
+        myQuery.updateData([
+            "state": newState
+        ]) { error in
+            if let error = error {
+                print("Error updating document: \(error)")
+            } else {
+                print("Document successfully updated")
+                print("현재 상태 값: \(newState)")
+                DispatchQueue.main.async {
+                    self.noticeBoardInfo.state = newState.firstIndex(of: 1) ?? 0
+                }
+            }
+        }
+    }
+}
+

@@ -25,7 +25,7 @@ struct ChatMessageView: View {
     
     var body: some View {
         VStack {
-            NoticeBoardChatView(viewModel: viewModel)
+            NoticeBoardChatView(viewModel: viewModel, chatRoomListId: chatRoomListId, uid: uid)
             
             MessageListView(viewModel: viewModel, partnerId: chatRoomPartner.partnerId, partnerImage: chatRoomPartner.partnerImage, uid: uid)
             
@@ -85,14 +85,13 @@ struct ChatMessageView: View {
                             Text("알림켜기")
                         }
                     }
-                    
-                    Section {
-                        Button(role: .destructive) {
-                            
-                        } label: {
-                            Label("채팅방나가기", systemImage: "trash")
-                        }
+                
+                    Button(role: .destructive) {
+                        
+                    } label: {
+                        Label("채팅방나가기", systemImage: "trash")
                     }
+                    
                 } label: {
                     Image(systemName: "ellipsis")
                         .foregroundColor(.black)
