@@ -21,8 +21,12 @@ class FirestoreSignUpManager {
             "password": user.passsword ?? "",
             "nickname": user.nickname ?? "",
             "phoneNumber": user.phoneNumber ?? "",
+            "profileURL": user.profileURL ?? "",
             "joinDate": user.joinDate ?? "",
             "location": user.location ?? [],
+            "bookMarks": user.bookMarks ?? [],
+            "requests": user.requests ?? [],
+            "style": user.style ?? ""
         ] as [String : Any]
         
         return userData as [String : Any]

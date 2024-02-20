@@ -11,7 +11,20 @@ import FirebaseStorage
 import NMapsMap
 
 class PostingViewModel: ObservableObject {
-    @Published var noticeBoard: NoticeBoard = NoticeBoard(userId: "", noticeBoardTitle: "", noticeBoardDetail: "", noticeImageLink: [], noticeLocation: [], noticeLocationName: "교환장소 선택", isChange: false, state: 0, date: Date(), hopeBook: [], geoHash: "")
+    @Published var noticeBoard: NoticeBoard = NoticeBoard(
+        userId: "",
+        noticeBoardTitle: "",
+        noticeBoardDetail: "",
+        noticeImageLink: [],
+        noticeLocation: [],
+        noticeLocationName: "교환장소 선택",
+        isChange: false,
+        state: 0,
+        date: Date(),
+        hopeBook: [],
+        geoHash: "",
+        reservationId: ""
+    )
     @Published var markerCoord: NMGLatLng? //사용자가 저장 전에 마커 좌표변경을 할 경우 대비
     @Published var user: UserModel = UserModel()
     
@@ -49,13 +62,29 @@ extension PostingViewModel {
                 uploadImage(image: img, name: (noticeBoard.id + "/" + imgName))
             }
         } else {
-            self.nestedGroup.leave()
+            // self.nestedGroup.leave()
         }
+        
+        let currentLat = UserManager.shared.user?.getSelectedLocation()?.lat ?? 0.0
+        let currentLong = UserManager.shared.user?.getSelectedLocation()?.long ?? 0.0
         
         self.nestedGroup.notify(queue: .main) {
             // 게시물 정보 생성
-            let post = NoticeBoard(id: self.noticeBoard.id, userId: UserManager.shared.uid, noticeBoardTitle: self.noticeBoard.noticeBoardTitle, noticeBoardDetail: self.noticeBoard.noticeBoardDetail, noticeImageLink: self.noticeBoard.noticeImageLink, noticeLocation: self.noticeBoard.noticeLocation, noticeLocationName: self.noticeBoard.noticeLocationName, isChange: isChange, state: 0, date: Date(), hopeBook: self.noticeBoard.hopeBook, geoHash: self.noticeBoard.geoHash)
-
+            let post = NoticeBoard(
+                id: self.noticeBoard.id,
+                userId: UserManager.shared.uid,
+                noticeBoardTitle: self.noticeBoard.noticeBoardTitle,
+                noticeBoardDetail: self.noticeBoard.noticeBoardDetail,
+                noticeImageLink: self.noticeBoard.noticeImageLink,
+                noticeLocation: [currentLat, currentLong],
+                noticeLocationName: UserManager.shared.currentDong,
+                isChange: isChange,
+                state: 0,
+                date: Date(),
+                hopeBook: self.noticeBoard.hopeBook,
+                geoHash: GeohashManager.getGeoHash(lat: currentLat, long: currentLong),
+                reservationId: ""
+            )
             
             // 모든 게시물  noticeBoard/noticeBoardId/
             let linkNoticeBoard = self.db.collection("noticeBoard").document(self.noticeBoard.id)
