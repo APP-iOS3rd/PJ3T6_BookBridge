@@ -11,9 +11,9 @@ struct LoginView: View {
     @StateObject private var pathModel = PathViewModel()
     @StateObject var signUpVM = SignUpViewModel()
     @Binding var showingLoginView: Bool
+    
     var body: some View {
         NavigationStack(path: $pathModel.paths){
-            
             VStack{
                 Image("Character")
                 VStack(alignment: .leading,spacing : 10){
@@ -96,18 +96,16 @@ struct LoginView: View {
                         .foregroundColor(Color(hex:"A7A7A7"))
                 }
                 
-                
-                
+                                
                 HStack(spacing: 20){
                     NaverLoginView()
                     GoogleLoginView()
                     KakaoLoginView(showingLoginView: $showingLoginView)
                     AppleLoginView(showingLoginView: $showingLoginView)
                 }
+                
                 Spacer()
                     .frame(height: 50)
-                
-                
                 
             }
             .padding(20)
@@ -135,17 +133,13 @@ struct LoginView: View {
                     EmailSignUpView(signUpVM: signUpVM)
                         .navigationBarBackButtonHidden()
                 }
-                
             }
-            .environmentObject(pathModel)
-            
-            
-            
+            // .environmentObject(pathModel)
         }
-        
+        .environmentObject(pathModel)
     }
-    
-    //#Preview {
-    //    LoginView()
-    //}
 }
+
+//#Preview {
+//    LoginView()
+//}

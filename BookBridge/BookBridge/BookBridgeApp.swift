@@ -16,7 +16,10 @@ struct BookBridgeApp: App {
             
     init() {
         // Kakao SDK 초기화
-        KakaoSDK.initSDK(appKey: "3faeb18730ff6edf468b5e43fc5fea19")
+        if let kakaoAppKey = Bundle.main.object(forInfoDictionaryKey: "KakaoAppKey") as? String {
+            KakaoSDK.initSDK(appKey: kakaoAppKey)
+        }
+
         
         // Naver SDK 초기화
         NaverThirdPartyLoginConnection.getSharedInstance()?.isInAppOauthEnable = true
@@ -28,7 +31,8 @@ struct BookBridgeApp: App {
     }
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-        
+    @StateObject private var pathModel = PathViewModel()
+    
     var body: some Scene {
         WindowGroup {            
             TabBarView(userId: UserManager.shared.uid)

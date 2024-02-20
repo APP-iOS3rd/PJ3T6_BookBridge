@@ -19,6 +19,7 @@ struct HomeView: View {
     @Namespace private var animation
         
     var body: some View {
+        
         VStack {
             HStack {
                 Button {
@@ -68,6 +69,7 @@ struct HomeView: View {
         }
         .navigationDestination(isPresented: $showingTownSettingView) {
               TownSettingView()
+                .toolbar(.hidden, for: .tabBar)
         }
         .onChange(of: userManager.isLogin) { _ in
             print("로그인 변동 감지")
@@ -86,6 +88,7 @@ struct HomeView: View {
             viewModel.updateNoticeBoards()
         }
     }
+    
     
     @ViewBuilder
     private func tapAnimation() -> some View {
@@ -116,3 +119,4 @@ struct HomeView: View {
         .overlay(Rectangle().frame(width: nil, height: 1, alignment: .bottom).foregroundColor(Color(red: 200/255, green: 200/255, blue: 200/255)), alignment: .bottom)
     }
 }
+

@@ -121,41 +121,33 @@ struct PostView: View {
                     
                     Divider()
                         .padding(.horizontal)
-                    if noticeBoard.noticeLocation.count >= 2 {
-                        
-                        //교환 희망 장소
-                        VStack(alignment: .leading) {
-                            HStack{
-                                Text("교환 희망 장소")
-                                    .font(.system(size: 25))
-                                    .fontWeight(.bold)
- 
-                                Spacer()
-                                
-                                NavigationLink(destination: PostMapSeeMoreView(lat: $noticeBoard.noticeLocation[0], lng: $noticeBoard.noticeLocation[1], noticeBoard: $noticeBoard)) {
-                                    Text("더보기")
-                                        .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
-                                }
-                            }
+                    
+                    //교환 희망 장소
+                    VStack(alignment: .leading) {
+                        Text("교환 희망 장소")
+                            .font(.system(size: 25))
+                            .fontWeight(.bold)
                             .padding(.horizontal)
                             .padding(.top)
-                            
-                            PostMapView(lat: $noticeBoard.noticeLocation[0], lng: $noticeBoard.noticeLocation[1])
-                                                        
-                            Text(noticeBoard.noticeLocationName)
-                                .font(.system(size: 15))
-                                .padding(.horizontal)
-                        }
-                        .frame(
-                            minWidth: UIScreen.main.bounds.width,
-                            minHeight: 400,
-                            alignment: Alignment.topLeading
-                        )
-                        .padding(.bottom)
                         
-                        Divider()
+                        if noticeBoard.noticeLocation.count >= 2 {
+                            PostMapView(lat: $noticeBoard.noticeLocation[0], lng: $noticeBoard.noticeLocation[1])
+                        }
+                        
+                        Text(noticeBoard.noticeLocationName)
+                            .font(.system(size: 15))
                             .padding(.horizontal)
                     }
+                    .frame(
+                        minWidth: UIScreen.main.bounds.width,
+                        minHeight: 400,
+                        alignment: Alignment.topLeading
+                    )
+                    .padding(.bottom)
+                    
+                    Divider()
+                        .padding(.horizontal)
+                    
                     //상대방 책장
                     VStack(alignment: .leading) {
                         Text("\(postViewModel.user.nickname ?? "책벌레")님의 책장")
@@ -170,7 +162,9 @@ struct PostView: View {
                                 .fontWeight(.bold)
                             Spacer()
                             
-                            NavigationLink(destination: BookShelfView(userId: postViewModel.user.id, initialTapInfo: .hold)) {
+                            NavigationLink(destination: BookShelfView(userId: postViewModel.user.id, initialTapInfo: .hold, isBack: true)
+                                .navigationBarBackButtonHidden()
+                            ) {
                                 Text("더보기")
                                     .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
                             }
@@ -192,10 +186,11 @@ struct PostView: View {
                                 .font(.system(size: 20))
                                 .fontWeight(.bold)
                             Spacer()
-                            NavigationLink(destination: BookShelfView(userId: postViewModel.user.id,initialTapInfo: .wish)) {
-                                Text("더보기")
-                                    .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
-                            }
+                            NavigationLink(destination: BookShelfView(userId: postViewModel.user.id,initialTapInfo: .wish,isBack: true)
+                                .navigationBarBackButtonHidden()) {
+                                    Text("더보기")
+                                        .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
+                                }
                         }
                         .padding(.horizontal)
                         
@@ -221,22 +216,20 @@ struct PostView: View {
                 withAnimation(.easeIn(duration: 0.2)) {
                     isPresented = false
                 }
-                VStack{
-                    HStack {
-                        Spacer()
-                        VStack {
-                            if isPresented {
-                                Button {
-                                    if UserManager.shared.isLogin {
-                                        postViewModel.bookMarkToggle(id: noticeBoard.id)
-                                    }
-                                    isPresented.toggle()
-                                } label: {
-                                    Text( postViewModel.bookMarks.contains(noticeBoard.id) ? "관심목록 삭제" : "관심목록 추가")
-                                        .font(.system(size: 14))
-                                        .padding(1)
+            }
+            VStack{
+                HStack {
+                    Spacer()
+                    VStack {
+                        if isPresented {
+                            Button {
+                                if UserManager.shared.isLogin {
+                                    postViewModel.bookMarkToggle(id: noticeBoard.id)
                                 }
-                                Divider()
+                                isPresented.toggle()
+                            } label: {
+                                Text( postViewModel.bookMarks.contains(noticeBoard.id) ? "관심목록 삭제" : "관심목록 추가")
+                                    .font(.system(size: 14))
                                     .padding(1)
                             }
                             Divider()
@@ -290,7 +283,6 @@ struct PostView: View {
                 postViewModel.gettingUserInfo(userId: noticeBoard.userId)
                 postViewModel.gettingUserBookShelf(userId: noticeBoard.userId, collection: "holdBooks")
                 postViewModel.gettingUserBookShelf(userId: noticeBoard.userId, collection: "wishBooks")
-                
                 if UserManager.shared.isLogin {
                     postViewModel.fetchBookMark()
                 }

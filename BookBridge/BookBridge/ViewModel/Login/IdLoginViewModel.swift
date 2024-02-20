@@ -48,6 +48,7 @@ class IdLoginViewModel: ObservableObject {
                     return
                 }
                 if result != nil {
+                    UserManager.shared.login(uid: result?.user.uid ?? "")
                     self.state = .signedIn
                     print("사용자 이메일: \(String(describing: result?.user.email))")
                     print("사용자 이름: \(String(describing: result?.user.displayName))")
