@@ -9,17 +9,23 @@
 
 import Foundation
 
-class LocationManager {
+class LocationManager: ObservableObject {
     static let shared = LocationManager()
     private init() {}
     
+    @Published var dong: String = ""
     var lat = 0.0
     var long = 0.0
+    var city: String = ""
     var distriction: String = ""
+    var distance = 1
+    var isSelected = true
     
-    func setLocation(lat: Double, long: Double, distriction: String) {
+    func setLocation(lat: Double, long: Double, city: String, distriction: String, dong: String) {
         self.lat = lat
         self.long = long
+        self.city = city        
         self.distriction = distriction
+        self.dong = dong
     }
 }

@@ -59,14 +59,15 @@ extension NoticeBoardViewModel {
                 guard let stamp = document.data()["date"] as? Timestamp else { return }
                 
                 let noticeBoard = NoticeBoard(
-                    id: document.data()["noticeBoardId"] as! String,
-                    userId: document.data()["userId"] as! String,
-                    noticeBoardTitle: document.data()["noticeBoardTitle"] as! String,
-                    noticeBoardDetail: document.data()["noticeBoardDetail"] as! String,
-                    noticeImageLink: document.data()["noticeImageLink"] as! [String],
-                    noticeLocation: document.data()["noticeLocation"] as! [Double],
-                    isChange: document.data()["isChange"] as! Bool,
-                    state: document.data()["state"] as! Int,
+                    id: document.data()["noticeBoardId"] as? String ?? "",
+                    userId: document.data()["userId"] as? String ?? "",
+                    noticeBoardTitle: document.data()["noticeBoardTitle"] as? String ?? "",
+                    noticeBoardDetail: document.data()["noticeBoardDetail"] as? String ?? "",
+                    noticeImageLink: document.data()["noticeImageLink"] as? [String] ?? [],
+                    noticeLocation: document.data()["noticeLocation"] as? [Double] ?? [],
+                    noticeLocationName: document.data()["noticeLocationName"] as? String ?? "",
+                    isChange: document.data()["isChange"] as? Bool ?? false,
+                    state: document.data()["state"] as? Int ?? 0,
                     date: stamp.dateValue(),
                     hopeBook: []
                 )
@@ -139,17 +140,19 @@ extension NoticeBoardViewModel {
                     self.nestedGroup.notify(queue: .main) {
                         // All tasks in nested DispatchGroup completed
                         let noticeBoard = NoticeBoard(
-                            id: document.data()["noticeBoardId"] as! String,
-                            userId: document.data()["userId"] as! String,
-                            noticeBoardTitle: document.data()["noticeBoardTitle"] as! String,
-                            noticeBoardDetail: document.data()["noticeBoardDetail"] as! String,
-                            noticeImageLink: document.data()["noticeImageLink"] as! [String],
-                            noticeLocation: document.data()["noticeLocation"] as! [Double],
-                            isChange: document.data()["isChange"] as! Bool,
-                            state: document.data()["state"] as! Int,
+                            id: document.data()["noticeBoardId"] as? String ?? "",
+                            userId: document.data()["userId"] as? String ?? "",
+                            noticeBoardTitle: document.data()["noticeBoardTitle"] as? String ?? "",
+                            noticeBoardDetail: document.data()["noticeBoardDetail"] as? String ?? "",
+                            noticeImageLink: document.data()["noticeImageLink"] as? [String] ?? [],
+                            noticeLocation: document.data()["noticeLocation"] as? [Double] ?? [],
+                            noticeLocationName: document.data()["noticeLocationName"] as? String ?? "",
+                            isChange: document.data()["isChange"] as? Bool ?? false,
+                            state: document.data()["state"] as? Int ?? 0,
                             date: stamp.dateValue(),
                             hopeBook: hopeBooks
                         )
+                                                
                         print(noticeBoard)
                         
                         DispatchQueue.main.async {

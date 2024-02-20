@@ -9,45 +9,77 @@ import Foundation
 import AuthenticationServices
 import FirebaseFirestore
 import FirebaseCore
+import FirebaseAuth
 
-class AppleAuthManager: NSObject, ASAuthorizationControllerDelegate {
-    var isSignedIn = false
-    var currentUser: UserModel?
-
+class AppleAuthManager: NSObject, ASAuthorizationControllerDelegate, ObservableObject {
+    @Published var isSignedIn = false
+    
     // 상태 변경을 알리기 위한 클로저
-    var didChangeSignInStatus: ((Bool, UserModel?) -> Void)?
-
+    var didChangeSignInStatus: ((Bool) -> Void)?
+    
+    // 애플 로그인 시작
+    func startSignInWithAppleFlow() {
+        let request = ASAuthorizationAppleIDProvider().createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let controller = ASAuthorizationController(authorizationRequests: [request])
+        controller.delegate = self
+        controller.performRequests()
+    }
+    
+    //애플로그인 컨트롤
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
-        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            let userIdentifier = appleIDCredential.user
-            let fullName = appleIDCredential.fullName
-            let name = (fullName?.familyName ?? "") + (fullName?.givenName ?? "")
-            let email = appleIDCredential.email
-            let identityToken = String(data: appleIDCredential.identityToken!, encoding: .utf8)
 
-
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential,
+           let appleIDToken = appleIDCredential.identityToken,
+           let idTokenString = String(data: appleIDToken, encoding: .utf8) {
+            
+            // Apple ID 자격증명
+            let credential = OAuthProvider.appleCredential(withIDToken: idTokenString, rawNonce: nil, fullName: appleIDCredential.fullName)
+            
+            //  Firebase에 사용자 인증 요청
+            Auth.auth().signIn(with: credential) { (authResult, error) in
+                
+                if let error = error {
+                    print("Firebase 로그인 실패: \(error.localizedDescription)")
+                    
+                    DispatchQueue.main.async {
+                        self.didChangeSignInStatus?(false)
+                    }
+                    
+                    return
+                }
+                
+                if let user = authResult?.user{
+                    
+                    FirestoreSignUpManager.shared.getUserData(email: user.email ?? "") { userData in
+                        if userData != nil {
+                            // 로그인
+                            UserManager.shared.login(uid: user.uid)
+                        } else {
+                            guard let email = user.email else {return}
+                            // 회원가입
+                            FirestoreSignUpManager.shared.addUser(id: user.uid, email: email, password: nil, nickname: nil, phoneNumber: nil){
+                                UserManager.shared.login(uid: user.uid)
+                            }
+                  
+                        }
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.isSignedIn = true
+                        self.didChangeSignInStatus?(true)
+                    }
+                }
+            }
+        }
+        
+        func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
             DispatchQueue.main.async {
-                let user = UserModel(
-                    id: userIdentifier,
-                    loginId: email,
-                    nickname: name,
-                    fcmToken: identityToken
-//
-//                    identityToken: identityToken,
-//                    authorizationCode: authorizationCode
-                )
-                self.currentUser = user
-                self.isSignedIn = true
-                self.didChangeSignInStatus?(true, user)
-                FirestoreService.shared.saveUserToFirestore(user: user)
+                print("Apple Login Failed: \(error.localizedDescription)")
+                self.didChangeSignInStatus?(false)
             }
         }
     }
-
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        print("Apple Login Failed: \(error.localizedDescription)")
-        DispatchQueue.main.async {
-            self.didChangeSignInStatus?(false, nil)
-        }
-    }
 }
+

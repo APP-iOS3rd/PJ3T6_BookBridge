@@ -109,11 +109,28 @@ struct NoticeBoardTapView: View {
                     case .find:             //TODO: imageLinks 부분 받아오기
                         ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.findNoticeBoards, index: findIndex, isRequests: sortTypes.count == 3 ? true : false)) { element in
                             if element.hopeBook.isEmpty {
-                                HomeListItemView(author: "", bookmark: true, date: element.date, id: element.id, imageLinks: [], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle)
+                                HomeListItemView(
+                                    author: "",
+                                    date: element.date,
+                                    id: element.id,
+                                    imageLinks: [],
+                                    isChange: element.isChange,
+                                    locate: element.noticeLocation,
+                                    title: element.noticeBoardTitle,
+                                    userId: element.userId
+                                )
                             } else {
                                 //TODO: 나중에 썸네일 이미지, 저자 바꾸기
-                                HomeListItemView(author: element.hopeBook[0].volumeInfo.authors?[0] ?? "", bookmark: true, date: element.date, id: element.id, imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle)
-                                
+                                HomeListItemView(
+                                    author: element.hopeBook[0].volumeInfo.authors?[0] ?? "",
+                                    date: element.date,
+                                    id: element.id,
+                                    imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
+                                    isChange: element.isChange,
+                                    locate: element.noticeLocation,
+                                    title: element.noticeBoardTitle,
+                                    userId: element.userId
+                                )
                             }
                         }
                         .padding(.horizontal)
@@ -121,7 +138,16 @@ struct NoticeBoardTapView: View {
                         
                     case .change:
                         ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.changeNoticeBoards, index: changeIndex, isRequests: sortTypes.count == 3 ? true : false)) { element in
-                            HomeListItemView(author: "", bookmark: true, date: element.date, id: element.id, imageLinks: element.noticeImageLink, isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle)
+                            HomeListItemView(
+                                author: "",
+                                date: element.date,
+                                id: element.id,
+                                imageLinks: element.noticeImageLink,
+                                isChange: element.isChange,
+                                locate: element.noticeLocation,
+                                title: element.noticeBoardTitle,
+                                userId: element.userId
+                            )                            
                         }
                         .padding(.horizontal)
                         .padding(.bottom, 10)

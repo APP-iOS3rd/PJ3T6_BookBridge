@@ -20,8 +20,7 @@ struct AddBookBtnView: View {
                 
                 Button(
                     action: {
-                        showingSheet = true
-                            
+                        showingSheet = true                            
                     },
                     label: {
                         Image(systemName: "plus.circle.fill")

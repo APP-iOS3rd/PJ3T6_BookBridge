@@ -19,8 +19,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakao</string>
-				<string>3faeb18730ff6edf468b5e43fc5fea19</string>
+				<string>kakao3faeb18730ff6edf468b5e43fc5fea19</string>
 			</array>
 		</dict>
 		<dict>
@@ -36,6 +35,8 @@
 	</array>
 	<key>GIDClientID</key>
 	<string>301482998840-1vmnt9ul95saa58vhg4sn873rsir7mgt.apps.googleusercontent.com</string>
+	<key>KakaoAppKey</key>
+	<string>$(KakaoAppKey)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>naversearchapp</string>

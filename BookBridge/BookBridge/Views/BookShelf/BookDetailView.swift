@@ -7,8 +7,11 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct BookDetailView: View {
     @EnvironmentObject var viewModel: BookShelfViewModel
+    @Binding var selectedPicker: tapInfo
     
     var book: Item
     var body: some View {
@@ -43,7 +46,7 @@ struct BookDetailView: View {
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundColor(Color(hex: "999999"))
                 
-                WishBookAddBtnView(book: book)
+                WishBookAddBtnView(selectedPicker: $selectedPicker, book: book)
                     .environmentObject(viewModel)
                     
                 
@@ -81,7 +84,7 @@ struct BookDetailView: View {
                                 .frame(width: 30)
                             
                             VStack(alignment: .leading, spacing: 15){
-                                Text(isbnString(volumeInfo: book.volumeInfo))
+                                Text("\(book.volumeInfo.industryIdentifiers?[0].identifier ?? "정보 없음")")
                                     .font(.system(size: 15, weight: .semibold))
                                     .foregroundColor(Color(hex: "9A9A9A"))
                                 Text("\(book.volumeInfo.categories?.first ?? "정보 없음")")
@@ -112,24 +115,12 @@ struct BookDetailView: View {
                     }
                     .padding(.vertical,20)
                     .padding(.horizontal, 40)
-                    
-                    
-                    
+                                                            
                 }
                 
             }
         }
     }
     
-    func isbnString(volumeInfo: VolumeInfo) -> String {
-        if let identifiers = volumeInfo.industryIdentifiers {
-            let identifierStrings = identifiers.map { $0.identifier ?? "" }
-            return identifierStrings.joined(separator: ", ")
-        }
-        return "No ISBN"
-    }
+
 }
-
-
-
-
