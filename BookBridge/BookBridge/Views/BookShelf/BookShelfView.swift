@@ -25,6 +25,7 @@ struct BookShelfView: View {
     @State private var isOwnShelf: Bool = true
     var isBack : Bool?
     var userId : String?
+    let pickerItems : [tapInfo] = [.wish, .hold]
     
     
     
@@ -92,15 +93,15 @@ struct BookShelfView: View {
                             }
                         }
                         
-
+                        
                         
                     }
                 }
                 .padding(.top,8)
                 
                 Picker("선택", selection: $selectedPicker) {
-                    ForEach(tapInfo.allCases, id: \.self) {
-                        Text($0.rawValue)
+                    ForEach(pickerItems, id: \.self) { item in
+                        Text(item.rawValue)
                     }
                 }
                 .pickerStyle(.segmented)
