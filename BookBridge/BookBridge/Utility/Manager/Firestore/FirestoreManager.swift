@@ -14,9 +14,9 @@ class FirestoreManager {
     static let locationManager = LocationManager.shared
     
     // MARK: - Location 불러오기(fetch)
-        static func fetchUserLocation(completion: @escaping ([Location]?) -> Void) {
+    static func fetchUserLocation(uid: String, completion: @escaping ([Location]?) -> Void) {
             // 사용자의 uid를 이용하여 해당 사용자의 문서를 가져옵니다.
-            let userDocRef = db.collection("User").document(UserManager.shared.uid)
+            let userDocRef = db.collection("User").document(uid)
 
             // 문서를 가져옵니다.
             userDocRef.getDocument { document, error in
@@ -54,9 +54,9 @@ class FirestoreManager {
         }
     
     // MARK: - User 불러오기(fetch)
-    static func fetchUserModel(completion: @escaping (UserModel?) -> Void) {
+    static func fetchUserModel(uid: String, completion: @escaping (UserModel?) -> Void) {
         // 사용자의 uid를 이용하여 해당 사용자의 문서를 가져옵니다.
-        let userDocRef = db.collection("User").document(UserManager.shared.uid)
+        let userDocRef = db.collection("User").document(uid)
 
         // 문서를 가져옵니다.
         userDocRef.getDocument { document, error in
@@ -65,29 +65,23 @@ class FirestoreManager {
                 completion(nil)
                 return
             }
-
-            // 문서가 존재하는 경우
-            if let document = document, document.exists {
-                // 문서 데이터를 UserModel로 변환합니다.
-                if let userData = document.data() {
-                    do {
-                        // JSON 데이터로 변환합니다.
-                        let jsonData = try JSONSerialization.data(withJSONObject: userData, options: [])
-                        
-                        // JSON 데이터를 사용하여 UserModel을 디코딩합니다.
-                        let userModel = try JSONDecoder().decode(UserModel.self, from: jsonData)
-                        completion(userModel)
-                    } catch {
-                        print("Error decoding UserModel: \(error)")
-                        completion(nil)
-                    }
-                } else {
-                    print("Error converting document data to UserModel")
-                    completion(nil)
-                }
-            } else {
-                print("User document not found")
-                completion(nil)
+            
+            guard let stamp = document?.data()?["joinDate"] as? Timestamp else { return }
+            
+            fetchUserLocation(uid: uid) { locations in
+                let User = UserModel(
+                    id: document?.data()?["id"] as? String ?? "",
+                    email: document?.data()?["email"] as? String ?? "",
+                    loginId: document?.data()?["loginId"] as? String ?? "",
+                    passsword: document?.data()?["passsword"] as? String ?? "",
+                    nickname: document?.data()?["nickname"] as? String ?? "",
+                    phoneNumber: document?.data()?["phoneNumber"] as? String ?? "",
+                    joinDate: stamp.dateValue(),
+                    fcmToken: document?.data()?["fcmToken"] as? String ?? "",
+                    location: locations
+                )
+                
+                completion(User)
             }
         }
     }
@@ -128,28 +122,7 @@ class FirestoreManager {
         }
         return locations
     }
-                    
-
-    
-// MARK: - 수정(update)
-            
-    static func saveLocationDistance(id: String, locations: [Location], circleRadius: Int) {
-        var targetLocations = locations
-        
-        // index 찾기
-        guard let index = getIndexWithId(value: locations, id: id) else { return }
-        
-        // 변경된 distance값 가져오기
-        let targetDistance = ConvertManager.changeKilometerToDistance(value: Int(circleRadius))
-        
-        // 변경된 값 저장하기
-        if index < locations.count && (locations[index].distance != targetDistance) {
-            targetLocations[index].distance = targetDistance
-            
-            saveLocations(locations: targetLocations)
-        }
-    }
-    
+                                    
 // MARK: - 저장(save)
     
     static func saveLocations(locations: [Location]) {
@@ -172,47 +145,24 @@ class FirestoreManager {
     static func saveSelectedLocation() {
         
     }
-        
-// MARK: - 위치변경
-    
-    static func changeLocationOrder(locations: [Location], location: Location) {
-        var targetLocations = locations
-        
-        // index값 가져오기
-        guard let index = getIndexWithId(value: targetLocations, id: location.id ?? "") 
-            else { return }
-        
-        // 해당 index의 값 지우기
-        targetLocations.remove(at: index)
-        
-        // location을 locations의 맨 앞에 넣기
-        targetLocations.insert(location, at: 0)
-        
-        // targetlocations를 Firestore에 save
-        saveLocations(locations: targetLocations)
-    }
-    
-    
+                
 // MARK: - 기타
     
     // Location 생성
     static func makeLocationByCurLocation() -> Location {
-        return Location(id: UUID().uuidString, lat: locationManager.lat, long: locationManager.long, city: locationManager.city, distriction: locationManager.distriction, dong: locationManager.dong, distance: 1)
+        return Location(
+            id: UUID().uuidString,
+            lat: locationManager.lat,
+            long: locationManager.long,
+            city: locationManager.city,
+            distriction: locationManager.distriction,
+            dong: locationManager.dong, distance: 1
+        )
     }
     
     // User documnet 가져오기
     static func getUserDoc(id: String) -> DocumentReference  {
         return db.collection("User").document(id)
     }
-    
-    // Location index 탐색
-    static func getIndexWithId(value: [Location]?, id: String) -> Int? {
-        guard let index = value?.firstIndex(where: {$0.id == id}) else {
-            print("선택한 Location을 찾을 수 없습니다.")
-            return nil
-        }
-        
-        return index
-    }
-    
+            
 }

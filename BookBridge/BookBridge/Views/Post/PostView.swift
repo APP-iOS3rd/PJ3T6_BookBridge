@@ -162,7 +162,9 @@ struct PostView: View {
                                 .fontWeight(.bold)
                             Spacer()
                             
-                            NavigationLink(destination: BookShelfView(userId: postViewModel.user.id, initialTapInfo: .hold)) {
+                            NavigationLink(destination: BookShelfView(userId: postViewModel.user.id, initialTapInfo: .hold, isBack: true)
+                                .navigationBarBackButtonHidden()
+                            ) {
                                 Text("더보기")
                                     .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
                             }
@@ -184,10 +186,11 @@ struct PostView: View {
                                 .font(.system(size: 20))
                                 .fontWeight(.bold)
                             Spacer()
-                            NavigationLink(destination: BookShelfView(userId: postViewModel.user.id,initialTapInfo: .wish)) {
-                                Text("더보기")
-                                    .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
-                            }
+                            NavigationLink(destination: BookShelfView(userId: postViewModel.user.id,initialTapInfo: .wish,isBack: true)
+                                .navigationBarBackButtonHidden()) {
+                                    Text("더보기")
+                                        .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
+                                }
                         }
                         .padding(.horizontal)
                         
@@ -230,8 +233,14 @@ struct PostView: View {
                                         .font(.system(size: 14))
                                         .padding(1)
                                 }
-                                Divider()
+                                isPresented.toggle()
+                            } label: {
+                                Text( postViewModel.bookMarks.contains(noticeBoard.id) ? "관심목록 삭제" : "관심목록 추가")
+                                    .font(.system(size: 14))
                                     .padding(1)
+                            }
+                            Divider()
+                                .padding(1)
                                 NavigationLink {
                                     EmptyView()
                                 } label: {

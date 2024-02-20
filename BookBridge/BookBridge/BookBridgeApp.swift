@@ -16,7 +16,10 @@ struct BookBridgeApp: App {
             
     init() {
         // Kakao SDK 초기화
-        KakaoSDK.initSDK(appKey: "3faeb18730ff6edf468b5e43fc5fea19")
+        if let kakaoAppKey = Bundle.main.object(forInfoDictionaryKey: "KakaoAppKey") as? String {
+            KakaoSDK.initSDK(appKey: kakaoAppKey)
+        }
+
         
         // Naver SDK 초기화
         NaverThirdPartyLoginConnection.getSharedInstance()?.isInAppOauthEnable = true
@@ -28,9 +31,10 @@ struct BookBridgeApp: App {
     }
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
-        
+    @StateObject private var pathModel = PathViewModel()
+    
     var body: some Scene {
-        WindowGroup {
+        WindowGroup {            
             TabBarView(userId: UserManager.shared.uid)
                 .onOpenURL { url in // 뷰가 속한 Window에 대한 URL을 받았을 때 호출할 Handler를 등록하는 함수
                     if AuthApi.isKakaoTalkLoginUrl(url) {

@@ -58,14 +58,11 @@ struct EmailCertiView: View {
             .padding()
                                             
         }
-        
         .navigationBarTitle("회원가입", displayMode: .inline)
         .navigationBarItems(leading: CustomBackButtonView())
-        
     }
-    
 }
 
-#Preview {
-    EmailCertiView(signUpVM: SignUpViewModel())
-}
+//#Preview {
+//    EmailCertiView(signUpVM: SignUpViewModel())
+//}

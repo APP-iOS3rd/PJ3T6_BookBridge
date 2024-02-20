@@ -43,20 +43,14 @@ class FirestoreSignUpManager {
         return locationData as [String : Any]
     }
                 
-    func addUser(
-        id: String,
-        email: String,
-        password: String?,
-        nickname: String?,
-        phoneNumber: String?
-    ) {
+    func addUser(id: String,email: String, password: String?, nickname: String?, phoneNumber: String?, completion: @escaping () -> ()) {
         let user = UserModel(
             id: id,
             email: email,
             passsword: password,
             nickname: nickname,
             phoneNumber: phoneNumber,
-            joinDate: Date()            
+            joinDate: Date()
         )
         let userData = convertUserModelToDictionary(user: user)
               
@@ -65,11 +59,15 @@ class FirestoreSignUpManager {
                 print(err.localizedDescription)
             } else {
                 print("User has been saved!")
+                self.addUserLocation(userId: id) {
+                    print("회원가입에 성공하였습니다!")
+                    completion()
+                }
             }
         }
     }
-                   
-    func addUserLocation(userId: String) {
+                                                                
+    func addUserLocation(userId: String, completion: @escaping () -> ()) {
         let document = db.collection("User").document(userId).collection("Location").document()
         let documentId = document.documentID
         let location = Location (
@@ -94,6 +92,7 @@ class FirestoreSignUpManager {
                         print("Error adding location: \(err)")
                     } else {
                         print("Location added successfully")
+                        completion()
                     }
                 }
             } else {
@@ -108,10 +107,9 @@ class FirestoreSignUpManager {
                 print(error.localizedDescription)
             } else {
                 guard let user = result?.user else { return }
-                self.addUser(id: user.uid, email: email, password: password, nickname: nickname, phoneNumber: phoneNumber)
-                self.addUserLocation(userId: user.uid)
-                
-                completion()
+                self.addUser(id: user.uid, email: email, password: password, nickname: nickname, phoneNumber: phoneNumber) {
+                    completion()
+                }                                                
             }
         }
     }

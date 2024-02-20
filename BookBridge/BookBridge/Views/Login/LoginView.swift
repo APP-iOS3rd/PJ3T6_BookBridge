@@ -11,9 +11,9 @@ struct LoginView: View {
     @StateObject private var pathModel = PathViewModel()
     @StateObject var signUpVM = SignUpViewModel()
     @Binding var showingLoginView: Bool
+    
     var body: some View {
         NavigationStack(path: $pathModel.paths){
-            
             VStack{
                 Image("Character")
                 VStack(alignment: .leading,spacing : 10){
@@ -43,7 +43,7 @@ struct LoginView: View {
                 .frame(width: 353, height: 50) // 여기에 프레임을 설정
                 .background(Color(hex: "59AAE0"))
                 .cornerRadius(10)
-      
+                
                 
                 Spacer()
                     .frame(height: 20)
@@ -84,30 +84,28 @@ struct LoginView: View {
                     Rectangle()
                         .frame(width: 100, height: 1)
                         .foregroundColor(Color(hex:"A7A7A7"))
-
+                    
                     Text("SNS 계정으로")
                         .font(.system(size: 12))
                         .foregroundColor(Color(hex:"A7A7A7"))
                         .padding(.horizontal, 10)
-
+                    
                     // 오른쪽 가로 Divider
                     Rectangle()
-                        .frame(width: 100, height: 1) 
+                        .frame(width: 100, height: 1)
                         .foregroundColor(Color(hex:"A7A7A7"))
                 }
-
-
-
+                
+                                
                 HStack(spacing: 20){
                     NaverLoginView()
                     GoogleLoginView()
                     KakaoLoginView(showingLoginView: $showingLoginView)
-                    AppleLoginView()
+                    AppleLoginView(showingLoginView: $showingLoginView)
                 }
+                
                 Spacer()
                     .frame(height: 50)
-                
-                
                 
             }
             .padding(20)
@@ -136,14 +134,10 @@ struct LoginView: View {
                         .navigationBarBackButtonHidden()
                 }
             }
-            
+            // .environmentObject(pathModel)
         }
         .environmentObject(pathModel)
-        
-        
-        
     }
-        
 }
 
 //#Preview {
