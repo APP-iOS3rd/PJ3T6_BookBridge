@@ -15,16 +15,16 @@ import NaverThirdPartyLogin
 struct BookBridgeApp: App {
             
     init() {
-        // Kakao SDK 초기화
+        //Kakao SDK 초기화
         if let kakaoAppKey = Bundle.main.KakaoAppKey {
             KakaoSDK.initSDK(appKey: kakaoAppKey)
         } else {
             print("kakaoAppKey를 찾을 수 없습니다.")
         }
-
         
-        // Naver SDK 초기화
-        NaverThirdPartyLoginConnection.getSharedInstance()?.isInAppOauthEnable = true
+        //Naver SDK 초기화
+        NaverThirdPartyLoginConnection.getSharedInstance().isNaverAppOauthEnable = true // NaverApp 사용 로그인
+        NaverThirdPartyLoginConnection.getSharedInstance()?.isInAppOauthEnable = true // 사파리 사용 로그인
         
         NaverThirdPartyLoginConnection.getSharedInstance().serviceUrlScheme = kServiceAppUrlScheme
         NaverThirdPartyLoginConnection.getSharedInstance().consumerKey = kConsumerKey

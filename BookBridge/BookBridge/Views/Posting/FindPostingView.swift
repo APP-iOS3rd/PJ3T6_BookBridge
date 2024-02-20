@@ -89,7 +89,7 @@ struct FindPostingView: View {
                         .bold()
                     
                     //EmptyView에 지훈님이 만든 네이버 맵 화면
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink(destination: ExchangeHopeView(viewModel: viewModel)) {
                         HStack {
                             Text(viewModel.noticeBoard.noticeLocationName)
                                 .foregroundColor(.black)

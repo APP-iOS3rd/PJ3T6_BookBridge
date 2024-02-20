@@ -222,25 +222,49 @@ struct PostView: View {
                     Spacer()
                     VStack {
                         if isPresented {
-                            Button {
-                                if UserManager.shared.isLogin {
-                                    postViewModel.bookMarkToggle(id: noticeBoard.id)
+                            if UserManager.shared.uid != noticeBoard.userId {
+                                Button {
+                                    if UserManager.shared.isLogin {
+                                        postViewModel.bookMarkToggle(id: noticeBoard.id)
+                                    }
+                                    isPresented.toggle()
+                                } label: {
+                                    Text( postViewModel.bookMarks.contains(noticeBoard.id) ? "관심목록 삭제" : "관심목록 추가")
+                                        .font(.system(size: 14))
+                                        .padding(1)
                                 }
-                                isPresented.toggle()
-                            } label: {
-                                Text( postViewModel.bookMarks.contains(noticeBoard.id) ? "관심목록 삭제" : "관심목록 추가")
-                                    .font(.system(size: 14))
-                                    .padding(1)
-                            }
                             Divider()
                                 .padding(1)
-                            NavigationLink {
-                                EmptyView()
-                            } label: {
-                                Text("신고하기")
-                                    .font(.system(size: 14))
-                                    .foregroundStyle(Color.red)
+                                NavigationLink {
+                                    EmptyView()
+                                } label: {
+                                    Text("신고하기")
+                                        .font(.system(size: 14))
+                                        .foregroundStyle(Color.red)
+                                        .padding(1)
+                                }
+                            } else {
+                                NavigationLink {
+                                    if noticeBoard.isChange {
+                                        ChangePostingModifyView(noticeBoard: $noticeBoard)
+                                    } else {
+                                        FindPostingModifyView(noticeBoard: $noticeBoard)
+                                    }
+                                } label: {
+                                    Text("수정하기")
+                                        .font(.system(size: 14))
+                                        .padding(1)
+                                }
+                                Divider()
                                     .padding(1)
+                                Button {
+                                    
+                                } label: {
+                                    Text("삭제하기")
+                                        .font(.system(size: 14))
+                                        .foregroundStyle(Color.red)
+                                        .padding(1)
+                                }
                             }
                         }
                     }
@@ -255,14 +279,34 @@ struct PostView: View {
             }
             VStack {
                 Spacer()
-                Button {
-                } label: {
-                    Text("채팅하기")
-                        .foregroundStyle(Color.white)
-                        .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
-                        .background(Color(hex: "59AAE0"))
-                        .padding(1)
-                    //패딩이 없으면 아래를 다 채워버림
+                if UserManager.shared.uid == noticeBoard.userId {
+                    Button {
+                        
+                    } label: {
+                        Text("대화중인 채팅방 \(postViewModel.chatRoomList.count)")
+                            .foregroundStyle(Color.white)
+                            .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
+                            .background(Color(hex: "59AAE0"))
+                            .padding(1)
+                    }
+                } else {
+                    Button {
+                        
+                    } label: {
+                        if postViewModel.chatRoomList.isEmpty {
+                            Text("채팅하기")
+                                .foregroundStyle(Color.white)
+                                .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
+                                .background(Color(hex: "59AAE0"))
+                                .padding(1)
+                        } else {
+                            Text("예약중")
+                                .foregroundStyle(Color.white)
+                                .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
+                                .background(Color(hex: "59AAE0"))
+                                .padding(1)
+                        }
+                    }
                 }
             }
             .frame(alignment: Alignment.bottom)
@@ -283,6 +327,7 @@ struct PostView: View {
                 postViewModel.gettingUserInfo(userId: noticeBoard.userId)
                 postViewModel.gettingUserBookShelf(userId: noticeBoard.userId, collection: "holdBooks")
                 postViewModel.gettingUserBookShelf(userId: noticeBoard.userId, collection: "wishBooks")
+                postViewModel.fetchChatList(noticeBoardId: noticeBoard.id)
                 if UserManager.shared.isLogin {
                     postViewModel.fetchBookMark()
                 }
@@ -345,7 +390,7 @@ struct PostMapView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
-        _ = NMGLatLng(lat: lat, lng: lng)
+        //        _ = NMGLatLng(lat: lat, lng: lng)
         //        _ = NMFCameraUpdate(scrollTo: newMyCoord)
     }
 }
