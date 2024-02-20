@@ -2,7 +2,7 @@
 //  CameraModalView.swift
 //  BookBridge
 //
-//  Created by jmyeong on 2/2/24.
+//  Created by 이현호 on 2/2/24.
 //
 
 import SwiftUI

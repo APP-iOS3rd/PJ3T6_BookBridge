@@ -96,18 +96,16 @@ struct LoginView: View {
                         .foregroundColor(Color(hex:"A7A7A7"))
                 }
                 
-                
-                
+                                
                 HStack(spacing: 20){
                     NaverLoginView()
                     GoogleLoginView()
                     KakaoLoginView(showingLoginView: $showingLoginView)
                     AppleLoginView(showingLoginView: $showingLoginView)
                 }
+                
                 Spacer()
                     .frame(height: 50)
-                
-                
                 
             }
             .padding(20)
@@ -135,17 +133,13 @@ struct LoginView: View {
                     EmailSignUpView(signUpVM: signUpVM)
                         .navigationBarBackButtonHidden()
                 }
-                
             }
-            .environmentObject(pathModel)
-            
-            
-            
+            // .environmentObject(pathModel)
         }
-        
+        .environmentObject(pathModel)
     }
-    
-    //#Preview {
-    //    LoginView()
-    //}
 }
+
+//#Preview {
+//    LoginView()
+//}

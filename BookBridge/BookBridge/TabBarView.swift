@@ -17,7 +17,7 @@ struct TabBarView: View {
     @State private var showingLoginView = false
     @State private var selectedTab = 0
     @State private var shouldShowActionSheet = false
-    
+                   
     var body: some View {
         TabView(selection: $selectedTab) {
             // 홈
@@ -25,22 +25,19 @@ struct TabBarView: View {
                 HomeView()
             }
             .tabItem {
-                Image(systemName: "house.fill")
-                Text("Home")
+                Image(systemName: "house")
             }
             .tag(0)
             
             
             // 채팅
             NavigationStack{
-                EmptyView()
+                ChatRoomListView(uid: "joo")
             }
             .tabItem {
-                Image(systemName: "message.fill")
-                Text("Chat")
+                Image(systemName: "message")
             }
             .tag(1)
-            
             
             
             
@@ -63,7 +60,7 @@ struct TabBarView: View {
             }
             .environmentObject(pathModel)
             .tabItem {
-                Image(systemName: "plus.circle.fill")
+                Image(systemName: "plus.circle")
                     .font(.system(size: 40)) // 플러스 버튼은 크게 표시합니다.
             }
             .tag(2)
@@ -79,14 +76,16 @@ struct TabBarView: View {
                         selectedTab = 0
                     }
                 )
-                
             }
-            
+
             
             // 책장
             NavigationStack{
                 if userManager.isLogin {
-                    BookShelfView(userId : UserManager.shared.uid,initialTapInfo: .wish, isBack: false)
+
+
+                    BookShelfView(userId : userManager.uid,initialTapInfo: .wish, isBack: false)
+
                 }
                 else {
                     BookShelfView(userId: nil,initialTapInfo: .wish, isBack: false)
@@ -96,8 +95,7 @@ struct TabBarView: View {
                 }
             }
             .tabItem {
-                Image(systemName: "book.fill")
-                Text("내 책장")
+                Image(systemName: "books.vertical")
             }
             .tag(3)
             .alert(isPresented: $showingLoginAlert) {
@@ -114,25 +112,22 @@ struct TabBarView: View {
                 )
             }
             
-            
-            
-            
-            
+                                                
             //마이페이지
             NavigationStack{
                 EmptyView()
             }
             .tabItem {
-                Image(systemName: "person.fill")
-                Text("My Page")
+                Image(systemName: "person.circle")
             }
             .tag(4)
-            
-            
-            
+        
         }
+        .tint(Color(hex:"59AAE0"))
         .sheet(isPresented: $showingLoginView, onDismiss: {
-            if UserManager.shared.isLogin {                
+                
+
+            if userManager.isLogin {
                 showingLoginAlert = false
                 if selectedTab == 2 {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -166,7 +161,6 @@ struct TabBarView: View {
                 showingLoginAlert = (newTab == 2 || newTab == 3)
             }
         }
-        
     }
     
     func find() {
@@ -178,7 +172,6 @@ struct TabBarView: View {
     
     
 }
-
 
 //#Preview {
 //    TabBarView()

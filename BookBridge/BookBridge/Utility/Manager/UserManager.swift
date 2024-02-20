@@ -47,6 +47,7 @@ class UserManager: ObservableObject {
         self.user = nil
         self.currentUser = nil
         try? Auth.auth().signOut()
+        NaverAuthManager.shared.doNaverLogout()
         print("사용자가 logout하였습니다.")
     }
     

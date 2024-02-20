@@ -19,6 +19,7 @@ struct HomeView: View {
     @Namespace private var animation
         
     var body: some View {
+        
         VStack {
             HStack {
                 Button {
@@ -58,8 +59,7 @@ struct HomeView: View {
             HomeTapView(viewModel: viewModel, tapCategory: selectedPicker)
         }
         .onAppear {
-            viewModel.gettingFindNoticeBoards()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 viewModel.updateNoticeBoards()
             }
         }
@@ -68,10 +68,11 @@ struct HomeView: View {
         }
         .navigationDestination(isPresented: $showingTownSettingView) {
               TownSettingView()
+                .toolbar(.hidden, for: .tabBar)
         }
         .onChange(of: userManager.isLogin) { _ in
             print("로그인 변동 감지")
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 viewModel.updateNoticeBoards()
             }
         }

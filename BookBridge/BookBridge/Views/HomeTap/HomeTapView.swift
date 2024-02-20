@@ -19,7 +19,7 @@ struct HomeTapView: View {
     var tapCategory: TapCategory
     
     var body: some View {
-        ZStack{
+        ZStack {
             ScrollView(.vertical, showsIndicators: false) {
                 HStack {
                     HStack{
@@ -46,7 +46,6 @@ struct HomeTapView: View {
                                 isInsideXmark = true
                                 isOutsideXmark = true
                             }
-                            
                         }
                         
                         if isInsideXmark {
@@ -75,14 +74,10 @@ struct HomeTapView: View {
                             if isInsideXmark == false{
                                 isOutsideXmark = false
                             }
-                            
                         } label: {
                             Image(systemName: "xmark")
                                 .foregroundStyle(.black)
                         }
-                        
-                        
-                        
                     }
                     
                 }
@@ -144,7 +139,6 @@ struct HomeTapView: View {
                             showRecentSearchView = false
                         }
                 }
-                                    
                 
                 switch tapCategory {
                 case .find:             //TODO: imageLinks 부분 받아오기
@@ -191,10 +185,5 @@ struct HomeTapView: View {
         .onAppear {
             viewModel.fetchBookMark(user: "joo")
         }
-//        .onChange(of: locationManager.dong) { _ in
-//            Task {
-//                viewModel.changeNoticeBoards = await GeohashManager.geoQuery(lat: LocationManager.shared.lat, long: LocationManager.shared.long, distance: 1)
-//            }            
-//        }
     }
 }

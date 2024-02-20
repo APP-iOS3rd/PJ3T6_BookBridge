@@ -75,6 +75,7 @@ struct TownSettingView: View {
                 userLocationViewModel.setLocations(locations: locations)
             }
         }
+        
     }
 }
 
