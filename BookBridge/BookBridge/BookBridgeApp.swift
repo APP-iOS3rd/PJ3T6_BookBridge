@@ -16,9 +16,12 @@ struct BookBridgeApp: App {
             
     init() {
         // Kakao SDK 초기화
-        if let kakaoAppKey = Bundle.main.object(forInfoDictionaryKey: "KakaoAppKey") as? String {
-            KakaoSDK.initSDK(appKey: kakaoAppKey)
-        }
+        if let kakaoAppKey = Bundle.main.KakaoappKey as? String {
+                KakaoSDK.initSDK(appKey: kakaoAppKey)
+                print("Kakao App Key: \(kakaoAppKey)")
+            } else {
+                print("Error: KakaoAppKey not found in Info.plist")
+            }
 
         
         // Naver SDK 초기화
@@ -43,6 +46,7 @@ struct BookBridgeApp: App {
                 .onAppear() {
                     LocationViewModel.shared.checkIfLocationServiceIsEnabled()
                     NaverMapApiManager.getNaverApiInfo()
+                    
                 }
         }
     }

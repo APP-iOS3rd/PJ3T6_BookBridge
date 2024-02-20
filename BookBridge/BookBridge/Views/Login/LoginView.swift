@@ -13,7 +13,7 @@ struct LoginView: View {
     @Binding var showingLoginView: Bool
     
     var body: some View {
-        NavigationStack(path: $pathModel.paths){            
+        NavigationStack(path: $pathModel.paths){
             VStack{
                 Image("Character")
                 VStack(alignment: .leading,spacing : 10){

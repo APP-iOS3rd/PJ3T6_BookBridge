@@ -17,6 +17,6 @@ extension Bundle {
     }
     
     var KakaoappKey : String? {
-        return infoDictionary?["KakaoappKey"] as? String
+        return infoDictionary?["KakaoAppKey"] as? String
     }
 }

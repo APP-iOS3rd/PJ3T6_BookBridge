@@ -11,6 +11,7 @@ struct TabBarView: View {
     let userId : String?
     
     @StateObject private var pathModel = PostPathViewModel()
+    @StateObject var postingviewModel = PostingViewModel()
     @State private var isLogin = UserManager.shared.isLogin
     @State private var showingLoginAlert = false
     @State private var showingLoginView = false
@@ -45,23 +46,20 @@ struct TabBarView: View {
             
             // 게시글 작성
             NavigationStack(path: $pathModel.paths){
-                EmptyView()
+                HomeView()
                     .navigationDestination(for: PostPathType.self){ pathType in
                         switch pathType {
                         case .findPosting:
-                            ChangePostingView()
+                            ChangePostingView(selectedTab: $selectedTab)
                                 .toolbar(.hidden, for: .tabBar)
                                 .navigationBarBackButtonHidden()
-                                .onDisappear{
-                                    selectedTab = 0
-                                }
                         case .changePosting:
-                            FindPostingView()
+                            FindPostingView(selectedTab: $selectedTab)
                                 .toolbar(.hidden, for: .tabBar)
                                 .navigationBarBackButtonHidden()
-                                .onDisappear{
-                                    selectedTab = 0
-                                }
+                        case .exchangehope:
+                            ExchangeHopeView(viewModel: postingviewModel)
+                            
                         }
                         
                     }
@@ -85,9 +83,6 @@ struct TabBarView: View {
                     }
                 )
                 
-            }
-            .onChange(of : showingLoginAlert){ _ in
-                print("showingLoginAlert \(showingLoginAlert)")
             }
             
             
