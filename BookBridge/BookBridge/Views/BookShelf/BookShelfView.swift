@@ -44,6 +44,8 @@ struct BookShelfView: View {
             return "희망도서 이름을 검색해 주세요"
         case .hold:
             return "보유도서 이름을 검색해 주세요"
+        case .search:
+            return "희망도서 이름을 검색해 주세요"
         }
     }
     

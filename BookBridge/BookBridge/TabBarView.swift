@@ -11,6 +11,7 @@ struct TabBarView: View {
     let userId : String?
     
     @StateObject private var pathModel = PostPathViewModel()
+    @StateObject var postingviewModel = PostingViewModel()
     @StateObject private var userManager = UserManager.shared
     @State private var showingLoginAlert = false
     @State private var showingLoginView = false
@@ -42,23 +43,17 @@ struct TabBarView: View {
             
             // 게시글 작성
             NavigationStack(path: $pathModel.paths){
-                EmptyView()
+                HomeView()
                     .navigationDestination(for: PostPathType.self){ pathType in
                         switch pathType {
                         case .findPosting:
-                            ChangePostingView()
+                            ChangePostingView(selectedTab: $selectedTab)
                                 .toolbar(.hidden, for: .tabBar)
                                 .navigationBarBackButtonHidden()
-                                .onDisappear{
-                                    selectedTab = 0
-                                }
                         case .changePosting:
-                            FindPostingView()
+                            FindPostingView(selectedTab: $selectedTab)
                                 .toolbar(.hidden, for: .tabBar)
-                                .navigationBarBackButtonHidden()
-                                .onDisappear{
-                                    selectedTab = 0
-                                }
+                                .navigationBarBackButtonHidden()                            
                         }
                         
                     }
@@ -82,15 +77,15 @@ struct TabBarView: View {
                     }
                 )
             }
-            .onChange(of : showingLoginAlert){ _ in
-                print("showingLoginAlert: \(showingLoginAlert)")
-            }
-                        
+
             
             // 책장
             NavigationStack{
                 if userManager.isLogin {
+
+
                     BookShelfView(userId : userManager.uid,initialTapInfo: .wish, isBack: false)
+
                 }
                 else {
                     BookShelfView(userId: nil,initialTapInfo: .wish, isBack: false)
@@ -130,6 +125,8 @@ struct TabBarView: View {
         }
         .tint(Color(hex:"59AAE0"))
         .sheet(isPresented: $showingLoginView, onDismiss: {
+                
+
             if userManager.isLogin {
                 showingLoginAlert = false
                 if selectedTab == 2 {

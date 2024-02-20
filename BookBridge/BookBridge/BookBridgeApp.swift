@@ -15,6 +15,7 @@ import NaverThirdPartyLogin
 struct BookBridgeApp: App {
             
     init() {
+
         //Kakao SDK 초기화
         if let kakaoAppKey = Bundle.main.KakaoAppKey {
             KakaoSDK.initSDK(appKey: kakaoAppKey)
@@ -36,7 +37,7 @@ struct BookBridgeApp: App {
     @StateObject private var pathModel = PathViewModel()
     
     var body: some Scene {
-        WindowGroup {            
+        WindowGroup {
             TabBarView(userId: UserManager.shared.uid)
                 .onOpenURL { url in // 뷰가 속한 Window에 대한 URL을 받았을 때 호출할 Handler를 등록하는 함수
                     if AuthApi.isKakaoTalkLoginUrl(url) {
@@ -46,6 +47,7 @@ struct BookBridgeApp: App {
                 .onAppear() {
                     LocationViewModel.shared.checkIfLocationServiceIsEnabled()
                     NaverMapApiManager.getNaverApiInfo()
+                    
                 }
         }
     }
