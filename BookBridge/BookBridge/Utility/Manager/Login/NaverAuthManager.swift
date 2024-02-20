@@ -76,8 +76,39 @@ extension NaverAuthManager {
             guard let birthday = object["birthday"] as? String else { return }
              */
             
-            self?.emailAuthSignUp(email: email, userName: nickname, password: id) {
-                self?.emailAuthSignIn(email: email, password: id)
+//            self?.emailAuthSignUp(email: email, userName: nickname, password: id) {
+//                self?.emailAuthSignIn(email: email, password: id)
+//                
+//            }
+            self?.emailAuthSignIn(email: email, password: id) { success in
+                if success {
+                    // 로그인 성공
+                    FirestoreSignUpManager.shared.getUserData(email: email) { userData in
+                        if let userData = userData, let uid = userData["id"] as? String {
+                            // 사용자 정보 처리
+                                                        
+                            UserManager.shared.login(uid: uid)
+                            
+                        } else {
+                            // 사용자 데이터를 찾을 수 없음. 필요한 경우 오류 처리
+                            print("ERROR")
+                        }
+                    }
+                } else {
+                    // 로그인 실패, 새 사용자 등록
+                    FirestoreSignUpManager.shared.register(email: email, password: id, nickname: nickname) {
+                        FirestoreSignUpManager.shared.getUserData(email: email) { userData in
+                            if let userData = userData, let uid = userData["id"] as? String {
+                                // 사용자 정보 처리
+                                UserManager.shared.login(uid: uid)
+                                
+                            } else {
+                                // 사용자 데이터를 찾을 수 없음. 필요한 경우 오류 처리
+                                print("ERROR")
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -94,21 +125,26 @@ extension NaverAuthManager {
             if result != nil {
                 let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
                 changeRequest?.displayName = userName
+                print("사용자 이메일: \(String(describing: result?.user.email))")
             }
             
             completion?()
         }
     }
-    func emailAuthSignIn(email: String, password: String) {
+    
+    func emailAuthSignIn(email: String, password: String, completion: @escaping (Bool) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if let error = error {
-                print("error: \(error.localizedDescription)")
-                
+                print("Login error: \(error.localizedDescription)")
+                completion(false)
                 return
             }
-            
             if result != nil {
-                print("사용자 이메일: \(String(describing: result?.user.email))")
+                // self.state = .signedIn
+                // self.userId = result?.user.uid
+                completion(true)
+            } else {
+                completion(false)
             }
         }
     }

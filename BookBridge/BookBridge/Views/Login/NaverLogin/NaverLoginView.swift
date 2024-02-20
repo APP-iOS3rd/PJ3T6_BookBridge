@@ -21,7 +21,7 @@ struct NaverLoginView: View {
                     naverLoginManger.doNaverLogout()
                     isLogin = false
                 } label: {
-                    Image("Character")
+                    Image("naverLogo")
                         .resizable()
                         .frame(width: 36, height: 36)
                 }
