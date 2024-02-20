@@ -15,6 +15,8 @@ struct ChangePostingView: View {
     @State private var showActionSheet = false
     @State private var showImagePicker = false
     @State private var sourceType = 0
+    @State private var showAlert = false
+    @State private var alertMessage = ""
     @Binding var selectedTab: Int
     
     var body: some View {
@@ -72,35 +74,43 @@ struct ChangePostingView: View {
                     .bold()
                 
                 NavigationLink(destination: ExchangeHopeView(viewModel: viewModel)) {
-                                       HStack {
-                                           Text(viewModel.noticeBoard.noticeLocationName)
-                                               .foregroundColor(.black)
-                                           Spacer()
-                                           Image(systemName: "chevron.right")
-                                               .foregroundColor(.black)
-                                       }
-                                       .padding()
-                                       .frame(maxWidth: .infinity)
-                                       .frame(height: 50)
-                                       .background(Color(hex: "EAEAEA"))
-                                       .overlay(
-                                           RoundedRectangle(cornerRadius: 10)
-                                               .stroke(Color.gray, lineWidth: 1)
-                                       )
-                                       .cornerRadius(10)
-                                   }
-                                   .padding(.bottom, 30)
+                    HStack {
+                        Text(viewModel.noticeBoard.noticeLocationName)
+                            .foregroundColor(.black)
+                        Spacer()
+                        Image(systemName: "chevron.right")
+                            .foregroundColor(.black)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 50)
+                    .background(Color(hex: "EAEAEA"))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.gray, lineWidth: 1)
+                    )
+                    .cornerRadius(10)
+                }
+                .padding(.bottom, 30)
                 
                 
                 
                 // 확인 버튼
                 Button(action: {
-                    
-                    if !viewModel.noticeBoard.noticeBoardTitle.isEmpty && !viewModel.noticeBoard.noticeBoardDetail.isEmpty && !selectedImages.isEmpty {
-                        //이미지 텍스트 없을경우 확인 버튼 비 활성화
+                    if viewModel.noticeBoard.noticeBoardTitle.isEmpty {
+                        alertMessage = "제목을 입력해주세요."
+                        showAlert = true
+                    } else if viewModel.noticeBoard.noticeBoardDetail.isEmpty {
+                        alertMessage = "상세 설명을 입력해주세요."
+                        showAlert = true
+                    } else if selectedImages.isEmpty {
+                        alertMessage = "이미지를 추가해주세요."
+                        showAlert = true
+                    } else {
                         viewModel.uploadPost(isChange: true, images: selectedImages)
                         dismiss()
                     }
+                    
                 }) {
                     Text("게시물 등록")
                         .fontWeight(.bold)
@@ -112,6 +122,9 @@ struct ChangePostingView: View {
                 }
                 .padding(.bottom, 20)
             }
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("알림"), message: Text(alertMessage), dismissButton: .default(Text("확인")))
         }
         .sheet(isPresented: $showActionSheet, onDismiss: {
             showImagePicker.toggle()

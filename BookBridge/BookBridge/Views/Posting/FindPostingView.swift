@@ -12,6 +12,8 @@ struct FindPostingView: View {
     @EnvironmentObject private var pathModel: PostPathViewModel
     @StateObject var viewModel = PostingViewModel()
     @Binding var selectedTab: Int
+    @State private var showAlert = false
+    @State private var alertMessage = ""
     
     var body: some View {
         
@@ -112,8 +114,19 @@ struct FindPostingView: View {
                 
                 // 확인 버튼
                 Button {
-                    viewModel.uploadPost(isChange: false, images: [])
-                    dismiss()
+                    if viewModel.noticeBoard.noticeBoardTitle.isEmpty && viewModel.noticeBoard.noticeBoardDetail.isEmpty {
+                        alertMessage = "제목과 상세설명을 모두 입력해주세요."
+                        showAlert = true
+                    } else if viewModel.noticeBoard.noticeBoardTitle.isEmpty {
+                        alertMessage = "제목을 입력해주세요."
+                        showAlert = true
+                    } else if viewModel.noticeBoard.noticeBoardDetail.isEmpty {
+                        alertMessage = "상세설명을 입력해주세요."
+                        showAlert = true
+                    } else {
+                        viewModel.uploadPost(isChange: false, images: [])
+                        dismiss()
+                    }
                 } label: {
                     Text("게시물 등록")
                         .fontWeight(.bold)
@@ -125,6 +138,10 @@ struct FindPostingView: View {
                 }
                 .padding(.bottom, 30)
             }
+            
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("알림"), message: Text(alertMessage), dismissButton: .default(Text("확인")))
         }
         .padding()
         .navigationTitle("구해요")
