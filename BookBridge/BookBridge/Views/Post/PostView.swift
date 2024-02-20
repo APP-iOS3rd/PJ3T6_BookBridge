@@ -233,12 +233,6 @@ struct PostView: View {
                                         .font(.system(size: 14))
                                         .padding(1)
                                 }
-                                isPresented.toggle()
-                            } label: {
-                                Text( postViewModel.bookMarks.contains(noticeBoard.id) ? "관심목록 삭제" : "관심목록 추가")
-                                    .font(.system(size: 14))
-                                    .padding(1)
-                            }
                             Divider()
                                 .padding(1)
                                 NavigationLink {
