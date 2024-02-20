@@ -327,8 +327,8 @@ struct PostView: View {
                 postViewModel.gettingUserInfo(userId: noticeBoard.userId)
                 postViewModel.gettingUserBookShelf(userId: noticeBoard.userId, collection: "holdBooks")
                 postViewModel.gettingUserBookShelf(userId: noticeBoard.userId, collection: "wishBooks")
-                postViewModel.fetchChatList(noticeBoardId: noticeBoard.id)
                 if UserManager.shared.isLogin {
+                    postViewModel.fetchChatList(noticeBoardId: noticeBoard.id)
                     postViewModel.fetchBookMark()
                 }
             }
