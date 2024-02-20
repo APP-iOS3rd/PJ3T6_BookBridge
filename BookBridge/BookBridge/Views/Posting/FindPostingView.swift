@@ -89,12 +89,7 @@ struct FindPostingView: View {
                 Text("교환 희망 장소")
                     .bold()
                 
-                Button {
-                    pathModel.paths.append(.exchangehope)
-                    dismiss()
-                    selectedTab = 0
-                    
-                } label: {
+                NavigationLink(destination: ExchangeHopeView(viewModel: viewModel)) {
                     HStack {
                         Text(viewModel.noticeBoard.noticeLocationName)
                             .foregroundColor(.black)
@@ -118,6 +113,7 @@ struct FindPostingView: View {
                 // 확인 버튼
                 Button {
                     viewModel.uploadPost(isChange: false, images: [])
+                    dismiss()
                 } label: {
                     Text("게시물 등록")
                         .fontWeight(.bold)

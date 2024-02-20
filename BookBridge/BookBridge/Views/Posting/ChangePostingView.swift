@@ -71,28 +71,25 @@ struct ChangePostingView: View {
                 Text("교환 희망 장소")
                     .bold()
                 
-                //EmptyView에 지훈님이 만든 네이버 맵 화면
-                Button {
-                    pathModel.paths.append(.exchangehope)                    
-                } label: {
-                    HStack {
-                        Text("\(viewModel.noticeBoard.noticeLocationName)")
-                            .foregroundColor(.black)
-                        Spacer()
-                        Image(systemName: "chevron.right")
-                            .foregroundColor(.black)
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 50)
-                    .background(Color(hex: "EAEAEA"))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.gray, lineWidth: 1)
-                    )
-                    .cornerRadius(10)
-                }
-                .padding(.bottom, 30)
+                NavigationLink(destination: ExchangeHopeView(viewModel: viewModel)) {
+                                       HStack {
+                                           Text(viewModel.noticeBoard.noticeLocationName)
+                                               .foregroundColor(.black)
+                                           Spacer()
+                                           Image(systemName: "chevron.right")
+                                               .foregroundColor(.black)
+                                       }
+                                       .padding()
+                                       .frame(maxWidth: .infinity)
+                                       .frame(height: 50)
+                                       .background(Color(hex: "EAEAEA"))
+                                       .overlay(
+                                           RoundedRectangle(cornerRadius: 10)
+                                               .stroke(Color.gray, lineWidth: 1)
+                                       )
+                                       .cornerRadius(10)
+                                   }
+                                   .padding(.bottom, 30)
                 
                 
                 

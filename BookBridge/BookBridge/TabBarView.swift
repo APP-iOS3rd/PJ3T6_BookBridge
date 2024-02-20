@@ -12,7 +12,7 @@ struct TabBarView: View {
     
     @StateObject private var pathModel = PostPathViewModel()
     @StateObject var postingviewModel = PostingViewModel()
-    @State private var isLogin = UserManager.shared.isLogin
+    @StateObject private var userManager = UserManager.shared
     @State private var showingLoginAlert = false
     @State private var showingLoginView = false
     @State private var selectedTab = 0
@@ -56,10 +56,7 @@ struct TabBarView: View {
                         case .changePosting:
                             FindPostingView(selectedTab: $selectedTab)
                                 .toolbar(.hidden, for: .tabBar)
-                                .navigationBarBackButtonHidden()
-                        case .exchangehope:
-                            ExchangeHopeView(viewModel: postingviewModel)
-                            
+                                .navigationBarBackButtonHidden()                            
                         }
                         
                     }
@@ -88,7 +85,7 @@ struct TabBarView: View {
             
             // 책장
             NavigationStack{
-                if isLogin {
+                if userManager.isLogin {
                     BookShelfView(userId : UserManager.shared.uid,initialTapInfo: .wish, isBack: false)
                 }
                 else {
@@ -135,8 +132,7 @@ struct TabBarView: View {
             
         }
         .sheet(isPresented: $showingLoginView, onDismiss: {
-            if UserManager.shared.isLogin {
-                isLogin = true
+            if UserManager.shared.isLogin {                
                 showingLoginAlert = false
                 if selectedTab == 2 {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -160,7 +156,7 @@ struct TabBarView: View {
         }
         .onChange(of: selectedTab) { newTab in
             // 로그인 상태 확인
-            if isLogin {
+            if userManager.isLogin {
                 showingLoginAlert = false // 로그인 상태일 때는 알림을 띄우지 않음
                 if newTab == 2 {
                     shouldShowActionSheet = true

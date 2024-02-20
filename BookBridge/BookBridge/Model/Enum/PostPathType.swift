@@ -9,6 +9,5 @@ import Foundation
 enum PostPathType: Hashable {
     case changePosting
     case findPosting
-//    case searchBook
-    case exchangehope
+
 }
