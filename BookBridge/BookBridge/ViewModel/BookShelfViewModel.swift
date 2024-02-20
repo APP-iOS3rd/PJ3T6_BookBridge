@@ -133,6 +133,10 @@ class BookShelfViewModel: ObservableObject {
             if let index = holdBooks.firstIndex(where: { $0.id == book.id }) {
                 holdBooks.remove(at: index)
             }
+            
+        case .search:
+            break
+            
         }
 
         // Firestore에서도 책 제거
@@ -151,7 +155,6 @@ class BookShelfViewModel: ObservableObject {
         
         let db = Firestore.firestore()
         let docRef = db.collection("User").document(userId)
-        print(userId)
         
         docRef.getDocument { document, error in
             guard error == nil else {

@@ -162,6 +162,7 @@ extension HomeViewModel {
         }
         
         self.fetchRecentSearch(user: user)
+                
     }
     
     func updateNoticeBoards() {
