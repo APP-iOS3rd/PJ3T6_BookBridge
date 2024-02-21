@@ -59,10 +59,11 @@ struct ReportDetailView: View {
                         }
                     )
                 }
+                /*
                 .navigationDestination(isPresented: $isTargetView){
                     HomeView()
                 }
-                
+                */
             }
 
         }

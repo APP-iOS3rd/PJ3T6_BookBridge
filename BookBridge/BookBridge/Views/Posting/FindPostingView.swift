@@ -11,11 +11,22 @@ struct FindPostingView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var pathModel: PostPathViewModel
     @StateObject var viewModel = PostingViewModel()
-    @Binding var selectedTab: Int
     @State private var showAlert = false
     @State private var alertMessage = ""
     
     var body: some View {
+        HStack {
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.system(size: 16))
+                    .foregroundStyle(.black)
+            }
+            
+            Spacer()
+        }
+        .padding()
         
         ScrollView(showsIndicators: false) {
             VStack(alignment: .leading) {
@@ -146,18 +157,6 @@ struct FindPostingView: View {
         .padding()
         .navigationTitle("구해요")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    dismiss()
-                    selectedTab = 0
-                } label: {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 16))
-                        .foregroundStyle(.black)
-                }
-            }
-        }
         .onAppear {
             viewModel.gettingUserInfo()
             print( viewModel.noticeBoard.hopeBook)

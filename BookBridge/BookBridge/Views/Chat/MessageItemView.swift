@@ -24,13 +24,15 @@ struct MessageItemView: View {
                         
                         VStack {
                             Spacer()
-                            Text("오전 12:30")
-                                .font(.caption)
+                            Text(messageModel.timeAgo)
+                                .font(.system(size: 10))
                                 .foregroundStyle(.gray)
+                                .multilineTextAlignment(.trailing)
                         }
                         
                         HStack {
                             Text(messageModel.message)
+                                .font(.system(size: 18))
                                 .foregroundStyle(.white)
                         }
                         .padding(.vertical, 8)
@@ -44,14 +46,16 @@ struct MessageItemView: View {
                         
                         VStack {
                             Spacer()
-                            Text("오전 12:30")
-                                .font(.caption)
+                            Text(messageModel.timeAgo)
+                                .font(.system(size: 10))
                                 .foregroundStyle(.gray)
+                                .multilineTextAlignment(.trailing)
                         }
                         
                         Image(uiImage: viewModel.chatImages[messageModel.imageURL] ?? UIImage(named: "DefaultImage")!)
                             .resizable()
-                            .frame(width: 100, height: 100)
+                            .scaledToFill()
+                            .frame(width: 150, height: 150)
                             .cornerRadius(10)
                     }
                 }
@@ -68,6 +72,7 @@ struct MessageItemView: View {
                         
                         HStack {
                             Text(messageModel.message)
+                                .font(.system(size: 18))
                                 .foregroundStyle(.white)
                         }
                         .padding(.vertical, 8)
@@ -77,9 +82,10 @@ struct MessageItemView: View {
                         
                         VStack {
                             Spacer()
-                            Text("오전 12:30")
-                                .font(.caption)
+                            Text(messageModel.timeAgo)
+                                .font(.system(size: 10))
                                 .foregroundStyle(.gray)
+                                .multilineTextAlignment(.leading)
                         }
                         
                         Spacer()
@@ -96,15 +102,17 @@ struct MessageItemView: View {
                         
                         Image(uiImage: viewModel.chatImages[messageModel.imageURL] ?? UIImage(named: "DefaultImage")!)
                             .resizable()
-                            .frame(width: 100, height: 100)
+                            .scaledToFill()
+                            .frame(width: 150, height: 150)
                             .cornerRadius(10)
                         
                         
                         VStack {
                             Spacer()
-                            Text("오전 12:30")
-                                .font(.caption)
+                            Text(messageModel.timeAgo)
+                                .font(.system(size: 10))
                                 .foregroundStyle(.gray)
+                                .multilineTextAlignment(.leading)
                         }
                         
                         Spacer()
@@ -122,7 +130,3 @@ struct MessageItemView: View {
     }
 }
 
-
-#Preview {
-    ChatRoomListView(uid: "lee")
-}

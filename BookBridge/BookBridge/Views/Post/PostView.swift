@@ -11,6 +11,8 @@ import NMapsMap
 struct PostView: View {
     @Environment(\.dismiss) private var dismiss
     
+    @Binding var isShowPlusBtn: Bool
+    
     @State private var isPresented = false
     @State var noticeBoard: NoticeBoard
     @State var url: [URL] = []
@@ -217,7 +219,8 @@ struct PostView: View {
                     isPresented = false
                 }
             }
-            VStack{
+
+            VStack {
                 HStack {
                     Spacer()
                     VStack {
@@ -277,11 +280,13 @@ struct PostView: View {
                 }
                 Spacer()
             }
+            
             VStack {
                 Spacer()
+                
                 if UserManager.shared.uid == noticeBoard.userId {
                     NavigationLink {
-                        ChatRoomListView(uid: UserManager.shared.uid)
+                        ChatRoomListView(isShowPlusBtn: $isShowPlusBtn, isComeNoticeBoard: true, uid: UserManager.shared.uid)
                     } label: {
                         Text("대화중인 채팅방 \(postViewModel.chatRoomList.count)")
                             .foregroundStyle(Color.white)
@@ -300,7 +305,7 @@ struct PostView: View {
                     else if noticeBoard.state == 0 {
                         if postViewModel.chatRoomList.isEmpty {
                             NavigationLink {
-                                ChatMessageView(chatRoomListId: UUID().uuidString, noticeBoardTitle: noticeBoard.noticeBoardTitle, chatRoomPartner: ChatPartnerModel(nickname: postViewModel.user.nickname ?? "책벌레", noticeBoardId: noticeBoard.id, partnerId: noticeBoard.userId, partnerImage: UIImage(systemName: "scribble")!, style: "중고귀신"), uid: UserManager.shared.uid)
+                                ChatMessageView(isShowPlusBtn: $isShowPlusBtn, chatRoomListId: UUID().uuidString, noticeBoardTitle: noticeBoard.noticeBoardTitle, chatRoomPartner: ChatPartnerModel(nickname: postViewModel.user.nickname ?? "책벌레", noticeBoardId: noticeBoard.id, partnerId: noticeBoard.userId, partnerImage: UIImage(systemName: "scribble")!, style: "중고귀신"), uid: UserManager.shared.uid)
                             } label: {
                                 Text("채팅하기")
                                     .foregroundStyle(Color.white)
@@ -310,7 +315,7 @@ struct PostView: View {
                             }
                         } else {
                             NavigationLink {
-                                ChatMessageView(chatRoomListId: postViewModel.chatRoomList.first!, noticeBoardTitle: noticeBoard.noticeBoardTitle, chatRoomPartner: ChatPartnerModel(nickname: postViewModel.user.nickname ?? "책별레", noticeBoardId: noticeBoard.id, partnerId: noticeBoard.userId, partnerImage: UIImage(systemName: "scribble")!, style: "중고귀신"), uid: UserManager.shared.uid)
+                                ChatMessageView(isShowPlusBtn: $isShowPlusBtn, chatRoomListId: postViewModel.chatRoomList.first!, noticeBoardTitle: noticeBoard.noticeBoardTitle, chatRoomPartner: ChatPartnerModel(nickname: postViewModel.user.nickname ?? "책별레", noticeBoardId: noticeBoard.id, partnerId: noticeBoard.userId, partnerImage: UIImage(systemName: "scribble")!, style: "중고귀신"), uid: UserManager.shared.uid)
                             } label: {
                                 Text("채팅하기")
                                     .foregroundStyle(Color.white)
@@ -331,6 +336,8 @@ struct PostView: View {
             .frame(alignment: Alignment.bottom)
         }
         .onAppear {
+            isShowPlusBtn = false
+            
             if !noticeBoard.noticeImageLink.isEmpty && noticeBoard.isChange {
                 Task {
                     for image in noticeBoard.noticeImageLink {
@@ -363,7 +370,6 @@ struct PostView: View {
                     dismiss()
                 } label: {
                     Image(systemName: "chevron.left")
-                        .font(.system(size: 16))
                         .foregroundStyle(.black)
                 }
             }
@@ -374,12 +380,12 @@ struct PostView: View {
                     }
                 } label: {
                     Image(systemName: "ellipsis")
-                        .font(.system(size: 16))
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.black)
                 }
             }
         }
         .navigationBarBackButtonHidden()
+        .toolbar(.hidden, for: .tabBar)
     }
 }
 

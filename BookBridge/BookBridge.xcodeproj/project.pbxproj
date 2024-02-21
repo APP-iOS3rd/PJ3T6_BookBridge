@@ -124,6 +124,7 @@
 		738EDAA12B71EBA30066ADE7 /* HomeTapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738EDAA02B71EBA30066ADE7 /* HomeTapView.swift */; };
 		738EDAA32B71ECA80066ADE7 /* HomeListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738EDAA22B71ECA80066ADE7 /* HomeListItemView.swift */; };
 		738EDAA52B7225950066ADE7 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738EDAA42B7225950066ADE7 /* UIImageExtension.swift */; };
+		739058AD2B84DB3300CA9711 /* SelectPostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739058AC2B84DB3300CA9711 /* SelectPostingView.swift */; };
 		73C962A12B6883A700D34D3F /* SearchBooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C962A02B6883A700D34D3F /* SearchBooksView.swift */; };
 		73C962A32B68880500D34D3F /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C962A22B68880500D34D3F /* SearchBarView.swift */; };
 		73C962A52B688D4200D34D3F /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C962A42B688D4200D34D3F /* BookModel.swift */; };
@@ -141,20 +142,23 @@
 		91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91392F282B68BE0E0092052A /* FindPostingView.swift */; };
 		914600412B71FD8700E0E24F /* ProfileImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914600402B71FD8700E0E24F /* ProfileImagePicker.swift */; };
 		914600432B7205C700E0E24F /* ChatRoomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914600422B7205C700E0E24F /* ChatRoomListView.swift */; };
-		914600482B7217DC00E0E24F /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 914600472B7217DC00E0E24F /* SDWebImageSwiftUI */; };
 		9146004E2B7238EB00E0E24F /* ChatMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9146004D2B7238EB00E0E24F /* ChatMessageView.swift */; };
 		914600502B7240D800E0E24F /* ChatMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9146004F2B7240D800E0E24F /* ChatMessageViewModel.swift */; };
-		915FD1DA2B7C403D0008C38B /* ChatRoomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FD1D92B7C403D0008C38B /* ChatRoomModel.swift */; };
+		915FD1DA2B7C403D0008C38B /* ChatRoomListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FD1D92B7C403D0008C38B /* ChatRoomListModel.swift */; };
 		915FD1DC2B7CA6A40008C38B /* SearchChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FD1DB2B7CA6A40008C38B /* SearchChatListView.swift */; };
 		915FD1DE2B7CB7E80008C38B /* NoticeBoardChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FD1DD2B7CB7E70008C38B /* NoticeBoardChatView.swift */; };
 		91B7F0B02B70DE8800B4C475 /* ChatMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B7F0AF2B70DE8800B4C475 /* ChatMessageModel.swift */; };
 		91B7F0B42B71B90F00B4C475 /* ChatRoomListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B7F0B32B71B90F00B4C475 /* ChatRoomListViewModel.swift */; };
 		91B7F0BB2B71E82200B4C475 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B7F0BA2B71E82200B4C475 /* FirebaseManager.swift */; };
+		914201962B7B55E600FEED84 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 914201952B7B55E600FEED84 /* Secrets.xcconfig */; };
+		914201982B7B55F600FEED84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 914201972B7B55F600FEED84 /* GoogleService-Info.plist */; };
 		91B80A422B676EEE000D5339 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A412B676EEE000D5339 /* ImagePicker.swift */; };
 		91B80A452B6798B9000D5339 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A442B6798B9000D5339 /* TabBarView.swift */; };
 		91B80A472B6799B7000D5339 /* ChangePostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A462B6799B7000D5339 /* ChangePostingView.swift */; };
 		91D7CAF12B82F76D00F7CFF8 /* SwipeBackExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7CAF02B82F76D00F7CFF8 /* SwipeBackExtension.swift */; };
 		91D7CB042B83528B00F7CFF8 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 91D7CB032B83528B00F7CFF8 /* Secrets.xcconfig */; };
+		91D7CB0C2B846E8900F7CFF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91D7CB0B2B846E8900F7CFF8 /* GoogleService-Info.plist */; };
+		91D7CB0E2B846E8D00F7CFF8 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 91D7CB0D2B846E8D00F7CFF8 /* Secrets.xcconfig */; };
 		AFE5B788F315503A86355ABB /* Pods_BookBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0208E9110CB38EDE3D59A6 /* Pods_BookBridge.framework */; };
 		F60BB0932B71D72400E27F38 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60BB0922B71D72400E27F38 /* HomeView.swift */; };
 		F60BB0952B71D72F00E27F38 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60BB0942B71D72F00E27F38 /* HomeViewModel.swift */; };
@@ -310,6 +314,7 @@
 		738EDAA02B71EBA30066ADE7 /* HomeTapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTapView.swift; sourceTree = "<group>"; };
 		738EDAA22B71ECA80066ADE7 /* HomeListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListItemView.swift; sourceTree = "<group>"; };
 		738EDAA42B7225950066ADE7 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		739058AC2B84DB3300CA9711 /* SelectPostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPostingView.swift; sourceTree = "<group>"; };
 		73C962A02B6883A700D34D3F /* SearchBooksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksView.swift; sourceTree = "<group>"; };
 		73C962A22B68880500D34D3F /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		73C962A42B688D4200D34D3F /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
@@ -330,17 +335,21 @@
 		914600422B7205C700E0E24F /* ChatRoomListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomListView.swift; sourceTree = "<group>"; };
 		9146004D2B7238EB00E0E24F /* ChatMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageView.swift; sourceTree = "<group>"; };
 		9146004F2B7240D800E0E24F /* ChatMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageViewModel.swift; sourceTree = "<group>"; };
-		915FD1D92B7C403D0008C38B /* ChatRoomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomModel.swift; sourceTree = "<group>"; };
+		915FD1D92B7C403D0008C38B /* ChatRoomListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomListModel.swift; sourceTree = "<group>"; };
 		915FD1DB2B7CA6A40008C38B /* SearchChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchChatListView.swift; sourceTree = "<group>"; };
 		915FD1DD2B7CB7E70008C38B /* NoticeBoardChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardChatView.swift; sourceTree = "<group>"; };
 		91B7F0AF2B70DE8800B4C475 /* ChatMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageModel.swift; sourceTree = "<group>"; };
 		91B7F0B32B71B90F00B4C475 /* ChatRoomListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomListViewModel.swift; sourceTree = "<group>"; };
 		91B7F0BA2B71E82200B4C475 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		914201952B7B55E600FEED84 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = ../../../../../Downloads/Secrets.xcconfig; sourceTree = "<group>"; };
+		914201972B7B55F600FEED84 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		91B80A412B676EEE000D5339 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		91B80A442B6798B9000D5339 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		91B80A462B6799B7000D5339 /* ChangePostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePostingView.swift; sourceTree = "<group>"; };
 		91D7CAF02B82F76D00F7CFF8 /* SwipeBackExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeBackExtension.swift; sourceTree = "<group>"; };
 		91D7CB032B83528B00F7CFF8 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		91D7CB0B2B846E8900F7CFF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		91D7CB0D2B846E8D00F7CFF8 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridgeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5811A49FE2A9EF629A77C52 /* Pods-BookBridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.debug.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.debug.xcconfig"; sourceTree = "<group>"; };
 		CD38D177426E7831566653B2 /* Pods-BookBridge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.release.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.release.xcconfig"; sourceTree = "<group>"; };
@@ -361,7 +370,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				914600482B7217DC00E0E24F /* SDWebImageSwiftUI in Frameworks */,
 				5AA82E592B6779DD006EFC72 /* SwiftSMTP in Frameworks */,
 				AFE5B788F315503A86355ABB /* Pods_BookBridge.framework in Frameworks */,
 				5ADE79D32B6B2798005BB3ED /* SwiftSMTP in Frameworks */,
@@ -542,9 +550,10 @@
 		5A7A4E192B61DFFD00F79C23 = {
 			isa = PBXGroup;
 			children = (
-				5C5AB96E2B858A0C00AD90A2 /* GoogleService-Info.plist */,
-				5C5AB9722B85B6F900AD90A2 /* Secrets.xcconfig */,
+
+				91D7CB0D2B846E8D00F7CFF8 /* Secrets.xcconfig */,
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
+				91D7CB0B2B846E8900F7CFF8 /* GoogleService-Info.plist */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
 				5A7A4E352B61DFFE00F79C23 /* BookBridgeTests */,
 				5A7A4E3F2B61DFFE00F79C23 /* BookBridgeUITests */,
@@ -575,6 +584,7 @@
 				91C60CE62B6747C400A1E8E4 /* ViewModel */,
 				5A7A4E532B62268A00F79C23 /* Views */,
 				91B80A442B6798B9000D5339 /* TabBarView.swift */,
+				739058AC2B84DB3300CA9711 /* SelectPostingView.swift */,
 				5A7A4E252B61DFFD00F79C23 /* BookBridgeApp.swift */,
 				5A7A4E292B61DFFE00F79C23 /* Assets.xcassets */,
 				5A1A168F2B62285A0063D408 /* Info.plist */,
@@ -837,7 +847,7 @@
 			isa = PBXGroup;
 			children = (
 				91B7F0AF2B70DE8800B4C475 /* ChatMessageModel.swift */,
-				915FD1D92B7C403D0008C38B /* ChatRoomModel.swift */,
+				915FD1D92B7C403D0008C38B /* ChatRoomListModel.swift */,
 				738654DC2B7F453400373E30 /* ChatPartnerModel.swift */,
 			);
 			path = Chat;
@@ -942,7 +952,6 @@
 			name = BookBridge;
 			packageProductDependencies = (
 				5ADE79D22B6B2798005BB3ED /* SwiftSMTP */,
-				914600472B7217DC00E0E24F /* SDWebImageSwiftUI */,
 			);
 			productName = BookBridge;
 			productReference = 5A7A4E222B61DFFD00F79C23 /* BookBridge.app */;
@@ -1022,7 +1031,6 @@
 			mainGroup = 5A7A4E192B61DFFD00F79C23;
 			packageReferences = (
 				5ADE79D12B6B2798005BB3ED /* XCRemoteSwiftPackageReference "Swift-SMTP" */,
-				914600462B7217DC00E0E24F /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = 5A7A4E232B61DFFD00F79C23 /* Products */;
 			projectDirPath = "";
@@ -1042,8 +1050,8 @@
 			files = (
 				91D7CB042B83528B00F7CFF8 /* Secrets.xcconfig in Resources */,
 				5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */,
-				5C5AB9732B85B6F900AD90A2 /* Secrets.xcconfig in Resources */,
-				5C5AB96F2B858A0C00AD90A2 /* GoogleService-Info.plist in Resources */,
+				91D7CB0E2B846E8D00F7CFF8 /* Secrets.xcconfig in Resources */,
+				91D7CB0C2B846E8900F7CFF8 /* GoogleService-Info.plist in Resources */,
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
 				5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */,
 			);
@@ -1235,6 +1243,7 @@
 				5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */,
 				914600432B7205C700E0E24F /* ChatRoomListView.swift in Sources */,
 				1D84019E2B677B3B00ADEEB5 /* IdLoginViewModel.swift in Sources */,
+				739058AD2B84DB3300CA9711 /* SelectPostingView.swift in Sources */,
 				91D7CAF12B82F76D00F7CFF8 /* SwipeBackExtension.swift in Sources */,
 				5C8C0E362B7B298C002963F1 /* ReportDetailView.swift in Sources */,
 				5A3A442A2B6CDB8A00B66C81 /* KeychainManager.swift in Sources */,
@@ -1303,7 +1312,7 @@
 				1DB39DBC2B6B57F100C1B489 /* BookShelfViewModel.swift in Sources */,
 				5AA82E4D2B675E26006EFC72 /* EmailSignUpView.swift in Sources */,
 				1DE382A72B734E74009A7A15 /* HomeRecentSearchView.swift in Sources */,
-				915FD1DA2B7C403D0008C38B /* ChatRoomModel.swift in Sources */,
+				915FD1DA2B7C403D0008C38B /* ChatRoomListModel.swift in Sources */,
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
 				73D077E42B7C7FC90007DDEB /* RoomListView.swift in Sources */,
 				73DDA5E12B6A34A500B25FB8 /* SearchResultView.swift in Sources */,
@@ -1392,6 +1401,8 @@
 /* Begin XCBuildConfiguration section */
 		5A7A4E442B61DFFE00F79C23 /* Debug */ = {
 			isa = XCBuildConfiguration;
+
+			baseConfigurationReference = 91D7CB0D2B846E8D00F7CFF8 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1455,6 +1466,7 @@
 		};
 		5A7A4E452B61DFFE00F79C23 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91D7CB0D2B846E8D00F7CFF8 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1727,14 +1739,6 @@
 				minimumVersion = 6.0.0;
 			};
 		};
-		914600462B7217DC00E0E24F /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.2.6;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1747,11 +1751,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5ADE79D12B6B2798005BB3ED /* XCRemoteSwiftPackageReference "Swift-SMTP" */;
 			productName = SwiftSMTP;
-		};
-		914600472B7217DC00E0E24F /* SDWebImageSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 914600462B7217DC00E0E24F /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
-			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
