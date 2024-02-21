@@ -9,9 +9,12 @@ import SwiftUI
 import FirebaseStorage
 
 struct HomeView: View {
+    @Binding var isShowPlusBtn: Bool
+    
     @StateObject var viewModel = HomeViewModel()
     @StateObject var userManager = UserManager.shared
     @StateObject var locationManager = LocationManager.shared
+    
     @State private var selectedPicker: TapCategory = .find
     @State private var showingLoginView = false
     @State private var showingTownSettingView = false
@@ -56,13 +59,15 @@ struct HomeView: View {
             
             tapAnimation()
             
-            HomeTapView(viewModel: viewModel, tapCategory: selectedPicker)
+            HomeTapView(isShowPlusBtn: $isShowPlusBtn, viewModel: viewModel, tapCategory: selectedPicker)
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                isShowPlusBtn = true
                 viewModel.updateNoticeBoards()
             }
         }
+        
         .sheet(isPresented: $showingLoginView) {
             LoginView(showingLoginView: $showingLoginView)
         }

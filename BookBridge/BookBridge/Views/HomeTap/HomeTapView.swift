@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct HomeTapView: View {
+    @Binding var isShowPlusBtn: Bool
+    
     @StateObject var viewModel: HomeViewModel
     @StateObject var locationManager = LocationManager.shared
     
@@ -89,7 +91,7 @@ struct HomeTapView: View {
                     ForEach(viewModel.findNoticeBoards) { element in
                         if element.hopeBook.isEmpty {
                             NavigationLink {
-                                PostView(noticeBoard: element)
+                                PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                             } label: {
                                 HomeListItemView(author: "", date: element.date, id: element.id, imageLinks: [], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
                             }
@@ -97,7 +99,7 @@ struct HomeTapView: View {
                             //TODO: 나중에 썸네일 이미지, 저자 바꾸기
                             
                             NavigationLink {
-                                PostView(noticeBoard: element)
+                                PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                             } label: {
                                 HomeListItemView(author: element.hopeBook[0].volumeInfo.authors?[0] ?? "", date: element.date, id: element.id, imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
                             }
@@ -110,7 +112,7 @@ struct HomeTapView: View {
                 case .change:
                     ForEach(viewModel.changeNoticeBoards) { element in
                         NavigationLink {
-                            PostView(noticeBoard: element)
+                            PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                         } label: {
                             HomeListItemView(author: "", date: element.date, id: element.id, imageLinks: element.noticeImageLink, isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
                         }
@@ -145,7 +147,7 @@ struct HomeTapView: View {
                     ForEach(viewModel.findNoticeBoards) { element in
                         if element.hopeBook.isEmpty {
                             NavigationLink {
-                                PostView(noticeBoard: element)
+                                PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                             } label: {
                                 HomeListItemView(author: "", date: element.date, id: element.id, imageLinks: [], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
                             }
@@ -153,7 +155,7 @@ struct HomeTapView: View {
                             //TODO: 나중에 썸네일 이미지, 저자 바꾸기
                             
                             NavigationLink {
-                                PostView(noticeBoard: element)
+                                PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                             } label: {
                                 HomeListItemView(author: element.hopeBook[0].volumeInfo.authors?[0] ?? "", date: element.date, id: element.id, imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
                             }
@@ -166,7 +168,7 @@ struct HomeTapView: View {
                 case .change:
                     ForEach(viewModel.changeNoticeBoards) { element in
                         NavigationLink {
-                            PostView(noticeBoard: element)
+                            PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                         } label: {
                             HomeListItemView(author: "", date: element.date, id: element.id, imageLinks: element.noticeImageLink, isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
                         }

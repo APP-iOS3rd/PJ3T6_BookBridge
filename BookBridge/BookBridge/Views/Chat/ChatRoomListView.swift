@@ -8,36 +8,31 @@
 import SwiftUI
 
 struct ChatRoomListView: View {
+    @Binding var isShowPlusBtn: Bool
+    
     @StateObject var viewModel = ChatRoomListViewModel()
     
+    var isComeNoticeBoard: Bool
     var uid: String
     
     var body: some View {
-        NavigationStack {
-            VStack {
-                SearchChatListView(viewModel: viewModel)
-                    .padding()
-//                CustomNavBarView(viewModel: viewModel)
-                
-                RoomListView(viewModel: viewModel)
-            }
-            .onAppear {
-                viewModel.checkUserLoginStatus(uid: uid)
-                
-            }
-            .onDisappear {
-                viewModel.firestoreListener?.remove()
+        VStack {
+            SearchChatListView(viewModel: viewModel)
+                .padding()
+            
+            RoomListView(isShowPlusBtn: $isShowPlusBtn, viewModel: viewModel)
+        }
+        .onAppear {
+            viewModel.checkUserLoginStatus(uid: uid)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                if !isComeNoticeBoard {
+                    isShowPlusBtn = true
+                }
             }
         }
-        .toolbar(.hidden)
-        /*
-        .fullScreenCover(isPresented: $viewModel.isLogout) {
-            //TODO: 우리 로그인 창 띄우기 LoginView에 @Binding var isLogout 필요
+        .onDisappear {
+            viewModel.firestoreListener?.remove()
         }
-         */
     }
 }
 
-#Preview {
-    ChatRoomListView(uid: "lee")
-}
