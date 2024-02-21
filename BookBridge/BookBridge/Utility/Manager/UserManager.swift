@@ -47,6 +47,7 @@ class UserManager: ObservableObject {
             print("사용자가 login에 성공하였습니다.")
             print(user ?? "user가 없습니다.")
             self.currentDong = user?.getSelectedLocation()?.dong ?? ""
+            self.isChanged.toggle()
         }
         
     }

@@ -41,4 +41,22 @@ class ConvertManager {
             return 13
         }
     }
+    
+    static func getTimeDifference(from date: Date) -> String {
+        let calendar = Calendar.current
+        let now = Date()
+        let components = calendar.dateComponents([.year, .month, .day, .hour], from: date, to: now)
+        
+        if let year = components.year, year > 0 {
+            return "\(year)년전"
+        } else if let month = components.month, month > 0 {
+            return "\(month)달전"
+        } else if let day = components.day, day > 0 {
+            return "\(day)일전"
+        } else if let hour = components.hour, hour > 0 {
+            return "\(hour)시간전"
+        } else {
+            return "방금 전"
+        }
+    }
 }

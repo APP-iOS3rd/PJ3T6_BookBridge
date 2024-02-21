@@ -126,14 +126,29 @@ struct PostView: View {
                     
                     //교환 희망 장소
                     VStack(alignment: .leading) {
-                        Text("교환 희망 장소")
-                            .font(.system(size: 25))
-                            .fontWeight(.bold)
+                        HStack {
+                            Text("교환 희망 장소")
+                                .font(.system(size: 25))
+                                .fontWeight(.bold)
+                                .padding(.horizontal)
+                                .padding(.top)
+                            
+                            Spacer()
+                            
+                                                                                   
+                            NavigationLink(destination: PostMapDetailView(noticeBoard: $noticeBoard)
+                                .navigationBarBackButtonHidden()
+                            ) {
+                                Text("더보기")
+                                    .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
+                            }
                             .padding(.horizontal)
                             .padding(.top)
+                        }
+                       
                         
                         if noticeBoard.noticeLocation.count >= 2 {
-                            PostMapView(lat: $noticeBoard.noticeLocation[0], lng: $noticeBoard.noticeLocation[1])
+                            PostMapView(lat: $noticeBoard.noticeLocation[0], lng: $noticeBoard.noticeLocation[1], isDetail: false)
                         }
                         
                         Text(noticeBoard.noticeLocationName)
@@ -305,7 +320,22 @@ struct PostView: View {
                     else if noticeBoard.state == 0 {
                         if postViewModel.chatRoomList.isEmpty {
                             NavigationLink {
-                                ChatMessageView(isShowPlusBtn: $isShowPlusBtn, chatRoomListId: UUID().uuidString, noticeBoardTitle: noticeBoard.noticeBoardTitle, chatRoomPartner: ChatPartnerModel(nickname: postViewModel.user.nickname ?? "책벌레", noticeBoardId: noticeBoard.id, partnerId: noticeBoard.userId, partnerImage: UIImage(systemName: "scribble")!, style: "중고귀신"), uid: UserManager.shared.uid)
+                                if let image = UIImage(contentsOfFile: "DefaultImage") {
+                                    ChatMessageView(
+                                        isShowPlusBtn: $isShowPlusBtn,
+                                        chatRoomListId: UUID().uuidString,
+                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
+                                        chatRoomPartner: ChatPartnerModel(
+                                            nickname: postViewModel.user.nickname ?? "책벌레",
+                                            noticeBoardId: noticeBoard.id,
+                                            partnerId: noticeBoard.userId,
+                                            partnerImage: image,
+                                            style: "중고귀신"
+                                        ),
+                                        uid: UserManager.shared.uid
+                                    )
+                                }
+                                
                             } label: {
                                 Text("채팅하기")
                                     .foregroundStyle(Color.white)
@@ -315,7 +345,21 @@ struct PostView: View {
                             }
                         } else {
                             NavigationLink {
-                                ChatMessageView(isShowPlusBtn: $isShowPlusBtn, chatRoomListId: postViewModel.chatRoomList.first!, noticeBoardTitle: noticeBoard.noticeBoardTitle, chatRoomPartner: ChatPartnerModel(nickname: postViewModel.user.nickname ?? "책별레", noticeBoardId: noticeBoard.id, partnerId: noticeBoard.userId, partnerImage: UIImage(systemName: "scribble")!, style: "중고귀신"), uid: UserManager.shared.uid)
+                                if let image = UIImage(contentsOfFile: "DefaultImage") {
+                                    ChatMessageView(
+                                        isShowPlusBtn: $isShowPlusBtn,
+                                        chatRoomListId: postViewModel.chatRoomList.first!,
+                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
+                                        chatRoomPartner: ChatPartnerModel(
+                                            nickname: postViewModel.user.nickname ?? "책별레",
+                                            noticeBoardId: noticeBoard.id,
+                                            partnerId: noticeBoard.userId,
+                                            partnerImage: image,
+                                            style: "중고귀신"
+                                        ),
+                                        uid: UserManager.shared.uid
+                                    )
+                                }
                             } label: {
                                 Text("채팅하기")
                                     .foregroundStyle(Color.white)
@@ -393,9 +437,16 @@ struct PostMapView: UIViewRepresentable {
     
     @Binding var lat: Double // 모델 좌표 lat
     @Binding var lng: Double // 모델 좌표 lng
+    var isDetail: Bool
     
     func makeUIView(context: Context) -> NMFNaverMapView {
         let mapView = NMFNaverMapView()
+        
+        if !isDetail {
+            mapView.mapView.isScrollGestureEnabled = false
+            mapView.mapView.isZoomGestureEnabled = false
+            mapView.showZoomControls = false
+        }
         
         // 마커 좌표를 설정
         let markerCoord = NMGLatLng(lat: lat, lng: lng)

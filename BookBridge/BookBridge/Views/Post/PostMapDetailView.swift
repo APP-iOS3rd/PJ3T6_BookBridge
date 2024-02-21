@@ -7,15 +7,13 @@
 
 import SwiftUI
 
-struct PostMapSeeMoreView: View {
-    @Binding var lat: Double
-    @Binding var lng: Double
+struct PostMapDetailView: View {
     @Binding var noticeBoard: NoticeBoard
 
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
-        PostMapView(lat: $lat, lng: $lng)
+        PostMapView(lat: $noticeBoard.noticeLocation[0], lng: $noticeBoard.noticeLocation[1], isDetail: true)
             .navigationTitle(noticeBoard.isChange ? "바꿔요" : "구해요")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

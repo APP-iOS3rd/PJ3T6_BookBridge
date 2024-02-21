@@ -93,7 +93,17 @@ struct HomeTapView: View {
                             NavigationLink {
                                 PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                             } label: {
-                                HomeListItemView(author: "", date: element.date, id: element.id, imageLinks: [], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
+                                HomeListItemView(
+                                    author: "",
+                                    date: element.date,
+                                    id: element.id,
+                                    imageLinks: [],
+                                    isChange: element.isChange,
+                                    locate: element.noticeLocation,
+                                    title: element.noticeBoardTitle,
+                                    userId: element.userId,
+                                    location: element.noticeLocationName
+                                )
                             }
                         } else {
                             //TODO: 나중에 썸네일 이미지, 저자 바꾸기
@@ -101,7 +111,16 @@ struct HomeTapView: View {
                             NavigationLink {
                                 PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                             } label: {
-                                HomeListItemView(author: element.hopeBook[0].volumeInfo.authors?[0] ?? "", date: element.date, id: element.id, imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
+                                HomeListItemView(
+                                    author: element.hopeBook[0].volumeInfo.authors?[0] ?? "",
+                                    date: element.date, id: element.id,
+                                    imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
+                                    isChange: element.isChange,
+                                    locate: element.noticeLocation,
+                                    title: element.noticeBoardTitle,
+                                    userId: element.userId,
+                                    location: element.noticeLocationName
+                                )
                             }
                             
                         }
@@ -114,7 +133,17 @@ struct HomeTapView: View {
                         NavigationLink {
                             PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                         } label: {
-                            HomeListItemView(author: "", date: element.date, id: element.id, imageLinks: element.noticeImageLink, isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
+                            HomeListItemView(
+                                author: "",
+                                date: element.date,
+                                id: element.id,
+                                imageLinks: element.noticeImageLink,
+                                isChange: element.isChange,
+                                locate: element.noticeLocation,
+                                title: element.noticeBoardTitle,
+                                userId: element.userId,
+                                location: element.noticeLocationName
+                            )
                         }
                     }
                     .padding(.horizontal)
@@ -149,7 +178,15 @@ struct HomeTapView: View {
                             NavigationLink {
                                 PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                             } label: {
-                                HomeListItemView(author: "", date: element.date, id: element.id, imageLinks: [], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
+                                HomeListItemView(
+                                    author: "", date: element.date,
+                                    id: element.id, imageLinks: [],
+                                    isChange: element.isChange,
+                                    locate: element.noticeLocation,
+                                    title: element.noticeBoardTitle,
+                                    userId: element.userId,
+                                    location: element.noticeLocationName
+                                )
                             }
                         } else {
                             //TODO: 나중에 썸네일 이미지, 저자 바꾸기
@@ -157,7 +194,17 @@ struct HomeTapView: View {
                             NavigationLink {
                                 PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                             } label: {
-                                HomeListItemView(author: element.hopeBook[0].volumeInfo.authors?[0] ?? "", date: element.date, id: element.id, imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""], isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
+                                HomeListItemView(
+                                    author: element.hopeBook[0].volumeInfo.authors?[0] ?? "",
+                                    date: element.date, 
+                                    id: element.id,
+                                    imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
+                                    isChange: element.isChange,
+                                    locate: element.noticeLocation,
+                                    title: element.noticeBoardTitle,
+                                    userId: element.userId,
+                                    location: element.noticeLocationName
+                                )
                             }
                             
                         }
@@ -170,7 +217,17 @@ struct HomeTapView: View {
                         NavigationLink {
                             PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                         } label: {
-                            HomeListItemView(author: "", date: element.date, id: element.id, imageLinks: element.noticeImageLink, isChange: element.isChange, locate: element.noticeLocation, title: element.noticeBoardTitle, userId: "joo")
+                            HomeListItemView(
+                                author: "", 
+                                date: element.date,
+                                id: element.id, 
+                                imageLinks: element.noticeImageLink,
+                                isChange: element.isChange,
+                                locate: element.noticeLocation,
+                                title: element.noticeBoardTitle,
+                                userId: element.userId,
+                                location: element.noticeLocationName
+                            )                           
                         }
                     }
                     .padding(.horizontal)
