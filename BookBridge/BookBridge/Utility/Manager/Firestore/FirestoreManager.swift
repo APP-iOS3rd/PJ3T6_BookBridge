@@ -13,6 +13,29 @@ class FirestoreManager {
     static let db = Firestore.firestore()
     static let locationManager = LocationManager.shared
     
+    // MARK: - FCM 토큰 업데이트
+    static func updateFCMToken(forUser uid: String, completion: @escaping (Bool) -> Void) {
+        FCMTokenManager.shared.fetchFCMToken { newToken in
+            guard let fcmToken = newToken else {
+                print("FCM 토큰 가져오기 실패")
+                completion(false)
+                return
+            }
+            
+            // Firestore에서 사용자 문서를 찾아 FCM 토큰을 업데이트합니다.
+            let userDocRef = db.collection("User").document(uid)
+            userDocRef.updateData(["fcmToken": fcmToken]) { error in
+                if let error = error {
+                    print("FCM 토큰 업데이트 실패: \(error.localizedDescription)")
+                    completion(false)
+                } else {
+                    print("FCM 토큰 업데이트 성공")
+                    completion(true)
+                }
+            }
+        }
+    }
+    
     // MARK: - Location 불러오기(fetch)
     static func fetchUserLocation(uid: String, completion: @escaping ([Location]?) -> Void) {
             // 사용자의 uid를 이용하여 해당 사용자의 문서를 가져옵니다.
