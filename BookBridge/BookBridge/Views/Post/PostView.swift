@@ -136,7 +136,7 @@ struct PostView: View {
                             Spacer()
                             
                                                                                    
-                            NavigationLink(destination: PostMapSeeMoreView(noticeBoard: $noticeBoard)
+                            NavigationLink(destination: PostMapDetailView(noticeBoard: $noticeBoard)
                                 .navigationBarBackButtonHidden()
                             ) {
                                 Text("더보기")

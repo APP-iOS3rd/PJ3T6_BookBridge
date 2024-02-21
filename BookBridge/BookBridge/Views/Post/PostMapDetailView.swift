@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PostMapSeeMoreView: View {
+struct PostMapDetailView: View {
     @Binding var noticeBoard: NoticeBoard
 
     @Environment(\.dismiss) private var dismiss
