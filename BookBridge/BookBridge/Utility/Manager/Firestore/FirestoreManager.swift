@@ -13,54 +13,38 @@ class FirestoreManager {
     static let db = Firestore.firestore()
     static let locationManager = LocationManager.shared
     
-    static func fetchHopeBook(uid: String, completion: @escaping([Item]) -> ()) {
+    static func fetchHopeBook(uid: String) async throws -> [Item]? {
         let db = Firestore.firestore()
-               let userRef = db.collection("noticeBoard").document(uid)
-               
-        userRef.collection("hopeBooks").getDocuments { (querySnapshot, error) in
-                        
-            if let error = error {
-                print("Error fetching hopeBooks: \(error.localizedDescription)")                
-                return
-            }
+        let snapshot = try await db.collection("noticeBoard").document(uid).collection("hopeBooks").getDocuments()
+        
+        return snapshot.documents.compactMap { doc in
+            let uid = doc.documentID
+            let title = doc["title"] as? String ?? ""
+            let authors = doc["authors"] as? [String] ?? []
+            let publisher = doc["publisher"] as? String ?? ""
+            let publishedDate = doc["publishedDate"] as? String ?? ""
+            let description = doc["description"] as? String ?? ""
+            let industryIdentifiers: [IndustryIdentifier] = []
+            let pageCount = doc["pageCount"] as? Int ?? 0
+            let categories = doc["categories"] as? [String] ?? []
+            let imageLinks = doc["imageLinks"] as? String ?? ""
             
-            guard let documents = querySnapshot?.documents else {
-                print("No documents found")
-                completion([])
-                return
-            }
-            
-            let hopeBooks = documents.compactMap { doc in
-                let uid = doc.documentID
-                let title = doc["title"] as? String ?? ""
-                let authors = doc["author"] as? [String] ?? []
-                let publisher = doc["publisher"] as? String ?? ""
-                let publishedDate = doc["publishedDate"] as? String ?? ""
-                let description = doc["description"] as? String ?? ""
-                let industryIdentifiers: [IndustryIdentifier] = []
-                let pageCount = doc["pageCount"] as? Int ?? 0
-                let categories = doc["categories"] as? [String] ?? []
-                let imageLinks = doc["imageLinks"] as? String ?? ""
-                
-                let item = Item(
-                    id: uid,
-                    volumeInfo: VolumeInfo(
-                        title: title,
-                        authors: authors,
-                        publisher: publisher,
-                        publishedDate: publishedDate,
-                        description: description,
-                        industryIdentifiers: industryIdentifiers,
-                        pageCount: pageCount,
-                        categories: categories,
-                        imageLinks: ImageLinks(smallThumbnail: imageLinks)
-                    )
+            let item = Item(
+                id: uid,
+                volumeInfo: VolumeInfo(
+                    title: title,
+                    authors: authors,
+                    publisher: publisher,
+                    publishedDate: publishedDate,
+                    description: description,
+                    industryIdentifiers: industryIdentifiers,
+                    pageCount: pageCount,
+                    categories: categories,
+                    imageLinks: ImageLinks(smallThumbnail: imageLinks)
                 )
-                
-                return item
-            }
+            )
             
-            completion(hopeBooks)
+            return item
         }
     }
     
