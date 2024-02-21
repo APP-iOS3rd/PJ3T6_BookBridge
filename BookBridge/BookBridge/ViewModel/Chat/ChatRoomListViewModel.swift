@@ -94,8 +94,7 @@ extension ChatRoomListViewModel {
                         recentMessage: documentChange.document.data()["recentMessage"] as? String ?? "",
                         date: changeTime.dateValue(),
                         isAlarm: documentChange.document.data()["isAlarm"] as? Bool ?? true,
-                        newCount: documentChange.document.data()["newCount"] as? Int ?? 0,
-                        state: documentChange.document.data()["state"] as? [Int] ?? [1, 0, 0]
+                        newCount: documentChange.document.data()["newCount"] as? Int ?? 0
                     ))
                     
                     self.getPartnerImage(partnerId: partnerId, noticeBoardId: noticeBoardId)
@@ -103,46 +102,6 @@ extension ChatRoomListViewModel {
             }
         }
     }
-    
-    /*
-    // 채팅목록 삭제
-    func deleteChatList(chatUserID: String) {
-        guard let uid = FirebaseManager.shared.auth.currentUser?.uid else { return }
-        
-        // 채팅 데이터 삭제
-        FirebaseManager.shared.firestore.collection("user")
-            .document(uid)
-            .collection("messages")
-            .document(chatUserID)
-            .delete { error in
-                if let error = error {
-                    print("Failed to delete chat data: \(error)")
-                    return
-                }
-                print("Successfully deleted chat data")
-            }
-        
-        // 최근 메시지 삭제
-        FirebaseManager.shared.firestore.collection("chatUsers")
-            .document(uid)
-            .collection("recent_messages")
-            .document(chatUserID)
-            .delete { error in
-                if let error = error {
-                    print("Failed to delete recent message: \(error)")
-                    return
-                }
-                
-                print("Successfully deleted recent message")
-            }
-    }
-    
-    // 로그아웃 처리
-    func doSignOut() {
-        isLogout = true
-        try? FirebaseManager.shared.auth.signOut()
-    }
-     */
 }
 
 //MARK: 상대방 이미지 관련
