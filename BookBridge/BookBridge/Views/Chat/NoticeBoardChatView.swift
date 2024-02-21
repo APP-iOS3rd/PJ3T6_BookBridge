@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct NoticeBoardChatView: View {
+    @Binding var isShowPlusBtn: Bool
+    
     @StateObject var viewModel: ChatMessageViewModel
     
     var chatRoomListId: String
@@ -16,7 +18,7 @@ struct NoticeBoardChatView: View {
     var body: some View {
         HStack {
             NavigationLink {
-                PostView(noticeBoard: viewModel.noticeBoardInfo)
+                PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: viewModel.noticeBoardInfo)
             } label: {
                 HStack {
                     Image(uiImage: viewModel.bookImage)

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct RoomListView: View {
+    @Binding var isShowPlusBtn: Bool
+    
     @StateObject var viewModel: ChatRoomListViewModel
     
     var body: some View {
@@ -16,7 +18,7 @@ struct RoomListView: View {
                 ZStack {
                     NavigationLink {
                         ChatMessageView(
-                            isAlarm: chatRoom.isAlarm,
+                            isShowPlusBtn: $isShowPlusBtn, isAlarm: chatRoom.isAlarm,
                             chatRoomListId: chatRoom.id,
                             noticeBoardTitle: chatRoom.noticeBoardTitle,
                             chatRoomPartner: viewModel.getPartnerImageIndex(partnerId: chatRoom.partnerId, noticeBoardId: chatRoom.noticeBoardId).0 == -1 ? ChatPartnerModel(nickname: "닉네임 없음", noticeBoardId: chatRoom.noticeBoardId, partnerId: chatRoom.partnerId, partnerImage: UIImage(named: "DefaultImage")!, style: "칭호 미아") : viewModel.chatRoomPartners[viewModel.getPartnerImageIndex(partnerId: chatRoom.partnerId, noticeBoardId: chatRoom.noticeBoardId).0],
@@ -93,8 +95,4 @@ struct RoomListView: View {
         }
         .listStyle(.plain)
     }
-}
-
-#Preview {
-    ChatRoomListView(uid: "lee")
 }

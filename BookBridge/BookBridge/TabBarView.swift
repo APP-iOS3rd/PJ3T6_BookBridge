@@ -26,8 +26,17 @@ struct TabBarView: View {
             ZStack {
                 TabView(selection: $selectedTab) {
                     // 홈
-                    NavigationStack{
-                        HomeView()
+                    NavigationStack {
+                        HomeView(isShowPlusBtn: $isShowPlusBtn)
+                            .onDisappear {
+                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+                                    shouldShowActionSheet = false
+                                }
+                                
+                                withAnimation {
+                                    height = 0.0
+                                }
+                            }
                     }
                     .tabItem {
                         Image(systemName: "house")
@@ -35,8 +44,17 @@ struct TabBarView: View {
                     .tag(0)
                     
                     // 채팅
-                    NavigationStack{
-                        ChatRoomListView(uid: "joo")
+                    NavigationStack {
+                        ChatRoomListView(isShowPlusBtn: $isShowPlusBtn, isComeNoticeBoard: false, uid: "joo")
+                            .onDisappear {
+                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+                                    shouldShowActionSheet = false
+                                }
+                                
+                                withAnimation {
+                                    height = 0.0
+                                }
+                            }
                     }
                     .tabItem {
                         Image(systemName: "message")
@@ -46,11 +64,29 @@ struct TabBarView: View {
                     Spacer()
                     
                     // 책장
-                    NavigationStack{
+                    NavigationStack {
                         if userManager.isLogin {
                             BookShelfView(userId : userManager.uid,initialTapInfo: .wish, isBack: false)
+                                .onDisappear {
+                                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+                                        shouldShowActionSheet = false
+                                    }
+                                    
+                                    withAnimation {
+                                        height = 0.0
+                                    }
+                                }
                         } else {
                             BookShelfView(userId: nil,initialTapInfo: .wish, isBack: false)
+                                .onDisappear {
+                                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+                                        shouldShowActionSheet = false
+                                    }
+                                    
+                                    withAnimation {
+                                        height = 0.0
+                                    }
+                                }
                         }
                     }
                     .tabItem {
@@ -59,8 +95,17 @@ struct TabBarView: View {
                     .tag(2)
                                                         
                     //마이페이지
-                    NavigationStack{
+                    NavigationStack {
                         EmptyView()
+                            .onDisappear {
+                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+                                    shouldShowActionSheet = false
+                                }
+                                
+                                withAnimation {
+                                    height = 0.0
+                                }
+                            }
                     }
                     .tabItem {
                         Image(systemName: "person.circle")
@@ -126,14 +171,6 @@ struct TabBarView: View {
             } else {
                 // 로그인 상태가 아닐 때만 얼럿 상태 업데이트
                 showingLoginAlert = (newTab == 1 || newTab == 2 || newTab == 3)
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
-                shouldShowActionSheet = false
-            }
-            
-            withAnimation {
-                height = 0.0
             }
         }
         .alert(isPresented: $showingLoginAlert) {
