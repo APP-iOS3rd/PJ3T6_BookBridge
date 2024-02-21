@@ -54,6 +54,12 @@
 	</dict>
 	<key>SMTPEmail</key>
 	<string>minho100227@gmail.com</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>external-accessory</string>
+		<string>push-to-talk</string>
+		<string>remote-notification</string>
+	</array>
 	<key>naverKey</key>
 	<string>$(naverKey)</string>
 	<key>naverKeyId</key>
