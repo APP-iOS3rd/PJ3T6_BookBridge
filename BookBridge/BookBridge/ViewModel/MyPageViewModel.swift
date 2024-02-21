@@ -10,16 +10,18 @@ import FirebaseFirestore
 import FirebaseStorage
 
 class MyPageViewModel: ObservableObject {
-    @Published var userRequests: [String] = []
-    @Published var userBookMarks: [String] = []
     @Published var myNoticeBoardCount: Int = 0
+    @Published var userBookMarks: [String] = []
+    @Published var userRequests: [String] = []
+    @Published var userSaveImage: (String, UIImage) = ("", UIImage(named: "Character")!)
     
     let db = Firestore.firestore()
+    let userManager = UserManager.shared
 }
 
 extension MyPageViewModel {
     func getUserInfo() {
-        let query = db.collection("user").document("joo")
+        let query = db.collection("User").document(userManager.uid)
         
         query.getDocument { documentSnapshot, error in
             guard error == nil else { return }
@@ -37,3 +39,22 @@ extension MyPageViewModel {
         }
     }
 }
+
+extension MyPageViewModel {
+    func getDownLoadImage() {
+        if !(userSaveImage.0 == userManager.user?.profileURL ?? ""){
+            guard let urlString = userManager.user?.profileURL else { return }
+            if let url = URL(string: urlString) {
+                URLSession.shared.dataTask(with: url) { (data, response, error) in
+                    guard error == nil else { return }
+                    guard let imageData = data else { return }
+
+                    DispatchQueue.main.async {
+                        self.userSaveImage = (urlString, UIImage(data: imageData) ?? UIImage(named: "Character")!)
+                    }
+                }.resume()
+            }
+        }
+    }
+}
+

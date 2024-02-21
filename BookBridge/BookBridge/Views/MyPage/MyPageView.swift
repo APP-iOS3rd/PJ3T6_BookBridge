@@ -14,10 +14,13 @@ struct MyPageView: View {
         NavigationStack {
             VStack {
                 HStack(spacing: 20) {
-                    Image("bearGlass")
+                    Image(uiImage: viewModel.userSaveImage.1)
                         .resizable()
                         .frame(width: 70, height: 70)
                         .cornerRadius(35)
+                        .overlay(RoundedRectangle(cornerRadius: 35)
+                            .stroke(Color(hex: "D9D9D9"), lineWidth: viewModel.userSaveImage.1 == UIImage(named: "Character")! ? 2 : 0)
+                                )
                     
                     VStack(alignment: .leading, spacing: 10) {
                         Text("뉴비")
@@ -28,7 +31,7 @@ struct MyPageView: View {
                             .background(Color(hex: "D9D9D9"))
                             .cornerRadius(5)
                         
-                        Text("닉네임")
+                        Text(viewModel.userManager.user?.nickname ?? "")
                             .font(.system(size: 20, weight: .bold))
                     }
                     
@@ -61,7 +64,10 @@ struct MyPageView: View {
                 }
             }
             .onAppear {
-                viewModel.getUserInfo()
+                if UserManager.shared.uid != "" {
+                    viewModel.getUserInfo()
+                    viewModel.getDownLoadImage()
+                }
             }
         }
     }

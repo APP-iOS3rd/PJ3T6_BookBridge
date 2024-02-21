@@ -20,7 +20,7 @@ extension FirebaseStyleManager {
     func getMyStyle(userId: String, completion: @escaping([String]) -> ()) {
         var styleList: [String] = []
         
-        db.collection("user").document(userId).collection("style").getDocuments { querySnapshot, error in
+        db.collection("User").document(userId).collection("style").getDocuments { querySnapshot, error in
             guard error == nil else { return }
             guard let documents = querySnapshot?.documents else { return }
             
@@ -32,7 +32,7 @@ extension FirebaseStyleManager {
     }
     
     func changeSelectedStyle(userId: String, style: String) {
-        db.collection("user").document(userId).updateData([
+        db.collection("User").document(userId).updateData([
             "style": style
         ])
     }
