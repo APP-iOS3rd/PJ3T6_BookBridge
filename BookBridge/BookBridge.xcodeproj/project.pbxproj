@@ -147,8 +147,6 @@
 		91B7F0B02B70DE8800B4C475 /* ChatMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B7F0AF2B70DE8800B4C475 /* ChatMessageModel.swift */; };
 		91B7F0B42B71B90F00B4C475 /* ChatRoomListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B7F0B32B71B90F00B4C475 /* ChatRoomListViewModel.swift */; };
 		91B7F0BB2B71E82200B4C475 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B7F0BA2B71E82200B4C475 /* FirebaseManager.swift */; };
-		914201962B7B55E600FEED84 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 914201952B7B55E600FEED84 /* Secrets.xcconfig */; };
-		914201982B7B55F600FEED84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 914201972B7B55F600FEED84 /* GoogleService-Info.plist */; };
 		91B80A422B676EEE000D5339 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A412B676EEE000D5339 /* ImagePicker.swift */; };
 		91B80A452B6798B9000D5339 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A442B6798B9000D5339 /* TabBarView.swift */; };
 		91B80A472B6799B7000D5339 /* ChangePostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A462B6799B7000D5339 /* ChangePostingView.swift */; };
@@ -156,6 +154,7 @@
 		91D7CB042B83528B00F7CFF8 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 91D7CB032B83528B00F7CFF8 /* Secrets.xcconfig */; };
 		91D7CB0C2B846E8900F7CFF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91D7CB0B2B846E8900F7CFF8 /* GoogleService-Info.plist */; };
 		91D7CB0E2B846E8D00F7CFF8 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 91D7CB0D2B846E8D00F7CFF8 /* Secrets.xcconfig */; };
+		91D7CB162B85C3F300F7CFF8 /* ReportChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7CB152B85C3F300F7CFF8 /* ReportChatView.swift */; };
 		AFE5B788F315503A86355ABB /* Pods_BookBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0208E9110CB38EDE3D59A6 /* Pods_BookBridge.framework */; };
 		F60BB0932B71D72400E27F38 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60BB0922B71D72400E27F38 /* HomeView.swift */; };
 		F60BB0952B71D72F00E27F38 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60BB0942B71D72F00E27F38 /* HomeViewModel.swift */; };
@@ -335,8 +334,6 @@
 		91B7F0AF2B70DE8800B4C475 /* ChatMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageModel.swift; sourceTree = "<group>"; };
 		91B7F0B32B71B90F00B4C475 /* ChatRoomListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomListViewModel.swift; sourceTree = "<group>"; };
 		91B7F0BA2B71E82200B4C475 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
-		914201952B7B55E600FEED84 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Secrets.xcconfig; path = ../../../../../Downloads/Secrets.xcconfig; sourceTree = "<group>"; };
-		914201972B7B55F600FEED84 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		91B80A412B676EEE000D5339 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		91B80A442B6798B9000D5339 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		91B80A462B6799B7000D5339 /* ChangePostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePostingView.swift; sourceTree = "<group>"; };
@@ -344,6 +341,7 @@
 		91D7CB032B83528B00F7CFF8 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		91D7CB0B2B846E8900F7CFF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		91D7CB0D2B846E8D00F7CFF8 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		91D7CB152B85C3F300F7CFF8 /* ReportChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportChatView.swift; sourceTree = "<group>"; };
 		A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridgeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5811A49FE2A9EF629A77C52 /* Pods-BookBridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.debug.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.debug.xcconfig"; sourceTree = "<group>"; };
 		CD38D177426E7831566653B2 /* Pods-BookBridge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.release.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.release.xcconfig"; sourceTree = "<group>"; };
@@ -742,6 +740,7 @@
 			isa = PBXGroup;
 			children = (
 				5C8C0E312B7B2934002963F1 /* ReportView.swift */,
+				91D7CB152B85C3F300F7CFF8 /* ReportChatView.swift */,
 				5C8C0E352B7B298C002963F1 /* ReportDetailView.swift */,
 				5C85D1662B7C45130065940D /* ReportCellView.swift */,
 			);
@@ -1213,6 +1212,7 @@
 				1D84019B2B6779CB00ADEEB5 /* IdLoginView.swift in Sources */,
 				5ADE79E82B6B5963005BB3ED /* StatusTextView.swift in Sources */,
 				5C8C0DD82B734B8C002963F1 /* NaverReverseGeocoding.swift in Sources */,
+				91D7CB162B85C3F300F7CFF8 /* ReportChatView.swift in Sources */,
 				910F48F92B6CB42D00C0563E /* ImageDropDelegate.swift in Sources */,
 				736127112B6B84AC00943CD7 /* PostingViewModel.swift in Sources */,
 				5A83458E2B74A279000984C4 /* TownSettingSlideView.swift in Sources */,

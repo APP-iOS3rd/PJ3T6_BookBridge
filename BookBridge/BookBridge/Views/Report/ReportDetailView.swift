@@ -17,60 +17,80 @@ struct ReportDetailView: View {
     let title: String
     
     var body: some View {
-        GeometryReader{ geometry in
             NavigationStack{
-                ZStack(alignment: .topLeading){
-                    
-                        TextField("신고하는 이유를 추가 설명해 주세요.", text: $text, axis: .vertical)
-                        .padding(.horizontal, 10) // 여기에 원하는 만큼의 패딩 값을 추가
-                            .frame(width: geometry.size.width * 0.88, height: geometry.size.height * 0.5)
-                            .cornerRadius(5) // 모서리 둥글게
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .stroke(Color.gray, lineWidth: 1)
-                            )
-                            .position(x: geometry.size.width / 2, y: geometry.size.height * 0.15) // 상단
-                            .padding(.top, geometry.safeAreaInsets.top) //
-                    
-
-                    Button {
-                        reportVM.report.additionalComments = text
-                        reportVM.report.reporterUserId = UserManager.shared.uid
+                ZStack(alignment: .topLeading) {
+                    VStack (alignment: .leading) {
+                        Text("문의 내용")
+                            .bold()
+                        ZStack (alignment: .topLeading) {
+                            Rectangle()
+                                .foregroundStyle(Color(hex: "F4F4F4"))
+                                .cornerRadius(10)
+                                .frame(height: 300)
+                            TextField("신고 내용을 입력해주세요.", text: $text, axis: .vertical)
+                                .padding()
+                                .frame(height: 300, alignment: .topLeading)
+                                .onChange(of: text, perform: {
+                                    text = String($0.prefix(300)) // 텍스트 글자수 제한
+                                })
+                        }
+                        HStack {
+                            Spacer()
+                            CounterView(text: $text)
+                                .bold()
+                                .frame(alignment: .leading)
+                        }
+                        .padding(.bottom, 20)
                         
-                        reportVM.saveReportToFirestore(report: reportVM.report)
-                        
-                        showAlert = true
-                    } label: {
-                        Text("신고하기")
-                            .font(.system(size: 17))
-                            .foregroundStyle(.white)
-                            .frame(width: geometry.size.width * 0.88, height: 50)
-                            .background(Color(hex: "59AAE0"))
-                            .cornerRadius(5.0)
+                        Button {
+                            reportVM.report.additionalComments = text
+                            reportVM.report.reporterUserId = UserManager.shared.uid
+                            
+                            reportVM.saveReportToFirestore(report: reportVM.report)
+                            
+                            showAlert = true
+                        } label: {
+                            Text("신고하기")
+                                .font(.system(size: 17))
+                                .foregroundStyle(.white)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 50)
+                                .background(Color(hex: "59AAE0"))
+                                .cornerRadius(5.0)
+                        }
+                        Spacer()
                     }
-                    .position(x: geometry.size.width / 2, y: geometry.size.height * 0.6) // 하단에 위치
-                    .padding(.bottom, geometry.safeAreaInsets.bottom) // 하단 세이프 에어리어만큼 패딩 추가
+                    .padding()
                 }
                 .alert(isPresented: $showAlert){
                     Alert(
                         title: Text("신고 접수가 완료되었습니다."),
                         dismissButton: .default(Text("확인")) {
                             isTargetView = true
+                            text = ""
                         }
                     )
                 }
-                /*
-                .navigationDestination(isPresented: $isTargetView){
-                    HomeView()
-                }
-                */
             }
-
-        }
         .navigationBarTitle(title, displayMode: .inline)
         .navigationBarItems(leading: CustomBackButtonView())
         .navigationBarBackButtonHidden(true) // 뒤로 가기 버튼 숨기기
-        
-        
+    }
+}
+
+// 글자수 카운트
+struct CounterView: View {
+    @Binding var text: String
+    var counter: Int = 0
+    
+    init(text: Binding<String>) {
+        self._text = text
+        counter = self._text.wrappedValue.count
+    }
+    
+    var body: some View {
+        Text("\(counter) / 300")
+            .font(.caption)
+            .foregroundStyle(.black)
     }
 }
