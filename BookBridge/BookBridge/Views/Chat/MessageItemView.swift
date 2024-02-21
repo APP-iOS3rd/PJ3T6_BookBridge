@@ -130,7 +130,3 @@ struct MessageItemView: View {
     }
 }
 
-
-#Preview {
-    ChatRoomListView(uid: "lee")
-}
