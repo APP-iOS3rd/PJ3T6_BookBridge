@@ -55,7 +55,7 @@ struct AccountManagementView: View {
                         .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
                 )
             }
-            /*              //TODO: 민호님 동네설정 넣을 곳
+           
             NavigationLink {
                 TownSettingView()
             } label: {
@@ -74,7 +74,7 @@ struct AccountManagementView: View {
                         .foregroundColor(.white)
                         .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
                 )
-            }*/
+            }
             
             NavigationLink {
                 //유저 아이디에 사용자 아이디 넣기, 유저 스타일에 사용자 대표 칭호 넣기
