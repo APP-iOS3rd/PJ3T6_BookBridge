@@ -89,6 +89,7 @@
 		5AA97F892B70BCF000EF4081 /* BundleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA97F882B70BCF000EF4081 /* BundleExtension.swift */; };
 		5AD20EA72B85C905009B8CEC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5AD20EA62B85C905009B8CEC /* GoogleService-Info.plist */; };
 		5AD20EA92B85C90C009B8CEC /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5AD20EA82B85C90C009B8CEC /* Secrets.xcconfig */; };
+		5AD20EAB2B85E7F3009B8CEC /* FirestoreManager_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD20EAA2B85E7F3009B8CEC /* FirestoreManager_Tests.swift */; };
 		5ADE79D32B6B2798005BB3ED /* SwiftSMTP in Frameworks */ = {isa = PBXBuildFile; productRef = 5ADE79D22B6B2798005BB3ED /* SwiftSMTP */; };
 		5ADE79DA2B6B2C99005BB3ED /* CertiResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79D92B6B2C99005BB3ED /* CertiResult.swift */; };
 		5ADE79DE2B6B3305005BB3ED /* GoogleAuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */; };
@@ -274,6 +275,7 @@
 		5AA97F882B70BCF000EF4081 /* BundleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtension.swift; sourceTree = "<group>"; };
 		5AD20EA62B85C905009B8CEC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5AD20EA82B85C90C009B8CEC /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		5AD20EAA2B85E7F3009B8CEC /* FirestoreManager_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager_Tests.swift; sourceTree = "<group>"; };
 		5ADE79D92B6B2C99005BB3ED /* CertiResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertiResult.swift; sourceTree = "<group>"; };
 		5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthModel.swift; sourceTree = "<group>"; };
 		5ADE79DF2B6B3351005BB3ED /* GoogleSignResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignResultModel.swift; sourceTree = "<group>"; };
@@ -597,6 +599,7 @@
 			isa = PBXGroup;
 			children = (
 				5A7A4E362B61DFFE00F79C23 /* BookBridgeTests.swift */,
+				5AD20EAA2B85E7F3009B8CEC /* FirestoreManager_Tests.swift */,
 			);
 			path = BookBridgeTests;
 			sourceTree = "<group>";
@@ -1362,6 +1365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A7A4E372B61DFFE00F79C23 /* BookBridgeTests.swift in Sources */,
+				5AD20EAB2B85E7F3009B8CEC /* FirestoreManager_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
