@@ -40,8 +40,8 @@ struct ChatMessageView: View {
                             Text("현재 \"\(viewModel.reservationName)\"님과 예약 진행중입니다.\n예약자를 변경하시겠습니까?")
                                 .padding(.vertical, 8)
                                 .padding(.horizontal, 12)
-                                .font(.system(size: 20))
-                                .foregroundStyle(Color(hex:"767676"))
+                                .font(.system(size: 18).bold())
+                                .foregroundStyle(.white)
                             
                             Button(action: {
                                 viewModel.changeState(state: 1, partnerId: chatRoomPartner.partnerId, noticeBoardId: chatRoomPartner.noticeBoardId)
@@ -49,28 +49,28 @@ struct ChatMessageView: View {
                                 Text("확인")
                                     .padding(.vertical, 10)
                                     .padding(.horizontal, 12)
-                                    .font(.system(size: 20, weight: .bold))
+                                    .font(.system(size: 18, weight: .bold))
                                     .frame(maxWidth: .infinity)
                                     .foregroundStyle(.white)
                                     .background(Color(hex:"59AAE0"))
                                     .cornerRadius(10)
-                                    .padding(.horizontal, 40)
+                                    .padding(.horizontal, 60)
                             }
                         }
                         .frame(maxWidth: .infinity)
                         .frame(height: 150)
-                        .background(Color(.systemGray6))
+                        .background(Color(.lightGray))
                     } else {
                         VStack(spacing: 10) {
                             Text("\"\(viewModel.reservationName)\"님과 교환 완료했습니다.")
                                 .padding(.vertical, 8)
                                 .padding(.horizontal, 12)
-                                .font(.system(size: 20))
-                                .foregroundStyle(Color(hex:"767676"))
+                                .font(.system(size: 18))
+                                .foregroundStyle(.white)
                         }
                         .frame(maxWidth: .infinity)
                         .frame(height: 80)
-                        .background(Color(.systemGray6))
+                        .background(Color(.lightGray))
                     }
                 } else if viewModel.noticeBoardInfo.reservationId == uid || viewModel.noticeBoardInfo.userId == uid {
                     //게시물 작성자 == 나 이거나 예약자 == 대화하고있는 사람
@@ -80,7 +80,7 @@ struct ChatMessageView: View {
                         Text("현재 다른 사람과 예약중입니다.")
                             .padding(.vertical, 8)
                             .padding(.horizontal, 12)
-                            .font(.system(size: 20, weight: .bold))
+                            .font(.system(size: 18).bold())
                             .frame(maxWidth: .infinity)
                             .frame(height: 50)
                             .foregroundStyle(.white)
@@ -89,7 +89,7 @@ struct ChatMessageView: View {
                         Text("다른 사람과 교환이 완료되었습니다.")
                             .padding(.vertical, 8)
                             .padding(.horizontal, 12)
-                            .font(.system(size: 20, weight: .bold))
+                            .font(.system(size: 18).bold())
                             .frame(maxWidth: .infinity)
                             .frame(height: 50)
                             .foregroundStyle(.white)

@@ -20,7 +20,8 @@ struct ChatMessageModel: Identifiable {
     var timeAgo: String {
         //시간 정제
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd\nHH:mm"
+        formatter.dateFormat = "yyyy-MM-dd\n a h:mm"
+        formatter.locale = Locale(identifier: "ko_KR")
         let fixDate = "\(formatter.string(from: date))"
         
         return fixDate
