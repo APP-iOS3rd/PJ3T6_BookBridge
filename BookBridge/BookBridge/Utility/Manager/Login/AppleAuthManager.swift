@@ -10,6 +10,7 @@ import AuthenticationServices
 import FirebaseFirestore
 import FirebaseCore
 import FirebaseAuth
+import FirebaseMessaging
 
 class AppleAuthManager: NSObject, ASAuthorizationControllerDelegate, ObservableObject {
     @Published var isSignedIn = false
@@ -51,20 +52,25 @@ class AppleAuthManager: NSObject, ASAuthorizationControllerDelegate, ObservableO
                 }
                 
                 if let user = authResult?.user{
-                    
-                    FirestoreSignUpManager.shared.getUserData(email: user.email ?? "") { userData in
-                        if userData != nil {
-                            // 로그인
-                            UserManager.shared.login(uid: user.uid)
-                        } else {
-                            guard let email = user.email else {return}
-                            // 회원가입
-                            FirestoreSignUpManager.shared.addUser(id: user.uid, email: email, password: nil, nickname: nil, phoneNumber: nil){
+                
+                    // FCM 토큰 가져오기
+                    FCMTokenManager.shared.fetchFCMToken{ fcmToken in
+                        
+                        FirestoreSignUpManager.shared.getUserData(email: user.email ?? "") { userData in
+                            if userData != nil {
+                                // 로그인
                                 UserManager.shared.login(uid: user.uid)
+                            } else {
+                                guard let email = user.email else {return}
+                                // 회원가입
+                                FirestoreSignUpManager.shared.addUser(id: user.uid, email: email, password: nil, nickname: nil, phoneNumber: nil, fcmToken: fcmToken){
+                                    UserManager.shared.login(uid: user.uid)
+                                }
+                      
                             }
-                  
                         }
                     }
+                    
                     
                     DispatchQueue.main.async {
                         self.isSignedIn = true

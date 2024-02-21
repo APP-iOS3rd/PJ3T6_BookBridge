@@ -16,17 +16,21 @@ final class GoogleAuthViewModel: ObservableObject {
             let result = try await GoogleAuthManager.shared.signInWithGoogle(tokens: tokens)
             guard let email = result.email else { return }
             
-            FirestoreSignUpManager.shared.getUserData(email: email) { userData in
-                if userData != nil {
-                    // 로그인
-                    UserManager.shared.login(uid: result.uid)                    
-                } else {
-                    // 회원가입
-                    FirestoreSignUpManager.shared.addUser(id: result.uid, email: email, password: nil, nickname: nil, phoneNumber: nil) {                        
+            // FCM 토큰 가져오기
+            FCMTokenManager.shared.fetchFCMToken { fcmToken in
+                FirestoreSignUpManager.shared.getUserData(email: email) { userData in
+                    if userData != nil {
+                        // 로그인
                         UserManager.shared.login(uid: result.uid)
-                    }                    
+                    } else {
+                        // 회원가입
+                        FirestoreSignUpManager.shared.addUser(id: result.uid, email: email, password: nil, nickname: nil, phoneNumber: nil, fcmToken: fcmToken) {
+                            UserManager.shared.login(uid: result.uid)
+                        }
+                    }
                 }
             }
+ 
         } catch let err {
             print(err.localizedDescription)
         }
