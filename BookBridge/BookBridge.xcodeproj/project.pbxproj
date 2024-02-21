@@ -156,6 +156,7 @@
 		91B80A472B6799B7000D5339 /* ChangePostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A462B6799B7000D5339 /* ChangePostingView.swift */; };
 		91D7CAF12B82F76D00F7CFF8 /* SwipeBackExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7CAF02B82F76D00F7CFF8 /* SwipeBackExtension.swift */; };
 		91D7CB042B83528B00F7CFF8 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 91D7CB032B83528B00F7CFF8 /* Secrets.xcconfig */; };
+		91D7CB162B85C3F300F7CFF8 /* ReportChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7CB152B85C3F300F7CFF8 /* ReportChatView.swift */; };
 		AFE5B788F315503A86355ABB /* Pods_BookBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0208E9110CB38EDE3D59A6 /* Pods_BookBridge.framework */; };
 		F60BB0932B71D72400E27F38 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60BB0922B71D72400E27F38 /* HomeView.swift */; };
 		F60BB0952B71D72F00E27F38 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60BB0942B71D72F00E27F38 /* HomeViewModel.swift */; };
@@ -344,6 +345,7 @@
 		91B80A462B6799B7000D5339 /* ChangePostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePostingView.swift; sourceTree = "<group>"; };
 		91D7CAF02B82F76D00F7CFF8 /* SwipeBackExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeBackExtension.swift; sourceTree = "<group>"; };
 		91D7CB032B83528B00F7CFF8 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		91D7CB152B85C3F300F7CFF8 /* ReportChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportChatView.swift; sourceTree = "<group>"; };
 		A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridgeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5811A49FE2A9EF629A77C52 /* Pods-BookBridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.debug.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.debug.xcconfig"; sourceTree = "<group>"; };
 		CD38D177426E7831566653B2 /* Pods-BookBridge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.release.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.release.xcconfig"; sourceTree = "<group>"; };
@@ -744,6 +746,7 @@
 			isa = PBXGroup;
 			children = (
 				5C8C0E312B7B2934002963F1 /* ReportView.swift */,
+				91D7CB152B85C3F300F7CFF8 /* ReportChatView.swift */,
 				5C8C0E352B7B298C002963F1 /* ReportDetailView.swift */,
 				5C85D1662B7C45130065940D /* ReportCellView.swift */,
 			);
@@ -1216,6 +1219,7 @@
 				1D84019B2B6779CB00ADEEB5 /* IdLoginView.swift in Sources */,
 				5ADE79E82B6B5963005BB3ED /* StatusTextView.swift in Sources */,
 				5C8C0DD82B734B8C002963F1 /* NaverReverseGeocoding.swift in Sources */,
+				91D7CB162B85C3F300F7CFF8 /* ReportChatView.swift in Sources */,
 				910F48F92B6CB42D00C0563E /* ImageDropDelegate.swift in Sources */,
 				736127112B6B84AC00943CD7 /* PostingViewModel.swift in Sources */,
 				5A83458E2B74A279000984C4 /* TownSettingSlideView.swift in Sources */,
