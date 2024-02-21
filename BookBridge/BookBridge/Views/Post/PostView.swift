@@ -219,8 +219,8 @@ struct PostView: View {
                     isPresented = false
                 }
             }
-            
-            VStack{
+
+            VStack {
                 HStack {
                     Spacer()
                     VStack {
@@ -370,7 +370,6 @@ struct PostView: View {
                     dismiss()
                 } label: {
                     Image(systemName: "chevron.left")
-                        .font(.system(size: 16))
                         .foregroundStyle(.black)
                 }
             }
@@ -381,8 +380,7 @@ struct PostView: View {
                     }
                 } label: {
                     Image(systemName: "ellipsis")
-                        .font(.system(size: 16))
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.black)
                 }
             }
         }
