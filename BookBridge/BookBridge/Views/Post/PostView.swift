@@ -11,6 +11,8 @@ import NMapsMap
 struct PostView: View {
     @Environment(\.dismiss) private var dismiss
     
+    @Binding var isShowPlusBtn: Bool
+    
     @State private var isPresented = false
     @State var noticeBoard: NoticeBoard
     @State var url: [URL] = []
@@ -217,6 +219,7 @@ struct PostView: View {
                     isPresented = false
                 }
             }
+
             VStack {
                 HStack {
                     Spacer()
@@ -233,8 +236,8 @@ struct PostView: View {
                                         .font(.system(size: 14))
                                         .padding(1)
                                 }
-                            Divider()
-                                .padding(1)
+                                Divider()
+                                    .padding(1)
                                 NavigationLink {
                                     EmptyView()
                                 } label: {
@@ -277,11 +280,13 @@ struct PostView: View {
                 }
                 Spacer()
             }
+            
             VStack {
                 Spacer()
+                
                 if UserManager.shared.uid == noticeBoard.userId {
-                    Button {
-                        
+                    NavigationLink {
+                        ChatRoomListView(isShowPlusBtn: $isShowPlusBtn, isComeNoticeBoard: true, uid: UserManager.shared.uid)
                     } label: {
                         Text("대화중인 채팅방 \(postViewModel.chatRoomList.count)")
                             .foregroundStyle(Color.white)
@@ -290,28 +295,49 @@ struct PostView: View {
                             .padding(1)
                     }
                 } else {
-                    Button {
-                        
-                    } label: {
+                    if noticeBoard.state == 1 {
+                        Text("예약중")
+                            .foregroundStyle(Color.white)
+                            .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
+                            .background(Color(hex: "59AAE0"))
+                            .padding(1)
+                    }
+                    else if noticeBoard.state == 0 {
                         if postViewModel.chatRoomList.isEmpty {
-                            Text("채팅하기")
-                                .foregroundStyle(Color.white)
-                                .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
-                                .background(Color(hex: "59AAE0"))
-                                .padding(1)
+                            NavigationLink {
+                                ChatMessageView(isShowPlusBtn: $isShowPlusBtn, chatRoomListId: UUID().uuidString, noticeBoardTitle: noticeBoard.noticeBoardTitle, chatRoomPartner: ChatPartnerModel(nickname: postViewModel.user.nickname ?? "책벌레", noticeBoardId: noticeBoard.id, partnerId: noticeBoard.userId, partnerImage: UIImage(systemName: "scribble")!, style: "중고귀신"), uid: UserManager.shared.uid)
+                            } label: {
+                                Text("채팅하기")
+                                    .foregroundStyle(Color.white)
+                                    .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
+                                    .background(Color(hex: "59AAE0"))
+                                    .padding(1)
+                            }
                         } else {
-                            Text("예약중")
-                                .foregroundStyle(Color.white)
-                                .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
-                                .background(Color(hex: "59AAE0"))
-                                .padding(1)
+                            NavigationLink {
+                                ChatMessageView(isShowPlusBtn: $isShowPlusBtn, chatRoomListId: postViewModel.chatRoomList.first!, noticeBoardTitle: noticeBoard.noticeBoardTitle, chatRoomPartner: ChatPartnerModel(nickname: postViewModel.user.nickname ?? "책별레", noticeBoardId: noticeBoard.id, partnerId: noticeBoard.userId, partnerImage: UIImage(systemName: "scribble")!, style: "중고귀신"), uid: UserManager.shared.uid)
+                            } label: {
+                                Text("채팅하기")
+                                    .foregroundStyle(Color.white)
+                                    .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
+                                    .background(Color(hex: "59AAE0"))
+                                    .padding(1)
+                            }
                         }
+                    } else {
+                        Text("교환 완료")
+                            .foregroundStyle(Color.white)
+                            .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
+                            .background(Color.gray)
+                            .padding(1)
                     }
                 }
             }
             .frame(alignment: Alignment.bottom)
         }
         .onAppear {
+            isShowPlusBtn = false
+            
             if !noticeBoard.noticeImageLink.isEmpty && noticeBoard.isChange {
                 Task {
                     for image in noticeBoard.noticeImageLink {
@@ -359,6 +385,7 @@ struct PostView: View {
             }
         }
         .navigationBarBackButtonHidden()
+        .toolbar(.hidden, for: .tabBar)
     }
 }
 

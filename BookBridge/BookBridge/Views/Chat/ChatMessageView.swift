@@ -10,6 +10,8 @@ import SwiftUI
 struct ChatMessageView: View {
     @Environment(\.dismiss) var dismiss
     
+    @Binding var isShowPlusBtn: Bool
+    
     @StateObject var viewModel = ChatMessageViewModel()
     
     @State var isAlarm: Bool = true
@@ -201,6 +203,7 @@ struct ChatMessageView: View {
             }
         }
         .onAppear {
+            isShowPlusBtn = false
             viewModel.initNewCount(uid: uid, chatRoomId: chatRoomListId)
             viewModel.fetchMessages(uid: uid, chatRoomListId: chatRoomListId)
             viewModel.getNoticeBoardInfo(noticeBoardId: chatRoomPartner.noticeBoardId)

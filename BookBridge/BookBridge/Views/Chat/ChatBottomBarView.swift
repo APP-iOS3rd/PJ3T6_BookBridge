@@ -187,7 +187,3 @@ struct ChatBottomBarView: View {
         }
     }
 }
-
-#Preview {
-    ChatRoomListView(uid: "lee")
-}

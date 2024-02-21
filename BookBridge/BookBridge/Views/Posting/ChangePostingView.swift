@@ -17,9 +17,20 @@ struct ChangePostingView: View {
     @State private var sourceType = 0
     @State private var showAlert = false
     @State private var alertMessage = ""
-    @Binding var selectedTab: Int
     
     var body: some View {
+        HStack {
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.system(size: 16))
+                    .foregroundStyle(.black)
+            }
+            
+            Spacer()
+        }
+        .padding()
         
         ScrollView(showsIndicators: false) {
             VStack(alignment: .leading) {
@@ -139,18 +150,6 @@ struct ChangePostingView: View {
         .padding()
         .navigationTitle("바꿔요")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    dismiss()
-                    selectedTab = 0
-                } label: {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 16))
-                        .foregroundStyle(.black)
-                }
-            }
-        }
         .onAppear {
             Task{
                 viewModel.gettingUserInfo()
