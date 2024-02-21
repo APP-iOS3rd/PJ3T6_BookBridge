@@ -43,8 +43,7 @@ struct HomeView: View {
                     
                 }
                 Spacer()
-                
-                // 임시로 만든 로그인/로그아웃 버튼입니다.
+                                
                 Button {
                     if userManager.isLogin {
                         userManager.logout()
@@ -62,7 +61,7 @@ struct HomeView: View {
             HomeTapView(isShowPlusBtn: $isShowPlusBtn, viewModel: viewModel, tapCategory: selectedPicker)
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                 isShowPlusBtn = true
                 viewModel.updateNoticeBoards()
             }
@@ -77,7 +76,7 @@ struct HomeView: View {
         }
         .onChange(of: userManager.isLogin) { _ in
             print("로그인 변동 감지")
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                 viewModel.updateNoticeBoards()
             }
         }

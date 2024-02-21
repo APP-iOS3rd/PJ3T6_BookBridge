@@ -18,6 +18,7 @@ target 'BookBridge' do
   pod 'NMapsMap'
   pod 'SwiftyJSON', '~> 4.0'
   pod 'GeoFire', '~> 5.0'
+  pod 'FirebaseMessaging'
 
   # Add the Firebase pod for Google Analytics
   pod 'FirebaseAnalytics'

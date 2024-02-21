@@ -87,6 +87,9 @@
 		5AA97F832B70754D00EF4081 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA97F822B70754D00EF4081 /* LocationManager.swift */; };
 		5AA97F862B709C4000EF4081 /* FirestoreSignUpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA97F852B709C4000EF4081 /* FirestoreSignUpManager.swift */; };
 		5AA97F892B70BCF000EF4081 /* BundleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA97F882B70BCF000EF4081 /* BundleExtension.swift */; };
+		5AD20EA72B85C905009B8CEC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5AD20EA62B85C905009B8CEC /* GoogleService-Info.plist */; };
+		5AD20EA92B85C90C009B8CEC /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5AD20EA82B85C90C009B8CEC /* Secrets.xcconfig */; };
+		5AD20EAB2B85E7F3009B8CEC /* FirestoreManager_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD20EAA2B85E7F3009B8CEC /* FirestoreManager_Tests.swift */; };
 		5ADE79D32B6B2798005BB3ED /* SwiftSMTP in Frameworks */ = {isa = PBXBuildFile; productRef = 5ADE79D22B6B2798005BB3ED /* SwiftSMTP */; };
 		5ADE79DA2B6B2C99005BB3ED /* CertiResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79D92B6B2C99005BB3ED /* CertiResult.swift */; };
 		5ADE79DE2B6B3305005BB3ED /* GoogleAuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */; };
@@ -95,6 +98,7 @@
 		5ADE79E62B6B565F005BB3ED /* SignUpInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E52B6B565F005BB3ED /* SignUpInputView.swift */; };
 		5ADE79E82B6B5963005BB3ED /* StatusTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E72B6B5963005BB3ED /* StatusTextView.swift */; };
 		5ADE79EA2B6B6715005BB3ED /* SignUpInputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */; };
+		5C5AB9712B85977200AD90A2 /* FCMTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5AB9702B85977200AD90A2 /* FCMTokenManager.swift */; };
 		5C85D1672B7C45130065940D /* ReportCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C85D1662B7C45130065940D /* ReportCellView.swift */; };
 		5C8C0DD82B734B8C002963F1 /* NaverReverseGeocoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0DD72B734B8C002963F1 /* NaverReverseGeocoding.swift */; };
 		5C8C0DDA2B734BE0002963F1 /* NaverLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0DD92B734BE0002963F1 /* NaverLocationService.swift */; };
@@ -104,7 +108,7 @@
 		5C8C0E362B7B298C002963F1 /* ReportDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0E352B7B298C002963F1 /* ReportDetailView.swift */; };
 		5C8C0E3A2B7B29C6002963F1 /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0E392B7B29C6002963F1 /* ReportViewModel.swift */; };
 		5C8C0E3C2B7B29F7002963F1 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0E3B2B7B29F7002963F1 /* Report.swift */; };
-		5CD606442B7DAABF00AC53DD /* PostMapSeeMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD606432B7DAABE00AC53DD /* PostMapSeeMoreView.swift */; };
+		5CD606442B7DAABF00AC53DD /* PostMapDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD606432B7DAABE00AC53DD /* PostMapDetailView.swift */; };
 		5CE454902B68B79000874BCE /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4548F2B68B79000874BCE /* FirestoreService.swift */; };
 		5CE454932B68B7CB00874BCE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454922B68B7CB00874BCE /* UserModel.swift */; };
 		5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454962B68B8CA00874BCE /* AppleLoginView.swift */; };
@@ -152,8 +156,6 @@
 		91B80A472B6799B7000D5339 /* ChangePostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A462B6799B7000D5339 /* ChangePostingView.swift */; };
 		91D7CAF12B82F76D00F7CFF8 /* SwipeBackExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7CAF02B82F76D00F7CFF8 /* SwipeBackExtension.swift */; };
 		91D7CB042B83528B00F7CFF8 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 91D7CB032B83528B00F7CFF8 /* Secrets.xcconfig */; };
-		91D7CB0C2B846E8900F7CFF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91D7CB0B2B846E8900F7CFF8 /* GoogleService-Info.plist */; };
-		91D7CB0E2B846E8D00F7CFF8 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 91D7CB0D2B846E8D00F7CFF8 /* Secrets.xcconfig */; };
 		91D7CB162B85C3F300F7CFF8 /* ReportChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7CB152B85C3F300F7CFF8 /* ReportChatView.swift */; };
 		AFE5B788F315503A86355ABB /* Pods_BookBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0208E9110CB38EDE3D59A6 /* Pods_BookBridge.framework */; };
 		F60BB0932B71D72400E27F38 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60BB0922B71D72400E27F38 /* HomeView.swift */; };
@@ -272,6 +274,9 @@
 		5AA97F822B70754D00EF4081 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		5AA97F852B709C4000EF4081 /* FirestoreSignUpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreSignUpManager.swift; sourceTree = "<group>"; };
 		5AA97F882B70BCF000EF4081 /* BundleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtension.swift; sourceTree = "<group>"; };
+		5AD20EA62B85C905009B8CEC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5AD20EA82B85C90C009B8CEC /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		5AD20EAA2B85E7F3009B8CEC /* FirestoreManager_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager_Tests.swift; sourceTree = "<group>"; };
 		5ADE79D92B6B2C99005BB3ED /* CertiResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertiResult.swift; sourceTree = "<group>"; };
 		5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthModel.swift; sourceTree = "<group>"; };
 		5ADE79DF2B6B3351005BB3ED /* GoogleSignResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignResultModel.swift; sourceTree = "<group>"; };
@@ -279,6 +284,7 @@
 		5ADE79E52B6B565F005BB3ED /* SignUpInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputView.swift; sourceTree = "<group>"; };
 		5ADE79E72B6B5963005BB3ED /* StatusTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTextView.swift; sourceTree = "<group>"; };
 		5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputManager.swift; sourceTree = "<group>"; };
+		5C5AB9702B85977200AD90A2 /* FCMTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenManager.swift; sourceTree = "<group>"; };
 		5C85D1662B7C45130065940D /* ReportCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCellView.swift; sourceTree = "<group>"; };
 		5C8C0DD72B734B8C002963F1 /* NaverReverseGeocoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverReverseGeocoding.swift; sourceTree = "<group>"; };
 		5C8C0DD92B734BE0002963F1 /* NaverLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLocationService.swift; sourceTree = "<group>"; };
@@ -289,7 +295,7 @@
 		5C8C0E392B7B29C6002963F1 /* ReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
 		5C8C0E3B2B7B29F7002963F1 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		5CD6063F2B7D967A00AC53DD /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
-		5CD606432B7DAABE00AC53DD /* PostMapSeeMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMapSeeMoreView.swift; sourceTree = "<group>"; };
+		5CD606432B7DAABE00AC53DD /* PostMapDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMapDetailView.swift; sourceTree = "<group>"; };
 		5CE4548F2B68B79000874BCE /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
 		5CE454922B68B7CB00874BCE /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		5CE454962B68B8CA00874BCE /* AppleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginView.swift; sourceTree = "<group>"; };
@@ -339,8 +345,6 @@
 		91B80A462B6799B7000D5339 /* ChangePostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePostingView.swift; sourceTree = "<group>"; };
 		91D7CAF02B82F76D00F7CFF8 /* SwipeBackExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeBackExtension.swift; sourceTree = "<group>"; };
 		91D7CB032B83528B00F7CFF8 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
-		91D7CB0B2B846E8900F7CFF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		91D7CB0D2B846E8D00F7CFF8 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		91D7CB152B85C3F300F7CFF8 /* ReportChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportChatView.swift; sourceTree = "<group>"; };
 		A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridgeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5811A49FE2A9EF629A77C52 /* Pods-BookBridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.debug.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.debug.xcconfig"; sourceTree = "<group>"; };
@@ -542,9 +546,9 @@
 		5A7A4E192B61DFFD00F79C23 = {
 			isa = PBXGroup;
 			children = (
-				91D7CB0D2B846E8D00F7CFF8 /* Secrets.xcconfig */,
+				5AD20EA82B85C90C009B8CEC /* Secrets.xcconfig */,
+				5AD20EA62B85C905009B8CEC /* GoogleService-Info.plist */,
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
-				91D7CB0B2B846E8900F7CFF8 /* GoogleService-Info.plist */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
 				5A7A4E352B61DFFE00F79C23 /* BookBridgeTests */,
 				5A7A4E3F2B61DFFE00F79C23 /* BookBridgeUITests */,
@@ -597,6 +601,7 @@
 			isa = PBXGroup;
 			children = (
 				5A7A4E362B61DFFE00F79C23 /* BookBridgeTests.swift */,
+				5AD20EAA2B85E7F3009B8CEC /* FirestoreManager_Tests.swift */,
 			);
 			path = BookBridgeTests;
 			sourceTree = "<group>";
@@ -721,6 +726,7 @@
 				5A32514C2B7325E7008A16A9 /* UserManager.swift */,
 				5A8345842B746741000984C4 /* ConvertManager.swift */,
 				5A17A0202B7C4BF000C60F69 /* GeohashManager.swift */,
+				5C5AB9702B85977200AD90A2 /* FCMTokenManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -908,7 +914,7 @@
 				F64B7EF62B8323E6008AB919 /* ChangePostingModifyView.swift */,
 				F64B7EF82B8324DA008AB919 /* FindPostingModifyView.swift */,
 				F64B7EFC2B833135008AB919 /* ExChangeHopeModifyView.swift */,
-				5CD606432B7DAABE00AC53DD /* PostMapSeeMoreView.swift */,
+				5CD606432B7DAABE00AC53DD /* PostMapDetailView.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -1041,8 +1047,8 @@
 			files = (
 				91D7CB042B83528B00F7CFF8 /* Secrets.xcconfig in Resources */,
 				5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */,
-				91D7CB0E2B846E8D00F7CFF8 /* Secrets.xcconfig in Resources */,
-				91D7CB0C2B846E8900F7CFF8 /* GoogleService-Info.plist in Resources */,
+				5AD20EA92B85C90C009B8CEC /* Secrets.xcconfig in Resources */,
+				5AD20EA72B85C905009B8CEC /* GoogleService-Info.plist in Resources */,
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
 				5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */,
 			);
@@ -1209,6 +1215,7 @@
 				1DCFB0242B68CD3100250D55 /* FindPasswordView.swift in Sources */,
 				5A17A0212B7C4BF000C60F69 /* GeohashManager.swift in Sources */,
 				1D2B61842B63929900945EE2 /* KakaoLoginViewModel.swift in Sources */,
+				5C5AB9712B85977200AD90A2 /* FCMTokenManager.swift in Sources */,
 				1D84019B2B6779CB00ADEEB5 /* IdLoginView.swift in Sources */,
 				5ADE79E82B6B5963005BB3ED /* StatusTextView.swift in Sources */,
 				5C8C0DD82B734B8C002963F1 /* NaverReverseGeocoding.swift in Sources */,
@@ -1257,7 +1264,7 @@
 				5C85D1672B7C45130065940D /* ReportCellView.swift in Sources */,
 				91B80A452B6798B9000D5339 /* TabBarView.swift in Sources */,
 				91B80A422B676EEE000D5339 /* ImagePicker.swift in Sources */,
-				5CD606442B7DAABF00AC53DD /* PostMapSeeMoreView.swift in Sources */,
+				5CD606442B7DAABF00AC53DD /* PostMapDetailView.swift in Sources */,
 				736127092B6B82B400943CD7 /* ImageScrollView.swift in Sources */,
 				5ADE79DA2B6B2C99005BB3ED /* CertiResult.swift in Sources */,
 				5ADE79E62B6B565F005BB3ED /* SignUpInputView.swift in Sources */,
@@ -1362,6 +1369,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A7A4E372B61DFFE00F79C23 /* BookBridgeTests.swift in Sources */,
+				5AD20EAB2B85E7F3009B8CEC /* FirestoreManager_Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1392,7 +1400,7 @@
 /* Begin XCBuildConfiguration section */
 		5A7A4E442B61DFFE00F79C23 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 91D7CB0D2B846E8D00F7CFF8 /* Secrets.xcconfig */;
+			baseConfigurationReference = 5AD20EA82B85C90C009B8CEC /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1456,7 +1464,7 @@
 		};
 		5A7A4E452B61DFFE00F79C23 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 91D7CB0D2B846E8D00F7CFF8 /* Secrets.xcconfig */;
+			baseConfigurationReference = 5AD20EA82B85C90C009B8CEC /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
