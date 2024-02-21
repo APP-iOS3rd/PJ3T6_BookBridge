@@ -32,7 +32,7 @@ struct ReportView: View {
                 .font(.system(size: 18))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 21)
-                                    .padding(.bottom, 15)
+                .padding(.bottom, 15)
                 
                 Divider()
                 
@@ -49,7 +49,7 @@ struct ReportView: View {
 
                 Spacer()
             }
-        }.navigationBarTitle("신고하기", displayMode: .inline)
+        }.navigationBarTitle("\(Report.TargetType.post.rawValue) 신고", displayMode: .inline)
         .navigationBarItems(leading: CustomBackButtonView())
         .navigationBarBackButtonHidden(true) // 뒤로 가기 버튼 숨기기
 

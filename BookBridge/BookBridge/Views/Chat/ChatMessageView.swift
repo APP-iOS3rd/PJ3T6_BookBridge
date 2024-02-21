@@ -109,7 +109,7 @@ struct ChatMessageView: View {
                     VStack {
                         if isPresented {
                             NavigationLink {
-                                EmptyView()
+                                ReportChatView(reportVM: ReportViewModel(), nickname: chatRoomPartner.nickname)
                             } label: {
                                 Text("신고하기")
                                     .font(.system(size: 14))
@@ -157,9 +157,9 @@ struct ChatMessageView: View {
         .onTapGesture {
             withAnimation(.linear(duration: 0.2)) {
                 isPlusBtn = true
-                isPresented = false
+                isShowKeyboard = false
             }
-            isShowKeyboard = false
+            isPresented = false
         }
         .transition(.move(edge: .bottom))
         //        .navigationTitle(noticeBoardTitle)
