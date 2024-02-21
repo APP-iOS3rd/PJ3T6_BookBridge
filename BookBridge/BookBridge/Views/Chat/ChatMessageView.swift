@@ -10,6 +10,8 @@ import SwiftUI
 struct ChatMessageView: View {
     @Environment(\.dismiss) var dismiss
     
+    @Binding var isShowPlusBtn: Bool
+    
     @StateObject var viewModel = ChatMessageViewModel()
     
     @State private var isPlusBtn = true
@@ -25,7 +27,7 @@ struct ChatMessageView: View {
     
     var body: some View {
         VStack {
-            NoticeBoardChatView(viewModel: viewModel, chatRoomListId: chatRoomListId, uid: uid)
+            NoticeBoardChatView(isShowPlusBtn: $isShowPlusBtn, viewModel: viewModel, chatRoomListId: chatRoomListId, uid: uid)
             
             MessageListView(viewModel: viewModel, partnerId: chatRoomPartner.partnerId, partnerImage: chatRoomPartner.partnerImage, uid: uid)
             
@@ -99,6 +101,7 @@ struct ChatMessageView: View {
             }
         }
         .onAppear {
+            isShowPlusBtn = false
             viewModel.initNewCount(uid: uid, chatRoomId: chatRoomListId)
             viewModel.fetchMessages(uid: uid, chatRoomListId: chatRoomListId)
             viewModel.getNoticeBoardInfo(noticeBoardId: chatRoomPartner.noticeBoardId)
