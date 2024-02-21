@@ -51,7 +51,7 @@ extension ChatRoomListViewModel {
     
     // 현재 사용자 데이터 가져오기
     func fetchCurrentUser(uid: String) {
-        FirebaseManager.shared.firestore.collection("user").document(uid).getDocument { snapshot, error in
+        FirebaseManager.shared.firestore.collection("User").document(uid).getDocument { snapshot, error in
             guard error == nil else { return }
             guard let data = snapshot?.data() else { return }
             
@@ -73,7 +73,7 @@ extension ChatRoomListViewModel {
         self.firestoreListener?.remove()
         // Firestore에서 최근 메시지를 가져오는 리스너 설정
         self.chatRoomList.removeAll()
-        firestoreListener = FirebaseManager.shared.firestore.collection("user").document(uid).collection("chatRoomList").order(by: "date", descending: true).addSnapshotListener { querySnapshot, error in
+        firestoreListener = FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").order(by: "date", descending: true).addSnapshotListener { querySnapshot, error in
             guard error == nil else { return }
             guard let documents = querySnapshot else { return }
             
@@ -149,7 +149,7 @@ extension ChatRoomListViewModel {
 extension ChatRoomListViewModel {
     //상대방 프로필 이미지 가져오기
     func getPartnerImage(partnerId: String, noticeBoardId: String) {
-        FirebaseManager.shared.firestore.collection("user").document(partnerId).getDocument { documentSnapshot, error in
+        FirebaseManager.shared.firestore.collection("User").document(partnerId).getDocument { documentSnapshot, error in
             guard error == nil else { return }
             guard let document = documentSnapshot else { return }
             guard let urlString = document.data()?["profileImageUrl"] as? String else { return }

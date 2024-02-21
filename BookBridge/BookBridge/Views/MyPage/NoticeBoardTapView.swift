@@ -109,7 +109,8 @@ struct NoticeBoardTapView: View {
                     case .find:             //TODO: imageLinks 부분 받아오기
                         ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.findNoticeBoards, index: findIndex, isRequests: sortTypes.count == 3 ? true : false)) { element in
                             if element.hopeBook.isEmpty {
-                                HomeListItemView(
+                                NoticeBoardItemView(
+                                    viewModel: viewModel,
                                     author: "",
                                     date: element.date,
                                     id: element.id,
@@ -121,7 +122,8 @@ struct NoticeBoardTapView: View {
                                 )
                             } else {
                                 //TODO: 나중에 썸네일 이미지, 저자 바꾸기
-                                HomeListItemView(
+                                NoticeBoardItemView(
+                                    viewModel: viewModel,
                                     author: element.hopeBook[0].volumeInfo.authors?[0] ?? "",
                                     date: element.date,
                                     id: element.id,
@@ -138,7 +140,8 @@ struct NoticeBoardTapView: View {
                         
                     case .change:
                         ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.changeNoticeBoards, index: changeIndex, isRequests: sortTypes.count == 3 ? true : false)) { element in
-                            HomeListItemView(
+                            NoticeBoardItemView(
+                                viewModel: viewModel,
                                 author: "",
                                 date: element.date,
                                 id: element.id,

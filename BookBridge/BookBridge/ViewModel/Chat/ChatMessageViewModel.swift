@@ -180,7 +180,7 @@ extension ChatMessageViewModel {
         
         
         // 발신자용 메시지 전송 저장
-        let myQuery = FirebaseManager.shared.firestore.collection("user")
+        let myQuery = FirebaseManager.shared.firestore.collection("User")
             .document(uid)
             .collection("chatRoomList").document(chatRoomListId)
         
@@ -200,7 +200,7 @@ extension ChatMessageViewModel {
         ])
         
         // 수신자용 메시지 전송 저장
-        let partnerQuery = FirebaseManager.shared.firestore.collection("user").document(partnerId).collection("chatRoomList").document(chatRoomListId)
+        let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(chatRoomListId)
         
         let recipientMessageDocument = partnerQuery.collection("messages").document()
         
@@ -244,7 +244,7 @@ extension ChatMessageViewModel {
                 
                 
                 // 발신자용 메시지 전송 저장
-                let myQuery = FirebaseManager.shared.firestore.collection("user")
+                let myQuery = FirebaseManager.shared.firestore.collection("User")
                     .document(uid)
                     .collection("chatRoomList").document(chatRoomListId)
                 
@@ -264,7 +264,7 @@ extension ChatMessageViewModel {
                 ])
                 
                 // 수신자용 메시지 전송 저장
-                let partnerQuery = FirebaseManager.shared.firestore.collection("user").document(partnerId).collection("chatRoomList").document(chatRoomListId)
+                let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(chatRoomListId)
                 
                 let recipientMessageDocument = partnerQuery.collection("messages").document()
                 
@@ -346,7 +346,7 @@ extension ChatMessageViewModel {
 extension ChatMessageViewModel {
     //채팅방 입장시 newCount 초기화
     func initNewCount(uid: String, chatRoomId: String) {
-        FirebaseManager.shared.firestore.collection("user").document(uid).collection("chatRoomList").document(chatRoomId).updateData([
+        FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").document(chatRoomId).updateData([
             "newCount": 0
         ])
     }
@@ -355,7 +355,7 @@ extension ChatMessageViewModel {
 //MARK: 알림기능
 extension ChatMessageViewModel {
     func changeAlarm(uid: String, chatRoomListId: String, isAlarm: Bool) {
-        let myQuery = FirebaseManager.shared.firestore.collection("user")
+        let myQuery = FirebaseManager.shared.firestore.collection("User")
             .document(uid)
             .collection("chatRoomList").document(chatRoomListId)
         myQuery.updateData([
@@ -370,7 +370,7 @@ extension ChatMessageViewModel {
         var newState = [Int](repeating: 0, count: 3) // 기본 초기 배열 생성
         newState[state] = 1
 
-        let myQuery = FirebaseManager.shared.firestore.collection("user")
+        let myQuery = FirebaseManager.shared.firestore.collection("User")
             .document(uid)
             .collection("chatRoomList").document(chatRoomListId)
         

@@ -31,7 +31,7 @@ struct TabBarView: View {
             
             // 채팅
             NavigationStack{
-                ChatRoomListView(uid: "joo")
+                ChatRoomListView(uid: userManager.uid)
             }
             .tabItem {
                 Image(systemName: "message")

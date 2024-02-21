@@ -10,9 +10,11 @@ import FirebaseFirestore
 import FirebaseStorage
 
 class NoticeBoardViewModel: ObservableObject {
+    @Published var bookMarks: [String] = []
     @Published var changeNoticeBoards: [NoticeBoard] = []
+    @Published var changeNoticeBoardsDic: [String: UIImage] = [:]
     @Published var findNoticeBoards: [NoticeBoard] = []
-    
+    @Published var findNoticeBoardsDic: [String: UIImage] = [:]
     @Published var filterChangeNoticeBoards: [NoticeBoard] = []
     @Published var filterFindNoticeBoards: [NoticeBoard] = []
     
@@ -41,6 +43,8 @@ extension NoticeBoardViewModel {
 extension NoticeBoardViewModel {
     //바꿔요
     func gettingChangeNoticeBoards(whereIndex: Int, noticeBoardArray: [String]) {
+        changeNoticeBoards = []
+        
         var query: Query
         
         if whereIndex == 0 {                    //내 게시물
@@ -82,6 +86,8 @@ extension NoticeBoardViewModel {
     
     //구해요
     func gettingFindNoticeBoards(whereIndex: Int, noticeBoardArray: [String]) {
+        findNoticeBoards = []
+        
         var query: Query
         
         if whereIndex == 0 {                    //내 게시물
@@ -161,6 +167,81 @@ extension NoticeBoardViewModel {
                     }
                 }
             }
+        }
+    }
+}
+
+// MARK: - 이미지
+extension NoticeBoardViewModel {
+    func getDownLoadImage(isChange: Bool, noticeBoardId: String, urlString: String) {
+        if isChange {
+            if !self.changeNoticeBoardsDic.contains(where: { $0.key == noticeBoardId }){
+                if let url = URL(string: urlString) {
+                    URLSession.shared.dataTask(with: url) { (data, response, error) in
+                        guard error == nil else { return }
+                        guard let imageData = data else { return }
+
+                        DispatchQueue.main.async {
+                            self.changeNoticeBoardsDic.updateValue(UIImage(data: imageData) ?? UIImage(named: "Character")!, forKey: noticeBoardId)
+                        }
+                    }.resume()
+                }
+            }
+        } else {
+            if !self.findNoticeBoardsDic.contains(where: { $0.key == noticeBoardId }){
+                if let url = URL(string: urlString) {
+                    URLSession.shared.dataTask(with: url) { (data, response, error) in
+                        guard error == nil else { return }
+                        guard let imageData = data else { return }
+
+                        DispatchQueue.main.async {
+                            self.findNoticeBoardsDic.updateValue(UIImage(data: imageData) ?? UIImage(named: "Character")!, forKey: noticeBoardId)
+                        }
+                    }.resume()
+                }
+            }
+        }
+    }
+}
+
+//MARK: 북마크
+extension NoticeBoardViewModel {
+    func fetchBookMark(user: String) {
+        var bookMarks: [String] = []
+        
+        db.collection("user").document(user).getDocument { documentSnapshot, error in
+            guard error == nil else { return }
+            guard let document = documentSnapshot else { return }
+            
+            bookMarks = document["bookMark"] as? [String] ?? []
+            
+            self.bookMarks = bookMarks
+        }
+    }
+    
+    //추가, 해제
+    func bookMarkToggle(user: String, id: String) {
+        var bookMarks: [String] = []
+        
+        db.collection("user").document(user).getDocument { documentSnapshot, error in
+            guard error == nil else { return }
+            guard let document = documentSnapshot else { return }
+            
+            bookMarks = document["bookMark"] as? [String] ?? []
+            
+            if (bookMarks.contains { $0 == id }) {
+                if let index = bookMarks.firstIndex(of: id) {
+                    bookMarks.remove(at: index)
+                }
+            } else {
+                bookMarks.append(id)
+            }
+            
+            self.db.collection("user").document(user).updateData([
+                "bookMark": bookMarks
+            ])
+            
+            self.bookMarks = bookMarks
         }
     }
 }
