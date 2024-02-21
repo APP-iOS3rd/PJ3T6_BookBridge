@@ -10,6 +10,7 @@ import Firebase
 import KakaoSDKCommon
 import KakaoSDKAuth
 import NaverThirdPartyLogin
+import FirebaseMessaging
 
 @main
 struct BookBridgeApp: App {
@@ -61,6 +62,26 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         // Firebase 실행확인 print
         print("Configured Firebase!")
         
+        // 푸시 알림을 위한 사용자 동의 요청
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]){ granted, error in
+            print("부여된 권한 : \(granted)")
+            guard granted else { return }
+            DispatchQueue.main.async{
+                application.registerForRemoteNotifications()
+            }
+        }
+        
         return true
+    }
+    
+    // APNS 토큰을 받았을 때 호출되는 메소드
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        // Firebase에 APNS 토큰 설정
+        Messaging.messaging().apnsToken = deviceToken
+    }
+    
+    // APNS 등록 실패 시 호출되는 메소드
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Failed to register for remote notifications: \(error.localizedDescription)")
     }
 }

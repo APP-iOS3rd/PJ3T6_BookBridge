@@ -33,12 +33,22 @@ class UserManager: ObservableObject {
     func login(uid: String) {
         self.uid = uid
         self.isLogin = true
+        
+        FirestoreManager.updateFCMToken(forUser: uid) { success in
+            if success {
+                print("FCM 토큰이 성공적으로 갱신되었습니다.")
+            } else {
+                print("FCM 토큰 갱신에 실패했습니다.")
+            }
+        }
+        
         FirestoreManager.fetchUserModel(uid: uid) { user in
             self.user = user
             print("사용자가 login에 성공하였습니다.")
             print(user ?? "user가 없습니다.")
             self.currentDong = user?.getSelectedLocation()?.dong ?? ""
         }
+        
     }
     
     func logout() {
