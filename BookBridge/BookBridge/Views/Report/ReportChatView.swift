@@ -58,8 +58,9 @@ struct ReportChatView: View {
                 
                 Spacer()
             }
-        }.navigationBarTitle("사용자 신고", displayMode: .inline)
-            .navigationBarItems(leading: CustomBackButtonView())
-            .navigationBarBackButtonHidden(true) // 뒤로 가기 버튼 숨기기
+        }
+        .navigationBarTitle("사용자 신고", displayMode: .inline)
+        .navigationBarItems(leading: CustomBackButtonView())
+        .navigationBarBackButtonHidden(true) // 뒤로 가기 버튼 숨기기
     }
 }

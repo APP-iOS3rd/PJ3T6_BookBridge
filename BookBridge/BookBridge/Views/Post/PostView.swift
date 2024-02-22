@@ -124,47 +124,6 @@ struct PostView: View {
                     Divider()
                         .padding(.horizontal)
                     
-                    //교환 희망 장소
-                    VStack(alignment: .leading) {
-                        HStack {
-                            Text("교환 희망 장소")
-                                .font(.system(size: 25))
-                                .fontWeight(.bold)
-                                .padding(.horizontal)
-                                .padding(.top)
-                            
-                            Spacer()
-                            
-                            
-                            NavigationLink(destination: PostMapDetailView(noticeBoard: $noticeBoard)
-                                .navigationBarBackButtonHidden()
-                            ) {
-                                Text("더보기")
-                                    .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
-                            }
-                            .padding(.horizontal)
-                            .padding(.top)
-                        }
-                        
-                        
-                        if noticeBoard.noticeLocation.count >= 2 {
-                            PostMapView(lat: $noticeBoard.noticeLocation[0], lng: $noticeBoard.noticeLocation[1], isDetail: false)
-                        }
-                        
-                        Text(noticeBoard.noticeLocationName)
-                            .font(.system(size: 15))
-                            .padding(.horizontal)
-                    }
-                    .frame(
-                        minWidth: UIScreen.main.bounds.width,
-                        minHeight: 400,
-                        alignment: Alignment.topLeading
-                    )
-                    .padding(.bottom)
-                    
-                    Divider()
-                        .padding(.horizontal)
-                    
                     //상대방 책장
                     VStack(alignment: .leading) {
                         Text("\(postViewModel.user.nickname ?? "책벌레")님의 책장")
@@ -225,16 +184,56 @@ struct PostView: View {
                         minHeight: 300,
                         alignment: Alignment.topLeading
                     )
-                    .padding(.bottom, 60)
+                    .padding(.bottom, 30)
                 }
                 
+                Divider()
+                    .padding(.horizontal)
+                
+                //교환 희망 장소
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("교환 희망 장소")
+                            .font(.system(size: 25))
+                            .fontWeight(.bold)
+                            .padding(.horizontal)
+                            .padding(.top)
+                        
+                        Spacer()
+                        
+                                                                               
+                        NavigationLink(destination: PostMapDetailView(noticeBoard: $noticeBoard)
+                            .navigationBarBackButtonHidden()
+                        ) {
+                            Text("더보기")
+                                .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
+                        }
+                        .padding(.horizontal)
+                        .padding(.top)
+                    }
+                   
+                    
+                    if noticeBoard.noticeLocation.count >= 2 {
+                        PostMapView(lat: $noticeBoard.noticeLocation[0], lng: $noticeBoard.noticeLocation[1], isDetail: false)
+                    }
+                    
+                    Text(noticeBoard.noticeLocationName)
+                        .font(.system(size: 15))
+                        .padding(.horizontal)
+                }
+                .frame(
+                    minWidth: UIScreen.main.bounds.width,
+                    minHeight: 400,
+                    alignment: Alignment.topLeading
+                )
+                .padding(.bottom, 100)
             }
             .onTapGesture {
                 withAnimation(.easeIn(duration: 0.2)) {
                     isPresented = false
                 }
             }
-            
+
             VStack {
                 HStack {
                     Spacer()
@@ -276,8 +275,7 @@ struct PostView: View {
                                 Divider()
                                     .padding(1)
                                 Button {
-                                    postViewModel.deletePost(noticeBoardId: noticeBoard.id)
-                                    dismiss()
+                                    
                                 } label: {
                                     Text("삭제하기")
                                         .font(.system(size: 14))
