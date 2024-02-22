@@ -12,12 +12,13 @@ struct MyProfileView: View {
     
     @StateObject var viewModel = MyProfileViewModel()
     
+    @State var nickname: String = ""
+    @State var userSaveImage: (String, UIImage) = ("", UIImage(named: "Character")!)
+    
+    @State private var isDuplication: Bool = false
     @State private var isEditing: Bool = false
     @State private var isShowImagePicker: Bool = false
     @State private var saveText: String = ""
-    
-    var nickname: String
-    var userSaveImage: (String, UIImage)
     
     var body: some View {
         VStack {
@@ -92,12 +93,19 @@ struct MyProfileView: View {
                     .foregroundStyle(Color(hex: "D1D3D9"))
                 
                 HStack {
+                    if isDuplication {
+                        Text("중복된 닉네임입니다.")
+                            .font(.system(size: 15, weight: .medium))
+                            .foregroundStyle(.red)
+                    }
+                    
                     Spacer()
                     
                     Text("\(viewModel.userNickname.count)/10")
                         .font(.system(size: 15, weight: .medium))
                         .foregroundStyle(Color(hex: "767676"))
                 }
+                .padding(.top, 5)
             }
             .padding(.bottom, 30)
             
@@ -139,8 +147,25 @@ struct MyProfileView: View {
                 if isEditing {
                     if  (viewModel.selectImage != userSaveImage.1 || viewModel.userNickname != nickname) && viewModel.userNickname != "" {
                         Button {
-                            //TODO: 저장로직
-                            isEditing.toggle()          //나중에 completion으로
+                            viewModel.checkingSameNickname(nickname: nickname, userSaveImage: userSaveImage) { (isDuplication, urlString) in
+                                if isDuplication {
+                                    self.isDuplication = true
+                                    
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                                        self.isDuplication = false
+                                    }
+                                } else {
+                                    if viewModel.selectImage != userSaveImage.1 && viewModel.userNickname != nickname {
+                                        userSaveImage = (urlString, viewModel.selectImage ?? UIImage(named: "Character")!)
+                                        nickname = viewModel.userNickname
+                                    } else if viewModel.selectImage != userSaveImage.1 {
+                                        userSaveImage = (urlString, viewModel.selectImage ?? UIImage(named: "Character")!)
+                                    } else {
+                                        nickname = viewModel.userNickname
+                                    }
+                                    isEditing.toggle()
+                                }
+                            }
                         } label: {
                             Text("완료")
                                 .font(.system(size: 16, weight: .medium))
