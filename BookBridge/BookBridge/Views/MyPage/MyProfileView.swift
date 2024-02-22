@@ -10,6 +10,8 @@ import SwiftUI
 struct MyProfileView: View {
     @Environment(\.dismiss) private var dismiss
     
+    @Binding var isShowPlusBtn: Bool
+    
     @StateObject var viewModel = MyProfileViewModel()
     
     @State var nickname: String = ""
@@ -71,7 +73,7 @@ struct MyProfileView: View {
                     }
                     .frame(height: 30)
                     .onChange(of: viewModel.userNickname) { _ in
-                        if viewModel.userNickname.count > 10 {
+                        if viewModel.userNickname.count > 15 {
                             viewModel.userNickname = saveText
                         } else {
                             saveText = viewModel.userNickname
@@ -101,7 +103,7 @@ struct MyProfileView: View {
                     
                     Spacer()
                     
-                    Text("\(viewModel.userNickname.count)/10")
+                    Text("\(viewModel.userNickname.count)/15")
                         .font(.system(size: 15, weight: .medium))
                         .foregroundStyle(Color(hex: "767676"))
                 }
@@ -112,6 +114,7 @@ struct MyProfileView: View {
             Spacer()
         }
         .onAppear {
+            isShowPlusBtn = false
             viewModel.userNickname = nickname
             viewModel.selectImage = userSaveImage.1
         }
@@ -158,10 +161,17 @@ struct MyProfileView: View {
                                     if viewModel.selectImage != userSaveImage.1 && viewModel.userNickname != nickname {
                                         userSaveImage = (urlString, viewModel.selectImage ?? UIImage(named: "Character")!)
                                         nickname = viewModel.userNickname
+                                        
+                                        viewModel.userManager.user?.profileURL = urlString
+                                        viewModel.userManager.user?.nickname = viewModel.userNickname
                                     } else if viewModel.selectImage != userSaveImage.1 {
                                         userSaveImage = (urlString, viewModel.selectImage ?? UIImage(named: "Character")!)
+                                        
+                                        viewModel.userManager.user?.profileURL = urlString
                                     } else {
                                         nickname = viewModel.userNickname
+                                        
+                                        viewModel.userManager.user?.nickname = viewModel.userNickname
                                     }
                                     isEditing.toggle()
                                 }

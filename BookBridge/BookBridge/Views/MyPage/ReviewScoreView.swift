@@ -10,8 +10,6 @@ import SwiftUI
 struct ReviewScoreView: View {
     @StateObject var viewModel = ReviewScoreViewModel()
     
-    var userId: String
-    
     var body: some View {
         HStack {
             VStack(spacing: 5) {
@@ -23,7 +21,7 @@ struct ReviewScoreView: View {
                     .background(Color(hex: "EDD1AF"))
                     .cornerRadius(5)
                 
-                Text("\(viewModel.userReviewArr[0])")
+                Text("\(viewModel.userManager.user?.reviews?[0] ?? 0)")
                     .font(.system(size: 17, weight: .semibold))
             }
             
@@ -43,7 +41,7 @@ struct ReviewScoreView: View {
                     .background(Color(hex: "FBE6CA"))
                     .cornerRadius(5)
                 
-                Text("\(viewModel.userReviewArr[1])")
+                Text("\(viewModel.userManager.user?.reviews?[1] ?? 0)")
                     .font(.system(size: 17, weight: .semibold))
             }
             
@@ -63,7 +61,7 @@ struct ReviewScoreView: View {
                     .background(Color(hex: "FDF1E0"))
                     .cornerRadius(5)
                 
-                Text("\(viewModel.userReviewArr[2])")
+                Text("\(viewModel.userManager.user?.reviews?[2] ?? 0)")
                     .font(.system(size: 17, weight: .semibold))
             }
             
@@ -91,9 +89,7 @@ struct ReviewScoreView: View {
         .padding(.horizontal, 10)
         .padding(.bottom, 20)
         .onAppear {
-            viewModel.getReviewsScore(userId: userId) { _ in
-                viewModel.getMannerScore()
-            }
+            viewModel.getMannerScore()
         }
     }
 }
