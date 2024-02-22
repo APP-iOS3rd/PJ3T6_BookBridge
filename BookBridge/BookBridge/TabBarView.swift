@@ -181,8 +181,8 @@ struct TabBarView: View {
                     showingLoginView = true
                     showingLoginAlert = false
                 }),
-                secondaryButton: .cancel{
-                   
+                secondaryButton: .destructive(Text("취소")) {
+                    
                 }
             )
         }

@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseFirestore
+import FirebaseStorage
 
 class PostViewModel: ObservableObject {
     @Published var bookMarks: [String] = []
@@ -32,7 +33,6 @@ extension PostViewModel {
                 let data = document.data()
                 if let data = data {
                     print("data", data)
-                    
                     let user = UserModel(
                         id: data["id"] as? String,
                         email: data["email"] as? String,
@@ -126,6 +126,74 @@ extension PostViewModel {
             self.bookMarks = bookMarks
         }
     }
+
+
+    
+    func deletePost(noticeBoardId: String) {
+        // Firestore에서 게시물 삭제
+        db.collection("noticeBoard").document(noticeBoardId).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+                // 사용자 게시물 목록에서 게시물 삭제
+                self.deleteFromUserPosts(noticeBoardId: noticeBoardId)
+                // Storage에서 해당 게시물의 이미지 폴더 삭제
+                self.deleteFolder(folderPath: "NoticeBoard/\(noticeBoardId)")
+            }
+        }
+    }
+
+    // 사용자 게시물 목록에서 삭제
+    private func deleteFromUserPosts(noticeBoardId: String) {
+        db.collection("User").document(UserManager.shared.uid).collection("myNoticeBoard").document(noticeBoardId).delete() { err in
+            if let err = err {
+                print("Error removing document from user posts: \(err)")
+            } else {
+                print("Document successfully removed from user posts!")
+            }
+        }
+    }
+
+    // 폴더 삭제 함수
+    func deleteFolder(folderPath: String) {
+        let storageRef = Storage.storage().reference().child(folderPath)
+        
+        // 폴더 내의 모든 파일(이미지) 삭제
+        storageRef.listAll { (result, error) in
+            // result가 nil이 아닐 때만 진행
+            guard let result = result else {
+                print("Error: result is nil")
+                return
+            }
+            
+            if let error = error {
+                // 에러 처리
+                print("Error listing files: \(error)")
+                return
+            }
+
+            // 각 파일을 순회하며 삭제
+            for item in result.items {
+                item.delete { error in
+                    if let error = error {
+                        // 에러 처리
+                        print("Error deleting file: \(error)")
+                    } else {
+                        // 성공적으로 삭제됨
+                        print("File successfully deleted: \(item.name)")
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
 }
 
 
