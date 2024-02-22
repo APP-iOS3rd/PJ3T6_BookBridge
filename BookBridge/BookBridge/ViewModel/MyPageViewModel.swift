@@ -42,13 +42,13 @@ extension MyPageViewModel {
 
 extension MyPageViewModel {
     func getDownLoadImage() {
-        if !(userSaveImage.0 == userManager.user?.profileURL ?? ""){
+        if userSaveImage.0 != userManager.user?.profileURL ?? ""{
             guard let urlString = userManager.user?.profileURL else { return }
             if let url = URL(string: urlString) {
                 URLSession.shared.dataTask(with: url) { (data, response, error) in
                     guard error == nil else { return }
                     guard let imageData = data else { return }
-
+                    print(imageData)
                     DispatchQueue.main.async {
                         self.userSaveImage = (urlString, UIImage(data: imageData) ?? UIImage(named: "Character")!)
                     }

@@ -12,7 +12,9 @@ struct MyProfileView: View {
     
     @StateObject var viewModel = MyProfileViewModel()
     
+    @State private var isEditing: Bool = false
     @State private var isShowImagePicker: Bool = false
+    @State private var saveText: String = ""
     
     var nickname: String
     var userSaveImage: (String, UIImage)
@@ -28,19 +30,21 @@ struct MyProfileView: View {
                         .stroke(Color(hex: "D9D9D9"), lineWidth: viewModel.selectImage == UIImage(named: "Character")! ? 2 : 0)
                             )
                 
-                Image(systemName: "camera.circle.fill")
-                    .resizable()
-                    .frame(width: 44, height: 44)
-                    .foregroundStyle(Color(hex: "ababab"))
-                    .background(
-                        Circle()
-                            .frame(width: 44, height: 44)
-                            .foregroundStyle(.white)
-                    )
-                    .offset(x: 88, y: 3)
-                    .onTapGesture {
-                        isShowImagePicker.toggle()
-                    }
+                if isEditing {
+                    Image(systemName: "camera.circle.fill")
+                        .resizable()
+                        .frame(width: 44, height: 44)
+                        .foregroundStyle(Color(hex: "ababab"))
+                        .background(
+                            Circle()
+                                .frame(width: 44, height: 44)
+                                .foregroundStyle(.white)
+                        )
+                        .offset(x: 85)
+                        .onTapGesture {
+                            isShowImagePicker.toggle()
+                        }
+                }
             }
             .padding(.vertical, 10)
             .padding(.bottom, 10)
@@ -50,22 +54,37 @@ struct MyProfileView: View {
                     .font(.system(size: 25, weight: .semibold))
                     .padding(.bottom, 15)
                 
-                HStack(alignment: .bottom) {
-                    TextField("닉네임이 없어요...", text: $viewModel.userNickname)
-                        .font(.system(size: 20, weight: .medium))
-                        .frame(maxWidth: .infinity)
-                    
-                    if viewModel.userNickname != nickname {
+                if isEditing {
+                    HStack(alignment: .bottom) {
+                        TextField("닉네임이 없어요...", text: $viewModel.userNickname)
+                            .font(.system(size: 20, weight: .medium))
+                            .frame(maxWidth: .infinity)
+                        
                         Button {
-                            viewModel.userNickname = nickname
+                            viewModel.userNickname = ""
                         } label: {
-                            Image(systemName: "arrow.clockwise")
+                            Image(systemName: "xmark.circle.fill")
                                 .font(.system(size: 20, weight: .medium))
                                 .foregroundStyle(.black)
                         }
                     }
+                    .frame(height: 30)
+                    .onChange(of: viewModel.userNickname) { _ in
+                        if viewModel.userNickname.count > 10 {
+                            viewModel.userNickname = saveText
+                        } else {
+                            saveText = viewModel.userNickname
+                        }
+                    }
+                } else {
+                    HStack {
+                        Text(viewModel.userNickname)
+                            .font(.system(size: 20, weight: .medium))
+                        
+                        Spacer()
+                    }
+                    .frame(height: 30)
                 }
-                .frame(height: 30)
                 
                 Rectangle()
                     .frame(maxWidth: .infinity)
@@ -82,22 +101,6 @@ struct MyProfileView: View {
             }
             .padding(.bottom, 30)
             
-            if viewModel.selectImage != userSaveImage.1 || viewModel.userNickname != nickname {
-                Button {
-                    //저장로직
-                } label: {
-                    Text("변경사항 저장")
-                        .padding(.vertical, 5)
-                        .padding(.horizontal,8)
-                        .font(.system(size: 20, weight: .bold))
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 50)
-                        .foregroundStyle(.white)
-                        .background(Color(hex: "59AAE0"))
-                        .cornerRadius(10)
-                }
-            }
-            
             Spacer()
         }
         .onAppear {
@@ -110,24 +113,50 @@ struct MyProfileView: View {
         .toolbar(.hidden, for: .tabBar)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.backward")
-                        .font(.system(size: 16))
-                        .foregroundStyle(.black)
+                if isEditing {
+                    Button {
+                        viewModel.userNickname = nickname
+                        viewModel.selectImage = userSaveImage.1
+                        
+                        isEditing.toggle()
+                    } label: {
+                        Text("취소")
+                            .font(.system(size: 16, weight: .medium))
+                            .foregroundStyle(.black)
+                    }
+                } else {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.backward")
+                            .font(.system(size: 16))
+                            .foregroundStyle(.black)
+                    }
                 }
             }
             
             ToolbarItem(placement: .topBarTrailing) {
-                if viewModel.selectImage != userSaveImage.1 {
+                if isEditing {
+                    if  (viewModel.selectImage != userSaveImage.1 || viewModel.userNickname != nickname) && viewModel.userNickname != "" {
+                        Button {
+                            //TODO: 저장로직
+                            isEditing.toggle()          //나중에 completion으로
+                        } label: {
+                            Text("완료")
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundStyle(.black)
+                        }
+                    }
+                } else {
                     Button {
-                        viewModel.selectImage = userSaveImage.1
+                        isEditing.toggle()
                     } label: {
-                        Image(systemName: "arrow.clockwise")
-                            .font(.system(size: 16))
+                        Text("편집")
+                            .font(.system(size: 16, weight: .medium))
                             .foregroundStyle(.black)
                     }
+                }
+                if !(isEditing && viewModel.selectImage == userSaveImage.1 && (viewModel.userNickname == nickname || viewModel.userNickname != "")){
                 }
             }
         }
