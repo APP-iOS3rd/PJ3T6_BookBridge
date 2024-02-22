@@ -77,6 +77,8 @@ struct BookShelfView: View {
                                 dismiss()
                             }) {
                                 Image(systemName: "chevron.left")
+                                    .font(.system(size: 16))
+                                    .foregroundStyle(.black)
                             }
                             
                         }
@@ -175,8 +177,6 @@ struct BookShelfView: View {
                         SearchBooksView(hopeBooks: $hopeBooks, isWish: selectedPicker)
                     })
             }
-            
-            
         }
         .onAppear{
             if userId != nil {
