@@ -50,6 +50,7 @@ struct HomeRecentSearchView: View {
                                 .foregroundColor(Color(hex: "999999"))
                             
                             Button{
+                                viewModel.addRecentSearch(user: UserManager.shared.uid, text: search, category: viewModel.currentTapCategory)
                                 viewModel.filterNoticeBoards(with: search)
                                 isOutsideXmark = false
                                 isInsideXmark = false

@@ -31,7 +31,7 @@ struct HomeTapView: View {
                             .padding(.leading, 8)
                         
                         TextField("검색어를 입력해주세요", text: $text, onCommit: {
-                            viewModel.addRecentSearch(user: UserManager.shared.uid, text: text)
+                            viewModel.addRecentSearch(user: UserManager.shared.uid, text: text, category: tapCategory)
                             isOutsideXmark = false
                             isInsideXmark = false
                             
@@ -316,6 +316,11 @@ struct HomeTapView: View {
         .onAppear {
             viewModel.fetchBookMark(user: UserManager.shared.uid)
             
+        }
+        .onChange(of: tapCategory) { newValue in
+            // 탭 카테고리가 변경될 때마다 필터링을 업데이트
+            viewModel.currentTapCategory = newValue
+            viewModel.filterNoticeBoards(with: text)
         }
     }
 }
