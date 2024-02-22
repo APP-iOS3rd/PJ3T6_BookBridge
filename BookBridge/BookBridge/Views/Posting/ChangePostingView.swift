@@ -9,16 +9,29 @@ import SwiftUI
 
 struct ChangePostingView: View {
     @Environment(\.dismiss) private var dismiss
-    
+    @EnvironmentObject private var pathModel: PostPathViewModel
     @StateObject var viewModel = PostingViewModel()
-    
     @State private var selectedImages: [UIImage] = []
     @State private var showActionSheet = false
     @State private var showImagePicker = false
     @State private var sourceType = 0
+    @State private var showAlert = false
+    @State private var alertMessage = ""
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
+//            HStack {
+//                Button {
+//                    dismiss()
+//                } label: {
+//                    Image(systemName: "xmark")
+//                        .font(.system(size: 16))
+//                        .foregroundStyle(.black)
+//                }
+//                Spacer()
+//            }
+//            .padding()
+            
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading) {
                     // 이미지 스크롤 뷰
@@ -65,14 +78,15 @@ struct ChangePostingView: View {
                     }
                     .padding(.bottom, 20)
                     
+                    
+                    
                     // 교환 희망 장소 선택 버튼
                     Text("교환 희망 장소")
                         .bold()
                     
-                    //EmptyView에 지훈님이 만든 네이버 맵 화면
                     NavigationLink(destination: ExchangeHopeView(viewModel: viewModel)) {
                         HStack {
-                            Text("\(viewModel.noticeBoard.noticeLocationName)")
+                            Text(viewModel.noticeBoard.noticeLocationName)
                                 .foregroundColor(.black)
                             Spacer()
                             Image(systemName: "chevron.right")
@@ -90,9 +104,24 @@ struct ChangePostingView: View {
                     }
                     .padding(.bottom, 30)
                     
+                    
+                    
                     // 확인 버튼
                     Button(action: {
-                        viewModel.uploadPost(isChange: true, images: selectedImages)
+                        if viewModel.noticeBoard.noticeBoardTitle.isEmpty {
+                            alertMessage = "제목을 입력해주세요."
+                            showAlert = true
+                        } else if viewModel.noticeBoard.noticeBoardDetail.isEmpty {
+                            alertMessage = "상세 설명을 입력해주세요."
+                            showAlert = true
+                        } else if selectedImages.isEmpty {
+                            alertMessage = "이미지를 추가해주세요."
+                            showAlert = true
+                        } else {
+                            viewModel.uploadPost(isChange: true, images: selectedImages)
+                            dismiss()
+                        }
+                        
                     }) {
                         Text("게시물 등록")
                             .fontWeight(.bold)
@@ -104,6 +133,9 @@ struct ChangePostingView: View {
                     }
                     .padding(.bottom, 20)
                 }
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("알림"), message: Text(alertMessage), dismissButton: .default(Text("확인")))
             }
             .sheet(isPresented: $showActionSheet, onDismiss: {
                 showImagePicker.toggle()
@@ -118,20 +150,19 @@ struct ChangePostingView: View {
             .padding()
             .navigationTitle("바꿔요")
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                Task{
+                    viewModel.gettingUserInfo()
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
                         dismiss()
                     } label: {
                         Image(systemName: "xmark")
-                            .font(.system(size: 16))
                             .foregroundStyle(.black)
                     }
-                }
-            }
-            .onAppear {
-                Task{
-                    viewModel.gettingUserInfo()
                 }
             }
         }

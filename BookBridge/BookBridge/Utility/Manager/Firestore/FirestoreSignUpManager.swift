@@ -21,8 +21,13 @@ class FirestoreSignUpManager {
             "password": user.passsword ?? "",
             "nickname": user.nickname ?? "",
             "phoneNumber": user.phoneNumber ?? "",
+            "profileURL": user.profileURL ?? "",
             "joinDate": user.joinDate ?? "",
+            "fcmToken": user.fcmToken ?? "",
             "location": user.location ?? [],
+            "bookMarks": user.bookMarks ?? [],
+            "requests": user.requests ?? [],
+            "style": user.style ?? ""
         ] as [String : Any]
         
         return userData as [String : Any]
@@ -43,14 +48,15 @@ class FirestoreSignUpManager {
         return locationData as [String : Any]
     }
                 
-    func addUser(id: String,email: String, password: String?, nickname: String?, phoneNumber: String?, completion: @escaping () -> ()) {
+    func addUser(id: String,email: String, password: String?, nickname: String?, phoneNumber: String?, fcmToken: String?, completion: @escaping () -> ()) {
         let user = UserModel(
             id: id,
             email: email,
             passsword: password,
             nickname: nickname,
             phoneNumber: phoneNumber,
-            joinDate: Date()
+            joinDate: Date(),
+            fcmToken: fcmToken
         )
         let userData = convertUserModelToDictionary(user: user)
               
@@ -101,13 +107,13 @@ class FirestoreSignUpManager {
         }
     }
     
-    func register(email: String, password: String, nickname: String, phoneNumber: String = "", completion: @escaping () -> Void) {
+    func register(email: String, password: String, nickname: String, phoneNumber: String = "", fcmToken: String = "", completion: @escaping () -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             if let error = error {
                 print(error.localizedDescription)
             } else {
                 guard let user = result?.user else { return }
-                self.addUser(id: user.uid, email: email, password: password, nickname: nickname, phoneNumber: phoneNumber) {
+                self.addUser(id: user.uid, email: email, password: password, nickname: nickname, phoneNumber: phoneNumber, fcmToken: fcmToken) {
                     completion()
                 }                                                
             }

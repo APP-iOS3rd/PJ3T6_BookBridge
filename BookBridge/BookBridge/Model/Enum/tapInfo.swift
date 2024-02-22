@@ -10,5 +10,6 @@ import Foundation
 enum tapInfo: String, CaseIterable {
     case wish = "희망도서"
     case hold = "보유도서"
+    case search = "희망도서검색"
     
 }

@@ -75,6 +75,8 @@ struct ChatBottomBarView: View {
                 Button {
                     if !chatTextArr.isEmpty {
                         viewModel.handleSend(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId)
+                        
+                        viewModel.sendNotification(partnerId: partnerId, message: viewModel.chatText)
                     }
                 } label: {
                     Image(systemName: "paperplane.fill")
@@ -186,8 +188,4 @@ struct ChatBottomBarView: View {
                 .ignoresSafeArea(.all)
         }
     }
-}
-
-#Preview {
-    ChatRoomListView(uid: "lee")
 }

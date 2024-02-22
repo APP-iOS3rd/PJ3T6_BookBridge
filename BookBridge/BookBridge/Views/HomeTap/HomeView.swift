@@ -9,9 +9,12 @@ import SwiftUI
 import FirebaseStorage
 
 struct HomeView: View {
+    @Binding var isShowPlusBtn: Bool
+    
     @StateObject var viewModel = HomeViewModel()
     @StateObject var userManager = UserManager.shared
     @StateObject var locationManager = LocationManager.shared
+    
     @State private var selectedPicker: TapCategory = .find
     @State private var showingLoginView = false
     @State private var showingTownSettingView = false
@@ -40,8 +43,7 @@ struct HomeView: View {
                     
                 }
                 Spacer()
-                
-                // 임시로 만든 로그인/로그아웃 버튼입니다.
+                                
                 Button {
                     if userManager.isLogin {
                         userManager.logout()
@@ -56,13 +58,15 @@ struct HomeView: View {
             
             tapAnimation()
             
-            HomeTapView(viewModel: viewModel, tapCategory: selectedPicker)
+            HomeTapView(isShowPlusBtn: $isShowPlusBtn, viewModel: viewModel, tapCategory: selectedPicker)
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                isShowPlusBtn = true
                 viewModel.updateNoticeBoards()
             }
         }
+        
         .sheet(isPresented: $showingLoginView) {
             LoginView(showingLoginView: $showingLoginView)
         }
@@ -72,7 +76,7 @@ struct HomeView: View {
         }
         .onChange(of: userManager.isLogin) { _ in
             print("로그인 변동 감지")
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                 viewModel.updateNoticeBoards()
             }
         }

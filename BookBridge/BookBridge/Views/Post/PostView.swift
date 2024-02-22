@@ -11,6 +11,8 @@ import NMapsMap
 struct PostView: View {
     @Environment(\.dismiss) private var dismiss
     
+    @Binding var isShowPlusBtn: Bool
+    
     @State private var isPresented = false
     @State var noticeBoard: NoticeBoard
     @State var url: [URL] = []
@@ -122,32 +124,6 @@ struct PostView: View {
                     Divider()
                         .padding(.horizontal)
                     
-                    //교환 희망 장소
-                    VStack(alignment: .leading) {
-                        Text("교환 희망 장소")
-                            .font(.system(size: 25))
-                            .fontWeight(.bold)
-                            .padding(.horizontal)
-                            .padding(.top)
-                        
-                        if noticeBoard.noticeLocation.count >= 2 {
-                            PostMapView(lat: $noticeBoard.noticeLocation[0], lng: $noticeBoard.noticeLocation[1])
-                        }
-                        
-                        Text(noticeBoard.noticeLocationName)
-                            .font(.system(size: 15))
-                            .padding(.horizontal)
-                    }
-                    .frame(
-                        minWidth: UIScreen.main.bounds.width,
-                        minHeight: 400,
-                        alignment: Alignment.topLeading
-                    )
-                    .padding(.bottom)
-                    
-                    Divider()
-                        .padding(.horizontal)
-                    
                     //상대방 책장
                     VStack(alignment: .leading) {
                         Text("\(postViewModel.user.nickname ?? "책벌레")님의 책장")
@@ -163,7 +139,9 @@ struct PostView: View {
                             Spacer()
                             
                             NavigationLink(destination: BookShelfView(userId: postViewModel.user.id, initialTapInfo: .hold, isBack: true)
-                                .navigationBarBackButtonHidden()
+                                .navigationBarTitle( postViewModel.user.id == UserManager.shared.uid ? "내책장" : "\(postViewModel.user.nickname ?? "")님의 책장", displayMode: .inline)
+                                .navigationBarItems(leading: CustomBackButtonView())
+                                .navigationBarBackButtonHidden(true)
                             ) {
                                 Text("더보기")
                                     .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
@@ -187,10 +165,13 @@ struct PostView: View {
                                 .fontWeight(.bold)
                             Spacer()
                             NavigationLink(destination: BookShelfView(userId: postViewModel.user.id,initialTapInfo: .wish,isBack: true)
-                                .navigationBarBackButtonHidden()) {
-                                    Text("더보기")
-                                        .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
-                                }
+                                .navigationBarTitle( postViewModel.user.id == UserManager.shared.uid ? "내책장" : "\(postViewModel.user.nickname ?? "")님의 책장", displayMode: .inline)
+                                .navigationBarItems(leading: CustomBackButtonView())
+                                .navigationBarBackButtonHidden(true) // 뒤로 가기 버튼 숨기기
+                            ) {
+                                Text("더보기")
+                                    .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
+                            }
                         }
                         .padding(.horizontal)
                         
@@ -208,16 +189,56 @@ struct PostView: View {
                         minHeight: 300,
                         alignment: Alignment.topLeading
                     )
-                    .padding(.bottom, 60)
+                    .padding(.bottom, 30)
                 }
                 
+                Divider()
+                    .padding(.horizontal)
+                
+                //교환 희망 장소
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("교환 희망 장소")
+                            .font(.system(size: 25))
+                            .fontWeight(.bold)
+                            .padding(.horizontal)
+                            .padding(.top)
+                        
+                        Spacer()
+                        
+                        
+                        NavigationLink(destination: PostMapDetailView(noticeBoard: $noticeBoard)
+                            .navigationBarBackButtonHidden()
+                        ) {
+                            Text("더보기")
+                                .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
+                        }
+                        .padding(.horizontal)
+                        .padding(.top)
+                    }
+                    
+                    if noticeBoard.noticeLocation.count >= 2 {
+                        PostMapView(lat: $noticeBoard.noticeLocation[0], lng: $noticeBoard.noticeLocation[1], isDetail: false)
+                    }
+                    
+                    Text(noticeBoard.noticeLocationName)
+                        .font(.system(size: 15))
+                        .padding(.horizontal)
+                }
+                .frame(
+                    minWidth: UIScreen.main.bounds.width,
+                    minHeight: 400,
+                    alignment: Alignment.topLeading
+                )
+                .padding(.bottom, 100)
             }
             .onTapGesture {
                 withAnimation(.easeIn(duration: 0.2)) {
                     isPresented = false
                 }
             }
-            VStack{
+            
+            VStack {
                 HStack {
                     Spacer()
                     VStack {
@@ -233,8 +254,8 @@ struct PostView: View {
                                         .font(.system(size: 14))
                                         .padding(1)
                                 }
-                            Divider()
-                                .padding(1)
+                                Divider()
+                                    .padding(1)
                                 NavigationLink {
                                     EmptyView()
                                 } label: {
@@ -247,8 +268,10 @@ struct PostView: View {
                                 NavigationLink {
                                     if noticeBoard.isChange {
                                         ChangePostingModifyView(noticeBoard: $noticeBoard)
+                                            .navigationBarBackButtonHidden()
                                     } else {
                                         FindPostingModifyView(noticeBoard: $noticeBoard)
+                                            .navigationBarBackButtonHidden()
                                     }
                                 } label: {
                                     Text("수정하기")
@@ -258,7 +281,8 @@ struct PostView: View {
                                 Divider()
                                     .padding(1)
                                 Button {
-                                    
+                                    postViewModel.deletePost(noticeBoardId: noticeBoard.id)
+                                    dismiss()
                                 } label: {
                                     Text("삭제하기")
                                         .font(.system(size: 14))
@@ -277,11 +301,13 @@ struct PostView: View {
                 }
                 Spacer()
             }
+            
             VStack {
                 Spacer()
+                
                 if UserManager.shared.uid == noticeBoard.userId {
-                    Button {
-                        
+                    NavigationLink {
+                        ChatRoomListView(isShowPlusBtn: $isShowPlusBtn, isComeNoticeBoard: true, uid: UserManager.shared.uid)
                     } label: {
                         Text("대화중인 채팅방 \(postViewModel.chatRoomList.count)")
                             .foregroundStyle(Color.white)
@@ -290,28 +316,78 @@ struct PostView: View {
                             .padding(1)
                     }
                 } else {
-                    Button {
-                        
-                    } label: {
+                    if noticeBoard.state == 1 {
+                        Text("예약중")
+                            .foregroundStyle(Color.white)
+                            .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
+                            .background(Color(hex: "59AAE0"))
+                            .padding(1)
+                    }
+                    else if noticeBoard.state == 0 {
                         if postViewModel.chatRoomList.isEmpty {
-                            Text("채팅하기")
-                                .foregroundStyle(Color.white)
-                                .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
-                                .background(Color(hex: "59AAE0"))
-                                .padding(1)
+                            NavigationLink {
+                                if let image = UIImage(contentsOfFile: "DefaultImage") {
+                                    ChatMessageView(
+                                        isShowPlusBtn: $isShowPlusBtn,
+                                        chatRoomListId: UUID().uuidString,
+                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
+                                        chatRoomPartner: ChatPartnerModel(
+                                            nickname: postViewModel.user.nickname ?? "책벌레",
+                                            noticeBoardId: noticeBoard.id,
+                                            partnerId: noticeBoard.userId,
+                                            partnerImage: image,
+                                            style: "중고귀신"
+                                        ),
+                                        uid: UserManager.shared.uid
+                                    )
+                                }
+                                
+                            } label: {
+                                Text("채팅하기")
+                                    .foregroundStyle(Color.white)
+                                    .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
+                                    .background(Color(hex: "59AAE0"))
+                                    .padding(1)
+                            }
                         } else {
-                            Text("예약중")
-                                .foregroundStyle(Color.white)
-                                .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
-                                .background(Color(hex: "59AAE0"))
-                                .padding(1)
+                            NavigationLink {
+                                if let image = UIImage(contentsOfFile: "DefaultImage") {
+                                    ChatMessageView(
+                                        isShowPlusBtn: $isShowPlusBtn,
+                                        chatRoomListId: postViewModel.chatRoomList.first!,
+                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
+                                        chatRoomPartner: ChatPartnerModel(
+                                            nickname: postViewModel.user.nickname ?? "책별레",
+                                            noticeBoardId: noticeBoard.id,
+                                            partnerId: noticeBoard.userId,
+                                            partnerImage: image,
+                                            style: "중고귀신"
+                                        ),
+                                        uid: UserManager.shared.uid
+                                    )
+                                }
+                            } label: {
+                                Text("채팅하기")
+                                    .foregroundStyle(Color.white)
+                                    .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
+                                    .background(Color(hex: "59AAE0"))
+                                    .padding(1)
+                            }
                         }
+                    } else {
+                        Text("교환 완료")
+                            .foregroundStyle(Color.white)
+                            .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
+                            .background(Color.gray)
+                            .padding(1)
                     }
                 }
             }
             .frame(alignment: Alignment.bottom)
         }
         .onAppear {
+            isShowPlusBtn = false
+            
             if !noticeBoard.noticeImageLink.isEmpty && noticeBoard.isChange {
                 Task {
                     for image in noticeBoard.noticeImageLink {
@@ -327,8 +403,8 @@ struct PostView: View {
                 postViewModel.gettingUserInfo(userId: noticeBoard.userId)
                 postViewModel.gettingUserBookShelf(userId: noticeBoard.userId, collection: "holdBooks")
                 postViewModel.gettingUserBookShelf(userId: noticeBoard.userId, collection: "wishBooks")
-                postViewModel.fetchChatList(noticeBoardId: noticeBoard.id)
                 if UserManager.shared.isLogin {
+                    postViewModel.fetchChatList(noticeBoardId: noticeBoard.id)
                     postViewModel.fetchBookMark()
                 }
             }
@@ -344,7 +420,6 @@ struct PostView: View {
                     dismiss()
                 } label: {
                     Image(systemName: "chevron.left")
-                        .font(.system(size: 16))
                         .foregroundStyle(.black)
                 }
             }
@@ -355,12 +430,12 @@ struct PostView: View {
                     }
                 } label: {
                     Image(systemName: "ellipsis")
-                        .font(.system(size: 16))
-                        .foregroundStyle(.gray)
+                        .foregroundStyle(.black)
                 }
             }
         }
         .navigationBarBackButtonHidden()
+        .toolbar(.hidden, for: .tabBar)
     }
 }
 
@@ -368,9 +443,16 @@ struct PostMapView: UIViewRepresentable {
     
     @Binding var lat: Double // 모델 좌표 lat
     @Binding var lng: Double // 모델 좌표 lng
+    var isDetail: Bool
     
     func makeUIView(context: Context) -> NMFNaverMapView {
         let mapView = NMFNaverMapView()
+        
+        if !isDetail {
+            mapView.mapView.isScrollGestureEnabled = false
+            mapView.mapView.isZoomGestureEnabled = false
+            mapView.showZoomControls = false
+        }
         
         // 마커 좌표를 설정
         let markerCoord = NMGLatLng(lat: lat, lng: lng)

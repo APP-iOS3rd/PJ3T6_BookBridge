@@ -13,6 +13,80 @@ class FirestoreManager {
     static let db = Firestore.firestore()
     static let locationManager = LocationManager.shared
     
+    static func fetchHopeBook(uid: String, completion: @escaping([Item]) -> ()) {
+        let db = Firestore.firestore()
+               let userRef = db.collection("noticeBoard").document(uid)
+               
+        userRef.collection("hopeBooks").getDocuments { (querySnapshot, error) in
+                        
+            if let error = error {
+                print("Error fetching hopeBooks: \(error.localizedDescription)")                
+                return
+            }
+            
+            guard let documents = querySnapshot?.documents else {
+                print("No documents found")
+                completion([])
+                return
+            }
+            
+            let hopeBooks = documents.compactMap { doc in
+                let uid = doc.documentID
+                let title = doc["title"] as? String ?? ""
+                let authors = doc["author"] as? [String] ?? []
+                let publisher = doc["publisher"] as? String ?? ""
+                let publishedDate = doc["publishedDate"] as? String ?? ""
+                let description = doc["description"] as? String ?? ""
+                let industryIdentifiers: [IndustryIdentifier] = []
+                let pageCount = doc["pageCount"] as? Int ?? 0
+                let categories = doc["categories"] as? [String] ?? []
+                let imageLinks = doc["imageLinks"] as? String ?? ""
+                
+                let item = Item(
+                    id: uid,
+                    volumeInfo: VolumeInfo(
+                        title: title,
+                        authors: authors,
+                        publisher: publisher,
+                        publishedDate: publishedDate,
+                        description: description,
+                        industryIdentifiers: industryIdentifiers,
+                        pageCount: pageCount,
+                        categories: categories,
+                        imageLinks: ImageLinks(smallThumbnail: imageLinks)
+                    )
+                )
+                
+                return item
+            }
+            
+            completion(hopeBooks)
+        }
+    }
+    
+    // MARK: - FCM 토큰 업데이트
+    static func updateFCMToken(forUser uid: String, completion: @escaping (Bool) -> Void) {
+        FCMTokenManager.shared.fetchFCMToken { newToken in
+            guard let fcmToken = newToken else {
+                print("FCM 토큰 가져오기 실패")
+                completion(false)
+                return
+            }
+            
+            // Firestore에서 사용자 문서를 찾아 FCM 토큰을 업데이트합니다.
+            let userDocRef = db.collection("User").document(uid)
+            userDocRef.updateData(["fcmToken": fcmToken]) { error in
+                if let error = error {
+                    print("FCM 토큰 업데이트 실패: \(error.localizedDescription)")
+                    completion(false)
+                } else {
+                    print("FCM 토큰 업데이트 성공")
+                    completion(true)
+                }
+            }
+        }
+    }
+    
     // MARK: - Location 불러오기(fetch)
     static func fetchUserLocation(uid: String, completion: @escaping ([Location]?) -> Void) {
             // 사용자의 uid를 이용하여 해당 사용자의 문서를 가져옵니다.

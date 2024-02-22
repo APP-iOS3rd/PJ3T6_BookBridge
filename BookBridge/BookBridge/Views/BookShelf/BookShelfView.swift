@@ -25,6 +25,7 @@ struct BookShelfView: View {
     @State private var isOwnShelf: Bool = true
     var isBack : Bool?
     var userId : String?
+    let pickerItems : [tapInfo] = [.wish, .hold]
     
     
     
@@ -44,6 +45,8 @@ struct BookShelfView: View {
             return "희망도서 이름을 검색해 주세요"
         case .hold:
             return "보유도서 이름을 검색해 주세요"
+        case .search:
+            return "희망도서 이름을 검색해 주세요"
         }
     }
     
@@ -56,49 +59,36 @@ struct BookShelfView: View {
             
             VStack {
                 ZStack{
-                    if userId == UserManager.shared.uid  {
+                    if isBack == false {
+                        
                         Text("내 책장")
-                    }
-                    else if userId == nil {
-                        Text("내 책장")
-                    }
-                    else {
-                        Text("\(viewModel.user.nickname ?? "닉네임 없음")의 책장")
+                            .font(.system(size: 16))
+                        HStack{
+                            
+                            Spacer()
+                            if userId == UserManager.shared.uid || userId == nil {
+                                Button {
+                                    isEditing.toggle()
+                                    
+                                } label: {
+                                    Text(isEditing ? "확인" :  "편집")
+                                        .font(.system(size: 16))
+                                        .foregroundStyle(.black)
+                                }
+                            }
+                            
+                            
+                            
+                        }
                     }
                     
-                    HStack{
-                        
-                        if isBack! {
-                            
-                            Button(action: {
-                                dismiss()
-                            }) {
-                                Image(systemName: "chevron.left")
-                            }
-                            
-                        }
-                        
-                        Spacer()
-                        if userId == UserManager.shared.uid || userId == nil {
-                            Button {
-                                isEditing.toggle()
-                                
-                            } label: {
-                                Text(isEditing ? "확인" :  "편집")
-                                    .font(.system(size: 16))
-                                    .foregroundStyle(.black)
-                            }
-                        }
-                        
 
-                        
-                    }
                 }
                 .padding(.top,8)
                 
                 Picker("선택", selection: $selectedPicker) {
-                    ForEach(tapInfo.allCases, id: \.self) {
-                        Text($0.rawValue)
+                    ForEach(pickerItems, id: \.self) { item in
+                        Text(item.rawValue)
                     }
                 }
                 .pickerStyle(.segmented)
@@ -172,8 +162,6 @@ struct BookShelfView: View {
                         SearchBooksView(hopeBooks: $hopeBooks, isWish: selectedPicker)
                     })
             }
-            
-            
         }
         .onAppear{
             if userId != nil {

@@ -29,7 +29,7 @@ extension HomeViewModel {
     func bookMarkToggle(user: String, id: String) {
         var bookMarks: [String] = []
         
-        db.collection("user").document(user).getDocument { documentSnapshot, error in
+        db.collection("User").document(userManager.uid).getDocument { documentSnapshot, error in
             guard error == nil else { return }
             guard let document = documentSnapshot else { return }
             
@@ -43,7 +43,7 @@ extension HomeViewModel {
                 bookMarks.append(id)
             }
             
-            self.db.collection("user").document(user).updateData([
+            self.db.collection("User").document(self.userManager.uid).updateData([
                 "bookMark": bookMarks
             ])
             
@@ -52,21 +52,47 @@ extension HomeViewModel {
     }
     
     func fetchBookMark(user: String) {
-        var bookMarks: [String] = []
-        
-        db.collection("user").document(user).getDocument { documentSnapshot, error in
-            guard error == nil else { return }
-            guard let document = documentSnapshot else { return }
-            
-            bookMarks = document["bookMark"] as? [String] ?? []
-            
-            self.bookMarks = bookMarks
+        db.collection("User").document(user).getDocument { [weak self] documentSnapshot, error in
+            guard let self = self, let document = documentSnapshot, error == nil else {
+                print("Error fetching user bookmarks: \(error?.localizedDescription ?? "")")
+                return
+            }
+
+            if let bookMarks = document.data()?["bookMark"] as? [String] {
+                var validBookMarks = [String]()
+                let group = DispatchGroup()
+
+                for bookMark in bookMarks {
+                    group.enter()
+                    self.checkNoticeBoardExistence(noticeBoardId: bookMark) { exists in
+                        if exists {
+                            validBookMarks.append(bookMark)
+                        }
+                        group.leave()
+                    }
+                }
+
+                group.notify(queue: .main) {
+                    self.bookMarks = validBookMarks
+                }
+            }
+        }
+    }
+    // noticeBoardId가 존재하는지 확인
+    private func checkNoticeBoardExistence(noticeBoardId: String, completion: @escaping (Bool) -> Void) {
+        db.collection("noticeBoard").document(noticeBoardId).getDocument { documentSnapshot, error in
+            guard error == nil, let document = documentSnapshot else {
+                completion(false)
+                return
+            }
+
+            completion(document.exists)
         }
     }
     
     
     func fetchRecentSearch(user: String) {
-        db.collection("user").document(user).collection("recentsearch").getDocuments { [weak self] (querySnapshot, error) in
+        db.collection("User").document(userManager.uid).collection("recentsearch").getDocuments { [weak self] (querySnapshot, error) in
             guard let self = self else { return }
             if let error = error {
                 print("Error getting recent searches: \(error)")
@@ -89,7 +115,7 @@ extension HomeViewModel {
         recentSearch.removeAll()
         
         // Firestore에서 해당 사용자의 모든 최근 검색 데이터 삭제
-        let collectionRef = db.collection("user").document(user).collection("recentsearch")
+        let collectionRef = db.collection("User").document(userManager.uid).collection("recentsearch")
         collectionRef.getDocuments { (snapshot, error) in
             guard let documents = snapshot?.documents else {
                 print("No documents in 'recentsearch'")
@@ -114,7 +140,7 @@ extension HomeViewModel {
             recentSearch.remove(at: index)
             
             // Firestore에서 해당 검색어 삭제
-            db.collection("User").document(user).collection("recentsearch").whereField("searchTerm", isEqualTo: search).getDocuments { (snapshot, error) in
+            db.collection("User").document(userManager.uid).collection("recentsearch").whereField("searchTerm", isEqualTo: search).getDocuments { (snapshot, error) in
                 guard let documents = snapshot?.documents else {
                     print("No documents found")
                     return
@@ -135,7 +161,7 @@ extension HomeViewModel {
     
     func addRecentSearch(user: String, text: String) {
         // Firestore에 검색어를 추가하는 로직
-        let recentSearchRef = db.collection("User").document(user).collection("recentsearch")
+        let recentSearchRef = db.collection("User").document(userManager.uid).collection("recentsearch")
         
         // 중복 검색어 방지
         recentSearchRef.whereField("searchTerm", isEqualTo: text).getDocuments { (querySnapshot, err) in
@@ -161,7 +187,8 @@ extension HomeViewModel {
             }
         }
         
-        self.fetchRecentSearch(user: user)
+        self.fetchRecentSearch(user: userManager.uid)
+                
     }
     
     func updateNoticeBoards() {

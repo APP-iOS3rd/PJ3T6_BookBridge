@@ -127,15 +127,14 @@ struct IdLoginView: View {
 
 struct CustomBackButtonView: View {
     @EnvironmentObject private var pathModel: PathViewModel
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         Button(action: {
-            pathModel.paths.removeLast()
+            dismiss()
         }) {
             Image(systemName: "chevron.backward")
-                .frame(width: 32, height: 31)
-                .foregroundColor(Color(hex: "000000"))
+                .foregroundStyle(.black)
         }
     }
 }
