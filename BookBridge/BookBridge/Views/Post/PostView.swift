@@ -139,7 +139,9 @@ struct PostView: View {
                             Spacer()
                             
                             NavigationLink(destination: BookShelfView(userId: postViewModel.user.id, initialTapInfo: .hold, isBack: true)
-                                .navigationBarBackButtonHidden()
+                                .navigationBarTitle( postViewModel.user.id == UserManager.shared.uid ? "내책장" : "\(postViewModel.user.nickname ?? "")님의 책장", displayMode: .inline)
+                                .navigationBarItems(leading: CustomBackButtonView())
+                                .navigationBarBackButtonHidden(true)
                             ) {
                                 Text("더보기")
                                     .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
@@ -163,10 +165,13 @@ struct PostView: View {
                                 .fontWeight(.bold)
                             Spacer()
                             NavigationLink(destination: BookShelfView(userId: postViewModel.user.id,initialTapInfo: .wish,isBack: true)
-                                .navigationBarBackButtonHidden()) {
-                                    Text("더보기")
-                                        .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
-                                }
+                                .navigationBarTitle( postViewModel.user.id == UserManager.shared.uid ? "내책장" : "\(postViewModel.user.nickname ?? "")님의 책장", displayMode: .inline)
+                                .navigationBarItems(leading: CustomBackButtonView())
+                                .navigationBarBackButtonHidden(true) // 뒤로 가기 버튼 숨기기
+                            ) {
+                                Text("더보기")
+                                    .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
+                            }
                         }
                         .padding(.horizontal)
                         
@@ -201,7 +206,7 @@ struct PostView: View {
                         
                         Spacer()
                         
-                                                                               
+                        
                         NavigationLink(destination: PostMapDetailView(noticeBoard: $noticeBoard)
                             .navigationBarBackButtonHidden()
                         ) {
@@ -211,7 +216,6 @@ struct PostView: View {
                         .padding(.horizontal)
                         .padding(.top)
                     }
-                   
                     
                     if noticeBoard.noticeLocation.count >= 2 {
                         PostMapView(lat: $noticeBoard.noticeLocation[0], lng: $noticeBoard.noticeLocation[1], isDetail: false)
@@ -233,7 +237,7 @@ struct PostView: View {
                     isPresented = false
                 }
             }
-
+            
             VStack {
                 HStack {
                     Spacer()
@@ -275,7 +279,8 @@ struct PostView: View {
                                 Divider()
                                     .padding(1)
                                 Button {
-                                    
+                                    postViewModel.deletePost(noticeBoardId: noticeBoard.id)
+                                    dismiss()
                                 } label: {
                                     Text("삭제하기")
                                         .font(.system(size: 14))
