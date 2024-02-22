@@ -22,6 +22,8 @@ struct UserModel: Codable, Identifiable, Equatable {
     var bookMarks: [String]?
     var requests: [String]?
     var style: String?
+    var reviews: [Int]?
+    var titles: [String]?
     
     func getSelectedLocation() -> Location? {
         if let locations = location {
