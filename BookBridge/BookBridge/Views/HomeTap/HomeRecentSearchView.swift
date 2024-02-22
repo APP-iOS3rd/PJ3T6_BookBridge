@@ -9,6 +9,9 @@ import SwiftUI
 
 struct HomeRecentSearchView: View {
     @ObservedObject var viewModel: HomeViewModel
+    @Binding  var isInsideXmark: Bool
+    @Binding  var isOutsideXmark: Bool
+    @Binding  var text : String
     
     
     var body: some View {
@@ -45,8 +48,18 @@ struct HomeRecentSearchView: View {
                         HStack {
                             Image(systemName: "clock")
                                 .foregroundColor(Color(hex: "999999"))
-                            Text(search)
-                                .foregroundColor(Color(hex: "999999"))
+                            
+                            Button{
+                                viewModel.filterNoticeBoards(with: search)
+                                isOutsideXmark = false
+                                isInsideXmark = false
+                                text = search
+                                
+                            } label: {
+                                Text(search)
+                                    .foregroundColor(Color(hex: "999999"))
+                            }
+                            
                             Spacer()
                             Button(action: {
                                 viewModel.deleteRecentSearch(user: UserManager.shared.uid, search: search)

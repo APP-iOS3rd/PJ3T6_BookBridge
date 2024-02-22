@@ -13,8 +13,8 @@ struct HomeTapView: View {
     @StateObject var viewModel: HomeViewModel
     @StateObject var locationManager = LocationManager.shared
     
-    @State private var isInsideXmark: Bool = false
-    @State private var isOutsideXmark: Bool = false
+    @State  var isInsideXmark: Bool = false
+    @State  var isOutsideXmark: Bool = false
     @State private var text = ""
     @State private var showRecentSearchView = false
     
@@ -218,17 +218,17 @@ struct HomeTapView: View {
                         .padding(.bottom, 10)
                         
                     }
-
-
                     
-//                case .recommend:          //TODO: 추천도서 로직 및 뷰
-//                    EmptyView()
+                    
+                    
+                    //                case .recommend:          //TODO: 추천도서 로직 및 뷰
+                    //                    EmptyView()
                 }
             }
             
             if isOutsideXmark {
                 if UserManager.shared.isLogin {
-                    HomeRecentSearchView(viewModel: viewModel)
+                    HomeRecentSearchView(viewModel: viewModel,isInsideXmark: $isInsideXmark,isOutsideXmark: $isOutsideXmark, text: $text)
                         .background(Color.white)
                         .zIndex(1)
                         .padding(.top, 60)
@@ -268,7 +268,7 @@ struct HomeTapView: View {
                             } label: {
                                 HomeListItemView(
                                     author: element.hopeBook[0].volumeInfo.authors?[0] ?? "",
-                                    date: element.date, 
+                                    date: element.date,
                                     id: element.id,
                                     imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
                                     isChange: element.isChange,
@@ -290,23 +290,23 @@ struct HomeTapView: View {
                             PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                         } label: {
                             HomeListItemView(
-                                author: "", 
+                                author: "",
                                 date: element.date,
-                                id: element.id, 
+                                id: element.id,
                                 imageLinks: element.noticeImageLink,
                                 isChange: element.isChange,
                                 locate: element.noticeLocation,
                                 title: element.noticeBoardTitle,
                                 userId: element.userId,
                                 location: element.noticeLocationName
-                            )                           
+                            )
                         }
                     }
                     .padding(.horizontal)
                     .padding(.bottom, 10)
                     
-//                case .recommend:          //TODO: 추천도서 로직 및 뷰
-//                    EmptyView()
+                    //                case .recommend:          //TODO: 추천도서 로직 및 뷰
+                    //                    EmptyView()
                     
                 }
             }
