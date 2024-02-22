@@ -114,7 +114,7 @@ struct FindPostingModifyView: View {
                     
                     // 확인 버튼
                     Button {
-                        viewModel.updatePost()
+                        viewModel.updatePost(images: [])
                         print(viewModel.noticeBoard.hopeBook)
 //                        dismiss()
                     } label: {

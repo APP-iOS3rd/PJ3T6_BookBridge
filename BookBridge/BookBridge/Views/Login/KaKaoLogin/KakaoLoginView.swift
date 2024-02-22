@@ -23,11 +23,6 @@ struct KakaoLoginView: View {
                         Image("KaKaoLogo")
                             .resizable()
                             .frame(width: 36, height: 36)
-                        
-                        Circle()
-                            .stroke(Color(hex: "D9D9D9"))
-                            .frame(width: 39)
-                            .foregroundColor(.white)
                     }
                 }
             } else {

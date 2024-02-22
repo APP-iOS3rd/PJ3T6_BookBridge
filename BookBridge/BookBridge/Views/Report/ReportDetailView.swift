@@ -14,7 +14,7 @@ struct ReportDetailView: View {
     @State private var text: String = ""
     @State private var showAlert: Bool = false
     @State private var isTargetView = false
-    let title: String
+    let title: Report.ReportReason
     
     var body: some View {
             NavigationStack{
@@ -45,7 +45,7 @@ struct ReportDetailView: View {
                         Button {
                             reportVM.report.additionalComments = text
                             reportVM.report.reporterUserId = UserManager.shared.uid
-                            
+                            reportVM.report.reason = title
                             reportVM.saveReportToFirestore(report: reportVM.report)
                             
                             showAlert = true
@@ -58,23 +58,32 @@ struct ReportDetailView: View {
                                 .background(Color(hex: "59AAE0"))
                                 .cornerRadius(5.0)
                         }
+                        .alert(isPresented: $showAlert){
+                            Alert(
+                                title: Text("신고 접수가 완료되었습니다."),
+                                dismissButton: .default(Text("확인")) {
+                                    isTargetView = true
+                                    text = ""
+                                }
+                            )
+                        }
+                        
                         Spacer()
+                        
+                        // 네비게이션 트리거
+                        NavigationLink(destination: TabBarView(userId: UserManager.shared.uid), isActive: $isTargetView) {
+                            EmptyView()
+                        }
+                        .hidden()
                     }
                     .padding()
                 }
-                .alert(isPresented: $showAlert){
-                    Alert(
-                        title: Text("신고 접수가 완료되었습니다."),
-                        dismissButton: .default(Text("확인")) {
-                            isTargetView = true
-                            text = ""
-                        }
-                    )
-                }
+
             }
-        .navigationBarTitle(title, displayMode: .inline)
-        .navigationBarItems(leading: CustomBackButtonView())
-        .navigationBarBackButtonHidden(true) // 뒤로 가기 버튼 숨기기
+            .navigationBarTitle(title.rawValue, displayMode: .inline)
+            .navigationBarItems(leading: CustomBackButtonView())
+            .navigationBarBackButtonHidden(true) // 뒤로 가기 버튼 숨기기
+
     }
 }
 
