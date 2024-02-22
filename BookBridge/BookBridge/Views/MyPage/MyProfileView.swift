@@ -71,7 +71,7 @@ struct MyProfileView: View {
                     }
                     .frame(height: 30)
                     .onChange(of: viewModel.userNickname) { _ in
-                        if viewModel.userNickname.count > 10 {
+                        if viewModel.userNickname.count > 15 {
                             viewModel.userNickname = saveText
                         } else {
                             saveText = viewModel.userNickname
@@ -101,7 +101,7 @@ struct MyProfileView: View {
                     
                     Spacer()
                     
-                    Text("\(viewModel.userNickname.count)/10")
+                    Text("\(viewModel.userNickname.count)/15")
                         .font(.system(size: 15, weight: .medium))
                         .foregroundStyle(Color(hex: "767676"))
                 }
