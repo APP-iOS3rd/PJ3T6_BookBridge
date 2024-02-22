@@ -12,12 +12,16 @@ struct Book: Codable {
     var items: [Item]
 }
 
-struct Item: Codable, Identifiable {
+struct Item: Codable, Identifiable, Equatable {
     let id: String
     let volumeInfo: VolumeInfo
+    
+    static func == (lhs: Item, rhs: Item) -> Bool {
+        return lhs.id == rhs.id && lhs.volumeInfo == rhs.volumeInfo
+    }
 }
 
-struct VolumeInfo: Codable {
+struct VolumeInfo: Codable, Equatable {
     let title: String?                                        //제목
     let authors: [String]?                                    //저자
     let publisher: String?                                   //출판사
@@ -27,13 +31,25 @@ struct VolumeInfo: Codable {
     let pageCount: Int?                                       //쪽수
     let categories: [String]?                                //장르
     let imageLinks: ImageLinks?                              //이미지 링크
+    
+    static func == (lhs: VolumeInfo, rhs: VolumeInfo) -> Bool {
+        return lhs.title == rhs.title &&
+            lhs.authors == rhs.authors &&
+            lhs.publisher == rhs.publisher &&
+            lhs.publishedDate == rhs.publishedDate &&
+            lhs.description == rhs.description &&
+            lhs.industryIdentifiers == rhs.industryIdentifiers &&
+            lhs.pageCount == rhs.pageCount &&
+            lhs.categories == rhs.categories &&
+            lhs.imageLinks == rhs.imageLinks
+    }
 }
 
-struct IndustryIdentifier: Codable {
+struct IndustryIdentifier: Codable, Equatable {
     var identifier: String?
 }
 
-struct ImageLinks: Codable {
+struct ImageLinks: Codable, Equatable {
     var smallThumbnail: String?
 }
 
