@@ -158,10 +158,17 @@ struct MyProfileView: View {
                                     if viewModel.selectImage != userSaveImage.1 && viewModel.userNickname != nickname {
                                         userSaveImage = (urlString, viewModel.selectImage ?? UIImage(named: "Character")!)
                                         nickname = viewModel.userNickname
+                                        
+                                        viewModel.userManager.user?.profileURL = urlString
+                                        viewModel.userManager.user?.nickname = viewModel.userNickname
                                     } else if viewModel.selectImage != userSaveImage.1 {
                                         userSaveImage = (urlString, viewModel.selectImage ?? UIImage(named: "Character")!)
+                                        
+                                        viewModel.userManager.user?.profileURL = urlString
                                     } else {
                                         nickname = viewModel.userNickname
+                                        
+                                        viewModel.userManager.user?.nickname = viewModel.userNickname
                                     }
                                     isEditing.toggle()
                                 }
