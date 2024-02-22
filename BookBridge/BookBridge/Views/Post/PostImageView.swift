@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct PostImageView: View {
     @Binding var url: [URL]
@@ -13,18 +14,16 @@ struct PostImageView: View {
     var body: some View {
         TabView {
             ForEach(url, id: \.self) { element in
-                AsyncImage(url: element) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.5625)
-                        .foregroundStyle(.black)
-                } placeholder: {
-                    Rectangle()
-                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.5625)
-                        .foregroundStyle(Color(red: 217/255, green: 217/255, blue: 217/255))
-                }
-                
+                KFImage(element)
+                    .placeholder{
+                        Rectangle()
+                            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.5625)
+                            .foregroundStyle(Color(red: 217/255, green: 217/255, blue: 217/255))
+                    }
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.5625)
+                    .foregroundStyle(.black)
             }
             if url.isEmpty {
                 Image("Character")
