@@ -29,7 +29,7 @@ struct ChatMessageView: View {
     var body: some View {
         ZStack {
             VStack {
-                NoticeBoardChatView(viewModel: viewModel, chatRoomListId: chatRoomListId, noticeBoardId: chatRoomPartner.noticeBoardId, partnerId: chatRoomPartner.partnerId, uid: uid)
+                NoticeBoardChatView(isShowPlusBtn: $isShowPlusBtn, viewModel: viewModel, chatRoomListId: chatRoomListId, noticeBoardId: chatRoomPartner.noticeBoardId, partnerId: chatRoomPartner.partnerId, uid: uid)
                 
                 MessageListView(viewModel: viewModel, partnerId: chatRoomPartner.partnerId, partnerImage: chatRoomPartner.partnerImage, uid: uid)
                 
