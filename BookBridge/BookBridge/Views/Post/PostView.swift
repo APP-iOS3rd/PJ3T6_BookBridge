@@ -135,7 +135,7 @@ struct PostView: View {
                             
                             Spacer()
                             
-                                                                                   
+                            
                             NavigationLink(destination: PostMapDetailView(noticeBoard: $noticeBoard)
                                 .navigationBarBackButtonHidden()
                             ) {
@@ -145,7 +145,7 @@ struct PostView: View {
                             .padding(.horizontal)
                             .padding(.top)
                         }
-                       
+                        
                         
                         if noticeBoard.noticeLocation.count >= 2 {
                             PostMapView(lat: $noticeBoard.noticeLocation[0], lng: $noticeBoard.noticeLocation[1], isDetail: false)
@@ -234,7 +234,7 @@ struct PostView: View {
                     isPresented = false
                 }
             }
-
+            
             VStack {
                 HStack {
                     Spacer()
@@ -276,7 +276,8 @@ struct PostView: View {
                                 Divider()
                                     .padding(1)
                                 Button {
-                                    
+                                    postViewModel.deletePost(noticeBoardId: noticeBoard.id)
+                                    dismiss()
                                 } label: {
                                     Text("삭제하기")
                                         .font(.system(size: 14))
