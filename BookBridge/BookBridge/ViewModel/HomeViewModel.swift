@@ -16,6 +16,7 @@ class HomeViewModel: ObservableObject {
     @Published var findNoticeBoards: [NoticeBoard] = []
     @Published var findNoticeBoardsDic: [String: UIImage] = [:]
     @Published var recentSearch : [String] = []
+    @Published var filteredNoticeBoards: [NoticeBoard] = []
             
     let db = Firestore.firestore()
     let nestedGroup = DispatchGroup()
@@ -188,6 +189,7 @@ extension HomeViewModel {
         }
         
         self.fetchRecentSearch(user: userManager.uid)
+        filterNoticeBoards(with: text)
                 
     }
     
@@ -231,6 +233,20 @@ extension HomeViewModel {
             }
         }
     }
+    
+    func filterNoticeBoards(with searchTerm: String) {
+        self.filteredNoticeBoards = (findNoticeBoards + changeNoticeBoards).filter {
+            $0.noticeBoardTitle.localizedCaseInsensitiveContains(searchTerm)
+        }
+
+        // 필터링된 게시물의 이미지 로드
+        for noticeBoard in filteredNoticeBoards {
+            if let urlString = noticeBoard.noticeImageLink.first {
+                getDownLoadImage(isChange: noticeBoard.isChange, noticeBoardId: noticeBoard.id, urlString: urlString)
+            }
+        }
+    }
+
     
 }
 

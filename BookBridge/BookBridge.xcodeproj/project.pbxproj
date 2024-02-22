@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0A68352B638403006F8A4A /* KakaoLoginView.swift */; };
-		1D227E532B86CC6E000EF68C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D227E522B86CC6E000EF68C /* GoogleService-Info.plist */; };
+		1D227E552B86E7B0000EF68C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D227E542B86E7B0000EF68C /* GoogleService-Info.plist */; };
 		1D2B61842B63929900945EE2 /* KakaoLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2B61832B63929900945EE2 /* KakaoLoginViewModel.swift */; };
 		1D357CAC2B6A13510064B87D /* ChangePasswordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D357CAB2B6A13510064B87D /* ChangePasswordVM.swift */; };
 		1D71C6C12B6C743900EEC95D /* BookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71C6C02B6C743900EEC95D /* BookView.swift */; };
@@ -191,7 +191,7 @@
 		07195F50FBEF30F8FF959D95 /* Pods-BookBridgeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridgeTests.release.xcconfig"; path = "Target Support Files/Pods-BookBridgeTests/Pods-BookBridgeTests.release.xcconfig"; sourceTree = "<group>"; };
 		0D0208E9110CB38EDE3D59A6 /* Pods_BookBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D0A68352B638403006F8A4A /* KakaoLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginView.swift; sourceTree = "<group>"; };
-		1D227E522B86CC6E000EF68C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1D227E542B86E7B0000EF68C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1D2B61832B63929900945EE2 /* KakaoLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginViewModel.swift; sourceTree = "<group>"; };
 		1D357CAB2B6A13510064B87D /* ChangePasswordVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVM.swift; sourceTree = "<group>"; };
 		1D71C6C02B6C743900EEC95D /* BookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookView.swift; sourceTree = "<group>"; };
@@ -547,7 +547,7 @@
 			isa = PBXGroup;
 			children = (
 				5AD20EA82B85C90C009B8CEC /* Secrets.xcconfig */,
-				1D227E522B86CC6E000EF68C /* GoogleService-Info.plist */,
+				1D227E542B86E7B0000EF68C /* GoogleService-Info.plist */,
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
 				5A7A4E352B61DFFE00F79C23 /* BookBridgeTests */,
@@ -1050,11 +1050,7 @@
 				5AD20EA92B85C90C009B8CEC /* Secrets.xcconfig in Resources */,
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
 				5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */,
-
-				1D227E532B86CC6E000EF68C /* GoogleService-Info.plist in Resources */,
-
-				5C5AB9752B85CD5D00AD90A2 /* GoogleService-Info.plist in Resources */,
-
+				1D227E552B86E7B0000EF68C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
