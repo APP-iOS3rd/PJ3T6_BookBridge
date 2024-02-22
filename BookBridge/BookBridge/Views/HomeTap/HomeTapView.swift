@@ -13,8 +13,8 @@ struct HomeTapView: View {
     @StateObject var viewModel: HomeViewModel
     @StateObject var locationManager = LocationManager.shared
     
-    @State private var isInsideXmark: Bool = false
-    @State private var isOutsideXmark: Bool = false
+    @State  var isInsideXmark: Bool = false
+    @State  var isOutsideXmark: Bool = false
     @State private var text = ""
     @State private var showRecentSearchView = false
     
@@ -31,7 +31,7 @@ struct HomeTapView: View {
                             .padding(.leading, 8)
                         
                         TextField("검색어를 입력해주세요", text: $text, onCommit: {
-                            viewModel.addRecentSearch(user: UserManager.shared.uid, text: text)
+                            viewModel.addRecentSearch(user: UserManager.shared.uid, text: text, category: tapCategory)
                             isOutsideXmark = false
                             isInsideXmark = false
                             
@@ -88,8 +88,93 @@ struct HomeTapView: View {
                 
                 switch tapCategory {
                 case .find:             //TODO: imageLinks 부분 받아오기
-                    ForEach(viewModel.findNoticeBoards) { element in
-                        if element.hopeBook.isEmpty {
+                    
+                    if text.isEmpty {
+                        ForEach(viewModel.findNoticeBoards) { element in
+                            if element.hopeBook.isEmpty {
+                                NavigationLink {
+                                    PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
+                                } label: {
+                                    HomeListItemView(
+                                        author: "",
+                                        date: element.date,
+                                        id: element.id,
+                                        imageLinks: [],
+                                        isChange: element.isChange,
+                                        locate: element.noticeLocation,
+                                        title: element.noticeBoardTitle,
+                                        userId: element.userId,
+                                        location: element.noticeLocationName
+                                    )
+                                }
+                            } else {
+                                //TODO: 나중에 썸네일 이미지, 저자 바꾸기
+                                
+                                NavigationLink {
+                                    PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
+                                } label: {
+                                    HomeListItemView(
+                                        author: element.hopeBook[0].volumeInfo.authors?[0] ?? "",
+                                        date: element.date, id: element.id,
+                                        imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
+                                        isChange: element.isChange,
+                                        locate: element.noticeLocation,
+                                        title: element.noticeBoardTitle,
+                                        userId: element.userId,
+                                        location: element.noticeLocationName
+                                    )
+                                }
+                                
+                            }
+                        }
+                        .padding(.horizontal)
+                        .padding(.bottom, 10)
+                    }
+                    else {
+                        ForEach(viewModel.filteredNoticeBoards) { element in
+                            if element.hopeBook.isEmpty {
+                                NavigationLink {
+                                    PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
+                                } label: {
+                                    HomeListItemView(
+                                        author: "",
+                                        date: element.date,
+                                        id: element.id,
+                                        imageLinks: [],
+                                        isChange: element.isChange,
+                                        locate: element.noticeLocation,
+                                        title: element.noticeBoardTitle,
+                                        userId: element.userId,
+                                        location: element.noticeLocationName
+                                    )
+                                }
+                            } else {
+                                //TODO: 나중에 썸네일 이미지, 저자 바꾸기
+                                
+                                NavigationLink {
+                                    PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
+                                } label: {
+                                    HomeListItemView(
+                                        author: element.hopeBook[0].volumeInfo.authors?[0] ?? "",
+                                        date: element.date, id: element.id,
+                                        imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
+                                        isChange: element.isChange,
+                                        locate: element.noticeLocation,
+                                        title: element.noticeBoardTitle,
+                                        userId: element.userId,
+                                        location: element.noticeLocationName
+                                    )
+                                }
+                                
+                            }
+                        }
+                        .padding(.horizontal)
+                        .padding(.bottom, 10)
+                    }
+                    
+                case .change:
+                    if text.isEmpty {
+                        ForEach(viewModel.changeNoticeBoards) { element in
                             NavigationLink {
                                 PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                             } label: {
@@ -97,7 +182,7 @@ struct HomeTapView: View {
                                     author: "",
                                     date: element.date,
                                     id: element.id,
-                                    imageLinks: [],
+                                    imageLinks: element.noticeImageLink,
                                     isChange: element.isChange,
                                     locate: element.noticeLocation,
                                     title: element.noticeBoardTitle,
@@ -105,16 +190,22 @@ struct HomeTapView: View {
                                     location: element.noticeLocationName
                                 )
                             }
-                        } else {
-                            //TODO: 나중에 썸네일 이미지, 저자 바꾸기
-                            
+                        }
+                        .padding(.horizontal)
+                        .padding(.bottom, 10)
+                        
+                    }
+                    else {
+                        
+                        ForEach(viewModel.filteredNoticeBoards) { element in
                             NavigationLink {
                                 PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                             } label: {
                                 HomeListItemView(
-                                    author: element.hopeBook[0].volumeInfo.authors?[0] ?? "",
-                                    date: element.date, id: element.id,
-                                    imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
+                                    author: "",
+                                    date: element.date,
+                                    id: element.id,
+                                    imageLinks: element.noticeImageLink,
                                     isChange: element.isChange,
                                     locate: element.noticeLocation,
                                     title: element.noticeBoardTitle,
@@ -122,41 +213,22 @@ struct HomeTapView: View {
                                     location: element.noticeLocationName
                                 )
                             }
-                            
                         }
+                        .padding(.horizontal)
+                        .padding(.bottom, 10)
+                        
                     }
-                    .padding(.horizontal)
-                    .padding(.bottom, 10)
                     
-                case .change:
-                    ForEach(viewModel.changeNoticeBoards) { element in
-                        NavigationLink {
-                            PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
-                        } label: {
-                            HomeListItemView(
-                                author: "",
-                                date: element.date,
-                                id: element.id,
-                                imageLinks: element.noticeImageLink,
-                                isChange: element.isChange,
-                                locate: element.noticeLocation,
-                                title: element.noticeBoardTitle,
-                                userId: element.userId,
-                                location: element.noticeLocationName
-                            )
-                        }
-                    }
-                    .padding(.horizontal)
-                    .padding(.bottom, 10)
                     
-                case .recommend:          //TODO: 추천도서 로직 및 뷰
-                    EmptyView()
+                    
+                    //                case .recommend:          //TODO: 추천도서 로직 및 뷰
+                    //                    EmptyView()
                 }
             }
             
             if isOutsideXmark {
                 if UserManager.shared.isLogin {
-                    HomeRecentSearchView(viewModel: viewModel)
+                    HomeRecentSearchView(viewModel: viewModel,isInsideXmark: $isInsideXmark,isOutsideXmark: $isOutsideXmark, text: $text)
                         .background(Color.white)
                         .zIndex(1)
                         .padding(.top, 60)
@@ -196,7 +268,7 @@ struct HomeTapView: View {
                             } label: {
                                 HomeListItemView(
                                     author: element.hopeBook[0].volumeInfo.authors?[0] ?? "",
-                                    date: element.date, 
+                                    date: element.date,
                                     id: element.id,
                                     imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
                                     isChange: element.isChange,
@@ -218,23 +290,23 @@ struct HomeTapView: View {
                             PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                         } label: {
                             HomeListItemView(
-                                author: "", 
+                                author: "",
                                 date: element.date,
-                                id: element.id, 
+                                id: element.id,
                                 imageLinks: element.noticeImageLink,
                                 isChange: element.isChange,
                                 locate: element.noticeLocation,
                                 title: element.noticeBoardTitle,
                                 userId: element.userId,
                                 location: element.noticeLocationName
-                            )                           
+                            )
                         }
                     }
                     .padding(.horizontal)
                     .padding(.bottom, 10)
                     
-                case .recommend:          //TODO: 추천도서 로직 및 뷰
-                    EmptyView()
+                    //                case .recommend:          //TODO: 추천도서 로직 및 뷰
+                    //                    EmptyView()
                     
                 }
             }
@@ -242,7 +314,13 @@ struct HomeTapView: View {
         }
         .environmentObject(viewModel)
         .onAppear {
-            viewModel.fetchBookMark(user: "joo")
+            viewModel.fetchBookMark(user: UserManager.shared.uid)
+            
+        }
+        .onChange(of: tapCategory) { newValue in
+            // 탭 카테고리가 변경될 때마다 필터링을 업데이트
+            viewModel.currentTapCategory = newValue
+            viewModel.filterNoticeBoards(with: text)
         }
     }
 }

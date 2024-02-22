@@ -16,6 +16,8 @@ class HomeViewModel: ObservableObject {
     @Published var findNoticeBoards: [NoticeBoard] = []
     @Published var findNoticeBoardsDic: [String: UIImage] = [:]
     @Published var recentSearch : [String] = []
+    @Published var filteredNoticeBoards: [NoticeBoard] = []
+    @Published var currentTapCategory: TapCategory = .find
             
     let db = Firestore.firestore()
     let nestedGroup = DispatchGroup()
@@ -159,7 +161,7 @@ extension HomeViewModel {
         }
     }
     
-    func addRecentSearch(user: String, text: String) {
+    func addRecentSearch(user: String, text: String, category: TapCategory) {
         // Firestore에 검색어를 추가하는 로직
         let recentSearchRef = db.collection("User").document(userManager.uid).collection("recentsearch")
         
@@ -182,12 +184,12 @@ extension HomeViewModel {
                     }
                 }
             } else {
-                // 이미 존재하는 검색어는 배열에 추가하지 않음
                 print("Search term already exists.")
             }
         }
         
         self.fetchRecentSearch(user: userManager.uid)
+        self.filterNoticeBoards(with: text)
                 
     }
     
@@ -231,6 +233,30 @@ extension HomeViewModel {
             }
         }
     }
+    
+    func filterNoticeBoards(with searchTerm: String ) {
+        switch currentTapCategory {
+            
+        case .find:
+            self.filteredNoticeBoards = findNoticeBoards.filter {
+                $0.noticeBoardTitle.localizedCaseInsensitiveContains(searchTerm)
+            }
+
+        case .change:
+            self.filteredNoticeBoards = changeNoticeBoards.filter {
+                $0.noticeBoardTitle.localizedCaseInsensitiveContains(searchTerm)
+            }
+        }
+
+        // 필터링된 게시물의 이미지 로드
+        for noticeBoard in filteredNoticeBoards {
+            if let urlString = noticeBoard.noticeImageLink.first {
+                getDownLoadImage(isChange: noticeBoard.isChange, noticeBoardId: noticeBoard.id, urlString: urlString)
+            }
+        }
+
+    }
+
     
 }
 
