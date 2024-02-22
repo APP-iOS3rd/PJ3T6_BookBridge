@@ -20,18 +20,17 @@ struct ChangePostingView: View {
     
     var body: some View {
         NavigationStack {
-            HStack {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 16))
-                        .foregroundStyle(.black)
-                }
-                
-                Spacer()
-            }
-            .padding()
+//            HStack {
+//                Button {
+//                    dismiss()
+//                } label: {
+//                    Image(systemName: "xmark")
+//                        .font(.system(size: 16))
+//                        .foregroundStyle(.black)
+//                }
+//                Spacer()
+//            }
+//            .padding()
             
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading) {
@@ -156,7 +155,16 @@ struct ChangePostingView: View {
                     viewModel.gettingUserInfo()
                 }
             }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundStyle(.black)
+                    }
+                }
+            }
         }
     }
-    
 }

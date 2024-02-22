@@ -16,18 +16,18 @@ struct FindPostingView: View {
     
     var body: some View {
         NavigationStack {
-            HStack {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 16))
-                        .foregroundStyle(.black)
-                }
-                
-                Spacer()
-            }
-            .padding()
+//            HStack {
+//                Button {
+//                    dismiss()
+//                } label: {
+//                    Image(systemName: "xmark")
+//                        .font(.system(size: 16))
+//                        .foregroundStyle(.black)
+//                }
+//                
+//                Spacer()
+//            }
+//            .padding()
             
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading) {
@@ -162,6 +162,16 @@ struct FindPostingView: View {
                 viewModel.gettingUserInfo()
                 print( viewModel.noticeBoard.hopeBook)
                 
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "xmark")
+                            .foregroundStyle(.black)
+                    }
+                }
             }
         }
         
