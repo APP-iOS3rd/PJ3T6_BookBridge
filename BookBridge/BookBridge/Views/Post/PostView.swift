@@ -17,6 +17,7 @@ struct PostView: View {
     @State var noticeBoard: NoticeBoard
     @State var url: [URL] = []
     @StateObject private var postViewModel = PostViewModel()
+    @StateObject var reportVM = ReportViewModel()
     
     var storageManager = HomeFirebaseManager.shared
     
@@ -253,13 +254,18 @@ struct PostView: View {
                                 Divider()
                                     .padding(1)
                                 NavigationLink {
-                                    EmptyView()
+                                    ReportView(reportVM: reportVM)
                                 } label: {
                                     Text("신고하기")
                                         .font(.system(size: 14))
                                         .foregroundStyle(Color.red)
                                         .padding(1)
+                                        .onAppear{
+                                            reportVM.report.targetID = noticeBoard.id
+                                            reportVM.report.targetType = .post
+                                        }
                                 }
+                                
                             } else {
                                 NavigationLink {
                                     if noticeBoard.isChange {
