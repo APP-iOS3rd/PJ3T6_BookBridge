@@ -9,33 +9,16 @@ import Foundation
 import FirebaseFirestore
 
 class ReviewScoreViewModel: ObservableObject {
-    @Published var userReviewArr: [Int] = [0, 0, 0]
     @Published var mannerScore: Int = 0
     
     let db = Firestore.firestore()
+    let userManager = UserManager.shared
 }
 
 extension ReviewScoreViewModel {
-    func getReviewsScore(userId: String, completion: @escaping([Int]) -> ()) {
-        db.collection("user").document(userId).collection("reviews").getDocuments { querySnapshot, error in
-            guard error == nil else { return }
-            guard let documents = querySnapshot?.documents else { return }
-            
-            for document in documents {
-                switch document.documentID {
-                case "high":
-                    self.userReviewArr[0] = document.data()["score"] as? Int ?? 0
-                case "middle":
-                    self.userReviewArr[1] = document.data()["score"] as? Int ?? 0
-                default:
-                    self.userReviewArr[2] = document.data()["score"] as? Int ?? 0
-                }
-            }
-            completion(self.userReviewArr)
-        }
-    }
-    
     func getMannerScore() {
-        self.mannerScore =  Int((Double(self.userReviewArr[0] * 3)) / Double(((self.userReviewArr[0] * 3) + (self.userReviewArr[1] * 2) + (self.userReviewArr[2] * 1))) * 100)
+        guard let reviews = userManager.user?.reviews else { return }
+        
+        self.mannerScore =  Int((Double(reviews[0] * 3)) / Double(((reviews[0] * 3) + (reviews[1] * 2) + (reviews[2] * 1))) * 100)
     }
 }
