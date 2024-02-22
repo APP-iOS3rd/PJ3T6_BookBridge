@@ -10,6 +10,8 @@ import SwiftUI
 struct NoticeBoardView: View {
     @Environment(\.dismiss) private var dismiss
     
+    @Binding var isShowPlusBtn: Bool
+    
     @StateObject var viewModel = NoticeBoardViewModel()
     
     @State private var selectedPicker: MyPagePostTapType = .find
@@ -31,7 +33,7 @@ struct NoticeBoardView: View {
         VStack {
             TapAnimation()
             
-            NoticeBoardTapView(viewModel: viewModel, changeHeight: $changeHeight, changeIndex: $changeIndex, findHeight: $findHeight, findIndex: $findIndex, isFindAnimating: $isFindAnimating, isChangeAnimating: $isChangeAnimating, sortTypes: sortTypes, myPagePostTapType: selectedPicker)
+            NoticeBoardTapView(changeHeight: $changeHeight, changeIndex: $changeIndex, findHeight: $findHeight, findIndex: $findIndex, isFindAnimating: $isFindAnimating, isChangeAnimating: $isChangeAnimating, isShowPlusBtn: $isShowPlusBtn, viewModel: viewModel, sortTypes: sortTypes, myPagePostTapType: selectedPicker)
         }
         .navigationBarBackButtonHidden()
         .navigationTitle(naviTitle)
@@ -47,10 +49,12 @@ struct NoticeBoardView: View {
             }
         }
         .onAppear {
+            isShowPlusBtn = false
             viewModel.fetchBookMark()
             viewModel.gettingFindNoticeBoards(whereIndex: naviTitle == "내 게시물" ? 0 : 1, noticeBoardArray: noticeBoardArray)
             viewModel.gettingChangeNoticeBoards(whereIndex: naviTitle == "내 게시물" ? 0 : 1, noticeBoardArray: noticeBoardArray)
         }
+        .toolbar(.hidden, for: .tabBar)
     }
 }
 

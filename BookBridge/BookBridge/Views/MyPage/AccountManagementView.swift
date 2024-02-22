@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AccountManagementView: View {
+    @Binding var isShowPlusBtn: Bool
+    
     @StateObject var viewModel: MyPageViewModel
     
     var body: some View {
@@ -17,7 +19,7 @@ struct AccountManagementView: View {
                 .padding(.bottom, 10)
             
             NavigationLink {
-                MyProfileView(nickname: viewModel.userManager.user?.nickname ?? "", userSaveImage: viewModel.userSaveImage)
+                MyProfileView(isShowPlusBtn: $isShowPlusBtn, nickname: viewModel.userManager.user?.nickname ?? "", userSaveImage: viewModel.userSaveImage)
             } label: {
                 HStack {
                     Text("프로필")
@@ -37,7 +39,7 @@ struct AccountManagementView: View {
             }
             
             NavigationLink {                //관심목록 경로가 아직없음
-                NoticeBoardView(naviTitle: "관심목록", noticeBoardArray: viewModel.userBookMarks, sortTypes: ["전체", "진행중", "예약중", "교환완료"])
+                NoticeBoardView(isShowPlusBtn: $isShowPlusBtn, naviTitle: "관심목록", noticeBoardArray: viewModel.userBookMarks, sortTypes: ["전체", "진행중", "예약중", "교환완료"])
             } label: {
                 HStack {
                     Text("관심목록")
@@ -57,7 +59,7 @@ struct AccountManagementView: View {
             }
            
             NavigationLink {
-                TownSettingView()
+                TownSettingView(isShowPlusBtn: $isShowPlusBtn)
             } label: {
                 HStack {
                     Text("동네설정")
@@ -78,7 +80,7 @@ struct AccountManagementView: View {
             
             NavigationLink {
                 //유저 아이디에 사용자 아이디 넣기, 유저 스타일에 사용자 대표 칭호 넣기
-                StyleSettingView(userId: viewModel.userManager.uid, userStyle: viewModel.userManager.user?.style ?? "")
+                StyleSettingView(isShowPlusBtn: $isShowPlusBtn, userId: viewModel.userManager.uid, userStyle: viewModel.userManager.user?.style ?? "")
             } label: {
                 HStack {
                     Text("칭호관리")

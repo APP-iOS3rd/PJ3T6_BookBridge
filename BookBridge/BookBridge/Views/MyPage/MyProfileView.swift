@@ -10,6 +10,8 @@ import SwiftUI
 struct MyProfileView: View {
     @Environment(\.dismiss) private var dismiss
     
+    @Binding var isShowPlusBtn: Bool
+    
     @StateObject var viewModel = MyProfileViewModel()
     
     @State var nickname: String = ""
@@ -112,6 +114,7 @@ struct MyProfileView: View {
             Spacer()
         }
         .onAppear {
+            isShowPlusBtn = false
             viewModel.userNickname = nickname
             viewModel.selectImage = userSaveImage.1
         }

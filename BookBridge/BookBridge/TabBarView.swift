@@ -96,7 +96,7 @@ struct TabBarView: View {
                                                         
                     //마이페이지
                     NavigationStack {
-                        MyPageView()
+                        MyPageView(isShowPlusBtn: $isShowPlusBtn)
                             .onDisappear {
                                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
                                     shouldShowActionSheet = false

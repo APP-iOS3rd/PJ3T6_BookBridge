@@ -61,9 +61,11 @@ struct HomeView: View {
             HomeTapView(isShowPlusBtn: $isShowPlusBtn, viewModel: viewModel, tapCategory: selectedPicker)
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 isShowPlusBtn = true
-                viewModel.updateNoticeBoards()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                    viewModel.updateNoticeBoards()
+                }
             }
         }
         
@@ -71,7 +73,7 @@ struct HomeView: View {
             LoginView(showingLoginView: $showingLoginView)
         }
         .navigationDestination(isPresented: $showingTownSettingView) {
-              TownSettingView()
+            TownSettingView(isShowPlusBtn: $isShowPlusBtn)
                 .toolbar(.hidden, for: .tabBar)
         }
         .onChange(of: userManager.isLogin) { _ in

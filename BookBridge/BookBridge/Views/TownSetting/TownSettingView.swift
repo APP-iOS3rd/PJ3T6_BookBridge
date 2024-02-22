@@ -11,15 +11,20 @@ import FirebaseFirestore
 
 struct TownSettingView: View {
     @Environment(\.dismiss) private var dismiss
+    
+    @Binding var isShowPlusBtn: Bool
+    
     @StateObject var locationViewModel = LocationViewModel.shared
     @StateObject var userLocationViewModel = UserLocationViewModel.shared
-    @State private var sliderValue = 1.0
-        
-    @State var selectedLocation: Location?
-    let locationManager = LocationManager.shared
-    let db = Firestore.firestore()
     
     @State var locations = [Location]()
+    @State var selectedLocation: Location?
+    
+    
+    @State private var sliderValue = 1.0
+    
+    let db = Firestore.firestore()
+    let locationManager = LocationManager.shared
                 
     var body: some View {
         VStack {
@@ -71,6 +76,7 @@ struct TownSettingView: View {
             }
         }        
         .onAppear() {
+            isShowPlusBtn = false
             FirestoreManager.getLocations { locations in
                 userLocationViewModel.setLocations(locations: locations)
             }
@@ -90,8 +96,4 @@ extension TownSettingView {
                 .padding(.bottom, 10)
         }
     }
-}
-
-#Preview {
-    TownSettingView()
 }

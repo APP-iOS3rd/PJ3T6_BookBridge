@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct NoticeBoardTapView: View {
-    @StateObject var viewModel: NoticeBoardViewModel
-    
     @Binding var changeHeight: CGFloat
     @Binding var changeIndex: Int
     @Binding var findHeight: CGFloat
     @Binding var findIndex: Int
     @Binding var isFindAnimating: Bool
     @Binding var isChangeAnimating: Bool
+    @Binding var isShowPlusBtn: Bool
+    
+    @StateObject var viewModel: NoticeBoardViewModel
     
     var sortTypes: [String]
     
@@ -121,28 +122,35 @@ struct NoticeBoardTapView: View {
                         } else {
                             ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.findNoticeBoards, index: findIndex, isRequests: sortTypes.count == 3 ? true : false)) { element in
                                 if element.hopeBook.isEmpty {
-                                    NoticeBoardItemView(
-                                        viewModel: viewModel,
-                                        author: "",
-                                        date: element.date,
-                                        id: element.id,
-                                        imageLinks: [],
-                                        isChange: element.isChange,
-                                        locate: element.noticeLocation,
-                                        title: element.noticeBoardTitle
-                                    )
+                                    NavigationLink {
+                                        PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
+                                    } label: {
+                                        NoticeBoardItemView(
+                                            viewModel: viewModel,
+                                            author: "",
+                                            date: element.date,
+                                            id: element.id,
+                                            imageLinks: [],
+                                            isChange: element.isChange,
+                                            locate: element.noticeLocation,
+                                            title: element.noticeBoardTitle
+                                        )
+                                    }
                                 } else {
-                                    //TODO: 나중에 썸네일 이미지, 저자 바꾸기
-                                    NoticeBoardItemView(
-                                        viewModel: viewModel,
-                                        author: element.hopeBook[0].volumeInfo.authors?[0] ?? "",
-                                        date: element.date,
-                                        id: element.id,
-                                        imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
-                                        isChange: element.isChange,
-                                        locate: element.noticeLocation,
-                                        title: element.noticeBoardTitle
-                                    )
+                                    NavigationLink {
+                                        PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
+                                    } label: {
+                                        NoticeBoardItemView(
+                                            viewModel: viewModel,
+                                            author: element.hopeBook[0].volumeInfo.authors?[0] ?? "",
+                                            date: element.date,
+                                            id: element.id,
+                                            imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
+                                            isChange: element.isChange,
+                                            locate: element.noticeLocation,
+                                            title: element.noticeBoardTitle
+                                        )
+                                    }
                                 }
                             }
                             .padding(.horizontal)
@@ -163,16 +171,20 @@ struct NoticeBoardTapView: View {
                             .padding(.top, 50)
                         } else {
                             ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.changeNoticeBoards, index: changeIndex, isRequests: sortTypes.count == 3 ? true : false)) { element in
-                                NoticeBoardItemView(
-                                    viewModel: viewModel,
-                                    author: "",
-                                    date: element.date,
-                                    id: element.id,
-                                    imageLinks: element.noticeImageLink,
-                                    isChange: element.isChange,
-                                    locate: element.noticeLocation,
-                                    title: element.noticeBoardTitle
-                                )
+                                NavigationLink {
+                                    PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
+                                } label: {
+                                    NoticeBoardItemView(
+                                        viewModel: viewModel,
+                                        author: "",
+                                        date: element.date,
+                                        id: element.id,
+                                        imageLinks: element.noticeImageLink,
+                                        isChange: element.isChange,
+                                        locate: element.noticeLocation,
+                                        title: element.noticeBoardTitle
+                                    )
+                                }
                             }
                             .padding(.horizontal)
                             .padding(.bottom, 10)
