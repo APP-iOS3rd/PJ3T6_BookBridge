@@ -107,50 +107,76 @@ struct NoticeBoardTapView: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     switch myPagePostTapType {
                     case .find:             //TODO: imageLinks 부분 받아오기
-                        ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.findNoticeBoards, index: findIndex, isRequests: sortTypes.count == 3 ? true : false)) { element in
-                            if element.hopeBook.isEmpty {
+                        if viewModel.getfilterNoticeBoard(noticeBoard: viewModel.findNoticeBoards, index: findIndex, isRequests: sortTypes.count == 3 ? true : false).isEmpty {
+                            VStack {
+                                Image(uiImage: UIImage(named: "Character")!)
+                                    .resizable()
+                                    .frame(width: 150, height: 180)
+                                
+                                Text("아직 게시물이 없어요....")
+                                    .font(.system(size: 30, weight: .bold))
+                                    .foregroundStyle(Color(hex: "767676"))
+                            }
+                            .padding(.top, 50)
+                        } else {
+                            ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.findNoticeBoards, index: findIndex, isRequests: sortTypes.count == 3 ? true : false)) { element in
+                                if element.hopeBook.isEmpty {
+                                    NoticeBoardItemView(
+                                        viewModel: viewModel,
+                                        author: "",
+                                        date: element.date,
+                                        id: element.id,
+                                        imageLinks: [],
+                                        isChange: element.isChange,
+                                        locate: element.noticeLocation,
+                                        title: element.noticeBoardTitle
+                                    )
+                                } else {
+                                    //TODO: 나중에 썸네일 이미지, 저자 바꾸기
+                                    NoticeBoardItemView(
+                                        viewModel: viewModel,
+                                        author: element.hopeBook[0].volumeInfo.authors?[0] ?? "",
+                                        date: element.date,
+                                        id: element.id,
+                                        imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
+                                        isChange: element.isChange,
+                                        locate: element.noticeLocation,
+                                        title: element.noticeBoardTitle
+                                    )
+                                }
+                            }
+                            .padding(.horizontal)
+                            .padding(.bottom, 10)
+                        }
+                        
+                    case .change:
+                        if viewModel.getfilterNoticeBoard(noticeBoard: viewModel.changeNoticeBoards, index: changeIndex, isRequests: sortTypes.count == 3 ? true : false).isEmpty {
+                            VStack {
+                                Image(uiImage: UIImage(named: "Character")!)
+                                    .resizable()
+                                    .frame(width: 150, height: 180)
+                                
+                                Text("아직 게시물이 없어요....")
+                                    .font(.system(size: 30, weight: .bold))
+                                    .foregroundStyle(Color(hex: "767676"))
+                            }
+                            .padding(.top, 50)
+                        } else {
+                            ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.changeNoticeBoards, index: changeIndex, isRequests: sortTypes.count == 3 ? true : false)) { element in
                                 NoticeBoardItemView(
                                     viewModel: viewModel,
                                     author: "",
                                     date: element.date,
                                     id: element.id,
-                                    imageLinks: [],
-                                    isChange: element.isChange,
-                                    locate: element.noticeLocation,
-                                    title: element.noticeBoardTitle
-                                )
-                            } else {
-                                //TODO: 나중에 썸네일 이미지, 저자 바꾸기
-                                NoticeBoardItemView(
-                                    viewModel: viewModel,
-                                    author: element.hopeBook[0].volumeInfo.authors?[0] ?? "",
-                                    date: element.date,
-                                    id: element.id,
-                                    imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
+                                    imageLinks: element.noticeImageLink,
                                     isChange: element.isChange,
                                     locate: element.noticeLocation,
                                     title: element.noticeBoardTitle
                                 )
                             }
+                            .padding(.horizontal)
+                            .padding(.bottom, 10)
                         }
-                        .padding(.horizontal)
-                        .padding(.bottom, 10)
-                        
-                    case .change:
-                        ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.changeNoticeBoards, index: changeIndex, isRequests: sortTypes.count == 3 ? true : false)) { element in
-                            NoticeBoardItemView(
-                                viewModel: viewModel,
-                                author: "",
-                                date: element.date,
-                                id: element.id,
-                                imageLinks: element.noticeImageLink,
-                                isChange: element.isChange,
-                                locate: element.noticeLocation,
-                                title: element.noticeBoardTitle
-                            )                            
-                        }
-                        .padding(.horizontal)
-                        .padding(.bottom, 10)
                     }
                 }
             }
