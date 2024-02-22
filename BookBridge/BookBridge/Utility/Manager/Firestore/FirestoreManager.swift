@@ -137,9 +137,15 @@ class FirestoreManager {
                     passsword: document?.data()?["passsword"] as? String ?? "",
                     nickname: document?.data()?["nickname"] as? String ?? "",
                     phoneNumber: document?.data()?["phoneNumber"] as? String ?? "",
+                    profileURL: document?.data()?["profileURL"] as? String ?? "",
                     joinDate: stamp.dateValue(),
                     fcmToken: document?.data()?["fcmToken"] as? String ?? "",
-                    location: locations
+                    location: locations,
+                    bookMarks: document?.data()?["bookMarks"] as? [String] ?? [],
+                    requests: document?.data()?["requests"] as? [String] ?? [],
+                    style: document?.data()?["style"] as? String ?? "",
+                    reviews: document?.data()?["reviews"] as? [Int] ?? [],
+                    titles: document?.data()?["titles"] as? [String] ?? []
                 )
                 
                 completion(User)
