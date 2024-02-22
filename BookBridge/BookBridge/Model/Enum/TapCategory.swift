@@ -10,5 +10,5 @@ import Foundation
 enum TapCategory: String, CaseIterable {
     case find = "구해요"
     case change = "바꿔요"
-    case recommend = "추천도서"
+//    case recommend = "추천도서"
 }

@@ -28,9 +28,10 @@ struct ReportCellView: View {
             .background(
                 RoundedRectangle(cornerRadius: 0)
                     .foregroundColor(.white)
-                    .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
+                    .shadow(color: Color.init(hex: "E8E8E8"), radius: 0, x: 0, y: 1)
                     .padding(.leading, 21)
                     .padding(.trailing, 21)
             )
+        
     }
 }
