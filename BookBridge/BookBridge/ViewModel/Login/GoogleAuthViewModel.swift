@@ -24,7 +24,7 @@ final class GoogleAuthViewModel: ObservableObject {
                         UserManager.shared.login(uid: result.uid)
                     } else {
                         // 회원가입
-                        FirestoreSignUpManager.shared.addUser(id: result.uid, email: email, password: nil, nickname: nil, phoneNumber: nil, fcmToken: fcmToken) {
+                        FirestoreSignUpManager.shared.addUser(id: result.uid, email: email, password: "", nickname: "", phoneNumber: "", fcmToken: fcmToken) {
                             UserManager.shared.login(uid: result.uid)
                         }
                     }

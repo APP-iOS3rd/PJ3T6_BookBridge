@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 class FirestoreSignUpManager {
     static let shared = FirestoreSignUpManager()
+    let redundant = RedundantValidator()
     private init() {}
     let db = Firestore.firestore()
     
@@ -49,7 +50,8 @@ class FirestoreSignUpManager {
     }
                 
     func addUser(id: String,email: String, password: String?, nickname: String?, phoneNumber: String?, fcmToken: String?, completion: @escaping () -> ()) {
-        let user = UserModel(
+                                
+        var user = UserModel(
             id: id,
             email: email,
             passsword: password,
@@ -58,17 +60,43 @@ class FirestoreSignUpManager {
             joinDate: Date(),
             fcmToken: fcmToken
         )
+        
+        if let nickname = nickname, !nickname.isEmpty {
+            print("닉네임이 생성되어 있습니다.")
+            saveUserData(user: user, completion: completion)
+        } else {
+            print("닉네임의 생성이 시작됩니다.")
+            getRandomNickname { nickname in
+                user.nickname = nickname
+                print("user.nickname: \(String(describing: user.nickname))")
+                self.saveUserData(user: user, completion: completion)
+            }
+        }
+    }
+    
+    func saveUserData(user: UserModel, completion: @escaping () -> ()) {
         let userData = convertUserModelToDictionary(user: user)
-              
-        db.collection("User").document(id).setData(userData)  { err in
+        
+        db.collection("User").document(user.id ?? "").setData(userData) { err in
             if let err = err {
                 print(err.localizedDescription)
             } else {
                 print("User has been saved!")
-                self.addUserLocation(userId: id) {
+                self.addUserLocation(userId: user.id ?? "") {
                     print("회원가입에 성공하였습니다!")
                     completion()
                 }
+            }
+        }
+    }
+    
+    func getRandomNickname(completion: @escaping (String) -> ()) {
+        let randomNickname = CreationManager.getRandomNickname()
+        redundant.isValidNickname(nickname: randomNickname) { result in
+            if result {
+               completion(randomNickname)
+            } else {
+                self.getRandomNickname(completion: completion)
             }
         }
     }
