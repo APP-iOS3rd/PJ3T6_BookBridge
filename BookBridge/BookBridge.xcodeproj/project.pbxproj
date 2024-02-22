@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0A68352B638403006F8A4A /* KakaoLoginView.swift */; };
-		1D227E532B86CC6E000EF68C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1D227E522B86CC6E000EF68C /* GoogleService-Info.plist */; };
 		1D2B61842B63929900945EE2 /* KakaoLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2B61832B63929900945EE2 /* KakaoLoginViewModel.swift */; };
 		1D357CAC2B6A13510064B87D /* ChangePasswordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D357CAB2B6A13510064B87D /* ChangePasswordVM.swift */; };
 		1D71C6C12B6C743900EEC95D /* BookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71C6C02B6C743900EEC95D /* BookView.swift */; };
@@ -600,7 +599,6 @@
 			isa = PBXGroup;
 			children = (
 				5A5616B32B8449E7006BDB61 /* GoogleService-Info.plist */,
-				5AB3C77A2B83307500D8C317 /* Secrets.xcconfig */,
 				5AD20EA82B85C90C009B8CEC /* Secrets.xcconfig */,
 				1D227E522B86CC6E000EF68C /* GoogleService-Info.plist */,
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
@@ -1649,9 +1647,10 @@
 				ENABLE_TESTING_SEARCH_PATHS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BookBridge/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "사진 기능을 사용하려면 사진/비디오 접근권한을 허용해야 합니다.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 기능을 사용하려면 사진/비디오 접근권한을 허용해야 합니다.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "앱을 사용하는 동안 허용";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "한 번 허용";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 기능을 사용하려면 사진/비디오 접근권한을 허용해야 합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1691,9 +1690,10 @@
 				ENABLE_TESTING_SEARCH_PATHS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BookBridge/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "사진 기능을 사용하려면 사진/비디오 접근권한을 허용해야 합니다.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 기능을 사용하려면 사진/비디오 접근권한을 허용해야 합니다.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "앱을 사용하는 동안 허용";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "한 번 허용";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 기능을 사용하려면 사진/비디오 접근권한을 허용해야 합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
