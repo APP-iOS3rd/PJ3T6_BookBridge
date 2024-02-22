@@ -9,6 +9,7 @@ import SwiftUI
 struct ChangePostingModifyView: View {
     @Environment(\.dismiss) private var dismiss
     
+    @State private var fetchBool = true
     @StateObject var viewModel = PostModifyViewModel()
     @Binding var noticeBoard: NoticeBoard
     @State private var selectedImages: [UIImage] = []
@@ -131,7 +132,10 @@ struct ChangePostingModifyView: View {
                 }
             }
             .onAppear {
-                viewModel.fetchNoticeBoardInfo(noticeBoard: noticeBoard)
+                if fetchBool {
+                    viewModel.fetchNoticeBoardInfo(noticeBoard: noticeBoard)
+                    self.fetchBool = false
+                }
             }
         }
     }
