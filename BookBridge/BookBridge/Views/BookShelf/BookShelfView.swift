@@ -59,45 +59,30 @@ struct BookShelfView: View {
             
             VStack {
                 ZStack{
-                    if userId == UserManager.shared.uid  {
+                    if isBack == false {
+                        
                         Text("내 책장")
-                    }
-                    else if userId == nil {
-                        Text("내 책장")
-                    }
-                    else {
-                        Text("\(viewModel.user.nickname ?? "닉네임 없음")의 책장")
+                            .font(.system(size: 16))
+                        HStack{
+                            
+                            Spacer()
+                            if userId == UserManager.shared.uid || userId == nil {
+                                Button {
+                                    isEditing.toggle()
+                                    
+                                } label: {
+                                    Text(isEditing ? "확인" :  "편집")
+                                        .font(.system(size: 16))
+                                        .foregroundStyle(.black)
+                                }
+                            }
+                            
+                            
+                            
+                        }
                     }
                     
-                    HStack{
-                        
-                        if isBack! {
-                            
-                            Button(action: {
-                                dismiss()
-                            }) {
-                                Image(systemName: "chevron.left")
-                                    .font(.system(size: 16))
-                                    .foregroundStyle(.black)
-                            }
-                            
-                        }
-                        
-                        Spacer()
-                        if userId == UserManager.shared.uid || userId == nil {
-                            Button {
-                                isEditing.toggle()
-                                
-                            } label: {
-                                Text(isEditing ? "확인" :  "편집")
-                                    .font(.system(size: 16))
-                                    .foregroundStyle(.black)
-                            }
-                        }
-                        
-                        
-                        
-                    }
+
                 }
                 .padding(.top,8)
                 
