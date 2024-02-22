@@ -250,8 +250,10 @@ struct PostView: View {
                                 NavigationLink {
                                     if noticeBoard.isChange {
                                         ChangePostingModifyView(noticeBoard: $noticeBoard)
+                                            .navigationBarBackButtonHidden()
                                     } else {
                                         FindPostingModifyView(noticeBoard: $noticeBoard)
+                                            .navigationBarBackButtonHidden()
                                     }
                                 } label: {
                                     Text("수정하기")

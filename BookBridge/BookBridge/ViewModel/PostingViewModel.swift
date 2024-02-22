@@ -110,10 +110,6 @@ extension PostingViewModel {
                         "imageLinks": hopeBookInfo.imageLinks?.smallThumbnail ?? ""
                     ])
                     
-                    linkNoticeBoard.collection("hopeBooks").document(book.id).collection("industryIdentifiers").document(hopeBookInfo.industryIdentifiers?[0].identifier ?? "").setData([
-                        "identifier": hopeBookInfo.industryIdentifiers?[0].identifier ?? ""
-                    ])
-                    
                     user.collection("myNoticeBoard").document(self.noticeBoard.id).collection("hopeBooks").document(book.id).setData([
                         "title": hopeBookInfo.title ?? "제목 미상",
                         "authors": hopeBookInfo.authors ?? ["저자 미상"],
@@ -125,9 +121,16 @@ extension PostingViewModel {
                         "imageLinks": hopeBookInfo.imageLinks?.smallThumbnail ?? ""
                     ])
                     
-                    user.collection("myNoticeBoard").document(self.noticeBoard.id).collection("hopeBooks").document(book.id).collection("industryIdentifiers").document(hopeBookInfo.industryIdentifiers?[0].identifier ?? "").setData([
-                        "identifier": hopeBookInfo.industryIdentifiers?[0].identifier ?? ""
-                    ])
+                    if !(hopeBookInfo.industryIdentifiers?[0].identifier == nil) {
+                        linkNoticeBoard.collection("hopeBooks").document(book.id).collection("industryIdentifiers").document(hopeBookInfo.industryIdentifiers?[0].identifier ?? "").setData([
+                            "identifier": hopeBookInfo.industryIdentifiers?[0].identifier ?? ""
+                        ])
+                        
+                        user.collection("myNoticeBoard").document(self.noticeBoard.id).collection("hopeBooks").document(book.id).collection("industryIdentifiers").document(hopeBookInfo.industryIdentifiers?[0].identifier ?? "").setData([
+                            "identifier": hopeBookInfo.industryIdentifiers?[0].identifier ?? ""
+                        ])
+                    }
+                    
                 }
             }
         }
