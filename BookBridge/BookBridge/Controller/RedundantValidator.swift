@@ -43,5 +43,9 @@ struct RedundantValidator {
             }
         }
     }
+    
+//    static func isValidNickname(nickname: String) async throws -> Bool {
+//        let snapshot = try await db.whereField("nickname", isEqualTo: nickname)
+//    }
         
 }
