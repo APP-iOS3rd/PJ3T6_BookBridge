@@ -12,11 +12,8 @@ import FirebaseStorage
 class ReportViewModel: ObservableObject{
     
     @Published var report = Report(targetType: .post, targetID: "", reporterUserId: "", reason: .other, additionalComments: "", reportDate: Date())
+    
 
-    //사유 Update
-    func updateReportReason(reason: Report.ReportReason) {
-        report.reason = reason
-    }
     
     let db = Firestore.firestore()
 

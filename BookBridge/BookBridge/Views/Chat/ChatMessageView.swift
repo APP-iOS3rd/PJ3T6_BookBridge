@@ -13,6 +13,7 @@ struct ChatMessageView: View {
     @Binding var isShowPlusBtn: Bool
     
     @StateObject var viewModel = ChatMessageViewModel()
+    @StateObject var reportVM = ReportViewModel()
     
     @State var isAlarm: Bool = true
     
@@ -109,13 +110,16 @@ struct ChatMessageView: View {
                     VStack {
                         if isPresented {
                             NavigationLink {
-                                ReportChatView(reportVM: ReportViewModel(), nickname: chatRoomPartner.nickname)
+                                ReportView(reportVM: reportVM)
                             } label: {
                                 Text("신고하기")
                                     .font(.system(size: 14))
                                     .padding(1)
+                                    .onAppear{
+                                        reportVM.report.targetID = "채팅방ID"
+                                        reportVM.report.targetType = .chat
+                                    }
                             }
-                            
                             Divider()
                             
                             Button {
