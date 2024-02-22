@@ -23,7 +23,7 @@ struct MyPageView: View {
                                 )
                     
                     VStack(alignment: .leading, spacing: 10) {
-                        Text("뉴비")
+                        Text((viewModel.userManager.user?.style == "" ? "칭호없음" : viewModel.userManager.user?.style) ?? "칭호없음")
                             .padding(.vertical, 5)
                             .padding(.horizontal, 8)
                             .font(.system(size: 12))
@@ -41,7 +41,7 @@ struct MyPageView: View {
                 .padding(.top, 10)
                 
                 //매너점수
-                ReviewScoreView(userId: "joo")
+                ReviewScoreView()
                 
                 //나의 게시물
                 MyPostView(viewModel: viewModel)

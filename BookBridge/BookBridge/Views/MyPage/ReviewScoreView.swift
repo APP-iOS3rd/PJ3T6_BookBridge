@@ -10,8 +10,6 @@ import SwiftUI
 struct ReviewScoreView: View {
     @StateObject var viewModel = ReviewScoreViewModel()
     
-    var userId: String
-    
     var body: some View {
         HStack {
             VStack(spacing: 5) {

@@ -28,7 +28,7 @@ extension MyPageViewModel {
             guard let document = documentSnapshot else { return }
             
             self.userRequests = document.data()?["requests"] as? [String] ?? []
-            self.userBookMarks = document.data()?["bookMark"] as? [String] ?? []
+            self.userBookMarks = document.data()?["bookMarks"] as? [String] ?? []
         }
         
         query.collection("myNoticeBoard").getDocuments { querySnapshot, error in

@@ -37,7 +37,7 @@ struct StyleModalView: View {
             
             if (viewModel.myStyles.contains { $0 == viewModel.style.title }) {    //칭호 보유중
                 Button {
-                    viewModel.changeSelectedStyle(userId: userId)
+                    viewModel.changeSelectedStyle()
                     isModal = false
                 } label: {
                     Text(viewModel.selectedStyle == viewModel.style.title ? "선택취소" : "선택완료")

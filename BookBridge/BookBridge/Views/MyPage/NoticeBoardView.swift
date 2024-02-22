@@ -47,11 +47,9 @@ struct NoticeBoardView: View {
             }
         }
         .onAppear {
-            if !noticeBoardArray.isEmpty {
-                viewModel.fetchBookMark(user: "joo")
-                viewModel.gettingFindNoticeBoards(whereIndex: naviTitle == "내 게시물" ? 0 : 1, noticeBoardArray: noticeBoardArray)
-                viewModel.gettingChangeNoticeBoards(whereIndex: naviTitle == "내 게시물" ? 0 : 1, noticeBoardArray: noticeBoardArray)
-            }
+            viewModel.fetchBookMark()
+            viewModel.gettingFindNoticeBoards(whereIndex: naviTitle == "내 게시물" ? 0 : 1, noticeBoardArray: noticeBoardArray)
+            viewModel.gettingChangeNoticeBoards(whereIndex: naviTitle == "내 게시물" ? 0 : 1, noticeBoardArray: noticeBoardArray)
         }
     }
 }

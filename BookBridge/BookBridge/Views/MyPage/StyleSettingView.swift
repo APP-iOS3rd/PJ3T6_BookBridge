@@ -57,7 +57,7 @@ struct StyleSettingView: View {
                 .presentationDetents([.height(250)])
         })
         .onAppear {
-            viewModel.getMyStyle(userId: userId)
+            viewModel.myStyles = UserManager.shared.user?.titles ?? ["뉴비"]
             viewModel.selectedStyle = userStyle
         }
     }

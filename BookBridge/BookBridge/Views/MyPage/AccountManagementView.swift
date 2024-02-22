@@ -78,7 +78,7 @@ struct AccountManagementView: View {
             
             NavigationLink {
                 //유저 아이디에 사용자 아이디 넣기, 유저 스타일에 사용자 대표 칭호 넣기
-                StyleSettingView(userId: viewModel.userManager.uid, userStyle: "뉴비")
+                StyleSettingView(userId: viewModel.userManager.uid, userStyle: viewModel.userManager.user?.style ?? "")
             } label: {
                 HStack {
                     Text("칭호관리")

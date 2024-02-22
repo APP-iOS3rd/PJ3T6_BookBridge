@@ -117,8 +117,7 @@ struct NoticeBoardTapView: View {
                                     imageLinks: [],
                                     isChange: element.isChange,
                                     locate: element.noticeLocation,
-                                    title: element.noticeBoardTitle,
-                                    userId: element.userId
+                                    title: element.noticeBoardTitle
                                 )
                             } else {
                                 //TODO: 나중에 썸네일 이미지, 저자 바꾸기
@@ -130,8 +129,7 @@ struct NoticeBoardTapView: View {
                                     imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
                                     isChange: element.isChange,
                                     locate: element.noticeLocation,
-                                    title: element.noticeBoardTitle,
-                                    userId: element.userId
+                                    title: element.noticeBoardTitle
                                 )
                             }
                         }
@@ -148,8 +146,7 @@ struct NoticeBoardTapView: View {
                                 imageLinks: element.noticeImageLink,
                                 isChange: element.isChange,
                                 locate: element.noticeLocation,
-                                title: element.noticeBoardTitle,
-                                userId: element.userId
+                                title: element.noticeBoardTitle
                             )                            
                         }
                         .padding(.horizontal)
