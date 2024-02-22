@@ -13,6 +13,7 @@ class FirestoreManager {
     static let db = Firestore.firestore()
     static let locationManager = LocationManager.shared
     
+    // MARK: - Hopebook fetch
     static func fetchHopeBook(uid: String) async throws -> [Item]? {
         let db = Firestore.firestore()
         let snapshot = try await db.collection("noticeBoard").document(uid).collection("hopeBooks").getDocuments()

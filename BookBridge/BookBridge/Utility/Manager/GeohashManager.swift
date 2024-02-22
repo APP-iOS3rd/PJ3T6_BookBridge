@@ -73,6 +73,7 @@ class GeohashManager {
                                 
                 return false
             }
+            .sorted { $0.date > $1.date }
         }
         
         @Sendable func getNoticeBoard(from document: DocumentSnapshot) async throws -> NoticeBoard {

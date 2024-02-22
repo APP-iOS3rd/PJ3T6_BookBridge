@@ -275,7 +275,8 @@ struct PostView: View {
                                 Divider()
                                     .padding(1)
                                 Button {
-                                    
+                                    postViewModel.deletePost(noticeBoardId: noticeBoard.id)
+                                    dismiss()
                                 } label: {
                                     Text("삭제하기")
                                         .font(.system(size: 14))
