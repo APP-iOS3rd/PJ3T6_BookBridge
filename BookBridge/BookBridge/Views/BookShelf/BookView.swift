@@ -74,6 +74,7 @@ struct BookView: View {
                         
                     }
                 }
+                .padding(.top, 8)
             }
         }
     }
