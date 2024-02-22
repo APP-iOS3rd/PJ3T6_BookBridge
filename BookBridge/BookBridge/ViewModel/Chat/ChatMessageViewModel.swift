@@ -32,7 +32,7 @@ extension ChatMessageViewModel {
     // 메시지 가져오기
     func fetchMessages(uid: String, chatRoomListId: String) {
         // 실시간 업데이트 감시
-        firestoreListener = FirebaseManager.shared.firestore.collection("user").document(uid).collection("chatRoomList").document(chatRoomListId).collection("messages").order(by: "date", descending: false).addSnapshotListener { querySnapshot, error in
+        firestoreListener = FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").document(chatRoomListId).collection("messages").order(by: "date", descending: false).addSnapshotListener { querySnapshot, error in
             guard error == nil else { return }
             guard let documents = querySnapshot else { return }
             
@@ -192,7 +192,7 @@ extension ChatMessageViewModel {
         
         
         // 발신자용 메시지 전송 저장
-        let myQuery = FirebaseManager.shared.firestore.collection("user")
+        let myQuery = FirebaseManager.shared.firestore.collection("User")
             .document(uid)
             .collection("chatRoomList").document(chatRoomListId)
         
@@ -212,7 +212,7 @@ extension ChatMessageViewModel {
         ])
         
         // 수신자용 메시지 전송 저장
-        let partnerQuery = FirebaseManager.shared.firestore.collection("user").document(partnerId).collection("chatRoomList").document(chatRoomListId)
+        let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(chatRoomListId)
         
         let recipientMessageDocument = partnerQuery.collection("messages").document()
         
@@ -256,7 +256,7 @@ extension ChatMessageViewModel {
                 
                 
                 // 발신자용 메시지 전송 저장
-                let myQuery = FirebaseManager.shared.firestore.collection("user")
+                let myQuery = FirebaseManager.shared.firestore.collection("User")
                     .document(uid)
                     .collection("chatRoomList").document(chatRoomListId)
                 
@@ -276,7 +276,7 @@ extension ChatMessageViewModel {
                 ])
                 
                 // 수신자용 메시지 전송 저장
-                let partnerQuery = FirebaseManager.shared.firestore.collection("user").document(partnerId).collection("chatRoomList").document(chatRoomListId)
+                let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(chatRoomListId)
                 
                 let recipientMessageDocument = partnerQuery.collection("messages").document()
                 
@@ -358,7 +358,7 @@ extension ChatMessageViewModel {
 extension ChatMessageViewModel {
     //채팅방 입장시 newCount 초기화
     func initNewCount(uid: String, chatRoomId: String) {
-        FirebaseManager.shared.firestore.collection("user").document(uid).collection("chatRoomList").document(chatRoomId).updateData([
+        FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").document(chatRoomId).updateData([
             "newCount": 0
         ])
     }
@@ -367,7 +367,7 @@ extension ChatMessageViewModel {
 //MARK: 알림기능
 extension ChatMessageViewModel {
     func changeAlarm(uid: String, chatRoomListId: String, isAlarm: Bool) {
-        let myQuery = FirebaseManager.shared.firestore.collection("user")
+        let myQuery = FirebaseManager.shared.firestore.collection("User")
             .document(uid)
             .collection("chatRoomList").document(chatRoomListId)
         myQuery.updateData([
@@ -402,7 +402,7 @@ extension ChatMessageViewModel {
 extension ChatMessageViewModel {
     func getReservationName(reservationId: String) {
         if reservationId != "" {
-            let query = FirebaseManager.shared.firestore.collection("user").document(reservationId)
+            let query = FirebaseManager.shared.firestore.collection("User").document(reservationId)
             
             query.getDocument { documentSnapshot, error in
                 guard error == nil else { return }
@@ -411,5 +411,31 @@ extension ChatMessageViewModel {
                 self.reservationName = document["nickname"] as? String ?? ""
             }
         }
+    }
+}
+
+
+//MARK: 상대방에게 메세지 Push 알림
+extension ChatMessageViewModel {
+    func sendNotification(partnerId: String, message: String) {
+        guard let url = URL(string: "http://192.168.0.16:3000/send-notification") else { return }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let body: [String: Any] = ["userId": partnerId, "message": message]
+        request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error sending notification: \(error.localizedDescription)")
+                return
+            }
+            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
+                print("Notification sent successfully")
+            } else {
+                print("Failed to send notification")
+            }
+        }.resume()
     }
 }
