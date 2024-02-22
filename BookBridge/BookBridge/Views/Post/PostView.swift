@@ -23,215 +23,37 @@ struct PostView: View {
     
     var body: some View {
         ZStack {
-            ScrollView {
+            ScrollView() {
                 VStack {
                     if noticeBoard.isChange {
-                        TabView {
-                            ForEach(url, id: \.self) { element in
-                                AsyncImage(url: element) { image in
-                                    image
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.5625)
-                                        .foregroundStyle(.black)
-                                } placeholder: {
-                                    Rectangle()
-                                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.5625)
-                                        .foregroundStyle(Color(red: 217/255, green: 217/255, blue: 217/255))
-                                }
-                                
-                            }
-                            if url.isEmpty {
-                                Image("Character")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.5625)
-                                    .foregroundStyle(.black)
-                            }
-                        }
-                        .tabViewStyle(.page)
-                        .frame(height: UIScreen.main.bounds.width * 0.5625)
-                        .background(
-                            Rectangle()
-                                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.5625)
-                                .foregroundStyle(Color(red: 217/255, green: 217/255, blue: 217/255))
-                        )
-                        .padding(.bottom)
+                        PostImageView(url: $url)
                     }
                     
-                    HStack {
-                        Image(systemName: postViewModel.user.profileURL ?? "scribble")
-                            .resizable()
-                            .frame(width: 60, height: 60)
-                            .clipShape(Circle())
-                            .background(
-                                Circle()
-                                    .frame(width: 60, height: 60)
-                                    .foregroundStyle(Color(red: 217/255, green: 217/255, blue: 217/255))
-                            )
-                        VStack(alignment: .leading) {
-                            Text("중고도서킬러")
-                                .padding(1)
-                                .font(.system(size: 12))
-                                .background(
-                                    RoundedRectangle(cornerRadius: 5)
-                                        .foregroundStyle(Color(red: 217/255, green: 217/255, blue: 217/255)))
-                            Text(postViewModel.user.nickname ?? "책벌레")
-                                .font(.system(size: 15))
-                                .fontWeight(.bold)
-                                .padding(.vertical, 1)
-                                .padding(.horizontal, 3)
-                            Text(postViewModel.user.getSelectedLocation()?.dong ?? "")
-                                .font(.system(size: 10))
-                                .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
-                        }
-                        Spacer()
-                        Text("매너점수")
-                            .font(.system(size: 12))
-                        Text("90점")
-                            .padding(.vertical, 1)
-                            .padding(.horizontal, 3)
-                            .font(.system(size: 12))
-                            .fontWeight(.semibold)
-                            .background(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .foregroundStyle(Color(red: 255/255, green: 222/255, blue: 201/255)))
-                    }
-                    .padding(.horizontal)
-                    
+                    PostUserInfoView(postViewModel: postViewModel)
+                                        
                     Divider()
                         .padding(.horizontal)
                     
                     //post 내용
-                    VStack(alignment: .leading) {
-                        Text(noticeBoard.noticeBoardTitle)
-                            .font(.system(size: 25))
-                            .fontWeight(.bold)
-                            .padding(.horizontal)
-                            .padding(.top)
-                        Text("1시간전")
-                            .font(.system(size: 10))
-                            .padding(.horizontal)
-                        Text(noticeBoard.noticeBoardDetail)
-                            .font(.system(size: 15))
-                            .padding()
-                    }
-                    .frame(
-                        minWidth: UIScreen.main.bounds.width,
-                        minHeight: 200,
-                        alignment: Alignment.topLeading
-                    )
+                    PostContent(noticeBoard: $noticeBoard)
+                                        
+                    Divider()
+                        .padding(.horizontal)
+                                        
                     
+                    //상대방 책장
+                    PostUserBookshelf(postViewModel: postViewModel)
+                                        
                     Divider()
                         .padding(.horizontal)
                     
-                    //상대방 책장
-                    VStack(alignment: .leading) {
-                        Text("\(postViewModel.user.nickname ?? "책벌레")님의 책장")
-                            .font(.system(size: 25))
-                            .fontWeight(.bold)
-                            .padding()
-                        
-                        //책장 리스트뷰
-                        HStack{
-                            Text("보유 도서")
-                                .font(.system(size: 20))
-                                .fontWeight(.bold)
-                            Spacer()
-                            
-                            NavigationLink(destination: BookShelfView(userId: postViewModel.user.id, initialTapInfo: .hold, isBack: true)
-                                .navigationBarTitle( postViewModel.user.id == UserManager.shared.uid ? "내책장" : "\(postViewModel.user.nickname ?? "")님의 책장", displayMode: .inline)
-                                .navigationBarItems(leading: CustomBackButtonView())
-                                .navigationBarBackButtonHidden(true)
-                            ) {
-                                Text("더보기")
-                                    .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
-                            }
-                        }
-                        .padding(.horizontal)
-                        
-                        List{
-                            ForEach(postViewModel.holdBooks) { element in
-                                if let bookTitle = element.volumeInfo.title {
-                                    Text(bookTitle)
-                                }
-                            }
-                        }
-                        .listStyle(PlainListStyle())
-                        .padding(.bottom)
-                        
-                        HStack{
-                            Text("희망 도서")
-                                .font(.system(size: 20))
-                                .fontWeight(.bold)
-                            Spacer()
-                            NavigationLink(destination: BookShelfView(userId: postViewModel.user.id,initialTapInfo: .wish,isBack: true)
-                                .navigationBarTitle( postViewModel.user.id == UserManager.shared.uid ? "내책장" : "\(postViewModel.user.nickname ?? "")님의 책장", displayMode: .inline)
-                                .navigationBarItems(leading: CustomBackButtonView())
-                                .navigationBarBackButtonHidden(true) // 뒤로 가기 버튼 숨기기
-                            ) {
-                                Text("더보기")
-                                    .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
-                            }
-                        }
-                        .padding(.horizontal)
-                        
-                        List{
-                            ForEach(postViewModel.wishBooks) { element in
-                                if let bookTitle = element.volumeInfo.title {
-                                    Text(bookTitle)
-                                }
-                            }
-                        }
-                        .listStyle(PlainListStyle())
-                    }
-                    .frame(
-                        minWidth: UIScreen.main.bounds.width,
-                        minHeight: 300,
-                        alignment: Alignment.topLeading
+                    // 교환 희망 장소
+                    PostChangeLocationView(
+                        postViewModel: postViewModel,
+                        noticeBoard: $noticeBoard
                     )
-                    .padding(.bottom, 30)
                 }
-                
-                Divider()
-                    .padding(.horizontal)
-                
-                //교환 희망 장소
-                VStack(alignment: .leading) {
-                    HStack {
-                        Text("교환 희망 장소")
-                            .font(.system(size: 25))
-                            .fontWeight(.bold)
-                            .padding(.horizontal)
-                            .padding(.top)
-                        
-                        Spacer()
-                        
-                        
-                        NavigationLink(destination: PostMapDetailView(noticeBoard: $noticeBoard)
-                            .navigationBarBackButtonHidden()
-                        ) {
-                            Text("더보기")
-                                .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
-                        }
-                        .padding(.horizontal)
-                        .padding(.top)
-                    }
-                    
-                    if noticeBoard.noticeLocation.count >= 2 {
-                        PostMapView(lat: $noticeBoard.noticeLocation[0], lng: $noticeBoard.noticeLocation[1], isDetail: false)
-                    }
-                    
-                    Text(noticeBoard.noticeLocationName)
-                        .font(.system(size: 15))
-                        .padding(.horizontal)
-                }
-                .frame(
-                    minWidth: UIScreen.main.bounds.width,
-                    minHeight: 400,
-                    alignment: Alignment.topLeading
-                )
-                .padding(.bottom, 100)
+                .frame(maxWidth: .infinity)
             }
             .onTapGesture {
                 withAnimation(.easeIn(duration: 0.2)) {
