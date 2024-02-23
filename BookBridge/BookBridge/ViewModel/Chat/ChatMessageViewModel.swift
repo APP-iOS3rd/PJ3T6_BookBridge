@@ -397,7 +397,6 @@ extension ChatMessageViewModel {
         self.noticeBoardInfo.state = state
     }
 }
-
 //MARK: 예약자명 가져오기
 extension ChatMessageViewModel {
     func getReservationName(reservationId: String) {

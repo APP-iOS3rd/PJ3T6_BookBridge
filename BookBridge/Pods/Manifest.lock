@@ -863,6 +863,7 @@ PODS:
     - KakaoSDKCommon/Common (= 2.20.0)
   - KakaoSDKUser (2.20.0):
     - KakaoSDKAuth (= 2.20.0)
+  - Kingfisher (7.11.0)
   - leveldb-library (1.22.3)
   - nanopb (2.30909.1):
     - nanopb/decode (= 2.30909.1)
@@ -892,6 +893,7 @@ DEPENDENCIES:
   - GoogleSignInSwift
   - KakaoSDKAuth
   - KakaoSDKUser
+  - Kingfisher (~> 7.0)
   - naveridlogin-sdk-ios
   - NMapsMap
   - SwiftyJSON (~> 4.0)
@@ -931,6 +933,7 @@ SPEC REPOS:
     - KakaoSDKAuth
     - KakaoSDKCommon
     - KakaoSDKUser
+    - Kingfisher
     - leveldb-library
     - nanopb
     - naveridlogin-sdk-ios
@@ -974,6 +977,7 @@ SPEC CHECKSUMS:
   KakaoSDKAuth: 02742f4681af6da8c4aa7b0f71df98ca9e7df834
   KakaoSDKCommon: 060a8085733a215a048f9bf9b39a846d1be1daee
   KakaoSDKUser: 0594b37675fb634304da3ecc83830c0ec84ceef5
+  Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
   leveldb-library: e74c27d8fbd22854db7cb467968a0b8aa1db7126
   nanopb: d4d75c12cd1316f4a64e3c6963f879ecd4b5e0d5
   naveridlogin-sdk-ios: 03fa42741249ab10b804f6b2574b56b6d89045ba
@@ -983,6 +987,6 @@ SPEC CHECKSUMS:
   RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 2822a3b91d447ab876e84f57044a06c22b266dde
+PODFILE CHECKSUM: 6c89d69ed7687843c63b9fe7b6c9011ba5027a5b
 
-COCOAPODS: 1.14.3
+COCOAPODS: 1.15.0

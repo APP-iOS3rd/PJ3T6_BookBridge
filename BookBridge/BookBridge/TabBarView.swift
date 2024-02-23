@@ -6,10 +6,30 @@
 //
 
 import SwiftUI
+import Combine
+
+class KeyboardResponder: ObservableObject {
+    @Published var isKeyboardVisible: Bool = false
+
+    private var cancellables = Set<AnyCancellable>()
+
+    init() {
+        let keyboardWillShow = NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
+            .map { _ in true }
+
+        let keyboardWillHide = NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
+            .map { _ in false }
+
+        Publishers.Merge(keyboardWillShow, keyboardWillHide)
+            .assign(to: \.isKeyboardVisible, on: self)
+            .store(in: &cancellables)
+    }
+}
+
 
 struct TabBarView: View {
     @StateObject private var userManager = UserManager.shared
-    
+    @StateObject private var keyboardResponder = KeyboardResponder()
     @State private var height: CGFloat = 0.0
     @State private var isShowChange = false
     @State private var isShowFind = false
@@ -96,7 +116,7 @@ struct TabBarView: View {
                                                         
                     //마이페이지
                     NavigationStack {
-                        EmptyView()
+                        MyPageView(isShowPlusBtn: $isShowPlusBtn)
                             .onDisappear {
                                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
                                     shouldShowActionSheet = false
@@ -114,7 +134,7 @@ struct TabBarView: View {
                 
                 }
                 
-                if isShowPlusBtn {
+                if isShowPlusBtn && !keyboardResponder.isKeyboardVisible {
                     VStack {
                         Spacer()
                         
@@ -163,6 +183,9 @@ struct TabBarView: View {
             }
         }
         .background(.red)
+        .onTapGesture {
+            hideKeyboard()
+        }
         .tint(Color(hex:"59AAE0"))
         .onChange(of: selectedTab) { newTab in
             // 로그인 상태 확인
@@ -207,6 +230,10 @@ struct TabBarView: View {
         }, content: {
             FindPostingView()
         })
+    }
+    
+    private func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 

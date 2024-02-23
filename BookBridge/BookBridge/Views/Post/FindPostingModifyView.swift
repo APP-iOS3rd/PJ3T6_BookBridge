@@ -10,6 +10,7 @@ import SwiftUI
 struct FindPostingModifyView: View {
     @Environment(\.dismiss) private var dismiss
     
+    @State private var fetchBool = true
     @Binding var noticeBoard: NoticeBoard
     @StateObject var viewModel = PostModifyViewModel()
     
@@ -113,8 +114,9 @@ struct FindPostingModifyView: View {
                     
                     // 확인 버튼
                     Button {
-                        viewModel.updatePost()
-                        dismiss()
+                        viewModel.updatePost(images: [])
+                        print(viewModel.noticeBoard.hopeBook)
+//                        dismiss()
                     } label: {
                         Text("게시물 수정")
                             .fontWeight(.bold)
@@ -142,7 +144,10 @@ struct FindPostingModifyView: View {
                 }
             }
             .onAppear {
-                viewModel.fetchNoticeBoardInfo(noticeBoard: noticeBoard)
+                if fetchBool {
+                    viewModel.fetchNoticeBoardInfo(noticeBoard: noticeBoard)
+                    self.fetchBool = false
+                }
             }
         }
     }
