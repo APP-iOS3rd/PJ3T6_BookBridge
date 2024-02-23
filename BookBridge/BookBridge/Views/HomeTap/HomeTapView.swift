@@ -312,9 +312,14 @@ struct HomeTapView: View {
             }
             
         }
+        .onTapGesture {
+            hideKeyboard()
+        }
         .environmentObject(viewModel)
         .onAppear {
-            viewModel.fetchBookMark(user: UserManager.shared.uid)
+            if UserManager.shared.isLogin {
+                viewModel.fetchBookMark(user: UserManager.shared.uid)
+            }
             
         }
         .onChange(of: tapCategory) { newValue in

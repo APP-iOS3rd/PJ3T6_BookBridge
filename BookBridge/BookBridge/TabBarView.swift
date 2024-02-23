@@ -197,13 +197,15 @@ struct TabBarView: View {
             Alert(
                 title: Text("로그인 필요"),
                 message: Text("이 기능을 사용하려면 로그인이 필요합니다."),
-                primaryButton: .default(Text("로그인"), action: {
+                primaryButton: .destructive(Text("취소")) {
+                    selectedTab = 0
+                    
+                },
+                secondaryButton : .default(Text("로그인"), action: {
                     showingLoginView = true
                     showingLoginAlert = false
-                }),
-                secondaryButton: .destructive(Text("취소")) {
-                    
-                }
+                })
+                
             )
         }
         .sheet(isPresented: $showingLoginView, onDismiss: {

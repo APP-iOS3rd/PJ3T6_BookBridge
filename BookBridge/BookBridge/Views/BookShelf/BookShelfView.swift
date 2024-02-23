@@ -103,7 +103,7 @@ struct BookShelfView: View {
                 BookSearchBar(text: $searchText, placeholder: searchBarPlaceholder)
                     .onChange(of: searchText) { newValue in
                         viewModel.filterBooks(for: selectedPicker, searchText: newValue)
-                    }
+                }
                 
                 
                 Spacer()
@@ -163,14 +163,13 @@ struct BookShelfView: View {
                     })
             }
         }
+
         .onAppear{
             if userId != nil {
                 viewModel.gettingUserInfo(userId: self.userId ?? "")
             }
             
         }
-        
-        
     }
 }
 

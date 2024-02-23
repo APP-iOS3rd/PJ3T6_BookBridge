@@ -11,7 +11,7 @@ struct ChangePostingView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var pathModel: PostPathViewModel
     @StateObject var viewModel = PostingViewModel()
-    @FocusState private var isShowKeyboard: Bool
+    @FocusState var isShowKeyboard: Bool
     @State private var selectedImages: [UIImage] = []
     @State private var showActionSheet = false
     @State private var showImagePicker = false
@@ -127,9 +127,11 @@ struct ChangePostingView: View {
             }
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("알림"), message: Text(alertMessage), dismissButton: .default(Text("확인")))
-            }            
+            }    
+            
             .sheet(isPresented: $showActionSheet, onDismiss: {
-                showImagePicker.toggle()
+                
+//                showImagePicker.toggle()
             }, content: {
                 CameraModalView(selectedImages: $selectedImages, showActionSheet: $showActionSheet, sourceType: $sourceType)
                     .presentationDetents([.height(150)])
@@ -138,6 +140,7 @@ struct ChangePostingView: View {
                 ImagePicker(isVisible: $showImagePicker, images: $selectedImages, sourceType: sourceType)
                     .ignoresSafeArea(.all)
             }
+            
             .padding()
             .navigationTitle("바꿔요")
             .navigationBarTitleDisplayMode(.inline)
