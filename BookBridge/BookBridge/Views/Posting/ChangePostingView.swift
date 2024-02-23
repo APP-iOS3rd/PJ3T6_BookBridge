@@ -11,10 +11,11 @@ struct ChangePostingView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var pathModel: PostPathViewModel
     @StateObject var viewModel = PostingViewModel()
+    @FocusState var isShowKeyboard: Bool
     @State private var selectedImages: [UIImage] = []
     @State private var showActionSheet = false
     @State private var showImagePicker = false
-    @State private var sourceType = 0
+    @State private var sourceType = 0 // 0: 카메라, 1: 사진
     @State private var showAlert = false
     @State private var alertMessage = ""
     
@@ -35,6 +36,7 @@ struct ChangePostingView: View {
                                 .stroke(Color.gray, lineWidth: 1)
                         )
                         .padding(.bottom, 20)
+                        .focused($isShowKeyboard)
                     
                     // 상세 설명 입력 필드
                     VStack(alignment: .leading) {
@@ -49,6 +51,7 @@ struct ChangePostingView: View {
                                     RoundedRectangle(cornerRadius: 10)
                                         .stroke(Color.gray, lineWidth: 1)
                                 )
+                                .focused($isShowKeyboard)
                             if viewModel.noticeBoard.noticeBoardDetail.isEmpty {
                                 VStack {
                                     HStack {
@@ -125,16 +128,10 @@ struct ChangePostingView: View {
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("알림"), message: Text(alertMessage), dismissButton: .default(Text("확인")))
             }
-            .sheet(isPresented: $showActionSheet, onDismiss: {
-                showImagePicker.toggle()
-            }, content: {
-                CameraModalView(selectedImages: $selectedImages, showActionSheet: $showActionSheet, sourceType: $sourceType)
+            .sheet(isPresented: $showActionSheet, content: {
+                CameraModalView(selectedImages: $selectedImages, showActionSheet: $showActionSheet, sourceType: $sourceType, showImagePicker: $showImagePicker)
                     .presentationDetents([.height(150)])
             })
-            .fullScreenCover(isPresented: $showImagePicker) {
-                ImagePicker(isVisible: $showImagePicker, images: $selectedImages, sourceType: sourceType)
-                    .ignoresSafeArea(.all)
-            }
             .padding()
             .navigationTitle("바꿔요")
             .navigationBarTitleDisplayMode(.inline)
@@ -152,6 +149,9 @@ struct ChangePostingView: View {
                             .foregroundStyle(.black)
                     }
                 }
+            }
+            .onTapGesture {
+                isShowKeyboard = false
             }
         }
     }
