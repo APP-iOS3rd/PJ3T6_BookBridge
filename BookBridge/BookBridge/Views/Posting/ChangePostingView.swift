@@ -11,6 +11,7 @@ struct ChangePostingView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var pathModel: PostPathViewModel
     @StateObject var viewModel = PostingViewModel()
+    @FocusState private var isShowKeyboard: Bool
     @State private var selectedImages: [UIImage] = []
     @State private var showActionSheet = false
     @State private var showImagePicker = false
@@ -35,6 +36,7 @@ struct ChangePostingView: View {
                                 .stroke(Color.gray, lineWidth: 1)
                         )
                         .padding(.bottom, 20)
+                        .focused($isShowKeyboard)
                     
                     // 상세 설명 입력 필드
                     VStack(alignment: .leading) {
@@ -49,6 +51,7 @@ struct ChangePostingView: View {
                                     RoundedRectangle(cornerRadius: 10)
                                         .stroke(Color.gray, lineWidth: 1)
                                 )
+                                .focused($isShowKeyboard)
                             if viewModel.noticeBoard.noticeBoardDetail.isEmpty {
                                 VStack {
                                     HStack {
@@ -124,7 +127,7 @@ struct ChangePostingView: View {
             }
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("알림"), message: Text(alertMessage), dismissButton: .default(Text("확인")))
-            }
+            }            
             .sheet(isPresented: $showActionSheet, onDismiss: {
                 showImagePicker.toggle()
             }, content: {
@@ -152,6 +155,9 @@ struct ChangePostingView: View {
                             .foregroundStyle(.black)
                     }
                 }
+            }
+            .onTapGesture {
+                isShowKeyboard = false
             }
         }
     }

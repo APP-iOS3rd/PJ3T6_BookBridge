@@ -159,7 +159,6 @@
 		738EDAA32B71ECA80066ADE7 /* HomeListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738EDAA22B71ECA80066ADE7 /* HomeListItemView.swift */; };
 		738EDAA52B7225950066ADE7 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738EDAA42B7225950066ADE7 /* UIImageExtension.swift */; };
 		739058AD2B84DB3300CA9711 /* SelectPostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739058AC2B84DB3300CA9711 /* SelectPostingView.swift */; };
-		73AD1B322B871ED6000860B9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 73AD1B312B871ED6000860B9 /* GoogleService-Info.plist */; };
 		73C962A12B6883A700D34D3F /* SearchBooksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C962A02B6883A700D34D3F /* SearchBooksView.swift */; };
 		73C962A32B68880500D34D3F /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C962A22B68880500D34D3F /* SearchBarView.swift */; };
 		73C962A52B688D4200D34D3F /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C962A42B688D4200D34D3F /* BookModel.swift */; };
@@ -382,7 +381,6 @@
 		738EDAA22B71ECA80066ADE7 /* HomeListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeListItemView.swift; sourceTree = "<group>"; };
 		738EDAA42B7225950066ADE7 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		739058AC2B84DB3300CA9711 /* SelectPostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPostingView.swift; sourceTree = "<group>"; };
-		73AD1B312B871ED6000860B9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		73C962A02B6883A700D34D3F /* SearchBooksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksView.swift; sourceTree = "<group>"; };
 		73C962A22B68880500D34D3F /* SearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
 		73C962A42B688D4200D34D3F /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
