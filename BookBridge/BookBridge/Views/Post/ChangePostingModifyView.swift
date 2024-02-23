@@ -110,11 +110,11 @@ struct ChangePostingModifyView: View {
             .sheet(isPresented: $showActionSheet, onDismiss: {
                 showImagePicker.toggle()
             }, content: {
-                CameraModalView(selectedImages: $selectedImages, showActionSheet: $showActionSheet, sourceType: $sourceType)
+                CameraModalView(selectedImages: $selectedImages, showActionSheet: $showActionSheet, sourceType: $sourceType, showImagePicker: $showImagePicker)
                     .presentationDetents([.height(150)])
             })
             .fullScreenCover(isPresented: $showImagePicker) {
-                ImagePicker(isVisible: $showImagePicker, images: $selectedImages, sourceType: sourceType)
+                ImagePicker(isVisible: $showImagePicker, images: $selectedImages, sourceType: $sourceType)
                     .ignoresSafeArea(.all)
             }
             .padding()

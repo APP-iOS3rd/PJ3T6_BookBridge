@@ -11,6 +11,7 @@ struct CameraModalView: View {
     @Binding var selectedImages: [UIImage]
     @Binding var showActionSheet: Bool
     @Binding var sourceType: Int
+    @Binding var showImagePicker: Bool
     
     var body: some View {
         VStack {
@@ -25,7 +26,7 @@ struct CameraModalView: View {
                 VStack(spacing: 10) {
                     Button {
                         self.sourceType = 1
-                        showActionSheet.toggle()
+                        self.showImagePicker = true
                     } label: {
                         ZStack {
                             Circle()
@@ -45,7 +46,7 @@ struct CameraModalView: View {
                 VStack(spacing: 10) {
                     Button {
                         self.sourceType = 0
-                        showActionSheet.toggle()
+                        self.showImagePicker = true
                     } label: {
                         ZStack {
                             Circle()
@@ -63,5 +64,11 @@ struct CameraModalView: View {
             }
             Spacer()
         }
+        .fullScreenCover(isPresented: $showImagePicker, onDismiss: {
+            showActionSheet.toggle()
+        }, content: {
+            ImagePicker(isVisible: $showImagePicker, images: $selectedImages, sourceType: $sourceType)
+                .ignoresSafeArea(.all)
+        })
     }
 }

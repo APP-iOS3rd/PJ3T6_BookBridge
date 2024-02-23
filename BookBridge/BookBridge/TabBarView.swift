@@ -183,9 +183,6 @@ struct TabBarView: View {
             }
         }
         .background(.red)
-        .onTapGesture {
-            hideKeyboard()
-        }
         .tint(Color(hex:"59AAE0"))
         .onChange(of: selectedTab) { newTab in
             // 로그인 상태 확인
