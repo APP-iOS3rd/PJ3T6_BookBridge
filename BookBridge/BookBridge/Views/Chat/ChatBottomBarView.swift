@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ChatBottomBarView: View {
     @StateObject var viewModel: ChatMessageViewModel
-    
+    @AppStorage("isAlarmEnabled") private var isChattingAlarm: Bool = true
     @State var chatTextArr: [Substring] = []
     @State var isShowingPhoto = false
     @State var isShowingCamera = false
@@ -78,8 +78,11 @@ struct ChatBottomBarView: View {
                 Button {
                     if !chatTextArr.isEmpty {
                         viewModel.handleSend(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId)
-                        
-                        viewModel.sendNotification(partnerId: partnerId, message: viewModel.chatText)
+                        // 메세지 알림 보내기
+                        if isChattingAlarm{
+                            viewModel.sendNotification(partnerId: partnerId, message: viewModel.chatText)
+                        }
+
                     }
                 } label: {
                     Image(systemName: "paperplane.fill")
