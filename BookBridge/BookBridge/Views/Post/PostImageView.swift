@@ -9,12 +9,12 @@ import SwiftUI
 import Kingfisher
 
 struct PostImageView: View {
-    @Binding var url: [URL]
+    var urlString: [String]
     
     var body: some View {
         TabView {
-            ForEach(url, id: \.self) { element in
-                KFImage(element)
+            ForEach(urlString, id: \.self) { element in
+                KFImage(URL(string: element))
                     .placeholder{
                         Rectangle()
                             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.5625)
@@ -22,13 +22,6 @@ struct PostImageView: View {
                     }
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.5625)
-                    .foregroundStyle(.black)
-            }
-            if url.isEmpty {
-                Image("Character")
-                    .resizable()
-                    .scaledToFit()
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.5625)
                     .foregroundStyle(.black)
             }
