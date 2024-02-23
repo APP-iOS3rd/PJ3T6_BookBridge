@@ -13,19 +13,21 @@ struct PostUserBookshelf: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("\(postViewModel.user.nickname ?? "책벌레")님의 책장")
-                .font(.system(size: 25))
-                .fontWeight(.bold)
-                .padding()
+                .font(.system(size: 20, weight: .bold))
+                .padding(.bottom, 5)
+                .padding(.horizontal)
                         
             BookshelfHeaderView(postViewModel: postViewModel, bookTypeName: "보유도서")
             
-            
             PostBookListView(postbooks:$postViewModel.holdBooks)
+            
+            Spacer().frame(height: 20)
            
             BookshelfHeaderView(postViewModel: postViewModel, bookTypeName: "희망도서")
             
             PostBookListView(postbooks: $postViewModel.wishBooks)
         }
+        .padding(.vertical)
     }
 }
 

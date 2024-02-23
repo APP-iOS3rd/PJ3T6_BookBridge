@@ -15,27 +15,26 @@ struct PostChangeLocationView: View {
         VStack(alignment: .leading) {
             HStack {
                 Text("교환 희망 장소")
-                    .font(.system(size: 25))
-                    .fontWeight(.bold)
-                    .padding(.horizontal)
-                    .padding(.top)
+                    .font(.system(size: 18, weight: .bold))
                 
                 Spacer()
-                
-                
-                NavigationLink(destination: PostMapDetailView(noticeBoard: $noticeBoard)
-                    .navigationBarBackButtonHidden()
-                ) {
+            
+                NavigationLink {
+                    PostMapDetailView(noticeBoard: $noticeBoard)
+                        .navigationBarBackButtonHidden()
+                } label: {
                     HStack {
-                        Text("\(noticeBoard.noticeLocationName)")                            
+                        Text("\(noticeBoard.noticeLocationName)")
+                            .font(.system(size: 15))
+                        
                         Image(systemName: "chevron.right")
-                            .frame(width: 5)
+                            .font(.system(size: 15))
                     }
-                    .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
+                    .foregroundStyle(Color(hex: "767676"))
                 }
-                .padding(.horizontal)
-                .padding(.top)
             }
+            .padding(.top)
+            .padding(.horizontal)
             
             if noticeBoard.noticeLocation.count >= 2 {
                 PostMapView(
@@ -46,6 +45,6 @@ struct PostChangeLocationView: View {
             }
         }
         .frame(height: 300)
-        .padding(.bottom, 100)
+        .padding(.bottom)
     }
 }

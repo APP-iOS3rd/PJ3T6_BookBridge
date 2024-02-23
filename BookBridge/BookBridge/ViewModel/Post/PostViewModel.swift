@@ -12,15 +12,15 @@ import FirebaseStorage
 class PostViewModel: ObservableObject {
     @Published var bookMarks: [String] = []
     @Published var chatRoomList: [String] = []
-    @Published var user: UserModel = UserModel()
-    @Published var wishBooks: [Item] = []
     @Published var holdBooks: [Item] = []
+    @Published var wishBooks: [Item] = []
+    @Published var user: UserModel = UserModel()
         
     let db = Firestore.firestore()
 }
 
+// MARK: 게시자 정보
 extension PostViewModel {
-    // MARK: 게시자 정보 fetch
     func gettingUserInfo(userId : String) {
         let docRef = db.collection("User").document(userId)
         
@@ -30,29 +30,55 @@ extension PostViewModel {
             }
             
             if let document = document, document.exists {
-                let data = document.data()
-                if let data = data {
-                    print("data", data)
-                    let user = UserModel(
-                        id: data["id"] as? String,
-                        email: data["email"] as? String,
-                        nickname: data["nickname"] as? String,
-                        profileURL: data["profileURL"] as? String,
-                        joinDate: data["joinDate"] as? Date,
-                        location: data["location"] as? [Location]
-                    )
-                    
-                    DispatchQueue.main.async {
-                        self.user = user
+                if let data = document.data(){
+                    guard let locationData = data["location"] as? [Any] else { return }
+                    print("!23")
+                    do {
+                        // location 데이터를 다시 JSON 데이터로 변환합니다.
+                        let locationJsonData = try JSONSerialization.data(withJSONObject: locationData, options: [])
+                        
+                        // JSON 데이터를 사용하여 [Location]을 디코딩합니다.
+                        let userLocations = try JSONDecoder().decode([Location].self, from: locationJsonData)
+                        
+                        let user = UserModel(
+                            id: data["id"] as? String ?? "",
+                            nickname: data["nickname"] as? String ?? "",
+                            profileURL: data["profileURL"] as? String ?? "",
+                            fcmToken: data["fcmToken"] as? String ?? "",
+                            location: userLocations,
+                            style: data["style"] as? String ?? "",
+                            reviews: data["reviews"] as? [Int] ?? [0, 0, 0]
+                        )
+                        
+                        DispatchQueue.main.async {
+                            self.user = user
+                        }
+                    } catch {
+                        print("Error decoding User locations: \(error)")
+
                     }
                 }
             }
         }
     }
     
-    // MARK: 게시자 책장 정보 fetch
-    func gettingUserBookShelf(userId: String, collection: String) {
+    //게시자 메너점수
+    func getMannerScore() -> Int {
+        guard let reviews = user.reviews else { return -1 }
         
+        guard reviews.count == 3 else { return -1 }
+        
+        if reviews[0] == 0 && reviews[1] == 0 && reviews[2] == 0{
+            return -1
+        } else {
+            return Int((Double(reviews[0] * 3)) / Double(((reviews[0] * 3) + (reviews[1] * 2) + (reviews[2] * 1))) * 100)
+        }
+    }
+}
+
+// MARK: 게시자 책장 정보
+extension PostViewModel {
+    func gettingUserBookShelf(userId: String, collection: String) {
         db.collection("User").document(userId).collection(collection).getDocuments { [weak self] (querySnapshot, error) in
             guard let documents = querySnapshot?.documents, error == nil else {
                 print("Error getting documents: \(error?.localizedDescription ?? "")")
@@ -86,8 +112,25 @@ extension PostViewModel {
             }
         }
     }
+}
+
+// MARK: 설정 부분 (...)
+extension PostViewModel {
+    //사용자 북마크 정보 fetch
+    func fetchBookMark() {
+        var bookMarks: [String] = []
+        
+        db.collection("User").document(UserManager.shared.uid).getDocument { documentSnapshot, error in
+            guard error == nil else { return }
+            guard let document = documentSnapshot else { return }
+            
+            bookMarks = document["bookMark"] as? [String] ?? []
+            
+            self.bookMarks = bookMarks
+        }
+    }
     
-    // MARK: 사용자 북마크 설정
+    //사용자 북마크 설정
     func bookMarkToggle(id: String) {
         var bookMarks: [String] = []
         
@@ -113,24 +156,8 @@ extension PostViewModel {
         }
     }
     
-    // MARK: 사용자 북마크 정보 fetch
-    func fetchBookMark() {
-        var bookMarks: [String] = []
-        
-        db.collection("User").document(UserManager.shared.uid).getDocument { documentSnapshot, error in
-            guard error == nil else { return }
-            guard let document = documentSnapshot else { return }
-            
-            bookMarks = document["bookMark"] as? [String] ?? []
-            
-            self.bookMarks = bookMarks
-        }
-    }
-
-
-    
+    // Firestore에서 게시물 삭제
     func deletePost(noticeBoardId: String) {
-        // Firestore에서 게시물 삭제
         db.collection("noticeBoard").document(noticeBoardId).delete() { err in
             if let err = err {
                 print("Error removing document: \(err)")
@@ -187,13 +214,6 @@ extension PostViewModel {
             }
         }
     }
-
-
-
-
-
-
-
 }
 
 
@@ -215,7 +235,6 @@ extension PostViewModel {
 
 extension PostViewModel {
     func fetchChatList(noticeBoardId: String) {
-        
         let docRef = db.collection("user").document(UserManager.shared.uid).collection("chatRoomList").whereField("noticeBoardId", isEqualTo: noticeBoardId)
             
         docRef.getDocuments { [weak self] (querySnapshot, error) in
