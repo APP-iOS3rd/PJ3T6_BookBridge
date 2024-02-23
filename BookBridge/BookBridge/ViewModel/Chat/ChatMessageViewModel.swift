@@ -237,7 +237,7 @@ extension ChatMessageViewModel {
         }
     }
     
-    // 메시지 전송 저장 chatRoomListId가 있는 경우
+    // 메시지 전송 저장 chatRoomListId가 없는 경우
     func handleSendNoId(uid: String, partnerId: String, completion: () -> ()) {
         saveChatRoomId = UUID().uuidString
     
@@ -273,11 +273,9 @@ extension ChatMessageViewModel {
     }
 }
 
-
-
 //MARK: 메시지 전송 (Image)
 extension ChatMessageViewModel {
-    func handleSendImage(uid: String, partnerId: String, chatRoomListId: String) {
+    func handleSendImage(uid: String, partnerId: String) {
         let timestamp = Date()
         
         for image in self.selectedImages {
@@ -296,7 +294,7 @@ extension ChatMessageViewModel {
                 // 발신자용 메시지 전송 저장
                 let myQuery = FirebaseManager.shared.firestore.collection("User")
                     .document(uid)
-                    .collection("chatRoomList").document(chatRoomListId)
+                    .collection("chatRoomList").document(self.saveChatRoomId)
                 
                 let senderDocument = myQuery.collection("messages").document()
                 
@@ -314,7 +312,7 @@ extension ChatMessageViewModel {
                 ])
                 
                 // 수신자용 메시지 전송 저장
-                let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(chatRoomListId)
+                let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(self.saveChatRoomId)
                 
                 let recipientMessageDocument = partnerQuery.collection("messages").document()
                 

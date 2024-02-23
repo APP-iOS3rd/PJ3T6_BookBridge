@@ -136,7 +136,7 @@ struct PostView: View {
                             NavigationLink {
                                 ChatMessageView(
                                     isShowPlusBtn: $isShowPlusBtn,
-                                    chatRoomListId: "여기 바꿔야됨",
+                                    chatRoomListId: postViewModel.userChatRoomId,
                                     noticeBoardTitle: noticeBoard.noticeBoardTitle,
                                     chatRoomPartner: ChatPartnerModel(
                                         nickname: postViewModel.user.nickname ?? "닉네임 미아",
@@ -173,6 +173,11 @@ struct PostView: View {
                 if UserManager.shared.isLogin {
                     postViewModel.fetchChatList(noticeBoardId: noticeBoard.id)
                     postViewModel.fetchBookMark()
+                    postViewModel.getChatRoomId(noticeBoardId: noticeBoard.id) { isComplete, chatRoomId in
+                        if isComplete {
+                            postViewModel.userChatRoomId = chatRoomId
+                        }
+                    }
                 }
             }
         }

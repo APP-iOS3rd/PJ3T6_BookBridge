@@ -15,6 +15,7 @@ class PostViewModel: ObservableObject {
     @Published var holdBooks: [Item] = []
     @Published var wishBooks: [Item] = []
     @Published var user: UserModel = UserModel()
+    @Published var userChatRoomId: String = ""
     @Published var userUIImage: UIImage = UIImage(named: "Character")!
         
     let db = Firestore.firestore()
@@ -127,7 +128,7 @@ extension PostViewModel {
             guard error == nil else { return }
             guard let document = documentSnapshot else { return }
             
-            bookMarks = document["bookMark"] as? [String] ?? []
+            bookMarks = document["bookMarks"] as? [String] ?? []
             
             self.bookMarks = bookMarks
         }
@@ -141,7 +142,7 @@ extension PostViewModel {
             guard error == nil else { return }
             guard let document = documentSnapshot else { return }
             
-            bookMarks = document["bookMark"] as? [String] ?? []
+            bookMarks = document["bookMarks"] as? [String] ?? []
             
             if (bookMarks.contains { $0 == id }) {
                 if let index = bookMarks.firstIndex(of: id) {
@@ -152,7 +153,7 @@ extension PostViewModel {
             }
             
             self.db.collection("User").document(UserManager.shared.uid).updateData([
-                "bookMark": bookMarks
+                "bookMarks": bookMarks
             ])
             
             self.bookMarks = bookMarks
@@ -222,7 +223,7 @@ extension PostViewModel {
 // MARK: 대화중인 방 가져오기
 extension PostViewModel {
     func fetchChatList(noticeBoardId: String) {
-        let docRef = db.collection("user").document(UserManager.shared.uid).collection("chatRoomList").whereField("noticeBoardId", isEqualTo: noticeBoardId)
+        let docRef = db.collection("User").document(UserManager.shared.uid).collection("chatRoomList").whereField("noticeBoardId", isEqualTo: noticeBoardId)
             
         docRef.getDocuments { [weak self] (querySnapshot, error) in
             guard let documents = querySnapshot?.documents, error == nil else {
@@ -247,7 +248,23 @@ extension PostViewModel {
 
 // MARK: 채팅
 extension PostViewModel {
-    
+    //채팅방 ID 가져오기
+    func getChatRoomId(noticeBoardId: String, completion: @escaping(Bool, String) -> ()) {
+        db.collection("User").document(UserManager.shared.uid)
+            .collection("chatRoomList").whereField("noticeBoardId", isEqualTo: noticeBoardId).getDocuments { querySnapshot, error in
+                guard error == nil else { return }
+                guard let documents = querySnapshot else { return }
+                
+                if !documents.isEmpty {
+                    for document in documents.documents {
+                        print(document.documentID)
+                        completion(true, document.documentID)
+                    }
+                } else {
+                    completion(false, "")
+                }
+            }
+    }
 }
 
 // MARK: 사용자 UIImage

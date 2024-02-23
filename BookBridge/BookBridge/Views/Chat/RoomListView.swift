@@ -30,18 +30,18 @@ struct RoomListView: View {
                     .opacity(0.0)
 
                     VStack {
-                        HStack(alignment: .top, spacing: 16) {
+                        HStack(spacing: 16) {
                             Image(uiImage: viewModel.getPartnerImageIndex(partnerId: chatRoom.partnerId, noticeBoardId: chatRoom.noticeBoardId).1)
                                 .resizable()
                                 .scaledToFill()
-                                .frame(width: 50, height: 50)
+                                .frame(width: 60, height: 60)
                                 .clipped()
-                                .cornerRadius(25)
+                                .cornerRadius(30)
                             
                             VStack(alignment: .leading) {
                                 HStack(alignment: .top) {
                                     Text(chatRoom.noticeBoardTitle)
-                                        .font(.system(size: 16, weight: .bold))
+                                        .font(.system(size: 18, weight: .bold))
                                         .foregroundStyle(Color(.label))
                                         .multilineTextAlignment(.leading)
                                     
@@ -54,26 +54,28 @@ struct RoomListView: View {
                                     Spacer()
                                     
                                     Text(chatRoom.timeAgo)
-                                        .font(.system(size: 12, weight: .semibold))
+                                        .font(.system(size: 15, weight: .semibold))
                                         .foregroundStyle(Color(.lightGray))
                                 }
                                 .padding(.top, 4)
                                 .padding(.bottom, -2)
                                 
-                                HStack {
+                                HStack(alignment: .bottom) {
                                     Text(chatRoom.recentMessage)
-                                        .font(.system(size: 14))
+                                        .font(.system(size: 15))
+                                        .frame(height: 25)
                                         .foregroundStyle(Color(hex:"8A8A8E"))
                                         .multilineTextAlignment(.leading)
                                         .lineLimit(1)
                                         .truncationMode(.tail) // 뒤에는 ...으로 표시
+                                        .padding(.top, 4)
                                     
                                     Spacer()
                                     
                                     if chatRoom.newCount != 0 {
                                         ZStack {
                                             Circle()
-                                                .frame(width: 25, height: 25)
+                                                .frame(width: 20, height: 20)
                                                 .foregroundColor(Color.red)
                                             
                                             Text("\(chatRoom.newCount)")
@@ -86,10 +88,10 @@ struct RoomListView: View {
                                 .padding(.bottom, 10)
                             }
                         }
-                        Divider()
                     }
                     .padding(.top, 5)
                 }
+                .frame(height: 70)
             }
             .listRowSeparator(.hidden)
         }

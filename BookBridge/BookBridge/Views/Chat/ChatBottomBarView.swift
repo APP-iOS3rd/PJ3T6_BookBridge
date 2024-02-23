@@ -183,7 +183,15 @@ struct ChatBottomBarView: View {
             withAnimation(.linear(duration: 0.2)) {
                 isPlusBtn.toggle()
             }
-            viewModel.handleSendImage(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId)
+            
+            if viewModel.saveChatRoomId != "" {
+                viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+            } else {
+                viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
+                    viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                    viewModel.fetchMessages(uid: uid)
+                })
+            }
         }) {
             ImagePicker(isVisible: $isShowingPhoto, images: $viewModel.selectedImages, sourceType: $one)
                 .ignoresSafeArea(.all)
@@ -192,7 +200,15 @@ struct ChatBottomBarView: View {
             withAnimation(.linear(duration: 0.2)) {
                 isPlusBtn.toggle()
             }
-            viewModel.handleSendImage(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId)
+            
+            if viewModel.saveChatRoomId != "" {
+                viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+            } else {
+                viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
+                    viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                    viewModel.fetchMessages(uid: uid)
+                })
+            }
         }) {
             ImagePicker(isVisible: $isShowingCamera, images: $viewModel.selectedImages, sourceType: $zero)
                 .ignoresSafeArea(.all)
