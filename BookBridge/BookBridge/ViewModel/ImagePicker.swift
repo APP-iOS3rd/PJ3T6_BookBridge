@@ -13,7 +13,7 @@ struct ImagePicker: UIViewControllerRepresentable {
     @Binding var isVisible: Bool
     @Binding var images: [UIImage]
 
-    var sourceType: Int
+    @Binding var sourceType: Int
     
     static let maxSelections = 5
     

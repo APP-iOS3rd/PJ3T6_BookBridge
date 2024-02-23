@@ -15,7 +15,7 @@ struct ChangePostingView: View {
     @State private var selectedImages: [UIImage] = []
     @State private var showActionSheet = false
     @State private var showImagePicker = false
-    @State private var sourceType = 0
+    @State private var sourceType = 0 // 0: 카메라, 1: 사진
     @State private var showAlert = false
     @State private var alertMessage = ""
     
@@ -127,20 +127,11 @@ struct ChangePostingView: View {
             }
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("알림"), message: Text(alertMessage), dismissButton: .default(Text("확인")))
-            }    
-            
-            .sheet(isPresented: $showActionSheet, onDismiss: {
-                
-//                showImagePicker.toggle()
-            }, content: {
-                CameraModalView(selectedImages: $selectedImages, showActionSheet: $showActionSheet, sourceType: $sourceType)
+            }
+            .sheet(isPresented: $showActionSheet, content: {
+                CameraModalView(selectedImages: $selectedImages, showActionSheet: $showActionSheet, sourceType: $sourceType, showImagePicker: $showImagePicker)
                     .presentationDetents([.height(150)])
             })
-            .fullScreenCover(isPresented: $showImagePicker) {
-                ImagePicker(isVisible: $showImagePicker, images: $selectedImages, sourceType: sourceType)
-                    .ignoresSafeArea(.all)
-            }
-            
             .padding()
             .navigationTitle("바꿔요")
             .navigationBarTitleDisplayMode(.inline)
