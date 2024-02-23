@@ -6,25 +6,7 @@
 //
 
 import SwiftUI
-import Combine
 
-class KeyboardResponder: ObservableObject {
-    @Published var isKeyboardVisible: Bool = false
-
-    private var cancellables = Set<AnyCancellable>()
-
-    init() {
-        let keyboardWillShow = NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
-            .map { _ in true }
-
-        let keyboardWillHide = NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
-            .map { _ in false }
-
-        Publishers.Merge(keyboardWillShow, keyboardWillHide)
-            .assign(to: \.isKeyboardVisible, on: self)
-            .store(in: &cancellables)
-    }
-}
 
 
 struct TabBarView: View {
@@ -36,7 +18,7 @@ struct TabBarView: View {
     @State private var isShowPlusBtn = true
     @State private var showingLoginAlert = false
     @State private var showingLoginView = false
-    @State private var selectedTab = 0
+    @State  var selectedTab = 0
     @State private var shouldShowActionSheet = false
     
     let userId : String?
@@ -116,7 +98,7 @@ struct TabBarView: View {
                                                         
                     //마이페이지
                     NavigationStack {
-                        MyPageView(isShowPlusBtn: $isShowPlusBtn)
+                        MyPageView(isShowPlusBtn: $isShowPlusBtn,selectedTab : $selectedTab)
                             .onDisappear {
                                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
                                     shouldShowActionSheet = false
@@ -133,6 +115,9 @@ struct TabBarView: View {
                     .tag(3)
                 
                 }
+                .background(Color.white.onTapGesture {
+                    self.hideKeyboard()
+                })
                 
                 if isShowPlusBtn && !keyboardResponder.isKeyboardVisible {
                     VStack {
@@ -183,9 +168,6 @@ struct TabBarView: View {
             }
         }
         .background(.red)
-        .onTapGesture {
-            hideKeyboard()
-        }
         .tint(Color(hex:"59AAE0"))
         .onChange(of: selectedTab) { newTab in
             // 로그인 상태 확인
@@ -200,13 +182,15 @@ struct TabBarView: View {
             Alert(
                 title: Text("로그인 필요"),
                 message: Text("이 기능을 사용하려면 로그인이 필요합니다."),
-                primaryButton: .default(Text("로그인"), action: {
+                primaryButton: .destructive(Text("취소")) {
+                    selectedTab = 0
+                    
+                },
+                secondaryButton : .default(Text("로그인"), action: {
                     showingLoginView = true
                     showingLoginAlert = false
-                }),
-                secondaryButton: .destructive(Text("취소")) {
-                    
-                }
+                })
+                
             )
         }
         .sheet(isPresented: $showingLoginView, onDismiss: {
