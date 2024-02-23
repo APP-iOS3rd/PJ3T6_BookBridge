@@ -77,5 +77,8 @@ struct SearchBooksView: View {
         .onAppear {
             viewModel.selectBooks.items = hopeBooks
         }
+        .onTapGesture {
+            hideKeyboard()
+        }
     }
 }

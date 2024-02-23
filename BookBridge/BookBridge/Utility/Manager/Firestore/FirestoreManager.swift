@@ -8,6 +8,7 @@
 import Foundation
 import Firebase
 import FirebaseFirestore
+import FirebaseStorage
 
 class FirestoreManager {
     static let db = Firestore.firestore()
@@ -118,7 +119,7 @@ class FirestoreManager {
     static func fetchUserModel(uid: String, completion: @escaping (UserModel?) -> Void) {
         // 사용자의 uid를 이용하여 해당 사용자의 문서를 가져옵니다.
         let userDocRef = db.collection("User").document(uid)
-
+        
         // 문서를 가져옵니다.
         userDocRef.getDocument { document, error in
             if let error = error {
@@ -152,7 +153,7 @@ class FirestoreManager {
             }
         }
     }
-            
+    
     // MARK: - 불러오기(fetch)
     
     static func getLocations(completion: @escaping ([Location]) -> Void) {
@@ -164,7 +165,7 @@ class FirestoreManager {
                     let locations = locationsFromArray(locationData)
                     print("Location 변환 성공!")
                     completion(locations)
-
+                    
                 } else {
                     print("Location이 존재하지 않거나 형식이 올바르지 않습니다.")
                 }
@@ -189,8 +190,8 @@ class FirestoreManager {
         }
         return locations
     }
-                                    
-// MARK: - 저장(save)
+    
+    // MARK: - 저장(save)
     
     static func saveLocations(locations: [Location]) {
         let docRef = FirestoreManager.getUserDoc(id: UserManager.shared.uid)
@@ -212,8 +213,8 @@ class FirestoreManager {
     static func saveSelectedLocation() {
         
     }
-                
-// MARK: - 기타
+    
+    // MARK: - 기타
     
     // Location 생성
     static func makeLocationByCurLocation() -> Location {
@@ -231,5 +232,87 @@ class FirestoreManager {
     static func getUserDoc(id: String) -> DocumentReference  {
         return db.collection("User").document(id)
     }
+    
+    static func deleteUserData(uid: String, completion: @escaping (Bool) -> Void) {
+        // Firestore에서 사용자 데이터를 삭제하는 로직 구현
+        // 예시: 사용자 프로필, 게시글, 댓글 등
+        let userDocRef = db.collection("User").document(uid)
+        let userPostRef = db.collection("noticeBoard").whereField("userId", isEqualTo: uid)
+        
+        
+        // 사용자 문서 삭제
+        userDocRef.delete { error in
+            if let error = error {
+                print("사용자 문서 삭제 실패: \(error.localizedDescription)")
+                completion(false)
+            } else {
+                print("사용자 문서 삭제 성공")
+                print(uid)
+                completion(true)
+            }
+        }
+        
+        // 사용자 게시물 삭제
+        userPostRef.getDocuments { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+                completion(false)
+                return
+            } else {
+                for document in querySnapshot!.documents {
+                    let noticeBoardId = document.documentID
+                    
+                    // firestore 문서 삭제
+                    document.reference.delete()
+                    
+                    // 스토리지 이미지 삭제
+                    deleteUserPostImages(noticeBoardId: noticeBoardId)
+                }
+                completion(true)
+            }
             
+            
+        }
+        
+    }
+    
+    static func deleteUserProfileImage(uid: String, completion: @escaping (Bool) -> Void) {
+        let storageRef = FirebaseStorage.Storage.storage().reference()
+        let userProfileImageRef = storageRef.child("User/\(uid)")
+
+        // 사용자 프로필 이미지 삭제
+        userProfileImageRef.delete { error in
+            if let error = error {
+                print("프로필 이미지 삭제 실패: \(error.localizedDescription)")
+                completion(false)
+            } else {
+                print("프로필 이미지 삭제 성공")
+                completion(true)
+            }
+        }
+    }
+    
+    static func deleteUserPostImages(noticeBoardId: String) {
+        let storageRef = FirebaseStorage.Storage.storage().reference()
+        let postImageFolderRef = storageRef.child("NoticeBoard/\(noticeBoardId)")
+
+        postImageFolderRef.listAll { (result, error) in
+            if let error = error {
+                print("Error listing files: \(error)")
+                return
+            }
+
+            for item in result!.items {
+                item.delete { error in
+                    if let error = error {
+                        print("Error deleting file: \(error)")
+                    } else {
+                        print("File successfully deleted: \(item.name)")
+                    }
+                }
+            }
+        }
+    }
+
 }
+

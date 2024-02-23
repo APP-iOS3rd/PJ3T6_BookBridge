@@ -24,6 +24,9 @@ struct ChatBottomBarView: View {
     var partnerId: String
     var uid: String
     
+    @State var zero: Int = 0
+    @State var one: Int = 1
+    
     var body: some View {
         VStack {
             HStack (spacing: 12) {
@@ -175,7 +178,7 @@ struct ChatBottomBarView: View {
             }
             viewModel.handleSendImage(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId)
         }) {
-            ImagePicker(isVisible: $isShowingPhoto, images: $viewModel.selectedImages, sourceType: 1)
+            ImagePicker(isVisible: $isShowingPhoto, images: $viewModel.selectedImages, sourceType: $one)
                 .ignoresSafeArea(.all)
         }
         .fullScreenCover(isPresented: $isShowingCamera, onDismiss: {
@@ -184,7 +187,7 @@ struct ChatBottomBarView: View {
             }
             viewModel.handleSendImage(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId)
         }) {
-            ImagePicker(isVisible: $isShowingCamera, images: $viewModel.selectedImages, sourceType: 0)
+            ImagePicker(isVisible: $isShowingCamera, images: $viewModel.selectedImages, sourceType: $zero)
                 .ignoresSafeArea(.all)
         }
     }

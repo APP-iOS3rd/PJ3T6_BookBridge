@@ -9,7 +9,7 @@ import SwiftUI
 
 struct MyPageView: View {
     @Binding var isShowPlusBtn: Bool
-    
+    @Binding var selectedTab : Int
     @StateObject var viewModel = MyPageViewModel()
     
     var body: some View {
@@ -56,7 +56,7 @@ struct MyPageView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 NavigationLink {
-                    SettingView()
+                    SettingView(selectedTab: $selectedTab)
                 } label: {
                     Image(systemName: "gearshape")
                         .font(.system(size: 16))
