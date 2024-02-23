@@ -11,7 +11,6 @@ import SwiftUI
 
 struct TabBarView: View {
     @StateObject private var userManager = UserManager.shared
-    @StateObject private var keyboardResponder = KeyboardResponder()
     @State private var height: CGFloat = 0.0
     @State private var isShowChange = false
     @State private var isShowFind = false
@@ -119,7 +118,7 @@ struct TabBarView: View {
                     self.hideKeyboard()
                 })
                 
-                if isShowPlusBtn && !keyboardResponder.isKeyboardVisible {
+                if isShowPlusBtn {
                     VStack {
                         Spacer()
                         
