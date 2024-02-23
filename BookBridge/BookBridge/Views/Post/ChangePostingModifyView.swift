@@ -107,16 +107,10 @@ struct ChangePostingModifyView: View {
                     .padding(.bottom, 20)
                 }
             }
-            .sheet(isPresented: $showActionSheet, onDismiss: {
-                showImagePicker.toggle()
-            }, content: {
+            .sheet(isPresented: $showActionSheet, content: {
                 CameraModalView(selectedImages: $selectedImages, showActionSheet: $showActionSheet, sourceType: $sourceType, showImagePicker: $showImagePicker)
                     .presentationDetents([.height(150)])
             })
-            .fullScreenCover(isPresented: $showImagePicker) {
-                ImagePicker(isVisible: $showImagePicker, images: $selectedImages, sourceType: $sourceType)
-                    .ignoresSafeArea(.all)
-            }
             .padding()
             .navigationTitle("바꿔요")
             .navigationBarTitleDisplayMode(.inline)
