@@ -89,7 +89,7 @@ struct ReviewScoreView: View {
         .padding(.horizontal, 10)
         .padding(.bottom, 20)
         .onAppear {
-            viewModel.getMannerScore()
+            viewModel.getMannerScore()                                  
         }
     }
 }

@@ -61,74 +61,12 @@ struct PostView: View {
                 }
             }
             
-            VStack {
-                HStack {
-                    Spacer()
-                    VStack {
-                        if isPresented {
-                            if UserManager.shared.uid != noticeBoard.userId {
-                                Button {
-                                    if UserManager.shared.isLogin {
-                                        postViewModel.bookMarkToggle(id: noticeBoard.id)
-                                    }
-                                    isPresented.toggle()
-                                } label: {
-                                    Text( postViewModel.bookMarks.contains(noticeBoard.id) ? "관심목록 삭제" : "관심목록 추가")
-                                        .font(.system(size: 14))
-                                        .padding(1)
-                                }
-                                Divider()
-                                    .padding(1)
-                                NavigationLink {
-                                    ReportView(reportVM: reportVM)
-                                } label: {
-                                    Text("신고하기")
-                                        .font(.system(size: 14))
-                                        .foregroundStyle(Color.red)
-                                        .padding(1)
-                                        .onAppear{
-                                            reportVM.report.targetID = noticeBoard.id
-                                            reportVM.report.targetType = .post
-                                        }
-                                }
-                                
-                            } else {
-                                NavigationLink {
-                                    if noticeBoard.isChange {
-                                        ChangePostingModifyView(noticeBoard: $noticeBoard)
-                                            .navigationBarBackButtonHidden()
-                                    } else {
-                                        FindPostingModifyView(noticeBoard: $noticeBoard)
-                                            .navigationBarBackButtonHidden()
-                                    }
-                                } label: {
-                                    Text("수정하기")
-                                        .font(.system(size: 14))
-                                        .padding(1)
-                                }
-                                Divider()
-                                    .padding(1)
-                                Button {
-                                    postViewModel.deletePost(noticeBoardId: noticeBoard.id)
-                                    dismiss()
-                                } label: {
-                                    Text("삭제하기")
-                                        .font(.system(size: 14))
-                                        .foregroundStyle(Color.red)
-                                        .padding(1)
-                                }
-                            }
-                        }
-                    }
-                    .frame(width: 110, height: isPresented ? 80 : 0)
-                    .background(
-                        RoundedRectangle(cornerRadius: 10, style: .circular)
-                            .foregroundColor(Color(red: 230/255, green: 230/255, blue: 230/255))
-                    )
-                    .padding(.trailing)
-                }
-                Spacer()
-            }
+            PostMenuBtnsView(
+                postViewModel: postViewModel,
+                reportVM: reportVM,
+                isPresented: $isPresented,
+                noticeBoard: $noticeBoard
+            )
             
             VStack {
                 Spacer()
@@ -214,6 +152,13 @@ struct PostView: View {
             .frame(alignment: Alignment.bottom)
         }
         .onAppear {
+            // 바꿔요 게시물 이미지 업로드
+            StorageManager.fetchImageURL(address: "NoticeBoard/\(noticeBoard.id)") { urls in
+                if let urls = urls {
+                    self.url = urls
+                }
+            }
+            
             isShowPlusBtn = false
             
             if !noticeBoard.noticeImageLink.isEmpty && noticeBoard.isChange {
@@ -264,43 +209,5 @@ struct PostView: View {
         }
         .navigationBarBackButtonHidden()
         .toolbar(.hidden, for: .tabBar)
-    }
-}
-
-struct PostMapView: UIViewRepresentable {
-    
-    @Binding var lat: Double // 모델 좌표 lat
-    @Binding var lng: Double // 모델 좌표 lng
-    var isDetail: Bool
-    
-    func makeUIView(context: Context) -> NMFNaverMapView {
-        let mapView = NMFNaverMapView()
-        
-        if !isDetail {
-            mapView.mapView.isScrollGestureEnabled = false
-            mapView.mapView.isZoomGestureEnabled = false
-            mapView.showZoomControls = false
-        }
-        
-        // 마커 좌표를 설정
-        let markerCoord = NMGLatLng(lat: lat, lng: lng)
-        
-        // 내 위치 활성화 버튼을 표시
-        //        mapView.showLocationButton = true
-        
-        // 초기 카메라 위치를 마커의 위치로 설정하고 줌 레벨을 조정
-        let cameraUpdate = NMFCameraUpdate(scrollTo: markerCoord, zoomTo: 15)
-        mapView.mapView.moveCamera(cameraUpdate)
-        
-        // 마커를 생성하고 지도에 표시
-        let marker = NMFMarker(position: markerCoord)
-        marker.mapView = mapView.mapView
-        
-        return mapView
-    }
-    
-    func updateUIView(_ uiView: NMFNaverMapView, context: Context) {
-        //        _ = NMGLatLng(lat: lat, lng: lng)
-        //        _ = NMFCameraUpdate(scrollTo: newMyCoord)
     }
 }
