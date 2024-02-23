@@ -125,7 +125,7 @@ struct FindPostingView: View {
                     
                     
                     // 확인 버튼
-                    Button {
+                    Button {                        
                         if viewModel.noticeBoard.noticeBoardTitle.isEmpty && viewModel.noticeBoard.noticeBoardDetail.isEmpty {
                             alertMessage = "제목과 상세설명을 모두 입력해주세요."
                             showAlert = true
@@ -136,7 +136,9 @@ struct FindPostingView: View {
                             alertMessage = "상세설명을 입력해주세요."
                             showAlert = true
                         } else {
-                            viewModel.uploadPost(isChange: false, images: [])
+                            viewModel.uploadPost(isChange: false, images: []) {
+                                UserManager.shared.isChanged.toggle()
+                            }
                             dismiss()
                         }
                     } label: {
