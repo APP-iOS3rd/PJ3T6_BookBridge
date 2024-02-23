@@ -30,9 +30,6 @@ struct ChatRoomListView: View {
                 }
             }
         }
-        .onTapGesture {
-            hideKeyboard()
-        }
         .onDisappear {
             viewModel.firestoreListener?.remove()
         }

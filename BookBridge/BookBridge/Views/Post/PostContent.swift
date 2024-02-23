@@ -34,5 +34,4 @@ struct PostContent: View {
         .frame(minHeight: 200)
         .padding(.horizontal)
     }
-        
 }

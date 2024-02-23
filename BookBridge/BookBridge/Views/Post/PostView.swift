@@ -109,21 +109,19 @@ struct PostView: View {
                         //채팅한 적이 없는 경우
                         if postViewModel.chatRoomList.isEmpty {
                             NavigationLink {
-                                if let image = UIImage(contentsOfFile: "DefaultImage") {
-                                    ChatMessageView(
-                                        isShowPlusBtn: $isShowPlusBtn,
-                                        chatRoomListId: UUID().uuidString,
-                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
-                                        chatRoomPartner: ChatPartnerModel(
-                                            nickname: postViewModel.user.nickname ?? "책벌레",
-                                            noticeBoardId: noticeBoard.id,
-                                            partnerId: noticeBoard.userId,
-                                            partnerImage: image,
-                                            style: "중고귀신"
-                                        ),
-                                        uid: UserManager.shared.uid
-                                    )
-                                }
+                                ChatMessageView(
+                                    isShowPlusBtn: $isShowPlusBtn,
+                                    chatRoomListId: "",
+                                    noticeBoardTitle: noticeBoard.noticeBoardTitle,
+                                    chatRoomPartner: ChatPartnerModel(
+                                        nickname: postViewModel.user.nickname ?? "닉네임 미아",
+                                        noticeBoardId: noticeBoard.id,
+                                        partnerId: noticeBoard.userId,
+                                        partnerImage: postViewModel.userUIImage,
+                                        style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
+                                    ),
+                                    uid: UserManager.shared.uid
+                                )
                             } label: {
                                 Text("채팅하기")
                                     .padding(.top, 5)
@@ -136,21 +134,19 @@ struct PostView: View {
                         } else {
                             //채팅한 적이 있는 경우
                             NavigationLink {
-                                if let image = UIImage(contentsOfFile: "DefaultImage") {
-                                    ChatMessageView(
-                                        isShowPlusBtn: $isShowPlusBtn,
-                                        chatRoomListId: postViewModel.chatRoomList.first!,
-                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
-                                        chatRoomPartner: ChatPartnerModel(
-                                            nickname: postViewModel.user.nickname ?? "책별레",
-                                            noticeBoardId: noticeBoard.id,
-                                            partnerId: noticeBoard.userId,
-                                            partnerImage: image,
-                                            style: "중고귀신"
-                                        ),
-                                        uid: UserManager.shared.uid
-                                    )
-                                }
+                                ChatMessageView(
+                                    isShowPlusBtn: $isShowPlusBtn,
+                                    chatRoomListId: "여기 바꿔야됨",
+                                    noticeBoardTitle: noticeBoard.noticeBoardTitle,
+                                    chatRoomPartner: ChatPartnerModel(
+                                        nickname: postViewModel.user.nickname ?? "닉네임 미아",
+                                        noticeBoardId: noticeBoard.id,
+                                        partnerId: noticeBoard.userId,
+                                        partnerImage: postViewModel.userUIImage,
+                                        style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
+                                    ),
+                                    uid: UserManager.shared.uid
+                                )
                             } label: {
                                 Text("채팅하기")
                                     .padding(.top, 5)

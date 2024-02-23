@@ -30,13 +30,13 @@ struct ChatMessageView: View {
     var body: some View {
         ZStack {
             VStack {
-                NoticeBoardChatView(isShowPlusBtn: $isShowPlusBtn, viewModel: viewModel, chatRoomListId: chatRoomListId, noticeBoardId: chatRoomPartner.noticeBoardId, partnerId: chatRoomPartner.partnerId, uid: uid)
+                NoticeBoardChatView(isShowPlusBtn: $isShowPlusBtn, viewModel: viewModel, chatRoomListId: viewModel.saveChatRoomId, noticeBoardId: chatRoomPartner.noticeBoardId, partnerId: chatRoomPartner.partnerId, uid: uid)
                 
                 MessageListView(viewModel: viewModel, partnerId: chatRoomPartner.partnerId, partnerImage: chatRoomPartner.partnerImage, uid: uid)
                 
                 if viewModel.noticeBoardInfo.state == 0 {
                     //게시물 상태가 0
-                    ChatBottomBarView(viewModel: viewModel, isShowKeyboard: $isShowKeyboard, isPlusBtn: $isPlusBtn, chatRoomListId: chatRoomListId, partnerId: chatRoomPartner.partnerId, uid: uid)
+                    ChatBottomBarView(viewModel: viewModel, isShowKeyboard: $isShowKeyboard, isPlusBtn: $isPlusBtn, chatRoomListId: viewModel.saveChatRoomId, partnerId: chatRoomPartner.partnerId, uid: uid)
                 } else {
                     if viewModel.noticeBoardInfo.reservationId != chatRoomPartner.partnerId && viewModel.noticeBoardInfo.userId == uid {
                         //게시물 작성자 == 나 이면서 예약자는 대화하고있는 사람이 아닌
@@ -79,7 +79,7 @@ struct ChatMessageView: View {
                         }
                     } else if viewModel.noticeBoardInfo.reservationId == uid || viewModel.noticeBoardInfo.userId == uid {
                         //게시물 작성자 == 나 이거나 예약자 == 대화하고있는 사람
-                        ChatBottomBarView(viewModel: viewModel, isShowKeyboard: $isShowKeyboard, isPlusBtn: $isPlusBtn, chatRoomListId: chatRoomListId, partnerId: chatRoomPartner.partnerId, uid: uid)
+                        ChatBottomBarView(viewModel: viewModel, isShowKeyboard: $isShowKeyboard, isPlusBtn: $isPlusBtn, chatRoomListId: viewModel.saveChatRoomId, partnerId: chatRoomPartner.partnerId, uid: uid)
                     } else {
                         if viewModel.noticeBoardInfo.state == 1 {
                             Text("현재 다른 사람과 예약중입니다.")
@@ -107,6 +107,7 @@ struct ChatMessageView: View {
             VStack {
                 HStack {
                     Spacer()
+                    
                     VStack {
                         if isPresented {
                             NavigationLink {
@@ -120,10 +121,11 @@ struct ChatMessageView: View {
                                         reportVM.report.targetType = .chat
                                     }
                             }
+                            
                             Divider()
                             
                             Button {
-                                viewModel.changeAlarm(uid: uid, chatRoomListId: chatRoomListId, isAlarm: isAlarm)
+                                viewModel.changeAlarm(uid: uid, isAlarm: isAlarm)
                                 isAlarm.toggle()
                             } label: {
                                 if isAlarm {
@@ -166,7 +168,6 @@ struct ChatMessageView: View {
             }
         }
         .transition(.move(edge: .bottom))
-        //        .navigationTitle(noticeBoardTitle)
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
         .toolbar {
@@ -182,16 +183,16 @@ struct ChatMessageView: View {
             
             ToolbarItem(placement: .principal) {
                 VStack {
-                    HStack {
-                        Image(systemName: "graduationcap.fill")
-                            .font(.caption)
-                            .foregroundStyle(.black)
-                        Text(chatRoomPartner.style)
-                            .font(.caption)
-                            .foregroundStyle(.red)
-                    }
+                    Text(chatRoomPartner.style == "" ? "칭호없음" : chatRoomPartner.style)
+                        .padding(.vertical, 5)
+                        .padding(.horizontal, 8)
+                        .font(.system(size: 10))
+                        .foregroundStyle(Color(hex: "4B4B4C"))
+                        .background(Color(hex: "D9D9D9"))
+                        .cornerRadius(5)
+                    
                     Text(chatRoomPartner.nickname)
-                        .font(.headline)
+                        .font(.system(size: 15, weight: .bold))
                 }
             }
             
@@ -208,8 +209,14 @@ struct ChatMessageView: View {
         }
         .onAppear {
             isShowPlusBtn = false
-            viewModel.initNewCount(uid: uid, chatRoomId: chatRoomListId)
-            viewModel.fetchMessages(uid: uid, chatRoomListId: chatRoomListId)
+            
+            if chatRoomListId != "" {
+                viewModel.saveChatRoomId = chatRoomListId
+                viewModel.initNewCount(uid: uid)
+                viewModel.fetchMessages(uid: uid)
+            } else {
+                viewModel.saveChatRoomId = ""
+            }
             viewModel.getNoticeBoardInfo(noticeBoardId: chatRoomPartner.noticeBoardId)
         }
         .toolbar(.hidden, for: .tabBar)

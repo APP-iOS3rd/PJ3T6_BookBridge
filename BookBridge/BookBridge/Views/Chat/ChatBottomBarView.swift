@@ -77,9 +77,16 @@ struct ChatBottomBarView: View {
                 
                 Button {
                     if !chatTextArr.isEmpty {
-                        viewModel.handleSend(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId)
-                        
-                        viewModel.sendNotification(partnerId: partnerId, message: viewModel.chatText)
+                        if viewModel.saveChatRoomId == "" {
+                            viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
+                                viewModel.handleSend(uid: uid, partnerId: partnerId)
+                                viewModel.sendNotification(partnerId: partnerId, message: viewModel.chatText)
+                                viewModel.fetchMessages(uid: uid)
+                            })
+                        } else {
+                            viewModel.handleSend(uid: uid, partnerId: partnerId)
+                            viewModel.sendNotification(partnerId: partnerId, message: viewModel.chatText)
+                        }
                     }
                 } label: {
                     Image(systemName: "paperplane.fill")

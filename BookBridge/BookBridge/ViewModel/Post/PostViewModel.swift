@@ -15,6 +15,7 @@ class PostViewModel: ObservableObject {
     @Published var holdBooks: [Item] = []
     @Published var wishBooks: [Item] = []
     @Published var user: UserModel = UserModel()
+    @Published var userUIImage: UIImage = UIImage(named: "Character")!
         
     let db = Firestore.firestore()
 }
@@ -49,6 +50,8 @@ extension PostViewModel {
                             style: data["style"] as? String ?? "",
                             reviews: data["reviews"] as? [Int] ?? [0, 0, 0]
                         )
+                        
+                        self.getPartnerImage(urlString: data["profileURL"] as? String ?? "")
                         
                         DispatchQueue.main.async {
                             self.user = user
@@ -216,23 +219,7 @@ extension PostViewModel {
     }
 }
 
-
-// TODO: 채팅하기 벼튼 및 네비게이션을 위한 data fetch
-/*
- 내 게시글
-    - ChatRoomListView 로 감  w. (noticeBoardId)
-    - User/userid/chatRoomList/ 에 where noticeBoardid 가 일치하는 갯수 가져옴
- 다른 사람 게시글
-    - 진행중인 채팅방이 있을 경우
-        - User/userid/chatRoomList/ 에 where noticeBoardid 가 일치하는 채팅 모델을 가져옴
-        - status 판단 후 status에 따른 뷰 설정
-        - (chatRoomId, userId, noticeBoardId, 게시글 작성자 id)
-    - 진행중인 채팅방이 없을 경우
-        - User/userid/chatRoomList/ 에 where noticeBoardid 가 일치하는 채팅 모델 검색 후 없으면
-        - 채팅하기 로 뷰 설정
-        - (chatRoomId = "", userId, noticeBoardId, 게시글 작성자 id)
- */
-
+// MARK: 대화중인 방 가져오기
 extension PostViewModel {
     func fetchChatList(noticeBoardId: String) {
         let docRef = db.collection("user").document(UserManager.shared.uid).collection("chatRoomList").whereField("noticeBoardId", isEqualTo: noticeBoardId)
@@ -257,3 +244,38 @@ extension PostViewModel {
         }
     }
 }
+
+// MARK: 채팅
+extension PostViewModel {
+    
+}
+
+// MARK: 사용자 UIImage
+extension PostViewModel {
+    func getPartnerImage(urlString: String) {
+        if let url = URL(string: urlString) {
+            URLSession.shared.dataTask(with: url) { (data, response, error) in
+                guard let imageData = data else { return }
+                
+                DispatchQueue.main.async {
+                    self.userUIImage = UIImage(data: imageData) ?? UIImage(named: "Character")!
+                }
+            }.resume()
+        }
+    }
+}
+// TODO: 채팅하기 벼튼 및 네비게이션을 위한 data fetch
+/*
+ 내 게시글
+    - ChatRoomListView 로 감  w. (noticeBoardId)
+    - User/userid/chatRoomList/ 에 where noticeBoardid 가 일치하는 갯수 가져옴
+ 다른 사람 게시글
+    - 진행중인 채팅방이 있을 경우
+        - User/userid/chatRoomList/ 에 where noticeBoardid 가 일치하는 채팅 모델을 가져옴
+        - status 판단 후 status에 따른 뷰 설정
+        - (chatRoomId, userId, noticeBoardId, 게시글 작성자 id)
+    - 진행중인 채팅방이 없을 경우
+        - User/userid/chatRoomList/ 에 where noticeBoardid 가 일치하는 채팅 모델 검색 후 없으면
+        - 채팅하기 로 뷰 설정
+        - (chatRoomId = "", userId, noticeBoardId, 게시글 작성자 id)
+ */
