@@ -88,23 +88,93 @@ struct PostView: View {
                     }
                 } else {
                     if noticeBoard.state == 1 {
-                        //TODO: 예약중인데 내가 예약중인 경우
-                        
-                        Text("예약중")
-                            .padding(.top, 5)
-                            .font(.system(size: 20, weight: .semibold))
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 60, alignment: Alignment.center).ignoresSafeArea()
-                            .foregroundStyle(Color.white)
-                            .background(Color(.lightGray))
+                        if UserManager.shared.uid != "" {
+                            if noticeBoard.reservationId == UserManager.shared.uid {
+                                NavigationLink {
+                                    ChatMessageView(
+                                        isShowPlusBtn: $isShowPlusBtn,
+                                        chatRoomListId: postViewModel.userChatRoomId,
+                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
+                                        chatRoomPartner: ChatPartnerModel(
+                                            nickname: postViewModel.user.nickname ?? "닉네임 미아",
+                                            noticeBoardId: noticeBoard.id,
+                                            partnerId: noticeBoard.userId,
+                                            partnerImage: postViewModel.userUIImage,
+                                            style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
+                                        ),
+                                        uid: UserManager.shared.uid
+                                    )
+                                } label: {
+                                    Text("채팅하기")
+                                        .padding(.top, 5)
+                                        .font(.system(size: 20, weight: .semibold))
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 60, alignment: Alignment.center).ignoresSafeArea()
+                                        .foregroundStyle(Color.white)
+                                        .background(Color(hex: "59AAE0"))
+                                }
+                            } else {
+                                Text("예약중")
+                                    .padding(.top, 5)
+                                    .font(.system(size: 20, weight: .semibold))
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 60, alignment: Alignment.center).ignoresSafeArea()
+                                    .foregroundStyle(Color.white)
+                                    .background(Color(.lightGray))
+                            }
+                        } else {
+                            Text("예약중")
+                                .padding(.top, 5)
+                                .font(.system(size: 20, weight: .semibold))
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 60, alignment: Alignment.center).ignoresSafeArea()
+                                .foregroundStyle(Color.white)
+                                .background(Color(.lightGray))
+                        }
                     } else if noticeBoard.state == 2 {
-                        Text("교환완료")
-                            .padding(.top, 5)
-                            .font(.system(size: 20, weight: .semibold))
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 60, alignment: Alignment.center).ignoresSafeArea()
-                            .foregroundStyle(Color.white)
-                            .background(Color(.lightGray))
+                        if UserManager.shared.uid != "" {
+                            if noticeBoard.reservationId == UserManager.shared.uid {
+                                NavigationLink {
+                                    ChatMessageView(
+                                        isShowPlusBtn: $isShowPlusBtn,
+                                        chatRoomListId: postViewModel.userChatRoomId,
+                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
+                                        chatRoomPartner: ChatPartnerModel(
+                                            nickname: postViewModel.user.nickname ?? "닉네임 미아",
+                                            noticeBoardId: noticeBoard.id,
+                                            partnerId: noticeBoard.userId,
+                                            partnerImage: postViewModel.userUIImage,
+                                            style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
+                                        ),
+                                        uid: UserManager.shared.uid
+                                    )
+                                } label: {
+                                    Text("채팅하기")
+                                        .padding(.top, 5)
+                                        .font(.system(size: 20, weight: .semibold))
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 60, alignment: Alignment.center).ignoresSafeArea()
+                                        .foregroundStyle(Color.white)
+                                        .background(Color(hex: "59AAE0"))
+                                }
+                            } else {
+                                Text("교환완료")
+                                    .padding(.top, 5)
+                                    .font(.system(size: 20, weight: .semibold))
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 60, alignment: Alignment.center).ignoresSafeArea()
+                                    .foregroundStyle(Color.white)
+                                    .background(Color(.lightGray))
+                            }
+                        } else {
+                            Text("교환완료")
+                                .padding(.top, 5)
+                                .font(.system(size: 20, weight: .semibold))
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 60, alignment: Alignment.center).ignoresSafeArea()
+                                .foregroundStyle(Color.white)
+                                .background(Color(.lightGray))
+                        }
                     } else {
                         //채팅한 적이 없는 경우
                         if postViewModel.chatRoomList.isEmpty {
