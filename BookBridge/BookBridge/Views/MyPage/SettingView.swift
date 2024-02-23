@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SettingView: View {
     @Environment(\.dismiss) private var dismiss
-    
+    @State private var showingLogoutAlert = false
+    @Binding var selectedTab: Int
     var body: some View {
         VStack {
             NavigationLink {
@@ -33,7 +34,7 @@ struct SettingView: View {
                     .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
             )
             .padding(.top, 10)
-
+            
             NavigationLink {
                 
             } label: {
@@ -108,6 +109,46 @@ struct SettingView: View {
                     .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
             )
             
+            HStack {
+                Button {
+                    showingLogoutAlert = true
+                } label: {
+                    Text("회원탈퇴")
+                        .padding(.vertical, 10)
+                        .font(.system(size: 17))
+                        .foregroundStyle(.red)
+                    Spacer()
+                }
+                .alert(isPresented: $showingLogoutAlert) {
+                    Alert(
+                        title: Text("회원 탈퇴"),
+                        message: Text("정말로 회원탈퇴를 하시겠습니까?"),
+                        primaryButton: .destructive(Text("탈퇴하기")) {
+                            UserManager.shared.deleteUserAccount { success in
+                                if success {
+                                    dismiss()
+                                    selectedTab = 0
+                                    print("회원 탈퇴가 성공적으로 처리되었습니다.")
+                                    
+                                } else {
+                                    
+                                    print("회원 탈퇴 처리에 실패했습니다.")
+                                    
+                                }
+                            }
+                        },
+                        secondaryButton: .cancel()
+                    )
+                }
+                
+            }
+            .frame(height: 40)
+            .background(
+                RoundedRectangle(cornerRadius: 0)
+                    .foregroundColor(.white)
+                    .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
+            )
+            
             Spacer()
         }
         .navigationBarBackButtonHidden()
@@ -127,7 +168,7 @@ struct SettingView: View {
     }
 }
 
-#Preview {
-    SettingView()
-}
+//#Preview {
+//    SettingView()
+//}
 
