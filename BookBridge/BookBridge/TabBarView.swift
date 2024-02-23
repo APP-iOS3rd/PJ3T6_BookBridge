@@ -183,6 +183,9 @@ struct TabBarView: View {
             }
         }
         .background(.red)
+        .onTapGesture {
+            hideKeyboard()
+        }
         .tint(Color(hex:"59AAE0"))
         .onChange(of: selectedTab) { newTab in
             // 로그인 상태 확인
@@ -227,6 +230,10 @@ struct TabBarView: View {
         }, content: {
             FindPostingView()
         })
+    }
+    
+    private func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
 
