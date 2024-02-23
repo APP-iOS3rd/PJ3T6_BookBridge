@@ -99,7 +99,7 @@ struct LoginView: View {
                                 
                 HStack(spacing: 20){
                     NaverLoginView()
-                    GoogleLoginView()
+                    GoogleLoginView(showingLoginView: $showingLoginView)
                     KakaoLoginView(showingLoginView: $showingLoginView)
                     AppleLoginView(showingLoginView: $showingLoginView)
                 }
