@@ -19,7 +19,7 @@ class FirestoreSignUpManager {
         let userData = [
             "id" : user.id ?? "",  // change these according to you model
             "email": user.email ?? "",
-            "password": user.passsword ?? "",
+            "password": user.password ?? "",
             "nickname": user.nickname ?? "",
             "phoneNumber": user.phoneNumber ?? "",
             "profileURL": user.profileURL ?? "",
@@ -56,7 +56,7 @@ class FirestoreSignUpManager {
         var user = UserModel(
             id: id,
             email: email,
-            passsword: password,
+            password: password,
             nickname: nickname,
             phoneNumber: phoneNumber,
             joinDate: Date(),

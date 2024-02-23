@@ -16,7 +16,6 @@ import FirebaseMessaging
 struct BookBridgeApp: App {
             
     init() {
-
         //Kakao SDK 초기화
         if let kakaoAppKey = Bundle.main.KakaoAppKey {
             KakaoSDK.initSDK(appKey: kakaoAppKey)
@@ -77,7 +76,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     // APNS 토큰을 받았을 때 호출되는 메소드
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         // Firebase에 APNS 토큰 설정
-        Messaging.messaging().apnsToken = deviceToken
+        //Messaging.messaging().apnsToken = deviceToken
     }
     
     // APNS 등록 실패 시 호출되는 메소드

@@ -134,7 +134,7 @@ class FirestoreManager {
                     id: document?.data()?["id"] as? String ?? "",
                     email: document?.data()?["email"] as? String ?? "",
                     loginId: document?.data()?["loginId"] as? String ?? "",
-                    passsword: document?.data()?["passsword"] as? String ?? "",
+                    password: document?.data()?["password"] as? String ?? "",
                     nickname: document?.data()?["nickname"] as? String ?? "",
                     phoneNumber: document?.data()?["phoneNumber"] as? String ?? "",
                     profileURL: document?.data()?["profileURL"] as? String ?? "",

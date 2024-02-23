@@ -19,7 +19,7 @@ struct AccountManagementView: View {
                 .padding(.bottom, 10)
             
             NavigationLink {
-                MyProfileView(isShowPlusBtn: $isShowPlusBtn, nickname: viewModel.userManager.user?.nickname ?? "", userSaveImage: viewModel.userSaveImage)
+                MyProfileView(isShowPlusBtn: $isShowPlusBtn, nickname: viewModel.userManager.user?.nickname ?? "", password: viewModel.userManager.user?.password ?? "", userSaveImage: viewModel.userSaveImage)
             } label: {
                 HStack {
                     Text("프로필")
