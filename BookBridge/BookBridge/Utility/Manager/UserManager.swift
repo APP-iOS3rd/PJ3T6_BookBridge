@@ -25,7 +25,7 @@ class UserManager: ObservableObject {
     var uid = ""
     var user: UserModel?
     var currentUser: Firebase.User?
-                    
+    
     func setUser(uid: String) {
         self.uid = uid
     }
@@ -66,5 +66,43 @@ class UserManager: ObservableObject {
         user?.location = locations
         currentDong = user?.getSelectedLocation()?.dong ?? ""
         self.isChanged.toggle()
+    }
+    
+    func deleteUserAccount(completion: @escaping (Bool) -> Void) {
+        
+        guard let user = Auth.auth().currentUser else {
+            print("로그인된 사용자가 없습니다.")
+            completion(false)
+            return
+        }
+        
+        // Firebase Firestore에서 사용자 관련 데이터 삭제
+        // 예: 사용자 프로필, 게시글 등
+        FirestoreManager.deleteUserData(uid: user.uid) { success in
+            if !success {
+                print("Firestore에서 사용자 데이터 삭제 실패")
+                completion(false)
+                return
+            }
+        }
+        FirestoreManager.deleteUserProfileImage(uid: user.uid) { success in
+            guard success else {
+                print("Storage에서 프로필 이미지 삭제 실패")
+                completion(false)
+                return
+            }
+        }
+        
+        // Firebase Authentication에서 사용자 계정 삭제
+        user.delete { error in
+            if let error = error {
+                print("계정 삭제 실패: \(error.localizedDescription)")
+                completion(false)
+            } else {
+                print("계정이 성공적으로 삭제되었습니다.")
+                self.logout()
+                completion(true)
+            }
+        }
     }
 }
