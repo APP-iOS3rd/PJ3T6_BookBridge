@@ -312,6 +312,9 @@ struct HomeTapView: View {
             }
             
         }
+        .onTapGesture {
+            hideKeyboard()
+        }
         .environmentObject(viewModel)
         .onAppear {
             if UserManager.shared.isLogin {
