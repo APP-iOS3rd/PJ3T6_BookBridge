@@ -16,7 +16,6 @@ import FirebaseMessaging
 struct BookBridgeApp: App {
             
     init() {
-
         //Kakao SDK 초기화
         if let kakaoAppKey = Bundle.main.KakaoAppKey {
             KakaoSDK.initSDK(appKey: kakaoAppKey)
@@ -36,6 +35,7 @@ struct BookBridgeApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject private var pathModel = PathViewModel()
+    @StateObject private var locationViewModel = LocationViewModel.shared
     
     var body: some Scene {
         WindowGroup {
@@ -46,10 +46,19 @@ struct BookBridgeApp: App {
                     }
                 }
                 .onAppear() {
-                    LocationViewModel.shared.checkIfLocationServiceIsEnabled()
+                    locationViewModel.checkIfLocationServiceIsEnabled()
                     NaverMapApiManager.getNaverApiInfo()
                     
                 }
+//                .alert(isPresented: $locationViewModel.showLocationAlert) {
+//                    Alert(
+//                        title: Text("알림"),
+//                        message: Text("위치권한 거부로 앱이 종료됩니다."),
+//                        dismissButton: .default(Text("확인"), action: {
+//                            
+//                        })
+//                    )
+//                }
         }
     }
 }
