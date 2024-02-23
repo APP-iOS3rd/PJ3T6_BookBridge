@@ -1691,9 +1691,10 @@
 				ENABLE_TESTING_SEARCH_PATHS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BookBridge/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "사진 기능을 사용하려면 사진/비디오 접근권한을 허용해야 합니다.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 기능을 사용하려면 사진/비디오 접근권한을 허용해야 합니다.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "앱을 사용하는 동안 허용";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "한 번 허용";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 기능을 사용하려면 사진/비디오 접근권한을 허용해야 합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1733,9 +1734,10 @@
 				ENABLE_TESTING_SEARCH_PATHS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BookBridge/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "사진 기능을 사용하려면 사진/비디오 접근권한을 허용해야 합니다.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "카메라 기능을 사용하려면 사진/비디오 접근권한을 허용해야 합니다.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "앱을 사용하는 동안 허용";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "한 번 허용";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "사진 기능을 사용하려면 사진/비디오 접근권한을 허용해야 합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -20,18 +20,6 @@ struct ChangePostingView: View {
     
     var body: some View {
         NavigationStack {
-//            HStack {
-//                Button {
-//                    dismiss()
-//                } label: {
-//                    Image(systemName: "xmark")
-//                        .font(.system(size: 16))
-//                        .foregroundStyle(.black)
-//                }
-//                Spacer()
-//            }
-//            .padding()
-            
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading) {
                     // 이미지 스크롤 뷰
