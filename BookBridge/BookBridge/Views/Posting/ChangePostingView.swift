@@ -99,6 +99,7 @@ struct ChangePostingView: View {
                     
                     // 확인 버튼
                     Button(action: {
+                        
                         if viewModel.noticeBoard.noticeBoardTitle.isEmpty {
                             alertMessage = "제목을 입력해주세요."
                             showAlert = true
@@ -109,7 +110,9 @@ struct ChangePostingView: View {
                             alertMessage = "이미지를 추가해주세요."
                             showAlert = true
                         } else {
-                            viewModel.uploadPost(isChange: true, images: selectedImages)
+                            viewModel.uploadPost(isChange: true, images: selectedImages) {
+                                UserManager.shared.isChanged.toggle()
+                            }
                             dismiss()
                         }
                         

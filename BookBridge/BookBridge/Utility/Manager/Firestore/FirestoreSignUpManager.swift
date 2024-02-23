@@ -14,12 +14,13 @@ class FirestoreSignUpManager {
     let redundant = RedundantValidator()
     private init() {}
     let db = Firestore.firestore()
+    let formattor = FormatValidator()
     
     func convertUserModelToDictionary(user: UserModel) -> [String : Any] {
         let userData = [
             "id" : user.id ?? "",  // change these according to you model
             "email": user.email ?? "",
-            "password": user.passsword ?? "",
+            "password": user.password ?? "",
             "nickname": user.nickname ?? "",
             "phoneNumber": user.phoneNumber ?? "",
             "profileURL": user.profileURL ?? "",
@@ -56,7 +57,7 @@ class FirestoreSignUpManager {
         var user = UserModel(
             id: id,
             email: email,
-            passsword: password,
+            password: password,
             nickname: nickname,
             phoneNumber: phoneNumber,
             joinDate: Date(),
@@ -143,7 +144,9 @@ class FirestoreSignUpManager {
                 print(error.localizedDescription)
             } else {
                 guard let user = result?.user else { return }
-                self.addUser(id: user.uid, email: email, password: password, nickname: nickname, phoneNumber: phoneNumber, fcmToken: fcmToken) {
+                let pwd = self.formattor.isValidPwd(pwd: password) ? password : ""
+                                                
+                self.addUser(id: user.uid, email: email, password: pwd, nickname: nickname, phoneNumber: phoneNumber, fcmToken: fcmToken) {
                     completion()
                 }                                                
             }
