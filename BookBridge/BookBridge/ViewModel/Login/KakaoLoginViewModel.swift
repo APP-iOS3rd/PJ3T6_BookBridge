@@ -174,7 +174,7 @@ class KakaoLoginViewModel : ObservableObject {
                     }
                 } else {
                     // 로그인 실패, 새 사용자 등록
-                    FirestoreSignUpManager.shared.register(email: email, password: "", nickname: userName) {
+                    FirestoreSignUpManager.shared.register(email: email, password: password, nickname: userName) {
                         FirestoreSignUpManager.shared.getUserData(email: email) { userData in
                             if let userData = userData, let uid = userData["id"] as? String {
                                 // 사용자 정보 처리
