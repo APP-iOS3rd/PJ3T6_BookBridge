@@ -9,7 +9,8 @@ import SwiftUI
 import NaverThirdPartyLogin
 
 struct NaverLoginView: View {
-    private var naverLoginManger = NaverAuthManager.shared
+    @StateObject var naverLoginManger = NaverAuthManager.shared
+    @Binding var showingLoginView: Bool
     
     var body: some View {
         VStack {
@@ -20,10 +21,10 @@ struct NaverLoginView: View {
                     .resizable()
                     .frame(width: 36, height: 36)
             }
+        }.onChange(of: naverLoginManger.isLogin) { _ in
+            showingLoginView.toggle()            
         }
+        
     }
 }
 
-#Preview {
-    NaverLoginView()
-}

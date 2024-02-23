@@ -10,7 +10,8 @@ import Alamofire
 import FirebaseAuth
 import NaverThirdPartyLogin
 
-class NaverAuthManager: NSObject {
+class NaverAuthManager: NSObject, ObservableObject {
+    @Published var isLogin = true
     static let shared = NaverAuthManager()
 }
 
@@ -88,6 +89,7 @@ extension NaverAuthManager {
                             // 사용자 정보 처리
                                                         
                             UserManager.shared.login(uid: uid)
+                            self?.isLogin.toggle()
                             
                         } else {
                             // 사용자 데이터를 찾을 수 없음. 필요한 경우 오류 처리
@@ -101,6 +103,7 @@ extension NaverAuthManager {
                             if let userData = userData, let uid = userData["id"] as? String {
                                 // 사용자 정보 처리
                                 UserManager.shared.login(uid: uid)
+                                self?.isLogin.toggle()
                                 
                             } else {
                                 // 사용자 데이터를 찾을 수 없음. 필요한 경우 오류 처리

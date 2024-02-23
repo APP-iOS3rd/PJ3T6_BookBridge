@@ -40,7 +40,7 @@ class SignUpViewModel: ObservableObject {
     private let redundant = RedundantValidator()
     let db = Firestore.firestore()
     
-    let validator = Validator(signUpVM: SignUpViewModel())
+    
     // var isCertiActive: Bool?
     var timer: Timer?
         

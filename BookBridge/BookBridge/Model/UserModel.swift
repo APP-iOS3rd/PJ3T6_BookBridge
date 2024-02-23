@@ -12,7 +12,7 @@ struct UserModel: Codable, Identifiable, Equatable {
     var id: String?                    //고유 아이디 CI 값
     var email: String?                //로그인 아이디
     var loginId: String?
-    var passsword: String?                //비밀번호
+    var password: String?                //비밀번호
     var nickname: String?                //닉네임
     var phoneNumber: String?            //보류
     var profileURL: String?                //프사    

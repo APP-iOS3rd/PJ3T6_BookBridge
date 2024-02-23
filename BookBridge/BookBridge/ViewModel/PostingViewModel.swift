@@ -53,14 +53,23 @@ class PostingViewModel: ObservableObject {
 
 //FireStore
 extension PostingViewModel {
-    func uploadPost(isChange: Bool, images: [UIImage]) {
+    func uploadPost(isChange: Bool, images: [UIImage], completion: @escaping () -> ()) {
         if isChange {                           //바꿔요일 경우 이미지 링크 생성(구해요는 빈 배열)
             // 이미지 ID 생성 및 storage에 이미지 저장
+            var count = 0
+            
             for img in images {
                 self.nestedGroup.enter()
                 let imgName = UUID().uuidString
-                uploadImage(image: img, name: (noticeBoard.id + "/" + imgName))
+                uploadImage(image: img, name: (noticeBoard.id + "/" + imgName)) {
+                    count += 1
+                    if count == images.count {
+                        completion()
+                    }
+                }
             }
+            
+            
         } else {
             // self.nestedGroup.leave()
         }
@@ -139,7 +148,7 @@ extension PostingViewModel {
 
 //FirebaseStorage
 extension PostingViewModel {
-    func uploadImage(image: UIImage?, name: String) {
+    func uploadImage(image: UIImage?, name: String, completion: @escaping () -> ()) {
         guard let imageData = image?.jpegData(compressionQuality: 0.2) else {
             return
         }
@@ -156,6 +165,8 @@ extension PostingViewModel {
                 self.noticeBoard.noticeImageLink.append(url.absoluteString)
                 
                 self.nestedGroup.leave()
+                
+                completion()
             }
 
         }

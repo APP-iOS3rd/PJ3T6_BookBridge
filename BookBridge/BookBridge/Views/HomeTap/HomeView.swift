@@ -89,8 +89,8 @@ struct HomeView: View {
             }
         }
         .onChange(of: userManager.isChanged) { _ in
-            print("선택한동 변동 감지")
-            viewModel.updateNoticeBoards()
+            print("데이터 변화 감지")
+            viewModel.updateNoticeBoards()            
         }
     }
     
