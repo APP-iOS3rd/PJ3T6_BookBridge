@@ -28,5 +28,6 @@ struct PostMapDetailView: View {
                 }
             }
             .navigationBarBackButtonHidden()
+            .edgesIgnoringSafeArea(.bottom)
     }
 }

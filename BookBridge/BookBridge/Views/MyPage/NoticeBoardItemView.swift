@@ -19,7 +19,6 @@ struct NoticeBoardItemView: View {
     var isChange: Bool
     var locate: [Double]
     var title: String
-    var userId: String
     
     var body: some View {
         HStack {
@@ -69,7 +68,7 @@ struct NoticeBoardItemView: View {
             
             VStack{
                 Button {
-                    viewModel.bookMarkToggle(user: userId, id: id)
+                    viewModel.bookMarkToggle(id: id)
                 } label: {
                     if (viewModel.bookMarks.contains(id)) {
                         Image(systemName: "bookmark.fill")
