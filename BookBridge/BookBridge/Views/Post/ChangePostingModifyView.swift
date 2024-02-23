@@ -93,7 +93,7 @@ struct ChangePostingModifyView: View {
                     
                     // 확인 버튼
                     Button(action: {
-                        viewModel.updatePost()
+                        viewModel.updatePost(images: selectedImages)
                         dismiss()
                     }) {
                         Text("게시물 수정")
@@ -134,6 +134,15 @@ struct ChangePostingModifyView: View {
             .onAppear {
                 if fetchBool {
                     viewModel.fetchNoticeBoardInfo(noticeBoard: noticeBoard)
+                    viewModel.urlToUIImage { images in
+                        if let images = images {
+                            DispatchQueue.main.async {
+                                self.selectedImages = images
+                            }
+                        } else {
+                        }
+                    }
+
                     self.fetchBool = false
                 }
             }

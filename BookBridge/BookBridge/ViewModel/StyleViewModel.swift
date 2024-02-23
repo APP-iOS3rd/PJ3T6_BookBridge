@@ -6,12 +6,15 @@
 //
 
 import Foundation
+import FirebaseFirestore
 
 class StyleViewModel: ObservableObject {
-    
     @Published var myStyles: [String] = []
     @Published var selectedStyle: String = ""
     @Published var style: StyleModel = StyleModel(title: "", description: "", imageName: "")
+    
+    let db = Firestore.firestore()
+    let userManager = UserManager.shared
     
     //개발자가 넣고 싶은 칭호 전체
     let styleTypes: [StyleModel] = [
@@ -23,19 +26,19 @@ class StyleViewModel: ObservableObject {
 }
 
 extension StyleViewModel {
-    func getMyStyle(userId: String) {
-        FirebaseStyleManager.shared.getMyStyle(userId: userId) { myStyles in
-            self.myStyles = myStyles
-        }
-    }
-    
-    func changeSelectedStyle(userId: String) {
+    func changeSelectedStyle() {
         if selectedStyle == style.title {                   //선택취소
-            FirebaseStyleManager.shared.changeSelectedStyle(userId: userId, style: "")
+            db.collection("User").document(userManager.uid).updateData([
+                "style": ""
+            ])
             selectedStyle = ""
+            userManager.user?.style = ""
         } else {                                            //선택완료
-            FirebaseStyleManager.shared.changeSelectedStyle(userId: userId, style: style.title)
+            db.collection("User").document(userManager.uid).updateData([
+                "style": style.title
+            ])
             selectedStyle = style.title
+            userManager.user?.style = style.title
         }
     }
 }
