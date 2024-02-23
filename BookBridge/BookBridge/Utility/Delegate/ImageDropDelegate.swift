@@ -1,5 +1,5 @@
 //
-//  ChangePostingView1.swift
+//  ChangePostingView.swift
 //  BookBridge
 //
 //  Created by 이현호 on 1/29/24.

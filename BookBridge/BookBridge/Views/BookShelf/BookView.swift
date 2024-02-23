@@ -77,6 +77,9 @@ struct BookView: View {
                 .padding(.top, 8)
             }
         }
+        .onTapGesture {
+            hideKeyboard()
+        }
     }
 }
 

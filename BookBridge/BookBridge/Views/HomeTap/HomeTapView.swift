@@ -312,12 +312,14 @@ struct HomeTapView: View {
             }
             
         }
+        .onTapGesture {
+            hideKeyboard()
+        }
         .environmentObject(viewModel)
         .onAppear {
             if UserManager.shared.isLogin {
                 viewModel.fetchBookMark(user: UserManager.shared.uid)
             }
-            
         }
         .onChange(of: tapCategory) { newValue in
             // 탭 카테고리가 변경될 때마다 필터링을 업데이트
