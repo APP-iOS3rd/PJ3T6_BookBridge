@@ -22,6 +22,9 @@ struct ChatRoomListView: View {
         VStack {
             SearchChatListView(viewModel: viewModel)
                 .padding()
+                .onTapGesture {
+                    isShowPlusBtn = false
+                }
             
             if viewModel.searchChatRoomList().isEmpty {
                 Spacer()
@@ -43,10 +46,11 @@ struct ChatRoomListView: View {
             }
         }
         .navigationBarBackButtonHidden()
-        .onAppear {
-            print(chatRoomList)
-            print(isComeNoticeBoard)
-            
+        .onTapGesture {
+            hideKeyboard()
+            isShowPlusBtn = true
+        }
+        .onAppear {            
             if !(isComeNoticeBoard && chatRoomList.isEmpty) {
                 viewModel.checkUserLoginStatus(uid: uid, isComeNoticeBoard: isComeNoticeBoard, chatRoomListStr: chatRoomList)
             }

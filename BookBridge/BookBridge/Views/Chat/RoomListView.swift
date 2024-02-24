@@ -13,24 +13,20 @@ struct RoomListView: View {
     @StateObject var viewModel: ChatRoomListViewModel
     
     var body: some View {
-        List {
+        //TODO: 리스트 스크롤 바꾸니까 됨 나중에 ARABOZA
+        ScrollView {
             ForEach(viewModel.searchChatRoomList()) { chatRoom in
-                ZStack {
-                    NavigationLink {
-                        ChatMessageView(
-                            isShowPlusBtn: $isShowPlusBtn, isAlarm: chatRoom.isAlarm,
-                            chatRoomListId: chatRoom.id,
-                            chatRoomPartner: viewModel.getPartnerImageIndex(partnerId: chatRoom.partnerId, noticeBoardId: chatRoom.noticeBoardId).0 == -1 ? ChatPartnerModel(nickname: "닉네임 없음", noticeBoardId: chatRoom.noticeBoardId, partnerId: chatRoom.partnerId, partnerImage: UIImage(named: "DefaultImage")!, style: "칭호 미아") : viewModel.chatRoomPartners[viewModel.getPartnerImageIndex(partnerId: chatRoom.partnerId, noticeBoardId: chatRoom.noticeBoardId).0], noticeBoardTitle: chatRoom.noticeBoardTitle,
-                            uid: chatRoom.userId)
-                        .toolbar(.hidden, for: .tabBar)
-                    } label: {
-                        EmptyView()
-                    }
-                    .opacity(0.0)
-
+                NavigationLink {
+                    ChatMessageView(
+                        isShowPlusBtn: $isShowPlusBtn, isAlarm: chatRoom.isAlarm,
+                        chatRoomListId: chatRoom.id,
+                        chatRoomPartner: viewModel.chatRoomDic[chatRoom.id] ?? ChatPartnerModel(nickname: "닉네임 없음", noticeBoardId: chatRoom.noticeBoardId, partnerId: chatRoom.partnerId, partnerImage: UIImage(named: "DefaultImage")!, style: "칭호 미아"),
+                        noticeBoardTitle: chatRoom.noticeBoardTitle,
+                        uid: chatRoom.userId)
+                } label: {
                     VStack {
                         HStack(spacing: 16) {
-                            Image(uiImage: viewModel.getPartnerImageIndex(partnerId: chatRoom.partnerId, noticeBoardId: chatRoom.noticeBoardId).1)
+                            Image(uiImage: viewModel.chatRoomDic[chatRoom.id]?.partnerImage ?? UIImage(named: "DefaultImage")!)
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 60, height: 60)
@@ -87,12 +83,12 @@ struct RoomListView: View {
                             }
                         }
                     }
+                    .background(.white)
                     .padding(.top, 5)
+                    .frame(height: 70)
                 }
-                .frame(height: 70)
             }
-            .listRowSeparator(.hidden)
         }
-        .listStyle(.plain)
+        .padding(.horizontal)
     }
 }

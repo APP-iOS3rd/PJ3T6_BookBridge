@@ -10,8 +10,8 @@ import FirebaseFirestore
 
 class ChatRoomListViewModel: ObservableObject {
     
+    @Published var chatRoomDic: [String: ChatPartnerModel] = [:]
     @Published var chatRoomList: [ChatRoomListModel] = []
-    @Published var chatRoomPartners: [ChatPartnerModel] = []
     @Published var isLogout = false
     @Published var searchText: String = ""
     
@@ -82,7 +82,7 @@ extension ChatRoomListViewModel {
                             newCount: document.data()["newCount"] as? Int ?? 0
                         ))
                         
-                        self.getPartnerImage(partnerId: partnerId, noticeBoardId: noticeBoardId)
+                        self.getPartnerImage(partnerId: partnerId, noticeBoardId: noticeBoardId, chatRoomListId: document.data()["id"] as? String ?? "")
                     }
                 } else {
                     self.chatRoomList.append(ChatRoomListModel(
@@ -97,7 +97,7 @@ extension ChatRoomListViewModel {
                         newCount: document.data()["newCount"] as? Int ?? 0
                     ))
                     
-                    self.getPartnerImage(partnerId: partnerId, noticeBoardId: noticeBoardId)
+                    self.getPartnerImage(partnerId: partnerId, noticeBoardId: noticeBoardId, chatRoomListId: document.data()["id"] as? String ?? "")
                 }
             }
         }
@@ -107,7 +107,7 @@ extension ChatRoomListViewModel {
 //MARK: 상대방 이미지 관련
 extension ChatRoomListViewModel {
     //상대방 프로필 이미지 가져오기
-    func getPartnerImage(partnerId: String, noticeBoardId: String) {
+    func getPartnerImage(partnerId: String, noticeBoardId: String, chatRoomListId: String) {
         FirebaseManager.shared.firestore.collection("User").document(partnerId).getDocument { documentSnapshot, error in
             guard error == nil else { return }
             guard let document = documentSnapshot else { return }
@@ -116,29 +116,18 @@ extension ChatRoomListViewModel {
             guard let style = document.data()?["style"] as? String else { return }
             
             //TODO: 여기서 상대방 이름, 칭호 등 가져오기
-            
-            if !self.chatRoomPartners.contains(where: { $0.partnerId == partnerId && $0.noticeBoardId == noticeBoardId }){
+            if !self.chatRoomDic.contains(where: { $0.key == chatRoomListId }){
                 if let url = URL(string: urlString) {
                     URLSession.shared.dataTask(with: url) { (data, response, error) in
                         guard let imageData = data else { return }
                         
                         DispatchQueue.main.async {
-                            self.chatRoomPartners.append(ChatPartnerModel(nickname: nickname, noticeBoardId: noticeBoardId, partnerId: partnerId, partnerImage: UIImage(data: imageData) ?? UIImage(named: "DefaultImage")!, style: style)
-                            )
+                            self.chatRoomDic.updateValue(ChatPartnerModel(nickname: nickname, noticeBoardId: noticeBoardId, partnerId: partnerId, partnerImage: UIImage(data: imageData) ?? UIImage(named: "DefaultImage")!, style: style), forKey: chatRoomListId)
                         }
                     }.resume()
                 }
             }
             self.nestedGroup.leave()
-        }
-    }
-    
-    //상대방 프로필 인덱스 찾기
-    func getPartnerImageIndex(partnerId: String, noticeBoardId: String) -> (Int, UIImage) {
-        if let index = self.chatRoomPartners.firstIndex(where: { $0.partnerId == partnerId && $0.noticeBoardId == noticeBoardId }) {
-            return (index, self.chatRoomPartners[index].partnerImage)
-        } else {
-            return (-1, UIImage(named: "DefaultImage")!)
         }
     }
 }

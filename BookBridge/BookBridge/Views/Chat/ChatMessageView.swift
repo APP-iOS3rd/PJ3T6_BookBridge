@@ -222,12 +222,12 @@ struct ChatMessageView: View {
                 viewModel.saveChatRoomId = ""
             }
             viewModel.getNoticeBoardInfo(noticeBoardId: chatRoomPartner.noticeBoardId)
+        
         }
         .onDisappear {
             if viewModel.saveChatRoomId != "" {
                 viewModel.initNewCount(uid: uid)
             }
         }
-        .toolbar(.hidden, for: .tabBar)
     }
 }
