@@ -248,6 +248,7 @@ extension ChatMessageViewModel {
         query1.setData([
             "date": timestamp,
             "id": saveChatRoomId,
+            "isAlarm": true,
             "newCount": 0,
             "noticeBoardId": noticeBoardInfo.id,
             "noticeBoardTitle": noticeBoardInfo.noticeBoardTitle,
@@ -261,6 +262,7 @@ extension ChatMessageViewModel {
         query2.setData([
             "date": timestamp,
             "id": saveChatRoomId,
+            "isAlarm": true,
             "newCount": 0,
             "noticeBoardId": noticeBoardInfo.id,
             "noticeBoardTitle": noticeBoardInfo.noticeBoardTitle,

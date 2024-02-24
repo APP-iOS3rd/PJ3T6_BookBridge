@@ -19,6 +19,7 @@ struct PostView: View {
     @State var noticeBoard: NoticeBoard
     
     @State private var isPresented = false
+    @State private var showingLoginView = false
     
     var storageManager = HomeFirebaseManager.shared
     
@@ -65,10 +66,10 @@ struct PostView: View {
             }
             
             PostMenuBtnsView(
-                postViewModel: postViewModel,
-                reportVM: reportViewmodel,
                 isPresented: $isPresented,
-                noticeBoard: $noticeBoard
+                noticeBoard: $noticeBoard,
+                postViewModel: postViewModel,
+                reportVM: reportViewmodel
             )
             
             VStack {
@@ -76,7 +77,7 @@ struct PostView: View {
                 
                 if UserManager.shared.uid == noticeBoard.userId {
                     NavigationLink {
-                        ChatRoomListView(isShowPlusBtn: $isShowPlusBtn, isComeNoticeBoard: true, uid: UserManager.shared.uid)
+                        ChatRoomListView(isShowPlusBtn: $isShowPlusBtn, chatRoomList: postViewModel.chatRoomList, isComeNoticeBoard: true, uid: UserManager.shared.uid)
                     } label: {
                         Text("대화중인 채팅방 \(postViewModel.chatRoomList.count)")
                             .padding(.top, 5)
@@ -94,7 +95,6 @@ struct PostView: View {
                                     ChatMessageView(
                                         isShowPlusBtn: $isShowPlusBtn,
                                         chatRoomListId: postViewModel.userChatRoomId,
-                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
                                         chatRoomPartner: ChatPartnerModel(
                                             nickname: postViewModel.user.nickname ?? "닉네임 미아",
                                             noticeBoardId: noticeBoard.id,
@@ -102,6 +102,7 @@ struct PostView: View {
                                             partnerImage: postViewModel.userUIImage,
                                             style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
                                         ),
+                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
                                         uid: UserManager.shared.uid
                                     )
                                 } label: {
@@ -138,7 +139,6 @@ struct PostView: View {
                                     ChatMessageView(
                                         isShowPlusBtn: $isShowPlusBtn,
                                         chatRoomListId: postViewModel.userChatRoomId,
-                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
                                         chatRoomPartner: ChatPartnerModel(
                                             nickname: postViewModel.user.nickname ?? "닉네임 미아",
                                             noticeBoardId: noticeBoard.id,
@@ -146,6 +146,7 @@ struct PostView: View {
                                             partnerImage: postViewModel.userUIImage,
                                             style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
                                         ),
+                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
                                         uid: UserManager.shared.uid
                                     )
                                 } label: {
@@ -176,47 +177,61 @@ struct PostView: View {
                                 .background(Color(.lightGray))
                         }
                     } else {
-                        //채팅한 적이 없는 경우
-                        if postViewModel.chatRoomList.isEmpty {
-                            NavigationLink {
-                                ChatMessageView(
-                                    isShowPlusBtn: $isShowPlusBtn,
-                                    chatRoomListId: "",
-                                    noticeBoardTitle: noticeBoard.noticeBoardTitle,
-                                    chatRoomPartner: ChatPartnerModel(
-                                        nickname: postViewModel.user.nickname ?? "닉네임 미아",
-                                        noticeBoardId: noticeBoard.id,
-                                        partnerId: noticeBoard.userId,
-                                        partnerImage: postViewModel.userUIImage,
-                                        style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
-                                    ),
-                                    uid: UserManager.shared.uid
-                                )
-                            } label: {
-                                Text("채팅하기")
-                                    .padding(.top, 5)
-                                    .font(.system(size: 20, weight: .semibold))
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 60, alignment: Alignment.center).ignoresSafeArea()
-                                    .foregroundStyle(Color.white)
-                                    .background(Color(hex: "59AAE0"))
+                        if  UserManager.shared.uid != "" {
+                            //채팅한 적이 없는 경우
+                            if postViewModel.chatRoomList.isEmpty {
+                                NavigationLink {
+                                    ChatMessageView(
+                                        isShowPlusBtn: $isShowPlusBtn,
+                                        chatRoomListId: "",
+                                        chatRoomPartner: ChatPartnerModel(
+                                            nickname: postViewModel.user.nickname ?? "닉네임 미아",
+                                            noticeBoardId: noticeBoard.id,
+                                            partnerId: noticeBoard.userId,
+                                            partnerImage: postViewModel.userUIImage,
+                                            style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
+                                        ),
+                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
+                                        uid: UserManager.shared.uid
+                                    )
+                                } label: {
+                                    Text("채팅하기")
+                                        .padding(.top, 5)
+                                        .font(.system(size: 20, weight: .semibold))
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 60, alignment: Alignment.center).ignoresSafeArea()
+                                        .foregroundStyle(Color.white)
+                                        .background(Color(hex: "59AAE0"))
+                                }
+                            } else {
+                                //채팅한 적이 있는 경우
+                                NavigationLink {
+                                    ChatMessageView(
+                                        isShowPlusBtn: $isShowPlusBtn,
+                                        chatRoomListId: postViewModel.userChatRoomId,
+                                        chatRoomPartner: ChatPartnerModel(
+                                            nickname: postViewModel.user.nickname ?? "닉네임 미아",
+                                            noticeBoardId: noticeBoard.id,
+                                            partnerId: noticeBoard.userId,
+                                            partnerImage: postViewModel.userUIImage,
+                                            style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
+                                        ),
+                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
+                                        uid: UserManager.shared.uid
+                                    )
+                                } label: {
+                                    Text("채팅하기")
+                                        .padding(.top, 5)
+                                        .font(.system(size: 20, weight: .semibold))
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 60, alignment: Alignment.center).ignoresSafeArea()
+                                        .foregroundStyle(Color.white)
+                                        .background(Color(hex: "59AAE0"))
+                                }
                             }
                         } else {
-                            //채팅한 적이 있는 경우
-                            NavigationLink {
-                                ChatMessageView(
-                                    isShowPlusBtn: $isShowPlusBtn,
-                                    chatRoomListId: postViewModel.userChatRoomId,
-                                    noticeBoardTitle: noticeBoard.noticeBoardTitle,
-                                    chatRoomPartner: ChatPartnerModel(
-                                        nickname: postViewModel.user.nickname ?? "닉네임 미아",
-                                        noticeBoardId: noticeBoard.id,
-                                        partnerId: noticeBoard.userId,
-                                        partnerImage: postViewModel.userUIImage,
-                                        style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
-                                    ),
-                                    uid: UserManager.shared.uid
-                                )
+                            Button {
+                                showingLoginView = true
                             } label: {
                                 Text("채팅하기")
                                     .padding(.top, 5)
@@ -274,6 +289,9 @@ struct PostView: View {
                         .foregroundStyle(.black)
                 }
             }
+        }
+        .sheet(isPresented: $showingLoginView){
+            LoginView(showingLoginView: $showingLoginView)
         }
     }
 }

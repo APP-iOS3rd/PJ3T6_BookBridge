@@ -23,8 +23,8 @@ struct ChatMessageView: View {
     @FocusState var isShowKeyboard: Bool
     
     var chatRoomListId: String
-    var noticeBoardTitle: String
     var chatRoomPartner: ChatPartnerModel
+    var noticeBoardTitle: String
     var uid: String
     
     var body: some View {
@@ -110,11 +110,31 @@ struct ChatMessageView: View {
                     
                     VStack {
                         if isPresented {
+                            Button {
+                                viewModel.changeAlarm(uid: uid, isAlarm: isAlarm)
+                                isAlarm.toggle()
+                            } label: {
+                                if isAlarm {
+                                    Text("알림끄기")
+                                        .font(.system(size: 15, weight: .medium))
+                                        .foregroundStyle(.black)
+                                        .padding(1)
+                                } else {
+                                    Text("알림켜기")
+                                        .font(.system(size: 15, weight: .medium))
+                                        .foregroundStyle(.black)
+                                        .padding(1)
+                                }
+                            }
+                            
+                            Divider()
+                            
                             NavigationLink {
                                 ReportView(reportVM: reportVM)
                             } label: {
                                 Text("신고하기")
-                                    .font(.system(size: 14))
+                                    .font(.system(size: 15, weight: .medium))
+                                    .foregroundStyle(.black)
                                     .padding(1)
                                     .onAppear{
                                         reportVM.report.targetID = "채팅방ID"
@@ -124,28 +144,12 @@ struct ChatMessageView: View {
                             
                             Divider()
                             
-                            Button {
-                                viewModel.changeAlarm(uid: uid, isAlarm: isAlarm)
-                                isAlarm.toggle()
-                            } label: {
-                                if isAlarm {
-                                    Text("알림끄기")
-                                        .font(.system(size: 14))
-                                        .padding(1)
-                                } else {
-                                    Text("알림켜기")
-                                        .font(.system(size: 14))
-                                        .padding(1)
-                                }
-                            }
-                            
-                            Divider()
-                            
                             Button(role: .destructive) {
                                 
                             } label: {
-                                Label("채팅방나가기", systemImage: "trash")
-                                    .font(.system(size: 14))
+                                Text("채팅방나가기")
+                                    .font(.system(size: 15, weight: .medium))
+                                    .foregroundStyle(.red)
                                     .padding(1)
                             }
                         }
@@ -153,7 +157,7 @@ struct ChatMessageView: View {
                     .frame(width: 120, height: isPresented ? 110 : 0)
                     .background(
                         RoundedRectangle(cornerRadius: 10, style: .circular)
-                            .foregroundColor(Color(red: 230/255, green: 230/255, blue: 230/255))
+                            .foregroundColor(Color(uiColor: .systemGray6))
                     )
                     .padding(.trailing)
                 }

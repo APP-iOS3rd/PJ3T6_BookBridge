@@ -34,12 +34,12 @@ extension ChatRoomListViewModel {
 //MARK: 로그인 여부 확인
 extension ChatRoomListViewModel {
     // 사용자 로그인 상태 확인
-    func checkUserLoginStatus(uid: String) {
+    func checkUserLoginStatus(uid: String, isComeNoticeBoard: Bool, chatRoomListStr: [String]) {
         if uid != "" {
             // 사용자가 로그인 상태인지 확인
             self.isLogout = false
             
-            self.getChatRoomList(uid: uid) // 채팅방 리스트 가져오기
+            self.getChatRoomList(uid: uid, isComeNoticeBoard: isComeNoticeBoard, chatRoomListStr: chatRoomListStr) // 채팅방 리스트 가져오기
         } else {
             //TODO: 우리 로그인창 띄우기
             // 사용자가 로그인되지 않은 상태인 경우 로그아웃 상태로 처리
@@ -52,7 +52,7 @@ extension ChatRoomListViewModel {
 //MARK: 채팅방 리스트 관련
 extension ChatRoomListViewModel {
     //채팅방 가져오기
-    func getChatRoomList(uid: String) {
+    func getChatRoomList(uid: String, isComeNoticeBoard: Bool, chatRoomListStr: [String]) {
         self.firestoreListener?.remove()
         // Firestore에서 최근 메시지를 가져오는 리스너 설정
         firestoreListener = FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").order(by: "date", descending: true).addSnapshotListener { querySnapshot, error in
@@ -68,19 +68,37 @@ extension ChatRoomListViewModel {
                 guard let partnerId = document.data()["partnerId"] as? String else { return }
                 guard let noticeBoardId = document.data()["noticeBoardId"] as? String else { return }
                 
-                self.chatRoomList.append(ChatRoomListModel(
-                    id: document.data()["id"] as? String ?? "",
-                    userId: document.data()["userId"] as? String ?? "",
-                    noticeBoardId: noticeBoardId,
-                    partnerId: partnerId,
-                    noticeBoardTitle: document.data()["noticeBoardTitle"] as? String ?? "",
-                    recentMessage: document.data()["recentMessage"] as? String ?? "",
-                    date: changeTime.dateValue(),
-                    isAlarm: document.data()["isAlarm"] as? Bool ?? true,
-                    newCount: document.data()["newCount"] as? Int ?? 0
-                ))
-                
-                self.getPartnerImage(partnerId: partnerId, noticeBoardId: noticeBoardId)
+                if isComeNoticeBoard {
+                    if chatRoomListStr.contains(document.documentID) {
+                        self.chatRoomList.append(ChatRoomListModel(
+                            id: document.data()["id"] as? String ?? "",
+                            userId: document.data()["userId"] as? String ?? "",
+                            noticeBoardId: noticeBoardId,
+                            partnerId: partnerId,
+                            noticeBoardTitle: document.data()["noticeBoardTitle"] as? String ?? "",
+                            recentMessage: document.data()["recentMessage"] as? String ?? "",
+                            date: changeTime.dateValue(),
+                            isAlarm: document.data()["isAlarm"] as? Bool ?? true,
+                            newCount: document.data()["newCount"] as? Int ?? 0
+                        ))
+                        
+                        self.getPartnerImage(partnerId: partnerId, noticeBoardId: noticeBoardId)
+                    }
+                } else {
+                    self.chatRoomList.append(ChatRoomListModel(
+                        id: document.data()["id"] as? String ?? "",
+                        userId: document.data()["userId"] as? String ?? "",
+                        noticeBoardId: noticeBoardId,
+                        partnerId: partnerId,
+                        noticeBoardTitle: document.data()["noticeBoardTitle"] as? String ?? "",
+                        recentMessage: document.data()["recentMessage"] as? String ?? "",
+                        date: changeTime.dateValue(),
+                        isAlarm: document.data()["isAlarm"] as? Bool ?? true,
+                        newCount: document.data()["newCount"] as? Int ?? 0
+                    ))
+                    
+                    self.getPartnerImage(partnerId: partnerId, noticeBoardId: noticeBoardId)
+                }
             }
         }
     }
