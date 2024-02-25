@@ -78,23 +78,6 @@ class UserManager: ObservableObject {
             return
         }
         
-        // Firebase Firestore에서 사용자 관련 데이터 삭제
-        // 예: 사용자 프로필, 게시글 등
-        FirestoreManager.deleteUserData(uid: user.uid) { success in
-            if !success {
-                print("Firestore에서 사용자 데이터 삭제 실패")
-                completion(false)
-                return
-            }
-        }
-        FirestoreManager.deleteUserProfileImage(uid: user.uid) { success in
-            guard success else {
-                print("Storage에서 프로필 이미지 삭제 실패")
-                completion(false)
-                return
-            }
-        }
-        
         // Firebase Authentication에서 사용자 계정 삭제
         user.delete { error in
             if let error = error as? NSError {
@@ -122,5 +105,24 @@ class UserManager: ObservableObject {
                 completion(true)
             }
         }
+        
+        // Firebase Firestore에서 사용자 관련 데이터 삭제
+        // 예: 사용자 프로필, 게시글 등
+        FirestoreManager.deleteUserData(uid: user.uid) { success in
+            if !success {
+                print("Firestore에서 사용자 데이터 삭제 실패")
+                completion(false)
+                return
+            }
+        }
+        FirestoreManager.deleteUserProfileImage(uid: user.uid) { success in
+            guard success else {
+                print("Storage에서 프로필 이미지 삭제 실패")
+                completion(false)
+                return
+            }
+        }
+        
+
     }
 }

@@ -15,7 +15,6 @@ struct TabBarView: View {
     @State private var isShowChange = false
     @State private var isShowFind = false
     @State private var isShowPlusBtn = true
-    @State private var showingLoginAlert = false
     @State private var showingLoginView = false
     @State  var selectedTab = 0
     @State private var shouldShowActionSheet = false
@@ -128,7 +127,7 @@ struct TabBarView: View {
                         
                         Button {
                             if userManager.isLogin {
-                                showingLoginAlert = false
+                                showingLoginView = true
                                 
                                 if shouldShowActionSheet {
                                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
@@ -150,7 +149,7 @@ struct TabBarView: View {
                                 }
                             } else {
                                 // 로그인 상태가 아닐 때만 얼럿 상태 업데이트
-                                showingLoginAlert = true
+                                showingLoginView = true
                             }
                         } label: {
                             Image(systemName: "plus.circle")
@@ -169,39 +168,18 @@ struct TabBarView: View {
         .background(.red)
         .tint(Color(hex:"59AAE0"))
         .onChange(of: selectedTab) { newTab in
-            // 로그인 상태 확인
-            if userManager.isLogin {
-                showingLoginAlert = false // 로그인 상태일 때는 알림을 띄우지 않음
-            } else {
-                // 로그인 상태가 아닐 때만 얼럿 상태 업데이트
-                showingLoginAlert = (newTab == 1 || newTab == 2 || newTab == 3)
+            if !userManager.isLogin && (newTab == 1 || newTab == 2 || newTab == 3) {
+                // 비로그인 상태이며, 로그인이 필요한 탭에 접근 시
+                showingLoginView = true
             }
         }
-        .alert(isPresented: $showingLoginAlert) {
-            Alert(
-                title: Text("로그인 필요"),
-                message: Text("이 기능을 사용하려면 로그인이 필요합니다."),
-                primaryButton: .destructive(Text("취소")) {
-                    selectedTab = 0
-                    
-                },
-                secondaryButton : .default(Text("로그인"), action: {
-                    showingLoginView = true
-                    showingLoginAlert = false
-                })
-                
-            )
-        }
         .sheet(isPresented: $showingLoginView, onDismiss: {
-            if userManager.isLogin {
-                showingLoginAlert = false
-            } else {
-                showingLoginAlert = true
+            if !userManager.isLogin {
+                selectedTab = 0
             }
         }){
             LoginView(showingLoginView: $showingLoginView)
         }
-        
         .fullScreenCover(isPresented: $isShowChange, onDismiss: {
             shouldShowActionSheet = false
         }, content: {
@@ -214,6 +192,7 @@ struct TabBarView: View {
             FindPostingView()
         })
     }
+    
     
     private func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
