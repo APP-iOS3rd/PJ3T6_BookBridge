@@ -101,6 +101,7 @@ class UserManager: ObservableObject {
                 if error.code == AuthErrorCode.requiresRecentLogin.rawValue {
                     // 재로그인 필요
                     completion(false)
+                    print("재로그인 필요")
                 } else {
                     print("계정 삭제 실패: \(error.localizedDescription)")
                     completion(false)

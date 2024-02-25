@@ -9,10 +9,8 @@ import SwiftUI
 
 struct HomeTapView: View {
     @Binding var isShowPlusBtn: Bool
-    
     @StateObject var viewModel: HomeViewModel
     @StateObject var locationManager = LocationManager.shared
-    
     @State  var isInsideXmark: Bool = false
     @State  var isOutsideXmark: Bool = false
     @State private var text = ""
@@ -31,10 +29,17 @@ struct HomeTapView: View {
                             .padding(.leading, 8)
                         
                         TextField("검색어를 입력해주세요", text: $text, onCommit: {
-                            viewModel.addRecentSearch(user: UserManager.shared.uid, text: text, category: tapCategory)
+                            if UserManager.shared.isLogin {
+                                
+                                viewModel.addRecentSearch(user: UserManager.shared.uid, text: text, category: tapCategory)
+                            }
+                            else {
+                                viewModel.filterNoticeBoards(with: text)
+                            }
+                            
                             isOutsideXmark = false
                             isInsideXmark = false
-                            
+                                                        
                         })
                         .padding(7)
                         .onChange(of: text) { _ in
@@ -246,7 +251,25 @@ struct HomeTapView: View {
                         }
                         .onDisappear {
                             showRecentSearchView = false
+                            isShowPlusBtn = true
                         }
+                }
+                else {
+                    HomeRecentSearchView(viewModel: viewModel,isInsideXmark: $isInsideXmark,isOutsideXmark: $isOutsideXmark, text: $text)
+                        .background(Color.white)
+                        .zIndex(1)
+                        .padding(.top, 60)
+                        .opacity(showRecentSearchView ? 1 : 0)
+                        .onAppear {
+                            withAnimation(.easeOut(duration: 0.5)) {
+                                showRecentSearchView = true
+                            }
+                        }
+                        .onDisappear {
+                            showRecentSearchView = false
+                            isShowPlusBtn = true
+                        }
+                    
                 }
                 
                 switch tapCategory {
