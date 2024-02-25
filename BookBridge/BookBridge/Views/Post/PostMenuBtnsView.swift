@@ -11,8 +11,10 @@ struct PostMenuBtnsView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var postViewModel: PostViewModel
     @StateObject var reportVM: ReportViewModel
+    @State private var showingDeleteAlert = false
     @Binding var isPresented: Bool
     @Binding var noticeBoard: NoticeBoard
+    
     
     var body: some View {
         VStack {
@@ -65,13 +67,18 @@ struct PostMenuBtnsView: View {
                                 .padding(1)
                             
                             Button {
-                                postViewModel.deletePost(noticeBoardId: noticeBoard.id)
-                                dismiss()
+                                showingDeleteAlert = true
                             } label: {
                                 Text("삭제하기")
                                     .modifier(MenuBtnText())
                                     .foregroundStyle(Color.red)
                             }
+                            .alert("게시물을 삭제하시겠습니까?",isPresented: $showingDeleteAlert){
+                                Button("삭제", role: .destructive) {
+                                    postViewModel.deletePost(noticeBoardId: noticeBoard.id)
+                                    dismiss()
+                                }
+                                Button("취소", role: .cancel) {}                            }
                         }
                     }
                 }
