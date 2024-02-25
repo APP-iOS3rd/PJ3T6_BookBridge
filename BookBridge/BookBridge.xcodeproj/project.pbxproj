@@ -127,6 +127,7 @@
 		5CE454992B68B8EF00874BCE /* AppleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454982B68B8EF00874BCE /* AppleAuthManager.swift */; };
 		730028492B85E0B200EB3D8D /* NoticeBoardItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730028482B85E0B200EB3D8D /* NoticeBoardItemView.swift */; };
 		730580B52B86505E00A74275 /* MyProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730580B42B86505E00A74275 /* MyProfileViewModel.swift */; };
+		73437D112B8B840300C9289B /* MyProfileEditSaveButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73437D102B8B840300C9289B /* MyProfileEditSaveButtonView.swift */; };
 		73441F9B2B733CC200446E0F /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441F9A2B733CC200446E0F /* MyPageView.swift */; };
 		73441F9D2B733CD000446E0F /* ReviewScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441F9C2B733CD000446E0F /* ReviewScoreView.swift */; };
 		73441F9F2B733CE500446E0F /* MyPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441F9E2B733CE500446E0F /* MyPostView.swift */; };
@@ -352,6 +353,7 @@
 		5CE4549A2B68C93A00874BCE /* BookBridge.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BookBridge.entitlements; sourceTree = "<group>"; };
 		730028482B85E0B200EB3D8D /* NoticeBoardItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardItemView.swift; sourceTree = "<group>"; };
 		730580B42B86505E00A74275 /* MyProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewModel.swift; sourceTree = "<group>"; };
+		73437D102B8B840300C9289B /* MyProfileEditSaveButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileEditSaveButtonView.swift; sourceTree = "<group>"; };
 		73441F9A2B733CC200446E0F /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		73441F9C2B733CD000446E0F /* ReviewScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewScoreView.swift; sourceTree = "<group>"; };
 		73441F9E2B733CE500446E0F /* MyPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPostView.swift; sourceTree = "<group>"; };
@@ -887,6 +889,7 @@
 				73718A002B8879F800C20798 /* MyProfileNicknameView.swift */,
 				73718A022B887AB500C20798 /* MyProfilePasswordView.swift */,
 				73718A042B887B8800C20798 /* MyProfileToolbarItemView.swift */,
+				73437D102B8B840300C9289B /* MyProfileEditSaveButtonView.swift */,
 				73441FAA2B733E0700446E0F /* StyleSettingView.swift */,
 				73441FAC2B733E2200446E0F /* StyleListView.swift */,
 				73441FAE2B733E3500446E0F /* StyleModalView.swift */,
@@ -1396,6 +1399,7 @@
 				73C962AB2B68C4D800D34D3F /* SearchBooksViewModel.swift in Sources */,
 				738654DD2B7F453400373E30 /* ChatPartnerModel.swift in Sources */,
 				5A3A44202B6C890900B66C81 /* TownSettingMapView.swift in Sources */,
+				73437D112B8B840300C9289B /* MyProfileEditSaveButtonView.swift in Sources */,
 				5A33806E2B87291B0038F2DE /* PostUserBookshelf.swift in Sources */,
 				73718A032B887AB500C20798 /* MyProfilePasswordView.swift in Sources */,
 				5A33807D2B8772550038F2DE /* PostMapView.swift in Sources */,

@@ -50,7 +50,8 @@ struct ChatRoomListView: View {
             hideKeyboard()
             isShowPlusBtn = true
         }
-        .onAppear {            
+        .onAppear {  
+            print("asd")
             if !(isComeNoticeBoard && chatRoomList.isEmpty) {
                 viewModel.checkUserLoginStatus(uid: uid, isComeNoticeBoard: isComeNoticeBoard, chatRoomListStr: chatRoomList)
             }

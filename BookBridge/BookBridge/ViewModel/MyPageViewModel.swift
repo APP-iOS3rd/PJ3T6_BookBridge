@@ -42,6 +42,8 @@ extension MyPageViewModel {
 
 extension MyPageViewModel {
     func getDownLoadImage() {
+        print("유져: \(userManager.user?.profileURL)")
+        print("userSaveImage: \(userSaveImage)")
         if userSaveImage.0 != userManager.user?.profileURL ?? ""{
             guard let urlString = userManager.user?.profileURL else { return }
             if let url = URL(string: urlString) {

@@ -174,6 +174,7 @@ struct ChatMessageView: View {
         .transition(.move(edge: .bottom))
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
+        .toolbar(.hidden, for: .tabBar)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
