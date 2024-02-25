@@ -48,27 +48,27 @@ struct HomeRecentSearchView: View {
                         HStack {
                             Image(systemName: "clock")
                                 .foregroundColor(Color(hex: "999999"))
-                            
-                            Button{
-                                viewModel.addRecentSearch(user: UserManager.shared.uid, text: search, category: viewModel.currentTapCategory)
-                                viewModel.filterNoticeBoards(with: search)
-                                isOutsideXmark = false
-                                isInsideXmark = false
-                                text = search
-                                
-                            } label: {
-                                Text(search)
-                                    .foregroundColor(Color(hex: "999999"))
-                            }
+
+                            Text(search)
+                                .foregroundColor(Color(hex: "999999"))
                             
                             Spacer()
+
                             Button(action: {
                                 viewModel.deleteRecentSearch(user: UserManager.shared.uid, search: search)
-                            }) {
+                            }, label : {
                                 Image(systemName: "multiply")
                                     .foregroundColor(Color(hex: "999999"))
-                            }
+                            })
                             .buttonStyle(PlainButtonStyle())
+                        }
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            viewModel.addRecentSearch(user: UserManager.shared.uid, text: search, category: viewModel.currentTapCategory)
+                            viewModel.filterNoticeBoards(with: search)
+                            isOutsideXmark = false
+                            isInsideXmark = false
+                            text = search
                         }
                     }
                 }

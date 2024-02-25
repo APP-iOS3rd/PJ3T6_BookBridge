@@ -8,6 +8,8 @@
 import Foundation
 import Firebase
 import FirebaseAuth
+import KakaoSDKAuth
+import KakaoSDKUser
 
 class UserManager: ObservableObject {
     static let shared = UserManager()
@@ -95,11 +97,26 @@ class UserManager: ObservableObject {
         
         // Firebase Authentication에서 사용자 계정 삭제
         user.delete { error in
-            if let error = error {
-                print("계정 삭제 실패: \(error.localizedDescription)")
-                completion(false)
+            if let error = error as? NSError {
+                if error.code == AuthErrorCode.requiresRecentLogin.rawValue {
+                    // 재로그인 필요
+                    completion(false)
+                } else {
+                    print("계정 삭제 실패: \(error.localizedDescription)")
+                    completion(false)
+                }
+                
             } else {
                 print("계정이 성공적으로 삭제되었습니다.")
+                UserApi.shared.unlink {(error) in
+                    if let error = error {
+                        print(error)
+                    }
+                    else {
+                        print("unlink() success.")
+                    }
+                }
+                NaverAuthManager.shared.oauth20ConnectionDidFinishDeleteToken()
                 self.logout()
                 completion(true)
             }

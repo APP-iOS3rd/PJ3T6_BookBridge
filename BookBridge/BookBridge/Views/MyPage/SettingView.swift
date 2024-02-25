@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var showingLogoutAlert = false
+    @State private var showingLoginView = false
     @Binding var selectedTab: Int
     var body: some View {
         VStack {
@@ -112,6 +113,7 @@ struct SettingView: View {
             HStack {
                 Button {
                     showingLogoutAlert = true
+                    showingLoginView = false
                 } label: {
                     Text("회원탈퇴")
                         .padding(.vertical, 10)
@@ -131,7 +133,7 @@ struct SettingView: View {
                                     print("회원 탈퇴가 성공적으로 처리되었습니다.")
                                     
                                 } else {
-                                    
+                                    showingLoginView = true
                                     print("회원 탈퇴 처리에 실패했습니다.")
                                     
                                 }
