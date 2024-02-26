@@ -13,7 +13,7 @@ struct PostMenuBtnsView: View {
     @Binding var isPresented: Bool
     @Binding var noticeBoard: NoticeBoard
   
-    @StateObject var postViewModel: PostViewModel
+    @ObservedObject var postViewModel: PostViewModel
     @StateObject var reportVM: ReportViewModel
   
     @State private var showingDeleteAlert = false

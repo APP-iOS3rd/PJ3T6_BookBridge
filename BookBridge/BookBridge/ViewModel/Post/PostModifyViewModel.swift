@@ -250,3 +250,34 @@ extension PostModifyViewModel {
         }
     }
 }
+
+extension PostModifyViewModel {
+    func fetchMarkerById(noticeBoardId: String) {
+         let db = Firestore.firestore()
+         db.collection("noticeBoard").document(noticeBoardId).getDocument { (document, error) in
+             if let document = document, document.exists {
+                 let data = document.data()
+                 let noticeBoard = NoticeBoard(
+                     id: document.documentID,
+                     userId: data?["userId"] as? String ?? "",
+                     noticeBoardTitle: data?["noticeBoardTitle"] as? String ?? "",
+                     noticeBoardDetail: data?["noticeBoardDetail"] as? String ?? "",
+                     noticeImageLink: data?["noticeImageLink"] as? [String] ?? [],
+                     noticeLocation: data?["noticeLocation"] as? [Double] ?? [0.0, 0.0],
+                     noticeLocationName: data?["noticeLocationName"] as? String ?? "",
+                     isChange: data?["isChange"] as? Bool ?? false,
+                     state: data?["state"] as? Int ?? 0,
+                     date: (data?["date"] as? Timestamp)?.dateValue() ?? Date(),
+                     hopeBook: [], // hopeBook은
+                     geoHash: data?["geoHash"] as? String,
+                     reservationId: data?["reservationId"] as? String
+                 )
+                 
+                 self.markerCoord = NMGLatLng(lat: noticeBoard.noticeLocation[0], lng: noticeBoard.noticeLocation[1])
+                 
+             } else {
+                 print("noticeBoard Document does not exist")
+             }
+         }
+     }
+}
