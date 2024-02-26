@@ -23,14 +23,9 @@ struct PostChangeLocationView: View {
                     PostMapDetailView(noticeBoard: $noticeBoard)
                         .navigationBarBackButtonHidden()
                 } label: {
-                    HStack {
-                        Text("\(noticeBoard.noticeLocationName)")
-                            .font(.system(size: 15))
-                        
-                        Image(systemName: "chevron.right")
-                            .font(.system(size: 15))
-                    }
-                    .foregroundStyle(Color(hex: "767676"))
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 15))
+                        .foregroundStyle(Color(hex: "767676"))
                 }
             }
             .padding(.top)
@@ -43,6 +38,12 @@ struct PostChangeLocationView: View {
                     isDetail: false
                 )
             }
+            
+            Text(noticeBoard.noticeLocationName)
+                .font(.system(size: 12))
+                .foregroundStyle(Color(hex: "767676"))
+                .padding(.leading, 5)
+                    
         }
         .frame(height: 300)
         .padding(.bottom)
