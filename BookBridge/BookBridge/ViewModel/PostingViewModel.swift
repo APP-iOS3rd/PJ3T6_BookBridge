@@ -74,8 +74,16 @@ extension PostingViewModel {
             // self.nestedGroup.leave()
         }
         
-        let currentLat = UserManager.shared.user?.getSelectedLocation()?.lat ?? 0.0
-        let currentLong = UserManager.shared.user?.getSelectedLocation()?.long ?? 0.0
+        var lat: Double = 0.0
+        var long: Double = 0.0
+        
+        if noticeBoard.noticeLocation.isEmpty {
+            lat = UserManager.shared.user?.getSelectedLocation()?.lat ?? 0.0
+            long = UserManager.shared.user?.getSelectedLocation()?.long ?? 0.0
+        } else {
+            lat = noticeBoard.noticeLocation[0]
+            long = noticeBoard.noticeLocation[1]
+        }
         
         self.nestedGroup.notify(queue: .main) {
             // 게시물 정보 생성
@@ -85,13 +93,13 @@ extension PostingViewModel {
                 noticeBoardTitle: self.noticeBoard.noticeBoardTitle,
                 noticeBoardDetail: self.noticeBoard.noticeBoardDetail,
                 noticeImageLink: self.noticeBoard.noticeImageLink,
-                noticeLocation: [currentLat, currentLong],
-                noticeLocationName: UserManager.shared.currentDong,
+                noticeLocation: [lat, long],
+                noticeLocationName: self.noticeBoard.noticeLocationName,
                 isChange: isChange,
                 state: 0,
                 date: Date(),
                 hopeBook: self.noticeBoard.hopeBook,
-                geoHash: GeohashManager.getGeoHash(lat: currentLat, long: currentLong),
+                geoHash: GeohashManager.getGeoHash(lat: lat, long: long),
                 reservationId: ""
             )
             

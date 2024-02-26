@@ -77,14 +77,6 @@ struct ChatBottomBarView: View {
                 
                 Button {
                     if !chatTextArr.isEmpty {
-<<<<<<< HEAD
-                        viewModel.handleSend(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId)
-                        // 메세지 알림 보내기
-                        if isChattingAlarm{
-                            viewModel.sendNotification(partnerId: partnerId, message: viewModel.chatText)
-                        }
-
-=======
                         if viewModel.saveChatRoomId == "" {
                             viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
                                 viewModel.handleSend(uid: uid, partnerId: partnerId)
@@ -95,7 +87,6 @@ struct ChatBottomBarView: View {
                             viewModel.handleSend(uid: uid, partnerId: partnerId)
                             viewModel.sendNotification(partnerId: partnerId, message: viewModel.chatText)
                         }
->>>>>>> develop
                     }
                 } label: {
                     Image(systemName: "paperplane.fill")

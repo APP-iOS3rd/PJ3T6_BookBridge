@@ -139,7 +139,7 @@ struct ChangePostingView: View {
             .navigationTitle("바꿔요")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
-                Task{
+                if viewModel.noticeBoard.noticeLocation.isEmpty {
                     viewModel.gettingUserInfo()
                 }
             }

@@ -54,10 +54,10 @@ struct ExchangeHopeModifyView: View {
                 
             }
         }
-        .onAppear{
-            // LocationManager로부터 초기 위치 데이터를 받아오는 로직
-            self.myCoord = (LocationManager.shared.lat,LocationManager.shared.long)
-        }
+//        .onAppear{
+//            // LocationManager로부터 초기 위치 데이터를 받아오는 로직
+//            self.myCoord = (LocationManager.shared.lat,LocationManager.shared.long)
+//        }
         
     }
     
