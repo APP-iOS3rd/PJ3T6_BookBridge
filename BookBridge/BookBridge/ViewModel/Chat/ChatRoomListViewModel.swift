@@ -12,7 +12,7 @@ class ChatRoomListViewModel: ObservableObject {
     
     @Published var chatRoomDic: [String: ChatPartnerModel] = [:]
     @Published var chatRoomList: [ChatRoomListModel] = []
-    @Published var isLogout = false
+    @Published var isLogout: Bool = false
     @Published var searchText: String = ""
     
     var firestoreListener: ListenerRegistration?
@@ -53,8 +53,8 @@ extension ChatRoomListViewModel {
 extension ChatRoomListViewModel {
     //채팅방 가져오기
     func getChatRoomList(uid: String, isComeNoticeBoard: Bool, chatRoomListStr: [String]) {
-        self.firestoreListener?.remove()
-        // Firestore에서 최근 메시지를 가져오는 리스너 설정
+        firestoreListener?.remove()
+        chatRoomDic.removeAll()                     //onApear 초기화(안하면 다른 아이디로 들어오면 사진이 안변함)
         firestoreListener = FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").order(by: "date", descending: true).addSnapshotListener { querySnapshot, error in
             guard error == nil else { return }
             guard let documents = querySnapshot?.documents else { return }
@@ -122,9 +122,13 @@ extension ChatRoomListViewModel {
                         guard let imageData = data else { return }
                         
                         DispatchQueue.main.async {
-                            self.chatRoomDic.updateValue(ChatPartnerModel(nickname: nickname, noticeBoardId: noticeBoardId, partnerId: partnerId, partnerImage: UIImage(data: imageData) ?? UIImage(named: "DefaultImage")!, style: style), forKey: chatRoomListId)
+                            self.chatRoomDic.updateValue(ChatPartnerModel(nickname: nickname, noticeBoardId: noticeBoardId, partnerId: partnerId, partnerImage: UIImage(data: imageData) ?? UIImage(named: "DefaultImage")!, partnerImageUrl: urlString, style: style), forKey: chatRoomListId)
                         }
                     }.resume()
+                } else {
+                    DispatchQueue.main.async {
+                        self.chatRoomDic.updateValue(ChatPartnerModel(nickname: nickname, noticeBoardId: noticeBoardId, partnerId: partnerId, partnerImage: UIImage(named: "DefaultImage")!, partnerImageUrl: "", style: style), forKey: chatRoomListId)
+                    }
                 }
             }
             self.nestedGroup.leave()

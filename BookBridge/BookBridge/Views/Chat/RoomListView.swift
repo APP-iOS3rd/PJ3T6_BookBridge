@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct RoomListView: View {
     @Binding var isShowPlusBtn: Bool
@@ -20,17 +21,23 @@ struct RoomListView: View {
                     ChatMessageView(
                         isShowPlusBtn: $isShowPlusBtn, isAlarm: chatRoom.isAlarm,
                         chatRoomListId: chatRoom.id,
-                        chatRoomPartner: viewModel.chatRoomDic[chatRoom.id] ?? ChatPartnerModel(nickname: "닉네임 없음", noticeBoardId: chatRoom.noticeBoardId, partnerId: chatRoom.partnerId, partnerImage: UIImage(named: "DefaultImage")!, style: "칭호 미아"),
+                        chatRoomPartner: viewModel.chatRoomDic[chatRoom.id] ?? ChatPartnerModel(nickname: "닉네임 없음", noticeBoardId: chatRoom.noticeBoardId, partnerId: chatRoom.partnerId, partnerImage: UIImage(named: "DefaultImage")!, partnerImageUrl: "", style: "칭호 미아"),
                         noticeBoardTitle: chatRoom.noticeBoardTitle,
                         uid: chatRoom.userId)
                 } label: {
                     VStack {
                         HStack(spacing: 16) {
-                            Image(uiImage: viewModel.chatRoomDic[chatRoom.id]?.partnerImage ?? UIImage(named: "DefaultImage")!)
+                            KFImage(URL(string: viewModel.chatRoomDic[chatRoom.id]?.partnerImageUrl ?? ""))
+                                .placeholder{
+                                    Image("DefaultImage")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 60, height: 60)
+                                        .cornerRadius(30)
+                                }
                                 .resizable()
-                                .scaledToFill()
+                                .aspectRatio(contentMode: .fill)
                                 .frame(width: 60, height: 60)
-                                .clipped()
                                 .cornerRadius(30)
                             
                             VStack(alignment: .leading) {

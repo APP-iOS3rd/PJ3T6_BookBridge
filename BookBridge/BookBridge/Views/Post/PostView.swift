@@ -99,7 +99,7 @@ struct PostView: View {
                                             nickname: postViewModel.user.nickname ?? "닉네임 미아",
                                             noticeBoardId: noticeBoard.id,
                                             partnerId: noticeBoard.userId,
-                                            partnerImage: postViewModel.userUIImage,
+                                            partnerImage: postViewModel.userUIImage, partnerImageUrl: postViewModel.user.profileURL ?? "",
                                             style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
                                         ),
                                         noticeBoardTitle: noticeBoard.noticeBoardTitle,
@@ -143,7 +143,7 @@ struct PostView: View {
                                             nickname: postViewModel.user.nickname ?? "닉네임 미아",
                                             noticeBoardId: noticeBoard.id,
                                             partnerId: noticeBoard.userId,
-                                            partnerImage: postViewModel.userUIImage,
+                                            partnerImage: postViewModel.userUIImage, partnerImageUrl: postViewModel.user.profileURL ?? "",
                                             style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
                                         ),
                                         noticeBoardTitle: noticeBoard.noticeBoardTitle,
@@ -188,7 +188,7 @@ struct PostView: View {
                                             nickname: postViewModel.user.nickname ?? "닉네임 미아",
                                             noticeBoardId: noticeBoard.id,
                                             partnerId: noticeBoard.userId,
-                                            partnerImage: postViewModel.userUIImage,
+                                            partnerImage: postViewModel.userUIImage, partnerImageUrl: postViewModel.user.profileURL ?? "",
                                             style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
                                         ),
                                         noticeBoardTitle: noticeBoard.noticeBoardTitle,
@@ -213,7 +213,7 @@ struct PostView: View {
                                             nickname: postViewModel.user.nickname ?? "닉네임 미아",
                                             noticeBoardId: noticeBoard.id,
                                             partnerId: noticeBoard.userId,
-                                            partnerImage: postViewModel.userUIImage,
+                                            partnerImage: postViewModel.userUIImage, partnerImageUrl: postViewModel.user.profileURL ?? "",
                                             style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
                                         ),
                                         noticeBoardTitle: noticeBoard.noticeBoardTitle,
@@ -249,7 +249,7 @@ struct PostView: View {
         }
         .onAppear {
             isShowPlusBtn = false
-            
+            print(noticeBoard)
             Task {
                 postViewModel.gettingUserInfo(userId: noticeBoard.userId)
                 postViewModel.gettingUserBookShelf(userId: noticeBoard.userId, collection: "holdBooks")

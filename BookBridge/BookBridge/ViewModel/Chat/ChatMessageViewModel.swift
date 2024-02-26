@@ -417,21 +417,51 @@ extension ChatMessageViewModel {
 //MARK: NoticeBoard 상태값 변경
 extension ChatMessageViewModel {
     func changeState(state: Int, partnerId: String, noticeBoardId: String) {
-        let query = FirebaseManager.shared.firestore.collection("noticeBoard").document(noticeBoardId)
+        let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId)
+        let noticeQuery = FirebaseManager.shared.firestore.collection("noticeBoard").document(noticeBoardId)
         
-        if state == 0 {
-            query.updateData([
-                "state": state,
-                "reservationId": ""
-            ])
-            self.noticeBoardInfo.reservationId = ""
-        } else {
-            query.updateData([
-                "state": state,
-                "reservationId": partnerId
-            ])
-            self.noticeBoardInfo.reservationId = partnerId
+        print(partnerId)
+        partnerQuery.getDocument { documentSnapshot, error in
+            guard error == nil else { return }
+            guard let document = documentSnapshot?.data() else { return }
+            
+            var requests = document["requests"] as? [String] ?? []
+            
+            if state == 0 {
+                if let index = requests.firstIndex(of: noticeBoardId) {
+                    requests.remove(at: index)
+                    
+                    partnerQuery.updateData([
+                        "requests": requests
+                    ])
+                    
+                    noticeQuery.updateData([
+                        "state": state,
+                        "reservationId": ""
+                    ])
+                    
+                    self.noticeBoardInfo.reservationId = ""
+                } else {
+                    print("오류")
+                }
+            } else {
+                if !requests.contains(noticeBoardId) {
+                    requests.append(noticeBoardId)
+                    
+                    partnerQuery.updateData([
+                        "requests": requests
+                    ])
+                }
+                
+                noticeQuery.updateData([
+                    "state": state,
+                    "reservationId": partnerId
+                ])
+                
+                self.noticeBoardInfo.reservationId = partnerId
+            }
         }
+        
         self.noticeBoardInfo.state = state
     }
 }
