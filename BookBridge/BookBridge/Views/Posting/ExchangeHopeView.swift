@@ -57,7 +57,7 @@ struct ExchangeHopeView: View {
         .onAppear{
             // LocationManager로부터 초기 위치 데이터를 받아오는 로직
             self.myCoord = (LocationManager.shared.lat,LocationManager.shared.long)
-            viewModel.markerCoord = NMGLatLng(lat: self.myCoord.0, lng: self.myCoord.1)
+//            viewModel.markerCoord = NMGLatLng(lat: self.myCoord.0, lng: self.myCoord.1)
         }
         
     }
