@@ -21,6 +21,7 @@ struct HomeListItemView: View {
     var title: String
     var userId: String
     var location: String
+    var detail : String
     
     var body: some View {
         HStack {
@@ -53,8 +54,17 @@ struct HomeListItemView: View {
                     .padding(.top, 10)
                     .lineLimit(2)
                 
-                Text("\(author)")
-                    .font(.system(size: 10))
+                if author != "" {
+                    Text("\(author)")
+                        .font(.system(size: 10))
+                        .padding(.top, 5)
+                        .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))
+                }
+                
+                
+                
+                Text("\(detail)")
+                    .font(.system(size: 14))
                     .padding(.top, 5)
                     .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))
                 
