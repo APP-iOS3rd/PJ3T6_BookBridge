@@ -10,11 +10,12 @@ import SwiftUI
 struct AlarmSettingView: View {
     @Environment(\.dismiss) private var dismiss
     
-    @State var isChattingAlarm: Bool = true
     @State var isNoticeBoardAlarm: Bool = true
     @State var isNewsAlarm: Bool = true
     @State var isMarketingAlarm: Bool = false
     
+    @AppStorage("isAlarmEnabled") private var isChattingAlarm = true
+
     var body: some View {
         VStack {
             HStack {
