@@ -11,28 +11,27 @@ struct PostContent: View {
     @Binding var noticeBoard: NoticeBoard
     
     var body: some View {
-        VStack(alignment: .leading) {
-            Text(noticeBoard.noticeBoardTitle)
-                .font(.system(size: 25))
-                .padding(.top)
+        HStack {
+            VStack(alignment: .leading) {
+                Text(noticeBoard.noticeBoardTitle)
+                    .font(.system(size: 25, weight: .bold))
+                    .padding(.top)
                 
-            
-            Text("\(ConvertManager.getTimeDifference(from: noticeBoard.date))")
-                .foregroundStyle(Color(red: 153/255, green: 153/255, blue: 153/255))
-                .font(.system(size: 10))
-                .padding(.bottom)
+                Spacer().frame(height: 5)
                 
-            
-            Text(noticeBoard.noticeBoardDetail)
-                .font(.system(size: 15))
+                Text("\(ConvertManager.getTimeDifference(from: noticeBoard.date))")
+                    .font(.system(size: 12))
+                    .foregroundStyle(Color(hex: "767676"))
+                    .padding(.bottom)
                 
+                Text(noticeBoard.noticeBoardDetail)
+                    .font(.system(size: 18))
+                
+                Spacer()
+            }
+            Spacer()
         }
+        .frame(minHeight: 200)
         .padding(.horizontal)
-        .frame(
-            minWidth: UIScreen.main.bounds.width,
-            minHeight: 200,
-            alignment: Alignment.topLeading
-        )
     }
-        
 }

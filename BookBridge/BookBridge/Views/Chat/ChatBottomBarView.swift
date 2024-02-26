@@ -77,12 +77,25 @@ struct ChatBottomBarView: View {
                 
                 Button {
                     if !chatTextArr.isEmpty {
+<<<<<<< HEAD
                         viewModel.handleSend(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId)
                         // 메세지 알림 보내기
                         if isChattingAlarm{
                             viewModel.sendNotification(partnerId: partnerId, message: viewModel.chatText)
                         }
 
+=======
+                        if viewModel.saveChatRoomId == "" {
+                            viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
+                                viewModel.handleSend(uid: uid, partnerId: partnerId)
+                                viewModel.sendNotification(partnerId: partnerId, message: viewModel.chatText)
+                                viewModel.fetchMessages(uid: uid)
+                            })
+                        } else {
+                            viewModel.handleSend(uid: uid, partnerId: partnerId)
+                            viewModel.sendNotification(partnerId: partnerId, message: viewModel.chatText)
+                        }
+>>>>>>> develop
                     }
                 } label: {
                     Image(systemName: "paperplane.fill")
@@ -179,7 +192,15 @@ struct ChatBottomBarView: View {
             withAnimation(.linear(duration: 0.2)) {
                 isPlusBtn.toggle()
             }
-            viewModel.handleSendImage(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId)
+            
+            if viewModel.saveChatRoomId != "" {
+                viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+            } else {
+                viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
+                    viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                    viewModel.fetchMessages(uid: uid)
+                })
+            }
         }) {
             ImagePicker(isVisible: $isShowingPhoto, images: $viewModel.selectedImages, sourceType: $one)
                 .ignoresSafeArea(.all)
@@ -188,7 +209,15 @@ struct ChatBottomBarView: View {
             withAnimation(.linear(duration: 0.2)) {
                 isPlusBtn.toggle()
             }
-            viewModel.handleSendImage(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId)
+            
+            if viewModel.saveChatRoomId != "" {
+                viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+            } else {
+                viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
+                    viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                    viewModel.fetchMessages(uid: uid)
+                })
+            }
         }) {
             ImagePicker(isVisible: $isShowingCamera, images: $viewModel.selectedImages, sourceType: $zero)
                 .ignoresSafeArea(.all)

@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var showingLogoutAlert = false
+    @State private var showingLoginView = false
     @Binding var selectedTab: Int
     var body: some View {
         VStack {
@@ -96,11 +97,16 @@ struct SettingView: View {
             )
             
             HStack {
-                Text("로그아웃")
-                    .padding(.vertical, 10)
-                    .font(.system(size: 17))
-                    .foregroundStyle(.red)
-                Spacer()
+                Button{
+                    UserManager.shared.logout()
+                    selectedTab = 0
+                } label: {
+                    Text("로그아웃")
+                        .padding(.vertical, 10)
+                        .font(.system(size: 17))
+                        .foregroundStyle(.red)
+                    Spacer()
+                }
             }
             .frame(height: 40)
             .background(
@@ -112,6 +118,7 @@ struct SettingView: View {
             HStack {
                 Button {
                     showingLogoutAlert = true
+                    showingLoginView = false
                 } label: {
                     Text("회원탈퇴")
                         .padding(.vertical, 10)
@@ -124,22 +131,30 @@ struct SettingView: View {
                         title: Text("회원 탈퇴"),
                         message: Text("정말로 회원탈퇴를 하시겠습니까?"),
                         primaryButton: .destructive(Text("탈퇴하기")) {
-                            UserManager.shared.deleteUserAccount { success in
+                            UserManager.shared.deleteUserAccount { (success,msg) in
                                 if success {
+                                    showingLoginView = false
                                     dismiss()
                                     selectedTab = 0
                                     print("회원 탈퇴가 성공적으로 처리되었습니다.")
                                     
+                                    
                                 } else {
-                                    
-                                    print("회원 탈퇴 처리에 실패했습니다.")
-                                    
+                                    showingLoginView = true
+//                                    print("회원 탈퇴 처리에 실패했습니다.")
                                 }
                             }
                         },
                         secondaryButton: .cancel()
                     )
                 }
+                .sheet(isPresented: $showingLoginView){
+                    LoginView(showingLoginView: $showingLoginView)
+                        .onAppear{
+                            UserManager.shared.resetLoginState()
+                        }
+                }
+
                 
             }
             .frame(height: 40)

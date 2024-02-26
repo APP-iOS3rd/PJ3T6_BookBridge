@@ -74,7 +74,6 @@ struct HomeView: View {
         }
         .navigationDestination(isPresented: $showingTownSettingView) {
             TownSettingView(isShowPlusBtn: $isShowPlusBtn)
-                .toolbar(.hidden, for: .tabBar)
         }
         .onChange(of: userManager.isLogin) { _ in
             print("로그인 변동 감지")

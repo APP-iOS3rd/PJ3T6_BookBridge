@@ -91,7 +91,7 @@ struct FindPostingModifyView: View {
                         .bold()
                     
                     //EmptyView에 지훈님이 만든 네이버 맵 화면
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink(destination: ExchangeHopeModifyView(viewModel: viewModel)) {
                         HStack {
                             Text(viewModel.noticeBoard.noticeLocationName)
                                 .foregroundColor(.black)
@@ -115,8 +115,7 @@ struct FindPostingModifyView: View {
                     // 확인 버튼
                     Button {
                         viewModel.updatePost(images: [])
-                        print(viewModel.noticeBoard.hopeBook)
-//                        dismiss()
+                        dismiss()
                     } label: {
                         Text("게시물 수정")
                             .fontWeight(.bold)
