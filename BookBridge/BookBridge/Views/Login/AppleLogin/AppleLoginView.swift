@@ -17,10 +17,6 @@ struct AppleLoginView: View {
 
     var body: some View {
         VStack {
-            if UserManager.shared.isLogin {
-                TabBarView(userId: UserManager.shared.user?.id)
-                
-            } else {
                 Button(action: appleAuthManager.startSignInWithAppleFlow) {
                     ZStack {
                         Image("AppleLogo")
@@ -30,12 +26,11 @@ struct AppleLoginView: View {
                     }
                 }
 
-            }
+            
         }
         .onChange(of: appleAuthManager.isSignedIn){ result in
             if result{
                 // 로그인 성공
-                //UserManager.shared.isLogin = true
                 showingLoginView = false
             }
         }
