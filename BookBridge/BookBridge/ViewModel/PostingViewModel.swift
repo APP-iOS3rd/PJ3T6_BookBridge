@@ -75,7 +75,7 @@ extension PostingViewModel {
         }
         
         let currentLat = noticeBoard.noticeLocation[0]
-        let currentLong = noticeBoard.noticeLocation[1]
+        let currentLong = noticeBoard.noticeLocation[1]        
         
         self.nestedGroup.notify(queue: .main) {
             // 게시물 정보 생성
@@ -175,12 +175,12 @@ extension PostingViewModel {
 
 extension PostingViewModel {
     func gettingUserInfo() {
-        FirestoreManager.fetchUserLocation(uid: UserManager.shared.uid) { location1 in
-            if let location = location1 {
-                self.noticeBoard.noticeLocation = [location.first?.lat ?? 36, location.first?.long ?? 127]
-                self.noticeBoard.noticeLocationName = location.first?.dong ?? "교환지역 선택"
-                self.noticeBoard.geoHash = GeohashManager.getGeoHash(lat: location.first?.lat ?? 36, long: location.first?.long ?? 127)
-            }
-        }
+        
+        self.noticeBoard.noticeLocation = [
+            UserManager.shared.user?.getSelectedLocation()?.lat ?? 0.0,
+            UserManager.shared.user?.getSelectedLocation()?.long ?? 0.0
+        ]
+        
+        self.noticeBoard.noticeLocationName = UserManager.shared.user?.getSelectedLocation()?.dong ?? ""
     }
 }
