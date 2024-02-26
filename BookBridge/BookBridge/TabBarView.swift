@@ -126,9 +126,7 @@ struct TabBarView: View {
                         }
                         
                         Button {
-                            if userManager.isLogin {
-                                showingLoginView = true
-                                
+                            if userManager.isLogin {                                                                
                                 if shouldShowActionSheet {
                                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
                                         shouldShowActionSheet = false
