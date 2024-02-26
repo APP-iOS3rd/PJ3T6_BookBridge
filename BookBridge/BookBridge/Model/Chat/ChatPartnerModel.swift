@@ -13,5 +13,6 @@ struct ChatPartnerModel {
     var noticeBoardId: String
     var partnerId: String
     var partnerImage: UIImage
+    var partnerImageUrl: String
     var style: String
 }

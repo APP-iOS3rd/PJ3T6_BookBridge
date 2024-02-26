@@ -73,6 +73,7 @@ struct MyProfileView: View {
             }
         }
         .onAppear {
+            print("userSaveImageProfile: \(userSaveImage)")
             isShowPlusBtn = false
             viewModel.userNickname = nickname
             viewModel.selectImage = userSaveImage.1
@@ -113,6 +114,8 @@ struct MyProfileView: View {
         .fullScreenCover(isPresented: $isShowImagePicker){
             ProfileImagePicker(image: $viewModel.selectImage)
         }
-        
+        .onChange(of: viewModel.selectImage) { _ in
+            print(viewModel.selectImage)
+        }
     }
 }

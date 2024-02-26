@@ -9,17 +9,20 @@ import SwiftUI
 
 struct PostMenuBtnsView: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject var postViewModel: PostViewModel
-    @StateObject var reportVM: ReportViewModel
-    @State private var showingDeleteAlert = false
+  
     @Binding var isPresented: Bool
     @Binding var noticeBoard: NoticeBoard
-    
+  
+    @StateObject var postViewModel: PostViewModel
+    @StateObject var reportVM: ReportViewModel
+  
+    @State private var showingDeleteAlert = false
     
     var body: some View {
         VStack {
             HStack {
                 Spacer()
+                
                 VStack {
                     if isPresented {
                         if UserManager.shared.uid != noticeBoard.userId {
@@ -29,8 +32,9 @@ struct PostMenuBtnsView: View {
                                 }
                                 isPresented.toggle()
                             } label: {
-                                Text( postViewModel.bookMarks.contains(noticeBoard.id) ? "관심목록 삭제" : "관심목록 추가")
+                                Text(postViewModel.bookMarks.contains(noticeBoard.id) ? "관심목록 삭제" : "관심목록 추가")
                                     .modifier(MenuBtnText())
+                                    .foregroundStyle(.black)
                             }
                             
                             Divider()
@@ -40,7 +44,7 @@ struct PostMenuBtnsView: View {
                                 ReportView(reportVM: reportVM)
                             } label: {
                                 Text("신고하기")
-                                    .font(.system(size: 14))
+                                    .font(.system(size: 15))
                                     .foregroundStyle(Color.red)
                                     .padding(1)
                                     .onAppear{
@@ -48,7 +52,6 @@ struct PostMenuBtnsView: View {
                                         reportVM.report.targetType = .post
                                     }
                             }
-                            
                         } else {
                             NavigationLink {
                                 if noticeBoard.isChange {
@@ -61,6 +64,7 @@ struct PostMenuBtnsView: View {
                             } label: {
                                 Text("수정하기")
                                     .modifier(MenuBtnText())
+                                    .foregroundStyle(.black)
                             }
                             
                             Divider()
@@ -85,11 +89,10 @@ struct PostMenuBtnsView: View {
                 .frame(width: 110, height: isPresented ? 80 : 0)
                 .background(
                     RoundedRectangle(cornerRadius: 10, style: .circular)
-                        .foregroundColor(Color(red: 230/255, green: 230/255, blue: 230/255))
+                        .foregroundColor(Color(uiColor: .systemGray6))
                 )
                 .padding(.trailing)
             }
-            
             Spacer()
         }
     }
@@ -99,7 +102,7 @@ extension PostMenuBtnsView {
     struct MenuBtnText: ViewModifier {
         func body(content: Content) -> some View {
             content
-                .font(.system(size: 14))
+                .font(.system(size: 15, weight: .medium))
                 .padding(1)
         }
     }

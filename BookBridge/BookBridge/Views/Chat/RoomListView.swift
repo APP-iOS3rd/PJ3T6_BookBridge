@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct RoomListView: View {
     @Binding var isShowPlusBtn: Bool
@@ -13,35 +14,36 @@ struct RoomListView: View {
     @StateObject var viewModel: ChatRoomListViewModel
     
     var body: some View {
-        List {
+        //TODO: 리스트 스크롤 바꾸니까 됨 나중에 ARABOZA
+        ScrollView {
             ForEach(viewModel.searchChatRoomList()) { chatRoom in
-                ZStack {
-                    NavigationLink {
-                        ChatMessageView(
-                            isShowPlusBtn: $isShowPlusBtn, isAlarm: chatRoom.isAlarm,
-                            chatRoomListId: chatRoom.id,
-                            noticeBoardTitle: chatRoom.noticeBoardTitle,
-                            chatRoomPartner: viewModel.getPartnerImageIndex(partnerId: chatRoom.partnerId, noticeBoardId: chatRoom.noticeBoardId).0 == -1 ? ChatPartnerModel(nickname: "닉네임 없음", noticeBoardId: chatRoom.noticeBoardId, partnerId: chatRoom.partnerId, partnerImage: UIImage(named: "DefaultImage")!, style: "칭호 미아") : viewModel.chatRoomPartners[viewModel.getPartnerImageIndex(partnerId: chatRoom.partnerId, noticeBoardId: chatRoom.noticeBoardId).0],
-                            uid: chatRoom.userId)
-                        .toolbar(.hidden, for: .tabBar)
-                    } label: {
-                        EmptyView()
-                    }
-                    .opacity(0.0)
-
+                NavigationLink {
+                    ChatMessageView(
+                        isShowPlusBtn: $isShowPlusBtn, isAlarm: chatRoom.isAlarm,
+                        chatRoomListId: chatRoom.id,
+                        chatRoomPartner: viewModel.chatRoomDic[chatRoom.id] ?? ChatPartnerModel(nickname: "닉네임 없음", noticeBoardId: chatRoom.noticeBoardId, partnerId: chatRoom.partnerId, partnerImage: UIImage(named: "DefaultImage")!, partnerImageUrl: "", style: "칭호 미아"),
+                        noticeBoardTitle: chatRoom.noticeBoardTitle,
+                        uid: chatRoom.userId)
+                } label: {
                     VStack {
-                        HStack(alignment: .top, spacing: 16) {
-                            Image(uiImage: viewModel.getPartnerImageIndex(partnerId: chatRoom.partnerId, noticeBoardId: chatRoom.noticeBoardId).1)
+                        HStack(spacing: 16) {
+                            KFImage(URL(string: viewModel.chatRoomDic[chatRoom.id]?.partnerImageUrl ?? ""))
+                                .placeholder{
+                                    Image("DefaultImage")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                        .frame(width: 60, height: 60)
+                                        .cornerRadius(30)
+                                }
                                 .resizable()
-                                .scaledToFill()
-                                .frame(width: 50, height: 50)
-                                .clipped()
-                                .cornerRadius(25)
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 60, height: 60)
+                                .cornerRadius(30)
                             
                             VStack(alignment: .leading) {
                                 HStack(alignment: .top) {
                                     Text(chatRoom.noticeBoardTitle)
-                                        .font(.system(size: 16, weight: .bold))
+                                        .font(.system(size: 18, weight: .bold))
                                         .foregroundStyle(Color(.label))
                                         .multilineTextAlignment(.leading)
                                     
@@ -54,45 +56,46 @@ struct RoomListView: View {
                                     Spacer()
                                     
                                     Text(chatRoom.timeAgo)
-                                        .font(.system(size: 12, weight: .semibold))
+                                        .font(.system(size: 15, weight: .semibold))
                                         .foregroundStyle(Color(.lightGray))
                                 }
                                 .padding(.top, 4)
                                 .padding(.bottom, -2)
                                 
-                                HStack {
+                                HStack(alignment: .bottom) {
                                     Text(chatRoom.recentMessage)
-                                        .font(.system(size: 14))
+                                        .font(.system(size: 15))
+                                        .frame(height: 25)
                                         .foregroundStyle(Color(hex:"8A8A8E"))
                                         .multilineTextAlignment(.leading)
                                         .lineLimit(1)
                                         .truncationMode(.tail) // 뒤에는 ...으로 표시
+                                        .padding(.top, 4)
                                     
                                     Spacer()
                                     
                                     if chatRoom.newCount != 0 {
                                         ZStack {
                                             Circle()
-                                                .frame(width: 25, height: 25)
+                                                .frame(width: 20, height: 20)
                                                 .foregroundColor(Color.red)
                                             
                                             Text("\(chatRoom.newCount)")
                                                 .font(.system(size: 10, weight: .semibold))
                                                 .foregroundStyle(Color.white)
-                                            
                                         }
                                     }
                                 }
                                 .padding(.bottom, 10)
                             }
                         }
-                        Divider()
                     }
+                    .background(.white)
                     .padding(.top, 5)
+                    .frame(height: 70)
                 }
             }
-            .listRowSeparator(.hidden)
         }
-        .listStyle(.plain)
+        .padding(.horizontal)
     }
 }

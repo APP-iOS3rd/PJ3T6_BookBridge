@@ -45,7 +45,7 @@ struct TabBarView: View {
                     
                     // 채팅
                     NavigationStack {
-                        ChatRoomListView(isShowPlusBtn: $isShowPlusBtn, isComeNoticeBoard: false, uid: UserManager.shared.uid)
+                        ChatRoomListView(isShowPlusBtn: $isShowPlusBtn, chatRoomList: [], isComeNoticeBoard: false, uid: UserManager.shared.uid)
                             .onDisappear {
                                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
                                     shouldShowActionSheet = false
