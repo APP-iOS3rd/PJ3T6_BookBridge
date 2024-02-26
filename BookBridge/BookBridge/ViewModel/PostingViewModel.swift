@@ -71,7 +71,7 @@ extension PostingViewModel {
             
             
         } else {
-            // self.nestedGroup.leave()
+            completion()
         }
         
         let currentLat = noticeBoard.noticeLocation[0]
