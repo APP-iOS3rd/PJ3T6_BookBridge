@@ -12,6 +12,7 @@ struct BookView: View {
     @EnvironmentObject var viewModel: BookShelfViewModel
     @Binding var selectedBook: Item?
     @Binding var isEditing: Bool  // 편집 모드 상태 바인딩
+    @Binding var isShowPlusBtn: Bool
     
     var tap: tapInfo
     
@@ -77,6 +78,9 @@ struct BookView: View {
             }
         }
         .onTapGesture {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                isShowPlusBtn = true
+            }
             hideKeyboard()
         }
     }
