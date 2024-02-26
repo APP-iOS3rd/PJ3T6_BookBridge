@@ -32,7 +32,7 @@ struct PostView: View {
                             PostImageView(urlString: noticeBoard.noticeImageLink)
                         }
                         
-                        PostUserInfoView(postViewModel: postViewModel)
+                        PostUserInfoView(postViewModel: postViewModel, noticeBoard: $noticeBoard)
                                             
                         Divider()
                             .padding(.horizontal)

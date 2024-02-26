@@ -59,4 +59,15 @@ class ConvertManager {
             return "방금 전"
         }
     }
+    
+    static func getDong(address: String) -> String? {
+        let components = address.components(separatedBy: " ")
+           
+       // 배열의 4번째 요소가 동을 나타내므로, 해당 요소를 반환합니다.
+       guard components.indices.contains(3) else {
+           return nil // 배열의 길이가 충분하지 않으면 nil을 반환합니다.
+       }
+       
+       return components[3]
+    }
 }

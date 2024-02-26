@@ -140,7 +140,9 @@ struct ChangePostingView: View {
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 Task{
-                    viewModel.gettingUserInfo()
+                    if viewModel.noticeBoard.noticeLocation.isEmpty {
+                        viewModel.gettingUserInfo()
+                    }
                 }
             }
             .toolbar {

@@ -60,7 +60,7 @@ struct HomeListItemView: View {
                 
                 Spacer()
                 
-                Text("\(location) | \(ConvertManager.getTimeDifference(from: date))")
+                Text("\(ConvertManager.getDong(address: location) ?? "") | \(ConvertManager.getTimeDifference(from: date))")
                     .font(.system(size: 10))
                     .padding(.bottom, 10)
                     .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))

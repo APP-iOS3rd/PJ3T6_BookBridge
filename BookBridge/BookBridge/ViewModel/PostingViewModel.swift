@@ -74,8 +74,8 @@ extension PostingViewModel {
             // self.nestedGroup.leave()
         }
         
-        let currentLat = UserManager.shared.user?.getSelectedLocation()?.lat ?? 0.0
-        let currentLong = UserManager.shared.user?.getSelectedLocation()?.long ?? 0.0
+        let currentLat = noticeBoard.noticeLocation[0]
+        let currentLong = noticeBoard.noticeLocation[1]
         
         self.nestedGroup.notify(queue: .main) {
             // 게시물 정보 생성
@@ -86,7 +86,7 @@ extension PostingViewModel {
                 noticeBoardDetail: self.noticeBoard.noticeBoardDetail,
                 noticeImageLink: self.noticeBoard.noticeImageLink,
                 noticeLocation: [currentLat, currentLong],
-                noticeLocationName: UserManager.shared.currentDong,
+                noticeLocationName: self.noticeBoard.noticeLocationName,
                 isChange: isChange,
                 state: 0,
                 date: Date(),
