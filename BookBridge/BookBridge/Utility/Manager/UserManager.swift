@@ -13,6 +13,7 @@ import KakaoSDKUser
 
 class UserManager: ObservableObject {
     static let shared = UserManager()
+    
     private init() {
         currentUser = Auth.auth().currentUser
         if let userdata = currentUser {
@@ -54,6 +55,13 @@ class UserManager: ObservableObject {
         
     }
     
+    func resetLoginState() {
+            if currentUser != nil {
+                self.logout()
+                print("LOGOUT")
+            }
+        }
+    
     func logout() {
         self.uid = ""
         self.isLogin = false
@@ -70,59 +78,43 @@ class UserManager: ObservableObject {
         self.isChanged.toggle()
     }
     
-    func deleteUserAccount(completion: @escaping (Bool) -> Void) {
+    func deleteUserAccount(completion: @escaping (Bool, String) -> Void) {
         
         guard let user = Auth.auth().currentUser else {
-            print("로그인된 사용자가 없습니다.")
-            completion(false)
+            completion(false, "로그인된 사용자가 없습니다.")
             return
         }
-        
-        // Firebase Authentication에서 사용자 계정 삭제
+
         user.delete { error in
             if let error = error as? NSError {
                 if error.code == AuthErrorCode.requiresRecentLogin.rawValue {
-                    // 재로그인 필요
-                    completion(false)
-                    print("재로그인 필요")
+                    self.resetLoginState()
+                    completion(false, "재로그인 후 다시 시도해주세요.")
+                    print("재로그인이 필요합니다.")
                 } else {
-                    print("계정 삭제 실패: \(error.localizedDescription)")
-                    completion(false)
+                    completion(false, "계정 삭제 실패: \(error.localizedDescription)")
                 }
-                
             } else {
-                print("계정이 성공적으로 삭제되었습니다.")
-                UserApi.shared.unlink {(error) in
-                    if let error = error {
-                        print(error)
-                    }
-                    else {
-                        print("unlink() success.")
+                // 계정이 성공적으로 삭제된 후 Firestore 및 Storage 데이터 삭제
+                FirestoreManager.deleteUserData(uid: user.uid) { _ in
+                    FirestoreManager.deleteUserProfileImage(uid: user.uid) { _ in
+                        // Firestore 및 Storage 삭제의 결과와 상관없이 계정 삭제 성공 처리
+                        print("계정이 성공적으로 삭제되었습니다.")
+                        UserApi.shared.unlink { error in
+                            if let error = error {
+                                print("Kakao unlink error: \(error)")
+                            } else {
+                                print("unlink() success.")
+                            }
+                        }
+                        NaverAuthManager.shared.oauth20ConnectionDidFinishDeleteToken()
+                        self.logout()
+                        completion(true, "성공")
                     }
                 }
-                NaverAuthManager.shared.oauth20ConnectionDidFinishDeleteToken()
-                self.logout()
-                completion(true)
             }
         }
-        
-        // Firebase Firestore에서 사용자 관련 데이터 삭제
-        // 예: 사용자 프로필, 게시글 등
-        FirestoreManager.deleteUserData(uid: user.uid) { success in
-            if !success {
-                print("Firestore에서 사용자 데이터 삭제 실패")
-                completion(false)
-                return
-            }
-        }
-        FirestoreManager.deleteUserProfileImage(uid: user.uid) { success in
-            guard success else {
-                print("Storage에서 프로필 이미지 삭제 실패")
-                completion(false)
-                return
-            }
-        }
-        
-
     }
+
+
 }
