@@ -67,24 +67,25 @@ struct HomeListItemView: View {
             }
             
             Spacer()
-            
-            VStack{
-                Button {
-                    viewModel.bookMarkToggle(user: userId, id: id)
-                } label: {
-                    if (viewModel.bookMarks.contains(id)) {
-                        Image(systemName: "bookmark.fill")
-                            .font(.system(size: 20))
-                            .padding()
-                            .foregroundColor(.black)
-                    } else {
-                        Image(systemName: "bookmark")
-                            .font(.system(size: 20))
-                            .padding()
-                            .foregroundColor(.black)
+            if UserManager.shared.isLogin {
+                VStack{
+                    Button {
+                        viewModel.bookMarkToggle(user: userId, id: id)
+                    } label: {
+                        if (viewModel.bookMarks.contains(id)) {
+                            Image(systemName: "bookmark.fill")
+                                .font(.system(size: 20))
+                                .padding()
+                                .foregroundColor(.black)
+                        } else {
+                            Image(systemName: "bookmark")
+                                .font(.system(size: 20))
+                                .padding()
+                                .foregroundColor(.black)
+                        }
                     }
+                    Spacer()
                 }
-                Spacer()
             }
         }
         .frame(height: 120, alignment: .center)

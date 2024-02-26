@@ -14,7 +14,8 @@ import FirebaseMessaging
 
 @main
 struct BookBridgeApp: App {
-            
+    @AppStorage("OnBoarding") var isOnBoarding: Bool = true
+    
     init() {
         //Kakao SDK 초기화
         if let kakaoAppKey = Bundle.main.KakaoAppKey {
@@ -39,58 +40,63 @@ struct BookBridgeApp: App {
     
     var body: some Scene {
         WindowGroup {
-            TabBarView(userId: UserManager.shared.uid)
-                .onOpenURL { url in // 뷰가 속한 Window에 대한 URL을 받았을 때 호출할 Handler를 등록하는 함수
-                    if AuthApi.isKakaoTalkLoginUrl(url) {
-                        _ = AuthController.handleOpenUrl(url: url)
+            if isOnBoarding {
+                LaunchScreenView(isOnboardingActive: $isOnBoarding)
+            }
+            else {
+                TabBarView(userId: UserManager.shared.uid)
+                    .onOpenURL { url in // 뷰가 속한 Window에 대한 URL을 받았을 때 호출할 Handler를 등록하는 함수
+                        if AuthApi.isKakaoTalkLoginUrl(url) {
+                            _ = AuthController.handleOpenUrl(url: url)
+                        }
                     }
-                }
-                .onAppear() {
-                    locationViewModel.checkIfLocationServiceIsEnabled()
-                    NaverMapApiManager.getNaverApiInfo()
-                    
-                }
-//                .alert(isPresented: $locationViewModel.showLocationAlert) {
-//                    Alert(
-//                        title: Text("알림"),
-//                        message: Text("위치권한 거부로 앱이 종료됩니다."),
-//                        dismissButton: .default(Text("확인"), action: {
-//                            
-//                        })
-//                    )
-//                }
-        }
-    }
-}
-
-
-class AppDelegate: NSObject, UIApplicationDelegate {
-    func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        FirebaseApp.configure()
-        // Firebase 실행확인 print
-        print("Configured Firebase!")
-        
-        // 푸시 알림을 위한 사용자 동의 요청
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]){ granted, error in
-            print("부여된 권한 : \(granted)")
-            guard granted else { return }
-            DispatchQueue.main.async{
-                application.registerForRemoteNotifications()
+                    .onAppear() {
+                        locationViewModel.checkIfLocationServiceIsEnabled()
+                        NaverMapApiManager.getNaverApiInfo()
+                        
+                    }
+                //                .alert(isPresented: $locationViewModel.showLocationAlert) {
+                //                    Alert(
+                //                        title: Text("알림"),
+                //                        message: Text("위치권한 거부로 앱이 종료됩니다."),
+                //                        dismissButton: .default(Text("확인"), action: {
+                //
+                //                        })
+                //                    )
+                //                }}
             }
         }
+    }
+    
+    
+    class AppDelegate: NSObject, UIApplicationDelegate {
+        func application(_ application: UIApplication,
+                         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+            FirebaseApp.configure()
+            // Firebase 실행확인 print
+            print("Configured Firebase!")
+            
+            // 푸시 알림을 위한 사용자 동의 요청
+            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]){ granted, error in
+                print("부여된 권한 : \(granted)")
+                guard granted else { return }
+                DispatchQueue.main.async{
+                    application.registerForRemoteNotifications()
+                }
+            }
+            
+            return true
+        }
         
-        return true
-    }
-    
-    // APNS 토큰을 받았을 때 호출되는 메소드
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        // Firebase에 APNS 토큰 설정
-        Messaging.messaging().apnsToken = deviceToken
-    }
-    
-    // APNS 등록 실패 시 호출되는 메소드
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print("Failed to register for remote notifications: \(error.localizedDescription)")
+        // APNS 토큰을 받았을 때 호출되는 메소드
+        func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+            // Firebase에 APNS 토큰 설정
+            Messaging.messaging().apnsToken = deviceToken
+        }
+        
+        // APNS 등록 실패 시 호출되는 메소드
+        func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+            print("Failed to register for remote notifications: \(error.localizedDescription)")
+        }
     }
 }
