@@ -164,9 +164,11 @@ struct FindPostingView: View {
             .navigationTitle("구해요")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
-                viewModel.gettingUserInfo()
-                print( viewModel.noticeBoard.hopeBook)
-                
+                Task{
+                    if viewModel.noticeBoard.noticeLocation.isEmpty {
+                        viewModel.gettingUserInfo()
+                    }
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
