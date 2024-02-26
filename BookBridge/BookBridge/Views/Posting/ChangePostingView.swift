@@ -139,8 +139,10 @@ struct ChangePostingView: View {
             .navigationTitle("바꿔요")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
-                if viewModel.noticeBoard.noticeLocation.isEmpty {
-                    viewModel.gettingUserInfo()
+                Task{
+                    if viewModel.noticeBoard.noticeLocation.isEmpty {
+                        viewModel.gettingUserInfo()
+                    }
                 }
             }
             .toolbar {
