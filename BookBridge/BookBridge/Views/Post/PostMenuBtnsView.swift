@@ -51,7 +51,9 @@ struct PostMenuBtnsView: View {
                                         reportVM.report.targetID = noticeBoard.id
                                         reportVM.report.targetType = .post
                                     }
-                            }
+                            }.simultaneousGesture(TapGesture().onEnded {
+                                isPresented.toggle()
+                            })
                         } else {
                             NavigationLink {
                                 if noticeBoard.isChange {
@@ -65,13 +67,16 @@ struct PostMenuBtnsView: View {
                                 Text("수정하기")
                                     .modifier(MenuBtnText())
                                     .foregroundStyle(.black)
-                            }
+                            }.simultaneousGesture(TapGesture().onEnded {
+                                isPresented.toggle()
+                            })
                             
                             Divider()
                                 .padding(1)
                             
                             Button {
                                 showingDeleteAlert = true
+                                isPresented.toggle()
                             } label: {
                                 Text("삭제하기")
                                     .modifier(MenuBtnText())
