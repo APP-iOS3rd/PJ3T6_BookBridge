@@ -78,7 +78,9 @@ extension NoticeBoardViewModel {
                     isChange: document.data()["isChange"] as? Bool ?? false,
                     state: document.data()["state"] as? Int ?? 0,
                     date: stamp.dateValue(),
-                    hopeBook: []
+                    hopeBook: [],
+                    geoHash: document.data()["geohash"] as? String ?? "",
+                    reservationId: document.data()["reservationId"] as? String ?? ""
                 )
                 
                 DispatchQueue.main.async {
@@ -156,7 +158,9 @@ extension NoticeBoardViewModel {
                                 isChange: document.data()["isChange"] as? Bool ?? false,
                                 state: document.data()["state"] as? Int ?? 0,
                                 date: stamp.dateValue(),
-                                hopeBook: hopeBooks
+                                hopeBook: hopeBooks,
+                                geoHash: document.data()["geohash"] as? String ?? "",
+                                reservationId: document.data()["reservationId"] as? String ?? ""
                             )
                             
                             DispatchQueue.main.async {
@@ -233,7 +237,9 @@ extension NoticeBoardViewModel {
                                 isChange: document.data()["isChange"] as? Bool ?? false,
                                 state: document.data()["state"] as? Int ?? 0,
                                 date: stamp.dateValue(),
-                                hopeBook: hopeBooks
+                                hopeBook: hopeBooks,
+                                geoHash: document.data()["geohash"] as? String ?? "",
+                                reservationId: document.data()["reservationId"] as? String ?? ""
                             )
                             
                             DispatchQueue.main.async {

@@ -25,9 +25,10 @@ struct NoticeBoardChatView: View {
                 HStack {
                     Image(uiImage: viewModel.bookImage)
                         .resizable()
+                        .aspectRatio(contentMode: .fill)
                         .frame(width: 40, height: 60)
-                        .scaledToFill()
                         .foregroundStyle(.black)
+                        .cornerRadius(5)
                         .padding(.trailing, 4)
                     
                     VStack(alignment:.leading) {
@@ -98,6 +99,9 @@ struct NoticeBoardChatView: View {
         }
         .padding(.top, 8)
         .padding(.horizontal)
+        .onAppear {
+            print(uid)
+        }
         
         Divider()
         
@@ -114,5 +118,6 @@ struct NoticeBoardChatView: View {
             }
             .padding(-8)
         }
+        
     }
 }

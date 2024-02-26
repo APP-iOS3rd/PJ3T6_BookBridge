@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct ChatRoomListModel: Identifiable {
+struct ChatRoomListModel: Identifiable, Hashable {
     var id: String                              //ForEach용
     var userId: String                          //나(보류)
     var noticeBoardId: String                   //게시물 아이디

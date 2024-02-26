@@ -10,6 +10,7 @@ import SwiftUI
 struct MyPageView: View {
     @Binding var isShowPlusBtn: Bool
     @Binding var selectedTab : Int
+    
     @StateObject var viewModel = MyPageViewModel()
     
     var body: some View {
@@ -65,11 +66,14 @@ struct MyPageView: View {
             }
         }
         .onAppear {
+            viewModel.userSaveImage = ("", UIImage(named: "Character")!)
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 isShowPlusBtn = true
             }
             
             if UserManager.shared.uid != "" {
+                print("zxc")
                 viewModel.getUserInfo()
                 viewModel.getDownLoadImage()
             }

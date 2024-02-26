@@ -18,21 +18,27 @@ class ChatMessageViewModel: ObservableObject {
     @Published var count = 0
     @Published var noticeBoardInfo: NoticeBoard = NoticeBoard(userId: "", noticeBoardTitle: "", noticeBoardDetail: "", noticeImageLink: [], noticeLocation: [], noticeLocationName: "", isChange: false, state: 0, date: Date(), hopeBook: [], reservationId: "")
     @Published var reservationName: String = ""
+    @Published var saveChatRoomId: String = ""
     @Published var selectedImages: [UIImage] = []
     
     var firestoreListener: ListenerRegistration?
     
     let nestedGroup = DispatchGroup()
     let nestedGroupImage = DispatchGroup()
-    
 }
+
+/*
+ viewModel.initNewCount(uid: uid, chatRoomId: chatRoomListId)
+ viewModel.fetchMessages(uid: uid, chatRoomListId: chatRoomListId)
+ viewModel.getNoticeBoardInfo(noticeBoardId: chatRoomPartner.noticeBoardId)
+ */
 
 //MARK: 정보 가져오기
 extension ChatMessageViewModel {
     // 메시지 가져오기
-    func fetchMessages(uid: String, chatRoomListId: String) {
+    func fetchMessages(uid: String) {
         // 실시간 업데이트 감시
-        firestoreListener = FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").document(chatRoomListId).collection("messages").order(by: "date", descending: false).addSnapshotListener { querySnapshot, error in
+        firestoreListener = FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").document(saveChatRoomId).collection("messages").order(by: "date", descending: false).addSnapshotListener { querySnapshot, error in
             guard error == nil else { return }
             guard let documents = querySnapshot else { return }
             
@@ -89,9 +95,6 @@ extension ChatMessageViewModel {
                 )
                 
                 self.getReservationName(reservationId: reservationId)
-                
-                
-                
                 self.getNoticeBoardImage(urlString: noticeImageLink[0])
                 
                 DispatchQueue.main.async {
@@ -178,8 +181,8 @@ extension ChatMessageViewModel {
 
 //MARK: 메시지 전송 (Text)
 extension ChatMessageViewModel {
-    // 메시지 전송 저장
-    func handleSend(uid: String, partnerId: String, chatRoomListId: String) {
+    // 메시지 전송 저장 chatRoomListId가 있는 경우
+    func handleSend(uid: String, partnerId: String) {
         let timestamp = Date()
         
         let messageData = [
@@ -190,11 +193,10 @@ extension ChatMessageViewModel {
             "sender": uid
         ] as [String : Any]
         
-        
         // 발신자용 메시지 전송 저장
         let myQuery = FirebaseManager.shared.firestore.collection("User")
             .document(uid)
-            .collection("chatRoomList").document(chatRoomListId)
+            .collection("chatRoomList").document(saveChatRoomId)
         
         let senderDocument = myQuery.collection("messages").document()
         
@@ -212,7 +214,7 @@ extension ChatMessageViewModel {
         ])
         
         // 수신자용 메시지 전송 저장
-        let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(chatRoomListId)
+        let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(saveChatRoomId)
         
         let recipientMessageDocument = partnerQuery.collection("messages").document()
         
@@ -225,7 +227,6 @@ extension ChatMessageViewModel {
             guard error == nil else { return }
             guard let document = documentSnapshot else { return }
             
-            
             partnerQuery.updateData([
                 "date": timestamp,
                 "newCount": (document.data()?["newCount"] as? Int ?? 0) + 1,
@@ -235,17 +236,54 @@ extension ChatMessageViewModel {
             self.chatText = ""
         }
     }
+    
+    // 메시지 전송 저장 chatRoomListId가 없는 경우
+    func handleSendNoId(uid: String, partnerId: String, completion: () -> ()) {
+        saveChatRoomId = UUID().uuidString
+    
+        let timestamp = Date()
+        
+        let query1 = FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").document(saveChatRoomId)
+        
+        query1.setData([
+            "date": timestamp,
+            "id": saveChatRoomId,
+            "isAlarm": true,
+            "newCount": 0,
+            "noticeBoardId": noticeBoardInfo.id,
+            "noticeBoardTitle": noticeBoardInfo.noticeBoardTitle,
+            "partnerId": partnerId,
+            "recentMessage": "",
+            "userId": uid
+        ])
+        
+        let query2 = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(saveChatRoomId)
+        
+        query2.setData([
+            "date": timestamp,
+            "id": saveChatRoomId,
+            "isAlarm": true,
+            "newCount": 0,
+            "noticeBoardId": noticeBoardInfo.id,
+            "noticeBoardTitle": noticeBoardInfo.noticeBoardTitle,
+            "partnerId": uid,
+            "recentMessage": "",
+            "userId": partnerId
+        ])
+        
+        completion()
+    }
 }
 
 //MARK: 메시지 전송 (Image)
 extension ChatMessageViewModel {
-    func handleSendImage(uid: String, partnerId: String, chatRoomListId: String) {
+    func handleSendImage(uid: String, partnerId: String) {
         let timestamp = Date()
         
         for image in self.selectedImages {
             self.nestedGroupImage.enter()
             
-            saveImage(image: image, chatRoomListId: chatRoomListId) { urlString in
+            saveImage(image: image) { urlString in
                 let messageData = [
                     "date": timestamp,
                     "imageURL": urlString,
@@ -258,7 +296,7 @@ extension ChatMessageViewModel {
                 // 발신자용 메시지 전송 저장
                 let myQuery = FirebaseManager.shared.firestore.collection("User")
                     .document(uid)
-                    .collection("chatRoomList").document(chatRoomListId)
+                    .collection("chatRoomList").document(self.saveChatRoomId)
                 
                 let senderDocument = myQuery.collection("messages").document()
                 
@@ -276,7 +314,7 @@ extension ChatMessageViewModel {
                 ])
                 
                 // 수신자용 메시지 전송 저장
-                let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(chatRoomListId)
+                let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(self.saveChatRoomId)
                 
                 let recipientMessageDocument = partnerQuery.collection("messages").document()
                 
@@ -306,10 +344,10 @@ extension ChatMessageViewModel {
     }
     
     //이미지 저장
-    func saveImage(image: UIImage, chatRoomListId: String, completion: @escaping(String) -> ()) {
+    func saveImage(image: UIImage, completion: @escaping(String) -> ()) {
         guard let imageData = image.jpegData(compressionQuality: 0.2) else { return }
         
-        let ref = FirebaseManager.shared.storage.reference().child("ChatRoom/\(chatRoomListId)/\(UUID().uuidString)")
+        let ref = FirebaseManager.shared.storage.reference().child("ChatRoom/\(saveChatRoomId)/\(UUID().uuidString)")
         
         ref.putData(imageData, metadata: nil) { metadata, err in
             guard err == nil else { return }
@@ -357,8 +395,8 @@ extension ChatMessageViewModel {
 //MARK: newCount 초기화
 extension ChatMessageViewModel {
     //채팅방 입장시 newCount 초기화
-    func initNewCount(uid: String, chatRoomId: String) {
-        FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").document(chatRoomId).updateData([
+    func initNewCount(uid: String) {
+        FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").document(saveChatRoomId).updateData([
             "newCount": 0
         ])
     }
@@ -366,10 +404,10 @@ extension ChatMessageViewModel {
 
 //MARK: 알림기능
 extension ChatMessageViewModel {
-    func changeAlarm(uid: String, chatRoomListId: String, isAlarm: Bool) {
+    func changeAlarm(uid: String, isAlarm: Bool) {
         let myQuery = FirebaseManager.shared.firestore.collection("User")
             .document(uid)
-            .collection("chatRoomList").document(chatRoomListId)
+            .collection("chatRoomList").document(saveChatRoomId)
         myQuery.updateData([
             "isAlarm": isAlarm ? false : true
         ])
@@ -379,21 +417,51 @@ extension ChatMessageViewModel {
 //MARK: NoticeBoard 상태값 변경
 extension ChatMessageViewModel {
     func changeState(state: Int, partnerId: String, noticeBoardId: String) {
-        let query = FirebaseManager.shared.firestore.collection("noticeBoard").document(noticeBoardId)
+        let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId)
+        let noticeQuery = FirebaseManager.shared.firestore.collection("noticeBoard").document(noticeBoardId)
         
-        if state == 0 {
-            query.updateData([
-                "state": state,
-                "reservationId": ""
-            ])
-            self.noticeBoardInfo.reservationId = ""
-        } else {
-            query.updateData([
-                "state": state,
-                "reservationId": partnerId
-            ])
-            self.noticeBoardInfo.reservationId = partnerId
+        print(partnerId)
+        partnerQuery.getDocument { documentSnapshot, error in
+            guard error == nil else { return }
+            guard let document = documentSnapshot?.data() else { return }
+            
+            var requests = document["requests"] as? [String] ?? []
+            
+            if state == 0 {
+                if let index = requests.firstIndex(of: noticeBoardId) {
+                    requests.remove(at: index)
+                    
+                    partnerQuery.updateData([
+                        "requests": requests
+                    ])
+                    
+                    noticeQuery.updateData([
+                        "state": state,
+                        "reservationId": ""
+                    ])
+                    
+                    self.noticeBoardInfo.reservationId = ""
+                } else {
+                    print("오류")
+                }
+            } else {
+                if !requests.contains(noticeBoardId) {
+                    requests.append(noticeBoardId)
+                    
+                    partnerQuery.updateData([
+                        "requests": requests
+                    ])
+                }
+                
+                noticeQuery.updateData([
+                    "state": state,
+                    "reservationId": partnerId
+                ])
+                
+                self.noticeBoardInfo.reservationId = partnerId
+            }
         }
+        
         self.noticeBoardInfo.state = state
     }
 }
