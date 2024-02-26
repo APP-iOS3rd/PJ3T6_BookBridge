@@ -42,6 +42,7 @@ extension NaverAuthManager: UIApplicationDelegate, NaverThirdPartyLoginConnectio
     // 토큰 삭제시
     func oauth20ConnectionDidFinishDeleteToken() {
         print("유저 정보 삭제")
+        NaverThirdPartyLoginConnection.getSharedInstance().requestDeleteToken()
     }
     
     // Error 발생
