@@ -12,6 +12,7 @@ struct PostView: View {
     @Environment(\.dismiss) private var dismiss
     
     @Binding var isShowPlusBtn: Bool
+//    @Binding var selectedBook: Item
     
     @StateObject var postViewModel = PostViewModel()
     @StateObject var reportViewmodel = ReportViewModel()
@@ -40,6 +41,13 @@ struct PostView: View {
                         //post 내용
                         PostContent(noticeBoard: $noticeBoard)
                                             
+                        Divider()
+                            .padding(.horizontal)
+                        
+                        // 희망도서 부분
+                        PostHopeBookListView(viewModel: postViewModel, hopeBooks: $noticeBoard.hopeBook, id: noticeBoard.id)
+                        
+                        
                         Divider()
                             .padding(.horizontal)
                                             
