@@ -13,13 +13,16 @@ struct ExchangeHopeExplainView: View {
     var body: some View {
         VStack {
             Text("교환하고 싶은 장소를 선택해주세요.")
-                .frame(maxWidth: .infinity, alignment: .leading)              .font(.system(size: 24))
+                .frame(maxWidth: .infinity, alignment: .leading)              
+                .font(.system(size: 20))
+                .bold()
                 .padding(.leading,14)
                 .padding(.top,16)
                 .padding(.bottom,14)
                 
             Text("누구나 찾기 쉬운 장소를 선택하는 것이 좋아요.")
-                .frame(maxWidth: .infinity, alignment: .leading)              .font(.system(size: 14))
+                .frame(maxWidth: .infinity, alignment: .leading)              
+                .font(.system(size: 14))
                 .padding(.leading,14)
                 .padding(.bottom,14)
             Spacer()
