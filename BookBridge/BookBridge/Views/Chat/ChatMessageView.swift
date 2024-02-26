@@ -162,8 +162,8 @@ struct ChatMessageView: View {
             withAnimation(.linear(duration: 0.2)) {
                 isPlusBtn = true
                 isShowKeyboard = false
+                isPresented = false
             }
-            isPresented = false
         }
         .transition(.move(edge: .bottom))
         //        .navigationTitle(noticeBoardTitle)

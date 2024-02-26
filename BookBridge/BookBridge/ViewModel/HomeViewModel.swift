@@ -35,7 +35,7 @@ extension HomeViewModel {
             guard error == nil else { return }
             guard let document = documentSnapshot else { return }
             
-            bookMarks = document["bookMark"] as? [String] ?? []
+            bookMarks = document["bookMarks"] as? [String] ?? []
             
             if (bookMarks.contains { $0 == id }) {
                 if let index = bookMarks.firstIndex(of: id) {
@@ -46,7 +46,7 @@ extension HomeViewModel {
             }
             
             self.db.collection("User").document(self.userManager.uid).updateData([
-                "bookMark": bookMarks
+                "bookMarks": bookMarks
             ])
             
             self.bookMarks = bookMarks
@@ -60,7 +60,7 @@ extension HomeViewModel {
                 return
             }
 
-            if let bookMarks = document.data()?["bookMark"] as? [String] {
+            if let bookMarks = document.data()?["bookMarks"] as? [String] {
                 var validBookMarks = [String]()
                 let group = DispatchGroup()
 
@@ -227,6 +227,7 @@ extension HomeViewModel {
                 )
                                 
                 DispatchQueue.main.async {
+                    print("데이터 변경 완료")
                     self.changeNoticeBoards = changeBoards
                     self.findNoticeBoards = findBoards
                 }

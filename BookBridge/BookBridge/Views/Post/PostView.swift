@@ -13,11 +13,12 @@ struct PostView: View {
     
     @Binding var isShowPlusBtn: Bool
     
-    @State private var isPresented = false
-    @State var noticeBoard: NoticeBoard
-    @State var url: [URL] = []
-    @StateObject private var postViewModel = PostViewModel()
+    @StateObject var postViewModel = PostViewModel()
     @StateObject var reportVM = ReportViewModel()
+    
+    @State var noticeBoard: NoticeBoard
+    
+    @State private var isPresented = false
     
     var storageManager = HomeFirebaseManager.shared
     
@@ -26,7 +27,7 @@ struct PostView: View {
             ScrollView() {
                 VStack {
                     if noticeBoard.isChange {
-                        PostImageView(url: $url)
+                        PostImageView(urlString: noticeBoard.noticeImageLink)
                     }
                     
                     PostUserInfoView(postViewModel: postViewModel)
@@ -40,7 +41,6 @@ struct PostView: View {
                     Divider()
                         .padding(.horizontal)
                                         
-                    
                     //상대방 책장
                     PostUserBookshelf(postViewModel: postViewModel)
                                         
@@ -88,8 +88,7 @@ struct PostView: View {
                             .frame(width: UIScreen.main.bounds.width, height: 57, alignment: Alignment.center)
                             .background(Color(hex: "59AAE0"))
                             .padding(1)
-                    }
-                    else if noticeBoard.state == 0 {
+                    } else if noticeBoard.state == 0 {
                         if postViewModel.chatRoomList.isEmpty {
                             NavigationLink {
                                 if let image = UIImage(contentsOfFile: "DefaultImage") {
@@ -107,7 +106,6 @@ struct PostView: View {
                                         uid: UserManager.shared.uid
                                     )
                                 }
-                                
                             } label: {
                                 Text("채팅하기")
                                     .foregroundStyle(Color.white)
@@ -152,41 +150,23 @@ struct PostView: View {
             .frame(alignment: Alignment.bottom)
         }
         .onAppear {
-            // 바꿔요 게시물 이미지 업로드
-            StorageManager.fetchImageURL(address: "NoticeBoard/\(noticeBoard.id)") { urls in
-                if let urls = urls {
-                    self.url = urls
-                }
-            }
-            
             isShowPlusBtn = false
-            
-            if !noticeBoard.noticeImageLink.isEmpty && noticeBoard.isChange {
-                Task {
-                    for image in noticeBoard.noticeImageLink {
-                        try await storageManager.downloadImage(noticeiId: noticeBoard.id, imageId: image) { url in
-                            self.url.append(url)
-                        }
-                        
-                    }
-                }
-            }
             
             Task {
                 postViewModel.gettingUserInfo(userId: noticeBoard.userId)
                 postViewModel.gettingUserBookShelf(userId: noticeBoard.userId, collection: "holdBooks")
                 postViewModel.gettingUserBookShelf(userId: noticeBoard.userId, collection: "wishBooks")
+                
                 if UserManager.shared.isLogin {
                     postViewModel.fetchChatList(noticeBoardId: noticeBoard.id)
                     postViewModel.fetchBookMark()
                 }
             }
-            if noticeBoard.noticeLocation.count >= 2 {
-                //                myCoord = (noticeBoard.noticeLocation[0], noticeBoard.noticeLocation[1])
-            }
         }
         .navigationTitle(noticeBoard.isChange ? "바꿔요" : "구해요")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden()
+        .toolbar(.hidden, for: .tabBar)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
@@ -207,7 +187,5 @@ struct PostView: View {
                 }
             }
         }
-        .navigationBarBackButtonHidden()
-        .toolbar(.hidden, for: .tabBar)
     }
 }

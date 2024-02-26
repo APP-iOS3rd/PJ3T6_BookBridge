@@ -14,6 +14,7 @@ import SwiftUI
 final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDelegate, NMFMapViewTouchDelegate, CLLocationManagerDelegate {
     @Published var coord: (Double, Double) = (0.0, 0.0)
     @Published var userLocation: (Double, Double) = (0.0, 0.0) // lat, lng
+    @Published var showLocationAlert = false
     
     static let shared = LocationViewModel()
     let view = NMFNaverMapView(frame: .zero)
@@ -21,6 +22,8 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
     
     override init() {
         super.init()
+                        
+        showLocationAlert = false
         
         view.mapView.positionMode = .direction
         view.mapView.isNightModeEnabled = true
@@ -44,8 +47,8 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
         }
     
     func checkLocationAuthorization() {
-        guard let locationManager = locationManager else { return }
-        
+        guard let locationManager = self.locationManager else { return }
+                        
         switch locationManager.authorizationStatus {
             
         case .notDetermined:
@@ -53,9 +56,10 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
         case .restricted:
             print("위치 정보 접근이 제한되었습니다.")
         case .denied:
-            print("위치 정보 접근을 거절했습니다. 설정에 가서 변경하세요.")
+            print("위치 정보 접근이 거부되었습니다.")
+            self.locationManager = CLLocationManager()
         case .authorizedAlways, .authorizedWhenInUse:
-            print("Success")
+            print("위치 정보 접근이 허용되었습니다.")
             
             coord = (Double(locationManager.location?.coordinate.latitude ?? 0.0), Double(locationManager.location?.coordinate.longitude ?? 0.0))
             userLocation = (Double(locationManager.location?.coordinate.latitude ?? 0.0), Double(locationManager.location?.coordinate.longitude ?? 0.0))
@@ -85,11 +89,10 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
     
     // 권한 요청하기
     func requestUseAuthorization(completion: @escaping () -> Void) {
-        self.locationManager = CLLocationManager()
-        self.locationManager?.delegate = self
-        if let locationManager = self.locationManager {
-            locationManager.requestWhenInUseAuthorization()
-        }
+        let locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.requestAlwaysAuthorization()
+        self.locationManager = locationManager
         completion()
     }
             
@@ -144,5 +147,9 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
                 completion(nil)
             }
         }
+    }
+    
+    func setShowLocationAlert() {
+        self.showLocationAlert = false
     }
 }

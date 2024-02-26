@@ -10,6 +10,7 @@ import SwiftUI
 struct FindPostingView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var pathModel: PostPathViewModel
+    @FocusState private var isShowKeyboard: Bool
     @StateObject var viewModel = PostingViewModel()
     @State private var showAlert = false
     @State private var alertMessage = ""
@@ -41,6 +42,7 @@ struct FindPostingView: View {
                                 .stroke(Color.gray, lineWidth: 1)
                         )
                         .padding(.bottom, 30)
+                        .focused($isShowKeyboard)
                     
                     // 상세 설명 입력 필드
                     VStack(alignment: .leading) {
@@ -55,6 +57,7 @@ struct FindPostingView: View {
                                     RoundedRectangle(cornerRadius: 10)
                                         .stroke(Color.gray, lineWidth: 1)
                                 )
+                                .focused($isShowKeyboard)
                             if viewModel.noticeBoard.noticeBoardDetail.isEmpty {
                                 VStack {
                                     HStack {
@@ -125,7 +128,7 @@ struct FindPostingView: View {
                     
                     
                     // 확인 버튼
-                    Button {
+                    Button {                        
                         if viewModel.noticeBoard.noticeBoardTitle.isEmpty && viewModel.noticeBoard.noticeBoardDetail.isEmpty {
                             alertMessage = "제목과 상세설명을 모두 입력해주세요."
                             showAlert = true
@@ -136,7 +139,9 @@ struct FindPostingView: View {
                             alertMessage = "상세설명을 입력해주세요."
                             showAlert = true
                         } else {
-                            viewModel.uploadPost(isChange: false, images: [])
+                            viewModel.uploadPost(isChange: false, images: []) {
+                                UserManager.shared.isChanged.toggle()
+                            }
                             dismiss()
                         }
                     } label: {
@@ -172,6 +177,9 @@ struct FindPostingView: View {
                             .foregroundStyle(.black)
                     }
                 }
+            }
+            .onTapGesture {
+                isShowKeyboard = false
             }
         }
         

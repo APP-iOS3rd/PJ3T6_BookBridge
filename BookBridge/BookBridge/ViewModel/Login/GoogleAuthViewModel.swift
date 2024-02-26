@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import SwiftUI
 
 final class GoogleAuthViewModel: ObservableObject {
+    @Published var isLogin = false
     
     func signInGoogle() async throws {
         let helper = GoogleSignManager()
@@ -22,10 +24,12 @@ final class GoogleAuthViewModel: ObservableObject {
                     if userData != nil {
                         // 로그인
                         UserManager.shared.login(uid: result.uid)
+                        self.isLogin.toggle()
                     } else {
                         // 회원가입
                         FirestoreSignUpManager.shared.addUser(id: result.uid, email: email, password: "", nickname: "", phoneNumber: "", fcmToken: fcmToken) {
                             UserManager.shared.login(uid: result.uid)
+                            self.isLogin.toggle()
                         }
                     }
                 }

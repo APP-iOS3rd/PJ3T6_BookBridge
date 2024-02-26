@@ -81,7 +81,7 @@ struct ReviewScoreView: View {
                     .background(Color(hex: "FFD9E5"))
                     .cornerRadius(5)
                 
-                Text("\(viewModel.mannerScore)점")
+                Text(viewModel.mannerScore == -1 ? "평점없음" : "\(viewModel.mannerScore)점")
                     .font(.system(size: 17, weight: .semibold))
             }
         }
