@@ -17,6 +17,7 @@ struct FindIdView: View {
         
         VStack {
             
+            
             Image("Character")
             
             

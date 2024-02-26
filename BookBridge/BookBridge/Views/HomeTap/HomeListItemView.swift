@@ -70,10 +70,21 @@ struct HomeListItemView: View {
                 
                 Spacer()
                 
-                Text("\(location) | \(ConvertManager.getTimeDifference(from: date))")
-                    .font(.system(size: 10))
-                    .padding(.bottom, 10)
-                    .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))
+                HStack{
+                    Text("\(location.count>=20 ? location.components(separatedBy: " ")[3] : location) |")
+                            .font(.system(size: 10))
+                            .lineLimit(1)
+                            .padding(.bottom, 10)
+                            .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))
+                    
+                        Text("\(ConvertManager.getTimeDifference(from: date))")
+                            .font(.system(size: 10))
+                            .padding(.bottom, 10)
+                            .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))
+                }
+             
+                
+                
             }
             
             Spacer()

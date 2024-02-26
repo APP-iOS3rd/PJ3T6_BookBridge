@@ -160,20 +160,77 @@ extension PostViewModel {
         }
     }
     
-    // Firestore에서 게시물 삭제
     func deletePost(noticeBoardId: String) {
+        
         db.collection("noticeBoard").document(noticeBoardId).delete() { err in
             if let err = err {
                 print("Error removing document: \(err)")
             } else {
                 print("Document successfully removed!")
+                
+                self.deletePosthopeBooks(noticeBoardId: noticeBoardId)
                 // 사용자 게시물 목록에서 게시물 삭제
                 self.deleteFromUserPosts(noticeBoardId: noticeBoardId)
                 // Storage에서 해당 게시물의 이미지 폴더 삭제
                 self.deleteFolder(folderPath: "NoticeBoard/\(noticeBoardId)")
+                
+                
             }
         }
     }
+    
+    // Firestore에서 게시물 삭제
+    func deletePosthopeBooks(noticeBoardId: String) {
+            // hopeBooks 컬렉션의 모든 문서를 가져옵니다.
+            db.collection("noticeBoard").document(noticeBoardId).collection("hopeBooks").getDocuments { [weak self] (snapshot, error) in
+                guard let documents = snapshot?.documents else {
+                    print("Error getting hopeBooks documents: \(error?.localizedDescription ?? "")")
+                    return
+                }
+                
+                let group = DispatchGroup()
+                
+                for document in documents {
+                    let hopeBookId = document.documentID
+
+                    // 각 hopeBook의 industryIdentifiers 컬렉션을 삭제합니다.
+                    self?.deleteIndustryIdentifiers(noticeBoardId: noticeBoardId, hopeBookId: hopeBookId, group: group)
+
+                    // hopeBook 문서를 삭제합니다.
+                    group.enter()
+                    self?.db.collection("noticeBoard").document(noticeBoardId).collection("hopeBooks").document(hopeBookId).delete() { err in
+                        if let err = err {
+                            print("Error removing hopeBook document: \(err)")
+                        } else {
+                            print("hopeBook document successfully removed!")
+                        }
+                        group.leave()
+                    }
+                }// 모든 하위 컬렉션과 문서가 삭제되면 noticeBoard 문서를 삭제합니다.
+               
+            }
+        }
+    
+    private func deleteIndustryIdentifiers(noticeBoardId: String, hopeBookId: String, group: DispatchGroup) {
+           db.collection("noticeBoard").document(noticeBoardId).collection("hopeBooks").document(hopeBookId).collection("industryIdentifiers").getDocuments { (snapshot, error) in
+               guard let industryDocuments = snapshot?.documents else {
+                   print("No documents in 'industryIdentifiers'")
+                   return
+               }
+
+               for industryDoc in industryDocuments {
+                   group.enter()
+                   industryDoc.reference.delete() { err in
+                       if let err = err {
+                           print("Error deleting industry identifier: \(err)")
+                       } else {
+                           print("Industry identifier successfully deleted")
+                       }
+                       group.leave()
+                   }
+               }
+           }
+       }
 
     // 사용자 게시물 목록에서 삭제
     private func deleteFromUserPosts(noticeBoardId: String) {
