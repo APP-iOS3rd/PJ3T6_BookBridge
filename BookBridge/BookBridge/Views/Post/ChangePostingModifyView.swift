@@ -119,8 +119,7 @@ struct ChangePostingModifyView: View {
                     Button {
                         dismiss()
                     } label: {
-                        Image(systemName: "xmark")
-                            .font(.system(size: 16))
+                        Image(systemName: "chevron.left")
                             .foregroundStyle(.black)
                     }
                 }
@@ -142,4 +141,5 @@ struct ChangePostingModifyView: View {
             }
         }
     }
+    
 }
