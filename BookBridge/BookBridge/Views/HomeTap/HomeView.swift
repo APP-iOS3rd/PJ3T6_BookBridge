@@ -9,8 +9,7 @@ import SwiftUI
 import FirebaseStorage
 
 struct HomeView: View {
-    @Binding var isShowPlusBtn: Bool
-    
+    @Binding var isShowPlusBtn: Bool    
     @StateObject var viewModel = HomeViewModel()
     @StateObject var userManager = UserManager.shared
     @StateObject var locationManager = LocationManager.shared

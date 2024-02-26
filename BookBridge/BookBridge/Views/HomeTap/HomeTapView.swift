@@ -29,8 +29,7 @@ struct HomeTapView: View {
                             .padding(.leading, 8)
                         
                         TextField("검색어를 입력해주세요", text: $text, onCommit: {
-                            if UserManager.shared.isLogin {
-                                
+                            if UserManager.shared.isLogin {                                
                                 viewModel.addRecentSearch(user: UserManager.shared.uid, text: text, category: tapCategory)
                             }
                             else {
@@ -79,8 +78,9 @@ struct HomeTapView: View {
                     
                     if isOutsideXmark  {
                         Button{
-                            if isInsideXmark == false{
+                            if isInsideXmark == false {
                                 isOutsideXmark = false
+                                hideKeyboard()
                             }
                         } label: {
                             Image(systemName: "xmark")
