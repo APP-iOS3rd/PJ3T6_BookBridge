@@ -89,63 +89,16 @@ class KakaoLoginViewModel : ObservableObject {
         }
     }
     
-//    func loadingInfoDidKakaoAuth() {  // 사용자 정보 불러오기
-//        UserApi.shared.me { kakaoUser, error in
-//            if let error = error {
-//                print("카카오톡 사용자 정보 불러오는데 실패했습니다.")
-//
-//                return
-//            }
-//            guard let email = kakaoUser?.kakaoAccount?.email else { return }
-//            guard let password = kakaoUser?.id else { return }
-//            guard let userName = kakaoUser?.kakaoAccount?.profile?.nickname else { return }
-//
-//            self.emailAuthSignUp(email: email, userName: userName, password: "\(password)") {
-//                self.emailAuthSignIn(email: email, password: "\(password)")
-//            }
-//        }
-//    }
-//    func loadingInfoDidKakaoAuth() {
-//        UserApi.shared.me { kakaoUser, error in
-//            if let error = error {
-//                print("카카오톡 사용자 정보 불러오는데 실패했습니다.")
-//                return
-//            }
-//            guard let email = kakaoUser?.kakaoAccount?.email else { return }
-//            let password = String(kakaoUser?.id ?? 0) // Kakao ID를 비밀번호로 사용
-//            guard let userName = kakaoUser?.kakaoAccount?.profile?.nickname else { return }
-//
-//            self.emailAuthSignUp(email: email, userName: userName, password: "\(password)") {
-//                            self.emailAuthSignIn(email: email, password: "\(password)")
-//            }
-//            //Auth에서 찾고 -> Auth에서 접ㄱ
-//            FirestoreSignUpManager.shared.checkIfUserExists(email: email) { exists in
-//                if exists {
-//                    // 사용자가 존재함, 로그인 처리
-//                    self.emailAuthSignIn(email: email, password: password)
-//                        // 로그인 성공 후 Firestore에서 사용자 정보 가져오기
-//                        FirestoreSignUpManager.shared.getUserData(email: email) { userData in
-//                            if let userData = userData {
-//                                // 사용자 정보 처리
-//                                print("HELLO")
-//                                print(userData)
-//                                self.state = .signedIn
-//                            } else {
-//                                // 사용자 데이터를 찾을 수 없음. 필요한 경우 오류 처리
-//                                print("ERROR")
-//                            }
-//                        }
-//
-//                } else {
-//                    // 사용자가 존재하지 않으면 새로 등록
-//                    FirestoreSignUpManager.shared.register(email: email, password: password, nickname: userName) {
-//                        self.state = .signedIn
-//                        // 필요한 경우 추가적인 처리 수행
-//                    }
-//                }
-//            }
-//        }
-//    }
+    func kakaoUnlink() {
+        UserApi.shared.unlink { (error) in
+            if let error = error {
+                print("Kakao 계정 연결 해제 실패: \(error.localizedDescription)")
+            } else {
+                print("Kakao 계정 연결 해제 성공. 토큰이 삭제되었습니다.")
+            }
+        }
+    }
+    
     
     func loadingInfoDidKakaoAuth() {
         UserApi.shared.me { kakaoUser, error in

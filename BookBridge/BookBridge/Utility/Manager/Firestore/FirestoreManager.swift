@@ -247,7 +247,6 @@ class FirestoreManager {
                 completion(false)
             } else {
                 print("사용자 문서 삭제 성공")
-                print(uid)
                 completion(true)
             }
         }
