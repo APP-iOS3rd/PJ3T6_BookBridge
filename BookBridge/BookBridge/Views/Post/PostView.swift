@@ -44,7 +44,7 @@ struct PostView: View {
                             .padding(.horizontal)
                                             
                         //상대방 책장
-                        PostUserBookshelf(postViewModel: postViewModel)
+                        PostUserBookshelf(postViewModel: postViewModel,isShowPlusBtn : $isShowPlusBtn)
                                             
                         Divider()
                             .padding(.horizontal)
