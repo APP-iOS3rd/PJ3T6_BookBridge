@@ -9,7 +9,6 @@ import SwiftUI
 
 struct Inquiry: Identifiable, Codable {
     var id = UUID().uuidString
-    var categories: String
     var inquiryUserId: String // 문의한 사용자 ID
     var category: InquiryCategory // 문의 유형
     var inquiryComments: String? // 문의 내용
@@ -25,3 +24,4 @@ struct Inquiry: Identifiable, Codable {
 
     }
 }
+
