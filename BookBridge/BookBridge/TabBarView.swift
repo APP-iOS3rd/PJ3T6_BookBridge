@@ -20,7 +20,7 @@ struct TabBarView: View {
     @State private var shouldShowActionSheet = false
     
     let userId : String?
-                   
+    
     var body: some View {
         VStack {
             ZStack {
@@ -93,7 +93,7 @@ struct TabBarView: View {
                         Image(systemName: "books.vertical")
                     }
                     .tag(2)
-                                                        
+                    
                     //마이페이지
                     NavigationStack {
                         MyPageView(isShowPlusBtn: $isShowPlusBtn,selectedTab : $selectedTab)
@@ -111,7 +111,7 @@ struct TabBarView: View {
                         Image(systemName: "person.circle")
                     }
                     .tag(3)
-                
+                    
                 }
                 .background(Color.white.onTapGesture {
                     self.hideKeyboard()

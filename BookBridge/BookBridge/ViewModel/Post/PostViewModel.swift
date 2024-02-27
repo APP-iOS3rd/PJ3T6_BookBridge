@@ -18,7 +18,7 @@ class PostViewModel: ObservableObject {
     @Published var user: UserModel = UserModel()
     @Published var userChatRoomId: String = ""
     @Published var userUIImage: UIImage = UIImage(named: "Character")!
-        
+    
     let db = Firestore.firestore()
     
     let nestedGroup = DispatchGroup()
@@ -63,7 +63,7 @@ extension PostViewModel {
                         }
                     } catch {
                         print("Error decoding User locations: \(error)")
-
+                        
                     }
                 }
             }
@@ -221,15 +221,50 @@ extension PostViewModel {
     
     // Firestore에서 게시물 삭제
     func deletePost(noticeBoardId: String) {
+        //상대방 및 나 관심목록, 요청내역 삭제
+        db.collection("User").whereFilter(Filter.orFilter([
+            Filter.whereField("requests", arrayContains: noticeBoardId),
+            Filter.whereField("bookMarks", arrayContains: noticeBoardId)
+        ])).getDocuments { querySnapshot, error in
+            guard error == nil else { return }
+            guard let documets = querySnapshot?.documents else { return }
+            
+            for documet in documets {
+                self.db.collection("User").document(documet.documentID).getDocument { documentSnapshot, err in
+                    guard err == nil else { return }
+                    guard let doc = documentSnapshot else { return }
+                    
+                    var bookMarks = doc.data()?["bookMarks"] as? [String] ?? []
+                    var requests = doc.data()?["requests"] as? [String] ?? []
+                    
+                    if let index = bookMarks.firstIndex(where: { $0 == noticeBoardId }) {
+                        bookMarks.remove(at: index)
+                    }
+                    
+                    if let index = requests.firstIndex(where: { $0 == noticeBoardId }) {
+                        requests.remove(at: index)
+                    }
+                    
+                    self.db.collection("User").document(documet.documentID).updateData([
+                        "bookMarks": bookMarks,
+                        "requests": requests
+                    ])
+                }
+            }
+        }
+        
+        db.collection("User").document(UserManager.shared.uid).collection("myNoticeBoard").document(noticeBoardId).delete() { err in
+            guard err == nil else { return }
+            self.deletePostWithSubcollections(noticeBoardId: noticeBoardId, isMyNoticeBoard: true)
+        }
+        
         db.collection("noticeBoard").document(noticeBoardId).delete() { err in
             if let err = err {
                 print("Error removing document: \(err)")
             } else {
                 print("Document successfully removed!")
                 
-                self.deletePostWithSubcollections(noticeBoardId: noticeBoardId)
-                // 사용자 게시물 목록에서 게시물 삭제
-                self.deleteFromUserPosts(noticeBoardId: noticeBoardId)
+                self.deletePostWithSubcollections(noticeBoardId: noticeBoardId, isMyNoticeBoard: false)
                 // Storage에서 해당 게시물의 이미지 폴더 삭제
                 self.deleteFolder(folderPath: "NoticeBoard/\(noticeBoardId)")
                 
@@ -237,20 +272,16 @@ extension PostViewModel {
             }
         }
     }
-
-    // 사용자 게시물 목록에서 삭제
-    private func deleteFromUserPosts(noticeBoardId: String) {
-        db.collection("User").document(UserManager.shared.uid).collection("myNoticeBoard").document(noticeBoardId).delete() { err in
-            if let err = err {
-                print("Error removing document from user posts: \(err)")
-            } else {
-                print("Document successfully removed from user posts!")
-            }
-        }
-    }
-    func deletePostWithSubcollections(noticeBoardId: String) {
+    
+    func deletePostWithSubcollections(noticeBoardId: String, isMyNoticeBoard: Bool) {
+        var hopeBooksRef: Query
         // 하위 컬렉션의 모든 문서를 찾아서 삭제
-        let hopeBooksRef = db.collection("noticeBoard").document(noticeBoardId).collection("hopeBooks")
+        if isMyNoticeBoard {
+          hopeBooksRef = db.collection("User").document(UserManager.shared.uid).collection("myNoticeBoard").document(noticeBoardId).collection("hopeBooks")
+        } else {
+          hopeBooksRef = db.collection("noticeBoard").document(noticeBoardId).collection("hopeBooks")
+        }
+      
         hopeBooksRef.getDocuments { (snapshot, error) in
             guard let documents = snapshot?.documents else {
                 print("Error fetching subcollection documents: \(error?.localizedDescription ?? "")")
@@ -265,19 +296,9 @@ extension PostViewModel {
                     }
                 }
             }
-
-            // 상위 문서 삭제
-            self.db.collection("noticeBoard").document(noticeBoardId).delete() { error in
-                if let error = error {
-                    print("Error deleting main document: \(error)")
-                } else {
-                    print("Main document and all subcollection documents successfully deleted")
-                }
-            }
         }
     }
-
-
+  
     // 폴더 삭제 함수
     func deleteFolder(folderPath: String) {
         let storageRef = Storage.storage().reference().child(folderPath)
@@ -295,7 +316,7 @@ extension PostViewModel {
                 print("Error listing files: \(error)")
                 return
             }
-
+            
             // 각 파일을 순회하며 삭제
             for item in result.items {
                 item.delete { error in
@@ -316,7 +337,7 @@ extension PostViewModel {
 extension PostViewModel {
     func fetchChatList(noticeBoardId: String) {
         let docRef = db.collection("User").document(UserManager.shared.uid).collection("chatRoomList").whereField("noticeBoardId", isEqualTo: noticeBoardId)
-            
+        
         docRef.getDocuments { [weak self] (querySnapshot, error) in
             guard let documents = querySnapshot?.documents, error == nil else {
                 print("Error getting documents: \(error?.localizedDescription ?? "")")
@@ -376,15 +397,15 @@ extension PostViewModel {
 // TODO: 채팅하기 벼튼 및 네비게이션을 위한 data fetch
 /*
  내 게시글
-    - ChatRoomListView 로 감  w. (noticeBoardId)
-    - User/userid/chatRoomList/ 에 where noticeBoardid 가 일치하는 갯수 가져옴
+ - ChatRoomListView 로 감  w. (noticeBoardId)
+ - User/userid/chatRoomList/ 에 where noticeBoardid 가 일치하는 갯수 가져옴
  다른 사람 게시글
-    - 진행중인 채팅방이 있을 경우
-        - User/userid/chatRoomList/ 에 where noticeBoardid 가 일치하는 채팅 모델을 가져옴
-        - status 판단 후 status에 따른 뷰 설정
-        - (chatRoomId, userId, noticeBoardId, 게시글 작성자 id)
-    - 진행중인 채팅방이 없을 경우
-        - User/userid/chatRoomList/ 에 where noticeBoardid 가 일치하는 채팅 모델 검색 후 없으면
-        - 채팅하기 로 뷰 설정
-        - (chatRoomId = "", userId, noticeBoardId, 게시글 작성자 id)
+ - 진행중인 채팅방이 있을 경우
+ - User/userid/chatRoomList/ 에 where noticeBoardid 가 일치하는 채팅 모델을 가져옴
+ - status 판단 후 status에 따른 뷰 설정
+ - (chatRoomId, userId, noticeBoardId, 게시글 작성자 id)
+ - 진행중인 채팅방이 없을 경우
+ - User/userid/chatRoomList/ 에 where noticeBoardid 가 일치하는 채팅 모델 검색 후 없으면
+ - 채팅하기 로 뷰 설정
+ - (chatRoomId = "", userId, noticeBoardId, 게시글 작성자 id)
  */

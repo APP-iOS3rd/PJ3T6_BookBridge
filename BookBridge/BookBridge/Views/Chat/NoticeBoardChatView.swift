@@ -118,6 +118,5 @@ struct NoticeBoardChatView: View {
             }
             .padding(-8)
         }
-        
     }
 }
