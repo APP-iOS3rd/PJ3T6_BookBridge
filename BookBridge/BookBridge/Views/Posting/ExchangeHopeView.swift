@@ -81,6 +81,7 @@ struct UIExchangeHopeView: UIViewRepresentable {
         // 초기 카메라 위치 줌
         let cameraUpdate: NMFCameraUpdate
         
+        
         // 마커가 없을때, 내 위치. 있으면, 마커위치
         if let cameraCoord = markerCoord {
             cameraUpdate = NMFCameraUpdate(scrollTo: cameraCoord, zoomTo: 15)

@@ -40,6 +40,7 @@ struct StyleSettingView: View {
         }
         .navigationBarBackButtonHidden()
         .navigationTitle("칭호")
+        .navigationBarTitleDisplayMode(.inline)
         .padding(.horizontal)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
