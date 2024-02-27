@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct ChatBottomBarView: View {
-    @StateObject var viewModel: ChatMessageViewModel
     @AppStorage("isAlarmEnabled") private var isChattingAlarm: Bool = true
-    @State var chatTextArr: [Substring] = []
-    @State var isShowingPhoto = false
-    @State var isShowingCamera = false
     
+    @Binding var isPlusBtn: Bool
+    
+    @StateObject var viewModel: ChatMessageViewModel
+    
+    @State var chatTextArr: [Substring] = []
+    
+    @State private var isShowingCamera = false
+    @State private var isShowingLocation = false
+    @State private var isShowingPhoto = false
     @State private var keyboardHeight: CGFloat = 0
     
     @FocusState.Binding var isShowKeyboard: Bool
-    
-    @Binding var isPlusBtn: Bool
     
     var chatRoomListId: String
     var partnerId: String
@@ -152,22 +155,41 @@ struct ChatBottomBarView: View {
                     Spacer()
                     
                     VStack {
-                        Button(action: {
-                            // 위치 공유 버튼 기능 구현
-                        }) {
+                        Button {
+                            isShowingLocation.toggle()
+                        } label: {
                             Image(systemName: "mappin.and.ellipse")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 30, height: 30)
                                 .foregroundStyle(Color(.darkGray))
+                                .padding()
+                                .background(
+                                    Circle()
+                                        .frame(width: 60, height: 60)
+                                        .foregroundColor(Color.yellow)
+                                        .opacity(0.6)
+                                )
                         }
-                        .padding()
-                        .background(
-                            Circle()
-                                .frame(width: 60, height: 60)
-                                .foregroundColor(Color.yellow)
-                                .opacity(0.6)
-                        )
+
+                        
+//                        NavigationLink {
+//                            ChatExchangeHopeView(viewModel: viewModel, partnerId: partnerId, uid: uid)
+//                        } label: {
+//                            Image(systemName: "mappin.and.ellipse")
+//                                .resizable()
+//                                .scaledToFit()
+//                                .frame(width: 30, height: 30)
+//                                .foregroundStyle(Color(.darkGray))
+//                                .padding()
+//                                .background(
+//                                    Circle()
+//                                        .frame(width: 60, height: 60)
+//                                        .foregroundColor(Color.yellow)
+//                                        .opacity(0.6)
+//                                )
+//                        }
+                        
                         Text("위치공유")
                     }
                     
@@ -212,6 +234,13 @@ struct ChatBottomBarView: View {
         }) {
             ImagePicker(isVisible: $isShowingCamera, images: $viewModel.selectedImages, sourceType: $zero)
                 .ignoresSafeArea(.all)
+        }
+        .fullScreenCover(isPresented: $isShowingLocation, onDismiss: {
+            withAnimation(.linear(duration: 0.2)) {
+                isPlusBtn.toggle()
+            }
+        }) {
+            ChatExchangeHopeView(viewModel: viewModel, partnerId: partnerId, uid: uid)
         }
     }
 }
