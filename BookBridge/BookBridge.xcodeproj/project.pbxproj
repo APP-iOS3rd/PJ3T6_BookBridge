@@ -21,6 +21,7 @@
 		1DB39DBA2B6B57B100C1B489 /* BookShelfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DB92B6B57B100C1B489 /* BookShelfView.swift */; };
 		1DB39DBC2B6B57F100C1B489 /* BookShelfViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */; };
 		1DB39DC02B6B8A5300C1B489 /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DBF2B6B8A5300C1B489 /* BookDetailView.swift */; };
+		1DC6CF3B2B8CE72200944694 /* PostHopeBookListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6CF3A2B8CE72200944694 /* PostHopeBookListView.swift */; };
 		1DCFB01E2B687D7000250D55 /* FindIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB01D2B687D7000250D55 /* FindIdView.swift */; };
 		1DCFB0222B68CB4400250D55 /* FindIdVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0212B68CB4400250D55 /* FindIdVM.swift */; };
 		1DCFB0242B68CD3100250D55 /* FindPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */; };
@@ -244,6 +245,7 @@
 		1DB39DB92B6B57B100C1B489 /* BookShelfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfView.swift; sourceTree = "<group>"; };
 		1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfViewModel.swift; sourceTree = "<group>"; };
 		1DB39DBF2B6B8A5300C1B489 /* BookDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
+		1DC6CF3A2B8CE72200944694 /* PostHopeBookListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHopeBookListView.swift; sourceTree = "<group>"; };
 		1DCFB01D2B687D7000250D55 /* FindIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdView.swift; sourceTree = "<group>"; };
 		1DCFB0212B68CB4400250D55 /* FindIdVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdVM.swift; sourceTree = "<group>"; };
 		1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordView.swift; sourceTree = "<group>"; };
@@ -1059,6 +1061,7 @@
 				5A3380732B8734A90038F2DE /* PostBookListView.swift */,
 				5A3380782B8769B80038F2DE /* PostMenuBtnsView.swift */,
 				5A33807C2B8772550038F2DE /* PostMapView.swift */,
+				1DC6CF3A2B8CE72200944694 /* PostHopeBookListView.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -1458,6 +1461,7 @@
 				73E1FD552B74747A0038FB95 /* FirebaseStyleManager.swift in Sources */,
 				736127072B6B543A00943CD7 /* NaverAuthManager.swift in Sources */,
 				73441FA92B733DEF00446E0F /* StyleModel.swift in Sources */,
+				1DC6CF3B2B8CE72200944694 /* PostHopeBookListView.swift in Sources */,
 				5AA82E5E2B67891E006EFC72 /* SmtpManager.swift in Sources */,
 				5A3E020B2B6F9FCD008F8CFD /* TestView.swift in Sources */,
 				738EDAA52B7225950066ADE7 /* UIImageExtension.swift in Sources */,

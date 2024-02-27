@@ -35,13 +35,19 @@ struct SearchBooksView: View {
                     Button {
                         if !(isWish == .search) {
                             hopeBooks = []
-                        }
-                                                
+                        }                                                
                         dismiss()
                     } label: {
-                        Image(systemName: "xmark")
-                            .font(.system(size: 16))
-                            .foregroundStyle(.black)
+                        if isWish == .search {
+                            Image(systemName: "chevron.left")
+                                .foregroundStyle(.black)
+                        }
+                        else {
+                            Image(systemName: "xmark")
+                                .font(.system(size: 16))
+                                .foregroundStyle(.black)
+                        }
+                        
                     }
                     
                     Spacer()

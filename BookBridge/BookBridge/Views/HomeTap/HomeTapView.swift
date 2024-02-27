@@ -112,7 +112,8 @@ struct HomeTapView: View {
                                             locate: element.noticeLocation,
                                             title: element.noticeBoardTitle,
                                             userId: element.userId,
-                                            location: element.noticeLocationName
+                                            location: element.noticeLocationName, 
+                                            detail: element.noticeBoardDetail
                                         )
                                     }
                                 } else {
@@ -129,7 +130,8 @@ struct HomeTapView: View {
                                             locate: element.noticeLocation,
                                             title: element.noticeBoardTitle,
                                             userId: element.userId,
-                                            location: element.noticeLocationName
+                                            location: element.noticeLocationName,
+                                            detail: ""
                                         )
                                     }
                                     
@@ -153,7 +155,8 @@ struct HomeTapView: View {
                                             locate: element.noticeLocation,
                                             title: element.noticeBoardTitle,
                                             userId: element.userId,
-                                            location: element.noticeLocationName
+                                            location: element.noticeLocationName,
+                                            detail: element.noticeBoardDetail
                                         )
                                     }
                                 } else {
@@ -170,7 +173,8 @@ struct HomeTapView: View {
                                             locate: element.noticeLocation,
                                             title: element.noticeBoardTitle,
                                             userId: element.userId,
-                                            location: element.noticeLocationName
+                                            location: element.noticeLocationName,
+                                            detail: element.noticeBoardDetail
                                         )
                                     }
                                     
@@ -195,7 +199,8 @@ struct HomeTapView: View {
                                         locate: element.noticeLocation,
                                         title: element.noticeBoardTitle,
                                         userId: element.userId,
-                                        location: element.noticeLocationName
+                                        location: element.noticeLocationName,
+                                        detail: element.noticeBoardDetail
                                     )
                                 }
                             }
@@ -218,7 +223,8 @@ struct HomeTapView: View {
                                         locate: element.noticeLocation,
                                         title: element.noticeBoardTitle,
                                         userId: element.userId,
-                                        location: element.noticeLocationName
+                                        location: element.noticeLocationName,
+                                        detail: element.noticeBoardDetail
                                     )
                                 }
                             }
@@ -286,7 +292,8 @@ struct HomeTapView: View {
                                     locate: element.noticeLocation,
                                     title: element.noticeBoardTitle,
                                     userId: element.userId,
-                                    location: element.noticeLocationName
+                                    location: element.noticeLocationName,
+                                    detail: element.noticeBoardDetail
                                 )
                             }
                         } else {
@@ -304,7 +311,8 @@ struct HomeTapView: View {
                                     locate: element.noticeLocation,
                                     title: element.noticeBoardTitle,
                                     userId: element.userId,
-                                    location: element.noticeLocationName
+                                    location: element.noticeLocationName,
+                                    detail: ""
                                 )
                             }
                             
@@ -327,7 +335,8 @@ struct HomeTapView: View {
                                 locate: element.noticeLocation,
                                 title: element.noticeBoardTitle,
                                 userId: element.userId,
-                                location: element.noticeLocationName
+                                location: element.noticeLocationName,
+                                detail: element.noticeBoardDetail
                             )
                         }
                     }

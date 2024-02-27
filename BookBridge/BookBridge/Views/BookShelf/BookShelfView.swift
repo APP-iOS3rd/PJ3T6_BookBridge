@@ -23,6 +23,7 @@ struct BookShelfView: View {
     @State private var userName: String = ""
     @Environment(\.dismiss) private var dismiss
     @State private var isOwnShelf: Bool = true
+    @State var ismore : Bool
     @Binding var isShowPlusBtn: Bool
     var isBack : Bool?
     var userId : String?
@@ -31,12 +32,13 @@ struct BookShelfView: View {
     
     
     
-    init(userId: String?, initialTapInfo: tapInfo, isBack: Bool, isShowPlusBtn: Binding<Bool>) {
+    init(userId: String?, initialTapInfo: tapInfo, isBack: Bool, isShowPlusBtn: Binding<Bool>, ismore : Bool) {
         _viewModel = StateObject(wrappedValue: BookShelfViewModel(userId: userId))
         self.userId = userId
         _selectedPicker = State(initialValue: initialTapInfo)
         self.isBack = isBack
         _isShowPlusBtn = isShowPlusBtn // Binding 변수를 직접 할당
+        _ismore = State(initialValue: ismore)
     }
     
     
@@ -100,38 +102,42 @@ struct BookShelfView: View {
                 Spacer()
                     .frame(height: 20)
                 
-                
-                BookSearchBar(text: $searchText, isShowPlusBtn: $isShowPlusBtn, placeholder: searchBarPlaceholder)
-                    .onTapGesture {
-                        isShowPlusBtn = false
+                VStack{
+                    BookSearchBar(text: $searchText, isShowPlusBtn: $isShowPlusBtn, placeholder: searchBarPlaceholder)
+                        .onTapGesture {
+                            isShowPlusBtn = false
+                        }
+                        .onChange(of: searchText) { newValue in
+                            viewModel.filterBooks(for: selectedPicker, searchText: newValue)
+                        }
+                    
+                    
+                    
+                    Spacer()
+                        .frame(height: 20)
+                    
+                    BookView(selectedBook: $selectedBook, isEditing: $isEditing ,isShowPlusBtn: $isShowPlusBtn, ismore: $ismore, tap: selectedPicker )
+                        .environmentObject(viewModel)
+                        .sheet(item: $selectedBook,onDismiss: {viewModel.fetchBooks(for: selectedPicker)}) { book in
+                            BookDetailView(selectedPicker: $selectedPicker, isButton: true, book: book )
+                                .environmentObject(viewModel)
+                                .presentationDetents([.large])
+                            
+                        }
+                }
+                .onTapGesture {
+                    hideKeyboard()
+                    if !ismore{
+                        isShowPlusBtn = true
                     }
-                    .onChange(of: searchText) { newValue in
-                        viewModel.filterBooks(for: selectedPicker, searchText: newValue)
-                    }
-                
-                
-                
-                Spacer()
-                    .frame(height: 20)
-                
-                BookView(selectedBook: $selectedBook, isEditing: $isEditing ,isShowPlusBtn: $isShowPlusBtn, tap: selectedPicker)
-                    .environmentObject(viewModel)
-                    .sheet(item: $selectedBook,onDismiss: {viewModel.fetchBooks(for: selectedPicker)}) { book in
-                        BookDetailView(selectedPicker: $selectedPicker, book: book)
-                            .environmentObject(viewModel)
-                            .presentationDetents([.large])
-                        
-                    }
+                    
+                }
                     
                 
                 
                 
             }
-            .padding(.horizontal)
-            .onTapGesture {
-                hideKeyboard()
-                isShowPlusBtn = true
-            }
+            .padding(.horizontal)            
             .onAppear{
                 viewModel.fetchBooks(for: selectedPicker)
             }
