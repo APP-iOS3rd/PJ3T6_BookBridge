@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SettingView: View {
+    @StateObject var inquiryVM = InquiryViewModel()
+    
     @Environment(\.dismiss) private var dismiss
     @StateObject var settingVM = SettingViewModel()
     @State private var showingLogoutAlert = false
@@ -60,7 +62,7 @@ struct SettingView: View {
             )
             
             NavigationLink {
-//                InquiryView(t)
+                InquiryView(inquiryVM: inquiryVM)
             } label: {
                 HStack {
                     Text("문의 및 건의사항")
