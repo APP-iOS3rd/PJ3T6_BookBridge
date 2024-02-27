@@ -506,7 +506,7 @@ extension ChatMessageViewModel {
     }
     
     private func sendNotificationAPI(to userId: String, withMessage message: String) async {
-        guard let url = URL(string: "http://192.168.0.16:3000/send-notification") else { return }
+        guard let url = URL(string: "http://52.62.224.89:3000/send-notification") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
