@@ -77,7 +77,7 @@ extension ChatMessageViewModel {
             guard let isChange = document.data()?["isChange"] as? Bool else { return }
             guard let noticeImageLink = document.data()?["noticeImageLink"] as? [String] else { return }
             guard let reservationId = document.data()?["reservationId"] as? String else { return }
-
+            
             if isChange {          //바꿔요 게시물
                 let noticeBoard = NoticeBoard(
                     id: document.data()?["noticeBoardId"] as? String ?? "",
@@ -240,7 +240,7 @@ extension ChatMessageViewModel {
     // 메시지 전송 저장 chatRoomListId가 없는 경우
     func handleSendNoId(uid: String, partnerId: String, completion: () -> ()) {
         saveChatRoomId = UUID().uuidString
-    
+        
         let timestamp = Date()
         
         let query1 = FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").document(saveChatRoomId)
@@ -484,25 +484,46 @@ extension ChatMessageViewModel {
 
 //MARK: 상대방에게 메세지 Push 알림
 extension ChatMessageViewModel {
-    func sendNotification(partnerId: String, message: String) {
+    
+    func sendNotification(to partnerId: String, with message: String) async {
+        do {
+            // 사용자 알림설정 체크
+            let isEnabled = try await getChattingAlarmStatus(for: partnerId)
+            
+            if isEnabled {
+                // 사용자 알림 보내기 API
+                await sendNotificationAPI(to: partnerId, withMessage: message)
+            }
+        } catch {
+            print("Error: \(error.localizedDescription)")
+        }
+    }
+    
+    private func getChattingAlarmStatus(for partnerId: String) async throws -> Bool {
+        let query = FirebaseManager.shared.firestore.collection("User").document(partnerId)
+        let document = try await query.getDocument()
+        return document.data()?["isChattingAlarm"] as? Bool ?? true
+    }
+    
+    private func sendNotificationAPI(to userId: String, withMessage message: String) async {
         guard let url = URL(string: "http://192.168.0.16:3000/send-notification") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let body: [String: Any] = ["userId": partnerId, "message": message]
+        let body: [String: Any] = ["userId": userId, "message": message]
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
-
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                print("Error sending notification: \(error.localizedDescription)")
+        
+        do {
+            let (_, response) = try await URLSession.shared.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
+                print("알림 전송 실패")
                 return
             }
-            if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 {
-                print("Notification sent successfully")
-            } else {
-                print("Failed to send notification")
-            }
-        }.resume()
+            print("알림 전송 성공")
+        } catch {
+            print("알림 전송 에러: \(error.localizedDescription)")
+        }
     }
 }
+
