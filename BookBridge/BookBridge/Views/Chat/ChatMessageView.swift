@@ -17,6 +17,7 @@ struct ChatMessageView: View {
     
     @State var isAlarm: Bool = true
     
+    @State private var isAlert = false
     @State private var isPlusBtn = true
     @State private var isPresented = false
     
@@ -159,14 +160,27 @@ struct ChatMessageView: View {
                             
                             Divider()
                             
-                            Button(role: .destructive) {
-                                
+                            Button {
+                                isAlert.toggle()
                             } label: {
                                 Text("채팅방나가기")
                                     .font(.system(size: 15, weight: .medium))
                                     .foregroundStyle(.red)
                                     .padding(1)
                             }
+                            .alert("채팅방을 나가시겠습니까?", isPresented: $isAlert, actions: {
+                                Button("나가기", role: .destructive) {
+                                    viewModel.deleteChatRoom(uid: uid) {
+                                        dismiss()
+                                    }
+                                }
+                                Button("취소", role: .cancel) {
+                                    isAlert.toggle()
+                                }
+                            }, message: {
+                                Text("나가기를 하면 대화내용이 모두 삭제되고 채팅목록에서도 삭제됩니다")
+                                    .font(.system(size: 10))
+                            })
                         }
                     }
                     .frame(width: 120, height: isPresented ? 110 : 0)
