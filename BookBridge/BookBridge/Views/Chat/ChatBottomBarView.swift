@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ChatBottomBarView: View {
     @StateObject var viewModel: ChatMessageViewModel
-    @AppStorage("isAlarmEnabled") private var isChattingAlarm: Bool = true
     @State var chatTextArr: [Substring] = []
     @State var isShowingPhoto = false
     @State var isShowingCamera = false

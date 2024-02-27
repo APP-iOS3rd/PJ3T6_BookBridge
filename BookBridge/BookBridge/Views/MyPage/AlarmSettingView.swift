@@ -9,12 +9,11 @@ import SwiftUI
 
 struct AlarmSettingView: View {
     @Environment(\.dismiss) private var dismiss
-    
+    @ObservedObject var settingVM: SettingViewModel
     @State var isNoticeBoardAlarm: Bool = true
     @State var isNewsAlarm: Bool = true
     @State var isMarketingAlarm: Bool = false
-    
-    @AppStorage("isAlarmEnabled") private var isChattingAlarm = true
+    @State var isChattingAlarm: Bool = true
 
     var body: some View {
         VStack {
@@ -24,7 +23,12 @@ struct AlarmSettingView: View {
                     .font(.system(size: 17))
                     .foregroundStyle(.black)
                 Spacer()
+                
                 Toggle("", isOn: $isChattingAlarm)
+                    .onChange(of: isChattingAlarm){ _ in
+                        settingVM.updateChattingAlarm(isEnabled: isChattingAlarm)
+                        print("isChattingAlarm: \(isChattingAlarm)")
+                    }
             }
             .frame(height: 40)
             .background(
@@ -98,6 +102,3 @@ struct AlarmSettingView: View {
     }
 }
 
-#Preview {
-    AlarmSettingView()
-}
