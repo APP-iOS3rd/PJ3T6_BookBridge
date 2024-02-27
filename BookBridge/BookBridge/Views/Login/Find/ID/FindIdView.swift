@@ -23,14 +23,12 @@ struct FindIdView: View {
             
             VStack(alignment: .leading,spacing: 5 ) {
                 
-                Text("가입할 때 입력한")
+                Text("가입할 때 입력한 \n이메일을 입력해주세요")
                     .font(.system(size: 20, weight: .regular))
-                
-                Text("이메일을 입력해주세요")
-                    .font(.system(size: 20, weight: .regular))
+                                
                 
                 Spacer()
-                    .frame(height: 80)
+                    .frame(height: 50)
                 
                 Text("이메일")
                     .font(.system(size: 12, weight: .regular))
@@ -78,8 +76,7 @@ struct FindIdView: View {
                 }
                 
                 
-                Spacer()
-                    .frame(height: 180)
+                Spacer()                    
                                 
                 Button(action: {
                     if viewModel.isCertiCode(){
