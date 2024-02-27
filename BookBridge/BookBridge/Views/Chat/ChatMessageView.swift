@@ -30,75 +30,90 @@ struct ChatMessageView: View {
     var body: some View {
         ZStack {
             VStack {
-                NoticeBoardChatView(isShowPlusBtn: $isShowPlusBtn, viewModel: viewModel, chatRoomListId: viewModel.saveChatRoomId, noticeBoardId: chatRoomPartner.noticeBoardId, partnerId: chatRoomPartner.partnerId, uid: uid)
+                if viewModel.noticeBoardInfo.userId == "" && viewModel.noticeBoardInfo.noticeBoardTitle == "" {
+                    ZStack {
+                        Rectangle()
+                            .frame(maxWidth: .infinity, maxHeight: 40)
+                            .foregroundStyle(Color(.lightGray))
+                        
+                        Text("게시물이 삭제되서 이전 채팅만 볼 수 있어요...")
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundStyle(.white)
+                    }
+                    
+                } else {
+                    NoticeBoardChatView(isShowPlusBtn: $isShowPlusBtn, viewModel: viewModel, chatRoomListId: viewModel.saveChatRoomId, noticeBoardId: chatRoomPartner.noticeBoardId, partnerId: chatRoomPartner.partnerId, uid: uid)
+                }
                 
                 MessageListView(viewModel: viewModel, partnerId: chatRoomPartner.partnerId, partnerImage: chatRoomPartner.partnerImage, uid: uid)
                 
-                if viewModel.noticeBoardInfo.state == 0 {
-                    //게시물 상태가 0
-                    ChatBottomBarView(viewModel: viewModel, isShowKeyboard: $isShowKeyboard, isPlusBtn: $isPlusBtn, chatRoomListId: viewModel.saveChatRoomId, partnerId: chatRoomPartner.partnerId, uid: uid)
-                } else {
-                    if viewModel.noticeBoardInfo.reservationId != chatRoomPartner.partnerId && viewModel.noticeBoardInfo.userId == uid {
-                        //게시물 작성자 == 나 이면서 예약자는 대화하고있는 사람이 아닌
-                        if viewModel.noticeBoardInfo.state == 1 {
-                            VStack(spacing: 10) {
-                                Text("현재 \"\(viewModel.reservationName)\"님과 예약 진행중입니다.\n예약자를 변경하시겠습니까?")
-                                    .padding(.vertical, 8)
-                                    .padding(.horizontal, 12)
-                                    .font(.system(size: 18).bold())
-                                    .foregroundStyle(.white)
-                                
-                                Button(action: {
-                                    viewModel.changeState(state: 1, partnerId: chatRoomPartner.partnerId, noticeBoardId: chatRoomPartner.noticeBoardId)
-                                }) {
-                                    Text("확인")
-                                        .padding(.vertical, 10)
-                                        .padding(.horizontal, 12)
-                                        .font(.system(size: 18, weight: .bold))
-                                        .frame(maxWidth: .infinity)
-                                        .foregroundStyle(.white)
-                                        .background(Color(hex:"59AAE0"))
-                                        .cornerRadius(10)
-                                        .padding(.horizontal, 60)
-                                }
-                            }
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 150)
-                            .background(Color(.lightGray))
-                        } else {
-                            VStack(spacing: 10) {
-                                Text("\"\(viewModel.reservationName)\"님과 교환 완료했습니다.")
-                                    .padding(.vertical, 8)
-                                    .padding(.horizontal, 12)
-                                    .font(.system(size: 18))
-                                    .foregroundStyle(.white)
-                            }
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 80)
-                            .background(Color(.lightGray))
-                        }
-                    } else if viewModel.noticeBoardInfo.reservationId == uid || viewModel.noticeBoardInfo.userId == uid {
-                        //게시물 작성자 == 나 이거나 예약자 == 대화하고있는 사람
+                if !(viewModel.noticeBoardInfo.userId == "" && viewModel.noticeBoardInfo.noticeBoardTitle == "") {
+                    if viewModel.noticeBoardInfo.state == 0 {
+                        //게시물 상태가 0
                         ChatBottomBarView(viewModel: viewModel, isShowKeyboard: $isShowKeyboard, isPlusBtn: $isPlusBtn, chatRoomListId: viewModel.saveChatRoomId, partnerId: chatRoomPartner.partnerId, uid: uid)
                     } else {
-                        if viewModel.noticeBoardInfo.state == 1 {
-                            Text("현재 다른 사람과 예약중입니다.")
-                                .padding(.vertical, 8)
-                                .padding(.horizontal, 12)
-                                .font(.system(size: 18).bold())
+                        if viewModel.noticeBoardInfo.reservationId != chatRoomPartner.partnerId && viewModel.noticeBoardInfo.userId == uid {
+                            //게시물 작성자 == 나 이면서 예약자는 대화하고있는 사람이 아닌
+                            if viewModel.noticeBoardInfo.state == 1 {
+                                VStack(spacing: 10) {
+                                    Text("현재 \"\(viewModel.reservationName)\"님과 예약 진행중입니다.\n예약자를 변경하시겠습니까?")
+                                        .padding(.vertical, 8)
+                                        .padding(.horizontal, 12)
+                                        .font(.system(size: 18).bold())
+                                        .foregroundStyle(.white)
+                                    
+                                    Button(action: {
+                                        viewModel.changeState(state: 1, partnerId: chatRoomPartner.partnerId, noticeBoardId: chatRoomPartner.noticeBoardId)
+                                    }) {
+                                        Text("확인")
+                                            .padding(.vertical, 10)
+                                            .padding(.horizontal, 12)
+                                            .font(.system(size: 18, weight: .bold))
+                                            .frame(maxWidth: .infinity)
+                                            .foregroundStyle(.white)
+                                            .background(Color(hex:"59AAE0"))
+                                            .cornerRadius(10)
+                                            .padding(.horizontal, 60)
+                                    }
+                                }
                                 .frame(maxWidth: .infinity)
-                                .frame(height: 50)
-                                .foregroundStyle(.white)
+                                .frame(height: 150)
                                 .background(Color(.lightGray))
+                            } else {
+                                VStack(spacing: 10) {
+                                    Text("\"\(viewModel.reservationName)\"님과 교환 완료했습니다.")
+                                        .padding(.vertical, 8)
+                                        .padding(.horizontal, 12)
+                                        .font(.system(size: 18))
+                                        .foregroundStyle(.white)
+                                }
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 80)
+                                .background(Color(.lightGray))
+                            }
+                        } else if viewModel.noticeBoardInfo.reservationId == uid || viewModel.noticeBoardInfo.userId == uid {
+                            //게시물 작성자 == 나 이거나 예약자 == 대화하고있는 사람
+                            ChatBottomBarView(viewModel: viewModel, isShowKeyboard: $isShowKeyboard, isPlusBtn: $isPlusBtn, chatRoomListId: viewModel.saveChatRoomId, partnerId: chatRoomPartner.partnerId, uid: uid)
                         } else {
-                            Text("다른 사람과 교환이 완료되었습니다.")
-                                .padding(.vertical, 8)
-                                .padding(.horizontal, 12)
-                                .font(.system(size: 18).bold())
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 50)
-                                .foregroundStyle(.white)
-                                .background(Color(.lightGray))
+                            if viewModel.noticeBoardInfo.state == 1 {
+                                Text("현재 다른 사람과 예약중입니다.")
+                                    .padding(.vertical, 8)
+                                    .padding(.horizontal, 12)
+                                    .font(.system(size: 18, weight: .bold))
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 50)
+                                    .foregroundStyle(.white)
+                                    .background(Color(.lightGray))
+                            } else {
+                                Text("다른 사람과 교환이 완료되었습니다.")
+                                    .padding(.vertical, 8)
+                                    .padding(.horizontal, 12)
+                                    .font(.system(size: 18, weight: .bold))
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 50)
+                                    .foregroundStyle(.white)
+                                    .background(Color(.lightGray))
+                            }
                         }
                     }
                 }
@@ -187,11 +202,11 @@ struct ChatMessageView: View {
             }
             
             ToolbarItem(placement: .principal) {
-                VStack {
+                HStack {
                     Text(chatRoomPartner.style == "" ? "칭호없음" : chatRoomPartner.style)
                         .padding(.vertical, 5)
                         .padding(.horizontal, 8)
-                        .font(.system(size: 10))
+                        .font(.system(size: 12))
                         .foregroundStyle(Color(hex: "4B4B4C"))
                         .background(Color(hex: "D9D9D9"))
                         .cornerRadius(5)
