@@ -15,8 +15,7 @@ struct PostHopeBookListView: View {
     @State var selectedPicker: tapInfo = .wish
     @State private var isShowBookDetail = false
     
-    var id: String
-//    var selectedBook: [Item]
+    @State private var selectedBook: Item?
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -30,12 +29,13 @@ struct PostHopeBookListView: View {
             }
             ScrollView(.horizontal) {
                 HStack(alignment: .top) {
-                    ForEach(hopeBooks.indices, id: \.self) { index in
-                        let bookTitle = hopeBooks[index].volumeInfo.title ?? ""
-                        let bookPublisher = hopeBooks[index].volumeInfo.publisher ?? ""
+                    ForEach(hopeBooks, id: \.id) { book in
+                        let link = book.volumeInfo.imageLinks?.smallThumbnail ?? ""
+                        let bookTitle = book.volumeInfo.title ?? ""
+                        let bookPublisher = book.volumeInfo.publisher ?? ""
                         VStack(alignment: .leading) {
-                            if let urlString = hopeBooks[index].volumeInfo.imageLinks?.smallThumbnail, let url = URL(string: urlString) {
-                                KFImage(url)
+                            if !link.isEmpty {
+                                KFImage(URL(string: link))
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 75, height: 100) // 이미지 크기 설정
@@ -45,10 +45,11 @@ struct PostHopeBookListView: View {
                                     .foregroundStyle(.black)
                                     .shadow(color: .gray, radius: 3, x: 0, y: 1)
                                     .onTapGesture {
-//                                        selectedBook = index
+                                        selectedBook = book
+                                        print("책 정보를 보자")
+                                        print(book)
                                         isShowBookDetail = true
                                     }
-                                
                             } else {
                                 Image("imageNil")
                                     .resizable()
@@ -60,11 +61,13 @@ struct PostHopeBookListView: View {
                                     .foregroundStyle(.black)
                                     .shadow(color: .gray, radius: 3, x: 0, y: 1)
                                     .onTapGesture {
-//                                        selectedBook = index
+                                        selectedBook = book
+                                        print(book)
+                                        
                                         isShowBookDetail = true
                                     }
                             }
-                                                        
+                            
                             Text(bookTitle)
                                 .font(.system(size: 12))
                                 .padding(.trailing, 5)
@@ -79,19 +82,19 @@ struct PostHopeBookListView: View {
                                 .padding(.trailing, 5)
                                 .padding(.top, 1)
                                 .padding(.leading)
-                                .frame(width: 100, alignment: .leading)
-                                .lineLimit(2)
                         }
                     }
                 }
             }
         }
         .padding(.vertical)
-
         .sheet(isPresented: $isShowBookDetail, onDismiss: {
             
         }) {
-//            BookDetailView(selectedPicker: $selectedPicker, book: selectedBook)
+            
+            if let selectedBook = selectedBook {
+                BookDetailView(selectedPicker: $selectedPicker, isButton: false, book: selectedBook)
+                        }
         }
     }
 }

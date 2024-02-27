@@ -18,13 +18,13 @@ struct PostUserBookshelf: View {
                 .padding(.bottom, 5)
                 .padding(.horizontal)
                         
-            BookshelfHeaderView(postViewModel: postViewModel, isShowPlusBtn: $isShowPlusBtn, bookTypeName: "보유도서")
+            BookshelfHeaderView(postViewModel: postViewModel, isShowPlusBtn: $isShowPlusBtn, bookTypeName: "보유도서", tapinfo: .hold)
             
             PostBookListView(postbooks:$postViewModel.holdBooks)
             
             Spacer().frame(height: 20)
            
-            BookshelfHeaderView(postViewModel: postViewModel, isShowPlusBtn: $isShowPlusBtn, bookTypeName: "희망도서")
+            BookshelfHeaderView(postViewModel: postViewModel, isShowPlusBtn: $isShowPlusBtn, bookTypeName: "희망도서", tapinfo: .wish)
             
             PostBookListView(postbooks: $postViewModel.wishBooks)
         }
