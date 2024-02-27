@@ -7,11 +7,6 @@
 
 import SwiftUI
 
-
-
-
-
-
 struct BookShelfView: View {
     @StateObject  var viewModel: BookShelfViewModel
     @State  var selectedPicker: tapInfo
@@ -28,9 +23,6 @@ struct BookShelfView: View {
     var isBack : Bool?
     var userId : String?
     let pickerItems : [tapInfo] = [.wish, .hold]
-    
-    
-    
     
     init(userId: String?, initialTapInfo: tapInfo, isBack: Bool, isShowPlusBtn: Binding<Bool>, ismore : Bool) {
         _viewModel = StateObject(wrappedValue: BookShelfViewModel(userId: userId))
@@ -122,6 +114,7 @@ struct BookShelfView: View {
                             BookDetailView(selectedPicker: $selectedPicker, isButton: true, book: book )
                                 .environmentObject(viewModel)
                                 .presentationDetents([.large])
+                                .presentationDragIndicator(.visible)
                             
                         }
                 }

@@ -277,28 +277,36 @@ extension PostViewModel {
         var hopeBooksRef: Query
         // 하위 컬렉션의 모든 문서를 찾아서 삭제
         if isMyNoticeBoard {
-          hopeBooksRef = db.collection("User").document(UserManager.shared.uid).collection("myNoticeBoard").document(noticeBoardId).collection("hopeBooks")
+            hopeBooksRef = db.collection("User").document(UserManager.shared.uid).collection("myNoticeBoard").document(noticeBoardId).collection("hopeBooks")
         } else {
-          hopeBooksRef = db.collection("noticeBoard").document(noticeBoardId).collection("hopeBooks")
+            hopeBooksRef = db.collection("noticeBoard").document(noticeBoardId).collection("hopeBooks")
         }
-      
+        
         hopeBooksRef.getDocuments { (snapshot, error) in
             guard let documents = snapshot?.documents else {
                 print("Error fetching subcollection documents: \(error?.localizedDescription ?? "")")
                 return
             }
-
+            
             for document in documents {
                 print(document.documentID)
-                hopeBooksRef.document(document.documentID).delete() { error in
-                    if let error = error {
-                        print("Error deleting subcollection document: \(error)")
+                if isMyNoticeBoard {
+                    self.db.collection("User").document(UserManager.shared.uid).collection("myNoticeBoard").document(noticeBoardId).collection("hopeBooks").document(document.documentID).delete() { error in
+                        if let error = error {
+                            print("Error deleting subcollection document: \(error)")
+                        }
+                    }
+                } else {
+                    self.db.collection("noticeBoard").document(noticeBoardId).collection("hopeBooks").document(document.documentID).delete() { error in
+                        if let error = error {
+                            print("Error deleting subcollection document: \(error)")
+                        }
                     }
                 }
             }
         }
     }
-  
+    
     // 폴더 삭제 함수
     func deleteFolder(folderPath: String) {
         let storageRef = Storage.storage().reference().child(folderPath)
@@ -394,18 +402,3 @@ extension PostViewModel {
         }
     }
 }
-// TODO: 채팅하기 벼튼 및 네비게이션을 위한 data fetch
-/*
- 내 게시글
- - ChatRoomListView 로 감  w. (noticeBoardId)
- - User/userid/chatRoomList/ 에 where noticeBoardid 가 일치하는 갯수 가져옴
- 다른 사람 게시글
- - 진행중인 채팅방이 있을 경우
- - User/userid/chatRoomList/ 에 where noticeBoardid 가 일치하는 채팅 모델을 가져옴
- - status 판단 후 status에 따른 뷰 설정
- - (chatRoomId, userId, noticeBoardId, 게시글 작성자 id)
- - 진행중인 채팅방이 없을 경우
- - User/userid/chatRoomList/ 에 where noticeBoardid 가 일치하는 채팅 모델 검색 후 없으면
- - 채팅하기 로 뷰 설정
- - (chatRoomId = "", userId, noticeBoardId, 게시글 작성자 id)
- */
