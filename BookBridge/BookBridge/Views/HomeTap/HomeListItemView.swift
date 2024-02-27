@@ -112,10 +112,6 @@ struct HomeListItemView: View {
             }
         }
         .frame(height: 120, alignment: .center)
-        .background(
-            RoundedRectangle(cornerRadius: 10, style: .circular)
-                .foregroundColor(Color(red: 230/255, green: 230/255, blue: 230/255))
-        )
         .onAppear {
             if !imageLinks.isEmpty {
                 viewModel.getDownLoadImage(isChange: isChange, noticeBoardId: id, urlString: imageLinks[0])
