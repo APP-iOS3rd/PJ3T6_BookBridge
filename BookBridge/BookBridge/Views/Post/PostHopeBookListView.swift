@@ -94,6 +94,7 @@ struct PostHopeBookListView: View {
             
             if let selectedBook = selectedBook {
                 BookDetailView(selectedPicker: $selectedPicker, isButton: false, book: selectedBook)
+                    .presentationDragIndicator(.visible)
                         }
         }
     }
