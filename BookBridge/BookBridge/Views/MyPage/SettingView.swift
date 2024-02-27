@@ -99,6 +99,7 @@ struct SettingView: View {
             HStack {
                 Button{
                     UserManager.shared.logout()
+                    dismiss()
                     selectedTab = 0
                 } label: {
                     Text("로그아웃")
