@@ -44,12 +44,16 @@ struct PostView: View {
                         Divider()
                             .padding(.horizontal)
                         
-                        // 희망도서 부분
-                        PostHopeBookListView(viewModel: postViewModel, hopeBooks: $postViewModel.noticeboardsihBooks)
+                        if !noticeBoard.isChange {
+                            // 희망도서 부분
+                            PostHopeBookListView(viewModel: postViewModel, hopeBooks: $postViewModel.noticeboardsihBooks)
+                            Divider()
+                                .padding(.horizontal)
+                        }
                         
                         
-                        Divider()
-                            .padding(.horizontal)
+                        
+                        
                                             
                         //상대방 책장
                         PostUserBookshelf(postViewModel: postViewModel, isShowPlusBtn: $isShowPlusBtn)
