@@ -11,11 +11,16 @@ struct IdLoginView: View {
     @EnvironmentObject private var pathModel: PathViewModel
     @StateObject private var viewModel = IdLoginViewModel()
     @Binding var showingLoginView: Bool
+    @State private var isShowImage : Bool = true
+    
     var body: some View {
         
         VStack{
             
-            Image("Character")
+            if isShowImage {
+                Image("Character")
+            }
+            
             
             
             
@@ -28,6 +33,9 @@ struct IdLoginView: View {
                     .foregroundColor(Color(hex: "999999"))
                 
                 TextField("아이디를 입력하세요", text: $viewModel.username)
+                    .onTapGesture {
+                        isShowImage = false
+                    }
                     .padding()
                     .foregroundColor(Color(hex: "3C3C43"))
                     .frame(height: 36)
@@ -49,6 +57,9 @@ struct IdLoginView: View {
                     .foregroundColor(Color(hex: "999999"))
                 
                 SecureField("비밀번호를 입력하세요", text: $viewModel.password)
+                    .onTapGesture {
+                        isShowImage = false
+                    }
                     .padding()
                     .foregroundColor(Color(hex: "3C3C43"))
                     .frame(height: 36)
@@ -93,7 +104,7 @@ struct IdLoginView: View {
             
             
             Spacer()
-                .frame(height: 200)
+//                .frame(height: 200)
             
             Button(action: {
                 viewModel.login()
@@ -115,8 +126,10 @@ struct IdLoginView: View {
             }
         }
         .padding(20)
-        
-        
+        .onTapGesture{
+            hideKeyboard()
+            isShowImage = false
+        }
         .navigationBarTitle("로그인", displayMode: .inline)
         .navigationBarItems(leading: CustomBackButtonView())
         

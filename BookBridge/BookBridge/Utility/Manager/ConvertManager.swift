@@ -59,4 +59,21 @@ class ConvertManager {
             return "방금 전"
         }
     }
+    
+    static func getDong(address: String) -> String? {
+        // 공백을 기준으로 주소를 단어로 분할하여 배열로 만듭니다.
+        let components = address.components(separatedBy: " ")
+        
+        // 주소가 한 단어인 경우 해당 단어를 그대로 반환합니다.
+        if components.count == 1 {
+            return components[0]
+        }
+        
+        // 배열의 4번째 요소가 동을 나타내므로, 해당 요소를 반환합니다.
+        if components.count >= 4 {
+            return components[3]
+        }
+        
+        return nil // 주소 형식이 올바르지 않은 경우 nil을 반환합니다.
+    }
 }

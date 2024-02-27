@@ -21,6 +21,7 @@
 		1DB39DBA2B6B57B100C1B489 /* BookShelfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DB92B6B57B100C1B489 /* BookShelfView.swift */; };
 		1DB39DBC2B6B57F100C1B489 /* BookShelfViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */; };
 		1DB39DC02B6B8A5300C1B489 /* BookDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DBF2B6B8A5300C1B489 /* BookDetailView.swift */; };
+		1DC6CF3B2B8CE72200944694 /* PostHopeBookListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC6CF3A2B8CE72200944694 /* PostHopeBookListView.swift */; };
 		1DCFB01E2B687D7000250D55 /* FindIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB01D2B687D7000250D55 /* FindIdView.swift */; };
 		1DCFB0222B68CB4400250D55 /* FindIdVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0212B68CB4400250D55 /* FindIdVM.swift */; };
 		1DCFB0242B68CD3100250D55 /* FindPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */; };
@@ -196,6 +197,10 @@
 		91B80A472B6799B7000D5339 /* ChangePostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A462B6799B7000D5339 /* ChangePostingView.swift */; };
 		91D7CAF12B82F76D00F7CFF8 /* SwipeBackExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7CAF02B82F76D00F7CFF8 /* SwipeBackExtension.swift */; };
 		91D7CB042B83528B00F7CFF8 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 91D7CB032B83528B00F7CFF8 /* Secrets.xcconfig */; };
+		91E99D932B8C2ED90038A9DE /* PostHopeBookListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E99D922B8C2ED90038A9DE /* PostHopeBookListView.swift */; };
+		91E99D952B8D645F0038A9DE /* InquiryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E99D942B8D645F0038A9DE /* InquiryView.swift */; };
+		91E99D972B8D6CFA0038A9DE /* InquiryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E99D962B8D6CFA0038A9DE /* InquiryModel.swift */; };
+		91E99D992B8D6F500038A9DE /* InquiryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E99D982B8D6F500038A9DE /* InquiryDetailView.swift */; };
 		AFE5B788F315503A86355ABB /* Pods_BookBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0208E9110CB38EDE3D59A6 /* Pods_BookBridge.framework */; };
 		F60BB0932B71D72400E27F38 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60BB0922B71D72400E27F38 /* HomeView.swift */; };
 		F60BB0952B71D72F00E27F38 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60BB0942B71D72F00E27F38 /* HomeViewModel.swift */; };
@@ -244,6 +249,7 @@
 		1DB39DB92B6B57B100C1B489 /* BookShelfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfView.swift; sourceTree = "<group>"; };
 		1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfViewModel.swift; sourceTree = "<group>"; };
 		1DB39DBF2B6B8A5300C1B489 /* BookDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailView.swift; sourceTree = "<group>"; };
+		1DC6CF3A2B8CE72200944694 /* PostHopeBookListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHopeBookListView.swift; sourceTree = "<group>"; };
 		1DCFB01D2B687D7000250D55 /* FindIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdView.swift; sourceTree = "<group>"; };
 		1DCFB0212B68CB4400250D55 /* FindIdVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdVM.swift; sourceTree = "<group>"; };
 		1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordView.swift; sourceTree = "<group>"; };
@@ -425,6 +431,10 @@
 		91B80A462B6799B7000D5339 /* ChangePostingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePostingView.swift; sourceTree = "<group>"; };
 		91D7CAF02B82F76D00F7CFF8 /* SwipeBackExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeBackExtension.swift; sourceTree = "<group>"; };
 		91D7CB032B83528B00F7CFF8 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		91E99D922B8C2ED90038A9DE /* PostHopeBookListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHopeBookListView.swift; sourceTree = "<group>"; };
+		91E99D942B8D645F0038A9DE /* InquiryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryView.swift; sourceTree = "<group>"; };
+		91E99D962B8D6CFA0038A9DE /* InquiryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryModel.swift; sourceTree = "<group>"; };
+		91E99D982B8D6F500038A9DE /* InquiryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryDetailView.swift; sourceTree = "<group>"; };
 		A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridgeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5811A49FE2A9EF629A77C52 /* Pods-BookBridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.debug.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.debug.xcconfig"; sourceTree = "<group>"; };
 		CD38D177426E7831566653B2 /* Pods-BookBridge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.release.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.release.xcconfig"; sourceTree = "<group>"; };
@@ -869,6 +879,7 @@
 				73441FA82B733DEF00446E0F /* StyleModel.swift */,
 				5C8C0DD72B734B8C002963F1 /* NaverReverseGeocoding.swift */,
 				5C8C0E3B2B7B29F7002963F1 /* Report.swift */,
+				91E99D962B8D6CFA0038A9DE /* InquiryModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -902,6 +913,8 @@
 				73441FB42B734BBE00446E0F /* NoticeBoardTapView.swift */,
 				730028482B85E0B200EB3D8D /* NoticeBoardItemView.swift */,
 				73441FB82B735E1C00446E0F /* NoticeBoardSortView.swift */,
+				91E99D942B8D645F0038A9DE /* InquiryView.swift */,
+				91E99D982B8D6F500038A9DE /* InquiryDetailView.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1053,12 +1066,14 @@
 				91B359482B88998400CD7778 /* PostImageModalView.swift */,
 				5A3380692B8721E10038F2DE /* PostUserInfoView.swift */,
 				5A33806B2B8724560038F2DE /* PostContent.swift */,
+				91E99D922B8C2ED90038A9DE /* PostHopeBookListView.swift */,
 				5A33806D2B87291B0038F2DE /* PostUserBookshelf.swift */,
 				5A33806F2B872C130038F2DE /* PostChangeLocationView.swift */,
 				5A3380712B87343C0038F2DE /* BookShelfHeaderView.swift */,
 				5A3380732B8734A90038F2DE /* PostBookListView.swift */,
 				5A3380782B8769B80038F2DE /* PostMenuBtnsView.swift */,
 				5A33807C2B8772550038F2DE /* PostMapView.swift */,
+				1DC6CF3A2B8CE72200944694 /* PostHopeBookListView.swift */,
 			);
 			path = Post;
 			sourceTree = "<group>";
@@ -1432,6 +1447,7 @@
 				73441FAD2B733E2200446E0F /* StyleListView.swift in Sources */,
 				5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */,
 				5A3A440F2B6C741200B66C81 /* InputTextFieldStyle.swift in Sources */,
+				91E99D952B8D645F0038A9DE /* InquiryView.swift in Sources */,
 				73718A012B8879F800C20798 /* MyProfileNicknameView.swift in Sources */,
 				911B4C8B2B74A4AF00801CFF /* FirebaseConstants.swift in Sources */,
 				1D71C6C52B6C766300EEC95D /* BookSearchBar.swift in Sources */,
@@ -1458,6 +1474,7 @@
 				73E1FD552B74747A0038FB95 /* FirebaseStyleManager.swift in Sources */,
 				736127072B6B543A00943CD7 /* NaverAuthManager.swift in Sources */,
 				73441FA92B733DEF00446E0F /* StyleModel.swift in Sources */,
+				1DC6CF3B2B8CE72200944694 /* PostHopeBookListView.swift in Sources */,
 				5AA82E5E2B67891E006EFC72 /* SmtpManager.swift in Sources */,
 				5A3E020B2B6F9FCD008F8CFD /* TestView.swift in Sources */,
 				738EDAA52B7225950066ADE7 /* UIImageExtension.swift in Sources */,
@@ -1499,6 +1516,7 @@
 				91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */,
 				F6185FC02B8C0C3C00C2A889 /* LaunchScreenView.swift in Sources */,
 				5CE454992B68B8EF00874BCE /* AppleAuthManager.swift in Sources */,
+				91E99D992B8D6F500038A9DE /* InquiryDetailView.swift in Sources */,
 				73D077E62B7C9E300007DDEB /* MessageListView.swift in Sources */,
 				5A8345872B746811000984C4 /* FirestoreManager.swift in Sources */,
 				5A1A16962B6231870063D408 /* GoogleAuthManager.swift in Sources */,
@@ -1517,6 +1535,7 @@
 				5AA97F832B70754D00EF4081 /* LocationManager.swift in Sources */,
 				1D71C6C12B6C743900EEC95D /* BookView.swift in Sources */,
 				5A2DE0972B6884BE00EF3A6B /* EmailCertiView.swift in Sources */,
+				91E99D972B8D6CFA0038A9DE /* InquiryModel.swift in Sources */,
 				73D077EC2B7CA0330007DDEB /* MessageItemView.swift in Sources */,
 				5C8C0E322B7B2934002963F1 /* ReportView.swift in Sources */,
 				5A8345852B746741000984C4 /* ConvertManager.swift in Sources */,

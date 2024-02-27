@@ -47,6 +47,5 @@ struct PostImageView: View {
         .fullScreenCover(isPresented: $isShowImageModal) {
             PostImageModalView(urlString: urlString, selectedImageUrl: $selectedImageUrl)
         }
-        
     }
 }

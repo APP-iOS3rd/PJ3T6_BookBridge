@@ -10,6 +10,7 @@ import Kingfisher
 
 struct PostUserInfoView: View {
     @StateObject var postViewModel: PostViewModel
+    @Binding var noticeBoard: NoticeBoard
     
     var body: some View {
         HStack {
@@ -55,7 +56,7 @@ struct PostUserInfoView: View {
                     
                     Spacer()
                     
-                    Text(postViewModel.user.getSelectedLocation()?.dong ?? "위치 미아")
+                    Text(ConvertManager.getDong(address: noticeBoard.noticeLocationName) ?? "위치 없음")
                         .font(.system(size: 15))
                         .foregroundStyle(Color(hex: "767676"))
                 }

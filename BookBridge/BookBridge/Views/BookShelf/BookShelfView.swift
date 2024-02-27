@@ -13,8 +13,8 @@ import SwiftUI
 
 
 struct BookShelfView: View {
-    @StateObject private var viewModel: BookShelfViewModel
-    @State private var selectedPicker: tapInfo
+    @StateObject  var viewModel: BookShelfViewModel
+    @State  var selectedPicker: tapInfo
     @State private var showingSheet = false // 시트 표시 여부를 위한 상태 변수
     @State private var searchText = ""
     @State private var selectedBook: Item?
@@ -23,17 +23,22 @@ struct BookShelfView: View {
     @State private var userName: String = ""
     @Environment(\.dismiss) private var dismiss
     @State private var isOwnShelf: Bool = true
+    @State var ismore : Bool
+    @Binding var isShowPlusBtn: Bool
     var isBack : Bool?
     var userId : String?
     let pickerItems : [tapInfo] = [.wish, .hold]
     
     
     
-    init(userId: String?,initialTapInfo: tapInfo,isBack:Bool) {
+    
+    init(userId: String?, initialTapInfo: tapInfo, isBack: Bool, isShowPlusBtn: Binding<Bool>, ismore : Bool) {
         _viewModel = StateObject(wrappedValue: BookShelfViewModel(userId: userId))
         self.userId = userId
         _selectedPicker = State(initialValue: initialTapInfo)
         self.isBack = isBack
+        _isShowPlusBtn = isShowPlusBtn // Binding 변수를 직접 할당
+        _ismore = State(initialValue: ismore)
     }
     
     
@@ -55,8 +60,6 @@ struct BookShelfView: View {
     var body: some View {
         
         ZStack{
-            
-            
             VStack {
                 ZStack{
                     if isBack == false {
@@ -82,7 +85,7 @@ struct BookShelfView: View {
                         }
                     }
                     
-
+                    
                 }
                 .padding(.top,8)
                 
@@ -99,29 +102,42 @@ struct BookShelfView: View {
                 Spacer()
                     .frame(height: 20)
                 
-                
-                BookSearchBar(text: $searchText, placeholder: searchBarPlaceholder)
-                    .onChange(of: searchText) { newValue in
-                        viewModel.filterBooks(for: selectedPicker, searchText: newValue)
+                VStack{
+                    BookSearchBar(text: $searchText, isShowPlusBtn: $isShowPlusBtn, placeholder: searchBarPlaceholder)
+                        .onTapGesture {
+                            isShowPlusBtn = false
+                        }
+                        .onChange(of: searchText) { newValue in
+                            viewModel.filterBooks(for: selectedPicker, searchText: newValue)
+                        }
+                    
+                    
+                    
+                    Spacer()
+                        .frame(height: 20)
+                    
+                    BookView(selectedBook: $selectedBook, isEditing: $isEditing ,isShowPlusBtn: $isShowPlusBtn, ismore: $ismore, tap: selectedPicker )
+                        .environmentObject(viewModel)
+                        .sheet(item: $selectedBook,onDismiss: {viewModel.fetchBooks(for: selectedPicker)}) { book in
+                            BookDetailView(selectedPicker: $selectedPicker, isButton: true, book: book )
+                                .environmentObject(viewModel)
+                                .presentationDetents([.large])
+                            
+                        }
                 }
-                
-                
-                Spacer()
-                    .frame(height: 20)
-                
-                BookView(selectedBook: $selectedBook, isEditing: $isEditing ,tap: selectedPicker)
-                    .environmentObject(viewModel)
-                    .sheet(item: $selectedBook,onDismiss: {viewModel.fetchBooks(for: selectedPicker)}) { book in
-                        BookDetailView(selectedPicker: $selectedPicker, book: book)
-                            .environmentObject(viewModel)
-                            .presentationDetents([.large])
-                        
+                .onTapGesture {
+                    hideKeyboard()
+                    if !ismore{
+                        isShowPlusBtn = true
                     }
+                    
+                }
+                    
                 
                 
                 
             }
-            .padding(.horizontal)
+            .padding(.horizontal)            
             .onAppear{
                 viewModel.fetchBooks(for: selectedPicker)
             }
@@ -163,7 +179,6 @@ struct BookShelfView: View {
                     })
             }
         }
-
         .onAppear{
             if userId != nil {
                 viewModel.gettingUserInfo(userId: self.userId ?? "")

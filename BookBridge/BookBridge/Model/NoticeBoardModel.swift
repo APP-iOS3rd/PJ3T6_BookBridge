@@ -15,7 +15,7 @@ struct NoticeBoard: Identifiable {
     var date: Date
     var hopeBook: [Item]
     var geoHash: String?
-    var reservationId: String?
+    var reservationId: String? 
 
     var dictionary: [String: Any] {
         return [

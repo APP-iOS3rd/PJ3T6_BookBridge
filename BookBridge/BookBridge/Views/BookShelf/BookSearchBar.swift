@@ -9,11 +9,17 @@ import SwiftUI
 
 struct BookSearchBar: View {
     @Binding var text: String
+    @Binding var isShowPlusBtn: Bool
     var placeholder: String
     
     var body: some View {
         HStack {
-            TextField("\(placeholder)", text: $text)
+            TextField("\(placeholder)", text: $text, onCommit: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                    isShowPlusBtn = true
+                }
+                
+            })
                 .padding(7)
                 .padding(.horizontal, 25)
                 .background(Color(.systemGray6))

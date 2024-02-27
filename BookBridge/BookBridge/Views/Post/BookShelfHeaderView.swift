@@ -9,7 +9,9 @@ import SwiftUI
 
 struct BookshelfHeaderView: View {
     @StateObject var postViewModel: PostViewModel
+    @Binding var isShowPlusBtn : Bool
     var bookTypeName: String
+    var tapinfo : tapInfo
     
     var body: some View {
         HStack {
@@ -19,7 +21,7 @@ struct BookshelfHeaderView: View {
             Spacer()
             
             NavigationLink {
-                BookShelfView(userId: postViewModel.user.id, initialTapInfo: .hold, isBack: true)
+                BookShelfView(userId: postViewModel.user.id, initialTapInfo: tapinfo, isBack: true, isShowPlusBtn: $isShowPlusBtn, ismore: true)
                     .navigationBarTitle( postViewModel.user.id == UserManager.shared.uid ? "내책장" : "\(postViewModel.user.nickname ?? "")님의 책장", displayMode: .inline)
                     .navigationBarItems(leading: CustomBackButtonView())
                     .navigationBarBackButtonHidden(true)

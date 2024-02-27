@@ -66,7 +66,7 @@ struct TabBarView: View {
                     // 책장
                     NavigationStack {
                         if userManager.isLogin {
-                            BookShelfView(userId : userManager.uid,initialTapInfo: .wish, isBack: false)
+                            BookShelfView(userId : userManager.uid,initialTapInfo: .wish, isBack: false,isShowPlusBtn: $isShowPlusBtn,ismore: false)
                                 .onDisappear {
                                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
                                         shouldShowActionSheet = false
@@ -77,7 +77,7 @@ struct TabBarView: View {
                                     }
                                 }
                         } else {
-                            BookShelfView(userId: nil,initialTapInfo: .wish, isBack: false)
+                            BookShelfView(userId: nil,initialTapInfo: .wish, isBack: false, isShowPlusBtn: $isShowPlusBtn,ismore:false)
                                 .onDisappear {
                                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
                                         shouldShowActionSheet = false
