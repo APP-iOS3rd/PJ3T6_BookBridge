@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct InquiryCategory: Identifiable, Codable {
+struct Inquiry: Identifiable, Codable {
     var id = UUID().uuidString
     var categories: String
     var inquiryUserId: String // 문의한 사용자 ID

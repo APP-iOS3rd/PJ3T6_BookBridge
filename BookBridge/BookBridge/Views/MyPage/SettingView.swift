@@ -58,7 +58,7 @@ struct SettingView: View {
             )
             
             NavigationLink {
-//                InquiryView(t)
+                InquiryView()
             } label: {
                 HStack {
                     Text("문의 및 건의사항")

@@ -13,7 +13,6 @@ struct InquiryDetailView: View {
     @State private var text: String = ""
     @State private var showAlert: Bool = false
     @State private var isTargetView = false
-    let title: Report.ReportReason
     
     var body: some View {
         NavigationStack{
@@ -80,7 +79,7 @@ struct InquiryDetailView: View {
             }
             
         }
-        .navigationBarTitle(title.rawValue, displayMode: .inline)
+        .navigationBarTitle("문의하기", displayMode: .inline)
         .navigationBarItems(leading: CustomBackButtonView())
         .navigationBarBackButtonHidden(true) // 뒤로 가기 버튼 숨기기
         

@@ -1,5 +1,5 @@
 //
-//  CustomerServiceView.swift
+//  SwiftUIView.swift
 //  BookBridge
 //
 //  Created by 이현호 on 2/27/24.
@@ -8,82 +8,34 @@
 import SwiftUI
 
 struct InquiryView: View {
-    
-//    @ObservedObject var reportVM: ReportViewModel
-    @Environment(\.dismiss) private var dismiss
-    @State private var text: String = ""
-    @State private var showAlert: Bool = false
-    @State private var isTargetView = false
-    let title: Report.ReportReason
+    @State private var isTitleHidden = false
+//    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-            NavigationStack{
-                ZStack(alignment: .topLeading) {
-                    VStack (alignment: .leading) {
-                        Text("문의 내용")
-                            .bold()
-                        ZStack (alignment: .topLeading) {
-                            Rectangle()
-                                .foregroundStyle(Color(hex: "F4F4F4"))
-                                .cornerRadius(10)
-                                .frame(height: 300)
-                            TextField("문의 내용을 입력해주세요.", text: $text, axis: .vertical)
-                                .padding()
-                                .frame(height: 300, alignment: .topLeading)
-                                .onChange(of: text, perform: {
-                                    text = String($0.prefix(1000)) // 텍스트 글자수 제한
-                                })
-                        }
-                        HStack {
-                            Spacer()
-                            InquiryCounterView(text: $text)
-                                .bold()
-                                .frame(alignment: .leading)
-                        }
-                        .padding(.bottom, 20)
-                        
-                        Button {
-                            // 뷰모델 연결
-//                            reportVM.report.additionalComments = text
-//                            reportVM.report.reporterUserId = UserManager.shared.uid
-//                            reportVM.report.reason = title
-//                            reportVM.saveReportToFirestore(report: reportVM.report)
-                            
-                            showAlert = true
-                        } label: {
-                            Text("신고하기")
-                                .font(.system(size: 17))
-                                .foregroundStyle(.white)
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 50)
-                                .background(Color(hex: "59AAE0"))
-                                .cornerRadius(5.0)
-                        }
-                        .alert(isPresented: $showAlert){
-                            Alert(
-                                title: Text("문의가 접수되었습니다."),
-                                dismissButton: .default(Text("확인")) {
-                                    isTargetView = true
-                                    text = ""
-                                }
-                            )
-                        }
-                        
-                        Spacer()
-                        
-                        // 네비게이션 트리거
-                        NavigationLink(destination: TabBarView(userId: UserManager.shared.uid), isActive: $isTargetView) {
-                            EmptyView()
-                        }
-                        .hidden()
+        NavigationStack{
+            VStack{
+                Text("문의 유형을 선택해주세요!")
+                    .bold()
+                    .font(.system(size: 18))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 21)
+                    .padding(.bottom, 15)
+                    .padding(.top, 15)
+                
+                Divider()
+                
+                ForEach(Inquiry.InquiryCategory.allCases, id: \.self){ reason in
+                    NavigationLink(destination: InquiryDetailView()) {
+                        ReportCellView(contents: reason.rawValue)
                     }
-                    .padding()
                 }
-
+                
+                Spacer()
             }
-            .navigationBarTitle(title.rawValue, displayMode: .inline)
-            .navigationBarItems(leading: CustomBackButtonView())
-            .navigationBarBackButtonHidden(true) // 뒤로 가기 버튼 숨기기
-
+        }
+//        .navigationBarTitle("문의 및 건의사항", displayMode: .inline)
+//        .navigationBarItems(leading: CustomBackButtonView())
+//        .navigationBarBackButtonHidden(true) // 뒤로 가기 버튼 숨기기
+        
     }
 }
