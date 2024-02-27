@@ -263,6 +263,11 @@ struct HomeTapView: View {
                         //                    EmptyView()
                     }
                 }
+                .refreshable {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) {
+                        viewModel.updateNoticeBoards()
+                    }
+                }
                 
             }
             
