@@ -14,11 +14,15 @@ class PostViewModel: ObservableObject {
     @Published var chatRoomList: [String] = []
     @Published var holdBooks: [Item] = []
     @Published var wishBooks: [Item] = []
+    @Published var noticeboardsihBooks : [Item] = []
     @Published var user: UserModel = UserModel()
     @Published var userChatRoomId: String = ""
     @Published var userUIImage: UIImage = UIImage(named: "Character")!
     
     let db = Firestore.firestore()
+    
+    let nestedGroup = DispatchGroup()
+    let dispatchGroup = DispatchGroup()
 }
 
 // MARK: 게시자 정보
@@ -110,13 +114,68 @@ extension PostViewModel {
             DispatchQueue.main.async {
                 if collection == "wishBooks" {
                     self?.wishBooks = items
+                    
                 } else if collection == "holdBooks" {
                     self?.holdBooks = items
+                    
                 }
             }
         }
     }
 }
+
+extension PostViewModel {
+    func fetchNoticeBoard(noticeBoardId: String) {
+        db.collection("noticeBoard").document(noticeBoardId).collection("hopeBooks").getDocuments { querySnapshot2, err2 in
+            guard err2 == nil else { return }
+            guard let hopeDocuments = querySnapshot2?.documents else { return }
+            
+            var hopeBooks: [Item] = []
+            
+            for doc in hopeDocuments {
+                if doc.exists {
+                    self.nestedGroup.enter() // Enter nested DispatchGroup
+                    
+                    self.db.collection("noticeBoard").document(noticeBoardId).collection("hopeBooks").document(doc.documentID).collection("industryIdentifiers").getDocuments { (querySnapshot, error) in
+                        guard let industryIdentifiers = querySnapshot?.documents else {
+                            self.nestedGroup.leave()
+                            return
+                        }
+                        
+                        var isbn: [IndustryIdentifier] = []
+                        for industryIdentifier in industryIdentifiers {
+                            isbn.append(IndustryIdentifier(identifier: industryIdentifier.documentID))
+                        }
+                        
+                        let item = Item(id: doc.documentID, volumeInfo: VolumeInfo(
+                            title: doc.data()["title"] as? String ?? "",
+                            authors: (doc.data()["authors"] as? [String] ?? [""]),
+                            publisher: doc.data()["publisher"] as? String ?? "",
+                            publishedDate: doc.data()["publishedDate"] as? String ?? "",
+                            description: doc.data()["description"] as? String ?? "",
+                            industryIdentifiers: isbn,
+                            pageCount: doc.data()["pageCount"] as? Int ?? 0,
+                            categories: doc.data()["categories"] as? [String] ?? [""],
+                            imageLinks: ImageLinks(smallThumbnail: doc.data()["imageLinks"] as? String ?? "")))
+                        
+                        hopeBooks.append(item)
+                        
+                        self.nestedGroup.leave() // Leave nested DispatchGroup
+                    }
+                } else {
+                    self.nestedGroup.leave() // Leave nested DispatchGroup
+                }
+            }
+            self.nestedGroup.notify(queue: .main) {
+                DispatchQueue.main.async {
+                    self.noticeboardsihBooks = hopeBooks
+                    
+                }
+            }
+        }
+    }
+}
+
 
 // MARK: 설정 부분 (...)
 extension PostViewModel {
@@ -194,32 +253,52 @@ extension PostViewModel {
             }
         }
         
-        db.collection("User").document(UserManager.shared.uid).collection("myNoticeBoard").document(noticeBoardId).delete()
+        db.collection("User").document(UserManager.shared.uid).collection("myNoticeBoard").document(noticeBoardId).delete() { err in
+            guard err == nil else { return }
+            self.deletePostWithSubcollections(noticeBoardId: noticeBoardId, isMyNoticeBoard: true)
+        }
         
         db.collection("noticeBoard").document(noticeBoardId).delete() { err in
             if let err = err {
                 print("Error removing document: \(err)")
             } else {
                 print("Document successfully removed!")
-                // 사용자 게시물 목록에서 게시물 삭제
-                self.deleteFromUserPosts(noticeBoardId: noticeBoardId)
+                
+                self.deletePostWithSubcollections(noticeBoardId: noticeBoardId, isMyNoticeBoard: false)
                 // Storage에서 해당 게시물의 이미지 폴더 삭제
                 self.deleteFolder(folderPath: "NoticeBoard/\(noticeBoardId)")
+                
+                
             }
         }
     }
     
-    // 사용자 게시물 목록에서 삭제
-    private func deleteFromUserPosts(noticeBoardId: String) {
-        db.collection("User").document(UserManager.shared.uid).collection("myNoticeBoard").document(noticeBoardId).delete() { err in
-            if let err = err {
-                print("Error removing document from user posts: \(err)")
-            } else {
-                print("Document successfully removed from user posts!")
+    func deletePostWithSubcollections(noticeBoardId: String, isMyNoticeBoard: Bool) {
+        var hopeBooksRef: Query
+        // 하위 컬렉션의 모든 문서를 찾아서 삭제
+        if isMyNoticeBoard {
+          hopeBooksRef = db.collection("User").document(UserManager.shared.uid).collection("myNoticeBoard").document(noticeBoardId).collection("hopeBooks")
+        } else {
+          hopeBooksRef = db.collection("noticeBoard").document(noticeBoardId).collection("hopeBooks")
+        }
+      
+        hopeBooksRef.getDocuments { (snapshot, error) in
+            guard let documents = snapshot?.documents else {
+                print("Error fetching subcollection documents: \(error?.localizedDescription ?? "")")
+                return
+            }
+
+            for document in documents {
+                print(document.documentID)
+                hopeBooksRef.document(document.documentID).delete() { error in
+                    if let error = error {
+                        print("Error deleting subcollection document: \(error)")
+                    }
+                }
             }
         }
     }
-    
+  
     // 폴더 삭제 함수
     func deleteFolder(folderPath: String) {
         let storageRef = Storage.storage().reference().child(folderPath)

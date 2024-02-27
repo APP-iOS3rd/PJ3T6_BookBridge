@@ -21,6 +21,7 @@ struct HomeListItemView: View {
     var title: String
     var userId: String
     var location: String
+    var detail : String
     
     var body: some View {
         HStack {
@@ -52,18 +53,42 @@ struct HomeListItemView: View {
                     .foregroundColor(.black)
                     .padding(.top, 10)
                     .lineLimit(2)
+                    .multilineTextAlignment(.leading)
                 
-                Text("\(author)")
-                    .font(.system(size: 10))
+                if author != "" {
+                    Text("\(author)")
+                        .font(.system(size: 10))
+                        .padding(.top, 5)
+                        .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))
+                }
+                
+                
+                
+                Text("\(detail)")
+                    .font(.system(size: 14))
                     .padding(.top, 5)
                     .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))
+                    .multilineTextAlignment(.leading)
                 
                 Spacer()
                 
-                Text("\(ConvertManager.getDong(address: location) ?? "") | \(ConvertManager.getTimeDifference(from: date))")
-                    .font(.system(size: 10))
-                    .padding(.bottom, 10)
-                    .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))
+
+                HStack{
+                    Text("\(location.count>=20 ? location.components(separatedBy: " ")[3] : location) |")
+                            .font(.system(size: 10))
+                            .lineLimit(1)
+                            .padding(.bottom, 10)
+                            .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))
+                    
+                        Text("\(ConvertManager.getTimeDifference(from: date))")
+                            .font(.system(size: 10))
+                            .padding(.bottom, 10)
+                            .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))
+                }
+             
+                
+                
+
             }
             
             Spacer()

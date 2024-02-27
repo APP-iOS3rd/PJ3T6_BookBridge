@@ -58,7 +58,7 @@ struct SettingView: View {
             )
             
             NavigationLink {
-                
+//                InquiryView(t)
             } label: {
                 HStack {
                     Text("문의 및 건의사항")
@@ -99,6 +99,7 @@ struct SettingView: View {
             HStack {
                 Button{
                     UserManager.shared.logout()
+                    dismiss()
                     selectedTab = 0
                 } label: {
                     Text("로그아웃")

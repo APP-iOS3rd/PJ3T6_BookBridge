@@ -12,8 +12,10 @@ struct PostView: View {
     @Environment(\.dismiss) private var dismiss
     
     @Binding var isShowPlusBtn: Bool
+//    @Binding var selectedBook: Item
     
     @StateObject var postViewModel = PostViewModel()
+    @StateObject var homeViewModel = HomeViewModel()
     @StateObject var reportViewmodel = ReportViewModel()
     
     @State var noticeBoard: NoticeBoard
@@ -42,9 +44,20 @@ struct PostView: View {
                                             
                         Divider()
                             .padding(.horizontal)
+                        
+                        if !noticeBoard.isChange {
+                            // 희망도서 부분
+                            PostHopeBookListView(viewModel: postViewModel, hopeBooks: $postViewModel.noticeboardsihBooks)
+                            Divider()
+                                .padding(.horizontal)
+                        }
+                        
+                        
+                        
+                        
                                             
                         //상대방 책장
-                        PostUserBookshelf(postViewModel: postViewModel,isShowPlusBtn : $isShowPlusBtn)
+                        PostUserBookshelf(postViewModel: postViewModel, isShowPlusBtn: $isShowPlusBtn)
                                             
                         Divider()
                             .padding(.horizontal)
@@ -251,6 +264,7 @@ struct PostView: View {
             isShowPlusBtn = false
             print(noticeBoard)
             Task {
+                postViewModel.fetchNoticeBoard(noticeBoardId: noticeBoard.id)
                 postViewModel.gettingUserInfo(userId: noticeBoard.userId)
                 postViewModel.gettingUserBookShelf(userId: noticeBoard.userId, collection: "holdBooks")
                 postViewModel.gettingUserBookShelf(userId: noticeBoard.userId, collection: "wishBooks")

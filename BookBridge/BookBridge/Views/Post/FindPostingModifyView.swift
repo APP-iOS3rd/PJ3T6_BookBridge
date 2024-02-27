@@ -64,7 +64,7 @@ struct FindPostingModifyView: View {
                         .bold()
                     
                     
-                    NavigationLink(destination: SearchBooksView(hopeBooks: $viewModel.noticeBoard.hopeBook, isWish: .wish)) {
+                    NavigationLink(destination: SearchBooksView(hopeBooks: $viewModel.noticeBoard.hopeBook, isWish: .search)) {
                         HStack {
                             Text(
                                 viewModel.noticeBoard.hopeBook.isEmpty ? "희망도서 선택" : viewModel.noticeBoard.hopeBook.count == 1 ? "\(viewModel.noticeBoard.hopeBook[0].volumeInfo.title ?? "")" : "\(viewModel.noticeBoard.hopeBook[0].volumeInfo.title ?? "") 외 \(viewModel.noticeBoard.hopeBook.count - 1)권"
@@ -136,8 +136,7 @@ struct FindPostingModifyView: View {
                     Button {
                         dismiss()
                     } label: {
-                        Image(systemName: "xmark")
-                            .font(.system(size: 16))
+                        Image(systemName: "chevron.left")                        
                             .foregroundStyle(.black)
                     }
                 }
