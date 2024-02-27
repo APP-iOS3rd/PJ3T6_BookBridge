@@ -58,7 +58,7 @@ struct SettingView: View {
             )
             
             NavigationLink {
-                
+                CustomerServiceView()
             } label: {
                 HStack {
                     Text("문의 및 건의사항")

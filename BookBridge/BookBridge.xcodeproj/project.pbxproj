@@ -197,6 +197,9 @@
 		91D7CAF12B82F76D00F7CFF8 /* SwipeBackExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7CAF02B82F76D00F7CFF8 /* SwipeBackExtension.swift */; };
 		91D7CB042B83528B00F7CFF8 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 91D7CB032B83528B00F7CFF8 /* Secrets.xcconfig */; };
 		91E99D932B8C2ED90038A9DE /* PostHopeBookListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E99D922B8C2ED90038A9DE /* PostHopeBookListView.swift */; };
+		91E99D952B8D645F0038A9DE /* InquiryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E99D942B8D645F0038A9DE /* InquiryView.swift */; };
+		91E99D972B8D6CFA0038A9DE /* InquiryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E99D962B8D6CFA0038A9DE /* InquiryModel.swift */; };
+		91E99D992B8D6F500038A9DE /* InquiryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E99D982B8D6F500038A9DE /* InquiryDetailView.swift */; };
 		AFE5B788F315503A86355ABB /* Pods_BookBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0208E9110CB38EDE3D59A6 /* Pods_BookBridge.framework */; };
 		F60BB0932B71D72400E27F38 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60BB0922B71D72400E27F38 /* HomeView.swift */; };
 		F60BB0952B71D72F00E27F38 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60BB0942B71D72F00E27F38 /* HomeViewModel.swift */; };
@@ -427,6 +430,9 @@
 		91D7CAF02B82F76D00F7CFF8 /* SwipeBackExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeBackExtension.swift; sourceTree = "<group>"; };
 		91D7CB032B83528B00F7CFF8 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		91E99D922B8C2ED90038A9DE /* PostHopeBookListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostHopeBookListView.swift; sourceTree = "<group>"; };
+		91E99D942B8D645F0038A9DE /* InquiryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryView.swift; sourceTree = "<group>"; };
+		91E99D962B8D6CFA0038A9DE /* InquiryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryModel.swift; sourceTree = "<group>"; };
+		91E99D982B8D6F500038A9DE /* InquiryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryDetailView.swift; sourceTree = "<group>"; };
 		A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridgeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5811A49FE2A9EF629A77C52 /* Pods-BookBridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.debug.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.debug.xcconfig"; sourceTree = "<group>"; };
 		CD38D177426E7831566653B2 /* Pods-BookBridge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge.release.xcconfig"; path = "Target Support Files/Pods-BookBridge/Pods-BookBridge.release.xcconfig"; sourceTree = "<group>"; };
@@ -871,6 +877,7 @@
 				73441FA82B733DEF00446E0F /* StyleModel.swift */,
 				5C8C0DD72B734B8C002963F1 /* NaverReverseGeocoding.swift */,
 				5C8C0E3B2B7B29F7002963F1 /* Report.swift */,
+				91E99D962B8D6CFA0038A9DE /* InquiryModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -904,6 +911,8 @@
 				73441FB42B734BBE00446E0F /* NoticeBoardTapView.swift */,
 				730028482B85E0B200EB3D8D /* NoticeBoardItemView.swift */,
 				73441FB82B735E1C00446E0F /* NoticeBoardSortView.swift */,
+				91E99D942B8D645F0038A9DE /* InquiryView.swift */,
+				91E99D982B8D6F500038A9DE /* InquiryDetailView.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1435,6 +1444,7 @@
 				73441FAD2B733E2200446E0F /* StyleListView.swift in Sources */,
 				5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */,
 				5A3A440F2B6C741200B66C81 /* InputTextFieldStyle.swift in Sources */,
+				91E99D952B8D645F0038A9DE /* InquiryView.swift in Sources */,
 				73718A012B8879F800C20798 /* MyProfileNicknameView.swift in Sources */,
 				911B4C8B2B74A4AF00801CFF /* FirebaseConstants.swift in Sources */,
 				1D71C6C52B6C766300EEC95D /* BookSearchBar.swift in Sources */,
@@ -1503,6 +1513,7 @@
 				91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */,
 				F6185FC02B8C0C3C00C2A889 /* LaunchScreenView.swift in Sources */,
 				5CE454992B68B8EF00874BCE /* AppleAuthManager.swift in Sources */,
+				91E99D992B8D6F500038A9DE /* InquiryDetailView.swift in Sources */,
 				73D077E62B7C9E300007DDEB /* MessageListView.swift in Sources */,
 				5A8345872B746811000984C4 /* FirestoreManager.swift in Sources */,
 				5A1A16962B6231870063D408 /* GoogleAuthManager.swift in Sources */,
@@ -1521,6 +1532,7 @@
 				5AA97F832B70754D00EF4081 /* LocationManager.swift in Sources */,
 				1D71C6C12B6C743900EEC95D /* BookView.swift in Sources */,
 				5A2DE0972B6884BE00EF3A6B /* EmailCertiView.swift in Sources */,
+				91E99D972B8D6CFA0038A9DE /* InquiryModel.swift in Sources */,
 				73D077EC2B7CA0330007DDEB /* MessageItemView.swift in Sources */,
 				5C8C0E322B7B2934002963F1 /* ReportView.swift in Sources */,
 				5A8345852B746741000984C4 /* ConvertManager.swift in Sources */,

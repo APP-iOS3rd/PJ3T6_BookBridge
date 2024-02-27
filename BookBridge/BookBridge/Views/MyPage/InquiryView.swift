@@ -1,15 +1,15 @@
 //
-//  ReportDetailView.swift
+//  CustomerServiceView.swift
 //  BookBridge
 //
-//  Created by 김지훈 on 2024/02/13.
+//  Created by 이현호 on 2/27/24.
 //
 
 import SwiftUI
 
-struct ReportDetailView: View {
+struct InquiryView: View {
     
-    @ObservedObject var reportVM: ReportViewModel
+//    @ObservedObject var reportVM: ReportViewModel
     @Environment(\.dismiss) private var dismiss
     @State private var text: String = ""
     @State private var showAlert: Bool = false
@@ -20,33 +20,34 @@ struct ReportDetailView: View {
             NavigationStack{
                 ZStack(alignment: .topLeading) {
                     VStack (alignment: .leading) {
-                        Text("신고 내용")
+                        Text("문의 내용")
                             .bold()
                         ZStack (alignment: .topLeading) {
                             Rectangle()
                                 .foregroundStyle(Color(hex: "F4F4F4"))
                                 .cornerRadius(10)
                                 .frame(height: 300)
-                            TextField("신고 내용을 입력해주세요.", text: $text, axis: .vertical)
+                            TextField("문의 내용을 입력해주세요.", text: $text, axis: .vertical)
                                 .padding()
                                 .frame(height: 300, alignment: .topLeading)
                                 .onChange(of: text, perform: {
-                                    text = String($0.prefix(300)) // 텍스트 글자수 제한
+                                    text = String($0.prefix(1000)) // 텍스트 글자수 제한
                                 })
                         }
                         HStack {
                             Spacer()
-                            CounterView(text: $text)
+                            InquiryCounterView(text: $text)
                                 .bold()
                                 .frame(alignment: .leading)
                         }
                         .padding(.bottom, 20)
                         
                         Button {
-                            reportVM.report.additionalComments = text
-                            reportVM.report.reporterUserId = UserManager.shared.uid
-                            reportVM.report.reason = title
-                            reportVM.saveReportToFirestore(report: reportVM.report)
+                            // 뷰모델 연결
+//                            reportVM.report.additionalComments = text
+//                            reportVM.report.reporterUserId = UserManager.shared.uid
+//                            reportVM.report.reason = title
+//                            reportVM.saveReportToFirestore(report: reportVM.report)
                             
                             showAlert = true
                         } label: {
@@ -60,7 +61,7 @@ struct ReportDetailView: View {
                         }
                         .alert(isPresented: $showAlert){
                             Alert(
-                                title: Text("신고 접수가 완료되었습니다."),
+                                title: Text("문의가 접수되었습니다."),
                                 dismissButton: .default(Text("확인")) {
                                     isTargetView = true
                                     text = ""
@@ -84,22 +85,5 @@ struct ReportDetailView: View {
             .navigationBarItems(leading: CustomBackButtonView())
             .navigationBarBackButtonHidden(true) // 뒤로 가기 버튼 숨기기
 
-    }
-}
-
-// 글자수 카운트
-struct CounterView: View {
-    @Binding var text: String
-    var counter: Int = 0
-    
-    init(text: Binding<String>) {
-        self._text = text
-        counter = self._text.wrappedValue.count
-    }
-    
-    var body: some View {
-        Text("\(counter) / 300")
-            .font(.caption)
-            .foregroundStyle(.black)
     }
 }
