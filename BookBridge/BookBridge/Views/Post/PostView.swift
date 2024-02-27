@@ -12,6 +12,7 @@ struct PostView: View {
     @Environment(\.dismiss) private var dismiss
     
     @Binding var isShowPlusBtn: Bool
+//    @Binding var selectedBook: Item
     
     @StateObject var postViewModel = PostViewModel()
     @StateObject var homeViewModel = HomeViewModel()

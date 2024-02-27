@@ -53,6 +53,7 @@ struct HomeListItemView: View {
                     .foregroundColor(.black)
                     .padding(.top, 10)
                     .lineLimit(2)
+                    .multilineTextAlignment(.leading)
                 
                 if author != "" {
                     Text("\(author)")
@@ -67,6 +68,7 @@ struct HomeListItemView: View {
                     .font(.system(size: 14))
                     .padding(.top, 5)
                     .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))
+                    .multilineTextAlignment(.leading)
                 
                 Spacer()
                 
