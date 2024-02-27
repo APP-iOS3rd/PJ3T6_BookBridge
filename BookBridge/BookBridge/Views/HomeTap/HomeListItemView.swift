@@ -70,6 +70,7 @@ struct HomeListItemView: View {
                 
                 Spacer()
                 
+
                 HStack{
                     Text("\(location.count>=20 ? location.components(separatedBy: " ")[3] : location) |")
                             .font(.system(size: 10))
@@ -85,6 +86,7 @@ struct HomeListItemView: View {
              
                 
                 
+
             }
             
             Spacer()

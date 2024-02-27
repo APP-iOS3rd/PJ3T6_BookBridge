@@ -279,6 +279,7 @@ extension PostModifyViewModel {
 
 extension PostModifyViewModel {
     func fetchMarkerById(noticeBoardId: String) {
+
         let db = Firestore.firestore()
         db.collection("noticeBoard").document(noticeBoardId).getDocument { (document, error) in
             if let document = document, document.exists {
@@ -306,4 +307,5 @@ extension PostModifyViewModel {
             }
         }
     }
+
 }

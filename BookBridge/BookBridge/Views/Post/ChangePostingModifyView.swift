@@ -127,6 +127,9 @@ struct ChangePostingModifyView: View {
             .onAppear {
                 if fetchBool {
                     viewModel.fetchNoticeBoardInfo(noticeBoard: noticeBoard)
+                    //viewModel Maker찾기
+                    viewModel.fetchMarkerById(noticeBoardId: viewModel.noticeBoard.id)
+                    
                     viewModel.urlToUIImage { images in
                         if let images = images {
                             DispatchQueue.main.async {
