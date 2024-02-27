@@ -29,7 +29,7 @@ struct HomeTapView: View {
                             .padding(.leading, 8)
                         
                         TextField("검색어를 입력해주세요", text: $text, onCommit: {
-                            if UserManager.shared.isLogin {                                
+                            if UserManager.shared.isLogin {
                                 viewModel.addRecentSearch(user: UserManager.shared.uid, text: text, category: tapCategory)
                             }
                             else {
@@ -38,7 +38,7 @@ struct HomeTapView: View {
                             
                             isOutsideXmark = false
                             isInsideXmark = false
-                                                        
+                            
                         })
                         .padding(7)
                         .onChange(of: text) { _ in
@@ -112,9 +112,11 @@ struct HomeTapView: View {
                                             locate: element.noticeLocation,
                                             title: element.noticeBoardTitle,
                                             userId: element.userId,
-                                            location: element.noticeLocationName, 
+                                            location: element.noticeLocationName,
                                             detail: element.noticeBoardDetail
                                         )
+                                        
+                                        Divider()
                                     }
                                 } else {
                                     //TODO: 나중에 썸네일 이미지, 저자 바꾸기
@@ -122,17 +124,22 @@ struct HomeTapView: View {
                                     NavigationLink {
                                         PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                                     } label: {
-                                        HomeListItemView(
-                                            author: element.hopeBook[0].volumeInfo.authors?[0] ?? "",
-                                            date: element.date, id: element.id,
-                                            imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
-                                            isChange: element.isChange,
-                                            locate: element.noticeLocation,
-                                            title: element.noticeBoardTitle,
-                                            userId: element.userId,
-                                            location: element.noticeLocationName,
-                                            detail: ""
-                                        )
+                                        VStack{
+                                            HomeListItemView(
+                                                author: element.hopeBook[0].volumeInfo.authors?[0] ?? "",
+                                                date: element.date, id: element.id,
+                                                imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
+                                                isChange: element.isChange,
+                                                locate: element.noticeLocation,
+                                                title: element.noticeBoardTitle,
+                                                userId: element.userId,
+                                                location: element.noticeLocationName,
+                                                detail: ""
+                                            )
+                                            
+                                            Divider()
+                                        }
+                                        
                                     }
                                     
                                 }
@@ -146,18 +153,21 @@ struct HomeTapView: View {
                                     NavigationLink {
                                         PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                                     } label: {
-                                        HomeListItemView(
-                                            author: "",
-                                            date: element.date,
-                                            id: element.id,
-                                            imageLinks: [],
-                                            isChange: element.isChange,
-                                            locate: element.noticeLocation,
-                                            title: element.noticeBoardTitle,
-                                            userId: element.userId,
-                                            location: element.noticeLocationName,
-                                            detail: element.noticeBoardDetail
-                                        )
+                                        VStack{
+                                            HomeListItemView(
+                                                author: "",
+                                                date: element.date,
+                                                id: element.id,
+                                                imageLinks: [],
+                                                isChange: element.isChange,
+                                                locate: element.noticeLocation,
+                                                title: element.noticeBoardTitle,
+                                                userId: element.userId,
+                                                location: element.noticeLocationName,
+                                                detail: element.noticeBoardDetail
+                                            )
+                                            Divider()
+                                        }
                                     }
                                 } else {
                                     //TODO: 나중에 썸네일 이미지, 저자 바꾸기
@@ -165,17 +175,21 @@ struct HomeTapView: View {
                                     NavigationLink {
                                         PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                                     } label: {
-                                        HomeListItemView(
-                                            author: element.hopeBook[0].volumeInfo.authors?[0] ?? "",
-                                            date: element.date, id: element.id,
-                                            imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
-                                            isChange: element.isChange,
-                                            locate: element.noticeLocation,
-                                            title: element.noticeBoardTitle,
-                                            userId: element.userId,
-                                            location: element.noticeLocationName,
-                                            detail: element.noticeBoardDetail
-                                        )
+                                        VStack{
+                                            HomeListItemView(
+                                                author: element.hopeBook[0].volumeInfo.authors?[0] ?? "",
+                                                date: element.date, id: element.id,
+                                                imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
+                                                isChange: element.isChange,
+                                                locate: element.noticeLocation,
+                                                title: element.noticeBoardTitle,
+                                                userId: element.userId,
+                                                location: element.noticeLocationName,
+                                                detail: element.noticeBoardDetail
+                                            )
+                                            Divider()
+                                        }
+                                        
                                     }
                                     
                                 }
@@ -190,18 +204,22 @@ struct HomeTapView: View {
                                 NavigationLink {
                                     PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                                 } label: {
-                                    HomeListItemView(
-                                        author: "",
-                                        date: element.date,
-                                        id: element.id,
-                                        imageLinks: element.noticeImageLink,
-                                        isChange: element.isChange,
-                                        locate: element.noticeLocation,
-                                        title: element.noticeBoardTitle,
-                                        userId: element.userId,
-                                        location: element.noticeLocationName,
-                                        detail: element.noticeBoardDetail
-                                    )
+                                    VStack{
+                                        
+                                        HomeListItemView(
+                                            author: "",
+                                            date: element.date,
+                                            id: element.id,
+                                            imageLinks: element.noticeImageLink,
+                                            isChange: element.isChange,
+                                            locate: element.noticeLocation,
+                                            title: element.noticeBoardTitle,
+                                            userId: element.userId,
+                                            location: element.noticeLocationName,
+                                            detail: element.noticeBoardDetail
+                                        )
+                                        Divider()
+                                    }
                                 }
                             }
                             .padding(.horizontal)
@@ -214,18 +232,24 @@ struct HomeTapView: View {
                                 NavigationLink {
                                     PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                                 } label: {
-                                    HomeListItemView(
-                                        author: "",
-                                        date: element.date,
-                                        id: element.id,
-                                        imageLinks: element.noticeImageLink,
-                                        isChange: element.isChange,
-                                        locate: element.noticeLocation,
-                                        title: element.noticeBoardTitle,
-                                        userId: element.userId,
-                                        location: element.noticeLocationName,
-                                        detail: element.noticeBoardDetail
-                                    )
+                                    VStack{
+                                        
+                                        
+                                        HomeListItemView(
+                                            author: "",
+                                            date: element.date,
+                                            id: element.id,
+                                            imageLinks: element.noticeImageLink,
+                                            isChange: element.isChange,
+                                            locate: element.noticeLocation,
+                                            title: element.noticeBoardTitle,
+                                            userId: element.userId,
+                                            location: element.noticeLocationName,
+                                            detail: element.noticeBoardDetail
+                                        )
+                                        Divider()
+                                    }
+                                    
                                 }
                             }
                             .padding(.horizontal)
@@ -285,16 +309,20 @@ struct HomeTapView: View {
                             NavigationLink {
                                 PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                             } label: {
-                                HomeListItemView(
-                                    author: "", date: element.date,
-                                    id: element.id, imageLinks: [],
-                                    isChange: element.isChange,
-                                    locate: element.noticeLocation,
-                                    title: element.noticeBoardTitle,
-                                    userId: element.userId,
-                                    location: element.noticeLocationName,
-                                    detail: element.noticeBoardDetail
-                                )
+                                VStack{
+                                    HomeListItemView(
+                                        author: "", date: element.date,
+                                        id: element.id, imageLinks: [],
+                                        isChange: element.isChange,
+                                        locate: element.noticeLocation,
+                                        title: element.noticeBoardTitle,
+                                        userId: element.userId,
+                                        location: element.noticeLocationName,
+                                        detail: element.noticeBoardDetail
+                                    )
+                                    
+                                    Divider()
+                                }
                             }
                         } else {
                             //TODO: 나중에 썸네일 이미지, 저자 바꾸기
@@ -302,18 +330,21 @@ struct HomeTapView: View {
                             NavigationLink {
                                 PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                             } label: {
-                                HomeListItemView(
-                                    author: element.hopeBook[0].volumeInfo.authors?[0] ?? "",
-                                    date: element.date,
-                                    id: element.id,
-                                    imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
-                                    isChange: element.isChange,
-                                    locate: element.noticeLocation,
-                                    title: element.noticeBoardTitle,
-                                    userId: element.userId,
-                                    location: element.noticeLocationName,
-                                    detail: ""
-                                )
+                                VStack{
+                                    HomeListItemView(
+                                        author: element.hopeBook[0].volumeInfo.authors?[0] ?? "",
+                                        date: element.date,
+                                        id: element.id,
+                                        imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
+                                        isChange: element.isChange,
+                                        locate: element.noticeLocation,
+                                        title: element.noticeBoardTitle,
+                                        userId: element.userId,
+                                        location: element.noticeLocationName,
+                                        detail: ""
+                                    )
+                                    Divider()
+                                }
                             }
                             
                         }
@@ -326,18 +357,22 @@ struct HomeTapView: View {
                         NavigationLink {
                             PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
                         } label: {
-                            HomeListItemView(
-                                author: "",
-                                date: element.date,
-                                id: element.id,
-                                imageLinks: element.noticeImageLink,
-                                isChange: element.isChange,
-                                locate: element.noticeLocation,
-                                title: element.noticeBoardTitle,
-                                userId: element.userId,
-                                location: element.noticeLocationName,
-                                detail: element.noticeBoardDetail
-                            )
+                            VStack{
+                                HomeListItemView(
+                                    author: "",
+                                    date: element.date,
+                                    id: element.id,
+                                    imageLinks: element.noticeImageLink,
+                                    isChange: element.isChange,
+                                    locate: element.noticeLocation,
+                                    title: element.noticeBoardTitle,
+                                    userId: element.userId,
+                                    location: element.noticeLocationName,
+                                    detail: element.noticeBoardDetail
+                                )
+                                
+                                Divider()
+                            }
                         }
                     }
                     .padding(.horizontal)
