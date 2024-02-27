@@ -13,6 +13,7 @@ struct BookView: View {
     @Binding var selectedBook: Item?
     @Binding var isEditing: Bool  // 편집 모드 상태 바인딩
     @Binding var isShowPlusBtn: Bool
+    @Binding var ismore : Bool
     
     var tap: tapInfo
     
@@ -79,7 +80,9 @@ struct BookView: View {
         }
         .onTapGesture {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                isShowPlusBtn = true
+                if !ismore {
+                    isShowPlusBtn = true
+                }
             }
             hideKeyboard()
         }

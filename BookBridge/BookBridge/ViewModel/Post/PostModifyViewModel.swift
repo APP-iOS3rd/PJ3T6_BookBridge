@@ -16,7 +16,10 @@ class PostModifyViewModel: ObservableObject {
     @Published var noticeBoard: NoticeBoard = NoticeBoard(userId: "", noticeBoardTitle: "", noticeBoardDetail: "", noticeImageLink: [], noticeLocation: [], noticeLocationName: "교환장소 선택", isChange: false, state: 0, date: Date(), hopeBook: [], geoHash: "")
     @Published var markerCoord: NMGLatLng? //사용자가 저장 전에 마커 좌표변경을 할 경우 대비
     @Published var user: UserModel = UserModel()
+    
     var items: [Item] = []
+    
+    let nestedGroup = DispatchGroup()
     let dispatchGroup = DispatchGroup()
     
     // 교환 장소 위도,경도
@@ -47,19 +50,27 @@ extension PostModifyViewModel {
         let linkNoticeBoard = db.collection("noticeBoard").document(noticeBoard.id)
         let user = db.collection("User").document(UserManager.shared.uid).collection("myNoticeBoard").document(noticeBoard.id)
         
-        linkNoticeBoard.updateData(["noticeBoardTitle" : noticeBoard.noticeBoardTitle])
-        linkNoticeBoard.updateData(["noticeBoardDetail" : noticeBoard.noticeBoardDetail])
-        linkNoticeBoard.updateData(["noticeLocation" : noticeBoard.noticeLocation])
-        linkNoticeBoard.updateData(["noticeLocationName" : noticeBoard.noticeLocationName])
+        linkNoticeBoard.updateData([
+            "noticeBoardTitle" : noticeBoard.noticeBoardTitle,
+            "noticeBoardDetail" : noticeBoard.noticeBoardDetail,
+            "noticeLocation" : noticeBoard.noticeLocation,
+            "noticeLocationName" : noticeBoard.noticeLocationName
+        ])
         
-        user.updateData(["noticeBoardTitle" : noticeBoard.noticeBoardTitle])
-        user.updateData(["noticeBoardDetail" : noticeBoard.noticeBoardDetail])
-        user.updateData(["noticeLocation" : noticeBoard.noticeLocation])
-        user.updateData(["noticeLocationName" : noticeBoard.noticeLocationName])
+        user.updateData([
+            "noticeBoardTitle" : noticeBoard.noticeBoardTitle,
+            "noticeBoardDetail" : noticeBoard.noticeBoardDetail,
+            "noticeLocation" : noticeBoard.noticeLocation,
+            "noticeLocationName" : noticeBoard.noticeLocationName
+        ])
         
         if !self.noticeBoard.isChange {
             for book in items {
+                linkNoticeBoard.collection("hopeBooks").document(book.id).collection("industryIdentifiers").document(book.volumeInfo.industryIdentifiers?[0].identifier ?? "").delete()
+                user.collection("hopeBooks").document(book.id).collection("industryIdentifiers").document(book.volumeInfo.industryIdentifiers?[0].identifier ?? "").delete()
+                
                 linkNoticeBoard.collection("hopeBooks").document(book.id).delete()
+                user.collection("hopeBooks").document(book.id).delete()
             }
         } else {
             deleteFolder(folderPath: "NoticeBoard/\(noticeBoard.id)")
@@ -94,7 +105,7 @@ extension PostModifyViewModel {
                     "imageLinks": hopeBookInfo.imageLinks?.smallThumbnail ?? ""
                 ])
                 
-                user.collection("myNoticeBoard").document(self.noticeBoard.id).collection("hopeBooks").document(book.id).setData([
+                user.collection("hopeBooks").document(book.id).setData([
                     "title": hopeBookInfo.title ?? "제목 미상",
                     "authors": hopeBookInfo.authors ?? ["저자 미상"],
                     "publisher": hopeBookInfo.publisher ?? "출판사 미상",
@@ -110,12 +121,10 @@ extension PostModifyViewModel {
                         "identifier": hopeBookInfo.industryIdentifiers?[0].identifier ?? ""
                     ])
                     
-                    user.collection("myNoticeBoard").document(self.noticeBoard.id).collection("hopeBooks").document(book.id).collection("industryIdentifiers").document(hopeBookInfo.industryIdentifiers?[0].identifier ?? "").setData([
+                    user.collection("hopeBooks").document(book.id).collection("industryIdentifiers").document(hopeBookInfo.industryIdentifiers?[0].identifier ?? "").setData([
                         "identifier": hopeBookInfo.industryIdentifiers?[0].identifier ?? ""
                     ])
                 }
-                
-                
             }
         }
     }
@@ -153,37 +162,54 @@ extension PostModifyViewModel {
         if noticeBoard.isChange {
             
         } else {
-            db.collection("noticeBoard").document(noticeBoard.id).collection("hopeBooks").getDocuments { [weak self] (querySnapshot, error) in
-                guard let documents = querySnapshot?.documents, error == nil else {
-                    print("Error getting documents: \(error?.localizedDescription ?? "")")
-                    return
-                }
+            db.collection("noticeBoard").document(noticeBoard.id).collection("hopeBooks").getDocuments { querySnapshot2, err2 in
+                guard err2 == nil else { return }
+                guard let hopeDocuments = querySnapshot2?.documents else { return }
                 
-                var items: [Item] = []
-                for document in documents {
-                    let data = document.data()
-                    let volumeInfo = VolumeInfo(
-                        title: data["title"] as? String,
-                        authors: data["authors"] as? [String],
-                        publisher: data["publisher"] as? String,
-                        publishedDate: data["publishedDate"] as? String,
-                        description: data["description"] as? String,
-                        industryIdentifiers: [IndustryIdentifier(identifier: data["industryIdentifier"] as? String)],
-                        pageCount: data["pageCount"] as? Int,
-                        categories: data["categories"] as? [String],
-                        imageLinks: ImageLinks(smallThumbnail: data["imageLinks"] as? String)
-                    )
-                    let item = Item(id: document.documentID, volumeInfo: volumeInfo)
-                    items.append(item)
-                }
+                var hopeBooks: [Item] = []
                 
-                DispatchQueue.main.async {
-                    self?.noticeBoard.hopeBook = items
-                    self?.items = items
+                for doc in hopeDocuments {
+                    if doc.exists {
+                        self.nestedGroup.enter() // Enter nested DispatchGroup
+                        
+                        self.db.collection("noticeBoard").document(noticeBoard.id).collection("hopeBooks").document(doc.documentID).collection("industryIdentifiers").getDocuments { (querySnapshot, error) in
+                            guard let industryIdentifiers = querySnapshot?.documents else {
+                                self.nestedGroup.leave()
+                                return
+                            }
+                            
+                            var isbn: [IndustryIdentifier] = []
+                            for industryIdentifier in industryIdentifiers {
+                                isbn.append(IndustryIdentifier(identifier: industryIdentifier.documentID))
+                            }
+                            
+                            let item = Item(id: doc.documentID, volumeInfo: VolumeInfo(
+                                title: doc.data()["title"] as? String ?? "",
+                                authors: (doc.data()["authors"] as? [String] ?? [""]),
+                                publisher: doc.data()["publisher"] as? String ?? "",
+                                publishedDate: doc.data()["publishedDate"] as? String ?? "",
+                                description: doc.data()["description"] as? String ?? "",
+                                industryIdentifiers: isbn,
+                                pageCount: doc.data()["pageCount"] as? Int ?? 0,
+                                categories: doc.data()["categories"] as? [String] ?? [""],
+                                imageLinks: ImageLinks(smallThumbnail: doc.data()["imageLinks"] as? String ?? "")))
+                            
+                            hopeBooks.append(item)
+                            
+                            self.nestedGroup.leave() // Leave nested DispatchGroup
+                        }
+                    } else {
+                        self.nestedGroup.leave() // Leave nested DispatchGroup
+                    }
+                }
+                self.nestedGroup.notify(queue: .main) {
+                    DispatchQueue.main.async {
+                        self.noticeBoard.hopeBook = hopeBooks
+                        self.items = hopeBooks
+                    }
                 }
             }
         }
-        
         print(noticeBoard)
     }
     
@@ -216,7 +242,7 @@ extension PostModifyViewModel {
             completion(images)
         }
     }
-
+    
     
     func deleteFolder(folderPath: String) {
         let storageRef = Storage.storage().reference().child(folderPath)
@@ -246,6 +272,37 @@ extension PostModifyViewModel {
                         print("File successfully deleted: \(item.name)")
                     }
                 }
+            }
+        }
+    }
+}
+
+extension PostModifyViewModel {
+    func fetchMarkerById(noticeBoardId: String) {
+        let db = Firestore.firestore()
+        db.collection("noticeBoard").document(noticeBoardId).getDocument { (document, error) in
+            if let document = document, document.exists {
+                let data = document.data()
+                let noticeBoard = NoticeBoard(
+                    id: document.documentID,
+                    userId: data?["userId"] as? String ?? "",
+                    noticeBoardTitle: data?["noticeBoardTitle"] as? String ?? "",
+                    noticeBoardDetail: data?["noticeBoardDetail"] as? String ?? "",
+                    noticeImageLink: data?["noticeImageLink"] as? [String] ?? [],
+                    noticeLocation: data?["noticeLocation"] as? [Double] ?? [0.0, 0.0],
+                    noticeLocationName: data?["noticeLocationName"] as? String ?? "",
+                    isChange: data?["isChange"] as? Bool ?? false,
+                    state: data?["state"] as? Int ?? 0,
+                    date: (data?["date"] as? Timestamp)?.dateValue() ?? Date(),
+                    hopeBook: [], // hopeBook은
+                    geoHash: data?["geoHash"] as? String,
+                    reservationId: data?["reservationId"] as? String
+                )
+                
+                self.markerCoord = NMGLatLng(lat: noticeBoard.noticeLocation[0], lng: noticeBoard.noticeLocation[1])
+                
+            } else {
+                print("noticeBoard Document does not exist")
             }
         }
     }
