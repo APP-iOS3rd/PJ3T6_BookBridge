@@ -171,6 +171,7 @@ struct SettingView: View {
         }
         .navigationBarBackButtonHidden()
         .navigationTitle("설정")
+        .navigationBarTitleDisplayMode(.inline)
         .padding(.horizontal)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {

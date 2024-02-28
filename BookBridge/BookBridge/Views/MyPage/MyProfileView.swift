@@ -81,6 +81,7 @@ struct MyProfileView: View {
         }
         .navigationBarBackButtonHidden()
         .navigationTitle(isEditing ? "" : "프로필")
+        .navigationBarTitleDisplayMode(.inline)
         .padding(.horizontal)
         .toolbar(.hidden, for: .tabBar)
         .toolbar {

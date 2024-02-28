@@ -37,6 +37,7 @@ struct NoticeBoardView: View {
         }
         .navigationBarBackButtonHidden()
         .navigationTitle(naviTitle)
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
