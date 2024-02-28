@@ -17,9 +17,9 @@ struct IdLoginView: View {
         
         VStack{
             
-            if isShowImage {
+            
                 Image("Character")
-            }
+            
             
             
             
@@ -34,7 +34,7 @@ struct IdLoginView: View {
                 
                 TextField("아이디를 입력하세요", text: $viewModel.username)
                     .onTapGesture {
-                        isShowImage = false
+//                        isShowImage = false
                     }
                     .padding()
                     .foregroundColor(Color(hex: "3C3C43"))
@@ -58,7 +58,7 @@ struct IdLoginView: View {
                 
                 SecureField("비밀번호를 입력하세요", text: $viewModel.password)
                     .onTapGesture {
-                        isShowImage = false
+//                        isShowImage = false
                     }
                     .padding()
                     .foregroundColor(Color(hex: "3C3C43"))
@@ -128,7 +128,6 @@ struct IdLoginView: View {
         .padding(20)
         .onTapGesture{
             hideKeyboard()
-            isShowImage = false
         }
         .navigationBarTitle("로그인", displayMode: .inline)
         .navigationBarItems(leading: CustomBackButtonView())
