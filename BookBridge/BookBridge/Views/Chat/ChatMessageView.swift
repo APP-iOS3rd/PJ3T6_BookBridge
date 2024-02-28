@@ -224,6 +224,7 @@ struct ChatMessageView: View {
                         .foregroundStyle(Color(hex: "4B4B4C"))
                         .background(Color(hex: "D9D9D9"))
                         .cornerRadius(5)
+                        .minimumScaleFactor(0.7)
                     
                     Text(chatRoomPartner.nickname)
                         .font(.system(size: 15, weight: .bold))
