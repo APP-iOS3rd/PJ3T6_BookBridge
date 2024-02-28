@@ -51,7 +51,7 @@ struct ChatMessageView: View {
                 if !(viewModel.noticeBoardInfo.userId == "" && viewModel.noticeBoardInfo.noticeBoardTitle == "") {
                     if viewModel.noticeBoardInfo.state == 0 {
                         //게시물 상태가 0
-                        ChatBottomBarView(viewModel: viewModel, isShowKeyboard: $isShowKeyboard, isPlusBtn: $isPlusBtn, chatRoomListId: viewModel.saveChatRoomId, partnerId: chatRoomPartner.partnerId, uid: uid)
+                        ChatBottomBarView(isPlusBtn: $isPlusBtn, viewModel: viewModel, isShowKeyboard: $isShowKeyboard, chatRoomListId: viewModel.saveChatRoomId, partnerId: chatRoomPartner.partnerId, uid: uid)
                     } else {
                         if viewModel.noticeBoardInfo.reservationId != chatRoomPartner.partnerId && viewModel.noticeBoardInfo.userId == uid {
                             //게시물 작성자 == 나 이면서 예약자는 대화하고있는 사람이 아닌
@@ -94,7 +94,7 @@ struct ChatMessageView: View {
                             }
                         } else if viewModel.noticeBoardInfo.reservationId == uid || viewModel.noticeBoardInfo.userId == uid {
                             //게시물 작성자 == 나 이거나 예약자 == 대화하고있는 사람
-                            ChatBottomBarView(viewModel: viewModel, isShowKeyboard: $isShowKeyboard, isPlusBtn: $isPlusBtn, chatRoomListId: viewModel.saveChatRoomId, partnerId: chatRoomPartner.partnerId, uid: uid)
+                            ChatBottomBarView(isPlusBtn: $isPlusBtn, viewModel: viewModel, isShowKeyboard: $isShowKeyboard, chatRoomListId: viewModel.saveChatRoomId, partnerId: chatRoomPartner.partnerId, uid: uid)
                         } else {
                             if viewModel.noticeBoardInfo.state == 1 {
                                 Text("현재 다른 사람과 예약중입니다.")

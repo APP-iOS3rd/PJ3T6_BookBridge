@@ -21,7 +21,7 @@ struct MessageListView: View {
             ScrollViewReader { scrollViewProxy in
                 VStack {
                     ForEach(viewModel.chatMessages) { chatMessage in
-                        MessageItemView(viewModel: viewModel, messageModel: ChatMessageModel(date: chatMessage.date, imageURL: chatMessage.imageURL, location: chatMessage.location, message: chatMessage.message, sender: chatMessage.sender), partnerId: partnerId, partnerImage: partnerImage, uid: uid)
+                        MessageItemView(viewModel: viewModel, chatLocation: chatMessage.location, chatLocationTuple: (chatMessage.location[0], chatMessage.location[1]), messageModel: ChatMessageModel(date: chatMessage.date, imageURL: chatMessage.imageURL, location: chatMessage.location, message: chatMessage.message, sender: chatMessage.sender), partnerId: partnerId, partnerImage: partnerImage, uid: uid)
                     }
                     HStack {
                         Spacer()

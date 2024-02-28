@@ -45,7 +45,7 @@ extension ChatMessageViewModel {
                 self.chatMessages.append(ChatMessageModel(
                     date: changeTime.dateValue(),
                     imageURL: document.data()["imageURL"] as? String ?? "",
-                    location: document.data()["location"] as? [String] ?? ["100", "200"],
+                    location: document.data()["location"] as? [Double] ?? [100, 200],
                     message: document.data()["message"] as? String ?? "",
                     sender: document.data()["sender"] as? String ?? ""
                 ))
@@ -220,7 +220,7 @@ extension ChatMessageViewModel {
             let messageData = [
                 "date": timestamp,
                 "imageURL": "",
-                "location": ["100", "200"],
+                "location": [100, 200],
                 "message": self.chatText,
                 "sender": uid
             ] as [String : Any]
@@ -321,7 +321,7 @@ extension ChatMessageViewModel {
                     let messageData = [
                         "date": timestamp,
                         "imageURL": urlString,
-                        "location": ["100", "200"],
+                        "location": [100, 200],
                         "message": "",
                         "sender": uid
                     ] as [String : Any]
@@ -407,6 +407,68 @@ extension ChatMessageViewModel {
                         self.chatImages.updateValue(UIImage(data: imageData) ?? UIImage(named: "DefaultImage")!, forKey: urlString)
                     }
                 }.resume()
+            }
+        }
+    }
+}
+
+//MARK: 메시지 전송 (위치)
+extension ChatMessageViewModel {
+    func handleSendLocation(uid: String, partnerId: String, lat: Double, lng: Double, location: String, completion: @escaping() -> ()) {
+        let timestamp = Date()
+        
+        checkPartnerRoom(partnerId: partnerId, timestamp: timestamp, uid: uid) {
+            let messageData = [
+                "date": timestamp,
+                "imageURL": "",
+                "location": [lat, lng],
+                "message": location,
+                "sender": uid
+            ] as [String : Any]
+            
+            // 발신자용 메시지 전송 저장
+            let myQuery = FirebaseManager.shared.firestore.collection("User")
+                .document(uid)
+                .collection("chatRoomList").document(self.saveChatRoomId)
+            
+            let senderDocument = myQuery.collection("messages").document()
+            
+            senderDocument.setData(messageData) { error in
+                guard error == nil else { return }
+                
+                print("Successfully saved current user sending message")
+                
+                self.count += 1 // 채팅 화면 하단 갱신
+            }
+            
+            myQuery.updateData([
+                "date": timestamp,
+                "recentMessage": "위치"
+            ])
+            
+            // 수신자용 메시지 전송 저장
+            let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(self.saveChatRoomId)
+            
+            let recipientMessageDocument = partnerQuery.collection("messages").document()
+            
+            recipientMessageDocument.setData(messageData) { error in
+                guard error == nil else { return }
+                print("Recipient saved message as well")
+            }
+            
+            partnerQuery.getDocument { documentSnapshot, error in
+                guard error == nil else { return }
+                guard let document = documentSnapshot else { return }
+                
+                partnerQuery.updateData([
+                    "date": timestamp,
+                    "newCount": (document.data()?["newCount"] as? Int ?? 0) + 1,
+                    "recentMessage": "위치"
+                ])
+                
+                self.chatText = ""
+                
+                completion()
             }
         }
     }
