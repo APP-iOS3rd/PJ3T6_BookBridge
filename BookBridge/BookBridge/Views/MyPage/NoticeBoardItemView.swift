@@ -17,7 +17,7 @@ struct NoticeBoardItemView: View {
     var id: String
     var imageLinks: [String]
     var isChange: Bool
-    var locate: [Double]
+    var locate: String
     var title: String
     
     var body: some View {
@@ -58,7 +58,7 @@ struct NoticeBoardItemView: View {
                 
                 Spacer()
                 
-                Text("무슨동 | \(ConvertManager.getTimeDifference(from: date))")
+                Text("\(locate.count>=20 ? locate.components(separatedBy: " ")[3] : locate) | \(ConvertManager.getTimeDifference(from: date))")
                     .font(.system(size: 10))
                     .padding(.bottom, 10)
                     .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))
