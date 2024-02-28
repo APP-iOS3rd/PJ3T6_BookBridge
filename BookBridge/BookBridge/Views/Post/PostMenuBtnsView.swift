@@ -82,12 +82,6 @@ struct PostMenuBtnsView: View {
                                     .modifier(MenuBtnText())
                                     .foregroundStyle(Color.red)
                             }
-                            .alert("게시물을 삭제하시겠습니까?",isPresented: $showingDeleteAlert){
-                                Button("삭제", role: .destructive) {
-                                    postViewModel.deletePost(noticeBoardId: noticeBoard.id)
-                                    dismiss()
-                                }
-                                Button("취소", role: .cancel) {}                            }
                         }
                     }
                 }
@@ -97,6 +91,19 @@ struct PostMenuBtnsView: View {
                         .foregroundColor(Color(uiColor: .systemGray6))
                 )
                 .padding(.trailing)
+                .alert("게시물을 삭제하시겠습니까?", isPresented: $showingDeleteAlert, actions: {
+                    Button("삭제", role: .destructive) {
+                        postViewModel.deletePost(noticeBoardId: noticeBoard.id)
+                        dismiss()
+                    }
+                    
+                    Button("취소", role: .cancel) {
+                        showingDeleteAlert = false
+                    }
+                }, message: {
+                    Text("삭제하면 게시물 내용이 모두 삭제되고 게시물 목록에서도 삭제됩니다.")
+                        .font(.system(size: 10))
+                })
             }
             Spacer()
         }

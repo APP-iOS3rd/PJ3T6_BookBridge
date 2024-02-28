@@ -13,7 +13,7 @@ struct ChatMessageModel: Identifiable {
     let id = UUID().uuidString
     var date: Date
     var imageURL: String
-    var location: [String]
+    var location: [Double]
     var message: String
     var sender: String
     
