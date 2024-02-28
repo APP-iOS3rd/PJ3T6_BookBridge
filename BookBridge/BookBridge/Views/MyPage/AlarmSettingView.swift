@@ -87,6 +87,7 @@ struct AlarmSettingView: View {
         }
         .navigationBarBackButtonHidden()
         .navigationTitle("알림")
+        .navigationBarTitleDisplayMode(.inline)
         .padding(.horizontal)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
