@@ -60,6 +60,7 @@ struct TownSettingView: View {
         }
         .navigationBarBackButtonHidden()
         .navigationTitle("동네설정")
+        .navigationBarTitleDisplayMode(.inline)
         .toolbar(.hidden, for: .tabBar)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
