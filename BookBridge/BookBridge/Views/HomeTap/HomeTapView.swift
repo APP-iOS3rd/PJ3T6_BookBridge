@@ -70,7 +70,7 @@ struct HomeTapView: View {
                             .padding(.trailing, 8)
                         }
                     }
-                    .background(Color(red: 233/255, green: 233/255, blue: 233/255))
+                    .background(Color(.systemGray6))
                     .clipShape(RoundedRectangle(cornerRadius: 10))
                     .onTapGesture {
                         isOutsideXmark = true
