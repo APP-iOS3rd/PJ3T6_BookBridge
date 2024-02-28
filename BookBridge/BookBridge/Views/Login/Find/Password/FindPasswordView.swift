@@ -22,7 +22,7 @@ struct FindPasswordView: View {
             
             VStack(alignment: .leading,spacing: 5 ) {
                 
-                Text("가입할 때 입력한 아이디와 \n 이메일을 입력해주세요")
+                Text("가입할 때 입력한 아이디와 \n이메일을 입력해주세요")
                     .font(.system(size: 20, weight: .regular))
                                 
                 
