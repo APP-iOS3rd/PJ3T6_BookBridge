@@ -11,13 +11,15 @@ struct SettingView: View {
     @StateObject var inquiryVM = InquiryViewModel()
     
     @Environment(\.dismiss) private var dismiss
+    @StateObject var settingVM = SettingViewModel()
     @State private var showingLogoutAlert = false
     @State private var showingLoginView = false
     @Binding var selectedTab: Int
+    
     var body: some View {
         VStack {
             NavigationLink {
-                AlarmSettingView()
+                AlarmSettingView(settingVM: settingVM)
             } label: {
                 HStack {
                     Text("알림")
