@@ -132,7 +132,7 @@ struct NoticeBoardTapView: View {
                                             id: element.id,
                                             imageLinks: [],
                                             isChange: element.isChange,
-                                            locate: element.noticeLocation,
+                                            locate: element.noticeLocationName,
                                             title: element.noticeBoardTitle
                                         )
                                     }
@@ -147,7 +147,7 @@ struct NoticeBoardTapView: View {
                                             id: element.id,
                                             imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
                                             isChange: element.isChange,
-                                            locate: element.noticeLocation,
+                                            locate: element.noticeLocationName,
                                             title: element.noticeBoardTitle
                                         )
                                     }
@@ -181,7 +181,7 @@ struct NoticeBoardTapView: View {
                                         id: element.id,
                                         imageLinks: element.noticeImageLink,
                                         isChange: element.isChange,
-                                        locate: element.noticeLocation,
+                                        locate: element.noticeLocationName,
                                         title: element.noticeBoardTitle
                                     )
                                 }
