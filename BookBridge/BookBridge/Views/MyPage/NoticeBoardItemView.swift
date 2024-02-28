@@ -58,7 +58,7 @@ struct NoticeBoardItemView: View {
                 
                 Spacer()
                 
-                Text("무슨동 | \(date)")
+                Text("무슨동 | \(ConvertManager.getTimeDifference(from: date))")
                     .font(.system(size: 10))
                     .padding(.bottom, 10)
                     .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))
