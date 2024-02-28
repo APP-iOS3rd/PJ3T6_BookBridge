@@ -42,17 +42,6 @@ struct HomeView: View {
                     
                 }
                 Spacer()
-                                
-                Button {
-                    if userManager.isLogin {
-                        userManager.logout()
-                    } else {
-                        showingLoginView.toggle()
-                    }
-                } label: {
-                    Text(userManager.isLogin ? "로그아웃" : "로그인")
-                }
-                .padding(.trailing, 20)
             }
             
             tapAnimation()
