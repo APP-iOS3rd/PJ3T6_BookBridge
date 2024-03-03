@@ -9,9 +9,7 @@ import SwiftUI
 
 struct StyleSettingView: View {
     @Environment(\.dismiss) private var dismiss
-    
-    @Binding var isShowPlusBtn: Bool
-    
+
     @StateObject var viewModel = StyleViewModel()
     
     @State private var isModal: Bool = false
@@ -60,7 +58,6 @@ struct StyleSettingView: View {
                 .presentationDetents([.height(250)])
         })
         .onAppear {
-            isShowPlusBtn = false
             viewModel.myStyles = UserManager.shared.user?.titles ?? ["뉴비"]
             viewModel.selectedStyle = userStyle
         }

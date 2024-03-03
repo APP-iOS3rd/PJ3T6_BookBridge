@@ -10,8 +10,7 @@ import NMapsMap
 
 struct PostView: View {
     @Environment(\.dismiss) private var dismiss
-    
-    @Binding var isShowPlusBtn: Bool
+ 
 //    @Binding var selectedBook: Item
     
     @StateObject var postViewModel = PostViewModel()
@@ -57,7 +56,7 @@ struct PostView: View {
                         
                                             
                         //상대방 책장
-                        PostUserBookshelf(postViewModel: postViewModel, isShowPlusBtn: $isShowPlusBtn)
+                        PostUserBookshelf(postViewModel: postViewModel)
                                             
                         Divider()
                             .padding(.horizontal)
@@ -90,7 +89,7 @@ struct PostView: View {
                 
                 if UserManager.shared.uid == noticeBoard.userId {
                     NavigationLink {
-                        ChatRoomListView(isShowPlusBtn: $isShowPlusBtn, chatRoomList: postViewModel.chatRoomList, isComeNoticeBoard: true, uid: UserManager.shared.uid)
+                        ChatRoomListView(chatRoomList: postViewModel.chatRoomList, isComeNoticeBoard: true, uid: UserManager.shared.uid)
                     } label: {
                         Text("대화중인 채팅방 \(postViewModel.chatRoomList.count)")
                             .padding(.top, 5)
@@ -106,7 +105,6 @@ struct PostView: View {
                             if noticeBoard.reservationId == UserManager.shared.uid {
                                 NavigationLink {
                                     ChatMessageView(
-                                        isShowPlusBtn: $isShowPlusBtn,
                                         chatRoomListId: postViewModel.userChatRoomId,
                                         chatRoomPartner: ChatPartnerModel(
                                             nickname: postViewModel.user.nickname ?? "닉네임 미아",
@@ -150,7 +148,6 @@ struct PostView: View {
                             if noticeBoard.reservationId == UserManager.shared.uid {
                                 NavigationLink {
                                     ChatMessageView(
-                                        isShowPlusBtn: $isShowPlusBtn,
                                         chatRoomListId: postViewModel.userChatRoomId,
                                         chatRoomPartner: ChatPartnerModel(
                                             nickname: postViewModel.user.nickname ?? "닉네임 미아",
@@ -195,7 +192,6 @@ struct PostView: View {
                             if postViewModel.chatRoomList.isEmpty {
                                 NavigationLink {
                                     ChatMessageView(
-                                        isShowPlusBtn: $isShowPlusBtn,
                                         chatRoomListId: "",
                                         chatRoomPartner: ChatPartnerModel(
                                             nickname: postViewModel.user.nickname ?? "닉네임 미아",
@@ -220,7 +216,6 @@ struct PostView: View {
                                 //채팅한 적이 있는 경우
                                 NavigationLink {
                                     ChatMessageView(
-                                        isShowPlusBtn: $isShowPlusBtn,
                                         chatRoomListId: postViewModel.userChatRoomId,
                                         chatRoomPartner: ChatPartnerModel(
                                             nickname: postViewModel.user.nickname ?? "닉네임 미아",
@@ -261,7 +256,6 @@ struct PostView: View {
             .frame(alignment: Alignment.bottom)
         }
         .onAppear {
-            isShowPlusBtn = false
             print(noticeBoard)
             Task {
                 postViewModel.fetchNoticeBoard(noticeBoardId: noticeBoard.id)

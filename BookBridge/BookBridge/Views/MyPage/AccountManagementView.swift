@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AccountManagementView: View {
-    @Binding var isShowPlusBtn: Bool
     
     @StateObject var viewModel: MyPageViewModel
     
@@ -19,7 +18,7 @@ struct AccountManagementView: View {
                 .padding(.bottom, 10)
             
             NavigationLink {
-                MyProfileView(isShowPlusBtn: $isShowPlusBtn, nickname: viewModel.userManager.user?.nickname ?? "", password: viewModel.userManager.user?.password ?? "", userSaveImage: viewModel.userSaveImage)
+                MyProfileView(nickname: viewModel.userManager.user?.nickname ?? "", password: viewModel.userManager.user?.password ?? "", userSaveImage: viewModel.userSaveImage)
             } label: {
                 HStack {
                     Text("프로필")
@@ -39,7 +38,7 @@ struct AccountManagementView: View {
             }
             
             NavigationLink {                //관심목록 경로가 아직없음
-                NoticeBoardView(isShowPlusBtn: $isShowPlusBtn, naviTitle: "관심목록", noticeBoardArray: viewModel.userBookMarks, sortTypes: ["전체", "진행중", "예약중", "교환완료"])
+                NoticeBoardView(naviTitle: "관심목록", noticeBoardArray: viewModel.userBookMarks, sortTypes: ["전체", "진행중", "예약중", "교환완료"])
             } label: {
                 HStack {
                     Text("관심목록")
@@ -59,7 +58,7 @@ struct AccountManagementView: View {
             }
            
             NavigationLink {
-                TownSettingView(isShowPlusBtn: $isShowPlusBtn)
+                TownSettingView()
             } label: {
                 HStack {
                     Text("동네설정")
@@ -80,7 +79,7 @@ struct AccountManagementView: View {
             
             NavigationLink {
                 //유저 아이디에 사용자 아이디 넣기, 유저 스타일에 사용자 대표 칭호 넣기
-                StyleSettingView(isShowPlusBtn: $isShowPlusBtn, userId: viewModel.userManager.uid, userStyle: viewModel.userManager.user?.style ?? "")
+                StyleSettingView(userId: viewModel.userManager.uid, userStyle: viewModel.userManager.user?.style ?? "")
             } label: {
                 HStack {
                     Text("칭호관리")

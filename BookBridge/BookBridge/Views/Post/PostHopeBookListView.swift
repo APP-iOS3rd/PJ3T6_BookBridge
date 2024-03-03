@@ -82,6 +82,8 @@ struct PostHopeBookListView: View {
                                 .padding(.trailing, 5)
                                 .padding(.top, 1)
                                 .padding(.leading)
+                                .frame(width: 100, alignment: .leading)
+                                .lineLimit(2)
                         }
                     }
                 }

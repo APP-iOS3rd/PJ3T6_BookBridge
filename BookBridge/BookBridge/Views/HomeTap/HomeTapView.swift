@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct HomeTapView: View {
-    @Binding var isShowPlusBtn: Bool
     @StateObject var viewModel: HomeViewModel
     @StateObject var locationManager = LocationManager.shared
     @State  var isInsideXmark: Bool = false
@@ -45,7 +44,6 @@ struct HomeTapView: View {
                             isInsideXmark = !text.isEmpty
                         }
                         .onTapGesture {
-                            isShowPlusBtn = false
                             if text.isEmpty{
                                 isOutsideXmark = true
                             }
@@ -101,7 +99,7 @@ struct HomeTapView: View {
                             ForEach(viewModel.findNoticeBoards) { element in
                                 if element.hopeBook.isEmpty {
                                     NavigationLink {
-                                        PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
+                                        PostView(noticeBoard: element)
                                     } label: {
                                         HomeListItemView(
                                             author: "",
@@ -122,7 +120,7 @@ struct HomeTapView: View {
                                     //TODO: 나중에 썸네일 이미지, 저자 바꾸기
                                     
                                     NavigationLink {
-                                        PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
+                                        PostView(noticeBoard: element)
                                     } label: {
                                         VStack{
                                             HomeListItemView(
@@ -151,7 +149,7 @@ struct HomeTapView: View {
                             ForEach(viewModel.filteredNoticeBoards) { element in
                                 if element.hopeBook.isEmpty {
                                     NavigationLink {
-                                        PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
+                                        PostView(noticeBoard: element)
                                     } label: {
                                         VStack{
                                             HomeListItemView(
@@ -173,7 +171,7 @@ struct HomeTapView: View {
                                     //TODO: 나중에 썸네일 이미지, 저자 바꾸기
                                     
                                     NavigationLink {
-                                        PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
+                                        PostView(noticeBoard: element)
                                     } label: {
                                         VStack{
                                             HomeListItemView(
@@ -202,7 +200,7 @@ struct HomeTapView: View {
                         if text.isEmpty {
                             ForEach(viewModel.changeNoticeBoards) { element in
                                 NavigationLink {
-                                    PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
+                                    PostView(noticeBoard: element)
                                 } label: {
                                     VStack{
                                         
@@ -230,7 +228,7 @@ struct HomeTapView: View {
                             
                             ForEach(viewModel.filteredNoticeBoards) { element in
                                 NavigationLink {
-                                    PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
+                                    PostView(noticeBoard: element)
                                 } label: {
                                     VStack{
                                         
@@ -286,7 +284,6 @@ struct HomeTapView: View {
                         }
                         .onDisappear {
                             showRecentSearchView = false
-                            isShowPlusBtn = true
                         }
                 }
                 else {
@@ -302,7 +299,6 @@ struct HomeTapView: View {
                         }
                         .onDisappear {
                             showRecentSearchView = false
-                            isShowPlusBtn = true
                         }
                     
                 }
@@ -312,7 +308,7 @@ struct HomeTapView: View {
                     ForEach(viewModel.findNoticeBoards) { element in
                         if element.hopeBook.isEmpty {
                             NavigationLink {
-                                PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
+                                PostView(noticeBoard: element)
                             } label: {
                                 VStack{
                                     HomeListItemView(
@@ -333,7 +329,7 @@ struct HomeTapView: View {
                             //TODO: 나중에 썸네일 이미지, 저자 바꾸기
                             
                             NavigationLink {
-                                PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
+                                PostView(noticeBoard: element)
                             } label: {
                                 VStack{
                                     HomeListItemView(
@@ -360,7 +356,7 @@ struct HomeTapView: View {
                 case .change:
                     ForEach(viewModel.changeNoticeBoards) { element in
                         NavigationLink {
-                            PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
+                            PostView(noticeBoard: element)
                         } label: {
                             VStack{
                                 HomeListItemView(
@@ -392,7 +388,6 @@ struct HomeTapView: View {
         }
         .onTapGesture {
             hideKeyboard()
-            isShowPlusBtn = true
         }
         .environmentObject(viewModel)
         .onAppear {

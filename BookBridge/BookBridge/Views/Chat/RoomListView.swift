@@ -9,7 +9,6 @@ import SwiftUI
 import Kingfisher
 
 struct RoomListView: View {
-    @Binding var isShowPlusBtn: Bool
     
     @StateObject var viewModel: ChatRoomListViewModel
     
@@ -19,7 +18,7 @@ struct RoomListView: View {
             ForEach(viewModel.searchChatRoomList()) { chatRoom in
                 NavigationLink {
                     ChatMessageView(
-                        isShowPlusBtn: $isShowPlusBtn, isAlarm: chatRoom.isAlarm,
+                        isAlarm: chatRoom.isAlarm,
                         chatRoomListId: chatRoom.id,
                         chatRoomPartner: viewModel.chatRoomDic[chatRoom.id] ?? ChatPartnerModel(nickname: "닉네임 없음", noticeBoardId: chatRoom.noticeBoardId, partnerId: chatRoom.partnerId, partnerImage: UIImage(named: "DefaultImage")!, partnerImageUrl: "", style: "칭호 미아"),
                         noticeBoardTitle: chatRoom.noticeBoardTitle,

@@ -8,49 +8,66 @@
 import SwiftUI
 
 struct SelectPostingView: View {
-    @Binding var height: CGFloat
-    @Binding var isAnimating: Bool
+    @Environment(\.dismiss) private var dismiss
     @Binding var isShowChange: Bool
     @Binding var isShowFind: Bool
+    @Binding var shouldShowActionSheet: Bool
     
-    var sortTypes: [String]
+    let sortTypes = ["구해요 게시글 작성", "바꿔요 게시글 작성"] // 두 개의 항목을 리스트로 정의
     
     var body: some View {
         VStack {
-            ForEach(sortTypes.indices) { sortIndex in
-                Text(sortTypes[sortIndex])
-                    .padding(.vertical, 10)
-                    .font(.system(size: 17))
-                    .frame(width: 140)
-                    .onTapGesture {
-                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
-                            isAnimating = false
-                            if sortIndex == 0 {
+            List {
+                Section {
+                    ForEach(sortTypes.indices, id: \.self) { index in
+                        Button(action: {
+                            if index == 0 {
                                 isShowFind = true
                             } else {
                                 isShowChange = true
                             }
-                        }
-                        
-                        withAnimation {
-                            height = 0.0
+                        }) {
+                            HStack {
+                                Image(systemName: "square.and.pencil")
+                                    .foregroundStyle(.black)
+                                    .font(.system(size: 17))
+                                
+                                Text(sortTypes[index])
+                                    .foregroundStyle(.black)
+                                    .padding(.vertical, 8)
+                                    .font(.system(size: 17))
+                            }
                         }
                     }
-                    .padding(.vertical, -5)
+                }
                 
-                if sortIndex == 0 {
-                    Divider()
-                        .frame(width: 140)
+                Section {
+                    HStack {
+                        Spacer()
+                        
+                        Button(action: {
+                            dismiss()
+                        }) {
+                            Text("닫기")
+                                .foregroundStyle(.black)
+                                .font(.system(size: 17))
+                        }
+                        Spacer()
+                    }
                 }
             }
+            .scrollDisabled(true)
         }
-        .frame(height: height)
-        .cornerRadius(5)
-        .background(
-            RoundedRectangle(cornerRadius: 5)
-                .foregroundStyle(Color(uiColor: .systemGray6))
-                .shadow(color: Color.init(hex: "767676"), radius: 1, x: 0, y: 1)
-            //.shadow(color: Color.init(hex: "767676"), radius: 1, x: 0, y: -1)
-        )
+        .fullScreenCover(isPresented: $isShowChange, onDismiss: {
+            shouldShowActionSheet = false
+        }, content: {
+            ChangePostingView()
+        })
+        
+        .fullScreenCover(isPresented: $isShowFind, onDismiss: {
+            shouldShowActionSheet = false
+        }, content: {
+            FindPostingView()
+        })
     }
 }

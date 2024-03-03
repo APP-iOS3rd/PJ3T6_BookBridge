@@ -12,8 +12,6 @@ import FirebaseFirestore
 struct TownSettingView: View {
     @Environment(\.dismiss) private var dismiss
     
-    @Binding var isShowPlusBtn: Bool
-    
     @StateObject var locationViewModel = LocationViewModel.shared
     @StateObject var userLocationViewModel = UserLocationViewModel.shared
     
@@ -78,7 +76,6 @@ struct TownSettingView: View {
             }
         }        
         .onAppear() {
-            isShowPlusBtn = false
             FirestoreManager.getLocations { locations in
                 userLocationViewModel.setLocations(locations: locations)
             }

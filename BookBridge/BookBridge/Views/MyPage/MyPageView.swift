@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MyPageView: View {
-    @Binding var isShowPlusBtn: Bool
     @Binding var selectedTab : Int
     
     @StateObject var viewModel = MyPageViewModel()
@@ -46,10 +45,10 @@ struct MyPageView: View {
             ReviewScoreView()
             
             //나의 게시물
-            MyPostView(isShowPlusBtn: $isShowPlusBtn, viewModel: viewModel)
+            MyPostView(viewModel: viewModel)
             
             //계정 관리
-            AccountManagementView(isShowPlusBtn: $isShowPlusBtn, viewModel: viewModel)
+            AccountManagementView(viewModel: viewModel)
             
             Spacer()
         }
@@ -67,10 +66,6 @@ struct MyPageView: View {
         }
         .onAppear {
             viewModel.userSaveImage = ("", UIImage(named: "Character")!)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                isShowPlusBtn = true
-            }
             
             if UserManager.shared.uid != "" {
                 print("zxc")

@@ -21,7 +21,7 @@ class StyleViewModel: ObservableObject {
         /*StyleModel(title: "동네 보안관", description: "거래를 3번 이상하면 획득할 수 있어요.", imageName: "TownKeeper"),
         StyleModel(title: "백과사전", description: "보유중인 책이 10권 이상이면 획득할 수 있어요.", imageName: "TownKeeper"),
         StyleModel(title: "기부천사", description: "책을 기부하면 획득할 수 있어요. ", imageName: "TownKeeper"),*/
-        StyleModel(title: "뉴비", description: "로그인에 성공하면 획득할 수 있어요.", imageName: "Newbie")
+        StyleModel(title: "뉴비", description: "로그인에 성공하면 획득할 수 있어요.", imageName: "NewLogo")
     ]
 }
 

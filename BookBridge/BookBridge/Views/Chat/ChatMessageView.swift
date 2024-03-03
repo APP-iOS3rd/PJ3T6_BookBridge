@@ -10,8 +10,6 @@ import SwiftUI
 struct ChatMessageView: View {
     @Environment(\.dismiss) var dismiss
     
-    @Binding var isShowPlusBtn: Bool
-    
     @StateObject var viewModel = ChatMessageViewModel()
     @StateObject var reportVM = ReportViewModel()
     
@@ -43,7 +41,7 @@ struct ChatMessageView: View {
                     }
                     
                 } else {
-                    NoticeBoardChatView(isShowPlusBtn: $isShowPlusBtn, viewModel: viewModel, chatRoomListId: viewModel.saveChatRoomId, noticeBoardId: chatRoomPartner.noticeBoardId, partnerId: chatRoomPartner.partnerId, uid: uid)
+                    NoticeBoardChatView(viewModel: viewModel, chatRoomListId: viewModel.saveChatRoomId, noticeBoardId: chatRoomPartner.noticeBoardId, partnerId: chatRoomPartner.partnerId, uid: uid)
                 }
                 
                 MessageListView(viewModel: viewModel, partnerId: chatRoomPartner.partnerId, partnerImage: chatRoomPartner.partnerImage, uid: uid)
@@ -243,8 +241,6 @@ struct ChatMessageView: View {
             }
         }
         .onAppear {
-            isShowPlusBtn = false
-            
             if chatRoomListId != "" {
                 viewModel.saveChatRoomId = chatRoomListId
                 viewModel.initNewCount(uid: uid)
