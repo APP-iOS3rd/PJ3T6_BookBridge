@@ -24,7 +24,7 @@ struct TabBarView: View {
     var body: some View {
         VStack {
             ZStack {
-                NavigationView {
+                NavigationStack {
                     TabView(selection: $selectedTab) {
                         // 홈
                         HomeView()
@@ -80,14 +80,16 @@ struct TabBarView: View {
                         }
                         
                         //마이페이지
-                        MyPageView(selectedTab : $selectedTab)
-                            .onDisappear {
-                                shouldShowActionSheet = false
-                            }
-                            .tabItem {
-                                Image(systemName: "person.circle")
-                            }
-                            .tag(4)
+                        NavigationView {
+                            MyPageView(selectedTab : $selectedTab)
+                                .onDisappear {
+                                    shouldShowActionSheet = false
+                                }
+                        }
+                        .tabItem {
+                            Image(systemName: "person.circle")
+                        }
+                        .tag(4)
                         
                     }
                     .background(Color.white.onTapGesture {
