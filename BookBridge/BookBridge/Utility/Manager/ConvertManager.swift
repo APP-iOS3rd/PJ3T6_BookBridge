@@ -12,30 +12,30 @@ class ConvertManager {
     static func changeDistanceToKilometer(value: Int) -> Int {
         switch value {
         case 2:
-            return 110
+            return 2000
         case 3:
-            return 120
+            return 3000
         default:
-            return 100
+            return 1000
         }
     }
     
     static func changeKilometerToDistance(value: Int) -> Int {
         switch value {
-        case 110:
+        case 2000:
             return 2
-        case 120:
+        case 3000:
             return 3
         default:
-            return 1
+            return 1000
         }
     }
     
     static func getZoomValue(value: Int) -> Double {
         switch value {
-        case 110:
+        case 2000:
             return 12
-        case 120:
+        case 3000:
             return 11.7
         default:
             return 13

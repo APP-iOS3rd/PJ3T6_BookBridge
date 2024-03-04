@@ -91,7 +91,7 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
     func requestUseAuthorization(completion: @escaping () -> Void) {
         let locationManager = CLLocationManager()
         locationManager.delegate = self
-        locationManager.requestAlwaysAuthorization()
+        locationManager.requestWhenInUseAuthorization()
         self.locationManager = locationManager
         completion()
     }
