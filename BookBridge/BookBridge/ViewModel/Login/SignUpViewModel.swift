@@ -110,7 +110,7 @@ class SignUpViewModel: ObservableObject {
     
     func timerReset() {
         self.timeLabel = ""
-        self.timeRemaining = 30
+        self.timeRemaining = 180
         self.timer?.invalidate()
         self.timer = nil
     }
