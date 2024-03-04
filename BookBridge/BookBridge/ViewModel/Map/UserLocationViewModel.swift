@@ -8,28 +8,29 @@
 import Foundation
 import SwiftUI
 import NMapsMap
+import UIKit
 
 final class UserLocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDelegate, NMFMapViewTouchDelegate, CLLocationManagerDelegate {
     
     @Published var lat: Double = 0.0 {
         didSet {
             reset()
-            fetchUserLoaction(circle: circle)
+            fetchUserLoaction(marker: marker)
         }
     }
     
     @Published var lng: Double = 0.0 {
         didSet {
             reset()
-            fetchUserLoaction(circle: circle)
+            fetchUserLoaction(marker: marker)
         }
     }
                         
-    @Published var circleRadius: CGFloat = 100 {
+    @Published var circleRadius: CGFloat = 1000 {
         didSet {
             if isUpdated(cur: circleRadius, prev: prevCircleRadius) {
                 prevCircleRadius = circleRadius
-                fetchUserLoaction(circle: circle)
+                fetchUserLoaction(marker: marker)
                 updateDistance()
             }
         }
@@ -43,8 +44,9 @@ final class UserLocationViewModel: NSObject, ObservableObject, NMFMapViewCameraD
     let locationManager = LocationManager.shared
     let view = NMFNaverMapView(frame: .zero)
     var locationManger: CLLocationManager?
+    var marker = NMFMarker()
     var circle = NMFCircleOverlay()
-    var prevCircleRadius: CGFloat = 100
+    var prevCircleRadius: CGFloat = 1000
                 
     override init() {
         super.init()
@@ -61,15 +63,17 @@ final class UserLocationViewModel: NSObject, ObservableObject, NMFMapViewCameraD
         view.showCompass = false
         view.showScaleBar = false
         
-        view.mapView.isScrollGestureEnabled = false
-        view.mapView.isZoomGestureEnabled = false // 줌 확대, 축소 제스처 활성화
+        view.mapView.isScrollGestureEnabled = false // 지도 스크롤 제스처 활성화
+        view.mapView.isZoomGestureEnabled = true // 줌 확대, 축소 제스처 활성화
         view.mapView.isRotateGestureEnabled = false // 지도 회전 제스처 활성화
         view.mapView.isStopGestureEnabled = false
         view.mapView.addCameraDelegate(delegate: self)
         view.mapView.touchDelegate = self
     }
     
-    func fetchUserLoaction(circle: NMFCircleOverlay) {
+    func fetchUserLoaction(marker: NMFMarker) {
+        
+        print("userLocation이 fetch되었습니다.")
        
         let zoom: Double = ConvertManager.getZoomValue(value: Int(self.circleRadius))
         
@@ -78,20 +82,22 @@ final class UserLocationViewModel: NSObject, ObservableObject, NMFMapViewCameraD
         cameraUpdate.animation = .easeIn
         cameraUpdate.animationDuration = 0.8
         
-        let locationOverlay = view.mapView.locationOverlay
-        locationOverlay.location = NMGLatLng(lat: lat, lng: lng)
-        locationOverlay.hidden = false
-        
-        locationOverlay.icon = NMFOverlayImage(name: "marker")
-        locationOverlay.iconWidth = CGFloat(42)
-        locationOverlay.iconHeight = CGFloat(42)
-        locationOverlay.anchor = CGPoint(x: 0.5, y: 1)
-        locationOverlay.circleRadius = self.circleRadius
-        locationOverlay.circleOutlineColor = Color(hex: "#a2c4fa").asUIColor()
-        locationOverlay.circleOutlineWidth = 2
+//        let locationOverlay = view.mapView.locationOverlay
+//        locationOverlay.location = NMGLatLng(lat: lat, lng: lng)
+//        print("locationOverlay의 위도: ", locationOverlay.location)
+//        locationOverlay.hidden = false
+                
+        marker.position = NMGLatLng(lat: lat, lng: lng)
+        marker.mapView = view.mapView
+                
+        circle.center = NMGLatLng(lat: lat, lng: lng)
+        circle.radius = self.circleRadius
+        circle.fillColor = UIColor.white.withAlphaComponent(0.75)
+        circle.outlineWidth = 2
+        circle.outlineColor = UIColor(hexCode: "b0b0b2")
+        circle.mapView = view.mapView
         
         view.mapView.moveCamera(cameraUpdate)
-        
     }
     
     func setLocation(lat: Double, lng: Double, distance: Int) {
@@ -128,7 +134,7 @@ final class UserLocationViewModel: NSObject, ObservableObject, NMFMapViewCameraD
         
         // 카메라에 표시
         reset()
-        fetchUserLoaction(circle: circle)
+        fetchUserLoaction(marker: marker)
     }
     
     func setSelectedLocation() {
@@ -189,7 +195,8 @@ final class UserLocationViewModel: NSObject, ObservableObject, NMFMapViewCameraD
     }
                     
     func reset() {
-        circle = NMFCircleOverlay()
+        marker.mapView = nil
+        circle.mapView = nil
     }
     
     func isUpdated(cur: CGFloat, prev: CGFloat) -> Bool {
