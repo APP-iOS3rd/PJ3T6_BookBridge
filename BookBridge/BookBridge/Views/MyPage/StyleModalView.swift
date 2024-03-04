@@ -24,7 +24,8 @@ struct StyleModalView: View {
             
             Image(viewModel.style.imageName)
                 .resizable()
-                .frame(width: 90, height: 90)
+                .scaledToFit()
+                .frame(width: 70, height: 70)
                 .padding(.bottom, 10)
             
             Text(viewModel.style.title)

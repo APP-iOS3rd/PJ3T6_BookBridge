@@ -10,8 +10,6 @@ import SwiftUI
 struct ChatRoomListView: View {
     @Environment(\.dismiss) var dismiss
     
-    @Binding var isShowPlusBtn: Bool
-    
     @StateObject var viewModel = ChatRoomListViewModel()
     
     var chatRoomList: [String]
@@ -22,9 +20,6 @@ struct ChatRoomListView: View {
         VStack {
             SearchChatListView(viewModel: viewModel)
                 .padding()
-                .onTapGesture {
-                    isShowPlusBtn = false
-                }
             
             if viewModel.searchChatRoomList().isEmpty {
                 Spacer()
@@ -42,24 +37,17 @@ struct ChatRoomListView: View {
                 Spacer()
                 Spacer()
             } else {
-                RoomListView(isShowPlusBtn: $isShowPlusBtn, viewModel: viewModel)
+                RoomListView(viewModel: viewModel)
             }
         }
         .navigationBarBackButtonHidden()
         .onTapGesture {
             hideKeyboard()
-            isShowPlusBtn = true
         }
         .onAppear {  
             print("asd")
             if !(isComeNoticeBoard && chatRoomList.isEmpty) {
                 viewModel.checkUserLoginStatus(uid: uid, isComeNoticeBoard: isComeNoticeBoard, chatRoomListStr: chatRoomList)
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                if !isComeNoticeBoard {
-                    isShowPlusBtn = true
-                }
             }
         }
         .onDisappear {

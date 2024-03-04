@@ -19,17 +19,15 @@ struct BookShelfView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var isOwnShelf: Bool = true
     @State var ismore : Bool
-    @Binding var isShowPlusBtn: Bool
     var isBack : Bool?
     var userId : String?
     let pickerItems : [tapInfo] = [.wish, .hold]
     
-    init(userId: String?, initialTapInfo: tapInfo, isBack: Bool, isShowPlusBtn: Binding<Bool>, ismore : Bool) {
+    init(userId: String?, initialTapInfo: tapInfo, isBack: Bool, ismore : Bool) {
         _viewModel = StateObject(wrappedValue: BookShelfViewModel(userId: userId))
         self.userId = userId
         _selectedPicker = State(initialValue: initialTapInfo)
         self.isBack = isBack
-        _isShowPlusBtn = isShowPlusBtn // Binding 변수를 직접 할당
         _ismore = State(initialValue: ismore)
     }
     
@@ -95,10 +93,7 @@ struct BookShelfView: View {
                     .frame(height: 20)
                 
                 VStack{
-                    BookSearchBar(text: $searchText, isShowPlusBtn: $isShowPlusBtn, placeholder: searchBarPlaceholder)
-                        .onTapGesture {
-                            isShowPlusBtn = false
-                        }
+                    BookSearchBar(text: $searchText, placeholder: searchBarPlaceholder)
                         .onChange(of: searchText) { newValue in
                             viewModel.filterBooks(for: selectedPicker, searchText: newValue)
                         }
@@ -108,7 +103,7 @@ struct BookShelfView: View {
                     Spacer()
                         .frame(height: 20)
                     
-                    BookView(selectedBook: $selectedBook, isEditing: $isEditing ,isShowPlusBtn: $isShowPlusBtn, ismore: $ismore, tap: selectedPicker )
+                    BookView(selectedBook: $selectedBook, isEditing: $isEditing, ismore: $ismore, tap: selectedPicker )
                         .environmentObject(viewModel)
                         .sheet(item: $selectedBook,onDismiss: {viewModel.fetchBooks(for: selectedPicker)}) { book in
                             BookDetailView(selectedPicker: $selectedPicker, isButton: true, book: book )
@@ -119,11 +114,7 @@ struct BookShelfView: View {
                         }
                 }
                 .onTapGesture {
-                    hideKeyboard()
-                    if !ismore{
-                        isShowPlusBtn = true
-                    }
-                    
+                    hideKeyboard()                    
                 }
                     
                 

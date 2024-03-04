@@ -14,7 +14,6 @@ struct NoticeBoardTapView: View {
     @Binding var findIndex: Int
     @Binding var isFindAnimating: Bool
     @Binding var isChangeAnimating: Bool
-    @Binding var isShowPlusBtn: Bool
     
     @StateObject var viewModel: NoticeBoardViewModel
     
@@ -123,7 +122,7 @@ struct NoticeBoardTapView: View {
                             ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.findNoticeBoards, index: findIndex, isRequests: sortTypes.count == 3 ? true : false)) { element in
                                 if element.hopeBook.isEmpty {
                                     NavigationLink {
-                                        PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
+                                        PostView(noticeBoard: element)
                                     } label: {
                                         NoticeBoardItemView(
                                             viewModel: viewModel,
@@ -138,7 +137,7 @@ struct NoticeBoardTapView: View {
                                     }
                                 } else {
                                     NavigationLink {
-                                        PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
+                                        PostView(noticeBoard: element)
                                     } label: {
                                         NoticeBoardItemView(
                                             viewModel: viewModel,
@@ -172,7 +171,7 @@ struct NoticeBoardTapView: View {
                         } else {
                             ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.changeNoticeBoards, index: changeIndex, isRequests: sortTypes.count == 3 ? true : false)) { element in
                                 NavigationLink {
-                                    PostView(isShowPlusBtn: $isShowPlusBtn, noticeBoard: element)
+                                    PostView(noticeBoard: element)
                                 } label: {
                                     NoticeBoardItemView(
                                         viewModel: viewModel,

@@ -9,7 +9,6 @@ import SwiftUI
 import FirebaseStorage
 
 struct HomeView: View {
-    @Binding var isShowPlusBtn: Bool    
     @StateObject var viewModel = HomeViewModel()
     @StateObject var userManager = UserManager.shared
     @StateObject var locationManager = LocationManager.shared
@@ -46,14 +45,11 @@ struct HomeView: View {
             
             tapAnimation()
             
-            HomeTapView(isShowPlusBtn: $isShowPlusBtn, viewModel: viewModel, tapCategory: selectedPicker)
+            HomeTapView(viewModel: viewModel, tapCategory: selectedPicker)
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                isShowPlusBtn = true
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                    viewModel.updateNoticeBoards()
-                }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                viewModel.updateNoticeBoards()
             }
         }
         
@@ -61,7 +57,7 @@ struct HomeView: View {
             LoginView(showingLoginView: $showingLoginView)
         }
         .navigationDestination(isPresented: $showingTownSettingView) {
-            TownSettingView(isShowPlusBtn: $isShowPlusBtn)
+            TownSettingView()
         }
         .onChange(of: userManager.isLogin) { _ in
             print("로그인 변동 감지")

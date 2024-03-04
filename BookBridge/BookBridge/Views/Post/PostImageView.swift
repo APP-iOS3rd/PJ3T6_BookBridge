@@ -23,12 +23,12 @@ struct PostImageView: View {
                 KFImage(URL(string: element))
                     .placeholder {
                         Rectangle()
-                            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.5625)
+                            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.8)
                             .foregroundStyle(Color(red: 217/255, green: 217/255, blue: 217/255))
                     }
                     .resizable()
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.5625)
+                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.8)
                     .foregroundStyle(.black)
                     .onTapGesture {
                         selectedImageUrl = element
@@ -37,10 +37,10 @@ struct PostImageView: View {
             }
         }
         .tabViewStyle(.page)
-        .frame(height: UIScreen.main.bounds.width * 0.5625)
+        .frame(height: UIScreen.main.bounds.width * 0.8)
         .background(
             Rectangle()
-                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.5625)
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.8)
                 .foregroundStyle(Color(red: 217/255, green: 217/255, blue: 217/255))
         )
         .padding(.bottom)
