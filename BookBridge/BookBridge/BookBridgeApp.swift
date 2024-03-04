@@ -53,7 +53,6 @@ struct BookBridgeApp: App {
                     .onAppear() {
                         locationViewModel.checkIfLocationServiceIsEnabled()
                         NaverMapApiManager.getNaverApiInfo()
-                        
                     }
                 //                .alert(isPresented: $locationViewModel.showLocationAlert) {
                 //                    Alert(
@@ -84,7 +83,6 @@ struct BookBridgeApp: App {
                     application.registerForRemoteNotifications()
                 }
             }
-            
             return true
         }
         

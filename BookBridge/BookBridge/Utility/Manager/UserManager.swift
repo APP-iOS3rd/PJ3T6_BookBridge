@@ -13,6 +13,7 @@ import KakaoSDKUser
 
 class UserManager: ObservableObject {
     static let shared = UserManager()
+    var firestoreListener: ListenerRegistration?
     
     private init() {
         currentUser = Auth.auth().currentUser
@@ -25,6 +26,8 @@ class UserManager: ObservableObject {
     @Published var currentDong = ""
     @Published var isLogin = false
     @Published var isChanged = false
+    @Published var totalNewCount = 0
+    
     var uid = ""
     var user: UserModel?
     var currentUser: Firebase.User?
@@ -56,11 +59,11 @@ class UserManager: ObservableObject {
     }
     
     func resetLoginState() {
-            if currentUser != nil {
-                self.logout()
-                print("LOGOUT")
-            }
+        if currentUser != nil {
+            self.logout()
+            print("LOGOUT")
         }
+    }
     
     func logout() {
         self.uid = ""
@@ -84,7 +87,7 @@ class UserManager: ObservableObject {
             completion(false, "로그인된 사용자가 없습니다.")
             return
         }
-
+        
         user.delete { error in
             if let error = error as? NSError {
                 if error.code == AuthErrorCode.requiresRecentLogin.rawValue {
@@ -115,6 +118,19 @@ class UserManager: ObservableObject {
             }
         }
     }
-
-
+    
+    func updateTotalNewCount() {
+        if currentUser != nil {
+            firestoreListener?.remove()
+            firestoreListener = FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").whereField("newCount", isGreaterThan: 0).addSnapshotListener { querySnapshot, error in
+                guard error == nil else { return }
+                guard let documents = querySnapshot?.documents else { return }
+                self.totalNewCount = 0
+                for document in documents {
+                    self.totalNewCount += document.data()["newCount"] as? Int ?? 0
+                }
+                UIApplication.shared.applicationIconBadgeNumber = self.totalNewCount
+            }
+        }
+    }
 }
