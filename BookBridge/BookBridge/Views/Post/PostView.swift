@@ -9,6 +9,7 @@ import SwiftUI
 import NMapsMap
 
 struct PostView: View {
+    
     @Environment(\.dismiss) private var dismiss
  
 //    @Binding var selectedBook: Item
@@ -68,6 +69,7 @@ struct PostView: View {
                         )
                     }
                 }
+                
                 .frame(maxWidth: .infinity)
                 .frame(maxHeight: geometry.size.height - 65)
             }
@@ -274,8 +276,8 @@ struct PostView: View {
                 }
             }
         }
-        .navigationTitle(noticeBoard.isChange ? "바꿔요" : "구해요")
-        .navigationBarTitleDisplayMode(.inline)
+//        .navigationTitle(noticeBoard.isChange ? "바꿔요" : "구해요")
+//        .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
         .toolbar(.hidden, for: .tabBar)
         .toolbar {
@@ -284,7 +286,7 @@ struct PostView: View {
                     dismiss()
                 } label: {
                     Image(systemName: "chevron.left")
-                        .foregroundStyle(.black)
+                        .foregroundStyle(noticeBoard.isChange ? .white : .black)
                 }
             }
             ToolbarItem(placement: .topBarTrailing) {
@@ -294,12 +296,15 @@ struct PostView: View {
                     }
                 } label: {
                     Image(systemName: "ellipsis")
-                        .foregroundStyle(.black)
+                        .foregroundStyle(noticeBoard.isChange ? .white : .black)
                 }
             }
         }
+//        .toolbarBackground(Color.clear.opacity(0.9), for: .navigationBar)
+//        .toolbarBackground(noticeBoard.isChange ? .visible : .hidden, for: .navigationBar)
         .sheet(isPresented: $showingLoginView){
             LoginView(showingLoginView: $showingLoginView)
         }
+        .edgesIgnoringSafeArea(noticeBoard.isChange ? .top : [])
     }
 }
