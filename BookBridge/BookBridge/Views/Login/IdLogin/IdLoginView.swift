@@ -61,7 +61,7 @@ struct IdLoginView: View {
                 Text(viewModel.passwordErrorMessage)
                     .foregroundColor(.red)
                     .font(.system(size: 10))
-                    .opacity(viewModel.usernameErrorMessage.isEmpty ? 0 : 1)
+                    .opacity(viewModel.passwordErrorMessage.isEmpty ? 0 : 1)
                 
                 
                 
@@ -112,7 +112,7 @@ struct IdLoginView: View {
                 .font(.system(size: 20).bold())
                 .frame(width: 353, height: 50) // 여기에 프레임을 설정
                 .background(Color(hex: "59AAE0"))
-                .cornerRadius(10)                
+                .cornerRadius(10)
                 
             }
             

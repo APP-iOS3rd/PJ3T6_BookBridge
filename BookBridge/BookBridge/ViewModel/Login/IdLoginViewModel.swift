@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 import FirebaseAuth
 import FirebaseFirestore
 
@@ -70,6 +71,7 @@ class IdLoginViewModel: ObservableObject {
             self.isLoading = false
         }
     }
+    
     
 }
 
