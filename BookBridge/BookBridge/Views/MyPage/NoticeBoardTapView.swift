@@ -16,10 +16,10 @@ struct NoticeBoardTapView: View {
     @Binding var isChangeAnimating: Bool
     
     @StateObject var viewModel: NoticeBoardViewModel
-    
-    var sortTypes: [String]
-    
+
     var myPagePostTapType: MyPagePostTapType
+    var naviTitle: String
+    var sortTypes: [String]
     
     var body: some View {
         ZStack {
@@ -132,6 +132,7 @@ struct NoticeBoardTapView: View {
                                             imageLinks: [],
                                             isChange: element.isChange,
                                             locate: element.noticeLocationName,
+                                            naviTitle: naviTitle,
                                             title: element.noticeBoardTitle
                                         )
                                     }
@@ -147,6 +148,7 @@ struct NoticeBoardTapView: View {
                                             imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
                                             isChange: element.isChange,
                                             locate: element.noticeLocationName,
+                                            naviTitle: naviTitle,
                                             title: element.noticeBoardTitle
                                         )
                                     }
@@ -181,6 +183,7 @@ struct NoticeBoardTapView: View {
                                         imageLinks: element.noticeImageLink,
                                         isChange: element.isChange,
                                         locate: element.noticeLocationName,
+                                        naviTitle: naviTitle,
                                         title: element.noticeBoardTitle
                                     )
                                 }

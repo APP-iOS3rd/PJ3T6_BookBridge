@@ -18,6 +18,7 @@ struct NoticeBoardItemView: View {
     var imageLinks: [String]
     var isChange: Bool
     var locate: String
+    var naviTitle: String
     var title: String
     
     var body: some View {
@@ -41,9 +42,9 @@ struct NoticeBoardItemView: View {
                 .padding()
             }
             
-            
             VStack(alignment: .leading, spacing: 0){
                 Divider().opacity(0)
+                
                 Text("\(title)")
                     .font(.system(size: 15))
                     .fontWeight(.bold)
@@ -68,23 +69,25 @@ struct NoticeBoardItemView: View {
             
             Spacer()
             
-            VStack{
-                Button {
-                    viewModel.bookMarkToggle(id: id)
-                } label: {
-                    if (viewModel.bookMarks.contains(id)) {
-                        Image(systemName: "bookmark.fill")
-                            .font(.system(size: 20))
-                            .padding()
-                            .foregroundColor(.black)
-                    } else {
-                        Image(systemName: "bookmark")
-                            .font(.system(size: 20))
-                            .padding()
-                            .foregroundColor(.black)
+            if naviTitle != "내 게시물" {
+                VStack{
+                    Button {
+                        viewModel.bookMarkToggle(id: id)
+                    } label: {
+                        if (viewModel.bookMarks.contains(id)) {
+                            Image(systemName: "bookmark.fill")
+                                .font(.system(size: 20))
+                                .padding()
+                                .foregroundColor(.black)
+                        } else {
+                            Image(systemName: "bookmark")
+                                .font(.system(size: 20))
+                                .padding()
+                                .foregroundColor(.black)
+                        }
                     }
+                    Spacer()
                 }
-                Spacer()
             }
         }
         .frame(height: 120, alignment: .center)

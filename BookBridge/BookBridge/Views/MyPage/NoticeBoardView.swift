@@ -31,7 +31,7 @@ struct NoticeBoardView: View {
         VStack {
             TapAnimation()
             
-            NoticeBoardTapView(changeHeight: $changeHeight, changeIndex: $changeIndex, findHeight: $findHeight, findIndex: $findIndex, isFindAnimating: $isFindAnimating, isChangeAnimating: $isChangeAnimating, viewModel: viewModel, sortTypes: sortTypes, myPagePostTapType: selectedPicker)
+            NoticeBoardTapView(changeHeight: $changeHeight, changeIndex: $changeIndex, findHeight: $findHeight, findIndex: $findIndex, isFindAnimating: $isFindAnimating, isChangeAnimating: $isChangeAnimating, viewModel: viewModel, myPagePostTapType: selectedPicker, naviTitle: naviTitle, sortTypes: sortTypes)
         }
         .navigationBarBackButtonHidden()
         .navigationTitle(naviTitle)
