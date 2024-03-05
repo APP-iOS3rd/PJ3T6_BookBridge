@@ -40,7 +40,7 @@ struct RoomListView: View {
                                 .cornerRadius(30)
                             
                             VStack(alignment: .leading) {
-                                HStack(alignment: .bottom) {
+                                HStack(alignment: .center) {
                                     Text(viewModel.chatRoomDic[chatRoom.id]?.nickname ?? "")
                                         .font(.system(size: 18))
                                         .foregroundStyle(Color(.label))
