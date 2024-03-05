@@ -15,6 +15,7 @@ class IdLoginViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var username: String = ""
     @Published var password: String = ""
+    @Published var isAlert : Bool = false
     @Published var usernameErrorMessage: String = ""
     @Published var passwordErrorMessage: String = ""
     
@@ -53,7 +54,7 @@ class IdLoginViewModel: ObservableObject {
                 
                 if let error = error {
                     print("error: \(error.localizedDescription)")
-                    
+                    self.isAlert = true
                     return
                 }
                 if result != nil {

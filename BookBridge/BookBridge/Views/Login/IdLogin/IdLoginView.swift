@@ -108,6 +108,9 @@ struct IdLoginView: View {
                 }, label: {
                     Text("로그인")
                 })
+                .alert(isPresented: $viewModel.isAlert) {
+                    Alert(title: Text("이메일 또는 비밀번호가 틀렸습니다."))
+                }
                 .foregroundColor(.white)
                 .font(.system(size: 20).bold())
                 .frame(width: 353, height: 50) // 여기에 프레임을 설정

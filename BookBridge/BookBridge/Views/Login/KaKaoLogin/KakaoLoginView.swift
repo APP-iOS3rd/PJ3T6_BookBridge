@@ -34,6 +34,14 @@ struct KakaoLoginView: View {
                 UserManager.shared.setUser(uid: viewModel.userId!)
                 showingLoginView = false
             }
+            
+        }
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(
+                title: Text("로그인 오류"), // Alert 제목
+                message: Text(viewModel.alertMessage),
+                dismissButton: .default(Text("확인"))
+            )
         }
         
     }

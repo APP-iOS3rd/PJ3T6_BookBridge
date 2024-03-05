@@ -138,17 +138,20 @@ class FirestoreSignUpManager {
         }
     }
     
-    func register(email: String, password: String, nickname: String, phoneNumber: String = "", fcmToken: String = "", completion: @escaping () -> Void) {
+    func register(email: String, password: String, nickname: String, phoneNumber: String = "", fcmToken: String = "", completion: @escaping (Bool, String?) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             if let error = error {
-                print(error.localizedDescription)
+//                print(error.localizedDescription)
+                completion(false, error.localizedDescription)
+                return
             } else {
-                guard let user = result?.user else { return }
+                guard let user = result?.user else {  completion(false, "사용자 생성에 실패했습니다.")
+                    return }
                 let pwd = self.formattor.isValidPwd(pwd: password) ? password : ""
                                                 
                 self.addUser(id: user.uid, email: email, password: pwd, nickname: nickname, phoneNumber: phoneNumber, fcmToken: fcmToken) {
-                    completion()
-                }                                                
+                    completion(true, nil)
+                }
             }
         }
     }
