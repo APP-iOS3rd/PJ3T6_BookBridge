@@ -9,11 +9,24 @@ import SwiftUI
 
 struct MyPageView: View {
     @Binding var selectedTab : Int
+    @State var isShowingSettingView = false
     
     @StateObject var viewModel = MyPageViewModel()
     
     var body: some View {
         VStack {
+            HStack {
+                Spacer()
+                
+                Button {
+                    isShowingSettingView = true
+                } label: {
+                    Image(systemName: "gearshape")
+                        .font(.system(size: 20))
+                        .foregroundStyle(.black)
+                }
+            }
+           
             HStack(spacing: 20) {
                 Image(uiImage: viewModel.userSaveImage.1)
                     .resizable()
@@ -52,18 +65,11 @@ struct MyPageView: View {
             
             Spacer()
         }
-        .padding(.horizontal)
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink {
-                    SettingView(selectedTab: $selectedTab)
-                } label: {
-                    Image(systemName: "gearshape")
-                        .font(.system(size: 16))
-                        .foregroundStyle(.black)
-                }
-            }
+        .navigationDestination(isPresented: $isShowingSettingView) {
+            SettingView(selectedTab: $selectedTab)
         }
+        .padding(.horizontal)
+        
         .onAppear {
             viewModel.userSaveImage = ("", UIImage(named: "Character")!)
             

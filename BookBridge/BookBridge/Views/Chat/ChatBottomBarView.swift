@@ -175,24 +175,6 @@ struct ChatBottomBarView: View {
                                         .opacity(0.6)
                                 )
                         }
-
-                        
-//                        NavigationLink {
-//                            ChatExchangeHopeView(viewModel: viewModel, partnerId: partnerId, uid: uid)
-//                        } label: {
-//                            Image(systemName: "mappin.and.ellipse")
-//                                .resizable()
-//                                .scaledToFit()
-//                                .frame(width: 30, height: 30)
-//                                .foregroundStyle(Color(.darkGray))
-//                                .padding()
-//                                .background(
-//                                    Circle()
-//                                        .frame(width: 60, height: 60)
-//                                        .foregroundColor(Color.yellow)
-//                                        .opacity(0.6)
-//                                )
-//                        }
                         
                         Text("위치공유")
                     }

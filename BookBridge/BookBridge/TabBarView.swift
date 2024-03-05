@@ -82,16 +82,14 @@ struct TabBarView: View {
                             }
                             
                             //마이페이지
-                            NavigationView {
-                                MyPageView(selectedTab : $selectedTab)
-                                    .onDisappear {
-                                        shouldShowActionSheet = false
-                                    }
-                            }
-                            .tabItem {
-                                Image(systemName: "person.circle")
-                            }
-                            .tag(4)
+                            MyPageView(selectedTab : $selectedTab)
+                                .onDisappear {
+                                    shouldShowActionSheet = false
+                                }
+                                .tabItem {
+                                    Image(systemName: "person.circle")
+                                }
+                                .tag(4)
                         }
                         .toolbarBackground(.visible, for: .tabBar)
                     }
