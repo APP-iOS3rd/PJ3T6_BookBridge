@@ -26,72 +26,72 @@ struct TabBarView: View {
             ZStack {
                 NavigationStack {
                     TabView(selection: $selectedTab) {
-                        // 홈
-                        HomeView()
-                            .onDisappear {
-                                shouldShowActionSheet = false
-                            }
-                            .tabItem {
-                                Image(systemName: "house")
-                            }
-                            .tag(0)
-                        
-                        // 채팅
-                        ChatRoomListView(chatRoomList: [], isComeNoticeBoard: false, uid: UserManager.shared.uid)
-                            .onDisappear {
-                                shouldShowActionSheet = false
-                            }
-                            .tabItem {
-                                Image(systemName: "message")
-                            }
-                            .badge(userManager.totalNewCount)
-                            .tag(1)
-                        
-                        HomeView()
-                            .tabItem {
-                                Image(systemName: "plus.circle")
-                            }
-                            .sheet(isPresented: $shouldShowActionSheet) {
-                                SelectPostingView(isShowChange: $isShowChange, isShowFind: $isShowFind, shouldShowActionSheet: $shouldShowActionSheet)
-                                    .presentationDetents([.height(250)])
-                                    .ignoresSafeArea(.all)
-                                
-                            }
-                            .tag(2)
-                        
-                        // 책장
-                        if userManager.isLogin {
-                            BookShelfView(userId : userManager.uid,initialTapInfo: .wish, isBack: false, ismore: false)
+                        Group {
+                            // 홈
+                            HomeView()
                                 .onDisappear {
                                     shouldShowActionSheet = false
                                 }
                                 .tabItem {
-                                    Image(systemName: "books.vertical")
+                                    Image(systemName: "house")
                                 }
-                                .tag(3)
-                        } else {
-                            BookShelfView(userId: nil,initialTapInfo: .wish, isBack: false, ismore:false)
+                                .tag(0)
+                            
+                            // 채팅
+                            ChatRoomListView(chatRoomList: [], isComeNoticeBoard: false, uid: UserManager.shared.uid)
                                 .onDisappear {
                                     shouldShowActionSheet = false
                                 }
                                 .tabItem {
-                                    Image(systemName: "books.vertical")
+                                    Image(systemName: "message")
                                 }
-                                .tag(3)
-                        }
-                        
-                        //마이페이지
-                        NavigationView {
+                                .badge(userManager.totalNewCount)
+                                .tag(1)
+                            
+                            HomeView()
+                                .tabItem {
+                                    Image(systemName: "plus.circle")
+                                }
+                                .sheet(isPresented: $shouldShowActionSheet) {
+                                    SelectPostingView(isShowChange: $isShowChange, isShowFind: $isShowFind, shouldShowActionSheet: $shouldShowActionSheet)
+                                        .presentationDetents([.height(250)])
+                                        .ignoresSafeArea(.all)
+                                    
+                                }
+                                .tag(2)
+                            
+                            // 책장
+                            if userManager.isLogin {
+                                BookShelfView(userId : userManager.uid,initialTapInfo: .wish, isBack: false, ismore: false)
+                                    .onDisappear {
+                                        shouldShowActionSheet = false
+                                    }
+                                    .tabItem {
+                                        Image(systemName: "books.vertical")
+                                    }
+                                    .tag(3)
+                            } else {
+                                BookShelfView(userId: nil,initialTapInfo: .wish, isBack: false, ismore:false)
+                                    .onDisappear {
+                                        shouldShowActionSheet = false
+                                    }
+                                    .tabItem {
+                                        Image(systemName: "books.vertical")
+                                    }
+                                    .tag(3)
+                            }
+                            
+                            //마이페이지
                             MyPageView(selectedTab : $selectedTab)
                                 .onDisappear {
                                     shouldShowActionSheet = false
                                 }
+                                .tabItem {
+                                    Image(systemName: "person.circle")
+                                }
+                                .tag(4)
                         }
-                        .tabItem {
-                            Image(systemName: "person.circle")
-                        }
-                        .tag(4)
-                        
+                        .toolbarBackground(.visible, for: .tabBar)
                     }
                     .background(Color.white.onTapGesture {
                         self.hideKeyboard()
