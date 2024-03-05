@@ -12,6 +12,8 @@ import NaverThirdPartyLogin
 
 class NaverAuthManager: NSObject, ObservableObject {
     @Published var isLogin = true
+    @Published var showAlert: Bool = false
+    @Published var alertMessage: String = ""
     static let shared = NaverAuthManager()
 }
 
@@ -26,6 +28,7 @@ extension NaverAuthManager: UIApplicationDelegate, NaverThirdPartyLoginConnectio
     
     func doNaverLogout() {
         NaverThirdPartyLoginConnection.getSharedInstance().resetToken()
+        
     }
     
     // 토큰 발급 성공시
@@ -113,8 +116,11 @@ extension NaverAuthManager {
                                 }
                             }
                         } else {
-                            // register에 실패한 경우
-                            print(errorMessage ?? "알수없는 에러가 발생하였습니다.")
+                            NaverAuthManager.shared.oauth20ConnectionDidFinishDeleteToken()
+                            self?.showAlert = true
+                            if errorMessage == "The email address is already in use by another account." {
+                                self?.alertMessage = "이미 가입된 이메일입니다."
+                            }
                             return
                         }
                         
@@ -147,6 +153,7 @@ extension NaverAuthManager {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if let error = error {
                 print("Login error: \(error.localizedDescription)")
+                print("HHHHHHH")
                 completion(false)
                 return
             }
