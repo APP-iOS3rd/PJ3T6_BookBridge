@@ -92,9 +92,9 @@ final class UserLocationViewModel: NSObject, ObservableObject, NMFMapViewCameraD
                 
         circle.center = NMGLatLng(lat: lat, lng: lng)
         circle.radius = self.circleRadius
-        circle.fillColor = UIColor.white.withAlphaComponent(0.75)
+        circle.fillColor = UIColor(hexCode: "59AAE0").withAlphaComponent(0.05)
         circle.outlineWidth = 2
-        circle.outlineColor = UIColor(hexCode: "b0b0b2")
+        circle.outlineColor = UIColor(hexCode: "#7dc6fd")
         circle.mapView = view.mapView
         
         view.mapView.moveCamera(cameraUpdate)

@@ -43,8 +43,10 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
     }
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+            guard let locationManager = self.locationManager else { return }
+            locationManager.requestWhenInUseAuthorization()
             checkLocationAuthorization()
-        }
+    }
     
     func checkLocationAuthorization() {
         guard let locationManager = self.locationManager else { return }
@@ -57,10 +59,21 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
             print("위치 정보 접근이 제한되었습니다.")
         case .denied:
             print("위치 정보 접근이 거부되었습니다.")
-            self.locationManager = CLLocationManager()
+            
+            LocationManager.shared.setLocation(
+                lat: 37.5568,
+                long: 126.9783,
+                city: "서울특별시",
+                distriction: "중구",
+                dong: "북창동",
+                isLocationPermitted: false
+            )
+            
+            print("(\(LocationManager.shared.long),\(LocationManager.shared.lat)), \(LocationManager.shared.city) \(LocationManager.shared.distriction) \(LocationManager.shared.dong), 위치허용여부: \(LocationManager.shared.isLocationPermitted)")
+            
         case .authorizedAlways, .authorizedWhenInUse:
             print("위치 정보 접근이 허용되었습니다.")
-            
+                                    
             coord = (Double(locationManager.location?.coordinate.latitude ?? 0.0), Double(locationManager.location?.coordinate.longitude ?? 0.0))
             userLocation = (Double(locationManager.location?.coordinate.latitude ?? 0.0), Double(locationManager.location?.coordinate.longitude ?? 0.0))
                         
@@ -73,12 +86,13 @@ final class LocationViewModel: NSObject, ObservableObject, NMFMapViewCameraDeleg
                         long: self.userLocation.1,
                         city: result[0],
                         distriction: result[1],
-                        dong: result[2]
+                        dong: result[2],
+                        isLocationPermitted: true
                     )
                                         
                     print("(\(LocationManager.shared.long),\(LocationManager.shared.lat)), \(LocationManager.shared.city) \(LocationManager.shared.distriction) \(LocationManager.shared.dong)")
                 } else {
-                    print("위치정보를 받아오지 못함")
+                    print("위치정보를 받아오지 못했습니다.")
                 }
             }
             
