@@ -14,6 +14,8 @@ struct NoticeBoardTapView: View {
     @Binding var findIndex: Int
     @Binding var isFindAnimating: Bool
     @Binding var isChangeAnimating: Bool
+    @Binding var selectedTab: Int
+    @Binding var stack: NavigationPath
     
     @StateObject var viewModel: NoticeBoardViewModel
 
@@ -122,7 +124,7 @@ struct NoticeBoardTapView: View {
                             ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.findNoticeBoards, index: findIndex, isRequests: sortTypes.count == 3 ? true : false)) { element in
                                 if element.hopeBook.isEmpty {
                                     NavigationLink {
-                                        PostView(noticeBoard: element)
+                                        PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
                                     } label: {
                                         NoticeBoardItemView(
                                             viewModel: viewModel,
@@ -138,7 +140,7 @@ struct NoticeBoardTapView: View {
                                     }
                                 } else {
                                     NavigationLink {
-                                        PostView(noticeBoard: element)
+                                        PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
                                     } label: {
                                         NoticeBoardItemView(
                                             viewModel: viewModel,
@@ -173,7 +175,7 @@ struct NoticeBoardTapView: View {
                         } else {
                             ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.changeNoticeBoards, index: changeIndex, isRequests: sortTypes.count == 3 ? true : false)) { element in
                                 NavigationLink {
-                                    PostView(noticeBoard: element)
+                                    PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
                                 } label: {
                                     NoticeBoardItemView(
                                         viewModel: viewModel,

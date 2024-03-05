@@ -9,6 +9,9 @@ import SwiftUI
 
 struct NoticeBoardView: View {
     @Environment(\.dismiss) private var dismiss
+    
+    @Binding var selectedTab: Int
+    @Binding var stack: NavigationPath
 
     @StateObject var viewModel = NoticeBoardViewModel()
     
@@ -25,16 +28,17 @@ struct NoticeBoardView: View {
     
     var naviTitle: String
     var noticeBoardArray: [String]
+    var otherUser: UserModel?
     var sortTypes: [String]
     
     var body: some View {
         VStack {
             TapAnimation()
             
-            NoticeBoardTapView(changeHeight: $changeHeight, changeIndex: $changeIndex, findHeight: $findHeight, findIndex: $findIndex, isFindAnimating: $isFindAnimating, isChangeAnimating: $isChangeAnimating, viewModel: viewModel, myPagePostTapType: selectedPicker, naviTitle: naviTitle, sortTypes: sortTypes)
+            NoticeBoardTapView(changeHeight: $changeHeight, changeIndex: $changeIndex, findHeight: $findHeight, findIndex: $findIndex, isFindAnimating: $isFindAnimating, isChangeAnimating: $isChangeAnimating, selectedTab: $selectedTab, stack: $stack, viewModel: viewModel, myPagePostTapType: selectedPicker, naviTitle: naviTitle, sortTypes: sortTypes)
         }
         .navigationBarBackButtonHidden()
-        .navigationTitle(naviTitle)
+        .navigationTitle(otherUser == nil ? naviTitle : "")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
@@ -49,8 +53,8 @@ struct NoticeBoardView: View {
         }
         .onAppear {
             viewModel.fetchBookMark()
-            viewModel.gettingFindNoticeBoards(whereIndex: naviTitle == "내 게시물" ? 0 : 1, noticeBoardArray: noticeBoardArray)
-            viewModel.gettingChangeNoticeBoards(whereIndex: naviTitle == "내 게시물" ? 0 : 1, noticeBoardArray: noticeBoardArray)
+            viewModel.gettingFindNoticeBoards(whereIndex: naviTitle == "내 게시물" ? 0 : 1, noticeBoardArray: noticeBoardArray, otherUser: otherUser)
+            viewModel.gettingChangeNoticeBoards(whereIndex: naviTitle == "내 게시물" ? 0 : 1, noticeBoardArray: noticeBoardArray, otherUser: otherUser)
         }
         .toolbar(.hidden, for: .tabBar)
     }

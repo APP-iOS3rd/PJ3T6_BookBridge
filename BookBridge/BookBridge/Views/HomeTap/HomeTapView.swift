@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct HomeTapView: View {
+    @Binding var selectedTab: Int
+    @Binding var stack: NavigationPath
+    
     @StateObject var viewModel: HomeViewModel
     @StateObject var locationManager = LocationManager.shared
+    
     @State  var isInsideXmark: Bool = false
     @State  var isOutsideXmark: Bool = false
     @State private var text = ""
@@ -90,16 +94,13 @@ struct HomeTapView: View {
                 .padding(.vertical, 10)
                 .padding(.horizontal, 20)
                 ScrollView(.vertical, showsIndicators: false) {
-                    
-                    
                     switch tapCategory {
                     case .find:             //TODO: imageLinks 부분 받아오기
-                        
                         if text.isEmpty {
                             ForEach(viewModel.findNoticeBoards) { element in
                                 if element.hopeBook.isEmpty {
                                     NavigationLink {
-                                        PostView(noticeBoard: element)
+                                        PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
                                     } label: {
                                         HomeListItemView(
                                             author: "",
@@ -113,14 +114,11 @@ struct HomeTapView: View {
                                             location: element.noticeLocationName,
                                             detail: element.noticeBoardDetail
                                         )
-                                        
                                         Divider()
                                     }
                                 } else {
-                                    //TODO: 나중에 썸네일 이미지, 저자 바꾸기
-                                    
                                     NavigationLink {
-                                        PostView(noticeBoard: element)
+                                        PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
                                     } label: {
                                         VStack{
                                             HomeListItemView(
@@ -134,7 +132,6 @@ struct HomeTapView: View {
                                                 location: element.noticeLocationName,
                                                 detail: ""
                                             )
-                                            
                                             Divider()
                                         }
                                         
@@ -149,7 +146,7 @@ struct HomeTapView: View {
                             ForEach(viewModel.filteredNoticeBoards) { element in
                                 if element.hopeBook.isEmpty {
                                     NavigationLink {
-                                        PostView(noticeBoard: element)
+                                        PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
                                     } label: {
                                         VStack{
                                             HomeListItemView(
@@ -171,7 +168,7 @@ struct HomeTapView: View {
                                     //TODO: 나중에 썸네일 이미지, 저자 바꾸기
                                     
                                     NavigationLink {
-                                        PostView(noticeBoard: element)
+                                        PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
                                     } label: {
                                         VStack{
                                             HomeListItemView(
@@ -200,10 +197,9 @@ struct HomeTapView: View {
                         if text.isEmpty {
                             ForEach(viewModel.changeNoticeBoards) { element in
                                 NavigationLink {
-                                    PostView(noticeBoard: element)
+                                    PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
                                 } label: {
                                     VStack{
-                                        
                                         HomeListItemView(
                                             author: "",
                                             date: element.date,
@@ -228,11 +224,9 @@ struct HomeTapView: View {
                             
                             ForEach(viewModel.filteredNoticeBoards) { element in
                                 NavigationLink {
-                                    PostView(noticeBoard: element)
+                                    PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
                                 } label: {
                                     VStack{
-                                        
-                                        
                                         HomeListItemView(
                                             author: "",
                                             date: element.date,
@@ -247,15 +241,12 @@ struct HomeTapView: View {
                                         )
                                         Divider()
                                     }
-                                    
                                 }
                             }
                             .padding(.horizontal)
                             .padding(.bottom, 10)
                             
                         }
-                        
-                        
                         
                         //                case .recommend:          //TODO: 추천도서 로직 및 뷰
                         //                    EmptyView()
@@ -266,9 +257,7 @@ struct HomeTapView: View {
                         viewModel.updateNoticeBoards()
                     }
                 }
-                
             }
-            
             
             if isOutsideXmark {
                 if UserManager.shared.isLogin {
@@ -308,7 +297,7 @@ struct HomeTapView: View {
                     ForEach(viewModel.findNoticeBoards) { element in
                         if element.hopeBook.isEmpty {
                             NavigationLink {
-                                PostView(noticeBoard: element)
+                                PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
                             } label: {
                                 VStack{
                                     HomeListItemView(
@@ -321,15 +310,12 @@ struct HomeTapView: View {
                                         location: element.noticeLocationName,
                                         detail: element.noticeBoardDetail
                                     )
-                                    
                                     Divider()
                                 }
                             }
                         } else {
-                            //TODO: 나중에 썸네일 이미지, 저자 바꾸기
-                            
                             NavigationLink {
-                                PostView(noticeBoard: element)
+                                PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
                             } label: {
                                 VStack{
                                     HomeListItemView(
@@ -347,7 +333,6 @@ struct HomeTapView: View {
                                     Divider()
                                 }
                             }
-                            
                         }
                     }
                     .padding(.horizontal)
@@ -356,7 +341,7 @@ struct HomeTapView: View {
                 case .change:
                     ForEach(viewModel.changeNoticeBoards) { element in
                         NavigationLink {
-                            PostView(noticeBoard: element)
+                            PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
                         } label: {
                             VStack{
                                 HomeListItemView(
@@ -371,7 +356,6 @@ struct HomeTapView: View {
                                     location: element.noticeLocationName,
                                     detail: element.noticeBoardDetail
                                 )
-                                
                                 Divider()
                             }
                         }
@@ -381,10 +365,8 @@ struct HomeTapView: View {
                     
                     //                case .recommend:          //TODO: 추천도서 로직 및 뷰
                     //                    EmptyView()
-                    
                 }
             }
-            
         }
         .onTapGesture {
             hideKeyboard()

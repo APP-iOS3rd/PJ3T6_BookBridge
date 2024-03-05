@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct MessageListView: View {
+    @Binding var selectedTab: Int
+    @Binding var stack: NavigationPath
+    
     @StateObject var viewModel: ChatMessageViewModel
     
-    var partnerId: String
-    var partnerImage: UIImage
+    var chatRoomPartner: ChatPartnerModel
     var uid: String
     
     static let emptyScrollToString = "Empty"
@@ -21,7 +23,16 @@ struct MessageListView: View {
             ScrollViewReader { scrollViewProxy in
                 VStack {
                     ForEach(viewModel.chatMessages) { chatMessage in
-                        MessageItemView(viewModel: viewModel, chatLocation: chatMessage.location, chatLocationTuple: (chatMessage.location[0], chatMessage.location[1]), messageModel: ChatMessageModel(date: chatMessage.date, imageURL: chatMessage.imageURL, location: chatMessage.location, message: chatMessage.message, sender: chatMessage.sender), partnerId: partnerId, partnerImage: partnerImage, uid: uid)
+                        MessageItemView(
+                            selectedTab: $selectedTab,
+                            stack: $stack,
+                            viewModel: viewModel,
+                            chatLocation: chatMessage.location,
+                            chatLocationTuple: (chatMessage.location[0],chatMessage.location[1]),
+                            chatRoomPartner: chatRoomPartner,
+                            messageModel: ChatMessageModel(date: chatMessage.date, imageURL: chatMessage.imageURL, location: chatMessage.location, message: chatMessage.message, sender: chatMessage.sender),
+                            uid: uid
+                        )
                     }
                     HStack {
                         Spacer()

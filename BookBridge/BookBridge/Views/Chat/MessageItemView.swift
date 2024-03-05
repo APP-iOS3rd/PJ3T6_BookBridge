@@ -10,14 +10,18 @@ import NMapsMap
 import CoreLocation
 
 struct MessageItemView: View {
+    @Binding var selectedTab: Int
+    @Binding var stack: NavigationPath
+    
     @StateObject var viewModel: ChatMessageViewModel
 
     @State var chatLocation: [Double] = [100, 200]
     @State var chatLocationTuple: (Double, Double) = (0, 0)
     
+    @State private var isClickProfile: Bool = false
+    
+    var chatRoomPartner: ChatPartnerModel
     var messageModel: ChatMessageModel
-    var partnerId: String
-    var partnerImage: UIImage
     var uid: String
     
     var body: some View {
@@ -65,7 +69,7 @@ struct MessageItemView: View {
                                     .padding(.vertical, 5)
                                 
                                 NavigationLink {
-                                    ChatExchangeInfoView(myCoord: chatLocationTuple, markerCoord: NMGLatLng(lat: chatLocationTuple.0, lng: chatLocationTuple.1), partnerId: partnerId, uid: uid)
+                                    ChatExchangeInfoView(myCoord: chatLocationTuple, markerCoord: NMGLatLng(lat: chatLocationTuple.0, lng: chatLocationTuple.1), partnerId: chatRoomPartner.partnerId, uid: uid)
                                 } label: {
                                     Text("위치보기")
                                         .padding(.horizontal)
@@ -114,12 +118,15 @@ struct MessageItemView: View {
             } else {
                 if messageModel.imageURL != "" {
                     HStack(alignment: .top) {
-                        Image(uiImage: partnerImage)
+                        Image(uiImage: chatRoomPartner.partnerImage)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 30, height: 30)
                             .clipped()
                             .cornerRadius(15)
+                            .onTapGesture {
+                                isClickProfile = true
+                            }
                         
                         Image(uiImage: viewModel.chatImages[messageModel.imageURL] ?? UIImage(named: "DefaultImage")!)
                             .resizable()
@@ -139,12 +146,15 @@ struct MessageItemView: View {
                     }
                 } else if messageModel.location != [100, 200] {
                     HStack(alignment: .top) {
-                        Image(uiImage: partnerImage)
+                        Image(uiImage: chatRoomPartner.partnerImage)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 30, height: 30)
                             .clipped()
                             .cornerRadius(15)
+                            .onTapGesture {
+                                isClickProfile = true
+                            }
                         
                         VStack {
                             PostMapView(lat: $chatLocation[0], lng: $chatLocation[1], isDetail: false)
@@ -156,7 +166,7 @@ struct MessageItemView: View {
                                     .padding(.vertical, 5)
                                 
                                 NavigationLink {
-                                    ChatExchangeInfoView(myCoord: chatLocationTuple, markerCoord: NMGLatLng(lat: chatLocationTuple.0, lng: chatLocationTuple.1), partnerId: partnerId, uid: uid)
+                                    ChatExchangeInfoView(myCoord: chatLocationTuple, markerCoord: NMGLatLng(lat: chatLocationTuple.0, lng: chatLocationTuple.1), partnerId: chatRoomPartner.partnerId, uid: uid)
                                 } label: {
                                     Text("위치보기")
                                         .padding(.horizontal)
@@ -190,12 +200,15 @@ struct MessageItemView: View {
                     }
                 } else {
                     HStack(alignment: .top) {
-                        Image(uiImage: partnerImage)
+                        Image(uiImage: chatRoomPartner.partnerImage)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 30, height: 30)
                             .clipped()
                             .cornerRadius(15)
+                            .onTapGesture {
+                                isClickProfile = true
+                            }
                         
                         HStack {
                             Text(messageModel.message)
@@ -227,6 +240,9 @@ struct MessageItemView: View {
                 viewModel.getChatImage(urlString: messageModel.imageURL)
             }
         }
+        .navigationDestination(isPresented: $isClickProfile, destination: {
+            MyPageView(selectedTab: $selectedTab, stack: $stack, otherUser: UserModel(id: chatRoomPartner.partnerId, nickname: chatRoomPartner.nickname, profileURL: chatRoomPartner.partnerImageUrl, style: chatRoomPartner.style, reviews: chatRoomPartner.reviews))
+        })
     }
 }
 

@@ -14,5 +14,6 @@ struct ChatPartnerModel {
     var partnerId: String
     var partnerImage: UIImage
     var partnerImageUrl: String
+    var reviews: [Int]
     var style: String
 }

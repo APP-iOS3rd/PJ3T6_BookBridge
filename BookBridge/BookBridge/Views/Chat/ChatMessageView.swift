@@ -10,6 +10,9 @@ import SwiftUI
 struct ChatMessageView: View {
     @Environment(\.dismiss) var dismiss
     
+    @Binding var selectedTab: Int
+    @Binding var stack: NavigationPath
+    
     @StateObject var viewModel = ChatMessageViewModel()
     @StateObject var reportVM = ReportViewModel()
     
@@ -39,12 +42,11 @@ struct ChatMessageView: View {
                             .font(.system(size: 20, weight: .bold))
                             .foregroundStyle(.white)
                     }
-                    
                 } else {
-                    NoticeBoardChatView(viewModel: viewModel, chatRoomListId: viewModel.saveChatRoomId, noticeBoardId: chatRoomPartner.noticeBoardId, partnerId: chatRoomPartner.partnerId, uid: uid)
+                    NoticeBoardChatView(selectedTab: $selectedTab, stack: $stack, viewModel: viewModel, chatRoomListId: viewModel.saveChatRoomId, noticeBoardId: chatRoomPartner.noticeBoardId, partnerId: chatRoomPartner.partnerId, uid: uid)
                 }
                 
-                MessageListView(viewModel: viewModel, partnerId: chatRoomPartner.partnerId, partnerImage: chatRoomPartner.partnerImage, uid: uid)
+                MessageListView(selectedTab: $selectedTab, stack: $stack, viewModel: viewModel, chatRoomPartner: chatRoomPartner, uid: uid)
                 
                 if !(viewModel.noticeBoardInfo.userId == "" && viewModel.noticeBoardInfo.noticeBoardTitle == "") {
                     if viewModel.noticeBoardInfo.state == 0 {

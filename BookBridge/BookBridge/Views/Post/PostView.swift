@@ -9,10 +9,10 @@ import SwiftUI
 import NMapsMap
 
 struct PostView: View {
-    
     @Environment(\.dismiss) private var dismiss
  
-//    @Binding var selectedBook: Item
+    @Binding var selectedTab: Int
+    @Binding var stack: NavigationPath
     
     @StateObject var postViewModel = PostViewModel()
     @StateObject var homeViewModel = HomeViewModel()
@@ -34,7 +34,7 @@ struct PostView: View {
                             PostImageView(urlString: noticeBoard.noticeImageLink)
                         }
                         
-                        PostUserInfoView(postViewModel: postViewModel, noticeBoard: $noticeBoard)
+                        PostUserInfoView(noticeBoard: $noticeBoard, selectedTab: $selectedTab, stack: $stack, postViewModel: postViewModel)
                                             
                         Divider()
                             .padding(.horizontal)
@@ -51,11 +51,7 @@ struct PostView: View {
                             Divider()
                                 .padding(.horizontal)
                         }
-                        
-                        
-                        
-                        
-                                            
+                
                         //상대방 책장
                         PostUserBookshelf(postViewModel: postViewModel)
                                             
@@ -91,7 +87,7 @@ struct PostView: View {
                 
                 if UserManager.shared.uid == noticeBoard.userId {
                     NavigationLink {
-                        ChatRoomListView(chatRoomList: postViewModel.chatRoomList, isComeNoticeBoard: true, uid: UserManager.shared.uid)
+                        ChatRoomListView(selectedTab: $selectedTab, stack: $stack, chatRoomList: postViewModel.chatRoomList, isComeNoticeBoard: true, uid: UserManager.shared.uid)
                     } label: {
                         Text("대화중인 채팅방 \(postViewModel.chatRoomList.count)")
                             .padding(.top, 5)
@@ -107,12 +103,15 @@ struct PostView: View {
                             if noticeBoard.reservationId == UserManager.shared.uid {
                                 NavigationLink {
                                     ChatMessageView(
+                                        selectedTab: $selectedTab,
+                                        stack: $stack,
                                         chatRoomListId: postViewModel.userChatRoomId,
                                         chatRoomPartner: ChatPartnerModel(
                                             nickname: postViewModel.user.nickname ?? "닉네임 미아",
                                             noticeBoardId: noticeBoard.id,
                                             partnerId: noticeBoard.userId,
                                             partnerImage: postViewModel.userUIImage, partnerImageUrl: postViewModel.user.profileURL ?? "",
+                                            reviews: postViewModel.user.reviews ?? [0, 0, 0],
                                             style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
                                         ),
                                         noticeBoardTitle: noticeBoard.noticeBoardTitle,
@@ -150,12 +149,15 @@ struct PostView: View {
                             if noticeBoard.reservationId == UserManager.shared.uid {
                                 NavigationLink {
                                     ChatMessageView(
+                                        selectedTab: $selectedTab,
+                                        stack: $stack,
                                         chatRoomListId: postViewModel.userChatRoomId,
                                         chatRoomPartner: ChatPartnerModel(
                                             nickname: postViewModel.user.nickname ?? "닉네임 미아",
                                             noticeBoardId: noticeBoard.id,
                                             partnerId: noticeBoard.userId,
                                             partnerImage: postViewModel.userUIImage, partnerImageUrl: postViewModel.user.profileURL ?? "",
+                                            reviews: postViewModel.user.reviews ?? [0, 0, 0],
                                             style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
                                         ),
                                         noticeBoardTitle: noticeBoard.noticeBoardTitle,
@@ -194,12 +196,15 @@ struct PostView: View {
                             if postViewModel.chatRoomList.isEmpty {
                                 NavigationLink {
                                     ChatMessageView(
+                                        selectedTab: $selectedTab,
+                                        stack: $stack,
                                         chatRoomListId: "",
                                         chatRoomPartner: ChatPartnerModel(
                                             nickname: postViewModel.user.nickname ?? "닉네임 미아",
                                             noticeBoardId: noticeBoard.id,
                                             partnerId: noticeBoard.userId,
                                             partnerImage: postViewModel.userUIImage, partnerImageUrl: postViewModel.user.profileURL ?? "",
+                                            reviews: postViewModel.user.reviews ?? [0, 0, 0],
                                             style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
                                         ),
                                         noticeBoardTitle: noticeBoard.noticeBoardTitle,
@@ -218,12 +223,15 @@ struct PostView: View {
                                 //채팅한 적이 있는 경우
                                 NavigationLink {
                                     ChatMessageView(
+                                        selectedTab: $selectedTab,
+                                        stack: $stack,
                                         chatRoomListId: postViewModel.userChatRoomId,
                                         chatRoomPartner: ChatPartnerModel(
                                             nickname: postViewModel.user.nickname ?? "닉네임 미아",
                                             noticeBoardId: noticeBoard.id,
                                             partnerId: noticeBoard.userId,
                                             partnerImage: postViewModel.userUIImage, partnerImageUrl: postViewModel.user.profileURL ?? "",
+                                            reviews: postViewModel.user.reviews ?? [0, 0, 0],
                                             style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
                                         ),
                                         noticeBoardTitle: noticeBoard.noticeBoardTitle,
@@ -276,19 +284,29 @@ struct PostView: View {
                 }
             }
         }
-//        .navigationTitle(noticeBoard.isChange ? "바꿔요" : "구해요")
-//        .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
         .toolbar(.hidden, for: .tabBar)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .foregroundStyle(noticeBoard.isChange ? .white : .black)
+                HStack(spacing: 10) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .foregroundStyle(noticeBoard.isChange ? .white : .black)
+                    }
+                    
+                    Button {
+                        stack.append("123")
+                        print(stack.count)
+                        print(stack)
+                    } label: {
+                        Image(systemName: "house")
+                            .foregroundStyle(noticeBoard.isChange ? .white : .black)
+                    }
                 }
             }
+            
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     withAnimation(.easeIn(duration: 0.2)) {
@@ -300,8 +318,6 @@ struct PostView: View {
                 }
             }
         }
-//        .toolbarBackground(Color.clear.opacity(0.9), for: .navigationBar)
-//        .toolbarBackground(noticeBoard.isChange ? .visible : .hidden, for: .navigationBar)
         .sheet(isPresented: $showingLoginView){
             LoginView(showingLoginView: $showingLoginView)
         }

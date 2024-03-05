@@ -9,6 +9,9 @@ import SwiftUI
 import FirebaseStorage
 
 struct HomeView: View {
+    @Binding var selectedTab: Int
+    @Binding var stack: NavigationPath
+    
     @StateObject var viewModel = HomeViewModel()
     @StateObject var userManager = UserManager.shared
     @StateObject var locationManager = LocationManager.shared
@@ -45,7 +48,7 @@ struct HomeView: View {
             
             tapAnimation()
             
-            HomeTapView(viewModel: viewModel, tapCategory: selectedPicker)
+            HomeTapView(selectedTab: $selectedTab, stack: $stack, viewModel: viewModel, tapCategory: selectedPicker)
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {

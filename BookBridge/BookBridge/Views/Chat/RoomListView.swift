@@ -9,6 +9,8 @@ import SwiftUI
 import Kingfisher
 
 struct RoomListView: View {
+    @Binding var selectedTab: Int
+    @Binding var stack: NavigationPath
     
     @StateObject var viewModel: ChatRoomListViewModel
     
@@ -18,9 +20,11 @@ struct RoomListView: View {
             ForEach(viewModel.searchChatRoomList()) { chatRoom in
                 NavigationLink {
                     ChatMessageView(
+                        selectedTab: $selectedTab,
+                        stack: $stack,
                         isAlarm: chatRoom.isAlarm,
                         chatRoomListId: chatRoom.id,
-                        chatRoomPartner: viewModel.chatRoomDic[chatRoom.id] ?? ChatPartnerModel(nickname: "닉네임 없음", noticeBoardId: chatRoom.noticeBoardId, partnerId: chatRoom.partnerId, partnerImage: UIImage(named: "DefaultImage")!, partnerImageUrl: "", style: "칭호 미아"),
+                        chatRoomPartner: viewModel.chatRoomDic[chatRoom.id] ?? ChatPartnerModel(nickname: "닉네임 없음", noticeBoardId: chatRoom.noticeBoardId, partnerId: chatRoom.partnerId, partnerImage: UIImage(named: "DefaultImage")!, partnerImageUrl: "", reviews: [0, 0, 0], style: "칭호 미아"),
                         noticeBoardTitle: chatRoom.noticeBoardTitle,
                         uid: chatRoom.userId)
                 } label: {
