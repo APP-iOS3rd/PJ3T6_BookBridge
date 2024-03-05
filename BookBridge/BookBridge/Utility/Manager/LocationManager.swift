@@ -20,12 +20,14 @@ class LocationManager: ObservableObject {
     var distriction: String = ""
     var distance = 1
     var isSelected = true
+    var isLocationPermitted = false
     
-    func setLocation(lat: Double, long: Double, city: String, distriction: String, dong: String) {
+    func setLocation(lat: Double, long: Double, city: String, distriction: String, dong: String, isLocationPermitted: Bool) {
         self.lat = lat
         self.long = long
         self.city = city        
         self.distriction = distriction
         self.dong = dong
+        self.isLocationPermitted = isLocationPermitted
     }
 }
