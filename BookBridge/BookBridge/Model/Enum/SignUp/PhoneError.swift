@@ -10,5 +10,16 @@ import Foundation
 enum PhoneError: String {
     case invalid = "휴대폰 번호가 올바르지 않습니다."
     case empty = "휴대폰 번호가 입력되지 않았습니다."
-    case none = ""
+    case none = "가입되지 않은 휴대폰번호입니다."
+    
+    func getColor() -> String {
+        switch self {
+        case .invalid:
+            return "F80B0B"
+        case .empty:
+            return "F80B0B"
+        case .none:
+            return "F80B0B"
+        }
+    }
 }
