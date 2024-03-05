@@ -55,7 +55,7 @@ struct RoomListView: View {
                                     if !chatRoom.isAlarm {
                                         Image(systemName: "bell.slash.fill")
                                             .font(.system(size: 16))
-                                            .foregroundStyle(Color(hex:"8A8A8E"))
+                                            .foregroundStyle(Color(.lightGray))
                                     }
                                     
                                     Spacer()
@@ -71,7 +71,7 @@ struct RoomListView: View {
                                     Text(chatRoom.recentMessage)
                                         .font(.system(size: 15))
                                         .frame(height: 25)
-                                        .foregroundStyle(Color(hex:"8A8A8E"))
+                                        .foregroundStyle(Color(.lightGray))
                                         .multilineTextAlignment(.leading)
                                         .lineLimit(1)
                                         .truncationMode(.tail) // 뒤에는 ...으로 표시
