@@ -14,6 +14,7 @@ struct MessageItemView: View {
 
     @State var chatLocation: [Double] = [100, 200]
     @State var chatLocationTuple: (Double, Double) = (0, 0)
+    @State var isCopyTapped = false
     
     var messageModel: ChatMessageModel
     var partnerId: String
@@ -59,10 +60,21 @@ struct MessageItemView: View {
                             PostMapView(lat: $chatLocation[0], lng: $chatLocation[1], isDetail: false)
                             
                             VStack {
-                                Text(messageModel.message)
-                                    .font(.caption)
-                                    .foregroundStyle(.black)
-                                    .padding(.vertical, 5)
+                                HStack(alignment: .top) {
+                                    Text(messageModel.message)
+                                        .font(.caption)
+                                        .foregroundStyle(.black)
+                                        .padding(.vertical, 5)
+                                    
+                                    Image(systemName: "doc.on.doc")
+                                        .font(.caption)
+                                        .foregroundColor(isCopyTapped ? Color.gray : Color.black)
+                                        .padding(.vertical, 5)
+                                        .onTapGesture {
+                                            UIPasteboard.general.setValue(messageModel.message, forPasteboardType: "public.plain-text")
+                                            isCopyTapped = true
+                                        }
+                                }
                                 
                                 NavigationLink {
                                     ChatExchangeInfoView(myCoord: chatLocationTuple, markerCoord: NMGLatLng(lat: chatLocationTuple.0, lng: chatLocationTuple.1), partnerId: partnerId, uid: uid)
