@@ -40,11 +40,17 @@ struct RoomListView: View {
                                 .cornerRadius(30)
                             
                             VStack(alignment: .leading) {
-                                HStack(alignment: .top) {
-                                    Text(chatRoom.noticeBoardTitle)
-                                        .font(.system(size: 18, weight: .bold))
+                                HStack(alignment: .bottom) {
+                                    Text(viewModel.chatRoomDic[chatRoom.id]?.nickname ?? "")
+                                        .font(.system(size: 18))
                                         .foregroundStyle(Color(.label))
                                         .multilineTextAlignment(.leading)
+                                    
+                                    Text(chatRoom.noticeBoardTitle)
+                                        .font(.system(size: 15))
+                                        .foregroundStyle(Color(.lightGray))
+                                        
+                                        .truncationMode(.tail)
                                     
                                     if !chatRoom.isAlarm {
                                         Image(systemName: "bell.slash.fill")
@@ -55,11 +61,11 @@ struct RoomListView: View {
                                     Spacer()
                                     
                                     Text(chatRoom.timeAgo)
-                                        .font(.system(size: 15, weight: .semibold))
+                                        .font(.system(size: 15))
                                         .foregroundStyle(Color(.lightGray))
                                 }
                                 .padding(.top, 4)
-                                .padding(.bottom, -2)
+                                .padding(.bottom, -8)
                                 
                                 HStack(alignment: .bottom) {
                                     Text(chatRoom.recentMessage)

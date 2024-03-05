@@ -44,6 +44,7 @@ struct TabBarView: View {
                             .tabItem {
                                 Image(systemName: "message")
                             }
+                            .badge(userManager.totalNewCount)
                             .tag(1)
                         
                         HomeView()
@@ -100,6 +101,9 @@ struct TabBarView: View {
         }
         .background(.red)
         .tint(Color(hex:"59AAE0"))
+        .onAppear {
+            userManager.updateTotalNewCount()
+        }
         .onChange(of: selectedTab) { newTab in
             if !userManager.isLogin && (newTab == 1 || newTab == 2 || newTab == 3 || newTab == 4) {
                 // 비로그인 상태이며, 로그인이 필요한 탭에 접근 시
