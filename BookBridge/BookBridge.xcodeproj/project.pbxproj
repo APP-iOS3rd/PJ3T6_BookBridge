@@ -92,6 +92,7 @@
 		5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A33842B628D9E00982E92 /* GoogleSignManager.swift */; };
 		5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9A33862B62960800982E92 /* ColorExtension.swift */; };
 		5AA0A1D02B9598B200317831 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA0A1CF2B9598B100317831 /* UIColorExtension.swift */; };
+		5AA0A1D32B95B68200317831 /* LocationPermitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA0A1D22B95B68200317831 /* LocationPermitView.swift */; };
 		5AA82E4D2B675E26006EFC72 /* EmailSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */; };
 		5AA82E4F2B6760C7006EFC72 /* SignUpInputBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E4E2B6760C7006EFC72 /* SignUpInputBoxView.swift */; };
 		5AA82E522B6761BD006EFC72 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E512B6761BD006EFC72 /* SignUpViewModel.swift */; };
@@ -330,6 +331,7 @@
 		5A9A33842B628D9E00982E92 /* GoogleSignManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignManager.swift; sourceTree = "<group>"; };
 		5A9A33862B62960800982E92 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		5AA0A1CF2B9598B100317831 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		5AA0A1D22B95B68200317831 /* LocationPermitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPermitView.swift; sourceTree = "<group>"; };
 		5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignUpView.swift; sourceTree = "<group>"; };
 		5AA82E4E2B6760C7006EFC72 /* SignUpInputBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputBoxView.swift; sourceTree = "<group>"; };
 		5AA82E512B6761BD006EFC72 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
@@ -728,6 +730,7 @@
 		5A7A4E532B62268A00F79C23 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				5AA0A1D12B95B64300317831 /* Alert */,
 				F6185FBE2B8C0C2600C2A889 /* LaunchScreen */,
 				91B7F0AD2B70DE4E00B4C475 /* Chat */,
 				5C8C0E302B7B2909002963F1 /* Report */,
@@ -751,6 +754,14 @@
 				5A3A44212B6C89AE00B66C81 /* LocationViewModel.swift */,
 			);
 			path = Map;
+			sourceTree = "<group>";
+		};
+		5AA0A1D12B95B64300317831 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				5AA0A1D22B95B68200317831 /* LocationPermitView.swift */,
+			);
+			path = Alert;
 			sourceTree = "<group>";
 		};
 		5AA82E492B6745C4006EFC72 /* GoogleLogin */ = {
@@ -1522,6 +1533,7 @@
 				5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */,
 				F60BB0972B71D73900E27F38 /* HomeFirebaseManager.swift in Sources */,
 				915FD1DC2B7CA6A40008C38B /* SearchChatListView.swift in Sources */,
+				5AA0A1D32B95B68200317831 /* LocationPermitView.swift in Sources */,
 				5A5041CE2B6A637A00211CF2 /* PathType.swift in Sources */,
 				7361270F2B6B83BF00943CD7 /* DeleteImageButtonView.swift in Sources */,
 				5A2CC1182B71C230000A8776 /* TownSettingView.swift in Sources */,

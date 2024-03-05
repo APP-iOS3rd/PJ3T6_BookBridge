@@ -58,6 +58,12 @@ struct EmailCertiView: View {
             .padding()
                                             
         }
+        .onAppear{
+            
+            signUpVM.isEmailCertified = false
+            signUpVM.email = ""
+            signUpVM.emailError = nil
+        }
         .navigationBarTitle("회원가입", displayMode: .inline)
         .navigationBarItems(leading: CustomBackButtonView())
     }
