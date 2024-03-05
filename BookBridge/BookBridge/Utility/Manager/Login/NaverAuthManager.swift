@@ -99,18 +99,25 @@ extension NaverAuthManager {
                     }
                 } else {
                     // 로그인 실패, 새 사용자 등록
-                    FirestoreSignUpManager.shared.register(email: email, password: id, nickname: nickname) {
-                        FirestoreSignUpManager.shared.getUserData(email: email) { userData in
-                            if let userData = userData, let uid = userData["id"] as? String {
-                                // 사용자 정보 처리
-                                UserManager.shared.login(uid: uid)
-                                self?.isLogin.toggle()
-                                
-                            } else {
-                                // 사용자 데이터를 찾을 수 없음. 필요한 경우 오류 처리
-                                print("ERROR")
+                    FirestoreSignUpManager.shared.register(email: email, password: id, nickname: nickname) {success, errorMessage in
+                        if success{
+                            FirestoreSignUpManager.shared.getUserData(email: email) { userData in
+                                if let userData = userData, let uid = userData["id"] as? String {
+                                    // 사용자 정보 처리
+                                    UserManager.shared.login(uid: uid)
+                                    self?.isLogin.toggle()
+                                    
+                                } else {
+                                    // 사용자 데이터를 찾을 수 없음. 필요한 경우 오류 처리
+                                    print("ERROR")
+                                }
                             }
+                        } else {
+                            // register에 실패한 경우
+                            print(errorMessage ?? "알수없는 에러가 발생하였습니다.")
+                            return
                         }
+                        
                     }
                 }
             }
