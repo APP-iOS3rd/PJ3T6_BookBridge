@@ -18,11 +18,7 @@ struct IdLoginView: View {
         VStack{
             
             
-                Image("Character")
-            
-            
-            
-            
+            Image("Character")
             
             VStack(alignment: .leading, spacing: 5) {
                 Spacer()
@@ -33,9 +29,6 @@ struct IdLoginView: View {
                     .foregroundColor(Color(hex: "999999"))
                 
                 TextField("아이디를 입력하세요", text: $viewModel.username)
-                    .onTapGesture {
-//                        isShowImage = false
-                    }
                     .padding()
                     .foregroundColor(Color(hex: "3C3C43"))
                     .frame(height: 36)
@@ -57,9 +50,6 @@ struct IdLoginView: View {
                     .foregroundColor(Color(hex: "999999"))
                 
                 SecureField("비밀번호를 입력하세요", text: $viewModel.password)
-                    .onTapGesture {
-//                        isShowImage = false
-                    }
                     .padding()
                     .foregroundColor(Color(hex: "3C3C43"))
                     .frame(height: 36)
@@ -71,7 +61,7 @@ struct IdLoginView: View {
                 Text(viewModel.passwordErrorMessage)
                     .foregroundColor(.red)
                     .font(.system(size: 10))
-                    .opacity(viewModel.usernameErrorMessage.isEmpty ? 0 : 1)
+                    .opacity(viewModel.passwordErrorMessage.isEmpty ? 0 : 1)
                 
                 
                 
@@ -104,25 +94,32 @@ struct IdLoginView: View {
             
             
             Spacer()
-//                .frame(height: 200)
             
-            Button(action: {
-                viewModel.login()
-                if viewModel.state == .signedIn {
-                    showingLoginView = false
-                }
-            }, label: {
-                Text("로그인")
-            })
-            .foregroundColor(.white)
-            .font(.system(size: 20).bold())
-            .frame(width: 353, height: 50) // 여기에 프레임을 설정
-            .background(Color(hex: "59AAE0"))
-            .cornerRadius(10)
-            .onChange(of: viewModel.state) { newState in
-                if newState == .signedIn {
-                    showingLoginView = false
-                }
+            
+            if viewModel.isLoading {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+            } else {
+                Button(action: {
+                    viewModel.login()
+                    if viewModel.state == .signedIn {
+                        showingLoginView = false
+                    }
+                }, label: {
+                    Text("로그인")
+                })
+                .foregroundColor(.white)
+                .font(.system(size: 20).bold())
+                .frame(width: 353, height: 50) // 여기에 프레임을 설정
+                .background(Color(hex: "59AAE0"))
+                .cornerRadius(10)
+                
+            }
+            
+        }
+        .onChange(of: viewModel.state) { newState in
+            if newState == .signedIn {
+                showingLoginView = false
             }
         }
         .padding(20)
