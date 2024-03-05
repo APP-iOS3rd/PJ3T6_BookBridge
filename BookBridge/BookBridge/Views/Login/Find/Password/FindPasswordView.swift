@@ -33,7 +33,7 @@ struct FindPasswordView: View {
                     .font(.system(size: 12, weight: .regular))
                     .foregroundColor(Color(hex: "999999"))
                 
-                TextField("아이디를 입력해주세요", text: $viewModel.email)
+                TextField("아이디를 입력해주세요", text: $viewModel.id)
                     .padding()
                     .foregroundColor(Color(hex: "3C3C43"))
                     .frame(height: 36)
