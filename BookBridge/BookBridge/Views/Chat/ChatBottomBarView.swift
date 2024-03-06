@@ -84,16 +84,17 @@ struct ChatBottomBarView: View {
                                 viewModel.handleSend(uid: uid, partnerId: partnerId)
                                 // 메세지 알림
                                 Task{
-                                    await viewModel.sendNotification(to: partnerId, with: viewModel.chatText)
+                                    await viewModel.sendNotification(to: partnerId, with: viewModel.chatText, chatRoomId: viewModel.saveChatRoomId)
                                 }
                                 viewModel.fetchMessages(uid: uid)
                             })
                         } else {
                             viewModel.handleSend(uid: uid, partnerId: partnerId)
                             Task{
-                                await viewModel.sendNotification(to: partnerId, with: viewModel.chatText)
+                                await viewModel.sendNotification(to: partnerId, with: viewModel.chatText, chatRoomId: viewModel.saveChatRoomId)
                             }
                         }
+                        print("saveChatRoomId: \(viewModel.saveChatRoomId)")
                     }
                 } label: {
                     Image(systemName: "paperplane.fill")

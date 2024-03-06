@@ -569,14 +569,15 @@ extension ChatMessageViewModel {
 //MARK: 상대방에게 메세지 Push 알림
 extension ChatMessageViewModel {
     
-    func sendNotification(to partnerId: String, with message: String) async {
+    func sendNotification(to partnerId: String, with message: String, chatRoomId: String) async {
         do {
             // 사용자 알림설정 체크
             let isEnabled = try await getChattingAlarmStatus(for: partnerId)
             
             if isEnabled {
                 // 사용자 알림 보내기 API
-                await sendNotificationAPI(to: partnerId, withMessage: message)
+                await sendNotificationAPI(to: partnerId, withMessage: message, chatRoomId: chatRoomId)
+                print("chatRoomId: \(chatRoomId)")
             }
         } catch {
             print("Error: \(error.localizedDescription)")
@@ -589,13 +590,13 @@ extension ChatMessageViewModel {
         return document.data()?["isChattingAlarm"] as? Bool ?? true
     }
     
-    private func sendNotificationAPI(to userId: String, withMessage message: String) async {
-        guard let url = URL(string: "http://13.211.66.183:3000/send-notification") else { return }
+    private func sendNotificationAPI(to userId: String, withMessage message: String, chatRoomId: String) async {
+        guard let url = URL(string: "http://120.50.73.116:3000/send-notification") else { return }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let body: [String: Any] = ["userId": userId, "message": message]
+        let body: [String: Any] = ["userId": userId, "message": message, "chatRoomId": chatRoomId]
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
         
         do {

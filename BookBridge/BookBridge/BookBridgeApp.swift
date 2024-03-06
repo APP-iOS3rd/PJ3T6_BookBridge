@@ -63,17 +63,21 @@ struct BookBridgeApp: App {
                 //                        })
                 //                    )
                 //                }}
+                    .environmentObject(AppState.shared) // 푸시알람 채팅방 이동
             }
         }
     }
     
     
-    class AppDelegate: NSObject, UIApplicationDelegate {
+    class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
         func application(_ application: UIApplication,
                          didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
             FirebaseApp.configure()
             // Firebase 실행확인 print
             print("Configured Firebase!")
+            
+            //채팅방 이동
+            UNUserNotificationCenter.current().delegate = self
             
             // 푸시 알림을 위한 사용자 동의 요청
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]){ granted, error in
@@ -96,5 +100,33 @@ struct BookBridgeApp: App {
         func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
             print("Failed to register for remote notifications: \(error.localizedDescription)")
         }
+        
+        func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                    didReceive response: UNNotificationResponse,
+                                    withCompletionHandler completionHandler: @escaping () -> Void) {
+            let userInfo = response.notification.request.content.userInfo
+            if let chatRoomId = userInfo["chatRoomId"] as? String {
+                print("chatRoomId : \(chatRoomId)")
+
+                // 알림에 포함된 chatRoomID를 처리
+                navigateToChatRoom(with: chatRoomId)
+            }
+            completionHandler()
+        }
+        
+        private func navigateToChatRoom(with chatRoomId: String) {
+            // 앱의 상태 또는 뷰 모델을 업데이트하여, 채팅룸 이동
+            AppState.shared.navigateToChatRoom(chatRoomId)
+        }
+    }
+}
+// 푸시알람 채팅방 이동
+class AppState: ObservableObject {
+    static let shared = AppState()
+    @Published var selectedChatRoomID: String?
+    
+    func navigateToChatRoom(_ chatRoomID: String) {
+        self.selectedChatRoomID = chatRoomID
+        // 추가적인 로직 (뷰 전환등 추가로직 필요할것같음)
     }
 }

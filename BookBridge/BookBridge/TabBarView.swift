@@ -10,6 +10,8 @@ import SwiftUI
 
 
 struct TabBarView: View {
+    @EnvironmentObject var appState: AppState // 상태 관찰 및 뷰 전환
+    @StateObject var viewModel = ChatRoomListViewModel()
     @StateObject private var userManager = UserManager.shared
     @State private var height: CGFloat = 0.0
     @State private var isShowChange = false
@@ -19,6 +21,7 @@ struct TabBarView: View {
     @State private var previousTab = 0 // 이전에 선택한 탭을 저장하는 변수
     @State private var shouldShowActionSheet = false
     
+    
     let userId : String?
     
     var body: some View {
@@ -27,69 +30,86 @@ struct TabBarView: View {
                 NavigationStack {
                     TabView(selection: $selectedTab) {
                         Group {
-                            // 홈
-                            HomeView()
-                                .onDisappear {
-                                    shouldShowActionSheet = false
-                                }
-                                .tabItem {
-                                    Image(systemName: "house")
-                                }
-                                .tag(0)
-                            
-                            // 채팅
-                            ChatRoomListView(chatRoomList: [], isComeNoticeBoard: false, uid: UserManager.shared.uid)
-                                .onDisappear {
-                                    shouldShowActionSheet = false
-                                }
-                                .tabItem {
-                                    Image(systemName: "message")
-                                }
-                                .badge(userManager.totalNewCount)
-                                .tag(1)
-                            
-                            HomeView()
-                                .tabItem {
-                                    Image(systemName: "plus.circle")
-                                }
-                                .sheet(isPresented: $shouldShowActionSheet) {
-                                    SelectPostingView(isShowChange: $isShowChange, isShowFind: $isShowFind, shouldShowActionSheet: $shouldShowActionSheet)
-                                        .presentationDetents([.height(250)])
-                                        .ignoresSafeArea(.all)
-                                    
-                                }
-                                .tag(2)
-                            
-                            // 책장
-                            if userManager.isLogin {
-                                BookShelfView(userId : userManager.uid,initialTapInfo: .wish, isBack: false, ismore: false)
+                            // 채팅방 선택 상태에 따라 조건부 뷰 표시
+//                            if let chatRoomID = appState.selectedChatRoomID {
+//                                ChatRoomListView(chatRoomList: [], isComeNoticeBoard: false, uid: UserManager.shared.uid)
+//                                    .onDisappear {
+//                                        shouldShowActionSheet = false
+//                                    }
+//                                    .tabItem {
+//                                        Image(systemName: "message")
+//                                    }
+//                                    .badge(userManager.totalNewCount)
+//                                    .tag(1)
+//                                
+//                            } else {
+                                
+                                
+                                
+                                // 홈
+                                HomeView()
                                     .onDisappear {
                                         shouldShowActionSheet = false
                                     }
                                     .tabItem {
-                                        Image(systemName: "books.vertical")
+                                        Image(systemName: "house")
                                     }
-                                    .tag(3)
-                            } else {
-                                BookShelfView(userId: nil,initialTapInfo: .wish, isBack: false, ismore:false)
+                                    .tag(0)
+                                
+                                // 채팅
+                                ChatRoomListView(chatRoomList: [], isComeNoticeBoard: false, uid: UserManager.shared.uid)
                                     .onDisappear {
                                         shouldShowActionSheet = false
                                     }
                                     .tabItem {
-                                        Image(systemName: "books.vertical")
+                                        Image(systemName: "message")
                                     }
-                                    .tag(3)
-                            }
-                            
-                            //마이페이지
-                            MyPageView(selectedTab : $selectedTab)
-                                .onDisappear {
-                                    shouldShowActionSheet = false
+                                    .badge(userManager.totalNewCount)
+                                    .tag(1)
+                                
+                                HomeView()
+                                    .tabItem {
+                                        Image(systemName: "plus.circle")
+                                    }
+                                    .sheet(isPresented: $shouldShowActionSheet) {
+                                        SelectPostingView(isShowChange: $isShowChange, isShowFind: $isShowFind, shouldShowActionSheet: $shouldShowActionSheet)
+                                            .presentationDetents([.height(250)])
+                                            .ignoresSafeArea(.all)
+                                        
+                                    }
+                                    .tag(2)
+                                
+                                // 책장
+                                if userManager.isLogin {
+                                    BookShelfView(userId : userManager.uid,initialTapInfo: .wish, isBack: false, ismore: false)
+                                        .onDisappear {
+                                            shouldShowActionSheet = false
+                                        }
+                                        .tabItem {
+                                            Image(systemName: "books.vertical")
+                                        }
+                                        .tag(3)
+                                } else {
+                                    BookShelfView(userId: nil,initialTapInfo: .wish, isBack: false, ismore:false)
+                                        .onDisappear {
+                                            shouldShowActionSheet = false
+                                        }
+                                        .tabItem {
+                                            Image(systemName: "books.vertical")
+                                        }
+                                        .tag(3)
                                 }
-                                .tabItem {
-                                    Image(systemName: "person.circle")
-                                }
-                                .tag(4)
+                                
+                                //마이페이지
+                                MyPageView(selectedTab : $selectedTab)
+                                    .onDisappear {
+                                        shouldShowActionSheet = false
+                                    }
+                                    .tabItem {
+                                        Image(systemName: "person.circle")
+                                    }
+                                    .tag(4)
+//                            }
                         }
                         .toolbarBackground(.visible, for: .tabBar)
                     }
