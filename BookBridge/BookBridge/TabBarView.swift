@@ -11,6 +11,7 @@ import SwiftUI
 
 struct TabBarView: View {
     @StateObject private var userManager = UserManager.shared
+    @StateObject private var pathModel = TabPathViewModel()
     @State private var height: CGFloat = 0.0
     @State private var isShowChange = false
     @State private var isShowFind = false
@@ -23,8 +24,8 @@ struct TabBarView: View {
     
     var body: some View {
         VStack {
+            NavigationStack(path: $pathModel.paths) {
             ZStack {
-                NavigationStack {
                     TabView(selection: $selectedTab) {
                         Group {
                             // 홈
@@ -93,12 +94,26 @@ struct TabBarView: View {
                         }
                         .toolbarBackground(.visible, for: .tabBar)
                     }
+                    .navigationDestination(for: TabPathType.self){pathType in
+                        switch pathType {
+                        case let .mypage(other):
+                            MyPageView(selectedTab: $selectedTab, otherUser: other)
+                                
+                        case let .postview(noticeboard):
+                            PostView(noticeBoard: noticeboard)
+                            
+                        }
+                    }
+                    
                     .background(Color.white.onTapGesture {
                         self.hideKeyboard()
                     })
                 }
+                
             }
+            
         }
+        .environmentObject(pathModel)
         .background(.red)
         .tint(Color(hex:"59AAE0"))
         .onAppear {

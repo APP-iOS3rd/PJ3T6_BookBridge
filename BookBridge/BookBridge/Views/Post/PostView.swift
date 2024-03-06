@@ -12,7 +12,7 @@ struct PostView: View {
     
     @Environment(\.dismiss) private var dismiss
  
-//    @Binding var selectedBook: Item
+    @EnvironmentObject private var pathModel: TabPathViewModel
     
     @StateObject var postViewModel = PostViewModel()
     @StateObject var homeViewModel = HomeViewModel()
@@ -53,8 +53,7 @@ struct PostView: View {
                         }
                         
                         
-                        
-                        
+                                                
                                             
                         //상대방 책장
                         PostUserBookshelf(postViewModel: postViewModel)
@@ -277,17 +276,26 @@ struct PostView: View {
             }
         }
 //        .navigationTitle(noticeBoard.isChange ? "바꿔요" : "구해요")
-//        .navigationBarTitleDisplayMode(.inline)
+        .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
         .toolbar(.hidden, for: .tabBar)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .foregroundStyle(noticeBoard.isChange ? .white : .black)
+                HStack(spacing: 10){
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .foregroundStyle(noticeBoard.isChange ? .white : .black)
+                    }
+                    Button {
+                        pathModel.paths.removeAll()
+                    } label: {
+                        Image(systemName: "house")
+                            .foregroundStyle(noticeBoard.isChange ? .white : .black)
+                    }
                 }
+                
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
