@@ -37,7 +37,7 @@ struct TabBarView: View {
                         }
                     
                     // 채팅
-                    ChatRoomListView(selectedTab: $selectedTab, stack: $stack, chatRoomList: [], isComeNoticeBoard: false, uid: UserManager.shared.uid)
+                    ChatRoomListView(selectedTab: $selectedTab, stack: $stack, chatRoomList: [], isComeNoticeBoard: false)
                         .onDisappear {
                             shouldShowActionSheet = false
                         }

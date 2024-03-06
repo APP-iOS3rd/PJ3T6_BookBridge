@@ -87,7 +87,7 @@ struct PostView: View {
                 
                 if UserManager.shared.uid == noticeBoard.userId {
                     NavigationLink {
-                        ChatRoomListView(selectedTab: $selectedTab, stack: $stack, chatRoomList: postViewModel.chatRoomList, isComeNoticeBoard: true, uid: UserManager.shared.uid)
+                        ChatRoomListView(selectedTab: $selectedTab, stack: $stack, chatRoomList: postViewModel.chatRoomList, isComeNoticeBoard: true)
                     } label: {
                         Text("대화중인 채팅방 \(postViewModel.chatRoomList.count)")
                             .padding(.top, 5)
@@ -221,6 +221,18 @@ struct PostView: View {
                                 }
                             } else {
                                 //채팅한 적이 있는 경우
+                                Button {
+                                    stack.append("ChatMessageView")
+                                } label: {
+                                    Text("채팅하기")
+                                        .padding(.top, 5)
+                                        .font(.system(size: 20, weight: .semibold))
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 60, alignment: Alignment.center).ignoresSafeArea()
+                                        .foregroundStyle(Color.white)
+                                        .background(Color(hex: "59AAE0"))
+                                }
+                                
                                 NavigationLink {
                                     ChatMessageView(
                                         selectedTab: $selectedTab,
@@ -298,8 +310,6 @@ struct PostView: View {
                     
                     Button {
                         stack.append("123")
-                        print(stack.count)
-                        print(stack)
                     } label: {
                         Image(systemName: "house")
                             .foregroundStyle(noticeBoard.isChange ? .white : .black)

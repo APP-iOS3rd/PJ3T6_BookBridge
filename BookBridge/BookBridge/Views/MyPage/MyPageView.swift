@@ -13,6 +13,7 @@ struct MyPageView: View {
     @Binding var stack: NavigationPath
     
     @StateObject var viewModel = MyPageViewModel()
+    @StateObject var userManager = UserManager.shared
     
     var otherUser: UserModel?
     
@@ -105,11 +106,30 @@ struct MyPageView: View {
             }
         }
         .onAppear {
+            viewModel.myNoticeBoardCount = 0
+            viewModel.otherNoticeBoards = []
+            viewModel.userBookMarks = []
+            viewModel.userRequests = []
             viewModel.userSaveImage = ("", UIImage(named: "Character")!)
             
             if UserManager.shared.uid != "" {
                 viewModel.getUserInfo(otherUser: otherUser)
                 viewModel.getDownLoadImage(otherUser: otherUser)
+            }
+        }
+        .onChange(of: userManager.isLogin) { _ in
+            if userManager.isLogin {
+                viewModel.myNoticeBoardCount = 0
+                viewModel.otherNoticeBoards = []
+                viewModel.userBookMarks = []
+                viewModel.userRequests = []
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7){
+                    if userManager.uid != "" {
+                        viewModel.getUserInfo(otherUser: otherUser)
+                        viewModel.getDownLoadImage(otherUser: otherUser)
+                    }
+                }
             }
         }
     }
