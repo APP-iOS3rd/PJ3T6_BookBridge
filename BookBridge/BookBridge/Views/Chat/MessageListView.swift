@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MessageListView: View {
     @StateObject var viewModel: ChatMessageViewModel
+    @State var showToast = false
     
     var partnerId: String
     var partnerImage: UIImage
@@ -21,7 +22,7 @@ struct MessageListView: View {
             ScrollViewReader { scrollViewProxy in
                 VStack {
                     ForEach(viewModel.chatMessages) { chatMessage in
-                        MessageItemView(viewModel: viewModel, chatLocation: chatMessage.location, chatLocationTuple: (chatMessage.location[0], chatMessage.location[1]), messageModel: ChatMessageModel(date: chatMessage.date, imageURL: chatMessage.imageURL, location: chatMessage.location, message: chatMessage.message, sender: chatMessage.sender), partnerId: partnerId, partnerImage: partnerImage, uid: uid)
+                        MessageItemView(viewModel: viewModel, chatLocation: chatMessage.location, chatLocationTuple: (chatMessage.location[0], chatMessage.location[1]), showToast: $showToast, messageModel: ChatMessageModel(date: chatMessage.date, imageURL: chatMessage.imageURL, location: chatMessage.location, message: chatMessage.message, sender: chatMessage.sender), partnerId: partnerId, partnerImage: partnerImage, uid: uid)
                     }
                     HStack {
                         Spacer()
@@ -37,6 +38,11 @@ struct MessageListView: View {
                 }
             }
         }
+        .overlay(
+            ToastMessageView(isShowing: $showToast)
+                .zIndex(1),
+            alignment: .bottom
+        )
     }
 }
 

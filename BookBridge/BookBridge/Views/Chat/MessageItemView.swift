@@ -15,6 +15,7 @@ struct MessageItemView: View {
     @State var chatLocation: [Double] = [100, 200]
     @State var chatLocationTuple: (Double, Double) = (0, 0)
     @State var isCopyTapped = false
+    @Binding var showToast: Bool
     
     var messageModel: ChatMessageModel
     var partnerId: String
@@ -245,12 +246,6 @@ struct MessageItemView: View {
                 viewModel.getChatImage(urlString: messageModel.imageURL)
             }
         }
-        .overlay(
-            ToastMessageView(isShowing: $showToast)
-                .padding(.bottom, 50) // Bottom padding
-                .zIndex(1),
-            alignment: .bottom
-        )
     }
 }
 
