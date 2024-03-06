@@ -8,11 +8,20 @@
 import SwiftUI
 
 struct ToastMessageView: View {
+    @Binding var isShowing: Bool
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Spacer()
+            Text("주소가 복사되었습니다")
+                .padding()
+                .foregroundColor(.white)
+                .background(Color.gray)
+                .cornerRadius(10)
+                .opacity(isShowing ? 1 : 0)
+                .animation(.easeInOut(duration: 0.3), value: isShowing)
+        }
+        .padding(.horizontal, 30)
+        .transition(.move(edge: .bottom))
     }
-}
-
-#Preview {
-    ToastMessageView()
 }
