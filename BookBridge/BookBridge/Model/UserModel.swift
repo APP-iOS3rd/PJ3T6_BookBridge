@@ -29,6 +29,7 @@ struct UserModel: Codable, Identifiable, Equatable {
     var isMarketingAlarm: Bool?
     var isChattingAlarm: Bool?
     
+    
     func getSelectedLocation() -> Location? {
         if let locations = location {
             return locations.filter { $0?.isSelected == true }.first ?? nil

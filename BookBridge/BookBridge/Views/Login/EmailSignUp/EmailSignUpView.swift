@@ -51,7 +51,9 @@ struct EmailSignUpView: View {
                 }
             }
         } label: {
-            LargeBtnStyle(title: "확인")
+            Text("확인")
+                .modifier(LargeBtnStyle())
+            
         }
         
     }

@@ -44,8 +44,8 @@ struct BookBridgeApp: App {
                 LaunchScreenView(isOnboardingActive: $isOnBoarding)
             }
             else {
-                FindPasswordView()
-                // TabBarView(userId: UserManager.shared.uid)
+                // FindPasswordView()
+                TabBarView(userId: UserManager.shared.uid)
                     .onOpenURL { url in // 뷰가 속한 Window에 대한 URL을 받았을 때 호출할 Handler를 등록하는 함수
                         if AuthApi.isKakaoTalkLoginUrl(url) {
                             _ = AuthController.handleOpenUrl(url: url)
@@ -54,7 +54,6 @@ struct BookBridgeApp: App {
                     .onAppear() {
                         locationViewModel.checkIfLocationServiceIsEnabled()
                         NaverMapApiManager.getNaverApiInfo()
-                        
                     }
                 //                .alert(isPresented: $locationViewModel.showLocationAlert) {
                 //                    Alert(
@@ -85,7 +84,6 @@ struct BookBridgeApp: App {
                     application.registerForRemoteNotifications()
                 }
             }
-            
             return true
         }
         

@@ -229,9 +229,13 @@ class SignUpViewModel: ObservableObject {
 // MARK: - User 저장
     
     func signUp(completion: @escaping (Bool) -> Void) {
-        if isValidPhone() && isValidPwd() && isValidPwdConfirm() {
-            FirestoreSignUpManager.shared.register(email: self.email, password: self.password, nickname: self.nickname, phoneNumber: self.phoneNumer) {
-                completion(true)
+        if isValidPhone() && isValidPwd() && isValidPwdConfirm() { 
+            
+            FirestoreSignUpManager.shared.register(email: self.email, password: self.password, nickname: self.nickname, phoneNumber: self.phoneNumer) { success, errorMessage in
+                if success{
+                    completion(true)
+                }
+                
             }
                     
         } else {

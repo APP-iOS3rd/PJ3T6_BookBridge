@@ -16,7 +16,7 @@ struct SMSTestView: View {
                 .padding()
             
             Button {
-                smsAuthVM.pushVerificationNumber()
+                smsAuthVM.sendVerificationNumber()
             } label: {
                 Text("전송")
             }
@@ -25,11 +25,11 @@ struct SMSTestView: View {
                 .textFieldStyle(.roundedBorder)
                 .padding()
             
-            Button {
-                smsAuthVM.verifyLogin()
-            } label: {
-                Text("확인")
-            }
+//            Button {
+//                smsAuthVM.verifyLogin()
+//            } label: {
+//                Text("확인")
+//            }
         }
         
         

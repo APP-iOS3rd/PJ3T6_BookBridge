@@ -13,5 +13,5 @@ enum PathType: Hashable {
     case findpassword
     case changepassword
     case certi    
-    case signUp
+    case signUp    
 }

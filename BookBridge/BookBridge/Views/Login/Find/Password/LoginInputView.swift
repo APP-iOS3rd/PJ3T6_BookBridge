@@ -23,22 +23,13 @@ struct LoginInputView: View {
     var btnTitle: String
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading) {            
             
-            HStack {
-                Text(title)
-                    .font(.system(size: 12, weight: .regular))
-                    .foregroundColor(Color(hex: "999999"))
+            Text(title)
+                .font(.system(size: 12, weight: .regular))
+                .foregroundColor(Color(hex: "999999"))
                 
-                
-                if type == .cerificationNumber {
-                    Text("3:18")
-                        .font(.system(size: 12, weight: .regular))
-                        .foregroundColor(Color.red)
-                }
-            }
-            
-            
+                                                    
             HStack {
                 switch type {
                 case .email:
@@ -59,9 +50,9 @@ struct LoginInputView: View {
                         case .email:
                             viewModel.verifyEmail(isLoading: $isLoading)
                         case .phone:
-                            print("휴대폰 인증번호 보내기")
+                            viewModel.verifyPhoneNumber(isLoading: $isLoading)
                         case .cerificationNumber:
-                            print("인증번호 확인하기")
+                            viewModel.verifyPhoneNumber(isLoading: $isLoading)
                         }
                         
                     } label: {

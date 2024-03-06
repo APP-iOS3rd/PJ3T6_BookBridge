@@ -53,7 +53,8 @@ struct EmailCertiView: View {
                     }
                 }                                                
             } label: {
-                LargeBtnStyle(title: "인증완료")
+                Text("인증완료")
+                    .modifier(LargeBtnStyle())                
             }
             .padding()
                                             

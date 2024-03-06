@@ -10,6 +10,7 @@ import SwiftUI
 struct LoginView: View {
     @StateObject private var pathModel = PathViewModel()
     @StateObject var signUpVM = SignUpViewModel()
+    @StateObject var findPasswordVM = SMSAuthViewModel()
     @Binding var showingLoginView: Bool
     
     var body: some View {
@@ -96,7 +97,7 @@ struct LoginView: View {
                         .foregroundColor(Color(hex:"A7A7A7"))
                 }
                 
-                                
+                
                 HStack(spacing: 20){
                     NaverLoginView(showingLoginView: $showingLoginView)
                     GoogleLoginView(showingLoginView: $showingLoginView)
@@ -118,7 +119,7 @@ struct LoginView: View {
                     FindIdView()
                         .navigationBarBackButtonHidden()
                 case .findpassword:
-                    FindPasswordView()
+                    FindPasswordView(viewModel: findPasswordVM)
                         .navigationBarBackButtonHidden()
                 case .login:
                     IdLoginView(showingLoginView: $showingLoginView)
@@ -127,19 +128,19 @@ struct LoginView: View {
                     FindIdResultView()
                         .navigationBarBackButtonHidden()
                 case .changepassword:
-                    ChangePasswordView()
+                    PasswordChangeView(viewModel: findPasswordVM)
                         .navigationBarBackButtonHidden()
                 case .signUp:
                     EmailSignUpView(signUpVM: signUpVM)
                         .navigationBarBackButtonHidden()
                 }
             }
-            // .environmentObject(pathModel)
+            .environmentObject(pathModel)
         }
         .environmentObject(pathModel)
     }
 }
+    //#Preview {
+    //    LoginView()
+    //}
 
-//#Preview {
-//    LoginView()
-//}

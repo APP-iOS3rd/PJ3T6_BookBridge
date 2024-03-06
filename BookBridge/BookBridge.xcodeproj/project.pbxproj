@@ -39,6 +39,9 @@
 		5A0BBB042B97056900FF2F02 /* LoginInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0BBB032B97056900FF2F02 /* LoginInputView.swift */; };
 		5A0BBB062B973B5B00FF2F02 /* CertificationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0BBB052B973B5B00FF2F02 /* CertificationError.swift */; };
 		5A0BBB082B97400500FF2F02 /* FirestoreFindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0BBB072B97400500FF2F02 /* FirestoreFindable.swift */; };
+		5A0BBB0B2B98248F00FF2F02 /* PasswordChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0BBB0A2B98248F00FF2F02 /* PasswordChangeView.swift */; };
+		5A0BBB0D2B9833C700FF2F02 /* PasswordInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0BBB0C2B9833C700FF2F02 /* PasswordInputView.swift */; };
+		5A0BBB0F2B984CD500FF2F02 /* FirestoreUpdatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0BBB0E2B984CD500FF2F02 /* FirestoreUpdatable.swift */; };
 		5A17A0212B7C4BF000C60F69 /* GeohashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A17A0202B7C4BF000C60F69 /* GeohashManager.swift */; };
 		5A1A168E2B6228290063D408 /* GoogleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A168D2B6228290063D408 /* GoogleLoginView.swift */; };
 		5A1A16942B622BB10063D408 /* GoogleLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A16932B622BB10063D408 /* GoogleLoginViewController.swift */; };
@@ -280,6 +283,9 @@
 		5A0BBB032B97056900FF2F02 /* LoginInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInputView.swift; sourceTree = "<group>"; };
 		5A0BBB052B973B5B00FF2F02 /* CertificationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationError.swift; sourceTree = "<group>"; };
 		5A0BBB072B97400500FF2F02 /* FirestoreFindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreFindable.swift; sourceTree = "<group>"; };
+		5A0BBB0A2B98248F00FF2F02 /* PasswordChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChangeView.swift; sourceTree = "<group>"; };
+		5A0BBB0C2B9833C700FF2F02 /* PasswordInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordInputView.swift; sourceTree = "<group>"; };
+		5A0BBB0E2B984CD500FF2F02 /* FirestoreUpdatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreUpdatable.swift; sourceTree = "<group>"; };
 		5A17A0202B7C4BF000C60F69 /* GeohashManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeohashManager.swift; sourceTree = "<group>"; };
 		5A1A168D2B6228290063D408 /* GoogleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginView.swift; sourceTree = "<group>"; };
 		5A1A168F2B62285A0063D408 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -522,6 +528,8 @@
 				1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */,
 				1DA6E06B2B68D9EB00D631D5 /* ChangePasswordView.swift */,
 				5A0BBB032B97056900FF2F02 /* LoginInputView.swift */,
+				5A0BBB0A2B98248F00FF2F02 /* PasswordChangeView.swift */,
+				5A0BBB0C2B9833C700FF2F02 /* PasswordInputView.swift */,
 			);
 			path = Password;
 			sourceTree = "<group>";
@@ -563,6 +571,15 @@
 				5A0BBAFF2B96F66D00FF2F02 /* SMSTestView.swift */,
 			);
 			path = Find;
+			sourceTree = "<group>";
+		};
+		5A0BBB092B980DD600FF2F02 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				5A0BBB072B97400500FF2F02 /* FirestoreFindable.swift */,
+				5A0BBB0E2B984CD500FF2F02 /* FirestoreUpdatable.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		5A1A168C2B6228150063D408 /* Login */ = {
@@ -699,6 +716,7 @@
 		5A7A4E242B61DFFD00F79C23 /* BookBridge */ = {
 			isa = PBXGroup;
 			children = (
+				5A0BBB092B980DD600FF2F02 /* Protocol */,
 				5A4F28192B6BAF8100FF5483 /* UIElement */,
 				5A6CC51F2B6B19170037429F /* Controller */,
 				5CE454912B68B7C000874BCE /* Model */,
@@ -805,7 +823,6 @@
 			children = (
 				5AA97F852B709C4000EF4081 /* FirestoreSignUpManager.swift */,
 				5A8345862B746811000984C4 /* FirestoreManager.swift */,
-				5A0BBB072B97400500FF2F02 /* FirestoreFindable.swift */,
 			);
 			path = Firestore;
 			sourceTree = "<group>";
@@ -1466,6 +1483,7 @@
 				5A3380702B872C130038F2DE /* PostChangeLocationView.swift in Sources */,
 				5A0242152B6D36FF00137AA6 /* LoadingCircle.swift in Sources */,
 				5A83458C2B74A0C0000984C4 /* TownAddButtonView.swift in Sources */,
+				5A0BBB0B2B98248F00FF2F02 /* PasswordChangeView.swift in Sources */,
 				73C962A92B68C38D00D34D3F /* BookAPIManger.swift in Sources */,
 				5A3380742B8734A90038F2DE /* PostBookListView.swift in Sources */,
 				5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */,
@@ -1526,6 +1544,7 @@
 				73441FB32B73465700446E0F /* MyPagePostTapType.swift in Sources */,
 				73441FAB2B733E0700446E0F /* StyleSettingView.swift in Sources */,
 				1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */,
+				5A0BBB0D2B9833C700FF2F02 /* PasswordInputView.swift in Sources */,
 				5C8C0DDA2B734BE0002963F1 /* NaverLocationService.swift in Sources */,
 				5A6CC5232B6B19510037429F /* RedundantValidator.swift in Sources */,
 				F60BB0932B71D72400E27F38 /* HomeView.swift in Sources */,
@@ -1551,6 +1570,7 @@
 				5ADE79EA2B6B6715005BB3ED /* SignUpInputManager.swift in Sources */,
 				73441FB92B735E1C00446E0F /* NoticeBoardSortView.swift in Sources */,
 				7361270D2B6B83AC00943CD7 /* CameraButtonView.swift in Sources */,
+				5A0BBB0F2B984CD500FF2F02 /* FirestoreUpdatable.swift in Sources */,
 				5CE454972B68B8CA00874BCE /* AppleLoginView.swift in Sources */,
 				F60BB0972B71D73900E27F38 /* HomeFirebaseManager.swift in Sources */,
 				915FD1DC2B7CA6A40008C38B /* SearchChatListView.swift in Sources */,

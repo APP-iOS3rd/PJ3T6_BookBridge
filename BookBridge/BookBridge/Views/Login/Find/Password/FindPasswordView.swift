@@ -9,8 +9,10 @@ import SwiftUI
 
 struct FindPasswordView: View {
     @EnvironmentObject private var pathModel: PathViewModel
-    @StateObject var viewModel = SMSAuthViewModel()
+    @StateObject var viewModel: SMSAuthViewModel
     @State private var isNavigationActive = false // 화면 전환 상태 관리
+    @State var isLoading = false
+    @State var isComplete = false
     
     var body: some View {
         
@@ -61,7 +63,7 @@ struct FindPasswordView: View {
                     type: .cerificationNumber,
                     title: "인증번호",
                     placeholder: "인증번호를 입력해주세요",
-                    btnTitle: "인증확인"
+                    btnTitle: "재전송"
                 )
                 
                 
@@ -69,48 +71,45 @@ struct FindPasswordView: View {
                 Spacer()
                     
                 
-                
-                
-
-                
+        
                 Button {
+//                    isComplete = true
+//                    if isComplete {
+//                        pathModel.paths.append(.changepassword)
+//                    }
                     
+                    if viewModel.verifyAll() {
+                        viewModel.verifyCertificationNumber(
+                            isLoading: $isLoading,
+                            isComplete: $isComplete
+                        )                                                
+                    }                                        
                 } label: {
-                    LargeBtnStyle(title: "확인")
+                    HStack {
+                        if isLoading {
+                            LoadingCircle(size: 15, color: "FFFFFF")
+                        }
+                        Text("확인")
+                    }
+                    .modifier(LargeBtnStyle())
                 }
                                 
             }
-            
-            
-            
-            
         }
         .padding(20)
-        
         .navigationBarTitle("비밀번호 찾기", displayMode: .inline)
         .navigationBarItems(leading: CustomBackButtonView())
+        .onChange(of: isComplete) { isComplete in
+            if isComplete {
+                print("휴대폰 인증 완료!")
+                pathModel.paths.append(.changepassword)
+            }
+        }
         
     }
     
-    
-//    @ViewBuilder
-//    func ResendBtn() -> some View {
-//        Button {
-//            viewModel.sendMail()
-//        } label: {
-//            Text("재전송")
-//                .font(.system(size: 17))
-//                .foregroundStyle(Color(hex: "59AAE0"))
-//                .frame(width: 100, height: 36)
-//                .border(Color(hex: "59AAE0"), width: 2)
-//                .background(.white)
-//                .cornerRadius(5.0)
-//        }
-//    }
-    
-    
 }
 
-#Preview {
-    FindPasswordView()
-}
+//#Preview {
+//    FindPasswordView()
+//}
