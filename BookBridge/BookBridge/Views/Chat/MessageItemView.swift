@@ -11,7 +11,7 @@ import CoreLocation
 
 struct MessageItemView: View {
     @StateObject var viewModel: ChatMessageViewModel
-
+    
     @State var chatLocation: [Double] = [100, 200]
     @State var chatLocationTuple: (Double, Double) = (0, 0)
     @State var isCopyTapped = false
@@ -73,6 +73,12 @@ struct MessageItemView: View {
                                         .onTapGesture {
                                             UIPasteboard.general.setValue(messageModel.message, forPasteboardType: "public.plain-text")
                                             isCopyTapped = true
+                                            showToast = true
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                withAnimation {
+                                                    showToast = false
+                                                }
+                                            }
                                         }
                                 }
                                 
@@ -239,6 +245,12 @@ struct MessageItemView: View {
                 viewModel.getChatImage(urlString: messageModel.imageURL)
             }
         }
+        .overlay(
+            ToastMessageView(isShowing: $showToast)
+                .padding(.bottom, 50) // Bottom padding
+                .zIndex(1),
+            alignment: .bottom
+        )
     }
 }
 
