@@ -83,14 +83,13 @@ extension FirestoreFindable {
         .eraseToAnyPublisher()
     }
     
-    func findUserID(email: String, phoneNumber: String) -> AnyPublisher<String?, Error> {
+    func findUserIdWithPhone(phoneNumber: String) -> AnyPublisher<String?, Error> {
         let db = Firestore.firestore()
         
         return Future<String?, Error> { promise in
             let usersRef = db.collection("User")
             
-            usersRef.whereField("email", isEqualTo: email)
-                .whereField("phoneNumber", isEqualTo: phoneNumber)
+            usersRef.whereField("phoneNumber", isEqualTo: phoneNumber)
                 .getDocuments { (querySnapshot, error) in
                     if let error = error {
                         promise(.failure(error))
@@ -109,6 +108,29 @@ extension FirestoreFindable {
                 }
         }
         .eraseToAnyPublisher()
+    }
+    
+    func fetchEmailFromUser(documentId: String) -> AnyPublisher<String, Error> {
+        // Firestore에서 User 콜렉션의 특정 문서 ID에 접근        
+        let docRef = Firestore.firestore().collection("User").document(documentId)
+        
+        return Future<String, Error> { promise in
+            docRef.getDocument { document, error in
+                if let error = error {
+                    // 오류 발생 시, promise로 오류 전달
+                    promise(.failure(error))
+                } else {
+                    // 문서에서 email 필드를 가져옴
+                    if let email = document?.data()?["email"] as? String {
+                        // 성공적으로 email을 가져옴, promise로 email 전달
+                        promise(.success(email))
+                    } else {
+                        // email 필드가 없을 경우, 오류 전달
+                        promise(.failure(NSError(domain: "EmailNotFound", code: 404, userInfo: nil)))
+                    }
+                }
+            }
+        }.eraseToAnyPublisher() // Future를 AnyPublisher로 변환
     }
 }
 

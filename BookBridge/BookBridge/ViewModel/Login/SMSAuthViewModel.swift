@@ -11,14 +11,13 @@ import FirebaseMessaging
 import Combine
 import SwiftUI
 
-class SMSAuthViewModel: ObservableObject, FirestoreFindable, FirestoreUpdatable {
+class SMSAuthViewModel: ObservableObject, FirestoreFindable, FirebaseAuth, Changable {
     @Published var email = ""
     @Published var phoneNumber = ""
     @Published var certificationNum = ""
     @Published var password = ""
     @Published var rePassword = ""
-    @Published var verificationID: String?
-    // @Published var userDocId = "MzU2sI6UEPNExhFmgjpTRayLWPE2"
+    @Published var verificationID: String?    
     @Published var userDocId: String?
     
     @Published var emailStatusText: EmailError?
@@ -50,8 +49,7 @@ class SMSAuthViewModel: ObservableObject, FirestoreFindable, FirestoreUpdatable 
             }
     }
     
-    func verifyCertificationNumber(isLoading: Binding<Bool>, isComplete: Binding<Bool>) {
-        resetStatusText()
+    func verifyCertificationNumber(isLoading: Binding<Bool>, isComplete: Binding<Bool>) {        
         isLoading.wrappedValue = true
         
         let credential = PhoneAuthProvider.provider().credential(
@@ -67,8 +65,7 @@ class SMSAuthViewModel: ObservableObject, FirestoreFindable, FirestoreUpdatable 
                 
             } else {
                 print("SMS 인증 성공")
-                
-                self.findUserID(email: self.email, phoneNumber: self.phoneNumber)
+                self.findUserIdWithPhone(phoneNumber: self.phoneNumber)
                     .sink(receiveCompletion: { completion in
                         switch completion {
                         case .finished:
@@ -78,10 +75,13 @@ class SMSAuthViewModel: ObservableObject, FirestoreFindable, FirestoreUpdatable 
                             isLoading.wrappedValue = false
                             print("사용자 ID 찾기 실패: \(error.localizedDescription)")
                         }
-                    }, receiveValue: { userID in
+                    }, receiveValue: { [weak self] userID in
+                        guard let self = self else { return }
+                        
                         if let userID = userID {
                             self.userDocId = userID
                             isComplete.wrappedValue = true
+                            resetFindId()
                             print("사용자 ID: \(userID)")
                             print("isComplete: \(isComplete.wrappedValue)")
                         } else {
@@ -93,6 +93,7 @@ class SMSAuthViewModel: ObservableObject, FirestoreFindable, FirestoreUpdatable 
             }
         }
     }
+        
     
     func verifyEmail(isLoading: Binding<Bool>) {
         isLoading.wrappedValue = true
@@ -197,18 +198,50 @@ class SMSAuthViewModel: ObservableObject, FirestoreFindable, FirestoreUpdatable 
             .store(in: &cancellables)
     }
     
-    func verifyAll() -> Bool {
+    func getEmail(with representEmail: Binding<String>) {
+        self.fetchEmailFromUser(documentId: userDocId ?? "")
+            .sink(receiveCompletion: { emailCompletion in
+                switch emailCompletion {
+                case .finished:
+                    break
+                case .failure(let emailError):
+                    print("이메일 가져오기 실패: \(emailError.localizedDescription)")
+                }
+            }, receiveValue: { [weak self] email in
+                guard let self = self else { return }
+                let changedEmail = self.anonymizeEmail(email)
+                representEmail.wrappedValue = changedEmail 
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    func verifyEmailEmpty() -> Bool {
         if emailStatusText != .success {
             emailStatusText = .incomplete
             return false
         }
-        
+        return true
+    }
+    
+    func verifyPhoneAndCertiNumberEmpty() -> Bool {
         if phoneNumberStatusText != .success {
             phoneNumberStatusText = .incomplete
             return false
-        }
+        }        
         
         return true
+    }
+    
+    func resetFindIdStatusText() {
+        phoneNumberStatusText = nil
+        certificationNumStatusText = nil
+    }
+    
+    func resetFindId() {
+        phoneNumber = ""
+        certificationNum = ""
+        resetFindIdStatusText()
+        cancellables.removeAll()
     }
     
     func reset() {

@@ -57,7 +57,7 @@ struct LoginInputView: View {
                         
                     } label: {
                         switch type {
-                        case .email, .phone:
+                        case .email:
                             HStack {
                                 if isLoading {
                                     LoadingCircle(size: 10, color: "FFFFFF")
@@ -73,6 +73,8 @@ struct LoginInputView: View {
                                 Text(btnTitle)
                             }
                             .modifier(MiddleWhiteBtnStyle())
+                        case .phone:
+                            Text("")
                         }
                     }
                 }

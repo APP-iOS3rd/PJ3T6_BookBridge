@@ -10,7 +10,6 @@ import SwiftUI
 struct MyPageView: View {
     @Binding var selectedTab : Int
     @State var isShowingSettingView = false
-    
     @StateObject var viewModel = MyPageViewModel()
     
     var body: some View {

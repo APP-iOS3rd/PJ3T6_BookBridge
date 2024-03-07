@@ -9,124 +9,73 @@ import SwiftUI
 
 struct FindIdView: View {
     @EnvironmentObject private var pathModel: PathViewModel
-    @StateObject private var viewModel =  FindIdVM()
+    @Environment(\.dismiss) private var dismiss
+    @StateObject var viewModel: FindIdViewModel
+    @State var isLoading = false
+    @State var isComplete = false
     
     
     var body: some View {
-        
-        
-        VStack {
+        VStack(alignment: .leading) {
             
+            Text("\n휴대폰번호를\n입력해주세요")
+                .font(.system(size: 30, weight: .semibold))
+                            
             
-            Image("Character")
+            Spacer()
+                .frame(height: 120)
+                
+                                    
+            FindIdInputView(
+                viewModel: viewModel,
+                type: .phone,
+                placeholder: "-없이 입력해 주세요"
+            )
             
-            
-            VStack(alignment: .leading,spacing: 5 ) {
+                       
+            Spacer()
                 
-                Text("가입할 때 입력한 \n이메일을 입력해주세요")
-                    .font(.system(size: 20, weight: .regular))
-                                
-                
-                Spacer()
-                    .frame(height: 50)
-                
-                Text("이메일")
-                    .font(.system(size: 12, weight: .regular))
-                    .foregroundColor(Color(hex: "999999"))
-                
+                                                    
+            Button(action: {
+                // 1. 휴대폰번호 맞는지 확인 (Firebase에서 확인)
+                // 2. 휴대폰번호로 문자보내기
+                // 3. 다음화면으로 넘어가기
+                // 4. 휴대폰 번호, 상태메시지 지우기
+                viewModel.verifyPhoneNumber(isLoading: $isLoading, isComplete: $isComplete)
+            }, label: {
                 HStack {
-                    TextField("이메일을 입력해 주세요", text: $viewModel.email)
-                        .padding()
-                        .foregroundColor(Color(hex: "3C3C43"))
-                        .frame(height: 36)
-                        .frame(maxWidth: .infinity)
-                        .background(Color(hex: "F7F8FC"))
-                        .cornerRadius(5.0)
-                    
-                    Button {
-                        viewModel.sendMail()
-                        print("메일을 전송하였습니다.")
-                    } label: {
-                        Text("인증하기")
-                            .font(.system(size: 17))
-                            .foregroundStyle(.white)
-                            .frame(width: 100, height: 36)
-                            .background(Color(hex: "59AAE0"))
-                            .cornerRadius(5.0)
+                    if isLoading {
+                        LoadingCircle(size: 15, color: "FFFFFF")
                     }
-                }
-                
-                Spacer()
-                    .frame(height: 5)
-                
-                Text("인증번호")
-                    .font(.system(size: 12, weight: .regular))
-                    .foregroundColor(Color(hex: "999999"))
-                
-                HStack {
-                    TextField("인증번호를 입력해주세요", text: $viewModel.userAuthCode)
-                        .padding()
-                        .foregroundColor(Color(hex: "3C3C43"))
-                        .frame(height: 36)
-                        .frame(maxWidth: .infinity)
-                        .background(Color(hex: "F7F8FC"))
-                        .cornerRadius(5.0)
-                    
-                    ResendBtn()
-                }
-                
-                
-                Spacer()                    
-                                
-                Button(action: {
-                    if viewModel.isCertiCode(){
-                        pathModel.paths.append(.resultId)
-                    }
-                    else{
-                        pathModel.paths.append(.resultId) // 임시로 추가
-                    }
-                }, label: {
                     Text("확인")
-                })
-                .foregroundColor(.white)
-                .font(.system(size: 20).bold())
-                .frame(width: 353, height: 50) // 여기에 프레임을 설정
-                .background(Color(hex: "59AAE0"))
-                .cornerRadius(10)
-                
-            }
+                }
+            })
+            .modifier(LargeBtnStyle())
             
-            
-            
-            
-
         }
         .padding(20)
-        
         .navigationBarTitle("아이디 찾기", displayMode: .inline)
-        .navigationBarItems(leading: CustomBackButtonView())
+        .onChange(of: isComplete) { _ in
+            if isComplete {
+                pathModel.paths.append(.findIdCerti)
+                isComplete = false
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    viewModel.resetPhoneNumber()
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .foregroundColor(.black)
+                }
+            }
+        }
         
     }
-    
-    
-    @ViewBuilder
-    func ResendBtn() -> some View {
-        Button {
-            viewModel.sendMail()
-        } label: {
-            Text("재전송")
-                .font(.system(size: 17))
-                .foregroundStyle(Color(hex: "59AAE0"))
-                .frame(width: 100, height: 36)
-                .border(Color(hex: "59AAE0"), width: 2)
-                .background(.white)
-                .cornerRadius(5.0)
-        }
-    }
-    
-    
 }
 #Preview {
-    FindIdView()
+    FindIdView(viewModel: FindIdViewModel())
 }
 

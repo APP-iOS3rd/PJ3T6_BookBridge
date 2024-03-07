@@ -13,6 +13,7 @@ enum PhoneError: String {
     case none = "가입되지 않은 휴대폰번호입니다."
     case success = "인증번호가 전송되었습니다."
     case incomplete = "휴대폰 인증이 완료되지 않았습니다."
+    case blocked = "비정상적인 접근으로 인해 핸드폰 인증이 정지되었습니다.\n잠시후에 시도해주시기 바랍니다."
     
     func getColor() -> String {
         switch self {
@@ -25,6 +26,8 @@ enum PhoneError: String {
         case .success:
             return "0A84FF"
         case .incomplete:
+            return "F80B0B"
+        case .blocked:
             return "F80B0B"
         }
     }
