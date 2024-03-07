@@ -11,10 +11,11 @@ import CoreLocation
 
 struct MessageItemView: View {
     @StateObject var viewModel: ChatMessageViewModel
-
+    
     @State var chatLocation: [Double] = [100, 200]
     @State var chatLocationTuple: (Double, Double) = (0, 0)
     @State var isCopyTapped = false
+    @Binding var showToast: Bool
     
     var messageModel: ChatMessageModel
     var partnerId: String
@@ -73,6 +74,12 @@ struct MessageItemView: View {
                                         .onTapGesture {
                                             UIPasteboard.general.setValue(messageModel.message, forPasteboardType: "public.plain-text")
                                             isCopyTapped = true
+                                            showToast = true
+                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                withAnimation {
+                                                    showToast = false
+                                                }
+                                            }
                                         }
                                 }
                                 
