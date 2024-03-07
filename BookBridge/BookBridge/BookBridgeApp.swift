@@ -63,7 +63,7 @@ struct BookBridgeApp: App {
                 //                        })
                 //                    )
                 //                }}
-                    .environmentObject(AppState.shared) // 푸시알람 채팅방 이동
+                    .environmentObject(PushChatRoomRouteManager.shared) // 푸시알람 채팅방 이동
             }
         }
     }
@@ -104,29 +104,23 @@ struct BookBridgeApp: App {
         func userNotificationCenter(_ center: UNUserNotificationCenter,
                                     didReceive response: UNNotificationResponse,
                                     withCompletionHandler completionHandler: @escaping () -> Void) {
+            //Push알림에서 보낸 data 가져오기
             let userInfo = response.notification.request.content.userInfo
-            if let chatRoomId = userInfo["chatRoomId"] as? String {
-                print("chatRoomId : \(chatRoomId)")
 
-                // 알림에 포함된 chatRoomID를 처리
-                navigateToChatRoom(with: chatRoomId)
+            if let chatRoomId = userInfo["chatRoomId"] as? String, //채팅방 id
+               let userId = userInfo["userId"] as? String, //유저 id
+               let partnerId = userInfo["partnerId"] as? String,//상대방 유저 id
+               let noticeBoardId = userInfo["noticeBoardId"] as? String,// 게시물 Id
+               let noticeBoardTitle = userInfo["noticeBoardTitle"] as? String,// 게시물 제목
+               let nickname = userInfo["nickname"] as? String,// 상대방 닉네임
+               let style = userInfo["style"] as? String, // 칭호
+               let profileURL = userInfo["profileURL"] as? String {
+                // 채팅방 상태 업데이트
+                PushChatRoomRouteManager.shared.navigateToChatRoom(chatRoomId: chatRoomId, userId: userId,  partnerId: partnerId, noticeBoardTitle: noticeBoardTitle, noticeBoardId: noticeBoardId, nickname: nickname, style: style, profileURL: profileURL)
+
             }
             completionHandler()
         }
-        
-        private func navigateToChatRoom(with chatRoomId: String) {
-            // 앱의 상태 또는 뷰 모델을 업데이트하여, 채팅룸 이동
-            AppState.shared.navigateToChatRoom(chatRoomId)
-        }
-    }
-}
-// 푸시알람 채팅방 이동
-class AppState: ObservableObject {
-    static let shared = AppState()
-    @Published var selectedChatRoomID: String?
-    
-    func navigateToChatRoom(_ chatRoomID: String) {
-        self.selectedChatRoomID = chatRoomID
-        // 추가적인 로직 (뷰 전환등 추가로직 필요할것같음)
+
     }
 }

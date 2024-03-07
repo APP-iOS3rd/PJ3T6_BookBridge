@@ -115,6 +115,7 @@
 		5ADE79EA2B6B6715005BB3ED /* SignUpInputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */; };
 		5C5AB9712B85977200AD90A2 /* FCMTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5AB9702B85977200AD90A2 /* FCMTokenManager.swift */; };
 		5C6094A62B8DD8F3005E94EA /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6094A52B8DD8F3005E94EA /* SettingViewModel.swift */; };
+		5C6456292B99A42F0096563F /* PushChatRoomRouteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6456282B99A42F0096563F /* PushChatRoomRouteManager.swift */; };
 		5C85D1672B7C45130065940D /* ReportCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C85D1662B7C45130065940D /* ReportCellView.swift */; };
 		5C8C0DD82B734B8C002963F1 /* NaverReverseGeocoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0DD72B734B8C002963F1 /* NaverReverseGeocoding.swift */; };
 		5C8C0DDA2B734BE0002963F1 /* NaverLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0DD92B734BE0002963F1 /* NaverLocationService.swift */; };
@@ -353,6 +354,7 @@
 		5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputManager.swift; sourceTree = "<group>"; };
 		5C5AB9702B85977200AD90A2 /* FCMTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenManager.swift; sourceTree = "<group>"; };
 		5C6094A52B8DD8F3005E94EA /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		5C6456282B99A42F0096563F /* PushChatRoomRouteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushChatRoomRouteManager.swift; sourceTree = "<group>"; };
 		5C85D1662B7C45130065940D /* ReportCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCellView.swift; sourceTree = "<group>"; };
 		5C8C0DD72B734B8C002963F1 /* NaverReverseGeocoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverReverseGeocoding.swift; sourceTree = "<group>"; };
 		5C8C0DD92B734BE0002963F1 /* NaverLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverLocationService.swift; sourceTree = "<group>"; };
@@ -570,6 +572,7 @@
 		5A1A16922B622B9F0063D408 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				5C6456272B99A4180096563F /* Chat */,
 				910F48FA2B6CBB9600C0563E /* Delegate */,
 				5ADE79E42B6B3633005BB3ED /* Extension */,
 				5ADE79E32B6B361D005BB3ED /* Manager */,
@@ -889,6 +892,14 @@
 				5C6094A52B8DD8F3005E94EA /* SettingViewModel.swift */,
 			);
 			path = MyPage;
+			sourceTree = "<group>";
+		};
+		5C6456272B99A4180096563F /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				5C6456282B99A42F0096563F /* PushChatRoomRouteManager.swift */,
+			);
+			path = Chat;
 			sourceTree = "<group>";
 		};
 		5C8C0E302B7B2909002963F1 /* Report */ = {
@@ -1615,6 +1626,7 @@
 				91B7F0B42B71B90F00B4C475 /* ChatRoomListViewModel.swift in Sources */,
 				1D71C6C32B6C763900EEC95D /* AddBookBtnView.swift in Sources */,
 				5A7A4E262B61DFFD00F79C23 /* BookBridgeApp.swift in Sources */,
+				5C6456292B99A42F0096563F /* PushChatRoomRouteManager.swift in Sources */,
 				73441FB12B73444500446E0F /* NoticeBoardView.swift in Sources */,
 				5CE454932B68B7CB00874BCE /* UserModel.swift in Sources */,
 				5A3A44132B6C775D00B66C81 /* PhoneError.swift in Sources */,

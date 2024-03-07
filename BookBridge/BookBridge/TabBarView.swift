@@ -10,7 +10,7 @@ import SwiftUI
 
 
 struct TabBarView: View {
-    @EnvironmentObject var appState: AppState // 상태 관찰 및 뷰 전환
+    @EnvironmentObject var appState: PushChatRoomRouteManager // 상태 관찰 및 뷰 전환
     @StateObject var viewModel = ChatRoomListViewModel()
     @StateObject private var userManager = UserManager.shared
     @State private var height: CGFloat = 0.0
@@ -28,24 +28,18 @@ struct TabBarView: View {
         VStack {
             ZStack {
                 NavigationStack {
-                    TabView(selection: $selectedTab) {
-                        Group {
-                            // 채팅방 선택 상태에 따라 조건부 뷰 표시
-//                            if let chatRoomID = appState.selectedChatRoomID {
-//                                ChatRoomListView(chatRoomList: [], isComeNoticeBoard: false, uid: UserManager.shared.uid)
-//                                    .onDisappear {
-//                                        shouldShowActionSheet = false
-//                                    }
-//                                    .tabItem {
-//                                        Image(systemName: "message")
-//                                    }
-//                                    .badge(userManager.totalNewCount)
-//                                    .tag(1)
-//                                
-//                            } else {
-                                
-                                
-                                
+                    // 채팅방 선택 상태에 따라 조건부 뷰 표시
+                    if let chatRoomID = appState.chatRoomId {
+                        ChatMessageView(
+                            isAlarm: false,
+                            chatRoomListId: chatRoomID,
+                            chatRoomPartner: ChatPartnerModel(nickname: appState.nickname ?? " ", noticeBoardId: appState.noticeBoardId ?? "", partnerId: appState.partnerId ?? "", partnerImage: UIImage(named: "DefaultImage")!, partnerImageUrl: appState.profileURL ?? "", style: appState.style ?? "칭호 미아"),
+                            noticeBoardTitle: appState.noticeBoardTitle ?? "",
+                            uid: appState.userId ?? "")
+                        
+                    } else {
+                        TabView(selection: $selectedTab) {
+                            Group {
                                 // 홈
                                 HomeView()
                                     .onDisappear {
@@ -109,13 +103,14 @@ struct TabBarView: View {
                                         Image(systemName: "person.circle")
                                     }
                                     .tag(4)
-//                            }
+                                
+                            }
+                            .toolbarBackground(.visible, for: .tabBar)
                         }
-                        .toolbarBackground(.visible, for: .tabBar)
+                        .background(Color.white.onTapGesture {
+                            self.hideKeyboard()
+                        })
                     }
-                    .background(Color.white.onTapGesture {
-                        self.hideKeyboard()
-                    })
                 }
             }
         }
