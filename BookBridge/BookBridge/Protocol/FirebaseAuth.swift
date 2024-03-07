@@ -16,24 +16,7 @@ protocol FirebaseAuth {
 }
 
 extension FirebaseAuth {
-    
-    func updatePassword(userDocId: String, newPassword: String) -> AnyPublisher<Void, Error> {
-        let db = Firestore.firestore()
-        
-        let userRef = db.collection("User").document(userDocId)
-        
-        return Future<Void, Error> { promise in
-            userRef.updateData(["password": newPassword]) { error in
-                if let error = error {
-                    promise(.failure(error))
-                } else {
-                    promise(.success(()))
-                }
-            }
-        }
-        .eraseToAnyPublisher()
-    }
-    
+            
     func sendPasswordReset(isLoading: Binding<Bool>, isComplete: Binding<Bool>) {
         isLoading.wrappedValue = true
         

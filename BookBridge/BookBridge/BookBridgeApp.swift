@@ -55,15 +55,7 @@ struct BookBridgeApp: App {
                         locationViewModel.checkIfLocationServiceIsEnabled()
                         NaverMapApiManager.getNaverApiInfo()
                     }
-                //                .alert(isPresented: $locationViewModel.showLocationAlert) {
-                //                    Alert(
-                //                        title: Text("알림"),
-                //                        message: Text("위치권한 거부로 앱이 종료됩니다."),
-                //                        dismissButton: .default(Text("확인"), action: {
-                //
-                //                        })
-                //                    )
-                //                }}
+                    .addKeyboardVisibilityToEnvironment()                
             }
         }
     }

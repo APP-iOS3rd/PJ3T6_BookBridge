@@ -10,7 +10,7 @@ import SwiftUI
 struct LargeBtnStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(.system(size: 20))
+            .font(.system(size: 20, weight: .semibold))            
             .foregroundStyle(.white)
             .frame(height: 50)
             .frame(maxWidth: .infinity)

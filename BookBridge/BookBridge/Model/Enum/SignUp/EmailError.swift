@@ -13,6 +13,7 @@ enum EmailError: String {
     case success = "이메일 인증이 완료되었습니다."
     case none = "가입된 이메일이 없습니다."
     case incomplete = "이메일 인증이 완료되지 않았습니다."
+    case abnomal = "비정상적인 접근입니다. 잠시후에 다시 시도해주시기 바랍니다."
     
     func getColor() -> String {
         switch self {
@@ -25,6 +26,8 @@ enum EmailError: String {
         case .none:
             return "F80B0B"
         case .incomplete:
+            return "F80B0B"
+        case .abnomal:
             return "F80B0B"
         }
     }

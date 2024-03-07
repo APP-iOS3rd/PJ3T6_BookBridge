@@ -34,12 +34,9 @@
 		34927C483CF1E10C21B09E15 /* Pods_BookBridgeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A49B59480B4D646B466C597B /* Pods_BookBridgeTests.framework */; };
 		5A0242152B6D36FF00137AA6 /* LoadingCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0242142B6D36FF00137AA6 /* LoadingCircle.swift */; };
 		5A0BBAFE2B96EDA800FF2F02 /* SMSAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0BBAFD2B96EDA800FF2F02 /* SMSAuthViewModel.swift */; };
-		5A0BBB002B96F66D00FF2F02 /* SMSTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0BBAFF2B96F66D00FF2F02 /* SMSTestView.swift */; };
 		5A0BBB042B97056900FF2F02 /* LoginInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0BBB032B97056900FF2F02 /* LoginInputView.swift */; };
 		5A0BBB062B973B5B00FF2F02 /* CertificationError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0BBB052B973B5B00FF2F02 /* CertificationError.swift */; };
 		5A0BBB082B97400500FF2F02 /* FirestoreFindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0BBB072B97400500FF2F02 /* FirestoreFindable.swift */; };
-		5A0BBB0B2B98248F00FF2F02 /* PasswordChangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0BBB0A2B98248F00FF2F02 /* PasswordChangeView.swift */; };
-		5A0BBB0D2B9833C700FF2F02 /* PasswordInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0BBB0C2B9833C700FF2F02 /* PasswordInputView.swift */; };
 		5A0BBB0F2B984CD500FF2F02 /* FirebaseAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0BBB0E2B984CD500FF2F02 /* FirebaseAuth.swift */; };
 		5A17A0212B7C4BF000C60F69 /* GeohashManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A17A0202B7C4BF000C60F69 /* GeohashManager.swift */; };
 		5A1A168E2B6228290063D408 /* GoogleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A168D2B6228290063D408 /* GoogleLoginView.swift */; };
@@ -105,6 +102,11 @@
 		5AA1BBED2B998F2D00928A67 /* FindIdCertiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA1BBEC2B998F2D00928A67 /* FindIdCertiView.swift */; };
 		5AA1BBEF2B9996BA00928A67 /* FindIdInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA1BBEE2B9996BA00928A67 /* FindIdInputView.swift */; };
 		5AA1BBF12B99982300928A67 /* FindIdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA1BBF02B99982300928A67 /* FindIdViewModel.swift */; };
+		5AA1BBF32B99AE1500928A67 /* FindPasswordInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA1BBF22B99AE1500928A67 /* FindPasswordInputView.swift */; };
+		5AA1BBF52B99AE5900928A67 /* FindPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA1BBF42B99AE5900928A67 /* FindPasswordViewModel.swift */; };
+		5AA1BBF72B99BFDE00928A67 /* FindPasswordResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA1BBF62B99BFDD00928A67 /* FindPasswordResultView.swift */; };
+		5AA1BBF92B99CAD200928A67 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA1BBF82B99CAD200928A67 /* UIApplication.swift */; };
+		5AA1BBFB2B99CD7A00928A67 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA1BBFA2B99CD7A00928A67 /* ViewExtension.swift */; };
 		5AA82E4D2B675E26006EFC72 /* EmailSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */; };
 		5AA82E4F2B6760C7006EFC72 /* SignUpInputBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E4E2B6760C7006EFC72 /* SignUpInputBoxView.swift */; };
 		5AA82E522B6761BD006EFC72 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA82E512B6761BD006EFC72 /* SignUpViewModel.swift */; };
@@ -282,12 +284,9 @@
 		38E83709A8699EFCEF75F30C /* Pods-BookBridge-BookBridgeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge-BookBridgeUITests.debug.xcconfig"; path = "Target Support Files/Pods-BookBridge-BookBridgeUITests/Pods-BookBridge-BookBridgeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5A0242142B6D36FF00137AA6 /* LoadingCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCircle.swift; sourceTree = "<group>"; };
 		5A0BBAFD2B96EDA800FF2F02 /* SMSAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSAuthViewModel.swift; sourceTree = "<group>"; };
-		5A0BBAFF2B96F66D00FF2F02 /* SMSTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMSTestView.swift; sourceTree = "<group>"; };
 		5A0BBB032B97056900FF2F02 /* LoginInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInputView.swift; sourceTree = "<group>"; };
 		5A0BBB052B973B5B00FF2F02 /* CertificationError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificationError.swift; sourceTree = "<group>"; };
 		5A0BBB072B97400500FF2F02 /* FirestoreFindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreFindable.swift; sourceTree = "<group>"; };
-		5A0BBB0A2B98248F00FF2F02 /* PasswordChangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChangeView.swift; sourceTree = "<group>"; };
-		5A0BBB0C2B9833C700FF2F02 /* PasswordInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordInputView.swift; sourceTree = "<group>"; };
 		5A0BBB0E2B984CD500FF2F02 /* FirebaseAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAuth.swift; sourceTree = "<group>"; };
 		5A17A0202B7C4BF000C60F69 /* GeohashManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeohashManager.swift; sourceTree = "<group>"; };
 		5A1A168D2B6228290063D408 /* GoogleLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginView.swift; sourceTree = "<group>"; };
@@ -357,6 +356,11 @@
 		5AA1BBEC2B998F2D00928A67 /* FindIdCertiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdCertiView.swift; sourceTree = "<group>"; };
 		5AA1BBEE2B9996BA00928A67 /* FindIdInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdInputView.swift; sourceTree = "<group>"; };
 		5AA1BBF02B99982300928A67 /* FindIdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdViewModel.swift; sourceTree = "<group>"; };
+		5AA1BBF22B99AE1500928A67 /* FindPasswordInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordInputView.swift; sourceTree = "<group>"; };
+		5AA1BBF42B99AE5900928A67 /* FindPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordViewModel.swift; sourceTree = "<group>"; };
+		5AA1BBF62B99BFDD00928A67 /* FindPasswordResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordResultView.swift; sourceTree = "<group>"; };
+		5AA1BBF82B99CAD200928A67 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
+		5AA1BBFA2B99CD7A00928A67 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignUpView.swift; sourceTree = "<group>"; };
 		5AA82E4E2B6760C7006EFC72 /* SignUpInputBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputBoxView.swift; sourceTree = "<group>"; };
 		5AA82E512B6761BD006EFC72 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
@@ -535,10 +539,10 @@
 			isa = PBXGroup;
 			children = (
 				1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */,
+				5AA1BBF62B99BFDD00928A67 /* FindPasswordResultView.swift */,
+				5AA1BBF22B99AE1500928A67 /* FindPasswordInputView.swift */,
 				1DA6E06B2B68D9EB00D631D5 /* ChangePasswordView.swift */,
 				5A0BBB032B97056900FF2F02 /* LoginInputView.swift */,
-				5A0BBB0A2B98248F00FF2F02 /* PasswordChangeView.swift */,
-				5A0BBB0C2B9833C700FF2F02 /* PasswordInputView.swift */,
 			);
 			path = Password;
 			sourceTree = "<group>";
@@ -577,7 +581,6 @@
 			children = (
 				1D357CAE2B6A13650064B87D /* Password */,
 				1D357CAD2B6A13560064B87D /* ID */,
-				5A0BBAFF2B96F66D00FF2F02 /* SMSTestView.swift */,
 			);
 			path = Find;
 			sourceTree = "<group>";
@@ -875,6 +878,7 @@
 				5ADE79E12B6B34D0005BB3ED /* GoogleAuthViewModel.swift */,
 				5A0BBAFD2B96EDA800FF2F02 /* SMSAuthViewModel.swift */,
 				5AA1BBF02B99982300928A67 /* FindIdViewModel.swift */,
+				5AA1BBF42B99AE5900928A67 /* FindPasswordViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -923,6 +927,8 @@
 				5A33805F2B86E49D0038F2DE /* StringExtension.swift */,
 				91B359442B883C4D00CD7778 /* HideKeyboardExtension.swift */,
 				5AA0A1CF2B9598B100317831 /* UIColorExtension.swift */,
+				5AA1BBF82B99CAD200928A67 /* UIApplication.swift */,
+				5AA1BBFA2B99CD7A00928A67 /* ViewExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1467,6 +1473,7 @@
 				1D2B61842B63929900945EE2 /* KakaoLoginViewModel.swift in Sources */,
 				730028492B85E0B200EB3D8D /* NoticeBoardItemView.swift in Sources */,
 				F6431D432B9831DC00F7AECF /* ToastMessageView.swift in Sources */,
+				5AA1BBF72B99BFDE00928A67 /* FindPasswordResultView.swift in Sources */,
 				5C5AB9712B85977200AD90A2 /* FCMTokenManager.swift in Sources */,
 				1D84019B2B6779CB00ADEEB5 /* IdLoginView.swift in Sources */,
 				91695F522B8D8CE400A0E2F7 /* InquiryViewModel.swift in Sources */,
@@ -1497,7 +1504,6 @@
 				5A3380702B872C130038F2DE /* PostChangeLocationView.swift in Sources */,
 				5A0242152B6D36FF00137AA6 /* LoadingCircle.swift in Sources */,
 				5A83458C2B74A0C0000984C4 /* TownAddButtonView.swift in Sources */,
-				5A0BBB0B2B98248F00FF2F02 /* PasswordChangeView.swift in Sources */,
 				73C962A92B68C38D00D34D3F /* BookAPIManger.swift in Sources */,
 				5A3380742B8734A90038F2DE /* PostBookListView.swift in Sources */,
 				5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */,
@@ -1530,7 +1536,6 @@
 				91B359492B88998400CD7778 /* PostImageModalView.swift in Sources */,
 				5A3A44202B6C890900B66C81 /* TownSettingMapView.swift in Sources */,
 				73437D112B8B840300C9289B /* MyProfileEditSaveButtonView.swift in Sources */,
-				5A0BBB002B96F66D00FF2F02 /* SMSTestView.swift in Sources */,
 				5A33806E2B87291B0038F2DE /* PostUserBookshelf.swift in Sources */,
 				73718A032B887AB500C20798 /* MyProfilePasswordView.swift in Sources */,
 				5C6094A62B8DD8F3005E94EA /* SettingViewModel.swift in Sources */,
@@ -1544,6 +1549,7 @@
 				5CD606442B7DAABF00AC53DD /* PostMapDetailView.swift in Sources */,
 				736127092B6B82B400943CD7 /* ImageScrollView.swift in Sources */,
 				73441FA52B733DAF00446E0F /* AlarmSettingView.swift in Sources */,
+				5AA1BBF92B99CAD200928A67 /* UIApplication.swift in Sources */,
 				5ADE79DA2B6B2C99005BB3ED /* CertiResult.swift in Sources */,
 				5ADE79E62B6B565F005BB3ED /* SignUpInputView.swift in Sources */,
 				73441FAD2B733E2200446E0F /* StyleListView.swift in Sources */,
@@ -1559,7 +1565,6 @@
 				73441FB32B73465700446E0F /* MyPagePostTapType.swift in Sources */,
 				73441FAB2B733E0700446E0F /* StyleSettingView.swift in Sources */,
 				1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */,
-				5A0BBB0D2B9833C700FF2F02 /* PasswordInputView.swift in Sources */,
 				5C8C0DDA2B734BE0002963F1 /* NaverLocationService.swift in Sources */,
 				5A6CC5232B6B19510037429F /* RedundantValidator.swift in Sources */,
 				F60BB0932B71D72400E27F38 /* HomeView.swift in Sources */,
@@ -1592,10 +1597,12 @@
 				915FD1DC2B7CA6A40008C38B /* SearchChatListView.swift in Sources */,
 				5AA0A1D32B95B68200317831 /* LocationPermitView.swift in Sources */,
 				5A5041CE2B6A637A00211CF2 /* PathType.swift in Sources */,
+				5AA1BBF52B99AE5900928A67 /* FindPasswordViewModel.swift in Sources */,
 				7361270F2B6B83BF00943CD7 /* DeleteImageButtonView.swift in Sources */,
 				5A2CC1182B71C230000A8776 /* TownSettingView.swift in Sources */,
 				5A0BBB042B97056900FF2F02 /* LoginInputView.swift in Sources */,
 				5A0BBB062B973B5B00FF2F02 /* CertificationError.swift in Sources */,
+				5AA1BBF32B99AE1500928A67 /* FindPasswordInputView.swift in Sources */,
 				1DFDD1BC2B71BF3D00B320F7 /* tapInfo.swift in Sources */,
 				73C962A32B68880500D34D3F /* SearchBarView.swift in Sources */,
 				5A3A44222B6C89AE00B66C81 /* LocationViewModel.swift in Sources */,
@@ -1621,6 +1628,7 @@
 				73441F9F2B733CE500446E0F /* MyPostView.swift in Sources */,
 				1D71C6C72B6C8D4400EEC95D /* WishBookAddBtnView.swift in Sources */,
 				F64B7EFD2B833135008AB919 /* ExChangeHopeModifyView.swift in Sources */,
+				5AA1BBFB2B99CD7A00928A67 /* ViewExtension.swift in Sources */,
 				738EDA9F2B71EB240066ADE7 /* TapCategory.swift in Sources */,
 				5A3380792B8769B80038F2DE /* PostMenuBtnsView.swift in Sources */,
 				91392F292B68BE0E0092052A /* FindPostingView.swift in Sources */,

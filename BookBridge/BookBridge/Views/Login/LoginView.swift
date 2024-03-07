@@ -12,6 +12,7 @@ struct LoginView: View {
     @StateObject var signUpVM = SignUpViewModel()
     @StateObject var findPasswordVM = SMSAuthViewModel()
     @StateObject var findIdVM = FindIdViewModel()
+    @StateObject var findPwdVM = FindPasswordViewModel()
     @Binding var showingLoginView: Bool
     
     var body: some View {
@@ -123,16 +124,16 @@ struct LoginView: View {
                     FindIdCertiView(viewModel: findIdVM)
                         .navigationBarBackButtonHidden()
                 case .findpassword:
-                    FindPasswordView(viewModel: findPasswordVM)
+                    FindPasswordView(viewModel: findPwdVM)
                         .navigationBarBackButtonHidden()
                 case .login:
                     IdLoginView(showingLoginView: $showingLoginView)
                         .navigationBarBackButtonHidden()
                 case .resultId:
                     FindIdResultView(viewModel: findIdVM)
-                        .navigationBarBackButtonHidden()
-                case .changepassword:
-                    PasswordChangeView(viewModel: findPasswordVM)
+                        .navigationBarBackButtonHidden()    
+                case .resultPassword:
+                    FindPasswordResultView(viewModel: findPwdVM)
                         .navigationBarBackButtonHidden()
                 case .signUp:
                     EmailSignUpView(signUpVM: signUpVM)

@@ -11,45 +11,54 @@ struct FindIdCertiView: View {
     @EnvironmentObject private var pathModel: PathViewModel
     @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel: FindIdViewModel
+    @FocusState var isFocused: Bool
     @State var isLoading = false
     @State var isComplete = false
     
     var body: some View {
         VStack(alignment: .leading) {
                         
-            Text("\n인증번호를\n입력해주세요")
+            Text("인증번호를 알려주세요")
                 .font(.system(size: 30, weight: .semibold))
             
             Spacer()
-                .frame(height: 120)
+                .frame(height: 8)
+            
+            Text("휴대폰으로 전송된 인증번호를 입력해주세요")
+                .foregroundStyle(Color(hex: "#848787"))
+                .font(.system(size: 15, weight: .regular))
+            
+            Spacer()
+                .frame(height: 80)
             
             FindIdInputView(
                 viewModel: viewModel,
+                isFocused: $isFocused,
                 type: .certificationNumber,
                 placeholder: "인증번호 입력"
             )
             
             Spacer()
             
-            Button {
-                // 1. 인증번호가 맞는지 확인
-                // 2. 인증번호가 맞다면 FindIdResultView로 이동
-                // 3. 인증번호 및 인증번호상태메세지 지우기
-                viewModel.verifyCertificationNumber(
-                    isLoading: $isLoading,
-                    isComplete: $isComplete
-                )
-            } label: {
-                HStack {
-                    if isLoading {
-                        LoadingCircle(size: 20, color: "FFFFFF")
+            if !isFocused {
+                Button {
+                    viewModel.verifyCertificationNumber(
+                        isLoading: $isLoading,
+                        isComplete: $isComplete
+                    )
+                } label: {
+                    HStack {
+                        if isLoading {
+                            LoadingCircle(size: 20, color: "FFFFFF")
+                        }
+                        Text("확인")
                     }
-                    Text("확인")
+                    .modifier(LargeBtnStyle())
                 }
-                .modifier(LargeBtnStyle())
             }
         }
         .padding(.horizontal)
+        .onAppear (perform : UIApplication.shared.hideKeyboard)
         .onChange(of: isComplete) { _ in
             if self.isComplete {
                 pathModel.paths.append(.resultId)

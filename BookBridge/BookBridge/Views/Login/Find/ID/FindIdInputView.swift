@@ -14,6 +14,7 @@ enum FindIdInputType {
 
 struct FindIdInputView: View {
     @StateObject var viewModel: FindIdViewModel
+    var isFocused: FocusState<Bool>.Binding
     var type: FindIdInputType
     var placeholder: String
     
@@ -22,10 +23,15 @@ struct FindIdInputView: View {
             switch type {
             case.phone:
                 TextField(placeholder, text: $viewModel.phoneNumber)
+                    .keyboardType(.numberPad)
+                    .focused(isFocused)
                     .modifier(InputTextFieldStyle())
             case .certificationNumber:
                 TextField(placeholder, text: $viewModel.certificationNumber)
+                    .keyboardType(.numberPad)
+                    .focused(isFocused)
                     .modifier(InputTextFieldStyle())
+                    
             }
             
             switch type {
@@ -45,10 +51,10 @@ struct FindIdInputView: View {
     }
 }
 
-#Preview {
-    FindIdInputView(
-        viewModel: FindIdViewModel(),
-        type: .phone,
-        placeholder: "휴대폰번호 입력"
-    )
-}
+//#Preview {
+//    FindIdInputView(
+//        viewModel: FindIdViewModel(),
+//        type: .phone,
+//        placeholder: "휴대폰번호 입력"
+//    )
+//}
