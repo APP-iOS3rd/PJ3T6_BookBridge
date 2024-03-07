@@ -213,6 +213,7 @@
 		F60BB0972B71D73900E27F38 /* HomeFirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60BB0962B71D73800E27F38 /* HomeFirebaseManager.swift */; };
 		F6185FC02B8C0C3C00C2A889 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6185FBF2B8C0C3C00C2A889 /* LaunchScreenView.swift */; };
 		F623A51D2B68C01E00B5C159 /* NoticeBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F623A51C2B68C01E00B5C159 /* NoticeBoardModel.swift */; };
+		F6431D432B9831DC00F7AECF /* ToastMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6431D422B9831DC00F7AECF /* ToastMessageView.swift */; };
 		F64B7EF72B8323E6008AB919 /* ChangePostingModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64B7EF62B8323E6008AB919 /* ChangePostingModifyView.swift */; };
 		F64B7EF92B8324DA008AB919 /* FindPostingModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64B7EF82B8324DA008AB919 /* FindPostingModifyView.swift */; };
 		F64B7EFB2B8325C1008AB919 /* PostModifyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64B7EFA2B8325C1008AB919 /* PostModifyViewModel.swift */; };
@@ -456,6 +457,7 @@
 		F60BB0962B71D73800E27F38 /* HomeFirebaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeFirebaseManager.swift; sourceTree = "<group>"; };
 		F6185FBF2B8C0C3C00C2A889 /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		F623A51C2B68C01E00B5C159 /* NoticeBoardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardModel.swift; sourceTree = "<group>"; };
+		F6431D422B9831DC00F7AECF /* ToastMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastMessageView.swift; sourceTree = "<group>"; };
 		F64B7EF62B8323E6008AB919 /* ChangePostingModifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePostingModifyView.swift; sourceTree = "<group>"; };
 		F64B7EF82B8324DA008AB919 /* FindPostingModifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPostingModifyView.swift; sourceTree = "<group>"; };
 		F64B7EFA2B8325C1008AB919 /* PostModifyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostModifyViewModel.swift; sourceTree = "<group>"; };
@@ -760,6 +762,7 @@
 			isa = PBXGroup;
 			children = (
 				5AA0A1D22B95B68200317831 /* LocationPermitView.swift */,
+				F6431D422B9831DC00F7AECF /* ToastMessageView.swift */,
 			);
 			path = Alert;
 			sourceTree = "<group>";
@@ -1419,6 +1422,7 @@
 				5A17A0212B7C4BF000C60F69 /* GeohashManager.swift in Sources */,
 				1D2B61842B63929900945EE2 /* KakaoLoginViewModel.swift in Sources */,
 				730028492B85E0B200EB3D8D /* NoticeBoardItemView.swift in Sources */,
+				F6431D432B9831DC00F7AECF /* ToastMessageView.swift in Sources */,
 				5C5AB9712B85977200AD90A2 /* FCMTokenManager.swift in Sources */,
 				1D84019B2B6779CB00ADEEB5 /* IdLoginView.swift in Sources */,
 				91695F522B8D8CE400A0E2F7 /* InquiryViewModel.swift in Sources */,
