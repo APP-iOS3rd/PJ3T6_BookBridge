@@ -100,8 +100,27 @@ struct TabBarView: View {
                             MyPageView(selectedTab: $selectedTab, otherUser: other)
                                 
                         case let .postview(noticeboard):
-                            PostView(noticeBoard: noticeboard)
+                            PostView(selectedTab: $selectedTab, noticeBoard: noticeboard)
                             
+                        case let .chatMessage(isAlarm?, chatRoomListId, chatRoomPartner, noticeBoardTitle, uid):
+                                ChatMessageView(
+                                    isAlarm: isAlarm,
+                                    chatRoomListId: chatRoomListId,
+                                    chatRoomPartner: chatRoomPartner,
+                                    noticeBoardTitle: noticeBoardTitle,
+                                    uid: uid
+                                )
+                            
+                        case let .chatRoomList(chatRoomList, isComeNoticeBoard, uid):
+                                ChatRoomListView(chatRoomList: chatRoomList, isComeNoticeBoard: isComeNoticeBoard, uid: uid)
+                            
+                        case .chatMessage(isAlarm: .none, chatRoomListId: let chatRoomListId, chatRoomPartner: let chatRoomPartner, noticeBoardTitle: let noticeBoardTitle, uid: let uid):
+                            ChatMessageView(
+                                chatRoomListId: chatRoomListId,
+                                chatRoomPartner: chatRoomPartner,
+                                noticeBoardTitle: noticeBoardTitle,
+                                uid: uid
+                            )
                         }
                     }
                     

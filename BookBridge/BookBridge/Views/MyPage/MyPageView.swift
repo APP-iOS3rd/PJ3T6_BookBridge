@@ -35,7 +35,7 @@ struct MyPageView: View {
                 if otherUser == nil {
                     Image(uiImage: viewModel.userSaveImage.1)
                         .resizable()
-                        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.8)
+                        .frame(width: 70, height: 70)
                         .cornerRadius(35)
                         .overlay(RoundedRectangle(cornerRadius: 35)
                             .stroke(Color(hex: "D9D9D9"), lineWidth: viewModel.userSaveImage.1 == UIImage(named: "Character")! ? 2 : 0)
@@ -59,7 +59,7 @@ struct MyPageView: View {
                             Image("Character")
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
-                                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.8)
+                                .frame(width: 70, height: 70)
                                 .cornerRadius(35)
                         }
                         .resizable()
@@ -95,15 +95,15 @@ struct MyPageView: View {
                 
                 
                 //나의 게시물
-                MyPostView(viewModel: viewModel)
+                MyPostView(selectedTab: $selectedTab, viewModel: viewModel)
                 //계정 관리
-                AccountManagementView(viewModel: viewModel)
+                AccountManagementView(selectedTab: $selectedTab,viewModel: viewModel)
             }
             else {
                 
                 Divider()
                 
-                NoticeBoardView(naviTitle: "내 게시물", noticeBoardArray: [],sortTypes: ["전체", "진행중", "예약중", "교환완료"], otherUser: otherUser)
+                NoticeBoardView(selectedTab: $selectedTab,naviTitle: "내 게시물", noticeBoardArray: [],sortTypes: ["전체", "진행중", "예약중", "교환완료"], otherUser: otherUser)
                 
             }
             

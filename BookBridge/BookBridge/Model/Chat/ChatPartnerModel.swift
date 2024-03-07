@@ -8,11 +8,12 @@
 import Foundation
 import UIKit
 
-struct ChatPartnerModel {
+struct ChatPartnerModel : Hashable {
     var nickname: String
     var noticeBoardId: String
     var partnerId: String
     var partnerImage: UIImage
     var partnerImageUrl: String
+    var reviews: [Int]
     var style: String
 }

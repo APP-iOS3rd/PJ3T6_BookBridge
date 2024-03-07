@@ -11,7 +11,7 @@ struct NoticeBoardView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var pathModel: TabPathViewModel
     @StateObject var viewModel = NoticeBoardViewModel()
-    
+    @Binding  var selectedTab : Int
     @State private var selectedPicker: MyPagePostTapType = .find
     
     @State private var changeHeight: CGFloat = 0.0
@@ -49,6 +49,8 @@ struct NoticeBoardView: View {
                     }
                     Button {
                         pathModel.paths.removeAll()
+                        selectedTab = 0
+                        
                     } label: {
                         Image(systemName: "house")
                             .foregroundStyle( .black)

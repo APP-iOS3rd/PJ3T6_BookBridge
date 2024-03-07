@@ -10,15 +10,17 @@ import NMapsMap
 import CoreLocation
 
 struct MessageItemView: View {
+    
+    @EnvironmentObject private var pathModel: TabPathViewModel
     @StateObject var viewModel: ChatMessageViewModel
 
     @State var chatLocation: [Double] = [100, 200]
     @State var chatLocationTuple: (Double, Double) = (0, 0)
-    @State var isCopyTapped = false
     
+    
+    
+    var chatRoomPartner: ChatPartnerModel
     var messageModel: ChatMessageModel
-    var partnerId: String
-    var partnerImage: UIImage
     var uid: String
     
     var body: some View {
@@ -60,24 +62,13 @@ struct MessageItemView: View {
                             PostMapView(lat: $chatLocation[0], lng: $chatLocation[1], isDetail: false)
                             
                             VStack {
-                                HStack(alignment: .top) {
-                                    Text(messageModel.message)
-                                        .font(.caption)
-                                        .foregroundStyle(.black)
-                                        .padding(.vertical, 5)
-                                    
-                                    Image(systemName: "doc.on.doc")
-                                        .font(.caption)
-                                        .foregroundColor(isCopyTapped ? Color.gray : Color.black)
-                                        .padding(.vertical, 5)
-                                        .onTapGesture {
-                                            UIPasteboard.general.setValue(messageModel.message, forPasteboardType: "public.plain-text")
-                                            isCopyTapped = true
-                                        }
-                                }
+                                Text(messageModel.message)
+                                    .font(.caption)
+                                    .foregroundStyle(.black)
+                                    .padding(.vertical, 5)
                                 
                                 NavigationLink {
-                                    ChatExchangeInfoView(myCoord: chatLocationTuple, markerCoord: NMGLatLng(lat: chatLocationTuple.0, lng: chatLocationTuple.1), partnerId: partnerId, uid: uid)
+                                    ChatExchangeInfoView(myCoord: chatLocationTuple, markerCoord: NMGLatLng(lat: chatLocationTuple.0, lng: chatLocationTuple.1), partnerId: chatRoomPartner.partnerId, uid: uid)
                                 } label: {
                                     Text("위치보기")
                                         .padding(.horizontal)
@@ -126,12 +117,15 @@ struct MessageItemView: View {
             } else {
                 if messageModel.imageURL != "" {
                     HStack(alignment: .top) {
-                        Image(uiImage: partnerImage)
+                        Image(uiImage: chatRoomPartner.partnerImage)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 30, height: 30)
                             .clipped()
                             .cornerRadius(15)
+                            .onTapGesture {
+                                pathModel.paths.append(.mypage(other: UserModel(id: chatRoomPartner.partnerId, nickname: chatRoomPartner.nickname, profileURL: chatRoomPartner.partnerImageUrl, style: chatRoomPartner.style, reviews: chatRoomPartner.reviews)))
+                            }
                         
                         Image(uiImage: viewModel.chatImages[messageModel.imageURL] ?? UIImage(named: "DefaultImage")!)
                             .resizable()
@@ -151,12 +145,15 @@ struct MessageItemView: View {
                     }
                 } else if messageModel.location != [100, 200] {
                     HStack(alignment: .top) {
-                        Image(uiImage: partnerImage)
+                        Image(uiImage: chatRoomPartner.partnerImage)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 30, height: 30)
                             .clipped()
                             .cornerRadius(15)
+                            .onTapGesture {
+                                pathModel.paths.append(.mypage(other: UserModel(id: chatRoomPartner.partnerId, nickname: chatRoomPartner.nickname, profileURL: chatRoomPartner.partnerImageUrl, style: chatRoomPartner.style, reviews: chatRoomPartner.reviews)))
+                            }
                         
                         VStack {
                             PostMapView(lat: $chatLocation[0], lng: $chatLocation[1], isDetail: false)
@@ -168,7 +165,7 @@ struct MessageItemView: View {
                                     .padding(.vertical, 5)
                                 
                                 NavigationLink {
-                                    ChatExchangeInfoView(myCoord: chatLocationTuple, markerCoord: NMGLatLng(lat: chatLocationTuple.0, lng: chatLocationTuple.1), partnerId: partnerId, uid: uid)
+                                    ChatExchangeInfoView(myCoord: chatLocationTuple, markerCoord: NMGLatLng(lat: chatLocationTuple.0, lng: chatLocationTuple.1), partnerId: chatRoomPartner.partnerId, uid: uid)
                                 } label: {
                                     Text("위치보기")
                                         .padding(.horizontal)
@@ -202,12 +199,15 @@ struct MessageItemView: View {
                     }
                 } else {
                     HStack(alignment: .top) {
-                        Image(uiImage: partnerImage)
+                        Image(uiImage: chatRoomPartner.partnerImage)
                             .resizable()
                             .scaledToFill()
                             .frame(width: 30, height: 30)
                             .clipped()
                             .cornerRadius(15)
+                            .onTapGesture {
+                                pathModel.paths.append(.mypage(other: UserModel(id: chatRoomPartner.partnerId, nickname: chatRoomPartner.nickname, profileURL: chatRoomPartner.partnerImageUrl, style: chatRoomPartner.style, reviews: chatRoomPartner.reviews)))
+                            }
                         
                         HStack {
                             Text(messageModel.message)

@@ -113,6 +113,7 @@ extension ChatRoomListViewModel {
             guard let document = documentSnapshot else { return }
             guard let urlString = document.data()?["profileURL"] as? String else { return }
             guard let nickname = document.data()?["nickname"] as? String else { return }
+            guard let reviews = document.data()?["reviews"] as? [Int] else { return }
             guard let style = document.data()?["style"] as? String else { return }
             
             //TODO: 여기서 상대방 이름, 칭호 등 가져오기
@@ -122,12 +123,12 @@ extension ChatRoomListViewModel {
                         guard let imageData = data else { return }
                         
                         DispatchQueue.main.async {
-                            self.chatRoomDic.updateValue(ChatPartnerModel(nickname: nickname, noticeBoardId: noticeBoardId, partnerId: partnerId, partnerImage: UIImage(data: imageData) ?? UIImage(named: "DefaultImage")!, partnerImageUrl: urlString, style: style), forKey: chatRoomListId)
+                            self.chatRoomDic.updateValue(ChatPartnerModel(nickname: nickname, noticeBoardId: noticeBoardId, partnerId: partnerId, partnerImage: UIImage(data: imageData) ?? UIImage(named: "DefaultImage")!, partnerImageUrl: urlString, reviews: reviews, style: style), forKey: chatRoomListId)
                         }
                     }.resume()
                 } else {
                     DispatchQueue.main.async {
-                        self.chatRoomDic.updateValue(ChatPartnerModel(nickname: nickname, noticeBoardId: noticeBoardId, partnerId: partnerId, partnerImage: UIImage(named: "DefaultImage")!, partnerImageUrl: "", style: style), forKey: chatRoomListId)
+                        self.chatRoomDic.updateValue(ChatPartnerModel(nickname: nickname, noticeBoardId: noticeBoardId, partnerId: partnerId, partnerImage: UIImage(named: "DefaultImage")!, partnerImageUrl: "", reviews: reviews, style: style), forKey: chatRoomListId)
                     }
                 }
             }
