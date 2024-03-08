@@ -29,6 +29,9 @@ struct ChatMessageView: View {
     
     var body: some View {
         ZStack {
+            ClearBackground(
+                isFocused: $isShowKeyboard
+            )
             VStack {
                 if viewModel.noticeBoardInfo.userId == "" && viewModel.noticeBoardInfo.noticeBoardTitle == "" {
                     ZStack {
