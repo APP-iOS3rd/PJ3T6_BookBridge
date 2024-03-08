@@ -15,7 +15,7 @@ import FirebaseMessaging
 @main
 struct BookBridgeApp: App {
     @AppStorage("OnBoarding") var isOnBoarding: Bool = true
-    
+
     init() {
         //Kakao SDK 초기화
         if let kakaoAppKey = Bundle.main.KakaoAppKey {
@@ -106,7 +106,9 @@ struct BookBridgeApp: App {
                                     withCompletionHandler completionHandler: @escaping () -> Void) {
             //Push알림에서 보낸 data 가져오기
             let userInfo = response.notification.request.content.userInfo
-
+//            print("chatRoomId : \(String(describing: userInfo["chatRoomId"]))")
+            
+            //Push서버에서 보내준 Data 받기
             if let chatRoomId = userInfo["chatRoomId"] as? String, //채팅방 id
                let userId = userInfo["userId"] as? String, //유저 id
                let partnerId = userInfo["partnerId"] as? String,//상대방 유저 id
@@ -114,9 +116,13 @@ struct BookBridgeApp: App {
                let noticeBoardTitle = userInfo["noticeBoardTitle"] as? String,// 게시물 제목
                let nickname = userInfo["nickname"] as? String,// 상대방 닉네임
                let style = userInfo["style"] as? String, // 칭호
-               let profileURL = userInfo["profileURL"] as? String {
-                // 채팅방 상태 업데이트
-                PushChatRoomRouteManager.shared.navigateToChatRoom(chatRoomId: chatRoomId, userId: userId,  partnerId: partnerId, noticeBoardTitle: noticeBoardTitle, noticeBoardId: noticeBoardId, nickname: nickname, style: style, profileURL: profileURL)
+               let profileURL = userInfo["profileURL"] as? String,
+               let message = userInfo["message"] as? String{
+                
+                DispatchQueue.main.async{
+                    // 채팅방 상태 업데이트
+                    PushChatRoomRouteManager.shared.navigateToChatRoom(chatRoomId: chatRoomId, userId: userId,  partnerId: partnerId, noticeBoardTitle: noticeBoardTitle, noticeBoardId: noticeBoardId, nickname: nickname, style: style, profileURL: profileURL, message: message)
+                }
 
             }
             completionHandler()
