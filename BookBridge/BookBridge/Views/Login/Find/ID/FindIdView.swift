@@ -67,7 +67,7 @@ struct FindIdView: View {
             }
         }
         .padding(20)
-        .navigationBarTitle("아이디 찾기", displayMode: .inline)
+        .navigationBarTitle("이메일 찾기", displayMode: .inline)
         .onChange(of: isComplete) { _ in
             if isComplete {
                 pathModel.paths.append(.findIdCerti)

@@ -29,7 +29,7 @@ struct IdLoginView: View {
                         .frame(height: 85)
                     
                     
-                    Text("아이디")
+                    Text("이메일")
                         .font(.system(size: 12, weight: .regular))
                         .foregroundColor(Color(hex: "999999"))
                     
@@ -37,7 +37,7 @@ struct IdLoginView: View {
                         viewModel: viewModel,
                         isFocused: $isFocused,
                         type: .id,
-                        placeholder: "아이디를 입력하세요"
+                        placeholder: "이메일을 입력하세요"
                     )
                     
                                     
@@ -62,7 +62,7 @@ struct IdLoginView: View {
                         Button(action: {
                             pathModel.paths.append(.findId)
                         }, label: {
-                            Text("아이디찾기")
+                            Text("이메일찾기")
                                 .font(.system(size: 12, weight: .regular))
                                 .foregroundColor(Color(hex: "999999"))
                                 .underline()
