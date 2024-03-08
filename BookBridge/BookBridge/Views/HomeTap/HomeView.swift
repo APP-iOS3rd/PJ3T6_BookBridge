@@ -16,6 +16,7 @@ struct HomeView: View {
     @State private var selectedPicker: TapCategory = .find
     @State private var showingLoginView = false
     @State private var showingTownSettingView = false
+    @State private var offsetY: CGFloat = 0
         
     @Namespace private var animation
         
@@ -45,7 +46,7 @@ struct HomeView: View {
             
             tapAnimation()
             
-            HomeTapView(viewModel: viewModel, tapCategory: selectedPicker)
+            HomeTapView(viewModel: viewModel, tapCategory: $selectedPicker)
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
@@ -102,9 +103,30 @@ struct HomeView: View {
                         self.selectedPicker = item
                     }
                 }
+                .gesture(
+                    DragGesture()
+                        .onChanged({ value in
+                            offsetY = value.translation.width * 0.5
+                        })
+                        .onEnded({ value in
+                            let translation = value.translation.width
+                            
+                            withAnimation(.easeInOut) {
+                                if translation > 0 {
+                                    if translation > 10 {
+                                        self.selectedPicker = .find
+                                    }
+                                } else {
+                                    if translation < -10 {
+                                        self.selectedPicker = .change
+                                    }
+                                }
+                                offsetY = .zero
+                            }
+                        })
+                )
             }
         }
         .overlay(Rectangle().frame(width: nil, height: 1, alignment: .bottom).foregroundColor(Color(red: 200/255, green: 200/255, blue: 200/255)), alignment: .bottom)
     }
 }
-
