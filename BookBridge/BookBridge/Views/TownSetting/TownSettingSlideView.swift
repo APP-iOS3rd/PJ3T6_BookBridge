@@ -16,14 +16,14 @@ struct TownSettingSlideView: View {
                 Text("거리설정")
                     .font(.system(size: 20, weight: .semibold))
                 
-                Text("\(Int(userLocationViewModel.circleRadius)/10 % 10 + 1)km")
+                Text("\(Int(userLocationViewModel.circleRadius / 1000))km")
                     .font(.system(size: 17, weight: .semibold))
                     .foregroundStyle(Color(hex: "767676"))
                 
                 Spacer()
             }
             
-            Slider(value: $userLocationViewModel.circleRadius, in: 100...120, step: 10.0) { }
+            Slider(value: $userLocationViewModel.circleRadius, in: 1000...3000, step: 1000.0) { }
              minimumValueLabel: {
                 Text("1km")
             } maximumValueLabel: {

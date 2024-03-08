@@ -12,6 +12,8 @@ import NaverThirdPartyLogin
 
 class NaverAuthManager: NSObject, ObservableObject {
     @Published var isLogin = true
+    @Published var showAlert: Bool = false
+    @Published var alertMessage: String = ""
     static let shared = NaverAuthManager()
 }
 
@@ -26,6 +28,7 @@ extension NaverAuthManager: UIApplicationDelegate, NaverThirdPartyLoginConnectio
     
     func doNaverLogout() {
         NaverThirdPartyLoginConnection.getSharedInstance().resetToken()
+        
     }
     
     // 토큰 발급 성공시
@@ -99,18 +102,28 @@ extension NaverAuthManager {
                     }
                 } else {
                     // 로그인 실패, 새 사용자 등록
-                    FirestoreSignUpManager.shared.register(email: email, password: id, nickname: nickname) {
-                        FirestoreSignUpManager.shared.getUserData(email: email) { userData in
-                            if let userData = userData, let uid = userData["id"] as? String {
-                                // 사용자 정보 처리
-                                UserManager.shared.login(uid: uid)
-                                self?.isLogin.toggle()
-                                
-                            } else {
-                                // 사용자 데이터를 찾을 수 없음. 필요한 경우 오류 처리
-                                print("ERROR")
+                    FirestoreSignUpManager.shared.register(email: email, password: id, nickname: nickname) {success, errorMessage in
+                        if success{
+                            FirestoreSignUpManager.shared.getUserData(email: email) { userData in
+                                if let userData = userData, let uid = userData["id"] as? String {
+                                    // 사용자 정보 처리
+                                    UserManager.shared.login(uid: uid)
+                                    self?.isLogin.toggle()
+                                    
+                                } else {
+                                    // 사용자 데이터를 찾을 수 없음. 필요한 경우 오류 처리
+                                    print("ERROR")
+                                }
                             }
+                        } else {
+                            NaverAuthManager.shared.oauth20ConnectionDidFinishDeleteToken()
+                            self?.showAlert = true
+                            if errorMessage == "The email address is already in use by another account." {
+                                self?.alertMessage = "이미 가입된 이메일입니다."
+                            }
+                            return
                         }
+                        
                     }
                 }
             }
@@ -140,6 +153,7 @@ extension NaverAuthManager {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if let error = error {
                 print("Login error: \(error.localizedDescription)")
+                print("HHHHHHH")
                 completion(false)
                 return
             }

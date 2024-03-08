@@ -10,15 +10,24 @@ import Kingfisher
 
 struct MyPageView: View {
     @Binding var selectedTab: Int
-    @Binding var stack: NavigationPath
-    
+    @State var isShowingSettingView = false
     @StateObject var viewModel = MyPageViewModel()
-    @StateObject var userManager = UserManager.shared
-    
     var otherUser: UserModel?
-    
     var body: some View {
         VStack {
+            if otherUser == nil {
+            HStack {
+                Spacer()
+                
+                    Button {
+                        isShowingSettingView = true
+                    } label: {
+                        Image(systemName: "gearshape")
+                            .font(.system(size: 20))
+                            .foregroundStyle(.black)
+                    }
+                }
+            }
             HStack(spacing: 20) {
                 if otherUser == nil {
                     Image(uiImage: viewModel.userSaveImage.1)
@@ -80,38 +89,28 @@ struct MyPageView: View {
             
             if otherUser == nil {
                 //나의 게시물
-                MyPostView(selectedTab: $selectedTab, stack: $stack, viewModel: viewModel)
-                
+                MyPostView(selectedTab: $selectedTab, viewModel: viewModel)
                 //계정 관리
-                AccountManagementView(selectedTab: $selectedTab, stack: $stack, viewModel: viewModel)
-            } else {
+                AccountManagementView(selectedTab: $selectedTab,viewModel: viewModel)
+            }
+            else {
+                
                 Divider()
                 
-                NoticeBoardView(selectedTab: $selectedTab, stack: $stack, naviTitle: "내 게시물", noticeBoardArray: [], otherUser: otherUser, sortTypes: ["전체", "진행중", "예약중", "교환완료"])
+                NoticeBoardView(selectedTab: $selectedTab,naviTitle: "내 게시물", noticeBoardArray: [],sortTypes: ["전체", "진행중", "예약중", "교환완료"], otherUser: otherUser) 
             }
             Spacer()
         }
-        .padding(.horizontal)
-        .toolbar {
-            if otherUser == nil {
-                ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink {
-                        SettingView(selectedTab: $selectedTab)
-                    } label: {
-                        Image(systemName: "gearshape")
-                            .font(.system(size: 16))
-                            .foregroundStyle(.black)
-                    }
-                }
-            }
+        .navigationDestination(isPresented: $isShowingSettingView) {
+            SettingView(selectedTab: $selectedTab)
         }
+        .padding(.horizontal)
         .onAppear {
             viewModel.myNoticeBoardCount = 0
             viewModel.otherNoticeBoards = []
             viewModel.userBookMarks = []
             viewModel.userRequests = []
             viewModel.userSaveImage = ("", UIImage(named: "Character")!)
-            
             if UserManager.shared.uid != "" {
                 viewModel.getUserInfo(otherUser: otherUser)
                 viewModel.getDownLoadImage(otherUser: otherUser)

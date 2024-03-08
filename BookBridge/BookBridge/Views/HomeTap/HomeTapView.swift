@@ -8,9 +8,8 @@
 import SwiftUI
 
 struct HomeTapView: View {
-    @Binding var selectedTab: Int
-    @Binding var stack: NavigationPath
-    
+    @EnvironmentObject private var pathModel: TabPathViewModel
+
     @StateObject var viewModel: HomeViewModel
     @StateObject var locationManager = LocationManager.shared
     
@@ -18,8 +17,9 @@ struct HomeTapView: View {
     @State  var isOutsideXmark: Bool = false
     @State private var text = ""
     @State private var showRecentSearchView = false
+    @State private var offsetY: CGFloat = 0
     
-    var tapCategory: TapCategory
+    @Binding var tapCategory: TapCategory
     
     var body: some View {
         ZStack {
@@ -98,9 +98,32 @@ struct HomeTapView: View {
                     case .find:             //TODO: imageLinks 부분 받아오기
                         if text.isEmpty {
                             ForEach(viewModel.findNoticeBoards) { element in
-                                if element.hopeBook.isEmpty {
-                                    NavigationLink {
-                                        PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
+                                if element.hopeBook.isEmpty {                                                                    
+//                                    NavigationLink {
+//                                        
+//                                        PostView(noticeBoard: element)
+//                                    } label: {
+//                                        VStack{
+//                                            HomeListItemView(
+//                                                author: "",
+//                                                date: element.date,
+//                                                id: element.id,
+//                                                imageLinks: [],
+//                                                isChange: element.isChange,
+//                                                locate: element.noticeLocation,
+//                                                title: element.noticeBoardTitle,
+//                                                userId: element.userId,
+//                                                location: element.noticeLocationName,
+//                                                detail: element.noticeBoardDetail
+//                                            )
+//                                            
+//                                            Divider()
+//                                        }
+//                                        
+//                                    }
+                                    
+                                    Button {
+                                        pathModel.paths.append(.postview(noticeboard: element))
                                     } label: {
                                         HomeListItemView(
                                             author: "",
@@ -114,11 +137,35 @@ struct HomeTapView: View {
                                             location: element.noticeLocationName,
                                             detail: element.noticeBoardDetail
                                         )
-                                        Divider()
+                                        .gesture(
+                                            dragGesture
+                                        )
+                                        VStack{
+                                            HomeListItemView(
+                                                author: "",
+                                                date: element.date,
+                                                id: element.id,
+                                                imageLinks: [],
+                                                isChange: element.isChange,
+                                                locate: element.noticeLocation,
+                                                title: element.noticeBoardTitle,
+                                                userId: element.userId,
+                                                location: element.noticeLocationName,
+                                                detail: element.noticeBoardDetail
+                                            )
+                                            .gesture(
+                                                dragGesture
+                                            )
+                                            
+                                            Divider()
+                                        }
+                                        
                                     }
                                 } else {
-                                    NavigationLink {
-                                        PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
+                                    //TODO: 나중에 썸네일 이미지, 저자 바꾸기
+                                    
+                                    Button {
+                                        pathModel.paths.append(.postview(noticeboard: element))
                                     } label: {
                                         VStack{
                                             HomeListItemView(
@@ -131,6 +178,9 @@ struct HomeTapView: View {
                                                 userId: element.userId,
                                                 location: element.noticeLocationName,
                                                 detail: ""
+                                            )
+                                            .gesture(
+                                                dragGesture
                                             )
                                             Divider()
                                         }
@@ -145,8 +195,8 @@ struct HomeTapView: View {
                         else {
                             ForEach(viewModel.filteredNoticeBoards) { element in
                                 if element.hopeBook.isEmpty {
-                                    NavigationLink {
-                                        PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
+                                    Button {
+                                        pathModel.paths.append(.postview(noticeboard: element))
                                     } label: {
                                         VStack{
                                             HomeListItemView(
@@ -161,14 +211,16 @@ struct HomeTapView: View {
                                                 location: element.noticeLocationName,
                                                 detail: element.noticeBoardDetail
                                             )
+                                            .gesture(
+                                                dragGesture
+                                            )
                                             Divider()
                                         }
                                     }
                                 } else {
                                     //TODO: 나중에 썸네일 이미지, 저자 바꾸기
-                                    
-                                    NavigationLink {
-                                        PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
+                                    Button {
+                                        pathModel.paths.append(.postview(noticeboard: element))
                                     } label: {
                                         VStack{
                                             HomeListItemView(
@@ -181,6 +233,9 @@ struct HomeTapView: View {
                                                 userId: element.userId,
                                                 location: element.noticeLocationName,
                                                 detail: element.noticeBoardDetail
+                                            )
+                                            .gesture(
+                                                dragGesture
                                             )
                                             Divider()
                                         }
@@ -196,8 +251,8 @@ struct HomeTapView: View {
                     case .change:
                         if text.isEmpty {
                             ForEach(viewModel.changeNoticeBoards) { element in
-                                NavigationLink {
-                                    PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
+                                Button {
+                                    pathModel.paths.append(.postview(noticeboard: element))
                                 } label: {
                                     VStack{
                                         HomeListItemView(
@@ -212,6 +267,9 @@ struct HomeTapView: View {
                                             location: element.noticeLocationName,
                                             detail: element.noticeBoardDetail
                                         )
+                                        .gesture(
+                                            dragGesture
+                                        )
                                         Divider()
                                     }
                                 }
@@ -223,8 +281,8 @@ struct HomeTapView: View {
                         else {
                             
                             ForEach(viewModel.filteredNoticeBoards) { element in
-                                NavigationLink {
-                                    PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
+                                Button {
+                                    pathModel.paths.append(.postview(noticeboard: element))
                                 } label: {
                                     VStack{
                                         HomeListItemView(
@@ -238,6 +296,9 @@ struct HomeTapView: View {
                                             userId: element.userId,
                                             location: element.noticeLocationName,
                                             detail: element.noticeBoardDetail
+                                        )
+                                        .gesture(
+                                            dragGesture
                                         )
                                         Divider()
                                     }
@@ -258,6 +319,9 @@ struct HomeTapView: View {
                     }
                 }
             }
+            .gesture(
+                dragGesture
+            )
             
             if isOutsideXmark {
                 if UserManager.shared.isLogin {
@@ -296,8 +360,8 @@ struct HomeTapView: View {
                 case .find:             //TODO: imageLinks 부분 받아오기
                     ForEach(viewModel.findNoticeBoards) { element in
                         if element.hopeBook.isEmpty {
-                            NavigationLink {
-                                PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
+                            Button {
+                                pathModel.paths.append(.postview(noticeboard: element))
                             } label: {
                                 VStack{
                                     HomeListItemView(
@@ -314,8 +378,10 @@ struct HomeTapView: View {
                                 }
                             }
                         } else {
-                            NavigationLink {
-                                PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
+                            //TODO: 나중에 썸네일 이미지, 저자 바꾸기
+                            
+                            Button {
+                                pathModel.paths.append(.postview(noticeboard: element))
                             } label: {
                                 VStack{
                                     HomeListItemView(
@@ -340,8 +406,8 @@ struct HomeTapView: View {
                     
                 case .change:
                     ForEach(viewModel.changeNoticeBoards) { element in
-                        NavigationLink {
-                            PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
+                        Button {
+                            pathModel.paths.append(.postview(noticeboard: element))
                         } label: {
                             VStack{
                                 HomeListItemView(
@@ -383,4 +449,28 @@ struct HomeTapView: View {
             viewModel.filterNoticeBoards(with: text)
         }
     }
+    
+    var dragGesture: some Gesture {
+        DragGesture()
+            .onChanged({ value in
+                offsetY = value.translation.width * 0.5
+            })
+            .onEnded({ value in
+                let translation = value.translation.width
+                
+                withAnimation(.easeInOut) {
+                    if translation > 0 {
+                        if translation > 10 {
+                            tapCategory = .find
+                        }
+                    } else {
+                        if translation < -10 {
+                            tapCategory = .change
+                        }
+                    }
+                    offsetY = .zero
+                }
+            })
+    }
 }
+

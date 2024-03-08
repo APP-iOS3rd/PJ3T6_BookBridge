@@ -9,10 +9,8 @@ import SwiftUI
 
 struct TabBarView: View {
     @StateObject private var userManager = UserManager.shared
-    
+    @StateObject private var pathModel = TabPathViewModel()
     @State var selectedTab = 0
-    @State var stack = NavigationPath()
-    
     @State private var height: CGFloat = 0.0
     @State private var isShowChange = false
     @State private var isShowFind = false
@@ -24,78 +22,118 @@ struct TabBarView: View {
     
     var body: some View {
         VStack {
-            NavigationStack(path: $stack) {
-                TabView(selection: $selectedTab) {
-                    // 홈
-                    HomeView(selectedTab: $selectedTab, stack: $stack)
-                        .tabItem {
-                            Image(systemName: "house")
-                        }
-                        .tag(0)
-                        .onDisappear {
-                            shouldShowActionSheet = false
-                        }
-                    
-                    // 채팅
-                    ChatRoomListView(selectedTab: $selectedTab, stack: $stack, chatRoomList: [], isComeNoticeBoard: false)
-                        .onDisappear {
-                            shouldShowActionSheet = false
-                        }
-                        .tabItem {
-                            Image(systemName: "message")
-                        }
-                        .tag(1)
-                    
-                    HomeView(selectedTab: $selectedTab, stack: $stack)
-                        .tabItem {
-                            Image(systemName: "plus.circle")
-                        }
-                        .sheet(isPresented: $shouldShowActionSheet) {
-                            SelectPostingView(isShowChange: $isShowChange, isShowFind: $isShowFind, shouldShowActionSheet: $shouldShowActionSheet)
-                                .presentationDetents([.height(250)])
-                                .ignoresSafeArea(.all)
+            NavigationStack(path: $pathModel.paths) {
+            ZStack {
+                    TabView(selection: $selectedTab) {
+                        Group {
+                            // 홈
+                            HomeView()
+                                .onDisappear {
+                                    shouldShowActionSheet = false
+                                }
+                                .tabItem {
+                                    Image(systemName: "house")
+                                }
+                                .tag(0)
                             
+                            // 채팅
+                            ChatRoomListView(chatRoomList: [], isComeNoticeBoard: false, uid: UserManager.shared.uid)
+                                .onDisappear {
+                                    shouldShowActionSheet = false
+                                }
+                                .tabItem {
+                                    Image(systemName: "message")
+                                }
+                                .badge(userManager.totalNewCount)
+                                .tag(1)
+                            
+                            HomeView()
+                                .tabItem {
+                                    Image(systemName: "plus.circle")
+                                }
+                                .sheet(isPresented: $shouldShowActionSheet) {
+                                    SelectPostingView(isShowChange: $isShowChange, isShowFind: $isShowFind, shouldShowActionSheet: $shouldShowActionSheet)
+                                        .presentationDetents([.height(250)])
+                                        .ignoresSafeArea(.all)
+                                    
+                                }
+                                .tag(2)
+                            
+                            // 책장
+                            if userManager.isLogin {
+                                BookShelfView(userId : userManager.uid,initialTapInfo: .wish, isBack: false, ismore: false)
+                                    .onDisappear {
+                                        shouldShowActionSheet = false
+                                    }
+                                    .tabItem {
+                                        Image(systemName: "books.vertical")
+                                    }
+                                    .tag(3)
+                            } else {
+                                BookShelfView(userId: nil,initialTapInfo: .wish, isBack: false, ismore:false)
+                                    .onDisappear {
+                                        shouldShowActionSheet = false
+                                    }
+                                    .tabItem {
+                                        Image(systemName: "books.vertical")
+                                    }
+                                    .tag(3)
+                            }
+                            
+                            //마이페이지
+                            MyPageView(selectedTab : $selectedTab)
+                                .onDisappear {
+                                    shouldShowActionSheet = false
+                                }
+                                .tabItem {
+                                    Image(systemName: "person.circle")
+                                }
+                                .tag(4)
                         }
-                        .tag(2)
-                    
-                    // 책장
-                    if userManager.isLogin {
-                        BookShelfView(userId : userManager.uid,initialTapInfo: .wish, isBack: false, ismore: false)
-                            .onDisappear {
-                                shouldShowActionSheet = false
-                            }
-                            .tabItem {
-                                Image(systemName: "books.vertical")
-                            }
-                            .tag(3)
-                    } else {
-                        BookShelfView(userId: nil,initialTapInfo: .wish, isBack: false, ismore:false)
-                            .onDisappear {
-                                shouldShowActionSheet = false
-                            }
-                            .tabItem {
-                                Image(systemName: "books.vertical")
-                            }
-                            .tag(3)
+                        .toolbarBackground(.visible, for: .tabBar)
+                    }
+                    .navigationDestination(for: TabPathType.self){pathType in
+                        switch pathType {
+                        case let .mypage(other):
+                            MyPageView(selectedTab: $selectedTab, otherUser: other)
+                                
+                        case let .postview(noticeboard):
+                            PostView(selectedTab: $selectedTab, noticeBoard: noticeboard)
+                            
+                        case let .chatMessage(isAlarm?, chatRoomListId, chatRoomPartner, noticeBoardTitle, uid):
+                                ChatMessageView(
+                                    isAlarm: isAlarm,
+                                    chatRoomListId: chatRoomListId,
+                                    chatRoomPartner: chatRoomPartner,
+                                    noticeBoardTitle: noticeBoardTitle,
+                                    uid: uid
+                                )
+                            
+                        case let .chatRoomList(chatRoomList, isComeNoticeBoard, uid):
+                                ChatRoomListView(chatRoomList: chatRoomList, isComeNoticeBoard: isComeNoticeBoard, uid: uid)
+                            
+                        case .chatMessage(isAlarm: .none, chatRoomListId: let chatRoomListId, chatRoomPartner: let chatRoomPartner, noticeBoardTitle: let noticeBoardTitle, uid: let uid):
+                            ChatMessageView(
+                                chatRoomListId: chatRoomListId,
+                                chatRoomPartner: chatRoomPartner,
+                                noticeBoardTitle: noticeBoardTitle,
+                                uid: uid
+                            )
+                        }
                     }
                     
-                    //마이페이지
-                    MyPageView(selectedTab: $selectedTab, stack: $stack)
-                        .tabItem {
-                            Image(systemName: "person.circle")
-                        }
-                        .tag(4)
-                        .onDisappear {
-                            shouldShowActionSheet = false
-                        }
+                    .background(Color.white.onTapGesture {
+                        self.hideKeyboard()
+                    })
                 }
-                .background(Color.white.onTapGesture {
-                    self.hideKeyboard()
-                })
             }
         }
+        .environmentObject(pathModel)
         .background(.red)
         .tint(Color(hex:"59AAE0"))
+        .onAppear {
+            userManager.updateTotalNewCount()
+        }
         .onChange(of: selectedTab) { newTab in
             if !userManager.isLogin && (newTab == 1 || newTab == 2 || newTab == 3 || newTab == 4) {
                 // 비로그인 상태이며, 로그인이 필요한 탭에 접근 시

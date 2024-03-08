@@ -24,6 +24,14 @@ struct NaverLoginView: View {
         }.onChange(of: naverLoginManger.isLogin) { _ in
             showingLoginView.toggle()            
         }
+        .alert(isPresented: $naverLoginManger.showAlert) {
+            Alert(
+                title: Text("로그인 오류"), // Alert 제목
+                message: Text(naverLoginManger.alertMessage),
+                dismissButton: .default(Text("확인"))
+            )
+        }
+        
         
     }
 }

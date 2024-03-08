@@ -9,12 +9,9 @@ import SwiftUI
 
 struct NoticeBoardView: View {
     @Environment(\.dismiss) private var dismiss
-    
-    @Binding var selectedTab: Int
-    @Binding var stack: NavigationPath
-
+    @EnvironmentObject private var pathModel: TabPathViewModel
     @StateObject var viewModel = NoticeBoardViewModel()
-    
+    @Binding  var selectedTab : Int
     @State private var selectedPicker: MyPagePostTapType = .find
     
     @State private var changeHeight: CGFloat = 0.0
@@ -30,6 +27,7 @@ struct NoticeBoardView: View {
     var noticeBoardArray: [String]
     var otherUser: UserModel?
     var sortTypes: [String]
+    var otherUser: UserModel?
     
     var body: some View {
         VStack {
@@ -40,15 +38,26 @@ struct NoticeBoardView: View {
         .navigationBarBackButtonHidden()
         .navigationTitle(otherUser == nil ? naviTitle : "")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.hidden, for: .tabBar)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.backward")
-                        .font(.system(size: 16))
-                        .foregroundStyle(.black)
+                HStack(spacing: 10){
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .foregroundStyle(.black)
+                    }
+                    Button {
+                        pathModel.paths.removeAll()
+                        selectedTab = 0
+                        
+                    } label: {
+                        Image(systemName: "house")
+                            .foregroundStyle( .black)
+                    }
                 }
+                
             }
         }
         .onAppear {

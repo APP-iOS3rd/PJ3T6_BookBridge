@@ -13,7 +13,6 @@ struct AlarmSettingView: View {
     @State var isNoticeBoardAlarm: Bool = true
     @State var isNewsAlarm: Bool = true
     @State var isMarketingAlarm: Bool = false
-    @State var isChattingAlarm: Bool = true
 
     var body: some View {
         VStack {
@@ -24,12 +23,16 @@ struct AlarmSettingView: View {
                     .foregroundStyle(.black)
                 Spacer()
                 
-                Toggle("", isOn: $isChattingAlarm)
-                    .onChange(of: isChattingAlarm){ _ in
-                        settingVM.updateChattingAlarm(isEnabled: isChattingAlarm)
-                        print("isChattingAlarm: \(isChattingAlarm)")
+                Toggle("", isOn: $settingVM.isChattingAlarm)
+                    .onAppear{
+                        settingVM.fetchChattingAlarm(uid: UserManager.shared.uid)
+                    }
+                    .onChange(of: settingVM.isChattingAlarm){ newValue in
+                        settingVM.updateChattingAlarm(isEnabled: newValue)
+//                        print("isChattingAlarm: \(settingVM.isChattingAlarm)")
                     }
             }
+
             .frame(height: 40)
             .background(
                 RoundedRectangle(cornerRadius: 0)
@@ -37,7 +40,7 @@ struct AlarmSettingView: View {
                     .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
             )
             .padding(.top, 10)
-            
+            /* //추후 개발 예정
             HStack {
                 Text("관심 게시물 알림")
                     .padding(.vertical, 10)
@@ -82,7 +85,7 @@ struct AlarmSettingView: View {
                     .foregroundColor(.white)
                     .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
             )
-            
+             */
             Spacer()
         }
         .navigationBarBackButtonHidden()

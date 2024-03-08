@@ -19,6 +19,8 @@ struct NoticeBoardTapView: View {
     
     @StateObject var viewModel: NoticeBoardViewModel
 
+    @EnvironmentObject private var pathModel: TabPathViewModel
+    
     var myPagePostTapType: MyPagePostTapType
     var naviTitle: String
     var sortTypes: [String]
@@ -122,9 +124,12 @@ struct NoticeBoardTapView: View {
                             .padding(.top, 50)
                         } else {
                             ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.findNoticeBoards, index: findIndex, isRequests: sortTypes.count == 3 ? true : false)) { element in
-                                if element.hopeBook.isEmpty {
-                                    NavigationLink {
-                                        PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
+                                if element.hopeBook.isEmpty {                          
+//                                    NavigationLink {
+//                                        PostView(noticeBoard: element)
+//                                    }
+                                    Button{
+                                        pathModel.paths.append(.postview(noticeboard: element))
                                     } label: {
                                         NoticeBoardItemView(
                                             viewModel: viewModel,
@@ -139,8 +144,11 @@ struct NoticeBoardTapView: View {
                                         )
                                     }
                                 } else {
-                                    NavigationLink {
-                                        PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
+//                                    NavigationLink {
+//                                        PostView(noticeBoard: element)
+//                                    } 
+                                    Button{
+                                        pathModel.paths.append(.postview(noticeboard: element))
                                     } label: {
                                         NoticeBoardItemView(
                                             viewModel: viewModel,
@@ -174,8 +182,11 @@ struct NoticeBoardTapView: View {
                             .padding(.top, 50)
                         } else {
                             ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.changeNoticeBoards, index: changeIndex, isRequests: sortTypes.count == 3 ? true : false)) { element in
-                                NavigationLink {
-                                    PostView(selectedTab: $selectedTab, stack: $stack, noticeBoard: element)
+//                                NavigationLink {
+//                                    PostView(noticeBoard: element)
+//                                }
+                                Button{
+                                    pathModel.paths.append(.postview(noticeboard: element))
                                 } label: {
                                     NoticeBoardItemView(
                                         viewModel: viewModel,

@@ -23,7 +23,7 @@ struct ChatRoomListView: View {
             SearchChatListView(viewModel: viewModel)
                 .padding()
             
-            if viewModel.searchChatRoomList().isEmpty {
+            if viewModel.searchChatRoomList().isEmpty || !UserManager.shared.isLogin {
                 Spacer()
                 
                 VStack {

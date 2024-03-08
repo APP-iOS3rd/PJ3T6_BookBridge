@@ -110,7 +110,7 @@ class SignUpViewModel: ObservableObject {
     
     func timerReset() {
         self.timeLabel = ""
-        self.timeRemaining = 30
+        self.timeRemaining = 180
         self.timer?.invalidate()
         self.timer = nil
     }
@@ -229,9 +229,13 @@ class SignUpViewModel: ObservableObject {
 // MARK: - User 저장
     
     func signUp(completion: @escaping (Bool) -> Void) {
-        if isValidPhone() && isValidPwd() && isValidPwdConfirm() {
-            FirestoreSignUpManager.shared.register(email: self.email, password: self.password, nickname: self.nickname, phoneNumber: self.phoneNumer) {
-                completion(true)
+        if isValidPhone() && isValidPwd() && isValidPwdConfirm() { 
+            
+            FirestoreSignUpManager.shared.register(email: self.email, password: self.password, nickname: self.nickname, phoneNumber: self.phoneNumer) { success, errorMessage in
+                if success{
+                    completion(true)
+                }
+                
             }
                     
         } else {
@@ -239,4 +243,19 @@ class SignUpViewModel: ObservableObject {
             completion(false)
         }
     }
+    
+// MARK: - Reset
+    
+    func resetNickNamePhPWd() {
+        self.nickname = ""
+        self.phoneNumer = ""
+        self.password = ""
+        self.passwordConfirm = ""
+        
+        self.nicknameError = nil
+        self.phError = nil
+        self.pwdError = nil
+        self.pwdConfirmError = nil
+    }
+    
 }

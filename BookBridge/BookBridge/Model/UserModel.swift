@@ -8,7 +8,7 @@
 import Foundation
 
 //User라고 할 경우 AuthDataResultModel에 User와 충돌 이슈
-struct UserModel: Codable, Identifiable, Equatable {
+struct UserModel: Codable, Identifiable, Equatable,Hashable {
     var id: String?                    //고유 아이디 CI 값
     var email: String?                //로그인 아이디
     var loginId: String?
@@ -28,6 +28,7 @@ struct UserModel: Codable, Identifiable, Equatable {
     var isNewsAlarm: Bool?
     var isMarketingAlarm: Bool?
     var isChattingAlarm: Bool?
+    
     
     func getSelectedLocation() -> Location? {
         if let locations = location {

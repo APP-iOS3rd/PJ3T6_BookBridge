@@ -11,6 +11,7 @@ struct SignUpInputBoxView: View {
     @StateObject var signUpVM: SignUpViewModel
     @State var isLoading = false
     var inputer: SignUpInputer
+    var isFocused: FocusState<Bool>.Binding
             
     var body: some View {
         VStack {
@@ -26,10 +27,14 @@ struct SignUpInputBoxView: View {
                 switch inputer.type {
                 case .email:
                     TextField(inputer.placeholder, text: $signUpVM.email)
+                        .keyboardType(.emailAddress)
+                        .focused(isFocused)
                         .modifier(InputTextFieldStyle())
                
                 case .nickName:
                     TextField(inputer.placeholder, text: $signUpVM.nickname)
+                        .keyboardType(.default)
+                        .focused(isFocused)
                         .modifier(InputTextFieldStyle())
                 }
                                                     
@@ -77,6 +82,6 @@ struct SignUpInputBoxView: View {
     }
 }
 
-#Preview {
-    SignUpInputBoxView(signUpVM: SignUpViewModel(), inputer: SignUpInputer(input: .email))
-}
+//#Preview {
+//    SignUpInputBoxView(signUpVM: SignUpViewModel(), inputer: SignUpInputer(input: .email))
+//}

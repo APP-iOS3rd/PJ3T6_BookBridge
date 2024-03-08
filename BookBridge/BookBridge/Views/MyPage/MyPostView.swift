@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct MyPostView: View {
-    @Binding var selectedTab: Int
-    @Binding var stack: NavigationPath
+    @Binding var selectedTab : Int
 
     @StateObject var viewModel: MyPageViewModel
     
@@ -20,7 +19,7 @@ struct MyPostView: View {
                 .padding(.bottom, 10)
             
             NavigationLink {
-                NoticeBoardView(selectedTab: $selectedTab, stack: $stack, naviTitle: "내 게시물", noticeBoardArray: [], sortTypes: ["전체", "진행중", "예약중", "교환완료"])
+                NoticeBoardView(selectedTab: $selectedTab, naviTitle: "내 게시물", noticeBoardArray: [], sortTypes: ["전체", "진행중", "예약중", "교환완료"])
             } label: {
                 HStack(spacing: 10) {
                     Text("내 게시물")
@@ -47,7 +46,7 @@ struct MyPostView: View {
             }
             
             NavigationLink {
-                NoticeBoardView(selectedTab: $selectedTab, stack: $stack, naviTitle: "요청 내역", noticeBoardArray: viewModel.userRequests, sortTypes: ["전체", "예약중", "교환완료"])
+                NoticeBoardView(selectedTab: $selectedTab, naviTitle: "요청 내역", noticeBoardArray: viewModel.userRequests, sortTypes: ["전체", "예약중", "교환완료"])
             } label: {
                 HStack(spacing: 10) {
                     Text("요청 내역")

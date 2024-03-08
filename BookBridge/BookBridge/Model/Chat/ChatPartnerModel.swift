@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct ChatPartnerModel {
+struct ChatPartnerModel : Hashable {
     var nickname: String
     var noticeBoardId: String
     var partnerId: String

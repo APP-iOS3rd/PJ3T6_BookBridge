@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct MessageListView: View {
-    @Binding var selectedTab: Int
-    @Binding var stack: NavigationPath
-    
+    @EnvironmentObject private var pathModel: TabPathViewModel
     @StateObject var viewModel: ChatMessageViewModel
+    @State var showToast = false
+    @State var isScrollToBottom = false
+    
+    @State var isAtBottom = false
+    @State private var lowestMaxY: CGFloat = CGFloat.infinity
     
     var chatRoomPartner: ChatPartnerModel
     var uid: String
@@ -21,14 +24,13 @@ struct MessageListView: View {
     var body: some View {
         ScrollView {
             ScrollViewReader { scrollViewProxy in
-                VStack {
+                LazyVStack {
                     ForEach(viewModel.chatMessages) { chatMessage in
                         MessageItemView(
-                            selectedTab: $selectedTab,
-                            stack: $stack,
                             viewModel: viewModel,
                             chatLocation: chatMessage.location,
                             chatLocationTuple: (chatMessage.location[0],chatMessage.location[1]),
+                            showToast: $showToast,
                             chatRoomPartner: chatRoomPartner,
                             messageModel: ChatMessageModel(date: chatMessage.date, imageURL: chatMessage.imageURL, location: chatMessage.location, message: chatMessage.message, sender: chatMessage.sender),
                             uid: uid
@@ -39,6 +41,7 @@ struct MessageListView: View {
                     }
                     .id(Self.emptyScrollToString)
                 }
+                .rotationEffect(.degrees(180)).scaleEffect(x: -1, y: 1, anchor: .center)
                 
                 // 자동 스크롤
                 .onReceive(viewModel.$count) { _ in
@@ -46,8 +49,46 @@ struct MessageListView: View {
                         scrollViewProxy.scrollTo(Self.emptyScrollToString, anchor: .bottom)
                     }
                 }
+                // 최하단 스크롤 버튼 기능
+                .onChange(of: isScrollToBottom) { _ in
+                    withAnimation(.easeOut(duration: 0.5)) {
+                        scrollViewProxy.scrollTo(Self.emptyScrollToString, anchor: .bottom)
+                    }
+                }
+                .background(
+                   GeometryReader { geometry in
+                       Color.clear.onAppear {
+                           DispatchQueue.main.async {
+                               lowestMaxY = geometry.frame(in: .global).maxY
+                           }
+                       }
+                       .onChange(of: geometry.frame(in: .global).maxY) { newValue in
+                           let scrollViewHeight = geometry.size.height
+                           isAtBottom = newValue > lowestMaxY
+                       }
+                   }
+               )
             }
+        }
+        .rotationEffect(.degrees(180)).scaleEffect(x: -1, y: 1, anchor: .center)
+        .overlay(
+            ToastMessageView(isShowing: $showToast)
+                .zIndex(1),
+            alignment: .bottom
+        )
+        // 최하단 스크롤
+        .overlay(alignment: .bottomTrailing) {
+            Button {
+                withAnimation(.easeOut(duration: 0.5)) {
+                    isScrollToBottom.toggle()
+                }
+            } label: {
+                Image(systemName: "chevron.down.circle.fill")
+                    .foregroundStyle(Color(.lightGray))
+                    .font(.largeTitle)
+                    .padding()
+            }
+            .opacity(isAtBottom ? 1 : 0)
         }
     }
 }
-
