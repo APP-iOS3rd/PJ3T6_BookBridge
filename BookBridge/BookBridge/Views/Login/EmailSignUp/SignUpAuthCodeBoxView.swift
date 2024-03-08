@@ -10,6 +10,7 @@ import SwiftUI
 struct SignUpAuthCodeBoxView: View {
     @StateObject var signUpVm: SignUpViewModel    
     @State var isLoading = false
+    var isFocused: FocusState<Bool>.Binding
     
     var body: some View {
         VStack {
@@ -29,6 +30,8 @@ struct SignUpAuthCodeBoxView: View {
                         
             HStack {
                 TextField("인증번호를 입력해주세요", text: $signUpVm.userAuthCode)
+                    .keyboardType(.numberPad)
+                    .focused(isFocused)
                     .modifier(InputTextFieldStyle())
                 
                 HStack {
@@ -56,6 +59,6 @@ struct SignUpAuthCodeBoxView: View {
     
 }
 
-#Preview {
-    SignUpAuthCodeBoxView(signUpVm: SignUpViewModel())
-}
+//#Preview {
+//    SignUpAuthCodeBoxView(signUpVm: SignUpViewModel())
+//}
