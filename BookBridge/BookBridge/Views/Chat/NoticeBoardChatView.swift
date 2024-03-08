@@ -18,7 +18,6 @@ struct NoticeBoardChatView: View {
     
     var body: some View {
         HStack {
-            
             Button {
                 pathModel.paths.append(.postview(noticeboard: viewModel.noticeBoardInfo))
             } label: {

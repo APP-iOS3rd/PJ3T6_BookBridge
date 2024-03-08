@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct AccountManagementView: View {
-    @Binding  var selectedTab : Int
+    @Binding var selectedTab: Int
+
     @StateObject var viewModel: MyPageViewModel
     
     var body: some View {

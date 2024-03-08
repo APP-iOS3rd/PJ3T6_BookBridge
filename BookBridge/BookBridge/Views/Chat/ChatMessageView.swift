@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ChatMessageView: View {
     @Environment(\.dismiss) var dismiss
-        
     
     @StateObject var viewModel = ChatMessageViewModel()
     @StateObject var reportVM = ReportViewModel()

@@ -35,14 +35,16 @@ extension ChatRoomListViewModel {
 extension ChatRoomListViewModel {
     // 사용자 로그인 상태 확인
     func checkUserLoginStatus(uid: String, isComeNoticeBoard: Bool, chatRoomListStr: [String]) {
+        firestoreListener?.remove()
+        chatRoomDic.removeAll()
+        chatRoomList.removeAll()
+        
         if uid != "" {
             // 사용자가 로그인 상태인지 확인
             self.isLogout = false
             
             self.getChatRoomList(uid: uid, isComeNoticeBoard: isComeNoticeBoard, chatRoomListStr: chatRoomListStr) // 채팅방 리스트 가져오기
         } else {
-            //TODO: 우리 로그인창 띄우기
-            // 사용자가 로그인되지 않은 상태인 경우 로그아웃 상태로 처리
             self.isLogout = true
             print("유저 정보 안옴")
         }
@@ -53,8 +55,6 @@ extension ChatRoomListViewModel {
 extension ChatRoomListViewModel {
     //채팅방 가져오기
     func getChatRoomList(uid: String, isComeNoticeBoard: Bool, chatRoomListStr: [String]) {
-        firestoreListener?.remove()
-        chatRoomDic.removeAll()                     //onApear 초기화(안하면 다른 아이디로 들어오면 사진이 안변함)
         firestoreListener = FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").order(by: "date", descending: true).addSnapshotListener { querySnapshot, error in
             guard error == nil else { return }
             guard let documents = querySnapshot?.documents else { return }

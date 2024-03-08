@@ -26,7 +26,9 @@ struct SettingView: View {
                         .padding(.vertical, 10)
                         .font(.system(size: 17))
                         .foregroundStyle(.black)
+                    
                     Spacer()
+                    
                     Image(systemName: "chevron.right")
                         .font(.system(size: 17))
                         .foregroundStyle(Color(hex: "3C3C43"))
@@ -41,14 +43,16 @@ struct SettingView: View {
             .padding(.top, 10)
             
             NavigationLink {
-                
+                //TODO: 개인 정보 처리 방침 화면?
             } label: {
                 HStack {
                     Text("개인 정보 처리 방침")
                         .padding(.vertical, 10)
                         .font(.system(size: 17))
                         .foregroundStyle(.black)
+                    
                     Spacer()
+                    
                     Image(systemName: "chevron.right")
                         .font(.system(size: 17))
                         .foregroundStyle(Color(hex: "3C3C43"))
@@ -62,14 +66,16 @@ struct SettingView: View {
             )
             
             NavigationLink {
-                InquiryView(inquiryVM: inquiryVM)
+                InquiryView()
             } label: {
                 HStack {
                     Text("문의 및 건의사항")
                         .padding(.vertical, 10)
                         .font(.system(size: 17))
                         .foregroundStyle(.black)
+                    
                     Spacer()
+                    
                     Image(systemName: "chevron.right")
                         .font(.system(size: 17))
                         .foregroundStyle(Color(hex: "3C3C43"))
@@ -87,7 +93,10 @@ struct SettingView: View {
                     .padding(.vertical, 10)
                     .font(.system(size: 17))
                     .foregroundStyle(.black)
+                
                 Spacer()
+                
+                //TODO: 버전 업데이트 마다 바꾸기
                 Text("1.2.0 v01")
                     .padding(.vertical, 10)
                     .font(.system(size: 17))
@@ -110,6 +119,7 @@ struct SettingView: View {
                         .padding(.vertical, 10)
                         .font(.system(size: 17))
                         .foregroundStyle(.red)
+                    
                     Spacer()
                 }
             }
@@ -129,6 +139,7 @@ struct SettingView: View {
                         .padding(.vertical, 10)
                         .font(.system(size: 17))
                         .foregroundStyle(.red)
+                    
                     Spacer()
                 }
                 .alert(isPresented: $showingLogoutAlert) {
@@ -141,12 +152,8 @@ struct SettingView: View {
                                     showingLoginView = false
                                     dismiss()
                                     selectedTab = 0
-                                    print("회원 탈퇴가 성공적으로 처리되었습니다.")
-                                    
-                                    
                                 } else {
                                     showingLoginView = true
-//                                    print("회원 탈퇴 처리에 실패했습니다.")
                                 }
                             }
                         },
@@ -159,8 +166,6 @@ struct SettingView: View {
                             UserManager.shared.resetLoginState()
                         }
                 }
-
-                
             }
             .frame(height: 40)
             .background(
@@ -168,13 +173,13 @@ struct SettingView: View {
                     .foregroundColor(.white)
                     .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
             )
-            
             Spacer()
         }
         .navigationBarBackButtonHidden()
-        .navigationTitle("설정")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("설정")
         .padding(.horizontal)
+        .toolbar(.hidden, for: .tabBar)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
@@ -188,8 +193,4 @@ struct SettingView: View {
         }
     }
 }
-
-//#Preview {
-//    SettingView()
-//}
 

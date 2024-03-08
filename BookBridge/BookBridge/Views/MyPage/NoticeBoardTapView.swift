@@ -14,12 +14,16 @@ struct NoticeBoardTapView: View {
     @Binding var findIndex: Int
     @Binding var isFindAnimating: Bool
     @Binding var isChangeAnimating: Bool
+    @Binding var selectedTab: Int
+    @Binding var stack: NavigationPath
     
     @StateObject var viewModel: NoticeBoardViewModel
+
     @EnvironmentObject private var pathModel: TabPathViewModel
-    var sortTypes: [String]
     
     var myPagePostTapType: MyPagePostTapType
+    var naviTitle: String
+    var sortTypes: [String]
     
     var body: some View {
         ZStack {
@@ -120,8 +124,7 @@ struct NoticeBoardTapView: View {
                             .padding(.top, 50)
                         } else {
                             ForEach(viewModel.getfilterNoticeBoard(noticeBoard: viewModel.findNoticeBoards, index: findIndex, isRequests: sortTypes.count == 3 ? true : false)) { element in
-                                if element.hopeBook.isEmpty {
-                                    
+                                if element.hopeBook.isEmpty {                          
 //                                    NavigationLink {
 //                                        PostView(noticeBoard: element)
 //                                    }
@@ -136,6 +139,7 @@ struct NoticeBoardTapView: View {
                                             imageLinks: [],
                                             isChange: element.isChange,
                                             locate: element.noticeLocationName,
+                                            naviTitle: naviTitle,
                                             title: element.noticeBoardTitle
                                         )
                                     }
@@ -145,7 +149,7 @@ struct NoticeBoardTapView: View {
 //                                    } 
                                     Button{
                                         pathModel.paths.append(.postview(noticeboard: element))
-                                    }label: {
+                                    } label: {
                                         NoticeBoardItemView(
                                             viewModel: viewModel,
                                             author: element.hopeBook[0].volumeInfo.authors?[0] ?? "",
@@ -154,6 +158,7 @@ struct NoticeBoardTapView: View {
                                             imageLinks: [element.hopeBook[0].volumeInfo.imageLinks?.smallThumbnail ?? ""],
                                             isChange: element.isChange,
                                             locate: element.noticeLocationName,
+                                            naviTitle: naviTitle,
                                             title: element.noticeBoardTitle
                                         )
                                     }
@@ -182,7 +187,7 @@ struct NoticeBoardTapView: View {
 //                                }
                                 Button{
                                     pathModel.paths.append(.postview(noticeboard: element))
-                                }label: {
+                                } label: {
                                     NoticeBoardItemView(
                                         viewModel: viewModel,
                                         author: "",
@@ -191,6 +196,7 @@ struct NoticeBoardTapView: View {
                                         imageLinks: element.noticeImageLink,
                                         isChange: element.isChange,
                                         locate: element.noticeLocationName,
+                                        naviTitle: naviTitle,
                                         title: element.noticeBoardTitle
                                     )
                                 }

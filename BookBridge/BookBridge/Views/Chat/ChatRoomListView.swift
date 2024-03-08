@@ -10,11 +10,13 @@ import SwiftUI
 struct ChatRoomListView: View {
     @Environment(\.dismiss) var dismiss
     
+    @Binding var selectedTab: Int
+    @Binding var stack: NavigationPath
+    
     @StateObject var viewModel = ChatRoomListViewModel()
     
     var chatRoomList: [String]
     var isComeNoticeBoard: Bool
-    var uid: String
     
     var body: some View {
         VStack {
@@ -37,18 +39,23 @@ struct ChatRoomListView: View {
                 Spacer()
                 Spacer()
             } else {
-                RoomListView(viewModel: viewModel)
+                RoomListView(selectedTab: $selectedTab, stack: $stack, viewModel: viewModel)
             }
         }
         .navigationBarBackButtonHidden()
         .onTapGesture {
             hideKeyboard()
         }
-        .onAppear {  
-            print("asd")
+        .onAppear {
             if !(isComeNoticeBoard && chatRoomList.isEmpty) {
-                viewModel.checkUserLoginStatus(uid: uid, isComeNoticeBoard: isComeNoticeBoard, chatRoomListStr: chatRoomList)
+                viewModel.checkUserLoginStatus(uid: UserManager.shared.uid, isComeNoticeBoard: isComeNoticeBoard, chatRoomListStr: chatRoomList)
             }
+        }
+        .onChange(of: UserManager.shared.uid) { _ in
+            if !(isComeNoticeBoard && chatRoomList.isEmpty) {
+                viewModel.checkUserLoginStatus(uid: UserManager.shared.uid, isComeNoticeBoard: isComeNoticeBoard, chatRoomListStr: chatRoomList)
+            }
+            
         }
         .onDisappear {
             viewModel.firestoreListener?.remove()
