@@ -243,4 +243,19 @@ class SignUpViewModel: ObservableObject {
             completion(false)
         }
     }
+    
+// MARK: - Reset
+    
+    func resetNickNamePhPWd() {
+        self.nickname = ""
+        self.phoneNumer = ""
+        self.password = ""
+        self.passwordConfirm = ""
+        
+        self.nicknameError = nil
+        self.phError = nil
+        self.pwdError = nil
+        self.pwdConfirmError = nil
+    }
+    
 }

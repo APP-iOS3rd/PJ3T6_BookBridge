@@ -44,6 +44,7 @@ struct BookBridgeApp: App {
                 LaunchScreenView(isOnboardingActive: $isOnBoarding)
             }
             else {
+                // FindIdCertiView(viewModel: FindIdViewModel())
                 TabBarView(userId: UserManager.shared.uid)
                     .onOpenURL { url in // 뷰가 속한 Window에 대한 URL을 받았을 때 호출할 Handler를 등록하는 함수
                         if AuthApi.isKakaoTalkLoginUrl(url) {
@@ -54,15 +55,7 @@ struct BookBridgeApp: App {
                         locationViewModel.checkIfLocationServiceIsEnabled()
                         NaverMapApiManager.getNaverApiInfo()
                     }
-                //                .alert(isPresented: $locationViewModel.showLocationAlert) {
-                //                    Alert(
-                //                        title: Text("알림"),
-                //                        message: Text("위치권한 거부로 앱이 종료됩니다."),
-                //                        dismissButton: .default(Text("확인"), action: {
-                //
-                //                        })
-                //                    )
-                //                }}
+                    .addKeyboardVisibilityToEnvironment()                
             }
         }
     }
@@ -84,6 +77,13 @@ struct BookBridgeApp: App {
                 }
             }
             return true
+        }
+        
+        //
+        func application(_ application: UIApplication,
+                           didReceiveRemoteNotification notification: [AnyHashable : Any],
+                           fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+
         }
         
         // APNS 토큰을 받았을 때 호출되는 메소드

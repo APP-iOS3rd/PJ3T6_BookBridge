@@ -9,8 +9,9 @@
 import SwiftUI
 
 struct FindIdResultView: View {
-    
     @EnvironmentObject private var pathModel: PathViewModel
+    @StateObject var viewModel: FindIdViewModel
+    @State var email = ""
     
     var body: some View {
         VStack{
@@ -20,7 +21,7 @@ struct FindIdResultView: View {
             VStack(alignment: .leading){
                 
                 
-                Text("가입한 아이디")
+                Text("가입한 이메일")
                     .font(.system(size: 20, weight: .bold))
                     .foregroundColor(Color(hex: "000000"))
                 
@@ -31,21 +32,14 @@ struct FindIdResultView: View {
                             .fill(Color(hex: "F7F8FC"))
                             .frame(width: 355, height: 93)
                         VStack{
-                            Text("BOOKBRID")
+                            Text(email)
                                 .font(.system(size: 20 , weight: .regular))
                                 .foregroundStyle(Color(hex: "000000"))
                                 .frame(maxWidth: .infinity, alignment: .leading) // 텍스트를 왼쪽으로 정렬
                                 .padding(.leading, 10)
-                            Text("가입날짜")
-                                .font(.system(size: 16 , weight: .regular))
-                                .foregroundStyle(Color(hex: "959595"))
-                                .frame(maxWidth: .infinity, alignment: .leading) // 텍스트를 왼쪽으로 정렬
-                                .padding(.leading, 10)
-
+                           
                         }
-                        
                     }
-                    
                 }
             }
             
@@ -80,12 +74,14 @@ struct FindIdResultView: View {
             .background(Color(hex: "59AAE0"))
             .cornerRadius(10)
         }
+        .onAppear() {
+            viewModel.getEmail(with: $email)
+        }
         .padding(20)
-        .navigationBarTitle("아이디 찾기", displayMode: .inline)
-        .navigationBarItems(leading: CustomBackButtonView())
+        .navigationBarTitle("아이디 찾기", displayMode: .inline)        
     }
 }
 
 #Preview {
-    FindIdResultView()
+    FindIdResultView(viewModel: FindIdViewModel())
 }
