@@ -14,8 +14,9 @@ struct HomeTapView: View {
     @State  var isOutsideXmark: Bool = false
     @State private var text = ""
     @State private var showRecentSearchView = false
+    @State private var offsetY: CGFloat = 0
     
-    var tapCategory: TapCategory
+    @Binding var tapCategory: TapCategory
     
     var body: some View {
         ZStack {
@@ -113,6 +114,9 @@ struct HomeTapView: View {
                                             location: element.noticeLocationName,
                                             detail: element.noticeBoardDetail
                                         )
+                                        .gesture(
+                                            dragGesture
+                                        )
                                         
                                         Divider()
                                     }
@@ -133,6 +137,9 @@ struct HomeTapView: View {
                                                 userId: element.userId,
                                                 location: element.noticeLocationName,
                                                 detail: ""
+                                            )
+                                            .gesture(
+                                                dragGesture
                                             )
                                             
                                             Divider()
@@ -164,6 +171,9 @@ struct HomeTapView: View {
                                                 location: element.noticeLocationName,
                                                 detail: element.noticeBoardDetail
                                             )
+                                            .gesture(
+                                                dragGesture
+                                            )
                                             Divider()
                                         }
                                     }
@@ -184,6 +194,9 @@ struct HomeTapView: View {
                                                 userId: element.userId,
                                                 location: element.noticeLocationName,
                                                 detail: element.noticeBoardDetail
+                                            )
+                                            .gesture(
+                                                dragGesture
                                             )
                                             Divider()
                                         }
@@ -216,6 +229,9 @@ struct HomeTapView: View {
                                             location: element.noticeLocationName,
                                             detail: element.noticeBoardDetail
                                         )
+                                        .gesture(
+                                            dragGesture
+                                        )
                                         Divider()
                                     }
                                 }
@@ -245,6 +261,9 @@ struct HomeTapView: View {
                                             location: element.noticeLocationName,
                                             detail: element.noticeBoardDetail
                                         )
+                                        .gesture(
+                                            dragGesture
+                                        )
                                         Divider()
                                     }
                                     
@@ -268,6 +287,9 @@ struct HomeTapView: View {
                 }
                 
             }
+            .gesture(
+                dragGesture
+            )
             
             
             if isOutsideXmark {
@@ -401,4 +423,28 @@ struct HomeTapView: View {
             viewModel.filterNoticeBoards(with: text)
         }
     }
+    
+    var dragGesture: some Gesture {
+        DragGesture()
+            .onChanged({ value in
+                offsetY = value.translation.width * 0.5
+            })
+            .onEnded({ value in
+                let translation = value.translation.width
+                
+                withAnimation(.easeInOut) {
+                    if translation > 0 {
+                        if translation > 10 {
+                            tapCategory = .find
+                        }
+                    } else {
+                        if translation < -10 {
+                            tapCategory = .change
+                        }
+                    }
+                    offsetY = .zero
+                }
+            })
+    }
 }
+
