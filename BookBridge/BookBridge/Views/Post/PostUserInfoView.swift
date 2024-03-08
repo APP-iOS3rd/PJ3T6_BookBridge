@@ -10,6 +10,7 @@ import Kingfisher
 
 struct PostUserInfoView: View {
     @StateObject var postViewModel: PostViewModel
+    @EnvironmentObject private var pathModel: TabPathViewModel
     @Binding var noticeBoard: NoticeBoard
     
     var body: some View {
@@ -24,6 +25,9 @@ struct PostUserInfoView: View {
                 .aspectRatio(contentMode: .fill)
                 .frame(width: 60, height: 60)
                 .cornerRadius(30)
+                .onTapGesture {
+                    pathModel.paths.append(.mypage(other: UserModel(id: postViewModel.user.id, nickname: postViewModel.user.nickname, profileURL: postViewModel.user.profileURL, style: postViewModel.user.style, reviews: postViewModel.user.reviews)))
+                }
            
             
             VStack {
@@ -53,6 +57,9 @@ struct PostUserInfoView: View {
                 HStack(alignment: .bottom) {
                     Text(postViewModel.user.nickname ?? "닉네임 미아")
                         .font(.system(size: 20, weight: .bold))
+                        .onTapGesture {
+                            pathModel.paths.append(.mypage(other: UserModel(id: postViewModel.user.id, nickname: postViewModel.user.nickname, profileURL: postViewModel.user.profileURL, style: postViewModel.user.style, reviews: postViewModel.user.reviews)))
+                        }
                     
                     Spacer()
                     
