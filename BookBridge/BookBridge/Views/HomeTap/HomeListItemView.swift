@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeListItemView: View {
+    
     @EnvironmentObject var viewModel: HomeViewModel
     
     var homeFirebaseManager = HomeFirebaseManager.shared

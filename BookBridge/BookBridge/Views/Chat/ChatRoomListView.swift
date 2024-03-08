@@ -9,14 +9,13 @@ import SwiftUI
 
 struct ChatRoomListView: View {
     @Environment(\.dismiss) var dismiss
-    
-    @Binding var selectedTab: Int
-    @Binding var stack: NavigationPath
+
     
     @StateObject var viewModel = ChatRoomListViewModel()
     
     var chatRoomList: [String]
     var isComeNoticeBoard: Bool
+    var uid: String
     
     var body: some View {
         VStack {
@@ -39,7 +38,7 @@ struct ChatRoomListView: View {
                 Spacer()
                 Spacer()
             } else {
-                RoomListView(selectedTab: $selectedTab, stack: $stack, viewModel: viewModel)
+                RoomListView(viewModel: viewModel)
             }
         }
         .navigationBarBackButtonHidden()
