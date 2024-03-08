@@ -12,7 +12,7 @@ struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
     @StateObject var userManager = UserManager.shared
     @StateObject var locationManager = LocationManager.shared
-    
+    @EnvironmentObject private var pathModel: TabPathViewModel
     @State private var selectedPicker: TapCategory = .find
     @State private var showingLoginView = false
     @State private var showingTownSettingView = false

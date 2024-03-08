@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct MessageListView: View {
-    @StateObject var viewModel: ChatMessageViewModel
     
-    var partnerId: String
-    var partnerImage: UIImage
+    @EnvironmentObject private var pathModel: TabPathViewModel
+    @StateObject var viewModel: ChatMessageViewModel
+    @State var showToast = false
+    
+    var chatRoomPartner: ChatPartnerModel
     var uid: String
     
     static let emptyScrollToString = "Empty"
@@ -19,15 +21,25 @@ struct MessageListView: View {
     var body: some View {
         ScrollView {
             ScrollViewReader { scrollViewProxy in
-                VStack {
+                LazyVStack {
                     ForEach(viewModel.chatMessages) { chatMessage in
-                        MessageItemView(viewModel: viewModel, chatLocation: chatMessage.location, chatLocationTuple: (chatMessage.location[0], chatMessage.location[1]), messageModel: ChatMessageModel(date: chatMessage.date, imageURL: chatMessage.imageURL, location: chatMessage.location, message: chatMessage.message, sender: chatMessage.sender), partnerId: partnerId, partnerImage: partnerImage, uid: uid)
+
+                        MessageItemView(
+                            viewModel: viewModel,
+                            chatLocation: chatMessage.location,
+                            chatLocationTuple: (chatMessage.location[0],chatMessage.location[1]),
+                            chatRoomPartner: chatRoomPartner,
+                            messageModel: ChatMessageModel(date: chatMessage.date, imageURL: chatMessage.imageURL, location: chatMessage.location, message: chatMessage.message, sender: chatMessage.sender),
+                            uid: uid
+                        )
+
                     }
                     HStack {
                         Spacer()
                     }
                     .id(Self.emptyScrollToString)
                 }
+                .rotationEffect(.degrees(180)).scaleEffect(x: -1, y: 1, anchor: .center)
                 
                 // 자동 스크롤
                 .onReceive(viewModel.$count) { _ in
@@ -37,6 +49,12 @@ struct MessageListView: View {
                 }
             }
         }
+        .rotationEffect(.degrees(180)).scaleEffect(x: -1, y: 1, anchor: .center)
+        .overlay(
+            ToastMessageView(isShowing: $showToast)
+                .zIndex(1),
+            alignment: .bottom
+        )
     }
 }
 

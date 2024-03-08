@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1D0A68362B638403006F8A4A /* KakaoLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0A68352B638403006F8A4A /* KakaoLoginView.swift */; };
+		1D28D8012B9852F900C09EB9 /* TabPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D28D8002B9852F900C09EB9 /* TabPathType.swift */; };
+		1D28D8032B98538100C09EB9 /* TabPathViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D28D8022B98538100C09EB9 /* TabPathViewModel.swift */; };
 		1D2B61842B63929900945EE2 /* KakaoLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D2B61832B63929900945EE2 /* KakaoLoginViewModel.swift */; };
 		1D357CAC2B6A13510064B87D /* ChangePasswordVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D357CAB2B6A13510064B87D /* ChangePasswordVM.swift */; };
 		1D71C6C12B6C743900EEC95D /* BookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71C6C02B6C743900EEC95D /* BookView.swift */; };
@@ -243,6 +245,8 @@
 		07195F50FBEF30F8FF959D95 /* Pods-BookBridgeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridgeTests.release.xcconfig"; path = "Target Support Files/Pods-BookBridgeTests/Pods-BookBridgeTests.release.xcconfig"; sourceTree = "<group>"; };
 		0D0208E9110CB38EDE3D59A6 /* Pods_BookBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookBridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D0A68352B638403006F8A4A /* KakaoLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginView.swift; sourceTree = "<group>"; };
+		1D28D8002B9852F900C09EB9 /* TabPathType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPathType.swift; sourceTree = "<group>"; };
+		1D28D8022B98538100C09EB9 /* TabPathViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabPathViewModel.swift; sourceTree = "<group>"; };
 		1D2B61832B63929900945EE2 /* KakaoLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginViewModel.swift; sourceTree = "<group>"; };
 		1D357CAB2B6A13510064B87D /* ChangePasswordVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordVM.swift; sourceTree = "<group>"; };
 		1D71C6C02B6C743900EEC95D /* BookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookView.swift; sourceTree = "<group>"; };
@@ -818,6 +822,7 @@
 				1DFDD1BB2B71BF3D00B320F7 /* tapInfo.swift */,
 				738EDA9E2B71EB240066ADE7 /* TapCategory.swift */,
 				73441FB22B73465700446E0F /* MyPagePostTapType.swift */,
+				1D28D8002B9852F900C09EB9 /* TabPathType.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -1079,6 +1084,7 @@
 				730580B42B86505E00A74275 /* MyProfileViewModel.swift */,
 				73441FB62B734F2F00446E0F /* NoticeBoardViewModel.swift */,
 				91695F512B8D8CE400A0E2F7 /* InquiryViewModel.swift */,
+				1D28D8022B98538100C09EB9 /* TabPathViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1555,6 +1561,7 @@
 				1DE382A72B734E74009A7A15 /* HomeRecentSearchView.swift in Sources */,
 				915FD1DA2B7C403D0008C38B /* ChatRoomListModel.swift in Sources */,
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
+				1D28D8032B98538100C09EB9 /* TabPathViewModel.swift in Sources */,
 				73D077E42B7C7FC90007DDEB /* RoomListView.swift in Sources */,
 				73DDA5E12B6A34A500B25FB8 /* SearchResultView.swift in Sources */,
 				914600412B71FD8700E0E24F /* ProfileImagePicker.swift in Sources */,
@@ -1597,6 +1604,7 @@
 				1DB39DBA2B6B57B100C1B489 /* BookShelfView.swift in Sources */,
 				F623A51D2B68C01E00B5C159 /* NoticeBoardModel.swift in Sources */,
 				F6DFC8D82B735AE300931CF9 /* PostViewModel.swift in Sources */,
+				1D28D8012B9852F900C09EB9 /* TabPathType.swift in Sources */,
 				5A3E020D2B6FA001008F8CFD /* TestViewModel.swift in Sources */,
 				5A1A168E2B6228290063D408 /* GoogleLoginView.swift in Sources */,
 				910F491C2B6CC66900C0563E /* CameraModalView.swift in Sources */,

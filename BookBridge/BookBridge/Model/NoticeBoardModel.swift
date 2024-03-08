@@ -1,7 +1,8 @@
 
 import SwiftUI
+import Foundation
 
-struct NoticeBoard: Identifiable {
+struct NoticeBoard: Identifiable,Hashable {
     //@DocumentID var id:
     var id = UUID().uuidString
     var userId: String
