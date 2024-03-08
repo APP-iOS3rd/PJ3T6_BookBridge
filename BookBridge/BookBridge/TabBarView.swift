@@ -11,6 +11,7 @@ import SwiftUI
 
 struct TabBarView: View {
     @StateObject private var userManager = UserManager.shared
+    @StateObject private var pathModel = TabPathViewModel()
     @State private var height: CGFloat = 0.0
     @State private var isShowChange = false
     @State private var isShowFind = false
@@ -23,8 +24,8 @@ struct TabBarView: View {
     
     var body: some View {
         VStack {
+            NavigationStack(path: $pathModel.paths) {
             ZStack {
-                NavigationStack {
                     TabView(selection: $selectedTab) {
                         Group {
                             // 홈
@@ -93,12 +94,45 @@ struct TabBarView: View {
                         }
                         .toolbarBackground(.visible, for: .tabBar)
                     }
+                    .navigationDestination(for: TabPathType.self){pathType in
+                        switch pathType {
+                        case let .mypage(other):
+                            MyPageView(selectedTab: $selectedTab, otherUser: other)
+                                
+                        case let .postview(noticeboard):
+                            PostView(selectedTab: $selectedTab, noticeBoard: noticeboard)
+                            
+                        case let .chatMessage(isAlarm?, chatRoomListId, chatRoomPartner, noticeBoardTitle, uid):
+                                ChatMessageView(
+                                    isAlarm: isAlarm,
+                                    chatRoomListId: chatRoomListId,
+                                    chatRoomPartner: chatRoomPartner,
+                                    noticeBoardTitle: noticeBoardTitle,
+                                    uid: uid
+                                )
+                            
+                        case let .chatRoomList(chatRoomList, isComeNoticeBoard, uid):
+                                ChatRoomListView(chatRoomList: chatRoomList, isComeNoticeBoard: isComeNoticeBoard, uid: uid)
+                            
+                        case .chatMessage(isAlarm: .none, chatRoomListId: let chatRoomListId, chatRoomPartner: let chatRoomPartner, noticeBoardTitle: let noticeBoardTitle, uid: let uid):
+                            ChatMessageView(
+                                chatRoomListId: chatRoomListId,
+                                chatRoomPartner: chatRoomPartner,
+                                noticeBoardTitle: noticeBoardTitle,
+                                uid: uid
+                            )
+                        }
+                    }
+                    
                     .background(Color.white.onTapGesture {
                         self.hideKeyboard()
                     })
                 }
+                
             }
+            
         }
+        .environmentObject(pathModel)
         .background(.red)
         .tint(Color(hex:"59AAE0"))
         .onAppear {
