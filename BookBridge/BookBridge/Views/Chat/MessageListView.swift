@@ -28,7 +28,7 @@ struct MessageListView: View {
                             viewModel: viewModel,
                             chatLocation: chatMessage.location,
                             chatLocationTuple: (chatMessage.location[0],chatMessage.location[1]),
-                            chatRoomPartner: chatRoomPartner,
+                            showToast: $showToast, chatRoomPartner: chatRoomPartner,
                             messageModel: ChatMessageModel(date: chatMessage.date, imageURL: chatMessage.imageURL, location: chatMessage.location, message: chatMessage.message, sender: chatMessage.sender),
                             uid: uid
                         )
