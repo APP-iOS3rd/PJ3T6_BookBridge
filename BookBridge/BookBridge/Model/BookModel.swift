@@ -12,7 +12,7 @@ struct Book: Codable {
     var items: [Item]
 }
 
-struct Item: Codable, Identifiable, Equatable {
+struct Item: Codable, Identifiable, Equatable,Hashable {
     let id: String
     let volumeInfo: VolumeInfo
     
@@ -21,7 +21,7 @@ struct Item: Codable, Identifiable, Equatable {
     }
 }
 
-struct VolumeInfo: Codable, Equatable {
+struct VolumeInfo: Codable, Equatable,Hashable {
     let title: String?                                        //제목
     let authors: [String]?                                    //저자
     let publisher: String?                                   //출판사
@@ -45,11 +45,11 @@ struct VolumeInfo: Codable, Equatable {
     }
 }
 
-struct IndustryIdentifier: Codable, Equatable {
+struct IndustryIdentifier: Codable, Equatable,Hashable {
     var identifier: String?
 }
 
-struct ImageLinks: Codable, Equatable {
+struct ImageLinks: Codable, Equatable,Hashable {
     var smallThumbnail: String?
 }
 

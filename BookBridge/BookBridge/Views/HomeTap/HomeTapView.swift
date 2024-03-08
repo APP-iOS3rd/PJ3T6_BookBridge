@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeTapView: View {
+    @EnvironmentObject private var pathModel: TabPathViewModel
     @StateObject var viewModel: HomeViewModel
     @StateObject var locationManager = LocationManager.shared
     @State  var isInsideXmark: Bool = false
@@ -98,29 +99,57 @@ struct HomeTapView: View {
                         if text.isEmpty {
                             ForEach(viewModel.findNoticeBoards) { element in
                                 if element.hopeBook.isEmpty {
-                                    NavigationLink {
-                                        PostView(noticeBoard: element)
+                                    
+                                    
+//                                    NavigationLink {
+//                                        
+//                                        PostView(noticeBoard: element)
+//                                    } label: {
+//                                        VStack{
+//                                            HomeListItemView(
+//                                                author: "",
+//                                                date: element.date,
+//                                                id: element.id,
+//                                                imageLinks: [],
+//                                                isChange: element.isChange,
+//                                                locate: element.noticeLocation,
+//                                                title: element.noticeBoardTitle,
+//                                                userId: element.userId,
+//                                                location: element.noticeLocationName,
+//                                                detail: element.noticeBoardDetail
+//                                            )
+//                                            
+//                                            Divider()
+//                                        }
+//                                        
+//                                    }
+                                    
+                                    Button {
+                                        pathModel.paths.append(.postview(noticeboard: element))
                                     } label: {
-                                        HomeListItemView(
-                                            author: "",
-                                            date: element.date,
-                                            id: element.id,
-                                            imageLinks: [],
-                                            isChange: element.isChange,
-                                            locate: element.noticeLocation,
-                                            title: element.noticeBoardTitle,
-                                            userId: element.userId,
-                                            location: element.noticeLocationName,
-                                            detail: element.noticeBoardDetail
-                                        )
+                                        VStack{
+                                            HomeListItemView(
+                                                author: "",
+                                                date: element.date,
+                                                id: element.id,
+                                                imageLinks: [],
+                                                isChange: element.isChange,
+                                                locate: element.noticeLocation,
+                                                title: element.noticeBoardTitle,
+                                                userId: element.userId,
+                                                location: element.noticeLocationName,
+                                                detail: element.noticeBoardDetail
+                                            )
+                                            
+                                            Divider()
+                                        }
                                         
-                                        Divider()
                                     }
                                 } else {
                                     //TODO: 나중에 썸네일 이미지, 저자 바꾸기
                                     
-                                    NavigationLink {
-                                        PostView(noticeBoard: element)
+                                    Button {
+                                        pathModel.paths.append(.postview(noticeboard: element))
                                     } label: {
                                         VStack{
                                             HomeListItemView(
@@ -148,8 +177,8 @@ struct HomeTapView: View {
                         else {
                             ForEach(viewModel.filteredNoticeBoards) { element in
                                 if element.hopeBook.isEmpty {
-                                    NavigationLink {
-                                        PostView(noticeBoard: element)
+                                    Button {
+                                        pathModel.paths.append(.postview(noticeboard: element))
                                     } label: {
                                         VStack{
                                             HomeListItemView(
@@ -170,8 +199,8 @@ struct HomeTapView: View {
                                 } else {
                                     //TODO: 나중에 썸네일 이미지, 저자 바꾸기
                                     
-                                    NavigationLink {
-                                        PostView(noticeBoard: element)
+                                    Button {
+                                        pathModel.paths.append(.postview(noticeboard: element))
                                     } label: {
                                         VStack{
                                             HomeListItemView(
@@ -199,8 +228,8 @@ struct HomeTapView: View {
                     case .change:
                         if text.isEmpty {
                             ForEach(viewModel.changeNoticeBoards) { element in
-                                NavigationLink {
-                                    PostView(noticeBoard: element)
+                                Button {
+                                    pathModel.paths.append(.postview(noticeboard: element))
                                 } label: {
                                     VStack{
                                         
@@ -227,8 +256,8 @@ struct HomeTapView: View {
                         else {
                             
                             ForEach(viewModel.filteredNoticeBoards) { element in
-                                NavigationLink {
-                                    PostView(noticeBoard: element)
+                                Button {
+                                    pathModel.paths.append(.postview(noticeboard: element))
                                 } label: {
                                     VStack{
                                         
@@ -307,8 +336,8 @@ struct HomeTapView: View {
                 case .find:             //TODO: imageLinks 부분 받아오기
                     ForEach(viewModel.findNoticeBoards) { element in
                         if element.hopeBook.isEmpty {
-                            NavigationLink {
-                                PostView(noticeBoard: element)
+                            Button {
+                                pathModel.paths.append(.postview(noticeboard: element))
                             } label: {
                                 VStack{
                                     HomeListItemView(
@@ -328,8 +357,8 @@ struct HomeTapView: View {
                         } else {
                             //TODO: 나중에 썸네일 이미지, 저자 바꾸기
                             
-                            NavigationLink {
-                                PostView(noticeBoard: element)
+                            Button {
+                                pathModel.paths.append(.postview(noticeboard: element))
                             } label: {
                                 VStack{
                                     HomeListItemView(
@@ -355,8 +384,8 @@ struct HomeTapView: View {
                     
                 case .change:
                     ForEach(viewModel.changeNoticeBoards) { element in
-                        NavigationLink {
-                            PostView(noticeBoard: element)
+                        Button {
+                            pathModel.paths.append(.postview(noticeboard: element))
                         } label: {
                             VStack{
                                 HomeListItemView(
