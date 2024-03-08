@@ -15,6 +15,7 @@ struct FindPasswordInputView: View {
     var body: some View {
         VStack {
             TextField(placeholder, text: $viewModel.email)
+                .keyboardType(.emailAddress)
                 .focused(isFocused)
                 .modifier(InputTextFieldStyle())
             
@@ -23,7 +24,6 @@ struct FindPasswordInputView: View {
                 color: viewModel.emailStatusText?.getColor() ?? ""
             )
         }
-        
     }
 }
 

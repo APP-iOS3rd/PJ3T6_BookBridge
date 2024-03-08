@@ -13,21 +13,22 @@ enum FindIdInputType {
 }
 
 struct FindIdInputView: View {
-    @StateObject var viewModel: FindIdViewModel
+    @StateObject var findIdVM: FindIdViewModel
     var isFocused: FocusState<Bool>.Binding
     var type: FindIdInputType
     var placeholder: String
+
     
     var body: some View {
         VStack {
             switch type {
             case.phone:
-                TextField(placeholder, text: $viewModel.phoneNumber)
+                TextField(placeholder, text: $findIdVM.phoneNumber)
                     .keyboardType(.numberPad)
                     .focused(isFocused)
                     .modifier(InputTextFieldStyle())
             case .certificationNumber:
-                TextField(placeholder, text: $viewModel.certificationNumber)
+                TextField(placeholder, text: $findIdVM.certificationNumber)
                     .keyboardType(.numberPad)
                     .focused(isFocused)
                     .modifier(InputTextFieldStyle())
@@ -37,14 +38,14 @@ struct FindIdInputView: View {
             switch type {
             case .phone:
                 StatusTextView(
-                    text: viewModel.phoneNumberStatusText?.rawValue ?? "",
-                    color: viewModel.phoneNumberStatusText?.getColor() ?? ""
+                    text: findIdVM.phoneNumberStatusText?.rawValue ?? "",
+                    color: findIdVM.phoneNumberStatusText?.getColor() ?? ""
                 )
                 
             case .certificationNumber:
                 StatusTextView(
-                    text: viewModel.certificationNumberStatusText?.rawValue ?? "",
-                    color: viewModel.certificationNumberStatusText?.getColor() ?? ""
+                    text: findIdVM.certificationNumberStatusText?.rawValue ?? "",
+                    color: findIdVM.certificationNumberStatusText?.getColor() ?? ""
                 )
             }
         }

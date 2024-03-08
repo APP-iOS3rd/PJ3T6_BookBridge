@@ -10,9 +10,9 @@ import SwiftUI
 struct LoginView: View {
     @StateObject private var pathModel = PathViewModel()
     @StateObject var signUpVM = SignUpViewModel()
-    @StateObject var findPasswordVM = SMSAuthViewModel()
     @StateObject var findIdVM = FindIdViewModel()
     @StateObject var findPwdVM = FindPasswordViewModel()
+    @FocusState var isFocused: Bool
     @Binding var showingLoginView: Bool
     
     var body: some View {
@@ -30,12 +30,14 @@ struct LoginView: View {
                     Text("에서 교환 해봐")
                         .font(.system(size: 35, weight: .medium))
                         .foregroundColor(Color(hex: "000000"))
-                    
+                                            
                     Spacer()
                         .frame(height: 130)
-                    
-                    
+                                            
                 }
+                
+                
+                
                 Button(action: {
                     pathModel.paths.append(.certi)
                 }, label: {
@@ -48,8 +50,10 @@ struct LoginView: View {
                 .cornerRadius(10)
                 
                 
+                                    
                 Spacer()
                     .frame(height: 20)
+                
                 
                 HStack{
                     Text("이미 계정이 있으신가요?")
@@ -62,9 +66,8 @@ struct LoginView: View {
                             .foregroundColor(Color(hex: "3A87FD"))
                             .underline()
                     })
-                    
-                    
                 }
+                
                 
                 HStack{
                     Text("로그인 없이")
@@ -79,8 +82,10 @@ struct LoginView: View {
                     })
                 }
                 
+                
                 Spacer()
                     .frame(height: 50)
+                
                 
                 HStack {
                     // 왼쪽 가로 Divider
@@ -107,10 +112,12 @@ struct LoginView: View {
                     AppleLoginView(showingLoginView: $showingLoginView)
                 }
                 
+                
                 Spacer()
-                    .frame(height: 50)
+                    .frame(height: 50)                
                 
             }
+            
             .padding(20)
             .navigationDestination(for: PathType.self) { pathType in
                 switch pathType {

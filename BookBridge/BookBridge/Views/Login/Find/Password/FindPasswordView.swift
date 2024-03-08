@@ -16,50 +16,55 @@ struct FindPasswordView: View {
     @State private var isComplete = false
 
     var body: some View {
-        VStack(alignment: .leading) {
-            Text("이메일을 알려주세요")
-                .foregroundStyle(.black)
-                .font(.system(size: 30, weight: .semibold))            
+        ZStack {
             
-            Spacer()
-                .frame(height: 8)
+            ClearBackground(isFocused: $isFocused)
             
-            Text("가입한 계정 이메일을 입력해주세요")
-                .foregroundStyle(Color(hex: "#848787"))
-                .font(.system(size: 15, weight: .regular))
-            
-            
-            Spacer()
-                .frame(height: 80)
-            
-            FindPasswordInputView(
-                viewModel: viewModel,
-                isFocused: $isFocused,
-                placeholder: "이메일"
-            )
-            
-            Spacer()
-            
-            if !isFocused { // 키보드가 보이지 않을 때만 확인 버튼 표시
-                Button {
-                    viewModel.verifyEmail(
-                        isLoading: $isLoading,
-                        isComplete: $isComplete
-                    )
-                } label: {
-                    HStack {
-                        if isLoading {
-                            LoadingCircle(size: 15, color: "FFFFFF")
+            VStack(alignment: .leading) {
+                
+                Text("이메일을 알려주세요")
+                    .foregroundStyle(.black)
+                    .font(.system(size: 30, weight: .semibold))
+                
+                Spacer()
+                    .frame(height: 8)
+                
+                Text("가입한 계정 이메일을 입력해주세요")
+                    .foregroundStyle(Color(hex: "#848787"))
+                    .font(.system(size: 15, weight: .regular))
+                
+                
+                Spacer()
+                    .frame(height: 80)
+                
+                FindPasswordInputView(
+                    viewModel: viewModel,
+                    isFocused: $isFocused,
+                    placeholder: "이메일"
+                )
+                
+                Spacer()
+                
+                if !isFocused { // 키보드가 보이지 않을 때만 확인 버튼 표시
+                    Button {
+                        viewModel.verifyEmail(
+                            isLoading: $isLoading,
+                            isComplete: $isComplete
+                        )
+                    } label: {
+                        HStack {
+                            if isLoading {
+                                LoadingCircle(size: 15, color: "FFFFFF")
+                            }
+                            Text("확인")
                         }
-                        Text("확인")
+                        .modifier(LargeBtnStyle())
                     }
-                    .modifier(LargeBtnStyle())
                 }
             }
         }
         .padding(20)
         .navigationBarTitle("비밀번호 찾기", displayMode: .inline)
-        .onAppear (perform : UIApplication.shared.hideKeyboard)
         .onChange(of: isComplete) { _ in
             if isComplete {
                 pathModel.paths.append(.resultPassword)
