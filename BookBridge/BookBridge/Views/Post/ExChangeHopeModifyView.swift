@@ -26,7 +26,7 @@ struct ExchangeHopeModifyView: View {
                 ExchangeHopeExplainView()
                     .frame(height: geometry.size.height * 0.02)
                     .position(x: geometry.size.width / 2, y: geometry.size.height * 0.2)//상단으로
-                    .edgesIgnoringSafeArea(.all)
+//                    .edgesIgnoringSafeArea(.all)
                     .navigationBarBackButtonHidden(true) // 뒤로 가기 버튼 숨기기
                 
                 Button(action: {
