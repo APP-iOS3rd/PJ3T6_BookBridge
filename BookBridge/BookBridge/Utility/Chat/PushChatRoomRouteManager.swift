@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // 푸시알람 클릭시 채팅방 이동관련 Manager
 class PushChatRoomRouteManager: ObservableObject {
