@@ -1,60 +1,59 @@
 //
-//  FindPasswordView.swift
+//  FindIdCertiView.swift
 //  BookBridge
 //
-//  Created by 김건호 on 1/30/24.
+//  Created by 이민호 on 3/7/24.
 //
 
 import SwiftUI
 
-struct FindPasswordView: View {
+struct FindIdCertiView: View {
     @EnvironmentObject private var pathModel: PathViewModel
     @Environment(\.dismiss) private var dismiss
-    @StateObject var viewModel: FindPasswordViewModel
+    @StateObject var viewModel: FindIdViewModel
     @FocusState var isFocused: Bool
-    @State private var isLoading = false
-    @State private var isComplete = false
-
+    @State var isLoading = false
+    @State var isComplete = false
+    
     var body: some View {
         ZStack {
             
             ClearBackground(isFocused: $isFocused)
             
             VStack(alignment: .leading) {
-                
-                Text("이메일을 알려주세요")
-                    .foregroundStyle(.black)
+                            
+                Text("인증번호를 알려주세요")
                     .font(.system(size: 30, weight: .semibold))
                 
                 Spacer()
                     .frame(height: 8)
                 
-                Text("가입한 계정 이메일을 입력해주세요")
+                Text("휴대폰으로 전송된 인증번호를 입력해주세요")
                     .foregroundStyle(Color(hex: "#848787"))
                     .font(.system(size: 15, weight: .regular))
-                
                 
                 Spacer()
                     .frame(height: 80)
                 
-                FindPasswordInputView(
-                    viewModel: viewModel,
+                FindIdInputView(
+                    findIdVM: viewModel,
                     isFocused: $isFocused,
-                    placeholder: "이메일"
+                    type: .certificationNumber,
+                    placeholder: "인증번호 입력"
                 )
                 
                 Spacer()
                 
-                if !isFocused { // 키보드가 보이지 않을 때만 확인 버튼 표시
+                if !isFocused {
                     Button {
-                        viewModel.verifyEmail(
+                        viewModel.verifyCertificationNumber(
                             isLoading: $isLoading,
                             isComplete: $isComplete
                         )
                     } label: {
                         HStack {
                             if isLoading {
-                                LoadingCircle(size: 15, color: "FFFFFF")
+                                LoadingCircle(size: 20, color: "FFFFFF")
                             }
                             Text("확인")
                         }
@@ -63,18 +62,16 @@ struct FindPasswordView: View {
                 }
             }
         }
-        .padding(20)
-        .navigationBarTitle("비밀번호 찾기", displayMode: .inline)
+        .padding(.horizontal)
         .onChange(of: isComplete) { _ in
-            if isComplete {
-                pathModel.paths.append(.resultPassword)
-                isComplete = false
+            if self.isComplete {
+                pathModel.paths.append(.resultId)
             }
-        }        
+        }
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
-                    viewModel.resetEmail()
+                    viewModel.resetCertificationNumber()
                     dismiss()
                 } label: {
                     Image(systemName: "chevron.left")
@@ -86,5 +83,5 @@ struct FindPasswordView: View {
 }
 
 #Preview {
-    FindPasswordView(viewModel: FindPasswordViewModel())
+    FindIdCertiView(viewModel: FindIdViewModel())
 }

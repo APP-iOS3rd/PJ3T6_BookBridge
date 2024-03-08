@@ -7,11 +7,10 @@
 
 import SwiftUI
 
-struct LargeBtnStyle: View {
-    var title: String
-    var body: some View {
-        Text(title)
-            .font(.system(size: 20))
+struct LargeBtnStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.system(size: 20, weight: .semibold))            
             .foregroundStyle(.white)
             .frame(height: 50)
             .frame(maxWidth: .infinity)
