@@ -203,7 +203,6 @@
 		91B80A472B6799B7000D5339 /* ChangePostingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B80A462B6799B7000D5339 /* ChangePostingView.swift */; };
 		91D7CAF12B82F76D00F7CFF8 /* SwipeBackExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D7CAF02B82F76D00F7CFF8 /* SwipeBackExtension.swift */; };
 		91D7CB042B83528B00F7CFF8 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 91D7CB032B83528B00F7CFF8 /* Secrets.xcconfig */; };
-		91E99D952B8D645F0038A9DE /* InquiryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E99D942B8D645F0038A9DE /* InquiryView.swift */; };
 		91E99D972B8D6CFA0038A9DE /* InquiryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E99D962B8D6CFA0038A9DE /* InquiryModel.swift */; };
 		91E99D992B8D6F500038A9DE /* InquiryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E99D982B8D6F500038A9DE /* InquiryView.swift */; };
 		AFE5B788F315503A86355ABB /* Pods_BookBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0208E9110CB38EDE3D59A6 /* Pods_BookBridge.framework */; };
