@@ -11,6 +11,7 @@ struct ChatMessageView: View {
     @Environment(\.dismiss) var dismiss
     
     @EnvironmentObject private var pathModel: TabPathViewModel
+
     
     @StateObject var viewModel = ChatMessageViewModel()
     @StateObject var reportVM = ReportViewModel()
@@ -30,6 +31,9 @@ struct ChatMessageView: View {
     
     var body: some View {
         ZStack {
+            ClearBackground(
+                isFocused: $isShowKeyboard
+            )
             VStack {
                 if viewModel.noticeBoardInfo.userId == "" && viewModel.noticeBoardInfo.noticeBoardTitle == "" {
                     ZStack {

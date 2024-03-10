@@ -55,7 +55,7 @@ extension MyPageViewModel {
 extension MyPageViewModel {
     func getDownLoadImage(otherUser: UserModel?) {
         if otherUser == nil {
-            if userSaveImage.0 != userManager.user?.profileURL ?? ""{
+            if userSaveImage.0 != userManager.user?.profileURL ?? "" {
                 guard let urlString = userManager.user?.profileURL else { return }
                 if let url = URL(string: urlString) {
                     URLSession.shared.dataTask(with: url) { (data, response, error) in

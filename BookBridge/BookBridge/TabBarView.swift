@@ -7,16 +7,14 @@
 
 import SwiftUI
 
-
-
 struct TabBarView: View {
     @StateObject private var userManager = UserManager.shared
     @StateObject private var pathModel = TabPathViewModel()
+    @State var selectedTab = 0
     @State private var height: CGFloat = 0.0
     @State private var isShowChange = false
     @State private var isShowFind = false
     @State private var showingLoginView = false
-    @State  var selectedTab = 0
     @State private var previousTab = 0 // 이전에 선택한 탭을 저장하는 변수
     @State private var shouldShowActionSheet = false
     
@@ -131,9 +129,7 @@ struct TabBarView: View {
                         self.hideKeyboard()
                     })
                 }
-                
             }
-            
         }
         .environmentObject(pathModel)
         .background(.red)

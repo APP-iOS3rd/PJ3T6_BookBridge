@@ -9,17 +9,27 @@ import SwiftUI
 import Kingfisher
 
 struct PostUserInfoView: View {
+
     @StateObject var postViewModel: PostViewModel
     @EnvironmentObject private var pathModel: TabPathViewModel
     @Binding var noticeBoard: NoticeBoard
+    @Binding var selectedTab: Int
+
+    
+    @State private var isClickProfile: Bool = false
     
     var body: some View {
         HStack {
             KFImage(URL(string: postViewModel.user.profileURL ?? ""))
                 .placeholder{
                     Image("Character")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
                         .frame(width: 60, height: 60)
-                        
+                        .cornerRadius(30)
+                        .overlay(RoundedRectangle(cornerRadius: 35)
+                            .stroke(Color(hex: "D9D9D9"), lineWidth: 1)
+                        )
                 }
                 .resizable()
                 .aspectRatio(contentMode: .fill)
@@ -28,7 +38,6 @@ struct PostUserInfoView: View {
                 .onTapGesture {
                     pathModel.paths.append(.mypage(other: UserModel(id: postViewModel.user.id, nickname: postViewModel.user.nickname, profileURL: postViewModel.user.profileURL, style: postViewModel.user.style, reviews: postViewModel.user.reviews)))
                 }
-           
             
             VStack {
                 HStack {
@@ -70,5 +79,6 @@ struct PostUserInfoView: View {
             }
         }
         .padding(.horizontal)
+
     }
 }

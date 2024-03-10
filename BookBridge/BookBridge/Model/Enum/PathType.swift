@@ -9,9 +9,10 @@
 enum PathType: Hashable {
     case login
     case findId
+    case findIdCerti
     case resultId
+    case resultPassword
     case findpassword
-    case changepassword
     case certi    
-    case signUp
+    case signUp    
 }

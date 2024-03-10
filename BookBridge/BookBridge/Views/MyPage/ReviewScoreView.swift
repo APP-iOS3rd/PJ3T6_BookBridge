@@ -10,6 +10,8 @@ import SwiftUI
 struct ReviewScoreView: View {
     @StateObject var viewModel = ReviewScoreViewModel()
     
+    var otherUser: UserModel?
+    
     var body: some View {
         HStack {
             VStack(spacing: 5) {
@@ -89,7 +91,7 @@ struct ReviewScoreView: View {
         .padding(.horizontal, 10)
         .padding(.bottom, 20)
         .onAppear {
-            viewModel.getMannerScore()                                  
+            viewModel.getMannerScore(otherUser: otherUser)                                  
         }
     }
 }

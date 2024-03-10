@@ -9,16 +9,15 @@ import SwiftUI
 import Kingfisher
 
 struct MyPageView: View {
-    @Binding var selectedTab : Int
+    @Binding var selectedTab: Int
     @State var isShowingSettingView = false
-    
     @StateObject var viewModel = MyPageViewModel()
+    @StateObject var userManager = UserManager.shared
     var otherUser: UserModel?
     var body: some View {
         VStack {
             if otherUser == nil {
             HStack {
-                
                 Spacer()
                 
                     Button {
@@ -30,7 +29,6 @@ struct MyPageView: View {
                     }
                 }
             }
-           
             HStack(spacing: 20) {
                 if otherUser == nil {
                     Image(uiImage: viewModel.userSaveImage.1)
@@ -82,18 +80,15 @@ struct MyPageView: View {
                             .font(.system(size: 20, weight: .bold))
                     }
                 }
-                
                 Spacer()
             }
             .padding(.vertical, 10)
             .padding(.top, 10)
             
-            ReviewScoreView()
+            //매너점수
+            ReviewScoreView(otherUser: otherUser)
             
             if otherUser == nil {
-                //매너점수
-                
-                
                 //나의 게시물
                 MyPostView(selectedTab: $selectedTab, viewModel: viewModel)
                 //계정 관리
@@ -103,14 +98,8 @@ struct MyPageView: View {
                 
                 Divider()
                 
-                NoticeBoardView(selectedTab: $selectedTab,naviTitle: "내 게시물", noticeBoardArray: [],sortTypes: ["전체", "진행중", "예약중", "교환완료"], otherUser: otherUser)
-                
+                NoticeBoardView(selectedTab: $selectedTab,naviTitle: "내 게시물", noticeBoardArray: [],otherUser: otherUser, sortTypes: ["전체", "진행중", "예약중", "교환완료"])
             }
-            
-            
-            
-            
-            
             Spacer()
         }
         .navigationDestination(isPresented: $isShowingSettingView) {
@@ -118,10 +107,29 @@ struct MyPageView: View {
         }
         .padding(.horizontal)
         .onAppear {
+            viewModel.myNoticeBoardCount = 0
+            viewModel.otherNoticeBoards = []
+            viewModel.userBookMarks = []
+            viewModel.userRequests = []
             viewModel.userSaveImage = ("", UIImage(named: "Character")!)
             if UserManager.shared.uid != "" {
                 viewModel.getUserInfo(otherUser: otherUser)
                 viewModel.getDownLoadImage(otherUser: otherUser)
+            }
+        }
+        .onChange(of: userManager.isLogin) { _ in
+            if userManager.isLogin {
+                viewModel.myNoticeBoardCount = 0
+                viewModel.otherNoticeBoards = []
+                viewModel.userBookMarks = []
+                viewModel.userRequests = []
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.7){
+                    if userManager.uid != "" {
+                        viewModel.getUserInfo(otherUser: otherUser)
+                        viewModel.getDownLoadImage(otherUser: otherUser)
+                    }
+                }
             }
         }
     }

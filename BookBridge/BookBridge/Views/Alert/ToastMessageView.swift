@@ -16,7 +16,7 @@ struct ToastMessageView: View {
             Text("주소가 복사되었습니다")
                 .padding()
                 .foregroundColor(.white)
-                .background(Color.gray)
+                .background(Color(.lightGray))
                 .cornerRadius(10)
                 .opacity(isShowing ? 1 : 0)
                 .animation(.easeInOut(duration: 0.3), value: isShowing)

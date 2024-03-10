@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ChatRoomListView: View {
     @Environment(\.dismiss) var dismiss
+
     
     @StateObject var viewModel = ChatRoomListViewModel()
     
@@ -44,11 +45,16 @@ struct ChatRoomListView: View {
         .onTapGesture {
             hideKeyboard()
         }
-        .onAppear {  
-            print("asd")
+        .onAppear {
             if !(isComeNoticeBoard && chatRoomList.isEmpty) {
-                viewModel.checkUserLoginStatus(uid: uid, isComeNoticeBoard: isComeNoticeBoard, chatRoomListStr: chatRoomList)
+                viewModel.checkUserLoginStatus(uid: UserManager.shared.uid, isComeNoticeBoard: isComeNoticeBoard, chatRoomListStr: chatRoomList)
             }
+        }
+        .onChange(of: UserManager.shared.uid) { _ in
+            if !(isComeNoticeBoard && chatRoomList.isEmpty) {
+                viewModel.checkUserLoginStatus(uid: UserManager.shared.uid, isComeNoticeBoard: isComeNoticeBoard, chatRoomListStr: chatRoomList)
+            }
+            
         }
         .onDisappear {
             viewModel.firestoreListener?.remove()
@@ -67,4 +73,3 @@ struct ChatRoomListView: View {
         }
     }
 }
-

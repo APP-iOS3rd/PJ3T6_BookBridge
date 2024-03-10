@@ -25,14 +25,15 @@ struct NoticeBoardView: View {
     
     var naviTitle: String
     var noticeBoardArray: [String]
-    var sortTypes: [String]
     var otherUser: UserModel?
+    var sortTypes: [String]
+    
     
     var body: some View {
         VStack {
             TapAnimation()
             
-            NoticeBoardTapView(changeHeight: $changeHeight, changeIndex: $changeIndex, findHeight: $findHeight, findIndex: $findIndex, isFindAnimating: $isFindAnimating, isChangeAnimating: $isChangeAnimating, viewModel: viewModel, sortTypes: sortTypes, myPagePostTapType: selectedPicker)
+            NoticeBoardTapView(changeHeight: $changeHeight, changeIndex: $changeIndex, findHeight: $findHeight, findIndex: $findIndex, isFindAnimating: $isFindAnimating, isChangeAnimating: $isChangeAnimating, selectedTab: $selectedTab, viewModel: viewModel, myPagePostTapType: selectedPicker, naviTitle: naviTitle, sortTypes: sortTypes)
         }
         .navigationBarBackButtonHidden()
         .navigationTitle(otherUser == nil ? naviTitle : "")
