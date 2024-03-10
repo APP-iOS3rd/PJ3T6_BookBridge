@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ChatMessageView: View {
     @Environment(\.dismiss) var dismiss
-        
+    
+    @EnvironmentObject private var pathModel: TabPathViewModel
     
     @StateObject var viewModel = ChatMessageViewModel()
     @StateObject var reportVM = ReportViewModel()
@@ -143,8 +144,11 @@ struct ChatMessageView: View {
                             
                             Divider()
                             
-                            NavigationLink {
-                                ReportView(reportVM: reportVM)
+//                            NavigationLink {
+//                                ReportView(reportVM: reportVM)
+//                            } 
+                            Button {
+                                pathModel.paths.append(.report(ischat: true))
                             } label: {
                                 Text("신고하기")
                                     .font(.system(size: 15, weight: .medium))

@@ -121,6 +121,9 @@ struct TabBarView: View {
                                 noticeBoardTitle: noticeBoardTitle,
                                 uid: uid
                             )
+                            
+                        case let .report(ischat):
+                            ReportView(ischat: ischat)
                         }
                     }
                     
