@@ -9,8 +9,6 @@ import SwiftUI
 import FirebaseStorage
 
 struct HomeView: View {
-    @Binding var selectedTab: Int
-    @Binding var stack: NavigationPath
     
     @StateObject var viewModel = HomeViewModel()
     @StateObject var userManager = UserManager.shared

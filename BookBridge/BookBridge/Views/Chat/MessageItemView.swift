@@ -259,9 +259,6 @@ struct MessageItemView: View {
                 viewModel.getChatImage(urlString: messageModel.imageURL)
             }
         }
-        .navigationDestination(isPresented: $isClickProfile, destination: {
-            MyPageView(selectedTab: $selectedTab, stack: $stack, otherUser: UserModel(id: chatRoomPartner.partnerId, nickname: chatRoomPartner.nickname, profileURL: chatRoomPartner.partnerImageUrl, style: chatRoomPartner.style, reviews: chatRoomPartner.reviews))
-        })
     }
 }
 

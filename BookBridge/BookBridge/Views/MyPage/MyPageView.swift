@@ -12,6 +12,7 @@ struct MyPageView: View {
     @Binding var selectedTab: Int
     @State var isShowingSettingView = false
     @StateObject var viewModel = MyPageViewModel()
+    @StateObject var userManager = UserManager.shared
     var otherUser: UserModel?
     var body: some View {
         VStack {
@@ -97,7 +98,7 @@ struct MyPageView: View {
                 
                 Divider()
                 
-                NoticeBoardView(selectedTab: $selectedTab,naviTitle: "내 게시물", noticeBoardArray: [],sortTypes: ["전체", "진행중", "예약중", "교환완료"], otherUser: otherUser) 
+                NoticeBoardView(selectedTab: $selectedTab,naviTitle: "내 게시물", noticeBoardArray: [],otherUser: otherUser, sortTypes: ["전체", "진행중", "예약중", "교환완료"]) 
             }
             Spacer()
         }

@@ -15,7 +15,7 @@ struct NoticeBoardTapView: View {
     @Binding var isFindAnimating: Bool
     @Binding var isChangeAnimating: Bool
     @Binding var selectedTab: Int
-    @Binding var stack: NavigationPath
+    
     
     @StateObject var viewModel: NoticeBoardViewModel
 

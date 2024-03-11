@@ -32,7 +32,7 @@ struct PostView: View {
                             PostImageView(urlString: noticeBoard.noticeImageLink)
                         }
                         
-                        PostUserInfoView(postViewModel: postViewModel, noticeBoard: $noticeBoard)
+                        PostUserInfoView(postViewModel: postViewModel, noticeBoard: $noticeBoard, selectedTab: $selectedTab)
 
                         Divider()
                             .padding(.horizontal)
@@ -395,6 +395,7 @@ struct PostView: View {
         .sheet(isPresented: $showingLoginView){
             LoginView(showingLoginView: $showingLoginView)
         }
+        // 여기 문제 있어요
         .edgesIgnoringSafeArea(noticeBoard.isChange ? .top : [])
     }
 }

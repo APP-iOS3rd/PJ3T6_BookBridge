@@ -14,9 +14,7 @@ struct PostUserInfoView: View {
     @EnvironmentObject private var pathModel: TabPathViewModel
     @Binding var noticeBoard: NoticeBoard
     @Binding var selectedTab: Int
-    @Binding var stack: NavigationPath
-    
-    @StateObject var postViewModel: PostViewModel
+
     
     @State private var isClickProfile: Bool = false
     
@@ -81,8 +79,6 @@ struct PostUserInfoView: View {
             }
         }
         .padding(.horizontal)
-        .navigationDestination(isPresented: $isClickProfile, destination: {
-            MyPageView(selectedTab: $selectedTab, stack: $stack, otherUser: UserModel(id: postViewModel.user.id, nickname: postViewModel.user.nickname, profileURL: postViewModel.user.profileURL, style: postViewModel.user.style, reviews: postViewModel.user.reviews))
-        })
+
     }
 }
