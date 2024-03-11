@@ -297,13 +297,15 @@ extension NoticeBoardViewModel {
     func fetchBookMark() {
         var bookMarks: [String] = []
         
-        db.collection("User").document(userManager.uid).getDocument { documentSnapshot, error in
-            guard error == nil else { return }
-            guard let document = documentSnapshot else { return }
-            
-            bookMarks = document["bookMarks"] as? [String] ?? []
-            
-            self.bookMarks = bookMarks
+        if userManager.uid != "" {
+            db.collection("User").document(userManager.uid).getDocument { documentSnapshot, error in
+                guard error == nil else { return }
+                guard let document = documentSnapshot else { return }
+                
+                bookMarks = document["bookMarks"] as? [String] ?? []
+                
+                self.bookMarks = bookMarks
+            }
         }
     }
     

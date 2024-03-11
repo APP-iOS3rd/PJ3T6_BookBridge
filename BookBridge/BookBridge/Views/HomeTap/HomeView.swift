@@ -9,6 +9,7 @@ import SwiftUI
 import FirebaseStorage
 
 struct HomeView: View {
+    
     @StateObject var viewModel = HomeViewModel()
     @StateObject var userManager = UserManager.shared
     @StateObject var locationManager = LocationManager.shared
@@ -63,6 +64,7 @@ struct HomeView: View {
         .onChange(of: userManager.isLogin) { _ in
             print("로그인 변동 감지")
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                print("1")
                 viewModel.updateNoticeBoards()
             }
         }
@@ -74,7 +76,7 @@ struct HomeView: View {
         }
         .onChange(of: userManager.isChanged) { _ in
             print("데이터 변화 감지")
-            viewModel.updateNoticeBoards()            
+            viewModel.updateNoticeBoards()
         }
     }
     

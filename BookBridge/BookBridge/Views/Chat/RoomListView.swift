@@ -9,7 +9,6 @@ import SwiftUI
 import Kingfisher
 
 struct RoomListView: View {
-    
     @EnvironmentObject private var pathModel: TabPathViewModel
     @StateObject var viewModel: ChatRoomListViewModel
     
@@ -49,8 +48,7 @@ struct RoomListView: View {
                                 
                                 Text(chatRoom.noticeBoardTitle)
                                     .font(.system(size: 15))
-                                    .foregroundStyle(Color(.lightGray))
-                                    
+                                    .foregroundStyle(Color(.lightGray))               
                                     .truncationMode(.tail)
                                 
                                 if !chatRoom.isAlarm {

@@ -8,18 +8,20 @@
 import SwiftUI
 
 struct InquiryView: View {
-    @ObservedObject var inquiryVM: InquiryViewModel
     @Environment(\.dismiss) private var dismiss
-    @State private var text: String = ""
+    
+    @StateObject var viewModel = InquiryViewModel()
+    
     @State private var showAlert: Bool = false
     @State private var selectedCategory: Inquiry.InquiryCategory = .accountInquiry
+    @State private var text: String = ""
     
     var body: some View {
-        
         ZStack(alignment: .topLeading) {
             VStack (alignment: .leading) {
                 Text("문의 유형")
                     .bold()
+                
                 VStack {
                     HStack {
                         Picker("Choose a category", selection: $selectedCategory) {
@@ -31,7 +33,7 @@ struct InquiryView: View {
                         
                         Spacer()
                     }
-                    .pickerStyle(.menu)
+                    .pickerStyle(.automatic)
 
                     Rectangle()
                         .fill(Color(hex: "B5B5B5"))
@@ -41,11 +43,13 @@ struct InquiryView: View {
                 
                 Text("문의 내용")
                     .bold()
+                
                 ZStack (alignment: .topLeading) {
                     Rectangle()
                         .foregroundStyle(Color(hex: "F4F4F4"))
                         .cornerRadius(10)
                         .frame(height: 300)
+                    
                     TextField("문의 내용을 입력해주세요.", text: $text, axis: .vertical)
                         .padding()
                         .frame(height: 300, alignment: .topLeading)
@@ -53,8 +57,10 @@ struct InquiryView: View {
                             text = String($0.prefix(1000)) // 텍스트 글자수 제한
                         })
                 }
+                
                 HStack {
                     Spacer()
+                    
                     InquiryCounterView(text: $text)
                         .bold()
                         .frame(alignment: .leading)
@@ -63,10 +69,10 @@ struct InquiryView: View {
                 
                 Button {
                     // 뷰모델 연결
-                    inquiryVM.inquiry.inquiryComments = text
-                    inquiryVM.inquiry.inquiryUserId = UserManager.shared.uid
-                    inquiryVM.inquiry.category = selectedCategory
-                    inquiryVM.saveInquiryToFirestore(inquiry: inquiryVM.inquiry)
+                    viewModel.inquiry.inquiryComments = text
+                    viewModel.inquiry.inquiryUserId = UserManager.shared.uid
+                    viewModel.inquiry.category = selectedCategory
+                    viewModel.saveInquiryToFirestore(inquiry: viewModel.inquiry)
                     
                     showAlert = true
                 } label: {
@@ -86,14 +92,13 @@ struct InquiryView: View {
                         }
                     )
                 }
-                
                 Spacer()
             }
             .padding()
         }
-        .navigationBarTitle("문의 및 건의사항", displayMode: .inline)
+        .navigationBarBackButtonHidden()
         .navigationBarItems(leading: CustomBackButtonView())
-        .navigationBarBackButtonHidden(true) // 뒤로 가기 버튼 숨기기
+        .navigationBarTitle("문의 및 건의사항", displayMode: .inline)
     }
 }
 

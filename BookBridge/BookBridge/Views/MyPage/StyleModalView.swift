@@ -12,6 +12,9 @@ struct StyleModalView: View {
     
     @StateObject var viewModel: StyleViewModel
     
+    @State private var animate: Bool = false
+    @State private var acceleration = 35
+    
     var userId: String
     
     var body: some View {
@@ -22,11 +25,23 @@ struct StyleModalView: View {
                 .cornerRadius(5)
                 .padding(.top, 10)
             
-            Image(viewModel.style.imageName)
-                .resizable()
-                .scaledToFit()
-                .frame(width: 70, height: 70)
-                .padding(.bottom, 10)
+            ZStack {
+                ForEach(14..<17) { item in
+                    Capsule()
+                        .frame(width: 3, height: 6)
+                        .foregroundStyle(Color(hex: "508720"))
+                        //.hueRotation(.degrees(Double(item) * 30))
+                        .offset(y: CGFloat(acceleration))
+                        .rotationEffect(.degrees (Double(item) * 15), anchor: .bottom)
+                }
+                .offset(x: 10)
+                
+                Image(viewModel.style.imageName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 70, height: 70)
+                    .padding(.top, 10)
+            }
             
             Text(viewModel.style.title)
                 .font(.system(size: 20, weight: .bold))
@@ -65,6 +80,11 @@ struct StyleModalView: View {
             Spacer()
         }
         .padding(.horizontal)
+        .onAppear {
+            withAnimation(Animation.linear(duration: 0.5).repeatForever(autoreverses: true)) {
+                acceleration = 40
+            }
+        }
     }
 }
 
