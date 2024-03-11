@@ -7,12 +7,10 @@
 
 import SwiftUI
 
-
-
 struct TabBarView: View {
-    @EnvironmentObject var appState: PushChatRoomRouteManager // 상태 관찰 및 뷰 전환
-    @StateObject var viewModel = ChatRoomListViewModel()
+    @EnvironmentObject var appState: PushChatRoomRouteManager // 상태 관찰 및 뷰 전
     @StateObject private var userManager = UserManager.shared
+    @StateObject private var pathModel = TabPathViewModel()
     @State var selectedTab = 0
     @State private var height: CGFloat = 0.0
     @State private var isShowChange = false
@@ -20,100 +18,131 @@ struct TabBarView: View {
     @State private var showingLoginView = false
     @State private var previousTab = 0 // 이전에 선택한 탭을 저장하는 변수
     @State private var shouldShowActionSheet = false
-    @State private var isShowingChatMessageView = false
-    
     
     let userId : String?
     
     var body: some View {
         VStack {
-            ZStack {
-                NavigationStack {
-                        TabView(selection: $selectedTab) {
-                            Group {
-                                // 홈
-                                HomeView()
-                                    .onDisappear {
-                                        shouldShowActionSheet = false
-                                    }
-                                    .tabItem {
-                                        Image(systemName: "house")
-                                    }
-                                    .tag(0)
-                                
-                                // 채팅
-                                ChatRoomListView(chatRoomList: [], isComeNoticeBoard: false, uid: UserManager.shared.uid)
-                                    .onDisappear {
-                                        shouldShowActionSheet = false
-                                    }
-                                    .tabItem {
-                                        Image(systemName: "message")
-                                    }
-                                    .badge(userManager.totalNewCount)
-                                    .tag(1)
-                                    .navigationDestination(isPresented: $appState.isShowingChatMessageView){
-                                        if let chatRoomId = appState.chatRoomId {
-                                            ChatMessageView(
-                                                isAlarm: false,
-                                                chatRoomListId: chatRoomId,
-                                                chatRoomPartner: ChatPartnerModel(nickname: appState.nickname ?? " ", noticeBoardId: appState.noticeBoardId ?? "", partnerId: appState.partnerId ?? "", partnerImage: UIImage(named: "DefaultImage")!, partnerImageUrl: appState.profileURL ?? "", style: appState.style ?? "칭호 미아"),
-                                                noticeBoardTitle: appState.noticeBoardTitle ?? "",
-                                                uid: appState.userId ?? "")
-                                        }
-                                    }
-                                
-                                HomeView()
-                                    .tabItem {
-                                        Image(systemName: "plus.circle")
-                                    }
-                                    .sheet(isPresented: $shouldShowActionSheet) {
-                                        SelectPostingView(isShowChange: $isShowChange, isShowFind: $isShowFind, shouldShowActionSheet: $shouldShowActionSheet)
-                                            .presentationDetents([.height(250)])
-                                            .ignoresSafeArea(.all)
-                                        
-                                    }
-                                    .tag(2)
-                                
-                                // 책장
-                                if userManager.isLogin {
-                                    BookShelfView(userId : userManager.uid,initialTapInfo: .wish, isBack: false, ismore: false)
-                                        .onDisappear {
-                                            shouldShowActionSheet = false
-                                        }
-                                        .tabItem {
-                                            Image(systemName: "books.vertical")
-                                        }
-                                        .tag(3)
-                                } else {
-                                    BookShelfView(userId: nil,initialTapInfo: .wish, isBack: false, ismore:false)
-                                        .onDisappear {
-                                            shouldShowActionSheet = false
-                                        }
-                                        .tabItem {
-                                            Image(systemName: "books.vertical")
-                                        }
-                                        .tag(3)
+            NavigationStack(path: $pathModel.paths) {
+                ZStack {
+                    TabView(selection: $selectedTab) {
+                        Group {
+                            // 홈
+                            HomeView()
+                                .onDisappear {
+                                    shouldShowActionSheet = false
                                 }
-                                
-                                //마이페이지
-                                MyPageView(selectedTab : $selectedTab)
+                                .tabItem {
+                                    Image(systemName: "house")
+                                }
+                                .tag(0)
+                            
+                            // 채팅
+                            ChatRoomListView(chatRoomList: [], isComeNoticeBoard: false, uid: UserManager.shared.uid)
+                                .onDisappear {
+                                    shouldShowActionSheet = false
+                                }
+                                .tabItem {
+                                    Image(systemName: "message")
+                                }
+                                .badge(userManager.totalNewCount)
+                                .tag(1)
+                                .navigationDestination(isPresented: $appState.isShowingChatMessageView){
+                                    if let chatRoomId = appState.chatRoomId {
+                                        ChatMessageView(
+                                            isAlarm: false,
+                                            chatRoomListId: chatRoomId,
+                                            chatRoomPartner: ChatPartnerModel(nickname: appState.nickname ?? " ", noticeBoardId: appState.noticeBoardId ?? "", partnerId: appState.partnerId ?? "", partnerImage: UIImage(named: "DefaultImage") ?? UIImage(), partnerImageUrl: appState.profileURL ?? "", reviews: [0,0], style: appState.style ?? "칭호 미아"),
+                                            noticeBoardTitle: appState.noticeBoardTitle ?? "",
+                                            uid: appState.userId ?? "")
+                                    }
+                                }
+
+                            HomeView()
+                                .tabItem {
+                                    Image(systemName: "plus.circle")
+                                }
+                                .sheet(isPresented: $shouldShowActionSheet) {
+                                    SelectPostingView(isShowChange: $isShowChange, isShowFind: $isShowFind, shouldShowActionSheet: $shouldShowActionSheet)
+                                        .presentationDetents([.height(250)])
+                                        .ignoresSafeArea(.all)
+                                    
+                                }
+                                .tag(2)
+                            
+                            // 책장
+                            if userManager.isLogin {
+                                BookShelfView(userId : userManager.uid,initialTapInfo: .wish, isBack: false, ismore: false)
                                     .onDisappear {
                                         shouldShowActionSheet = false
                                     }
                                     .tabItem {
-                                        Image(systemName: "person.circle")
+                                        Image(systemName: "books.vertical")
                                     }
-                                    .tag(4)
-                                
+                                    .tag(3)
+                            } else {
+                                BookShelfView(userId: nil,initialTapInfo: .wish, isBack: false, ismore:false)
+                                    .onDisappear {
+                                        shouldShowActionSheet = false
+                                    }
+                                    .tabItem {
+                                        Image(systemName: "books.vertical")
+                                    }
+                                    .tag(3)
                             }
-                            .toolbarBackground(.visible, for: .tabBar)
+                            
+                            //마이페이지
+                            MyPageView(selectedTab : $selectedTab)
+                                .onDisappear {
+                                    shouldShowActionSheet = false
+                                }
+                                .tabItem {
+                                    Image(systemName: "person.circle")
+                                }
+                                .tag(4)
                         }
-                        .background(Color.white.onTapGesture {
-                            self.hideKeyboard()
-                        })
+                        .toolbarBackground(.visible, for: .tabBar)
+                    }
+                    .navigationDestination(for: TabPathType.self){pathType in
+                        switch pathType {
+                        case let .mypage(other):
+                            MyPageView(selectedTab: $selectedTab, otherUser: other)
+                            
+                        case let .postview(noticeboard):
+                            PostView(selectedTab: $selectedTab, noticeBoard: noticeboard)
+                            
+                        case let .chatMessage(isAlarm?, chatRoomListId, chatRoomPartner, noticeBoardTitle, uid):
+                            ChatMessageView(
+                                isAlarm: isAlarm,
+                                chatRoomListId: chatRoomListId,
+                                chatRoomPartner: chatRoomPartner,
+                                noticeBoardTitle: noticeBoardTitle,
+                                uid: uid
+                            )
+                            
+                        case let .chatRoomList(chatRoomList, isComeNoticeBoard, uid):
+                            ChatRoomListView(chatRoomList: chatRoomList, isComeNoticeBoard: isComeNoticeBoard, uid: uid)
+                            
+                        case .chatMessage(isAlarm: .none, chatRoomListId: let chatRoomListId, chatRoomPartner: let chatRoomPartner, noticeBoardTitle: let noticeBoardTitle, uid: let uid):
+                            ChatMessageView(
+                                chatRoomListId: chatRoomListId,
+                                chatRoomPartner: chatRoomPartner,
+                                noticeBoardTitle: noticeBoardTitle,
+                                uid: uid
+                            )
+                            
+                        case let .report(ischat):
+                            ReportView(ischat: ischat)
+                        }
+                    }
+                    
+                    .background(Color.white.onTapGesture {
+                        self.hideKeyboard()
+                    })
                 }
             }
         }
+        .environmentObject(pathModel)
         .background(.red)
         .tint(Color(hex:"59AAE0"))
         .onAppear {

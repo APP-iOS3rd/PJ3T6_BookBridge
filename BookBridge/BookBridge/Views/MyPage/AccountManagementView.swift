@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct AccountManagementView: View {
-    
+    @Binding var selectedTab: Int
+
     @StateObject var viewModel: MyPageViewModel
     
     var body: some View {
@@ -38,7 +39,7 @@ struct AccountManagementView: View {
             }
             
             NavigationLink {                //관심목록 경로가 아직없음
-                NoticeBoardView(naviTitle: "관심목록", noticeBoardArray: viewModel.userBookMarks, sortTypes: ["전체", "진행중", "예약중", "교환완료"])
+                NoticeBoardView(selectedTab: $selectedTab, naviTitle: "관심목록", noticeBoardArray: viewModel.userBookMarks, sortTypes: ["전체", "진행중", "예약중", "교환완료"])
             } label: {
                 HStack {
                     Text("관심목록")

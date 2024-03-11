@@ -10,6 +10,9 @@ import SwiftUI
 struct ChatMessageView: View {
     @Environment(\.dismiss) var dismiss
     
+    @EnvironmentObject private var pathModel: TabPathViewModel
+
+    
     @StateObject var viewModel = ChatMessageViewModel()
     @StateObject var reportVM = ReportViewModel()
     
@@ -28,6 +31,9 @@ struct ChatMessageView: View {
     
     var body: some View {
         ZStack {
+            ClearBackground(
+                isFocused: $isShowKeyboard
+            )
             VStack {
                 if viewModel.noticeBoardInfo.userId == "" && viewModel.noticeBoardInfo.noticeBoardTitle == "" {
                     ZStack {
@@ -39,12 +45,11 @@ struct ChatMessageView: View {
                             .font(.system(size: 20, weight: .bold))
                             .foregroundStyle(.white)
                     }
-                    
                 } else {
-                    NoticeBoardChatView(viewModel: viewModel, chatRoomListId: viewModel.saveChatRoomId, noticeBoardId: chatRoomPartner.noticeBoardId, partnerId: chatRoomPartner.partnerId, uid: uid)
+                    NoticeBoardChatView( viewModel: viewModel, chatRoomListId: viewModel.saveChatRoomId, noticeBoardId: chatRoomPartner.noticeBoardId, partnerId: chatRoomPartner.partnerId, uid: uid)
                 }
                 
-                MessageListView(viewModel: viewModel, partnerId: chatRoomPartner.partnerId, partnerImage: chatRoomPartner.partnerImage, uid: uid)
+                MessageListView( viewModel: viewModel, chatRoomPartner: chatRoomPartner, uid: uid)
                 
                 if !(viewModel.noticeBoardInfo.userId == "" && viewModel.noticeBoardInfo.noticeBoardTitle == "") {
                     if viewModel.noticeBoardInfo.state == 0 {
@@ -143,8 +148,11 @@ struct ChatMessageView: View {
                             
                             Divider()
                             
-                            NavigationLink {
-                                ReportView(reportVM: reportVM)
+//                            NavigationLink {
+//                                ReportView(reportVM: reportVM)
+//                            } 
+                            Button {
+                                pathModel.paths.append(.report(ischat: true))
                             } label: {
                                 Text("신고하기")
                                     .font(.system(size: 15, weight: .medium))

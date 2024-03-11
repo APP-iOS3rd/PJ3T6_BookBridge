@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NoticeBoardChatView: View {
-
+    @EnvironmentObject private var pathModel: TabPathViewModel
     @StateObject var viewModel: ChatMessageViewModel
     
     var chatRoomListId: String
@@ -18,8 +18,9 @@ struct NoticeBoardChatView: View {
     
     var body: some View {
         HStack {
-            NavigationLink {
-                PostView(noticeBoard: viewModel.noticeBoardInfo)
+            
+            Button {
+                pathModel.paths.append(.postview(noticeboard: viewModel.noticeBoardInfo))
             } label: {
                 HStack {
                     Image(uiImage: viewModel.bookImage)
@@ -99,7 +100,7 @@ struct NoticeBoardChatView: View {
         .padding(.top, 8)
         .padding(.horizontal)
         .onAppear {
-            print(uid)
+            print(uid, viewModel.noticeBoardInfo.userId)
         }
         
         Divider()

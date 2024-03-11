@@ -9,139 +9,82 @@ import SwiftUI
 
 struct FindPasswordView: View {
     @EnvironmentObject private var pathModel: PathViewModel
-    @StateObject private var viewModel = FindIdVM()
-    @State private var isNavigationActive = false // 화면 전환 상태 관리
-    
-    var body: some View {
-        
-        
-        VStack {
-            
-            Image("Character")
-            
-            
-            VStack(alignment: .leading,spacing: 5 ) {
-                
-                Text("가입할 때 입력한 아이디와 \n이메일을 입력해주세요")
-                    .font(.system(size: 20, weight: .regular))
-                                
-                
-                Spacer()
-                    .frame(height: 50)
-                
-                Text("아이디")
-                    .font(.system(size: 12, weight: .regular))
-                    .foregroundColor(Color(hex: "999999"))
-                
-                TextField("아이디를 입력해주세요", text: $viewModel.id)
-                    .padding()
-                    .foregroundColor(Color(hex: "3C3C43"))
-                    .frame(height: 36)
-                    .frame(maxWidth: .infinity)
-                    .background(Color(hex: "F7F8FC"))
-                    .cornerRadius(5.0)
-                
-                Spacer()
-                    .frame(height: 5)
-                
-                
-                Text("이메일")
-                    .font(.system(size: 12, weight: .regular))
-                    .foregroundColor(Color(hex: "999999"))
-                HStack {
-                    TextField("이메일을 입력해 주세요", text: $viewModel.email)
-                        .padding()
-                        .foregroundColor(Color(hex: "3C3C43"))
-                        .frame(height: 36)
-                        .frame(maxWidth: .infinity)
-                        .background(Color(hex: "F7F8FC"))
-                        .cornerRadius(5.0)
-                    
-                    Button {
-                        viewModel.sendMail()
-                        print("메일을 전송하였습니다.")
-                    } label: {
-                        Text("인증하기")
-                            .font(.system(size: 17))
-                            .foregroundStyle(.white)
-                            .frame(width: 100, height: 36)
-                            .background(Color(hex: "59AAE0"))
-                            .cornerRadius(5.0)
-                    }
-                }
-                
-                Spacer()
-                    .frame(height: 5)
-                
-                
-                Text("인증 번호")
-                    .font(.system(size: 12, weight: .regular))
-                    .foregroundColor(Color(hex: "999999"))
-                HStack {
-                    TextField("인증번호를 입력해주세요", text: $viewModel.userAuthCode)
-                        .padding()
-                        .foregroundColor(Color(hex: "3C3C43"))
-                        .frame(height: 36)
-                        .frame(maxWidth: .infinity)
-                        .background(Color(hex: "F7F8FC"))
-                        .cornerRadius(5.0)
-                    
-                    ResendBtn()
-                }
-                
-                
-                Spacer()
-                    
-                
-                
-                
+    @Environment(\.dismiss) private var dismiss
+    @StateObject var viewModel: FindPasswordViewModel
+    @FocusState var isFocused: Bool
+    @State private var isLoading = false
+    @State private var isComplete = false
 
+    var body: some View {
+        ZStack {
+            
+            ClearBackground(isFocused: $isFocused)
+            
+            VStack(alignment: .leading) {
                 
-                Button(action: {
-                    if viewModel.isCertiCode(){
-                        pathModel.paths.append(.changepassword)
-                    }
-                    else{
-                        pathModel.paths.append(.changepassword) // 임시로 추가
-                    }
-                }, label: {
-                    Text("인증완료")
-                })
-                .foregroundColor(.white)
-                .font(.system(size: 20).bold())
-                .frame(width: 353, height: 50) // 여기에 프레임을 설정
-                .background(Color(hex: "59AAE0"))
-                .cornerRadius(10)
+                Text("이메일을 알려주세요")
+                    .foregroundStyle(.black)
+                    .font(.system(size: 30, weight: .semibold))
                 
+                Spacer()
+                    .frame(height: 8)
+                
+                Text("가입한 계정 이메일을 입력해주세요")
+                    .foregroundStyle(Color(hex: "#848787"))
+                    .font(.system(size: 15, weight: .regular))
+                
+                
+                Spacer()
+                    .frame(height: 80)
+                
+                FindPasswordInputView(
+                    viewModel: viewModel,
+                    isFocused: $isFocused,
+                    placeholder: "이메일"
+                )
+                
+                Spacer()
+                
+                if !isFocused { // 키보드가 보이지 않을 때만 확인 버튼 표시
+                    Button {
+                        viewModel.verifyEmail(
+                            isLoading: $isLoading,
+                            isComplete: $isComplete
+                        )
+                    } label: {
+                        HStack {
+                            if isLoading {
+                                LoadingCircle(size: 15, color: "FFFFFF")
+                            }
+                            Text("확인")
+                        }
+                        .modifier(LargeBtnStyle())
+                    }
+                }
             }
-            
-            
-            
-            
         }
         .padding(20)
-        
         .navigationBarTitle("비밀번호 찾기", displayMode: .inline)
-        .navigationBarItems(leading: CustomBackButtonView())
-        
-    }
-    
-    
-    @ViewBuilder
-    func ResendBtn() -> some View {
-        Button {
-            viewModel.sendMail()
-        } label: {
-            Text("재전송")
-                .font(.system(size: 17))
-                .foregroundStyle(Color(hex: "59AAE0"))
-                .frame(width: 100, height: 36)
-                .border(Color(hex: "59AAE0"), width: 2)
-                .background(.white)
-                .cornerRadius(5.0)
+        .onChange(of: isComplete) { _ in
+            if isComplete {
+                pathModel.paths.append(.resultPassword)
+                isComplete = false
+            }
+        }        
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    viewModel.resetEmail()
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .foregroundColor(.black)
+                }
+            }
         }
     }
-    
-    
 }
 
+#Preview {
+    FindPasswordView(viewModel: FindPasswordViewModel())
+}

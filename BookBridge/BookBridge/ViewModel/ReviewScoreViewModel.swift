@@ -16,8 +16,14 @@ class ReviewScoreViewModel: ObservableObject {
 }
 
 extension ReviewScoreViewModel {
-    func getMannerScore() {
-        guard let reviews = userManager.user?.reviews else { return }
+    func getMannerScore(otherUser: UserModel?) {
+        var reviews: [Int] = [0, 0, 0]
+        
+        if otherUser == nil {
+            reviews = userManager.user?.reviews ?? [0, 0, 0]
+        } else {
+            reviews = userManager.user?.reviews ?? [0, 0, 0]
+        }
         
         guard reviews.count == 3 else { return }
         

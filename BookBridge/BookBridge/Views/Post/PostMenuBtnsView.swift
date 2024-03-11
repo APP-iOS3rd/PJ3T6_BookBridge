@@ -9,12 +9,12 @@ import SwiftUI
 
 struct PostMenuBtnsView: View {
     @Environment(\.dismiss) private var dismiss
-  
+    @EnvironmentObject private var pathModel: TabPathViewModel
     @Binding var isPresented: Bool
     @Binding var noticeBoard: NoticeBoard
   
     @ObservedObject var postViewModel: PostViewModel
-    @StateObject var reportVM: ReportViewModel
+    @StateObject var reportVM = ReportViewModel()
   
     @State private var showingDeleteAlert = false
     
@@ -40,8 +40,12 @@ struct PostMenuBtnsView: View {
                             Divider()
                                 .padding(1)
                             
-                            NavigationLink {
-                                ReportView(reportVM: reportVM)
+//                            NavigationLink {
+//                                ReportView()
+//                            }
+                            
+                            Button {
+                                pathModel.paths.append(.report(ischat: false))
                             } label: {
                                 Text("신고하기")
                                     .font(.system(size: 15))
@@ -69,8 +73,7 @@ struct PostMenuBtnsView: View {
                                     .foregroundStyle(.black)
                             }.simultaneousGesture(TapGesture().onEnded {
                                 isPresented.toggle()
-                            })
-                            
+                            })                            
                             Divider()
                                 .padding(1)
                             

@@ -9,9 +9,9 @@ import SwiftUI
 
 struct NoticeBoardView: View {
     @Environment(\.dismiss) private var dismiss
-
+    @EnvironmentObject private var pathModel: TabPathViewModel
     @StateObject var viewModel = NoticeBoardViewModel()
-    
+    @Binding  var selectedTab : Int
     @State private var selectedPicker: MyPagePostTapType = .find
     
     @State private var changeHeight: CGFloat = 0.0
@@ -25,32 +25,45 @@ struct NoticeBoardView: View {
     
     var naviTitle: String
     var noticeBoardArray: [String]
+    var otherUser: UserModel?
     var sortTypes: [String]
+    
     
     var body: some View {
         VStack {
             TapAnimation()
             
-            NoticeBoardTapView(changeHeight: $changeHeight, changeIndex: $changeIndex, findHeight: $findHeight, findIndex: $findIndex, isFindAnimating: $isFindAnimating, isChangeAnimating: $isChangeAnimating, viewModel: viewModel, sortTypes: sortTypes, myPagePostTapType: selectedPicker)
+            NoticeBoardTapView(changeHeight: $changeHeight, changeIndex: $changeIndex, findHeight: $findHeight, findIndex: $findIndex, isFindAnimating: $isFindAnimating, isChangeAnimating: $isChangeAnimating, selectedTab: $selectedTab, viewModel: viewModel, myPagePostTapType: selectedPicker, naviTitle: naviTitle, sortTypes: sortTypes)
         }
         .navigationBarBackButtonHidden()
-        .navigationTitle(naviTitle)
+        .navigationTitle(otherUser == nil ? naviTitle : "")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.hidden, for: .tabBar)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    Image(systemName: "chevron.backward")
-                        .font(.system(size: 16))
-                        .foregroundStyle(.black)
+                HStack(spacing: 10){
+                    Button {
+                        dismiss()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .foregroundStyle(.black)
+                    }
+                    Button {
+                        pathModel.paths.removeAll()
+                        selectedTab = 0
+                        
+                    } label: {
+                        Image(systemName: "house")
+                            .foregroundStyle( .black)
+                    }
                 }
+                
             }
         }
         .onAppear {
             viewModel.fetchBookMark()
-            viewModel.gettingFindNoticeBoards(whereIndex: naviTitle == "내 게시물" ? 0 : 1, noticeBoardArray: noticeBoardArray)
-            viewModel.gettingChangeNoticeBoards(whereIndex: naviTitle == "내 게시물" ? 0 : 1, noticeBoardArray: noticeBoardArray)
+            viewModel.gettingFindNoticeBoards(whereIndex: naviTitle == "내 게시물" ? 0 : 1, noticeBoardArray: noticeBoardArray, otherUser: otherUser)
+            viewModel.gettingChangeNoticeBoards(whereIndex: naviTitle == "내 게시물" ? 0 : 1, noticeBoardArray: noticeBoardArray, otherUser: otherUser)
         }
         .toolbar(.hidden, for: .tabBar)
     }

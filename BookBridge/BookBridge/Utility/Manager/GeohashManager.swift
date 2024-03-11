@@ -74,6 +74,7 @@ class GeohashManager {
                 return false
             }
             .sorted { $0.date > $1.date }
+            .filter { $0.state == 0 }
         }
         
         @Sendable func getNoticeBoard(from document: DocumentSnapshot) async throws -> NoticeBoard {
@@ -98,6 +99,7 @@ class GeohashManager {
             let hopeBook = try await FirestoreManager.fetchHopeBook(uid: id)
             let geoHash = document.data()?["geohash"] as? String ?? ""
             let reservationId = document.data()?["reservationId"] as? String ?? ""
+            let isAddLocation = document.data()?["isAddLocation"] as? Bool ?? false
                         
             let noticeBoard = NoticeBoard(
                 id: id,
@@ -112,7 +114,8 @@ class GeohashManager {
                 date: date,
                 hopeBook: hopeBook ?? [],
                 geoHash: geoHash,
-                reservationId: reservationId
+                reservationId: reservationId,
+                isAddLocation: isAddLocation
             )
             
             return noticeBoard

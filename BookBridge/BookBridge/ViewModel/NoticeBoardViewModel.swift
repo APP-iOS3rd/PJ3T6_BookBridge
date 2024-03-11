@@ -43,13 +43,17 @@ extension NoticeBoardViewModel {
 //MARK: FireStore에서 게시물 정보 가져오기
 extension NoticeBoardViewModel {
     //바꿔요
-    func gettingChangeNoticeBoards(whereIndex: Int, noticeBoardArray: [String]) {
+    func gettingChangeNoticeBoards(whereIndex: Int, noticeBoardArray: [String], otherUser: UserModel?) {
         changeNoticeBoards = []
         
         var query: Query
         
         if whereIndex == 0 {                    //내 게시물
-            query = db.collection("User").document(userManager.uid).collection("myNoticeBoard").whereField("isChange", isEqualTo: true)
+            if otherUser == nil {
+                query = db.collection("User").document(userManager.uid).collection("myNoticeBoard").whereField("isChange", isEqualTo: true)
+            } else {
+                query = db.collection("User").document(otherUser?.id ?? "").collection("myNoticeBoard").whereField("isChange", isEqualTo: true)
+            }
         } else {                                //요청 내역 및 관심목록
             if noticeBoardArray.isEmpty {
                 query = db.collection("noticeBoard").whereField("noticeBoardId", in: [""]).whereField("isChange", isEqualTo: true)
@@ -63,8 +67,6 @@ extension NoticeBoardViewModel {
             guard let documents = querySnapshot?.documents else { return }
             
             for document in documents {
-                var thumnailImage = ""
-
                 guard let stamp = document.data()["date"] as? Timestamp else { return }
                 
                 let noticeBoard = NoticeBoard(
@@ -91,19 +93,23 @@ extension NoticeBoardViewModel {
     }
     
     //구해요
-    func gettingFindNoticeBoards(whereIndex: Int, noticeBoardArray: [String]) {
+    func gettingFindNoticeBoards(whereIndex: Int, noticeBoardArray: [String], otherUser: UserModel?) {
         findNoticeBoards = []
         
         var query: Query
         
         if whereIndex == 0 {                    //내 게시물
-            query = db.collection("User").document(userManager.uid).collection("myNoticeBoard").whereField("isChange", isEqualTo: false)
+            if otherUser == nil {
+                query = db.collection("User").document(userManager.uid).collection("myNoticeBoard").whereField("isChange", isEqualTo: false)
+            } else {
+                query = db.collection("User").document(otherUser?.id ?? "").collection("myNoticeBoard").whereField("isChange", isEqualTo: false)
+            }
             
             query.getDocuments { querySnapshot, error in
                 guard error == nil else { return }
                 guard let documents = querySnapshot?.documents else { return }
                 for document in documents {
-                    self.db.collection("User").document(self.userManager.uid).collection("myNoticeBoard").document(document.documentID).collection("hopeBooks").getDocuments { querySnapshot2, err2 in
+                    self.db.collection("User").document(otherUser == nil ? self.userManager.uid : otherUser?.id ?? "").collection("myNoticeBoard").document(document.documentID).collection("hopeBooks").getDocuments { querySnapshot2, err2 in
                         guard err2 == nil else { return }
                         guard let hopeDocuments = querySnapshot2?.documents else { return }
                         
@@ -115,7 +121,7 @@ extension NoticeBoardViewModel {
                             if doc.exists {
                                 self.nestedGroup.enter() // Enter nested DispatchGroup
                                 
-                                self.db.collection("User").document(self.userManager.uid).collection("myNoticeBoard").document(document.documentID).collection("hopeBooks").document(doc.documentID).collection("industryIdentifiers").getDocuments { (querySnapshot, error) in
+                                self.db.collection("User").document(otherUser == nil ? self.userManager.uid : otherUser?.id ?? "").collection("myNoticeBoard").document(document.documentID).collection("hopeBooks").document(doc.documentID).collection("industryIdentifiers").getDocuments { (querySnapshot, error) in
                                     guard let industryIdentifiers = querySnapshot?.documents else {
                                         self.nestedGroup.leave()
                                         return
@@ -291,13 +297,15 @@ extension NoticeBoardViewModel {
     func fetchBookMark() {
         var bookMarks: [String] = []
         
-        db.collection("User").document(userManager.uid).getDocument { documentSnapshot, error in
-            guard error == nil else { return }
-            guard let document = documentSnapshot else { return }
-            
-            bookMarks = document["bookMarks"] as? [String] ?? []
-            
-            self.bookMarks = bookMarks
+        if userManager.uid != "" {
+            db.collection("User").document(userManager.uid).getDocument { documentSnapshot, error in
+                guard error == nil else { return }
+                guard let document = documentSnapshot else { return }
+                
+                bookMarks = document["bookMarks"] as? [String] ?? []
+                
+                self.bookMarks = bookMarks
+            }
         }
     }
     
