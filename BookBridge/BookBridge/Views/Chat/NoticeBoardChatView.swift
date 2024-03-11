@@ -105,16 +105,30 @@ struct NoticeBoardChatView: View {
         
         Divider()
         
-        if viewModel.noticeBoardInfo.reservationId == partnerId {
-            ZStack {
-                Rectangle()
-                    .foregroundStyle(.orange)
-                    .opacity(0.8)
-                    .frame(maxWidth: .infinity, maxHeight: 30)
-                Text("현재 상대방과 예약 진행중입니다")
-                    .font(.system(size: 16))
-                    .foregroundStyle(.white)
-                    .bold()
+            if viewModel.noticeBoardInfo.reservationId == partnerId {
+                ZStack {
+                switch viewModel.noticeBoardInfo.state {
+                case 1:
+                    Rectangle()
+                        .foregroundStyle(.orange)
+                        .opacity(0.8)
+                        .frame(maxWidth: .infinity, maxHeight: 30)
+                    Text("현재 상대방과 예약 진행중입니다")
+                        .font(.system(size: 16))
+                        .foregroundStyle(.white)
+                        .bold()
+                case 2:
+                    Rectangle()
+                        .foregroundStyle(.gray)
+                        .opacity(0.8)
+                        .frame(maxWidth: .infinity, maxHeight: 30)
+                    Text("교환이 완료되었습니다")
+                        .font(.system(size: 16))
+                        .foregroundStyle(.white)
+                        .bold()
+                default:
+                    EmptyView()
+                }
             }
             .padding(-8)
         }
