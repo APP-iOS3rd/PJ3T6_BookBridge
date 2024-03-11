@@ -76,7 +76,7 @@ struct HomeView: View {
         }
         .onChange(of: userManager.isChanged) { _ in
             print("데이터 변화 감지")
-            viewModel.updateNoticeBoards()            
+            viewModel.updateNoticeBoards()
         }
     }
     

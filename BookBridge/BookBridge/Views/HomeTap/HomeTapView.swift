@@ -124,22 +124,7 @@ struct HomeTapView: View {
                                     
                                     Button {
                                         pathModel.paths.append(.postview(noticeboard: element))
-                                    } label: {
-                                        HomeListItemView(
-                                            author: "",
-                                            date: element.date,
-                                            id: element.id,
-                                            imageLinks: [],
-                                            isChange: element.isChange,
-                                            locate: element.noticeLocation,
-                                            title: element.noticeBoardTitle,
-                                            userId: element.userId,
-                                            location: element.noticeLocationName,
-                                            detail: element.noticeBoardDetail
-                                        )
-                                        .gesture(
-                                            dragGesture
-                                        )
+                                    } label: {                                        
                                         VStack{
                                             HomeListItemView(
                                                 author: "",

@@ -83,7 +83,7 @@ struct PostView: View {
             VStack {
                 Spacer()
                 
-                if UserManager.shared.uid == noticeBoard.userId {       
+                if UserManager.shared.uid == noticeBoard.userId {
                     Button {
                         pathModel.paths.append(.chatRoomList(
                             chatRoomList: postViewModel.chatRoomList, isComeNoticeBoard: true, uid: UserManager.shared.uid
@@ -114,7 +114,7 @@ struct PostView: View {
                 } else {
                     if noticeBoard.state == 1 {
                         if UserManager.shared.uid != "" {
-                            if noticeBoard.reservationId == UserManager.shared.uid {                               
+                            if noticeBoard.reservationId == UserManager.shared.uid {
                                 Button{
                                     pathModel.paths.append(.chatMessage(
                                         isAlarm: nil,
@@ -181,7 +181,7 @@ struct PostView: View {
                         }
                     } else if noticeBoard.state == 2 {
                         if UserManager.shared.uid != "" {
-                            if noticeBoard.reservationId == UserManager.shared.uid {                       
+                            if noticeBoard.reservationId == UserManager.shared.uid {
                                 //                                NavigationLink {
                                 //                                    ChatMessageView(
                                 //                                        chatRoomListId: postViewModel.userChatRoomId,
@@ -281,7 +281,7 @@ struct PostView: View {
                                         .background(Color(hex: "59AAE0"))
                                 }
                             } else {
-                                //채팅한 적이 있는 경우                         
+                                //채팅한 적이 있는 경우
 //                                NavigationLink {
 //                                    ChatMessageView(
 //                                        chatRoomListId: postViewModel.userChatRoomId,

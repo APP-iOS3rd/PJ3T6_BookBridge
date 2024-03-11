@@ -259,6 +259,7 @@ struct MessageItemView: View {
                 viewModel.getChatImage(urlString: messageModel.imageURL)
             }
         }
+
     }
 }
 

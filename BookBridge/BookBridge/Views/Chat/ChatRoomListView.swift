@@ -73,4 +73,3 @@ struct ChatRoomListView: View {
         }
     }
 }
-
