@@ -18,6 +18,7 @@ struct TabBarView: View {
     @State var selectedTab = 0
     @State private var previousTab = 0 // 이전에 선택한 탭을 저장하는 변수
     @State private var shouldShowActionSheet = false
+    @State private var isShowingChatMessageView = false
     
     let userId : String?
     
