@@ -18,8 +18,9 @@ struct PostView: View {
     
     @State var noticeBoard: NoticeBoard
     
+    
     @State private var isPresented = false
-    @State private var showingLoginView = false
+    @State private var showingLoginView = false    
     
     var storageManager = HomeFirebaseManager.shared
     
@@ -56,11 +57,13 @@ struct PostView: View {
                         Divider()
                             .padding(.horizontal)
                         
-                        // 교환 희망 장소
-                        PostChangeLocationView(
-                            postViewModel: postViewModel,
-                            noticeBoard: $noticeBoard
-                        )
+                        if noticeBoard.isAddLocation ?? false {
+                            // 교환 희망 장소
+                            PostChangeLocationView(
+                                postViewModel: postViewModel,
+                                noticeBoard: $noticeBoard
+                            )
+                        }
                     }
                 }
                 

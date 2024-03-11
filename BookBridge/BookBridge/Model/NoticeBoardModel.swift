@@ -17,6 +17,7 @@ struct NoticeBoard: Identifiable,Hashable {
     var hopeBook: [Item]
     var geoHash: String?
     var reservationId: String? 
+    var isAddLocation: Bool?
 
     var dictionary: [String: Any] {
         return [
@@ -31,7 +32,8 @@ struct NoticeBoard: Identifiable,Hashable {
             "state": state,
             "date": date,
             "geoHash": geoHash ?? "",
-            "reservationId": reservationId ?? ""
+            "reservationId": reservationId ?? "",
+            "isAddLocation": isAddLocation ?? false
         ]
     }
 }

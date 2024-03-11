@@ -23,7 +23,8 @@ class PostingViewModel: ObservableObject {
         date: Date(),
         hopeBook: [],
         geoHash: "",
-        reservationId: ""
+        reservationId: "",
+        isAddLocation: false
     )
     @Published var markerCoord: NMGLatLng? //사용자가 저장 전에 마커 좌표변경을 할 경우 대비
     @Published var user: UserModel = UserModel()
@@ -45,6 +46,7 @@ class PostingViewModel: ObservableObject {
     // 교환 장소 도로명
     func updateNoticeLocationName(name: String) {
         noticeBoard.noticeLocationName = name
+        noticeBoard.isAddLocation = true
     }
     
     private var db = Firestore.firestore()
@@ -92,7 +94,8 @@ extension PostingViewModel {
                 date: Date(),
                 hopeBook: self.noticeBoard.hopeBook,
                 geoHash: GeohashManager.getGeoHash(lat: currentLat, long: currentLong),
-                reservationId: ""
+                reservationId: "",
+                isAddLocation: self.noticeBoard.isAddLocation
             )
             
             // 모든 게시물  noticeBoard/noticeBoardId/

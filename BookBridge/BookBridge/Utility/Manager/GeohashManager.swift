@@ -99,6 +99,7 @@ class GeohashManager {
             let hopeBook = try await FirestoreManager.fetchHopeBook(uid: id)
             let geoHash = document.data()?["geohash"] as? String ?? ""
             let reservationId = document.data()?["reservationId"] as? String ?? ""
+            let isAddLocation = document.data()?["isAddLocation"] as? Bool ?? false
                         
             let noticeBoard = NoticeBoard(
                 id: id,
@@ -113,7 +114,8 @@ class GeohashManager {
                 date: date,
                 hopeBook: hopeBook ?? [],
                 geoHash: geoHash,
-                reservationId: reservationId
+                reservationId: reservationId,
+                isAddLocation: isAddLocation
             )
             
             return noticeBoard
