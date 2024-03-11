@@ -19,39 +19,42 @@ struct ExchangeHopeView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            ZStack {
-                UIExchangeHopeView(myCoord: $myCoord, markerCoord: $viewModel.markerCoord, location: $viewModel.noticeBoard.noticeLocationName)
-                    .edgesIgnoringSafeArea(.all)
-                
+            VStack{
                 ExchangeHopeExplainView()
                     .frame(height: geometry.size.height * 0.02)
-                    .position(x: geometry.size.width / 2, y: geometry.size.height * 0.2)//상단으로
-                    .edgesIgnoringSafeArea(.all)
-                    .navigationBarBackButtonHidden(true) // 뒤로 가기 버튼 숨기기
-                
-                Button(action: {
-                    // 교환 희망 장소 위치
-                    if let lat = viewModel.markerCoord?.lat, let lng = viewModel.markerCoord?.lng {
-                        viewModel.updateNoticeLocation(lat: lat, lng: lng)
-                    }
-                    // 교환 희망 장소 도로명
-                    viewModel.updateNoticeLocationName(name: viewModel.noticeBoard.noticeLocationName)
+                    .padding(.top,30)
+                    .navigationBarBackButtonHidden(true)
+                    .zIndex(1)
+                ZStack {
+                    UIExchangeHopeView(myCoord: $myCoord, markerCoord: $viewModel.markerCoord, location: $viewModel.noticeBoard.noticeLocationName)
+                        .edgesIgnoringSafeArea(.all)
                     
-                    dismiss()
-                }) {
-                    Text("선택완료")
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .foregroundColor(.white)
-                        .background(Color(hex:"59AAE0"))
-                        .cornerRadius(10)
+                    
+                    
+                    Button(action: {
+                        // 교환 희망 장소 위치
+                        if let lat = viewModel.markerCoord?.lat, let lng = viewModel.markerCoord?.lng {
+                            viewModel.updateNoticeLocation(lat: lat, lng: lng)
+                        }
+                        // 교환 희망 장소 도로명
+                        viewModel.updateNoticeLocationName(name: viewModel.noticeBoard.noticeLocationName)
+                        
+                        dismiss()
+                    }) {
+                        Text("선택완료")
+                            .fontWeight(.bold)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .foregroundColor(.white)
+                            .background(Color(hex:"59AAE0"))
+                            .cornerRadius(10)
+                        
+                    }
+                    .frame(width: geometry.size.width * 0.5, height: geometry.size.height * 0.08) // 버튼의 크기를 설정
+                    .position(x: geometry.size.width / 2, y: geometry.size.height * 0.91) // 하단에 위치
+                    .padding(.bottom, geometry.safeAreaInsets.bottom) // 하단 세이프 에어리어만큼 패딩 추가
                     
                 }
-                .frame(width: geometry.size.width * 0.5, height: geometry.size.height * 0.08) // 버튼의 크기를 설정
-                .position(x: geometry.size.width / 2, y: geometry.size.height * 0.91) // 하단에 위치
-                .padding(.bottom, geometry.safeAreaInsets.bottom) // 하단 세이프 에어리어만큼 패딩 추가
-                
             }
         }
         .onAppear{
