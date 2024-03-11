@@ -98,7 +98,9 @@ struct MyPageView: View {
                 
                 Divider()
                 
-                NoticeBoardView(selectedTab: $selectedTab,naviTitle: "내 게시물", noticeBoardArray: [],otherUser: otherUser, sortTypes: ["전체", "진행중", "예약중", "교환완료"])
+
+                NoticeBoardView(selectedTab: $selectedTab,naviTitle: "내 게시물", noticeBoardArray: [],otherUser: otherUser, sortTypes: ["전체", "진행중", "예약중", "교환완료"]) 
+
             }
             Spacer()
         }
