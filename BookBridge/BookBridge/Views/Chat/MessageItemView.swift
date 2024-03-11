@@ -10,8 +10,8 @@ import NMapsMap
 import CoreLocation
 
 struct MessageItemView: View {
-    
     @EnvironmentObject private var pathModel: TabPathViewModel
+
     @StateObject var viewModel: ChatMessageViewModel
     
     @State var chatLocation: [Double] = [100, 200]
@@ -19,9 +19,6 @@ struct MessageItemView: View {
 
     @State var isCopyTapped = false
     @Binding var showToast: Bool
-
-    
-    
     
     var chatRoomPartner: ChatPartnerModel
     var messageModel: ChatMessageModel
@@ -263,6 +260,7 @@ struct MessageItemView: View {
                 viewModel.getChatImage(urlString: messageModel.imageURL)
             }
         }
+
     }
 }
 

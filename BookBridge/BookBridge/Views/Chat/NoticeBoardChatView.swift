@@ -45,34 +45,7 @@ struct NoticeBoardChatView: View {
                     .padding(.trailing)
                 }
                 .padding(.bottom, 5)
-            }                        
-//            NavigationLink {
-//                PostView(noticeBoard: viewModel.noticeBoardInfo)
-//            } label: {
-//                HStack {
-//                    Image(uiImage: viewModel.bookImage)
-//                        .resizable()
-//                        .aspectRatio(contentMode: .fill)
-//                        .frame(width: 40, height: 60)
-//                        .foregroundStyle(.black)
-//                        .cornerRadius(5)
-//                        .padding(.trailing, 4)
-//                    
-//                    VStack(alignment:.leading) {
-//                        Text(viewModel.noticeBoardInfo.noticeBoardTitle)
-//                            .padding(.bottom, 1)
-//                            .font(.system(size: 17, weight: .bold))
-//                            .lineLimit(1)
-//                            .foregroundStyle(.black)
-//                        Text(viewModel.noticeBoardInfo.noticeLocationName)
-//                            .font(.system(size: 14))
-//                            .lineLimit(1)
-//                            .foregroundStyle(.gray)
-//                    }
-//                    .padding(.trailing)
-//                }
-//                .padding(.bottom, 5)
-//            }
+            }
             .onDisappear {
                 viewModel.firestoreListener?.remove()
             }
@@ -127,7 +100,7 @@ struct NoticeBoardChatView: View {
         .padding(.top, 8)
         .padding(.horizontal)
         .onAppear {
-            print(uid)
+            print(uid, viewModel.noticeBoardInfo.userId)
         }
         
         Divider()

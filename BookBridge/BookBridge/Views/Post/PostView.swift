@@ -9,11 +9,9 @@ import SwiftUI
 import NMapsMap
 
 struct PostView: View {
-    
     @Environment(\.dismiss) private var dismiss
-    
     @EnvironmentObject private var pathModel: TabPathViewModel
-    @Binding  var selectedTab : Int
+    @Binding var selectedTab : Int
     @StateObject var postViewModel = PostViewModel()
     @StateObject var homeViewModel = HomeViewModel()
     @StateObject var reportViewmodel = ReportViewModel()
@@ -34,8 +32,8 @@ struct PostView: View {
                             PostImageView(urlString: noticeBoard.noticeImageLink)
                         }
                         
-                        PostUserInfoView(postViewModel: postViewModel, noticeBoard: $noticeBoard)
-                        
+                        PostUserInfoView(postViewModel: postViewModel, noticeBoard: $noticeBoard, selectedTab: $selectedTab)
+
                         Divider()
                             .padding(.horizontal)
                         
@@ -51,10 +49,7 @@ struct PostView: View {
                             Divider()
                                 .padding(.horizontal)
                         }
-                        
-                        
-                        
-                        
+
                         //상대방 책장
                         PostUserBookshelf(postViewModel: postViewModel)
                         
@@ -89,7 +84,6 @@ struct PostView: View {
                 Spacer()
                 
                 if UserManager.shared.uid == noticeBoard.userId {
-                    
                     Button {
                         pathModel.paths.append(.chatRoomList(
                             chatRoomList: postViewModel.chatRoomList, isComeNoticeBoard: true, uid: UserManager.shared.uid
@@ -121,7 +115,6 @@ struct PostView: View {
                     if noticeBoard.state == 1 {
                         if UserManager.shared.uid != "" {
                             if noticeBoard.reservationId == UserManager.shared.uid {
-                                
                                 Button{
                                     pathModel.paths.append(.chatMessage(
                                         isAlarm: nil,
@@ -189,10 +182,6 @@ struct PostView: View {
                     } else if noticeBoard.state == 2 {
                         if UserManager.shared.uid != "" {
                             if noticeBoard.reservationId == UserManager.shared.uid {
-                                
-                                
-                                
-                                
                                 //                                NavigationLink {
                                 //                                    ChatMessageView(
                                 //                                        chatRoomListId: postViewModel.userChatRoomId,
@@ -293,8 +282,6 @@ struct PostView: View {
                                 }
                             } else {
                                 //채팅한 적이 있는 경우
-                                
-                                
 //                                NavigationLink {
 //                                    ChatMessageView(
 //                                        chatRoomListId: postViewModel.userChatRoomId,
@@ -376,7 +363,7 @@ struct PostView: View {
         .toolbar(.hidden, for: .tabBar)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
-                HStack(spacing: 10){
+                HStack(spacing: 10) {
                     Button {
                         dismiss()
                     } label: {
@@ -393,6 +380,7 @@ struct PostView: View {
                 }
                 
             }
+            
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
                     withAnimation(.easeIn(duration: 0.2)) {
@@ -404,11 +392,10 @@ struct PostView: View {
                 }
             }
         }
-        //        .toolbarBackground(Color.clear.opacity(0.9), for: .navigationBar)
-        //        .toolbarBackground(noticeBoard.isChange ? .visible : .hidden, for: .navigationBar)
         .sheet(isPresented: $showingLoginView){
             LoginView(showingLoginView: $showingLoginView)
         }
+        // 여기 문제 있어요
         .edgesIgnoringSafeArea(noticeBoard.isChange ? .top : [])
     }
 }

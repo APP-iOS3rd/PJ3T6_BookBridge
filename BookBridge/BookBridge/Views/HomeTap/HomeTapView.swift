@@ -9,8 +9,10 @@ import SwiftUI
 
 struct HomeTapView: View {
     @EnvironmentObject private var pathModel: TabPathViewModel
+
     @StateObject var viewModel: HomeViewModel
     @StateObject var locationManager = LocationManager.shared
+    
     @State  var isInsideXmark: Bool = false
     @State  var isOutsideXmark: Bool = false
     @State private var text = ""
@@ -92,16 +94,11 @@ struct HomeTapView: View {
                 .padding(.vertical, 10)
                 .padding(.horizontal, 20)
                 ScrollView(.vertical, showsIndicators: false) {
-                    
-                    
                     switch tapCategory {
                     case .find:             //TODO: imageLinks 부분 받아오기
-                        
                         if text.isEmpty {
                             ForEach(viewModel.findNoticeBoards) { element in
-                                if element.hopeBook.isEmpty {
-                                    
-                                    
+                                if element.hopeBook.isEmpty {                                                                    
 //                                    NavigationLink {
 //                                        
 //                                        PostView(noticeBoard: element)
@@ -127,7 +124,7 @@ struct HomeTapView: View {
                                     
                                     Button {
                                         pathModel.paths.append(.postview(noticeboard: element))
-                                    } label: {
+                                    } label: {                                        
                                         VStack{
                                             HomeListItemView(
                                                 author: "",
@@ -170,7 +167,6 @@ struct HomeTapView: View {
                                             .gesture(
                                                 dragGesture
                                             )
-                                            
                                             Divider()
                                         }
                                         
@@ -208,7 +204,6 @@ struct HomeTapView: View {
                                     }
                                 } else {
                                     //TODO: 나중에 썸네일 이미지, 저자 바꾸기
-                                    
                                     Button {
                                         pathModel.paths.append(.postview(noticeboard: element))
                                     } label: {
@@ -245,7 +240,6 @@ struct HomeTapView: View {
                                     pathModel.paths.append(.postview(noticeboard: element))
                                 } label: {
                                     VStack{
-                                        
                                         HomeListItemView(
                                             author: "",
                                             date: element.date,
@@ -276,8 +270,6 @@ struct HomeTapView: View {
                                     pathModel.paths.append(.postview(noticeboard: element))
                                 } label: {
                                     VStack{
-                                        
-                                        
                                         HomeListItemView(
                                             author: "",
                                             date: element.date,
@@ -295,15 +287,12 @@ struct HomeTapView: View {
                                         )
                                         Divider()
                                     }
-                                    
                                 }
                             }
                             .padding(.horizontal)
                             .padding(.bottom, 10)
                             
                         }
-                        
-                        
                         
                         //                case .recommend:          //TODO: 추천도서 로직 및 뷰
                         //                    EmptyView()
@@ -314,12 +303,10 @@ struct HomeTapView: View {
                         viewModel.updateNoticeBoards()
                     }
                 }
-                
             }
             .gesture(
                 dragGesture
             )
-            
             
             if isOutsideXmark {
                 if UserManager.shared.isLogin {
@@ -372,7 +359,6 @@ struct HomeTapView: View {
                                         location: element.noticeLocationName,
                                         detail: element.noticeBoardDetail
                                     )
-                                    
                                     Divider()
                                 }
                             }
@@ -398,7 +384,6 @@ struct HomeTapView: View {
                                     Divider()
                                 }
                             }
-                            
                         }
                     }
                     .padding(.horizontal)
@@ -422,7 +407,6 @@ struct HomeTapView: View {
                                     location: element.noticeLocationName,
                                     detail: element.noticeBoardDetail
                                 )
-                                
                                 Divider()
                             }
                         }
@@ -432,10 +416,8 @@ struct HomeTapView: View {
                     
                     //                case .recommend:          //TODO: 추천도서 로직 및 뷰
                     //                    EmptyView()
-                    
                 }
             }
-            
         }
         .onTapGesture {
             hideKeyboard()

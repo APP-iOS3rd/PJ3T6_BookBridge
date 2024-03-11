@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct MessageListView: View {
-    
     @EnvironmentObject private var pathModel: TabPathViewModel
     @StateObject var viewModel: ChatMessageViewModel
     @State var showToast = false
@@ -27,7 +26,6 @@ struct MessageListView: View {
             ScrollViewReader { scrollViewProxy in
                 LazyVStack {
                     ForEach(viewModel.chatMessages) { chatMessage in
-
                         MessageItemView(
                             viewModel: viewModel,
                             chatLocation: chatMessage.location,
@@ -37,7 +35,6 @@ struct MessageListView: View {
                             messageModel: ChatMessageModel(date: chatMessage.date, imageURL: chatMessage.imageURL, location: chatMessage.location, message: chatMessage.message, sender: chatMessage.sender),
                             uid: uid
                         )
-
                     }
                     HStack {
                         Spacer()
