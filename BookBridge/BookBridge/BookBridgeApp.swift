@@ -54,15 +54,6 @@ struct BookBridgeApp: App {
                         locationViewModel.checkIfLocationServiceIsEnabled()
                         NaverMapApiManager.getNaverApiInfo()
                     }
-                //                .alert(isPresented: $locationViewModel.showLocationAlert) {
-                //                    Alert(
-                //                        title: Text("알림"),
-                //                        message: Text("위치권한 거부로 앱이 종료됩니다."),
-                //                        dismissButton: .default(Text("확인"), action: {
-                //
-                //                        })
-                //                    )
-                //                }}
                     .environmentObject(PushChatRoomRouteManager.shared) // 푸시알람 채팅방 이동
             }
         }
@@ -114,9 +105,10 @@ struct BookBridgeApp: App {
                let noticeBoardTitle = userInfo["noticeBoardTitle"] as? String,// 게시물 제목
                let nickname = userInfo["nickname"] as? String,// 상대방 닉네임
                let style = userInfo["style"] as? String, // 칭호
-               let profileURL = userInfo["profileURL"] as? String {
+               let profileURL = userInfo["profileURL"] as? String,
+               let message = userInfo["message"] as? String {
                 // 채팅방 상태 업데이트
-                PushChatRoomRouteManager.shared.navigateToChatRoom(chatRoomId: chatRoomId, userId: userId,  partnerId: partnerId, noticeBoardTitle: noticeBoardTitle, noticeBoardId: noticeBoardId, nickname: nickname, style: style, profileURL: profileURL)
+                PushChatRoomRouteManager.shared.navigateToChatRoom(chatRoomId: chatRoomId, userId: userId,  partnerId: partnerId, noticeBoardTitle: noticeBoardTitle, noticeBoardId: noticeBoardId, nickname: nickname, style: style, profileURL: profileURL, message: message)
 
             }
             completionHandler()

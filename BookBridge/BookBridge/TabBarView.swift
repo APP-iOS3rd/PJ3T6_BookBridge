@@ -13,11 +13,11 @@ struct TabBarView: View {
     @EnvironmentObject var appState: PushChatRoomRouteManager // 상태 관찰 및 뷰 전환
     @StateObject var viewModel = ChatRoomListViewModel()
     @StateObject private var userManager = UserManager.shared
+    @State var selectedTab = 0
     @State private var height: CGFloat = 0.0
     @State private var isShowChange = false
     @State private var isShowFind = false
     @State private var showingLoginView = false
-    @State  var selectedTab = 0
     @State private var previousTab = 0 // 이전에 선택한 탭을 저장하는 변수
     @State private var shouldShowActionSheet = false
     @State private var isShowingChatMessageView = false
@@ -29,16 +29,6 @@ struct TabBarView: View {
         VStack {
             ZStack {
                 NavigationStack {
-                    // 채팅방 선택 상태에 따라 조건부 뷰 표시
-                    if let chatRoomID = appState.chatRoomId {
-                        ChatMessageView(
-                            isAlarm: false,
-                            chatRoomListId: chatRoomID,
-                            chatRoomPartner: ChatPartnerModel(nickname: appState.nickname ?? " ", noticeBoardId: appState.noticeBoardId ?? "", partnerId: appState.partnerId ?? "", partnerImage: UIImage(named: "DefaultImage")!, partnerImageUrl: appState.profileURL ?? "", style: appState.style ?? "칭호 미아"),
-                            noticeBoardTitle: appState.noticeBoardTitle ?? "",
-                            uid: appState.userId ?? "")
-                        
-                    } else {
                         TabView(selection: $selectedTab) {
                             Group {
                                 // 홈
@@ -61,6 +51,16 @@ struct TabBarView: View {
                                     }
                                     .badge(userManager.totalNewCount)
                                     .tag(1)
+                                    .navigationDestination(isPresented: $appState.isShowingChatMessageView){
+                                        if let chatRoomId = appState.chatRoomId {
+                                            ChatMessageView(
+                                                isAlarm: false,
+                                                chatRoomListId: chatRoomId,
+                                                chatRoomPartner: ChatPartnerModel(nickname: appState.nickname ?? " ", noticeBoardId: appState.noticeBoardId ?? "", partnerId: appState.partnerId ?? "", partnerImage: UIImage(named: "DefaultImage")!, partnerImageUrl: appState.profileURL ?? "", style: appState.style ?? "칭호 미아"),
+                                                noticeBoardTitle: appState.noticeBoardTitle ?? "",
+                                                uid: appState.userId ?? "")
+                                        }
+                                    }
                                 
                                 HomeView()
                                     .tabItem {
@@ -111,7 +111,6 @@ struct TabBarView: View {
                         .background(Color.white.onTapGesture {
                             self.hideKeyboard()
                         })
-                    }
                 }
             }
         }
@@ -135,6 +134,13 @@ struct TabBarView: View {
                     previousTab = newTab
                 }
             }
+        }
+        .onChange(of: appState.message){ _ in
+            selectedTab = 1
+            appState.isShowingChatMessageView = true
+        }
+        .onDisappear{
+            appState.isShowingChatMessageView = false
         }
         .sheet(isPresented: $showingLoginView, onDismiss: {
             if !userManager.isLogin {
