@@ -25,7 +25,7 @@ struct TabBarView: View {
     var body: some View {
         VStack {
             NavigationStack(path: $pathModel.paths) {
-            ZStack {
+                ZStack {
                     TabView(selection: $selectedTab) {
                         Group {
                             // 홈
@@ -46,7 +46,7 @@ struct TabBarView: View {
                                 .tabItem {
                                     Image(systemName: "message")
                                 }
-                                .badge(userManager.totalNewCount)
+                                .badge(userManager.isLogin ? userManager.totalNewCount : 0)
                                 .tag(1)
                             
                             HomeView()
@@ -98,21 +98,21 @@ struct TabBarView: View {
                         switch pathType {
                         case let .mypage(other):
                             MyPageView(selectedTab: $selectedTab, otherUser: other)
-                                
+                            
                         case let .postview(noticeboard):
                             PostView(selectedTab: $selectedTab, noticeBoard: noticeboard)
                             
                         case let .chatMessage(isAlarm?, chatRoomListId, chatRoomPartner, noticeBoardTitle, uid):
-                                ChatMessageView(
-                                    isAlarm: isAlarm,
-                                    chatRoomListId: chatRoomListId,
-                                    chatRoomPartner: chatRoomPartner,
-                                    noticeBoardTitle: noticeBoardTitle,
-                                    uid: uid
-                                )
+                            ChatMessageView(
+                                isAlarm: isAlarm,
+                                chatRoomListId: chatRoomListId,
+                                chatRoomPartner: chatRoomPartner,
+                                noticeBoardTitle: noticeBoardTitle,
+                                uid: uid
+                            )
                             
                         case let .chatRoomList(chatRoomList, isComeNoticeBoard, uid):
-                                ChatRoomListView(chatRoomList: chatRoomList, isComeNoticeBoard: isComeNoticeBoard, uid: uid)
+                            ChatRoomListView(chatRoomList: chatRoomList, isComeNoticeBoard: isComeNoticeBoard, uid: uid)
                             
                         case .chatMessage(isAlarm: .none, chatRoomListId: let chatRoomListId, chatRoomPartner: let chatRoomPartner, noticeBoardTitle: let noticeBoardTitle, uid: let uid):
                             ChatMessageView(
