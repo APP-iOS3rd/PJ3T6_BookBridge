@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 // 푸시알람 클릭시 채팅방 이동관련 Manager
 class PushChatRoomRouteManager: ObservableObject {
@@ -21,11 +20,8 @@ class PushChatRoomRouteManager: ObservableObject {
     @Published var nickname: String?
     @Published var style: String?
     @Published var profileURL: String?
-    @Published var message: String?
-    // 채팅방 바로 가기 핸들 변수
-    @Published var isShowingChatMessageView: Bool = false
     
-    func navigateToChatRoom(chatRoomId: String, userId: String, partnerId: String, noticeBoardTitle: String, noticeBoardId: String, nickname: String, style: String, profileURL: String, message: String) {
+    func navigateToChatRoom(chatRoomId: String, userId: String, partnerId: String, noticeBoardTitle: String, noticeBoardId: String, nickname: String, style: String, profileURL: String) {
         self.chatRoomId = chatRoomId
         self.userId = userId
         self.partnerId = partnerId
@@ -34,8 +30,6 @@ class PushChatRoomRouteManager: ObservableObject {
         self.nickname = nickname
         self.style = style
         self.profileURL = profileURL
-        self.message = message
         
-        self.isShowingChatMessageView = true
     }
 }
