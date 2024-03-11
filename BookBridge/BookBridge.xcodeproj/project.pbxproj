@@ -206,6 +206,8 @@
 		914600432B7205C700E0E24F /* ChatRoomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914600422B7205C700E0E24F /* ChatRoomListView.swift */; };
 		9146004E2B7238EB00E0E24F /* ChatMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9146004D2B7238EB00E0E24F /* ChatMessageView.swift */; };
 		914600502B7240D800E0E24F /* ChatMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9146004F2B7240D800E0E24F /* ChatMessageViewModel.swift */; };
+		914F59732B9EC8560085926E /* ExchangeReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914F59722B9EC8560085926E /* ExchangeReview.swift */; };
+		914F59752B9EFB490085926E /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914F59742B9EFB490085926E /* ReviewViewModel.swift */; };
 		915FD1DA2B7C403D0008C38B /* ChatRoomListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FD1D92B7C403D0008C38B /* ChatRoomListModel.swift */; };
 		915FD1DC2B7CA6A40008C38B /* SearchChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FD1DB2B7CA6A40008C38B /* SearchChatListView.swift */; };
 		915FD1DE2B7CB7E80008C38B /* NoticeBoardChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FD1DD2B7CB7E70008C38B /* NoticeBoardChatView.swift */; };
@@ -461,6 +463,8 @@
 		914600422B7205C700E0E24F /* ChatRoomListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomListView.swift; sourceTree = "<group>"; };
 		9146004D2B7238EB00E0E24F /* ChatMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageView.swift; sourceTree = "<group>"; };
 		9146004F2B7240D800E0E24F /* ChatMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageViewModel.swift; sourceTree = "<group>"; };
+		914F59722B9EC8560085926E /* ExchangeReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeReview.swift; sourceTree = "<group>"; };
+		914F59742B9EFB490085926E /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
 		915FD1D92B7C403D0008C38B /* ChatRoomListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomListModel.swift; sourceTree = "<group>"; };
 		915FD1DB2B7CA6A40008C38B /* SearchChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchChatListView.swift; sourceTree = "<group>"; };
 		915FD1DD2B7CB7E70008C38B /* NoticeBoardChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardChatView.swift; sourceTree = "<group>"; };
@@ -783,6 +787,7 @@
 				5AA0A1D12B95B64300317831 /* Alert */,
 				F6185FBE2B8C0C2600C2A889 /* LaunchScreen */,
 				91B7F0AD2B70DE4E00B4C475 /* Chat */,
+				91159E322B9EC7D100919B0C /* Review */,
 				5C8C0E302B7B2909002963F1 /* Report */,
 				F6DFC8D12B7309D800931CF9 /* Post */,
 				738EDA9D2B71EAF20066ADE7 /* HomeTap */,
@@ -1052,6 +1057,14 @@
 			path = Delegate;
 			sourceTree = "<group>";
 		};
+		91159E322B9EC7D100919B0C /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				914F59722B9EC8560085926E /* ExchangeReview.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
 		91B7F0AD2B70DE4E00B4C475 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
@@ -1131,6 +1144,7 @@
 				73441FB62B734F2F00446E0F /* NoticeBoardViewModel.swift */,
 				91695F512B8D8CE400A0E2F7 /* InquiryViewModel.swift */,
 				1D28D8022B98538100C09EB9 /* TabPathViewModel.swift */,
+				914F59742B9EFB490085926E /* ReviewViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1590,6 +1604,7 @@
 				5A3E020B2B6F9FCD008F8CFD /* TestView.swift in Sources */,
 				738EDAA52B7225950066ADE7 /* UIImageExtension.swift in Sources */,
 				5ADE79EA2B6B6715005BB3ED /* SignUpInputManager.swift in Sources */,
+				914F59752B9EFB490085926E /* ReviewViewModel.swift in Sources */,
 				73441FB92B735E1C00446E0F /* NoticeBoardSortView.swift in Sources */,
 				7361270D2B6B83AC00943CD7 /* CameraButtonView.swift in Sources */,
 				5A0BBB0F2B984CD500FF2F02 /* FirebaseAuth.swift in Sources */,
@@ -1617,6 +1632,7 @@
 				1DE382A72B734E74009A7A15 /* HomeRecentSearchView.swift in Sources */,
 				915FD1DA2B7C403D0008C38B /* ChatRoomListModel.swift in Sources */,
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
+				914F59732B9EC8560085926E /* ExchangeReview.swift in Sources */,
 				1D28D8032B98538100C09EB9 /* TabPathViewModel.swift in Sources */,
 				73D077E42B7C7FC90007DDEB /* RoomListView.swift in Sources */,
 				73DDA5E12B6A34A500B25FB8 /* SearchResultView.swift in Sources */,

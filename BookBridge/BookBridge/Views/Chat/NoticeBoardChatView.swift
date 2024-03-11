@@ -10,7 +10,11 @@ import SwiftUI
 struct NoticeBoardChatView: View {
     @EnvironmentObject private var pathModel: TabPathViewModel
     @StateObject var viewModel: ChatMessageViewModel
+    @StateObject var reviewViewModel = ReviewViewModel()
     
+    @State private var isExchangeCompleted = false
+    
+    var chatRoomPartner: ChatPartnerModel
     var chatRoomListId: String
     var noticeBoardId: String
     var partnerId: String
@@ -85,6 +89,7 @@ struct NoticeBoardChatView: View {
                     let newState = viewModel.noticeBoardInfo.state == 2 ? 0 : 2
                     
                     viewModel.changeState(state: newState, partnerId: partnerId, noticeBoardId: noticeBoardId)
+                    isExchangeCompleted = true
                 }) {
                     ZStack {
                         RoundedRectangle(cornerRadius: 20)
@@ -102,7 +107,13 @@ struct NoticeBoardChatView: View {
         .onAppear {
             print(uid, viewModel.noticeBoardInfo.userId)
         }
-        
+        .fullScreenCover(isPresented: $isExchangeCompleted, onDismiss: {
+            withAnimation(.linear(duration: 0.2)) {
+                isExchangeCompleted = false
+            }
+        }) {
+            ExchangeReview(reviewViewModel: reviewViewModel, chatRoomPartner: chatRoomPartner)
+        }
         Divider()
         
             if viewModel.noticeBoardInfo.reservationId == partnerId {

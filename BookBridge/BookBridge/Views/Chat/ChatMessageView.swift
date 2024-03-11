@@ -46,7 +46,7 @@ struct ChatMessageView: View {
                             .foregroundStyle(.white)
                     }
                 } else {
-                    NoticeBoardChatView( viewModel: viewModel, chatRoomListId: viewModel.saveChatRoomId, noticeBoardId: chatRoomPartner.noticeBoardId, partnerId: chatRoomPartner.partnerId, uid: uid)
+                    NoticeBoardChatView( viewModel: viewModel, chatRoomPartner: chatRoomPartner, chatRoomListId: viewModel.saveChatRoomId, noticeBoardId: chatRoomPartner.noticeBoardId, partnerId: chatRoomPartner.partnerId, uid: uid)
                 }
                 
                 MessageListView( viewModel: viewModel, chatRoomPartner: chatRoomPartner, uid: uid)
@@ -90,6 +90,7 @@ struct ChatMessageView: View {
                                         .padding(.horizontal, 12)
                                         .font(.system(size: 18))
                                         .foregroundStyle(.white)
+                                        .bold()
                                 }
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 80)
