@@ -44,7 +44,7 @@ struct TabBarView: View {
                                 .tabItem {
                                     Image(systemName: "message")
                                 }
-                                .badge(userManager.totalNewCount)
+                                .badge( UserManager.shared.isLogin ?  userManager.totalNewCount : 0)
                                 .tag(1)
                             
                             HomeView()
