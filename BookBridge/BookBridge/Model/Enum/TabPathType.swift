@@ -20,4 +20,6 @@ enum TabPathType : Hashable {
     
     case report(ischat : Bool)
     
+    case noticeboard(naviTitel: String , noticeBoardArray : [String],sortType:[String])
+    
 }

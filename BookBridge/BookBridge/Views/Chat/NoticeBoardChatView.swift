@@ -99,9 +99,7 @@ struct NoticeBoardChatView: View {
         }
         .padding(.top, 8)
         .padding(.horizontal)
-        .onAppear {
-            print(uid, viewModel.noticeBoardInfo.userId)
-        }
+
         
         Divider()
         
