@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TabBarView: View {
+    @EnvironmentObject var appState: PushChatRoomRouteManager // 상태 관찰 및 뷰 전
     @StateObject private var userManager = UserManager.shared
     @StateObject private var pathModel = TabPathViewModel()
     @State var selectedTab = 0
@@ -23,7 +24,7 @@ struct TabBarView: View {
     var body: some View {
         VStack {
             NavigationStack(path: $pathModel.paths) {
-            ZStack {
+                ZStack {
                     TabView(selection: $selectedTab) {
                         Group {
                             // 홈
@@ -44,9 +45,19 @@ struct TabBarView: View {
                                 .tabItem {
                                     Image(systemName: "message")
                                 }
-                                .badge( UserManager.shared.isLogin ?  userManager.totalNewCount : 0)
+                                .badge(userManager.totalNewCount)
                                 .tag(1)
-                            
+                                .navigationDestination(isPresented: $appState.isShowingChatMessageView){
+                                    if let chatRoomId = appState.chatRoomId {
+                                        ChatMessageView(
+                                            isAlarm: false,
+                                            chatRoomListId: chatRoomId,
+                                            chatRoomPartner: ChatPartnerModel(nickname: appState.nickname ?? " ", noticeBoardId: appState.noticeBoardId ?? "", partnerId: appState.partnerId ?? "", partnerImage: UIImage(named: "DefaultImage") ?? UIImage(), partnerImageUrl: appState.profileURL ?? "", reviews: [0,0], style: appState.style ?? "칭호 미아"),
+                                            noticeBoardTitle: appState.noticeBoardTitle ?? "",
+                                            uid: appState.userId ?? "")
+                                    }
+                                }
+
                             HomeView()
                                 .tabItem {
                                     Image(systemName: "plus.circle")
@@ -96,21 +107,21 @@ struct TabBarView: View {
                         switch pathType {
                         case let .mypage(other):
                             MyPageView(selectedTab: $selectedTab, otherUser: other)
-                                
+                            
                         case let .postview(noticeboard):
                             PostView(selectedTab: $selectedTab, noticeBoard: noticeboard)
                             
                         case let .chatMessage(isAlarm?, chatRoomListId, chatRoomPartner, noticeBoardTitle, uid):
-                                ChatMessageView(
-                                    isAlarm: isAlarm,
-                                    chatRoomListId: chatRoomListId,
-                                    chatRoomPartner: chatRoomPartner,
-                                    noticeBoardTitle: noticeBoardTitle,
-                                    uid: uid
-                                )
+                            ChatMessageView(
+                                isAlarm: isAlarm,
+                                chatRoomListId: chatRoomListId,
+                                chatRoomPartner: chatRoomPartner,
+                                noticeBoardTitle: noticeBoardTitle,
+                                uid: uid
+                            )
                             
                         case let .chatRoomList(chatRoomList, isComeNoticeBoard, uid):
-                                ChatRoomListView(chatRoomList: chatRoomList, isComeNoticeBoard: isComeNoticeBoard, uid: uid)
+                            ChatRoomListView(chatRoomList: chatRoomList, isComeNoticeBoard: isComeNoticeBoard, uid: uid)
                             
                         case .chatMessage(isAlarm: .none, chatRoomListId: let chatRoomListId, chatRoomPartner: let chatRoomPartner, noticeBoardTitle: let noticeBoardTitle, uid: let uid):
                             ChatMessageView(
@@ -152,6 +163,13 @@ struct TabBarView: View {
                     previousTab = newTab
                 }
             }
+        }
+        .onChange(of: appState.message){ _ in
+            selectedTab = 1
+            appState.isShowingChatMessageView = true
+        }
+        .onDisappear{
+            appState.isShowingChatMessageView = false
         }
         .sheet(isPresented: $showingLoginView, onDismiss: {
             if !userManager.isLogin {

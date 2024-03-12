@@ -55,18 +55,22 @@ struct BookBridgeApp: App {
                         locationViewModel.checkIfLocationServiceIsEnabled()
                         NaverMapApiManager.getNaverApiInfo()
                     }
+                    .environmentObject(PushChatRoomRouteManager.shared) // 푸시알람 채팅방 이동
                     .addKeyboardVisibilityToEnvironment()                
             }
         }
     }
     
     
-    class AppDelegate: NSObject, UIApplicationDelegate {
+    class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
         func application(_ application: UIApplication,
                          didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
             FirebaseApp.configure()
             // Firebase 실행확인 print
             print("Configured Firebase!")
+            
+            //채팅방 이동
+            UNUserNotificationCenter.current().delegate = self
             
             // 푸시 알림을 위한 사용자 동의 요청
             UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]){ granted, error in
@@ -96,5 +100,28 @@ struct BookBridgeApp: App {
         func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
             print("Failed to register for remote notifications: \(error.localizedDescription)")
         }
+        
+        func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                    didReceive response: UNNotificationResponse,
+                                    withCompletionHandler completionHandler: @escaping () -> Void) {
+            //Push알림에서 보낸 data 가져오기
+            let userInfo = response.notification.request.content.userInfo
+
+            if let chatRoomId = userInfo["chatRoomId"] as? String, //채팅방 id
+               let userId = userInfo["userId"] as? String, //유저 id
+               let partnerId = userInfo["partnerId"] as? String,//상대방 유저 id
+               let noticeBoardId = userInfo["noticeBoardId"] as? String,// 게시물 Id
+               let noticeBoardTitle = userInfo["noticeBoardTitle"] as? String,// 게시물 제목
+               let nickname = userInfo["nickname"] as? String,// 상대방 닉네임
+               let style = userInfo["style"] as? String, // 칭호
+               let profileURL = userInfo["profileURL"] as? String,
+               let message = userInfo["message"] as? String {
+                // 채팅방 상태 업데이트
+                PushChatRoomRouteManager.shared.navigateToChatRoom(chatRoomId: chatRoomId, userId: userId,  partnerId: partnerId, noticeBoardTitle: noticeBoardTitle, noticeBoardId: noticeBoardId, nickname: nickname, style: style, profileURL: profileURL, message: message)
+
+            }
+            completionHandler()
+        }
+
     }
 }
