@@ -7,20 +7,19 @@
 
 import SwiftUI
 
-struct AlarmView: View {
+struct NotificationView: View {
     @EnvironmentObject private var pathModel: TabPathViewModel
     @Environment(\.dismiss) var dismiss
     
     var cnt : Int = 10
     var body: some View {
-        ScrollView{
+        List {
             ForEach(0..<cnt) {_ in
                 Button {
                     
                 } label: {
                     VStack{
-                        AlarmItemVIew()
-                        Divider()
+                        NotificationItemVIew()
                     }
                 }
                 
@@ -28,6 +27,7 @@ struct AlarmView: View {
         }
         .navigationTitle("알림")
         .navigationBarTitleDisplayMode(.inline)
+        .listStyle(.plain)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
@@ -40,8 +40,4 @@ struct AlarmView: View {
         }
     }
     
-}
-
-#Preview {
-    AlarmView()
 }
