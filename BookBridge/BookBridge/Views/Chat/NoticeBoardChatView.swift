@@ -69,7 +69,17 @@ struct NoticeBoardChatView: View {
                     .font(.caption)
                     .foregroundStyle(.white)
                 }
-            } else {
+            } else if viewModel.noticeBoardInfo.state == 2 {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 20)
+                        .foregroundStyle(.green)
+                        .frame(width: 60, height: 30)
+                    Text("교환완료")
+                        .font(.caption)
+                        .foregroundStyle(.white)
+                }
+            }
+            else {
                 Button(action: {
                     let newState = viewModel.noticeBoardInfo.state == 1 ? 0 : 1
                     
