@@ -208,6 +208,7 @@
 		914600502B7240D800E0E24F /* ChatMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9146004F2B7240D800E0E24F /* ChatMessageViewModel.swift */; };
 		914F59732B9EC8560085926E /* ExchangeReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914F59722B9EC8560085926E /* ExchangeReview.swift */; };
 		914F59752B9EFB490085926E /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914F59742B9EFB490085926E /* ReviewViewModel.swift */; };
+		914F59772B9F22820085926E /* ChatImageModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914F59762B9F22820085926E /* ChatImageModalView.swift */; };
 		915FD1DA2B7C403D0008C38B /* ChatRoomListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FD1D92B7C403D0008C38B /* ChatRoomListModel.swift */; };
 		915FD1DC2B7CA6A40008C38B /* SearchChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FD1DB2B7CA6A40008C38B /* SearchChatListView.swift */; };
 		915FD1DE2B7CB7E80008C38B /* NoticeBoardChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FD1DD2B7CB7E70008C38B /* NoticeBoardChatView.swift */; };
@@ -465,6 +466,7 @@
 		9146004F2B7240D800E0E24F /* ChatMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageViewModel.swift; sourceTree = "<group>"; };
 		914F59722B9EC8560085926E /* ExchangeReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeReview.swift; sourceTree = "<group>"; };
 		914F59742B9EFB490085926E /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
+		914F59762B9F22820085926E /* ChatImageModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatImageModalView.swift; sourceTree = "<group>"; };
 		915FD1D92B7C403D0008C38B /* ChatRoomListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomListModel.swift; sourceTree = "<group>"; };
 		915FD1DB2B7CA6A40008C38B /* SearchChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchChatListView.swift; sourceTree = "<group>"; };
 		915FD1DD2B7CB7E70008C38B /* NoticeBoardChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardChatView.swift; sourceTree = "<group>"; };
@@ -1079,6 +1081,7 @@
 				73036B682B8DACCF00A32B26 /* ChatExchangeHopeView.swift */,
 				73036B6E2B8DD7DF00A32B26 /* ChatExchangeInfoView.swift */,
 				73036B702B8DE0EC00A32B26 /* ChatUIExchangeHopeView.swift */,
+				914F59762B9F22820085926E /* ChatImageModalView.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -1517,6 +1520,7 @@
 				7369293D2B7B0B5700966503 /* MyPageViewModel.swift in Sources */,
 				F64B7EFB2B8325C1008AB919 /* PostModifyViewModel.swift in Sources */,
 				5A3380702B872C130038F2DE /* PostChangeLocationView.swift in Sources */,
+				914F59772B9F22820085926E /* ChatImageModalView.swift in Sources */,
 				5A0242152B6D36FF00137AA6 /* LoadingCircle.swift in Sources */,
 				5A83458C2B74A0C0000984C4 /* TownAddButtonView.swift in Sources */,
 				73C962A92B68C38D00D34D3F /* BookAPIManger.swift in Sources */,

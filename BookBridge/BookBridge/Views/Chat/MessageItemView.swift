@@ -18,6 +18,8 @@ struct MessageItemView: View {
     @State var chatLocationTuple: (Double, Double) = (0, 0)
 
     @State var isCopyTapped = false
+    @State private var isShowChatImageModal = false
+    
     @Binding var showToast: Bool
     
     var chatRoomPartner: ChatPartnerModel
@@ -45,6 +47,9 @@ struct MessageItemView: View {
                             .scaledToFill()
                             .frame(width: 150, height: 150)
                             .cornerRadius(10)
+                            .onTapGesture {
+                                isShowChatImageModal = true
+                            }
                     }
                 } else if messageModel.location != [100, 200] {
                     HStack(alignment: .top) {
@@ -153,6 +158,9 @@ struct MessageItemView: View {
                             .scaledToFill()
                             .frame(width: 150, height: 150)
                             .cornerRadius(10)
+                            .onTapGesture {
+                                isShowChatImageModal = true
+                            }
                         
                         VStack {
                             Spacer()
@@ -260,7 +268,9 @@ struct MessageItemView: View {
                 viewModel.getChatImage(urlString: messageModel.imageURL)
             }
         }
-
+        .fullScreenCover(isPresented: $isShowChatImageModal) {
+            ChatImageModalView(viewModel: viewModel, messageModel: messageModel)
+        }
     }
 }
 

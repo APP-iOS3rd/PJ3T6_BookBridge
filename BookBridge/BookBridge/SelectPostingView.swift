@@ -13,7 +13,7 @@ struct SelectPostingView: View {
     @Binding var isShowFind: Bool
     @Binding var shouldShowActionSheet: Bool
     
-    let sortTypes = ["구해요 게시글 작성", "바꿔요 게시글 작성"] // 두 개의 항목을 리스트로 정의
+    let sortTypes = ["구해요 작성", "바꿔요 작성"] // 두 개의 항목을 리스트로 정의
     
     var body: some View {
         VStack {
