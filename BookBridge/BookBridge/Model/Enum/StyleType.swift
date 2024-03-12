@@ -9,4 +9,6 @@ import Foundation
 
 enum StyleType {
     case newBi
+    case bookHope
+    case bookDic
 }

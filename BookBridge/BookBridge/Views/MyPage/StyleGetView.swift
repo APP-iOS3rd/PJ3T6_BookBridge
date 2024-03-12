@@ -30,6 +30,28 @@ struct StyleGetView: View {
                         .font(.system(size: 20, weight: .bold))
                         .padding(.top, -10)
                         .padding(.bottom, 10)
+                case .bookHope:
+                    Image("NewLogo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 70, height: 70)
+                        .padding(.top, 20)
+                    
+                    Text("책바라기")
+                        .font(.system(size: 20, weight: .bold))
+                        .padding(.top, -10)
+                        .padding(.bottom, 10)
+                case .bookDic:
+                    Image("NewLogo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 70, height: 70)
+                        .padding(.top, 20)
+                    
+                    Text("백과사전")
+                        .font(.system(size: 20, weight: .bold))
+                        .padding(.top, -10)
+                        .padding(.bottom, 10)
                 }
                 
                 Text("획득한 칭호는 내 프로필 -> 칭호 설정에서 변경하실 수 있어요")

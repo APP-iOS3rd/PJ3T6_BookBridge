@@ -132,8 +132,17 @@ struct TabBarView: View {
                     }
                 }
             }
+            
             if showingNewBiView && !showingLoginView {
                 StyleGetView(style: .newBi)
+            }
+            
+            if userManager.isWishStyleCheck && !showingLoginView {
+                StyleGetView(style: .bookHope)
+            }
+            
+            if userManager.isHoldStyleCheck && !showingLoginView {
+                StyleGetView(style: .bookDic)
             }
         }
         .environmentObject(pathModel)
