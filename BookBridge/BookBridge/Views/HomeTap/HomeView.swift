@@ -43,6 +43,14 @@ struct HomeView: View {
                     
                 }
                 Spacer()
+                
+                Button {
+                    
+                } label: {
+                    Image(systemName: "bell")
+                        .foregroundStyle(.black)
+                        .frame(width: 70)
+                }
             }
             
             tapAnimation()
