@@ -150,6 +150,8 @@
 		73036B6F2B8DD7DF00A32B26 /* ChatExchangeInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73036B6E2B8DD7DF00A32B26 /* ChatExchangeInfoView.swift */; };
 		73036B712B8DE0EC00A32B26 /* ChatUIExchangeHopeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73036B702B8DE0EC00A32B26 /* ChatUIExchangeHopeView.swift */; };
 		730580B52B86505E00A74275 /* MyProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730580B42B86505E00A74275 /* MyProfileViewModel.swift */; };
+		7328DA252BA02E87002A0F38 /* StyleGetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7328DA242BA02E87002A0F38 /* StyleGetView.swift */; };
+		7328DA272BA02EAE002A0F38 /* StyleType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7328DA262BA02EAE002A0F38 /* StyleType.swift */; };
 		73437D112B8B840300C9289B /* MyProfileEditSaveButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73437D102B8B840300C9289B /* MyProfileEditSaveButtonView.swift */; };
 		73441F9B2B733CC200446E0F /* MyPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441F9A2B733CC200446E0F /* MyPageView.swift */; };
 		73441F9D2B733CD000446E0F /* ReviewScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73441F9C2B733CD000446E0F /* ReviewScoreView.swift */; };
@@ -405,6 +407,8 @@
 		73036B6E2B8DD7DF00A32B26 /* ChatExchangeInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatExchangeInfoView.swift; sourceTree = "<group>"; };
 		73036B702B8DE0EC00A32B26 /* ChatUIExchangeHopeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatUIExchangeHopeView.swift; sourceTree = "<group>"; };
 		730580B42B86505E00A74275 /* MyProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileViewModel.swift; sourceTree = "<group>"; };
+		7328DA242BA02E87002A0F38 /* StyleGetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleGetView.swift; sourceTree = "<group>"; };
+		7328DA262BA02EAE002A0F38 /* StyleType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleType.swift; sourceTree = "<group>"; };
 		73437D102B8B840300C9289B /* MyProfileEditSaveButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyProfileEditSaveButtonView.swift; sourceTree = "<group>"; };
 		73441F9A2B733CC200446E0F /* MyPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageView.swift; sourceTree = "<group>"; };
 		73441F9C2B733CD000446E0F /* ReviewScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewScoreView.swift; sourceTree = "<group>"; };
@@ -869,6 +873,7 @@
 				738EDA9E2B71EB240066ADE7 /* TapCategory.swift */,
 				73441FB22B73465700446E0F /* MyPagePostTapType.swift */,
 				1D28D8002B9852F900C09EB9 /* TabPathType.swift */,
+				7328DA262BA02EAE002A0F38 /* StyleType.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -1005,6 +1010,7 @@
 				73441FAA2B733E0700446E0F /* StyleSettingView.swift */,
 				73441FAC2B733E2200446E0F /* StyleListView.swift */,
 				73441FAE2B733E3500446E0F /* StyleModalView.swift */,
+				7328DA242BA02E87002A0F38 /* StyleGetView.swift */,
 				73441FB02B73444500446E0F /* NoticeBoardView.swift */,
 				73441FB42B734BBE00446E0F /* NoticeBoardTapView.swift */,
 				730028482B85E0B200EB3D8D /* NoticeBoardItemView.swift */,
@@ -1481,6 +1487,7 @@
 				5C5AB9712B85977200AD90A2 /* FCMTokenManager.swift in Sources */,
 				1D84019B2B6779CB00ADEEB5 /* IdLoginView.swift in Sources */,
 				91695F522B8D8CE400A0E2F7 /* InquiryViewModel.swift in Sources */,
+				7328DA252BA02E87002A0F38 /* StyleGetView.swift in Sources */,
 				5ADE79E82B6B5963005BB3ED /* StatusTextView.swift in Sources */,
 				5C8C0DD82B734B8C002963F1 /* NaverReverseGeocoding.swift in Sources */,
 				910F48F92B6CB42D00C0563E /* ImageDropDelegate.swift in Sources */,
@@ -1622,6 +1629,7 @@
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
 				1D28D8032B98538100C09EB9 /* TabPathViewModel.swift in Sources */,
 				73D077E42B7C7FC90007DDEB /* RoomListView.swift in Sources */,
+				7328DA272BA02EAE002A0F38 /* StyleType.swift in Sources */,
 				73DDA5E12B6A34A500B25FB8 /* SearchResultView.swift in Sources */,
 				914600412B71FD8700E0E24F /* ProfileImagePicker.swift in Sources */,
 				738EDAA12B71EBA30066ADE7 /* HomeTapView.swift in Sources */,
