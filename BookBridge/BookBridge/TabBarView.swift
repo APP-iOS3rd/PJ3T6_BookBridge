@@ -122,7 +122,13 @@ struct TabBarView: View {
                             
                         case let .report(ischat):
                             ReportView(ischat: ischat)
+                            
+                        case .alarm:
+                            AlarmView()
+                                .navigationBarBackButtonHidden()
+                            
                         }
+                        
                     }
                     
                     .background(Color.white.onTapGesture {

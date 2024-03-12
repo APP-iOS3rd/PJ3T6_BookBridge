@@ -20,4 +20,8 @@ enum TabPathType : Hashable {
     
     case report(ischat : Bool)
     
+    case alarm
+    
+//    case review(reviewViewModel: reviewViewModel, chatRoomPartner: chatRoomPartner)
+    
 }

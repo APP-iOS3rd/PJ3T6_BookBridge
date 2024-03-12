@@ -17,6 +17,7 @@ struct HomeView: View {
     @State private var selectedPicker: TapCategory = .find
     @State private var showingLoginView = false
     @State private var showingTownSettingView = false
+    @State private var showingAlarmView = false
     @State private var offsetY: CGFloat = 0
         
     @Namespace private var animation
@@ -45,7 +46,7 @@ struct HomeView: View {
                 Spacer()
                 
                 Button {
-                    
+                    pathModel.paths.append(.alarm)
                 } label: {
                     Image(systemName: "bell")
                         .foregroundStyle(.black)
@@ -68,7 +69,7 @@ struct HomeView: View {
         }
         .navigationDestination(isPresented: $showingTownSettingView) {
             TownSettingView()
-        }
+        }        
         .onChange(of: userManager.isLogin) { _ in
             print("로그인 변동 감지")
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
