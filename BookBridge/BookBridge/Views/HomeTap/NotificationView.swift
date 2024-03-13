@@ -25,7 +25,7 @@ struct NotificationView: View {
                         noticeBoardId: notification.noticeBoardId,
                         partnerId: notification.partnerId,
                         partnerImage: UIImage(named: "DefaultImage")!,
-                        partnerImageUrl: notificationViewModel.partnerImageUrl,
+                        partnerImageUrl: notification.partnerImageUrl,
                         reviews: [0, 0, 0],
                         style: "칭호 미아"
                     )
@@ -61,9 +61,6 @@ struct NotificationView: View {
             // 옵셔널 바인딩을 사용하여 selectedPartner가 nil이 아닌 경우에만 ExchangeReview를 표시
             if let partner = selectedPartner {
                 ExchangeReview(notificationViewModel: notificationViewModel, chatMessageViewModel: viewModel, chatRoomPartner: partner)
-                    .onAppear {
-                        notificationViewModel.getPartnerImageUrl(partnerId: selectedPartner?.partnerId ?? "")
-                    }
             }
         }
     }

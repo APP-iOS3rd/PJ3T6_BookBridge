@@ -73,12 +73,13 @@ extension NotificationViewModel {
                     let userId = data["userId"] as? String ?? ""
                     let noticeBoardId = data["noticeBoardId"] as? String ?? ""
                     let partnerId = data["partnerId"] as? String ?? ""
+                    let partnerImageUrl = data["partnerImageUrl"] as? String ?? ""
                     let noticeBoardTitle = data["noticeBoardTitle"] as? String ?? ""
                     let nickname = data["nickname"] as? String ?? ""
                     let timestamp = data["date"] as? Timestamp
                     let date = timestamp?.dateValue() ?? Date()
                     
-                    return NotificationModel(userId: userId, noticeBoardId: noticeBoardId, partnerId: partnerId, noticeBoardTitle: noticeBoardTitle, nickname: nickname, date: date)
+                    return NotificationModel(userId: userId, noticeBoardId: noticeBoardId, partnerId: partnerId, partnerImageUrl: partnerImageUrl, noticeBoardTitle: noticeBoardTitle, nickname: nickname, date: date)
                 }
             }
     }
