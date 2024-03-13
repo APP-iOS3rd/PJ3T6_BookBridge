@@ -201,6 +201,10 @@ struct ChatBottomBarView: View {
                     viewModel.fetchMessages(uid: uid)
                 })
             }
+            //사진 알림
+            Task{
+                await viewModel.sendNotification(to: partnerId, with: "사진", chatRoomId: viewModel.saveChatRoomId)
+            }
         }) {
             ImagePicker(isVisible: $isShowingPhoto, images: $viewModel.selectedImages, sourceType: $one)
                 .ignoresSafeArea(.all)
@@ -217,6 +221,10 @@ struct ChatBottomBarView: View {
                     viewModel.handleSendImage(uid: uid, partnerId: partnerId)
                     viewModel.fetchMessages(uid: uid)
                 })
+            }
+            //사진 알림
+            Task{
+                await viewModel.sendNotification(to: partnerId, with: "사진", chatRoomId: viewModel.saveChatRoomId)
             }
         }) {
             ImagePicker(isVisible: $isShowingCamera, images: $viewModel.selectedImages, sourceType: $zero)
