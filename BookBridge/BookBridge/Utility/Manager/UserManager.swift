@@ -26,6 +26,9 @@ class UserManager: ObservableObject {
     @Published var currentDong = ""
     @Published var isLogin = false
     @Published var isChanged = false
+    @Published var isDoSignUp = false
+    @Published var isWishStyleCheck = false
+    @Published var isHoldStyleCheck = false
     @Published var totalNewCount = 0
     
     var uid = ""

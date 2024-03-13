@@ -13,11 +13,13 @@ struct ConfirmPhoneNumberView: View {
     @State var showNextPage = false
     @Binding var verificationID: String
     @Binding var newPhoneNumber: String
+    @Binding var showPhoneView: Bool
     
     var body: some View {
-        ChangeStandardView(
+        ChangePhoneNumberStandardView(
             viewModel: viewModel,
-            showNextPage: $showNextPage
+            showNextPage: $showNextPage,
+            showPhoneView: $showPhoneView
         )
         .navigationDestination(isPresented: $showNextPage) {
             

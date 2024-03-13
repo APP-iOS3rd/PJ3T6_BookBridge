@@ -28,7 +28,6 @@ struct NoticeBoardView: View {
     var otherUser: UserModel?
     var sortTypes: [String]
     
-    
     var body: some View {
         VStack {
             TapAnimation()
@@ -48,16 +47,17 @@ struct NoticeBoardView: View {
                         Image(systemName: "chevron.left")
                             .foregroundStyle(.black)
                     }
-                    Button {
-                        pathModel.paths.removeAll()
-                        selectedTab = 0
-                        
-                    } label: {
-                        Image(systemName: "house")
-                            .foregroundStyle( .black)
+                    
+                    if otherUser != nil {
+                        Button {
+                            pathModel.paths.removeAll()
+                            selectedTab = 0
+                        } label: {
+                            Image(systemName: "house")
+                                .foregroundStyle( .black)
+                        }
                     }
                 }
-                
             }
         }
         .onAppear {

@@ -11,14 +11,16 @@ struct ConfirmPasswordView: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var viewModel = ChangePhonenumberViewModel()
     @State var showNextPage = false
+    @Binding var showPhoneView: Bool
     
     var body: some View {        
-        ChangeStandardView(
+        ChangePhoneNumberStandardView(
             viewModel: viewModel,
-            showNextPage: $showNextPage
+            showNextPage: $showNextPage,
+            showPhoneView: $showPhoneView
         )
         .navigationDestination(isPresented: $showNextPage) {
-            ChangePhoneNumberView()
+            ChangePhoneNumberView(showPhoneView: $showPhoneView)
         }
         .onAppear() {
             viewModel.setPasswordState()

@@ -15,6 +15,10 @@ class BookShelfViewModel: ObservableObject {
     @Published var filteredBooks: [Item] = []
     @Published var user: UserModel = UserModel()
     
+    var isfirstWishCheck = true
+    var isfirstHoldCheck = true
+    var isWishStylecheck = false
+    var isHoldStylecheck = false
     var userId : String?
     
     init(userId: String?) {
@@ -31,9 +35,7 @@ class BookShelfViewModel: ObservableObject {
         }
     }
     
-    
     func fetchBooks(for tap: tapInfo) {
-        
         if tap == .wish {
             loadBooksFromFirestore(collection: "wishBooks") { [weak self] in
                 self?.filteredBooks = self?.wishBooks ?? []
@@ -44,7 +46,6 @@ class BookShelfViewModel: ObservableObject {
             }
         }
     }
-    
     
     func saveBooksToFirestore(books: [Item], collection: String) {
         guard let userId = userId else { return }
@@ -73,13 +74,9 @@ class BookShelfViewModel: ObservableObject {
             if let industryIdentifier = industryIdentifierData {
                 dataToSet["industryIdentifier"] = industryIdentifier
             }
-            
             document.setData(dataToSet)
         }
     }
-   
-
-
     
     func loadBooksFromFirestore(collection: String, completion: @escaping () -> Void) {
         guard let userId = userId else { return }
@@ -113,9 +110,55 @@ class BookShelfViewModel: ObservableObject {
                 if collection == "wishBooks" {
                     self?.wishBooks = items
                     self?.filteredBooks = items
+            
+                    if (self?.isfirstWishCheck ?? false) {
+                        if !(self?.isWishStylecheck ?? false) {
+                            if self?.wishBooks.count ?? 0 >= 10 {
+                                self?.isWishStylecheck = true
+                            }
+                        }
+                        self?.isfirstWishCheck = false
+                    }
+
+                    if !(self?.isWishStylecheck ?? false) {
+                        if self?.wishBooks.count ?? 0 >= 10 {
+                            self?.isWishStylecheck = true
+                            print(UserManager.shared.isWishStyleCheck)
+                            if !UserManager.shared.isWishStyleCheck {
+                                UserManager.shared.isWishStyleCheck = true
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                                    UserManager.shared.isWishStyleCheck = false
+                                }
+                            }
+                        }
+                    }
                 } else if collection == "holdBooks" {
                     self?.holdBooks = items
                     self?.filteredBooks = items
+                    
+                    if (self?.isfirstHoldCheck ?? false) {
+                        if !(self?.isHoldStylecheck ?? false) {
+                            if self?.holdBooks.count ?? 0 >= 10 {
+                                self?.isHoldStylecheck = true
+                            }
+                        }
+                        self?.isfirstHoldCheck = false
+                    }
+                    
+                    if !(self?.isHoldStylecheck ?? false) {
+                        if self?.holdBooks.count ?? 0 >= 10 {
+                            self?.isHoldStylecheck = true
+                            
+                            if !UserManager.shared.isHoldStyleCheck {
+                                UserManager.shared.isHoldStyleCheck = true
+                                
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                                    UserManager.shared.isHoldStyleCheck = false
+                                }
+                            }
+                        }
+                    }
                 }
             }
             completion()
@@ -157,9 +200,7 @@ class BookShelfViewModel: ObservableObject {
         let docRef = db.collection("User").document(userId)
         
         docRef.getDocument { document, error in
-            guard error == nil else {
-                return
-            }
+            guard error == nil else { return }
             
             if let document = document, document.exists {
                 let data = document.data()
@@ -182,9 +223,6 @@ class BookShelfViewModel: ObservableObject {
             }
         }
     }
-
-
-
 }
 
 

@@ -12,6 +12,11 @@ import Combine
 import SwiftUI
 import FirebaseFirestoreInternal
 
+enum CompleteState {
+    case success
+    case failure
+    case loading
+}
 
 class ChangePhonenumberViewModel: ViewModelable {
     enum Action {
@@ -31,16 +36,10 @@ class ChangePhonenumberViewModel: ViewModelable {
         case phoneNumber(String)
         case certiNumber(String)
     }
-
-    enum Complete {
-        case password(Bool)
-        case phoneNumber(Bool)
-        case certiNumber(Bool)
-    }
-    
+        
     @Published var state: State
     @Published var error: ErrorState
-    @Published var complete: Complete
+    @Published var complete: CompleteState
     @Published var verificationID = ""
     @Published var newPhoneNumber = ""
     private var cancellables = Set<AnyCancellable>()
@@ -49,7 +48,7 @@ class ChangePhonenumberViewModel: ViewModelable {
     init() {
         state = .password("")
         error = .password("")
-        complete = .password(false)
+        complete = .failure
     }
     
     func action(_ action: Action) {
@@ -69,10 +68,10 @@ class ChangePhonenumberViewModel: ViewModelable {
         guard case let .password(string) = state else { return }
         print("password: \(string)")
         if checkPassword(string) {
-            self.complete = .password(true)
+            self.complete = .success
         } else {
-            self.complete = .password(false)
-            error = .password("비밀번호가 일치하지 않습니다.")            
+            self.complete = .failure
+            error = .password("비밀번호가 일치하지 않습니다.")
         }
     }
     
@@ -85,6 +84,7 @@ class ChangePhonenumberViewModel: ViewModelable {
     }
     
     func sendVerificationNumber() {
+        self.complete = .loading
         guard case let .phoneNumber(string) = state else {
             print("phoneNumber의 값을 가져올 수 없습니다.")
             return
@@ -99,10 +99,11 @@ class ChangePhonenumberViewModel: ViewModelable {
                 if let error = error {
                     print("pushVerficationNumber Error: \(error.localizedDescription)")
                     self.error = .phoneNumber("휴대폰번호 형식이 잘못되었습니다.")
+                    self.complete = .failure
                     
                 } else {
                     print("SMS 전송 완료")
-                    complete = .phoneNumber(true)                    
+                    complete = .success
                 }
                 
                 if let verificationID = verificationID {
@@ -112,6 +113,7 @@ class ChangePhonenumberViewModel: ViewModelable {
     }
     
     func verifyCertificationNumber() {
+        self.complete = .loading
         let credential = PhoneAuthProvider.provider().credential(
             withVerificationID: self.verificationID,
             verificationCode: state.text
@@ -120,12 +122,13 @@ class ChangePhonenumberViewModel: ViewModelable {
         Auth.auth().signIn(with: credential) { [weak self] (success, error) in
             guard let self = self else { return }
             
-            if let err = error {
+            if let error = error {
                 self.error = .certiNumber("인증번호가 올바르지 않습니다.")
-                print("SMS 인증 실패: \(err.localizedDescription)")
+                self.complete = .failure
+                print("SMS 인증 실패: \(error.localizedDescription)")
                 
             } else {
-                self.complete = .certiNumber(true)
+                self.complete = .success
                 self.changePhoneNumber()
                 print("SMS 인증 성공")
                 
@@ -134,14 +137,16 @@ class ChangePhonenumberViewModel: ViewModelable {
     }
     
     func changePhoneNumber() {
+        self.complete = .loading
         Firestore.firestore().updateUserPhoneNumber(userID: UserManager.shared.uid, newPhoneNumber: newPhoneNumber)
                 .sink(receiveCompletion: { completion in
                     switch completion {
                     case .finished:
                         print("전화번호가 성공적으로 업데이트되었습니다.")
+                        self.complete = .success
                     case .failure(let error):
-                        print("uid: \(UserManager.shared.uid)")
                         print("전화번호 업데이트 중 오류가 발생했습니다: \(error.localizedDescription)")
+                        self.complete = .failure
                     }
                 }, receiveValue: { [weak self] _ in
                     guard let self = self else { return }
@@ -153,13 +158,13 @@ class ChangePhonenumberViewModel: ViewModelable {
     func setPasswordState() {
         state = .password("")
         error = .password("")
-        complete = .password(false)
+        complete = .failure
     }
         
     func setPhoneNumberState() {
         state = .phoneNumber("")
         error = .phoneNumber("")
-        complete = .phoneNumber(false)
+        complete = .failure
         self.verificationID = ""
         self.newPhoneNumber = ""
     }
@@ -167,7 +172,7 @@ class ChangePhonenumberViewModel: ViewModelable {
     func setCertiNumberState(_ id: String, _ phoneNumber: String) {
         state = .certiNumber("")
         error = .certiNumber("")
-        complete = .certiNumber(false)
+        complete = .failure
         self.verificationID = id
         self.newPhoneNumber = phoneNumber
     }
@@ -192,24 +197,10 @@ extension ChangePhonenumberViewModel.State {
     }
 }
 
-extension ChangePhonenumberViewModel.Complete {
-    var result: Bool {
-        get {
-            switch self {
-            case let .password(bool): return bool
-            case let .phoneNumber(bool): return bool
-            case let .certiNumber(bool): return bool
-            }
-        }
-        set {
-            switch self {
-            case .password: self = .password(newValue)
-            case .phoneNumber: self =  .phoneNumber(newValue)
-            case .certiNumber: self =  .certiNumber(newValue)
-            }
-        }
-    }
-}
+
+
+
+
 
 
 
