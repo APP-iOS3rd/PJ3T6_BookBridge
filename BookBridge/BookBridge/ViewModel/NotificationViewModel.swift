@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 class NotificationViewModel: ObservableObject { 
     @Published var notifications: [NotificationModel] = []
+    @Published var partnerImageUrl: String = ""
     
     var listener: ListenerRegistration?
     
@@ -19,10 +20,6 @@ class NotificationViewModel: ObservableObject {
 
 //MARK: 상대방 평가 기능
 extension NotificationViewModel {
-    // 현재 사용자의 UID를 가져오는 메서드
-    func getCurrentUserID() -> String? {
-        return Auth.auth().currentUser?.uid
-    }
     
     // 상대방 평가 시 정보 업데이트
     func updatePartnerReview(partnerId: String, reviewIndex: Int) {
@@ -84,6 +81,18 @@ extension NotificationViewModel {
                     return NotificationModel(userId: userId, noticeBoardId: noticeBoardId, partnerId: partnerId, noticeBoardTitle: noticeBoardTitle, nickname: nickname, date: date)
                 }
             }
+    }
+    
+    func getPartnerImageUrl(partnerId: String) {
+        let partnerDocumentRef = FirebaseManager.shared.firestore.collection("User").document(partnerId)
+        
+        partnerDocumentRef.getDocument { documentSnapshot, error in
+            guard let document = documentSnapshot else { return }
+            
+            DispatchQueue.main.async {
+                self.partnerImageUrl = document.data()?["profileURL"] as? String ?? ""
+            }
+        }
     }
 }
 

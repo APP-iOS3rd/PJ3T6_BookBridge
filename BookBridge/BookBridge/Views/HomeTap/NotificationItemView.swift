@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NotificationItemVIew: View {
+struct NotificationItemView: View {
     var notificationModel: NotificationModel
     
     var body: some View {
@@ -20,11 +20,30 @@ struct NotificationItemVIew: View {
                         Circle().stroke(Color(hex: "D9D9D9"), lineWidth: 1)
                     )
                 
-            VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading, spacing: 10) {
+                HStack {
+                    Text("\(notificationModel.noticeBoardTitle)")
+                        .foregroundColor(.black)
+                        .bold()
+                    Text("게시물 평가알림")
+                        .foregroundColor(.black)
+                }
+         
                 HStack(alignment: .top, spacing: 1) {
-                    Text("\(notificationModel.nickname)")
+                    Text("\"\(notificationModel.nickname)\"".useNonBreakingSpace())
+                        .foregroundColor(.black)
+                        .font(.system(size: 15))
                         .bold() +
-                    Text("님이 \"\(notificationModel.noticeBoardTitle)\"에 대한 교환완료 평가를 남겼어요.")
+                    Text("님이 해당 교환에 대해 ".useNonBreakingSpace())
+                        .foregroundColor(.black)
+                        .font(.system(size: 15)) +
+                    Text("\"불물우룽만족해요\"".useNonBreakingSpace())
+                        .foregroundColor(.blue)
+                        .font(.system(size: 15))
+                        .bold() +
+                    Text(" 평가를 남겼어요.".useNonBreakingSpace())
+                        .foregroundColor(.black)
+                        .font(.system(size: 15))
                 }
                 .multilineTextAlignment(.leading)
                 
@@ -36,3 +55,9 @@ struct NotificationItemVIew: View {
     }
 }
 
+//양쪽 정렬
+extension String {
+    func useNonBreakingSpace() -> String {
+        return self.replacingOccurrences(of: " ", with: "\u{202F}\u{202F}")
+    }
+}

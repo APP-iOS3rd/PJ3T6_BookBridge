@@ -110,10 +110,10 @@ struct ExchangeReview: View {
                     notificationViewModel.updatePartnerReview(partnerId: chatRoomPartner.partnerId, reviewIndex: 1)
                 } else if isUnsatisfied {
                     notificationViewModel.updatePartnerReview(partnerId: chatRoomPartner.partnerId, reviewIndex: 2)
-                }
+                } else { return }
                 
                 // 알림 정보를 Firebase에 저장
-                let notification = NotificationModel(userId: chatRoomPartner.partnerId, noticeBoardId: chatMessageViewModel.noticeBoardInfo.id, partnerId: notificationViewModel.getCurrentUserID() ?? "", noticeBoardTitle: chatMessageViewModel.noticeBoardInfo.noticeBoardTitle, nickname: UserManager.shared.user?.nickname ?? "", date: Date())
+                let notification = NotificationModel(userId: chatRoomPartner.partnerId, noticeBoardId: chatMessageViewModel.noticeBoardInfo.id, partnerId: UserManager.shared.uid, noticeBoardTitle: chatMessageViewModel.noticeBoardInfo.noticeBoardTitle, nickname: UserManager.shared.user?.nickname ?? "", date: Date())
                 
                 notificationViewModel.saveNotification(notification: notification)
                 

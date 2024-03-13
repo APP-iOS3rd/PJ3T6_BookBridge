@@ -11,44 +11,60 @@ struct NotificationView: View {
     @Environment(\.dismiss) var dismiss
     
     @EnvironmentObject private var pathModel: TabPathViewModel
-    @StateObject var notificationViewModel: NotificationViewModel
-    @StateObject var viewModel: ChatMessageViewModel
+    @StateObject var notificationViewModel = NotificationViewModel()
+    @StateObject var viewModel = ChatMessageViewModel()
     @State private var showExchangeReview = false
-    
-    var chatRoomPartner: ChatPartnerModel
+    @State var selectedPartner: ChatPartnerModel?
     
     var body: some View {
-           List {
-               ForEach(notificationViewModel.notifications) { notification in
-                   Button {
-                       showExchangeReview = true
-                   } label: {
-                       VStack{
-                           NotificationItemVIew(notificationModel: notification)
-                       }
-                   }
-                   
-               }
-           }
-           .navigationTitle("알림")
-           .navigationBarTitleDisplayMode(.inline)
-           .listStyle(.plain)
-           .toolbar {
-               ToolbarItem(placement: .topBarLeading) {
-                   Button {
-                       dismiss()
-                   } label: {
-                       Image(systemName: "chevron.left")
-                           .foregroundStyle(.black)
-                   }
-               }
-           }
-           .onAppear {
-               // 실시간 알림 감지 시작
-               notificationViewModel.startNotificationListener()
-           }
-           .fullScreenCover(isPresented: $showExchangeReview) {
-               ExchangeReview(notificationViewModel: notificationViewModel, chatMessageViewModel: viewModel, chatRoomPartner: chatRoomPartner)
-           }
-       }
-   }
+        List {
+            ForEach(notificationViewModel.notifications) { notification in
+                Button {
+                    self.selectedPartner = ChatPartnerModel(
+                        nickname: notification.nickname,
+                        noticeBoardId: notification.noticeBoardId,
+                        partnerId: notification.partnerId,
+                        partnerImage: UIImage(named: "DefaultImage")!,
+                        partnerImageUrl: notificationViewModel.partnerImageUrl,
+                        reviews: [0, 0, 0],
+                        style: "칭호 미아"
+                    )
+                    print("Showing ExchangeReview")
+                    self.showExchangeReview = true
+                }
+                label: {
+                    VStack{
+                        NotificationItemView(notificationModel: notification)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                }
+            }
+        }
+        .navigationTitle("알림")
+        .navigationBarTitleDisplayMode(.inline)
+        .listStyle(.plain)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.left")
+                        .foregroundStyle(.black)
+                }
+            }
+        }
+        .onAppear {
+            // 실시간 알림 감지 시작
+            notificationViewModel.startNotificationListener()
+        }
+        .sheet(isPresented: $showExchangeReview) {
+            // 옵셔널 바인딩을 사용하여 selectedPartner가 nil이 아닌 경우에만 ExchangeReview를 표시
+            if let partner = selectedPartner {
+                ExchangeReview(notificationViewModel: notificationViewModel, chatMessageViewModel: viewModel, chatRoomPartner: partner)
+                    .onAppear {
+                        notificationViewModel.getPartnerImageUrl(partnerId: selectedPartner?.partnerId ?? "")
+                    }
+            }
+        }
+    }
+}

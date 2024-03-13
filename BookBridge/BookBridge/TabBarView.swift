@@ -92,7 +92,7 @@ struct TabBarView: View {
                         }
                         .toolbarBackground(.visible, for: .tabBar)
                     }
-                    .navigationDestination(for: TabPathType.self){pathType in
+                    .navigationDestination(for: TabPathType.self) { pathType in
                         switch pathType {
                         case let .mypage(other):
                             MyPageView(selectedTab: $selectedTab, otherUser: other)
@@ -122,13 +122,6 @@ struct TabBarView: View {
                             
                         case let .report(ischat):
                             ReportView(ischat: ischat)
-                            
-                        case let .alarm(chatRoomPartner):
-                            let notificationViewModel = NotificationViewModel() // NotificationViewModel 생성
-                            let viewModel = ChatMessageViewModel()
-                            NotificationView(notificationViewModel: notificationViewModel, viewModel: viewModel, chatRoomPartner: chatRoomPartner)
-                                .navigationBarBackButtonHidden()
-                            
                         }
                         
                     }
