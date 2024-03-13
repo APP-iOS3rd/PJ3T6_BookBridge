@@ -237,7 +237,7 @@ struct ChatMessageView: View {
                 }
             }
             
-            if viewModel.saveChatRoomId != "" {
+            if !viewModel.chatMessages.isEmpty {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         withAnimation(.easeIn(duration: 0.2)) {

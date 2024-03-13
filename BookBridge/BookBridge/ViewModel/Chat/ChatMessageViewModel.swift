@@ -306,6 +306,27 @@ extension ChatMessageViewModel {
         
         completion()
     }
+    
+    // 나갔다가 다시 보내는 경우(상대방이 chatId가 있음)
+    func handleNoChatRoom(uid: String, partnerId: String, chatRoomListId: String, completion: () -> ()) {
+        let timestamp = Date()
+        
+        let query1 = FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").document(chatRoomListId)
+        
+        query1.setData([
+            "date": timestamp,
+            "id": chatRoomListId,
+            "isAlarm": true,
+            "newCount": 0,
+            "noticeBoardId": noticeBoardInfo.id,
+            "noticeBoardTitle": noticeBoardInfo.noticeBoardTitle,
+            "partnerId": partnerId,
+            "recentMessage": "",
+            "userId": uid
+        ])
+        
+        completion()
+    }
 }
 
 //MARK: 메시지 전송 (Image)

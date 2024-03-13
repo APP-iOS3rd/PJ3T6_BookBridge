@@ -77,7 +77,7 @@ extension PostViewModel {
         
         guard reviews.count == 3 else { return -1 }
         
-        if reviews[0] == 0 && reviews[1] == 0 && reviews[2] == 0{
+        if reviews[0] == 0 && reviews[1] == 0 && reviews[2] == 0 {
             return -1
         } else {
             return Int((Double(reviews[0] * 3)) / Double(((reviews[0] * 3) + (reviews[1] * 2) + (reviews[2] * 1))) * 100)
@@ -385,6 +385,25 @@ extension PostViewModel {
                     completion(false, true, "")
                 }
             }
+    }
+    
+    //사용자는 채팅방을 나갔는데 상대방은 있는 경우 채팅방 ID 가져오기
+    func getOutChatRoomId(noticeBoardId: String, completion: @escaping(String) -> ()) {
+        if user.id != "" {
+            db.collection("User").document(user.id ?? "")
+                .collection("chatRoomList").whereField("noticeBoardId", isEqualTo: noticeBoardId).whereField("partnerId", isEqualTo: UserManager.shared.uid).getDocuments { querySnapshot, error in
+                    guard error == nil else { return }
+                    guard let documents = querySnapshot else { return }
+                    
+                    if !documents.isEmpty {
+                        for document in documents.documents {
+                            completion(document.documentID)
+                        }
+                    } else {
+                        completion(self.userChatRoomId)
+                    }
+                }
+        }
     }
 }
 
