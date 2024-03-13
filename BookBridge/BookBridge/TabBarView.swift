@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TabBarView: View {
+    @EnvironmentObject var appState: PushChatRoomRouteManager // 상태 관찰 및 뷰 전
     @StateObject private var userManager = UserManager.shared
     @StateObject private var pathModel = TabPathViewModel()
     @State var selectedTab = 0
@@ -124,6 +125,9 @@ struct TabBarView: View {
                                 
                             case let .report(ischat):
                                 ReportView(ischat: ischat)
+                              
+                            case let .noticeboard(naviTitel, noticeBoardArray, sortType):
+                                NoticeBoardView(selectedTab: $selectedTab, naviTitle: naviTitel, noticeBoardArray: noticeBoardArray, sortTypes: sortType)
                             }
                         }
                         .background(Color.white.onTapGesture {
@@ -166,6 +170,13 @@ struct TabBarView: View {
                     previousTab = newTab
                 }
             }
+        }
+        .onChange(of: appState.message){ _ in
+            selectedTab = 1
+            appState.isShowingChatMessageView = true
+        }
+        .onDisappear{
+            appState.isShowingChatMessageView = false
         }
         .sheet(isPresented: $showingLoginView, onDismiss: {
             if !userManager.isLogin {

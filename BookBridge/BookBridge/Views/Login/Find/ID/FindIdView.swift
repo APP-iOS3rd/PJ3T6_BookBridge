@@ -32,18 +32,19 @@ struct FindIdView: View {
                 Text("가입 당시의 휴대폰번호를 알려주세요")
                     .foregroundStyle(Color(hex: "#848787"))
                     .font(.system(size: 15, weight: .regular))
-                                
+                
                 
                 Spacer()
                     .frame(height: 80)
-                    
-                                        
+                
+                
                 FindIdInputView(
                     findIdVM: viewModel,
                     isFocused: $isFocused,
                     type: .phone,
                     placeholder: "-없이 입력해 주세요"
                 )
+                
                 
                            
                 Spacer()

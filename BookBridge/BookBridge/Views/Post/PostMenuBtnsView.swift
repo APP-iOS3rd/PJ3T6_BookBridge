@@ -22,7 +22,6 @@ struct PostMenuBtnsView: View {
         VStack {
             HStack {
                 Spacer()
-                
                 VStack {
                     if isPresented {
                         if UserManager.shared.uid != noticeBoard.userId {
@@ -39,10 +38,6 @@ struct PostMenuBtnsView: View {
                             
                             Divider()
                                 .padding(1)
-                            
-//                            NavigationLink {
-//                                ReportView()
-//                            }
                             
                             Button {
                                 pathModel.paths.append(.report(ischat: false))
@@ -94,6 +89,7 @@ struct PostMenuBtnsView: View {
                         .foregroundColor(Color(uiColor: .systemGray6))
                 )
                 .padding(.trailing)
+                .padding(.top, noticeBoard.isChange ? 100 : 0)
                 .alert("게시물을 삭제하시겠습니까?", isPresented: $showingDeleteAlert, actions: {
                     Button("삭제", role: .destructive) {
                         postViewModel.deletePost(noticeBoardId: noticeBoard.id)
