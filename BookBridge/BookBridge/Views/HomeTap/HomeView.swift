@@ -18,11 +18,11 @@ struct HomeView: View {
     @State private var showingLoginView = false
     @State private var showingTownSettingView = false
     @State private var offsetY: CGFloat = 0
+    
         
     @Namespace private var animation
         
-    var body: some View {
-        
+    var body: some View {        
         VStack {
             HStack {
                 Button {
@@ -37,6 +37,8 @@ struct HomeView: View {
                     HStack{
                         Text(userManager.isLogin ? userManager.currentDong : locationManager.dong)
                         Image(systemName: "chevron.down")
+                        
+                        Spacer()                                                  
                     }
                     .padding(.leading, 20)
                     .foregroundStyle(.black)
@@ -78,6 +80,13 @@ struct HomeView: View {
             print("데이터 변화 감지")
             viewModel.updateNoticeBoards()
         }
+        .toolbar() {
+            ToolbarItem(placement: .topBarTrailing) {
+               
+            }
+        }
+        
+        
     }
     
     

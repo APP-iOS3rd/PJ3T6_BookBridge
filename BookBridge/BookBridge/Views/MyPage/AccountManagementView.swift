@@ -79,6 +79,26 @@ struct AccountManagementView: View {
             }
             
             NavigationLink {
+                ConfirmPasswordView()
+            } label: {
+                HStack {
+                    Text("전화번호 변경")
+                        .padding(.vertical, 10)
+                        .font(.system(size: 17))
+                        .foregroundStyle(.black)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 17))
+                        .foregroundStyle(Color(hex: "3C3C43"))
+                }
+                .background(
+                    RoundedRectangle(cornerRadius: 0)
+                        .foregroundColor(.white)
+                        .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
+                )
+            }
+            
+            NavigationLink {
                 //유저 아이디에 사용자 아이디 넣기, 유저 스타일에 사용자 대표 칭호 넣기
                 StyleSettingView(userId: viewModel.userManager.uid, userStyle: viewModel.userManager.user?.style ?? "")
             } label: {
@@ -97,7 +117,7 @@ struct AccountManagementView: View {
                         .foregroundColor(.white)
                         .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
                 )
-            }
+            } 
         }
     }
 }

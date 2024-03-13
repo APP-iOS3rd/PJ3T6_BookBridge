@@ -18,7 +18,6 @@
 		1D71C6C72B6C8D4400EEC95D /* WishBookAddBtnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D71C6C62B6C8D4400EEC95D /* WishBookAddBtnView.swift */; };
 		1D84019B2B6779CB00ADEEB5 /* IdLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D84019A2B6779CB00ADEEB5 /* IdLoginView.swift */; };
 		1D84019E2B677B3B00ADEEB5 /* IdLoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D84019D2B677B3B00ADEEB5 /* IdLoginViewModel.swift */; };
-		1DA6E06C2B68D9EB00D631D5 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6E06B2B68D9EB00D631D5 /* ChangePasswordView.swift */; };
 		1DA6E06E2B68E2EA00D631D5 /* FindIdResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DA6E06D2B68E2EA00D631D5 /* FindIdResultView.swift */; };
 		1DB39DBA2B6B57B100C1B489 /* BookShelfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DB92B6B57B100C1B489 /* BookShelfView.swift */; };
 		1DB39DBC2B6B57F100C1B489 /* BookShelfViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */; };
@@ -43,6 +42,11 @@
 		5A1A168E2B6228290063D408 /* GoogleLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A168D2B6228290063D408 /* GoogleLoginView.swift */; };
 		5A1A16942B622BB10063D408 /* GoogleLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A16932B622BB10063D408 /* GoogleLoginViewController.swift */; };
 		5A1A16962B6231870063D408 /* GoogleAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1A16952B6231870063D408 /* GoogleAuthManager.swift */; };
+		5A1E27532B9EDB390054EAF9 /* ChangeStandardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1E27522B9EDB390054EAF9 /* ChangeStandardView.swift */; };
+		5A1E27562B9EDEF30054EAF9 /* ChangePhonenumberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1E27552B9EDEF30054EAF9 /* ChangePhonenumberViewModel.swift */; };
+		5A1E27582B9EE0EA0054EAF9 /* ViewModelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1E27572B9EE0EA0054EAF9 /* ViewModelable.swift */; };
+		5A1E275A2B9F0ACC0054EAF9 /* ConfirmPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1E27592B9F0ACC0054EAF9 /* ConfirmPasswordView.swift */; };
+		5A1E275C2B9F0C3A0054EAF9 /* ChangePhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1E275B2B9F0C3A0054EAF9 /* ChangePhoneNumberView.swift */; };
 		5A2CC1182B71C230000A8776 /* TownSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2CC1172B71C230000A8776 /* TownSettingView.swift */; };
 		5A2DE0972B6884BE00EF3A6B /* EmailCertiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2DE0962B6884BE00EF3A6B /* EmailCertiView.swift */; };
 		5A2DE09A2B68915200EF3A6B /* SignUpInputer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A2DE0992B68915200EF3A6B /* SignUpInputer.swift */; };
@@ -128,6 +132,8 @@
 		5ADE79E62B6B565F005BB3ED /* SignUpInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E52B6B565F005BB3ED /* SignUpInputView.swift */; };
 		5ADE79E82B6B5963005BB3ED /* StatusTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E72B6B5963005BB3ED /* StatusTextView.swift */; };
 		5ADE79EA2B6B6715005BB3ED /* SignUpInputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */; };
+		5AF850952BA023EA00D339D3 /* ConfirmPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF850942BA023EA00D339D3 /* ConfirmPhoneNumberView.swift */; };
+		5AF850972BA046A900D339D3 /* FirestoreExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF850962BA046A900D339D3 /* FirestoreExtension.swift */; };
 		5C5AB9712B85977200AD90A2 /* FCMTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5AB9702B85977200AD90A2 /* FCMTokenManager.swift */; };
 		5C6094A62B8DD8F3005E94EA /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6094A52B8DD8F3005E94EA /* SettingViewModel.swift */; };
 		5C85D1672B7C45130065940D /* ReportCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C85D1662B7C45130065940D /* ReportCellView.swift */; };
@@ -267,7 +273,6 @@
 		1D71C6C62B6C8D4400EEC95D /* WishBookAddBtnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishBookAddBtnView.swift; sourceTree = "<group>"; };
 		1D84019A2B6779CB00ADEEB5 /* IdLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdLoginView.swift; sourceTree = "<group>"; };
 		1D84019D2B677B3B00ADEEB5 /* IdLoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdLoginViewModel.swift; sourceTree = "<group>"; };
-		1DA6E06B2B68D9EB00D631D5 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		1DA6E06D2B68E2EA00D631D5 /* FindIdResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdResultView.swift; sourceTree = "<group>"; };
 		1DB39DB92B6B57B100C1B489 /* BookShelfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfView.swift; sourceTree = "<group>"; };
 		1DB39DBB2B6B57F100C1B489 /* BookShelfViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfViewModel.swift; sourceTree = "<group>"; };
@@ -294,6 +299,11 @@
 		5A1A168F2B62285A0063D408 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A1A16932B622BB10063D408 /* GoogleLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleLoginViewController.swift; sourceTree = "<group>"; };
 		5A1A16952B6231870063D408 /* GoogleAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthManager.swift; sourceTree = "<group>"; };
+		5A1E27522B9EDB390054EAF9 /* ChangeStandardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChangeStandardView.swift; path = "../New Group/ChangeStandardView.swift"; sourceTree = "<group>"; };
+		5A1E27552B9EDEF30054EAF9 /* ChangePhonenumberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePhonenumberViewModel.swift; sourceTree = "<group>"; };
+		5A1E27572B9EE0EA0054EAF9 /* ViewModelable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelable.swift; sourceTree = "<group>"; };
+		5A1E27592B9F0ACC0054EAF9 /* ConfirmPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPasswordView.swift; sourceTree = "<group>"; };
+		5A1E275B2B9F0C3A0054EAF9 /* ChangePhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePhoneNumberView.swift; sourceTree = "<group>"; };
 		5A2CC1172B71C230000A8776 /* TownSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TownSettingView.swift; sourceTree = "<group>"; };
 		5A2DE0962B6884BE00EF3A6B /* EmailCertiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailCertiView.swift; sourceTree = "<group>"; };
 		5A2DE0992B68915200EF3A6B /* SignUpInputer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputer.swift; sourceTree = "<group>"; };
@@ -380,6 +390,8 @@
 		5ADE79E52B6B565F005BB3ED /* SignUpInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputView.swift; sourceTree = "<group>"; };
 		5ADE79E72B6B5963005BB3ED /* StatusTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusTextView.swift; sourceTree = "<group>"; };
 		5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputManager.swift; sourceTree = "<group>"; };
+		5AF850942BA023EA00D339D3 /* ConfirmPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPhoneNumberView.swift; sourceTree = "<group>"; };
+		5AF850962BA046A900D339D3 /* FirestoreExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreExtension.swift; sourceTree = "<group>"; };
 		5C5AB9702B85977200AD90A2 /* FCMTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenManager.swift; sourceTree = "<group>"; };
 		5C6094A52B8DD8F3005E94EA /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		5C85D1662B7C45130065940D /* ReportCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportCellView.swift; sourceTree = "<group>"; };
@@ -542,7 +554,6 @@
 				1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */,
 				5AA1BBF62B99BFDD00928A67 /* FindPasswordResultView.swift */,
 				5AA1BBF22B99AE1500928A67 /* FindPasswordInputView.swift */,
-				1DA6E06B2B68D9EB00D631D5 /* ChangePasswordView.swift */,
 			);
 			path = Password;
 			sourceTree = "<group>";
@@ -592,6 +603,7 @@
 				5A0BBB072B97400500FF2F02 /* FirestoreFindable.swift */,
 				5A0BBB0E2B984CD500FF2F02 /* FirebaseAuth.swift */,
 				5AA1BBEA2B99864400928A67 /* Changable.swift */,
+				5A1E27572B9EE0EA0054EAF9 /* ViewModelable.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -624,6 +636,17 @@
 				5C8C0DD92B734BE0002963F1 /* NaverLocationService.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		5A1E27542B9EDB6C0054EAF9 /* ChangePhoneNumber */ = {
+			isa = PBXGroup;
+			children = (
+				5A1E27592B9F0ACC0054EAF9 /* ConfirmPasswordView.swift */,
+				5A1E275B2B9F0C3A0054EAF9 /* ChangePhoneNumberView.swift */,
+				5A1E27522B9EDB390054EAF9 /* ChangeStandardView.swift */,
+				5AF850942BA023EA00D339D3 /* ConfirmPhoneNumberView.swift */,
+			);
+			path = ChangePhoneNumber;
 			sourceTree = "<group>";
 		};
 		5A3380752B8752360038F2DE /* Storage */ = {
@@ -930,6 +953,7 @@
 				91B359442B883C4D00CD7778 /* HideKeyboardExtension.swift */,
 				5AA0A1CF2B9598B100317831 /* UIColorExtension.swift */,
 				5AA1BBFA2B99CD7A00928A67 /* ViewExtension.swift */,
+				5AF850962BA046A900D339D3 /* FirestoreExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -938,6 +962,7 @@
 			isa = PBXGroup;
 			children = (
 				5C6094A52B8DD8F3005E94EA /* SettingViewModel.swift */,
+				5A1E27552B9EDEF30054EAF9 /* ChangePhonenumberViewModel.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -989,6 +1014,7 @@
 		73441F992B733C8900446E0F /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				5A1E27542B9EDB6C0054EAF9 /* ChangePhoneNumber */,
 				73441F9A2B733CC200446E0F /* MyPageView.swift */,
 				73441F9C2B733CD000446E0F /* ReviewScoreView.swift */,
 				73441F9E2B733CE500446E0F /* MyPostView.swift */,
@@ -1513,6 +1539,7 @@
 				73441F9D2B733CD000446E0F /* ReviewScoreView.swift in Sources */,
 				739058AD2B84DB3300CA9711 /* SelectPostingView.swift in Sources */,
 				91D7CAF12B82F76D00F7CFF8 /* SwipeBackExtension.swift in Sources */,
+				5AF850972BA046A900D339D3 /* FirestoreExtension.swift in Sources */,
 				5AA0A1D02B9598B200317831 /* UIColorExtension.swift in Sources */,
 				5C8C0E362B7B298C002963F1 /* ReportDetailView.swift in Sources */,
 				5A3A442A2B6CDB8A00B66C81 /* KeychainManager.swift in Sources */,
@@ -1528,7 +1555,6 @@
 				91B7F0B02B70DE8800B4C475 /* ChatMessageModel.swift in Sources */,
 				F64B7EF92B8324DA008AB919 /* FindPostingModifyView.swift in Sources */,
 				5AA1BBFD2B99EA8500928A67 /* CustomTextField.swift in Sources */,
-				1DA6E06C2B68D9EB00D631D5 /* ChangePasswordView.swift in Sources */,
 				5A3380682B87212A0038F2DE /* PostImageView.swift in Sources */,
 				5A33806A2B8721E10038F2DE /* PostUserInfoView.swift in Sources */,
 				73C962AB2B68C4D800D34D3F /* SearchBooksViewModel.swift in Sources */,
@@ -1549,12 +1575,14 @@
 				73718A052B887B8800C20798 /* MyProfileToolbarItemView.swift in Sources */,
 				5CD606442B7DAABF00AC53DD /* PostMapDetailView.swift in Sources */,
 				736127092B6B82B400943CD7 /* ImageScrollView.swift in Sources */,
+				5AF850952BA023EA00D339D3 /* ConfirmPhoneNumberView.swift in Sources */,
 				73441FA52B733DAF00446E0F /* AlarmSettingView.swift in Sources */,
 				5ADE79DA2B6B2C99005BB3ED /* CertiResult.swift in Sources */,
 				5ADE79E62B6B565F005BB3ED /* SignUpInputView.swift in Sources */,
 				73441FAD2B733E2200446E0F /* StyleListView.swift in Sources */,
 				5A9A33852B628D9E00982E92 /* GoogleSignManager.swift in Sources */,
 				5A0BBB082B97400500FF2F02 /* FirestoreFindable.swift in Sources */,
+				5A1E27562B9EDEF30054EAF9 /* ChangePhonenumberViewModel.swift in Sources */,
 				5A3A440F2B6C741200B66C81 /* InputTextFieldStyle.swift in Sources */,
 				73718A012B8879F800C20798 /* MyProfileNicknameView.swift in Sources */,
 				911B4C8B2B74A4AF00801CFF /* FirebaseConstants.swift in Sources */,
@@ -1578,6 +1606,7 @@
 				5C8C0DDE2B734CBA002963F1 /* ExchangeHopeView.swift in Sources */,
 				5ADE79DE2B6B3305005BB3ED /* GoogleAuthModel.swift in Sources */,
 				5A83458A2B749DEA000984C4 /* TownSelectButtonView.swift in Sources */,
+				5A1E275C2B9F0C3A0054EAF9 /* ChangePhoneNumberView.swift in Sources */,
 				5AA1BBEF2B9996BA00928A67 /* FindIdInputView.swift in Sources */,
 				5ADE79E22B6B34D0005BB3ED /* GoogleAuthViewModel.swift in Sources */,
 				5A3A44192B6C77A300B66C81 /* PwdConfirmError.swift in Sources */,
@@ -1617,6 +1646,7 @@
 				1DE382A72B734E74009A7A15 /* HomeRecentSearchView.swift in Sources */,
 				915FD1DA2B7C403D0008C38B /* ChatRoomListModel.swift in Sources */,
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
+				5A1E27532B9EDB390054EAF9 /* ChangeStandardView.swift in Sources */,
 				1D28D8032B98538100C09EB9 /* TabPathViewModel.swift in Sources */,
 				73D077E42B7C7FC90007DDEB /* RoomListView.swift in Sources */,
 				73DDA5E12B6A34A500B25FB8 /* SearchResultView.swift in Sources */,
@@ -1644,6 +1674,7 @@
 				1DA6E06E2B68E2EA00D631D5 /* FindIdResultView.swift in Sources */,
 				5AA97F892B70BCF000EF4081 /* BundleExtension.swift in Sources */,
 				73441F9B2B733CC200446E0F /* MyPageView.swift in Sources */,
+				5A1E275A2B9F0ACC0054EAF9 /* ConfirmPasswordView.swift in Sources */,
 				1DF1CF7F2B7DD6E4008870FB /* PostPathViewModel.swift in Sources */,
 				738EDAA32B71ECA80066ADE7 /* HomeListItemView.swift in Sources */,
 				5A3A44152B6C778200B66C81 /* SignUpInputType.swift in Sources */,
@@ -1658,6 +1689,7 @@
 				73D077EC2B7CA0330007DDEB /* MessageItemView.swift in Sources */,
 				5C8C0E322B7B2934002963F1 /* ReportView.swift in Sources */,
 				5A8345852B746741000984C4 /* ConvertManager.swift in Sources */,
+				5A1E27582B9EE0EA0054EAF9 /* ViewModelable.swift in Sources */,
 				F623A51D2B68C01E00B5C159 /* NoticeBoardModel.swift in Sources */,
 				1DB39DBA2B6B57B100C1B489 /* BookShelfView.swift in Sources */,
 				F623A51D2B68C01E00B5C159 /* NoticeBoardModel.swift in Sources */,
