@@ -12,6 +12,11 @@ struct AccountManagementView: View {
 
     @StateObject var viewModel: MyPageViewModel
     
+    @State private var isPassword: Bool = false
+    @State private var isPhone: Bool = false
+    @State private var showPasswordView: Bool = false
+    @State private var showPhoneView: Bool = false
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("계정 관리")
@@ -19,7 +24,7 @@ struct AccountManagementView: View {
                 .padding(.bottom, 10)
             
             NavigationLink {
-                MyProfileView(nickname: viewModel.userManager.user?.nickname ?? "", password: viewModel.userManager.user?.password ?? "", userSaveImage: viewModel.userSaveImage)
+                MyProfileView(nickname: viewModel.userManager.user?.nickname ?? "", userSaveImage: viewModel.userSaveImage)
             } label: {
                 HStack {
                     Text("프로필")
@@ -37,6 +42,68 @@ struct AccountManagementView: View {
                         .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
                 )
             }
+            
+            Button {
+                if UserManager.shared.user?.password == "" {
+                    isPassword.toggle()
+                } else {
+                    showPasswordView.toggle()
+                }
+            } label: {
+                HStack {
+                    Text("비밀번호 변경")
+                        .padding(.vertical, 10)
+                        .font(.system(size: 17))
+                        .foregroundStyle(.black)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 17))
+                        .foregroundStyle(Color(hex: "3C3C43"))
+                }
+                .background(
+                    RoundedRectangle(cornerRadius: 0)
+                        .foregroundColor(.white)
+                        .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
+                )
+            }
+            .alert("SNS 로그인은 비밀번호를 변경할 수 없습니다.", isPresented: $isPassword, actions: {
+                Button("확인", role: .cancel) {
+                    isPassword.toggle()
+                }
+            }, message: {
+                
+            })
+            
+            Button {
+                if UserManager.shared.user?.phoneNumber == "" {
+                    isPhone.toggle()
+                } else {
+                    showPhoneView.toggle()
+                }
+            } label: {
+                HStack {
+                    Text("전화번호 변경")
+                        .padding(.vertical, 10)
+                        .font(.system(size: 17))
+                        .foregroundStyle(.black)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 17))
+                        .foregroundStyle(Color(hex: "3C3C43"))
+                }
+                .background(
+                    RoundedRectangle(cornerRadius: 0)
+                        .foregroundColor(.white)
+                        .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
+                )
+            }
+            .alert("SNS 로그인은 전화번호를 변경할 수 없습니다.", isPresented: $isPhone, actions: {
+                Button("확인", role: .cancel) {
+                    isPassword.toggle()
+                }
+            }, message: {
+                
+            })
             
             NavigationLink {                //관심목록 경로가 아직없음
                 NoticeBoardView(selectedTab: $selectedTab, naviTitle: "관심목록", noticeBoardArray: viewModel.userBookMarks, sortTypes: ["전체", "진행중", "예약중", "교환완료"])
@@ -98,6 +165,13 @@ struct AccountManagementView: View {
                         .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
                 )
             }
+        }
+        .navigationDestination(isPresented: $showPasswordView) {
+            MyProfilePasswordView()
+        }
+        .navigationDestination(isPresented: $showPhoneView) {
+            //TODO: 민호님 전화번호 변경 넣는곳
+            EmptyView()
         }
     }
 }
