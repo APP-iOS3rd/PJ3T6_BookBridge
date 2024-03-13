@@ -11,6 +11,7 @@ import FirebaseStorage
 struct HomeView: View {
     
     @StateObject var viewModel = HomeViewModel()
+    @StateObject var notificationViewModel = NotificationViewModel()
     @StateObject var userManager = UserManager.shared
     @StateObject var locationManager = LocationManager.shared
     @EnvironmentObject private var pathModel: TabPathViewModel
@@ -48,20 +49,24 @@ struct HomeView: View {
                 NavigationLink {
                     NotificationView()
                         .navigationBarBackButtonHidden()
+                        .onDisappear {
+                            notificationViewModel.isShowNotificationBadge = false
+                        }
                 } label: {
-                    ZStack{
+                    ZStack {
                         Image(systemName: "bell")
                             .font(.system(size: 20))
                             .foregroundStyle(.black)
                             .padding()
-                        Circle()
-                            .foregroundColor(.red)
-                            .frame(width: 8, height: 8)
-                            .offset(x: 5, y: -10)
+                        if notificationViewModel.isShowNotificationBadge {
+                            Circle()
+                                .foregroundColor(.red)
+                                .frame(width: 8, height: 8)
+                                .offset(x: 5, y: -10)
+                        }
                     }
                 }
             }
-            
             tapAnimation()
             
             HomeTapView(viewModel: viewModel, tapCategory: $selectedPicker)
@@ -70,6 +75,7 @@ struct HomeView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 viewModel.updateNoticeBoards()
             }
+            notificationViewModel.displayBadge()
         }
         
         .sheet(isPresented: $showingLoginView) {

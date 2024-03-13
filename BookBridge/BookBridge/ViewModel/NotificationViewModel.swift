@@ -12,6 +12,8 @@ import FirebaseFirestore
 class NotificationViewModel: ObservableObject { 
     @Published var notifications: [NotificationModel] = []
     @Published var partnerImageUrl: String = ""
+    @Published var isShowNotificationBadge: Bool = false
+    @Published var isBadgeDisplayed: Bool = false
     
     var listener: ListenerRegistration?
     
@@ -77,12 +79,24 @@ extension NotificationViewModel {
                     let noticeBoardTitle = data["noticeBoardTitle"] as? String ?? ""
                     let nickname = data["nickname"] as? String ?? ""
                     let timestamp = data["date"] as? Timestamp
+                    let review = data["review"] as? String ?? ""
                     let date = timestamp?.dateValue() ?? Date()
-                    
-                    return NotificationModel(userId: userId, noticeBoardId: noticeBoardId, partnerId: partnerId, partnerImageUrl: partnerImageUrl, noticeBoardTitle: noticeBoardTitle, nickname: nickname, date: date)
+
+                    self.isShowNotificationBadge = true
+
+                    return NotificationModel(userId: userId, noticeBoardId: noticeBoardId, partnerId: partnerId, partnerImageUrl: partnerImageUrl, noticeBoardTitle: noticeBoardTitle, nickname: nickname, review: review, date: date)
                 }
             }
     }
+    
+    // 실시간 배지 호출
+    func displayBadge() {
+       if !isBadgeDisplayed {
+           isShowNotificationBadge = true
+           isBadgeDisplayed = true
+           startNotificationListener() // 호출 위치 변경
+       }
+   }
     
     func getPartnerImageUrl(partnerId: String) {
         let partnerDocumentRef = FirebaseManager.shared.firestore.collection("User").document(partnerId)

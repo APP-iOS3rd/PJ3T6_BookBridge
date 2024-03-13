@@ -16,6 +16,7 @@ struct NotificationModel: Identifiable, Hashable, Codable {
     var partnerImageUrl: String                 //상대방 ImageURl
     var noticeBoardTitle: String                //게시물 제목
     var nickname: String                        //상대방 닉네임
+    var review: String                          //만족도
     var date: Date                              //알림 시간
     
     var timeAgo: String {
