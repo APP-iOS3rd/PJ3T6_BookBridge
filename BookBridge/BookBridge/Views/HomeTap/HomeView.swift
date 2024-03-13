@@ -49,16 +49,15 @@ struct HomeView: View {
                     NotificationView()
                         .navigationBarBackButtonHidden()
                 } label: {
-                    ZStack {
-                        VStack(alignment: .trailing, spacing: 1) {
-                            Circle()
-                                .fill(Color.red)
-                                .frame(width: 5, height: 5)
-                            Image(systemName: "bell")
-                                .font(.system(size: 20))
-                                .foregroundStyle(.black)
-                                .padding()
-                        }
+                    ZStack{
+                        Image(systemName: "bell")
+                            .font(.system(size: 20))
+                            .foregroundStyle(.black)
+                            .padding()
+                        Circle()
+                            .foregroundColor(.red)
+                            .frame(width: 8, height: 8)
+                            .offset(x: 5, y: -10)
                     }
                 }
             }

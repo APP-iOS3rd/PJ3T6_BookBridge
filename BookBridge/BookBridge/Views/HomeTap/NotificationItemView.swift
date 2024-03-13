@@ -22,7 +22,7 @@ struct NotificationItemView: View {
                 
                 VStack(alignment: .leading, spacing: 10) {
                 HStack {
-                    Text("\(notificationModel.noticeBoardTitle)")
+                    Text("\"\(notificationModel.noticeBoardTitle)\"")
                         .foregroundColor(.black)
                         .bold()
                     Text("게시물 평가알림")
