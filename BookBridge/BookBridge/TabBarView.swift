@@ -123,8 +123,10 @@ struct TabBarView: View {
                         case let .report(ischat):
                             ReportView(ischat: ischat)
                             
-                        case .alarm:
-                            AlarmView()
+                        case let .alarm(chatRoomPartner):
+                            let notificationViewModel = NotificationViewModel() // NotificationViewModel 생성
+                            let viewModel = ChatMessageViewModel()
+                            NotificationView(notificationViewModel: notificationViewModel, viewModel: viewModel, chatRoomPartner: chatRoomPartner)
                                 .navigationBarBackButtonHidden()
                             
                         }

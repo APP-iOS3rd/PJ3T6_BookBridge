@@ -46,11 +46,12 @@ struct HomeView: View {
                 Spacer()
                 
                 Button {
-                    pathModel.paths.append(.alarm)
+                    pathModel.paths.append(.alarm(chatRoomPartner: ChatPartnerModel(nickname: UserManager.shared.user?.nickname ?? "", noticeBoardId: "chatRoom.noticeBoardId", partnerId: "chatRoom.partnerId", partnerImage: UIImage(named: "DefaultImage")!, partnerImageUrl: "",reviews: [0, 0, 0], style: "칭호 미아")))
                 } label: {
                     Image(systemName: "bell")
+                        .font(.system(size: 20))
                         .foregroundStyle(.black)
-                        .frame(width: 70)
+                        .padding()
                 }
             }
             

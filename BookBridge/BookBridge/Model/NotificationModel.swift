@@ -9,13 +9,12 @@ import Foundation
 import FirebaseFirestore
 
 struct NotificationModel: Identifiable, Hashable, Codable {
-    var id: String
+    var id = UUID().uuidString
     var userId: String                          //나
     var noticeBoardId: String                   //게시물 아이디
-    var chatRoomId: String                      //채팅방 아이디
-    var partnerId: String                       //상대방 아이디
+    var partnerId: String                       //평가남긴 상대방 아이디
     var noticeBoardTitle: String                //게시물 제목
-    var nickName: String                        //상대방 닉네임
+    var nickname: String                        //상대방 닉네임
     var date: Date                              //알림 시간
     
     var timeAgo: String {

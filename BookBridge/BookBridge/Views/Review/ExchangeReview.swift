@@ -10,7 +10,8 @@ import Kingfisher
 
 struct ExchangeReview: View {
     @Environment(\.dismiss) var dismiss
-    @StateObject var reviewViewModel: ReviewViewModel
+    @StateObject var notificationViewModel: NotificationViewModel
+    @StateObject var chatMessageViewModel: ChatMessageViewModel
     
     @State var isSatisfied = false
     @State var isSoso = false
@@ -104,12 +105,17 @@ struct ExchangeReview: View {
             
             Button {
                 if isSatisfied {
-                    reviewViewModel.updatePartnerReview(partnerId: chatRoomPartner.partnerId, reviewIndex: 0)
+                    notificationViewModel.updatePartnerReview(partnerId: chatRoomPartner.partnerId, reviewIndex: 0)
                 } else if isSoso {
-                    reviewViewModel.updatePartnerReview(partnerId: chatRoomPartner.partnerId, reviewIndex: 1)
+                    notificationViewModel.updatePartnerReview(partnerId: chatRoomPartner.partnerId, reviewIndex: 1)
                 } else if isUnsatisfied {
-                    reviewViewModel.updatePartnerReview(partnerId: chatRoomPartner.partnerId, reviewIndex: 2)
+                    notificationViewModel.updatePartnerReview(partnerId: chatRoomPartner.partnerId, reviewIndex: 2)
                 }
+                
+                // 알림 정보를 Firebase에 저장
+                let notification = NotificationModel(userId: chatRoomPartner.partnerId, noticeBoardId: chatMessageViewModel.noticeBoardInfo.id, partnerId: notificationViewModel.getCurrentUserID() ?? "", noticeBoardTitle: chatMessageViewModel.noticeBoardInfo.noticeBoardTitle, nickname: UserManager.shared.user?.nickname ?? "", date: Date())
+                
+                notificationViewModel.saveNotification(notification: notification)
                 
                 dismiss()
             } label: {

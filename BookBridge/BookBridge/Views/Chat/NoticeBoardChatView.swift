@@ -10,7 +10,7 @@ import SwiftUI
 struct NoticeBoardChatView: View {
     @EnvironmentObject private var pathModel: TabPathViewModel
     @StateObject var viewModel: ChatMessageViewModel
-    @StateObject var reviewViewModel = ReviewViewModel()
+    @StateObject var notificationViewModel = NotificationViewModel()
     
     @State private var isExchangeCompleted = false
     
@@ -122,7 +122,7 @@ struct NoticeBoardChatView: View {
                 isExchangeCompleted = false
             }
         }) {
-            ExchangeReview(reviewViewModel: reviewViewModel, chatRoomPartner: chatRoomPartner)
+            ExchangeReview(notificationViewModel: notificationViewModel, chatMessageViewModel: viewModel, chatRoomPartner: chatRoomPartner)
         }
         Divider()
         
