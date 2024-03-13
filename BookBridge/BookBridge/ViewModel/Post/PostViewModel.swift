@@ -12,6 +12,7 @@ import FirebaseStorage
 class PostViewModel: ObservableObject {
     @Published var bookMarks: [String] = []
     @Published var chatRoomList: [String] = []
+    @Published var isChatAlarm: Bool = true
     @Published var holdBooks: [Item] = []
     @Published var wishBooks: [Item] = []
     @Published var noticeboardsihBooks : [Item] = []
@@ -370,7 +371,7 @@ extension PostViewModel {
 // MARK: 채팅
 extension PostViewModel {
     //채팅방 ID 가져오기
-    func getChatRoomId(noticeBoardId: String, completion: @escaping(Bool, String) -> ()) {
+    func getChatRoomId(noticeBoardId: String, completion: @escaping(Bool, Bool, String) -> ()) {
         db.collection("User").document(UserManager.shared.uid)
             .collection("chatRoomList").whereField("noticeBoardId", isEqualTo: noticeBoardId).getDocuments { querySnapshot, error in
                 guard error == nil else { return }
@@ -378,11 +379,10 @@ extension PostViewModel {
                 
                 if !documents.isEmpty {
                     for document in documents.documents {
-                        print(document.documentID)
-                        completion(true, document.documentID)
+                        completion(true, document.data()["isAlarm"] as? Bool ?? true, document.documentID)
                     }
                 } else {
-                    completion(false, "")
+                    completion(false, true, "")
                 }
             }
     }

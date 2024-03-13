@@ -66,7 +66,6 @@ struct PostView: View {
                         }
                     }
                 }
-                
                 .frame(maxWidth: .infinity)
                 .frame(maxHeight: geometry.size.height - 65)
             }
@@ -120,7 +119,7 @@ struct PostView: View {
                             if noticeBoard.reservationId == UserManager.shared.uid {
                                 Button{
                                     pathModel.paths.append(.chatMessage(
-                                        isAlarm: nil,
+                                        isAlarm: postViewModel.isChatAlarm,
                                         chatRoomListId: postViewModel.userChatRoomId,
                                         chatRoomPartner: ChatPartnerModel(
                                             nickname: postViewModel.user.nickname ?? "닉네임 미아",
@@ -202,7 +201,7 @@ struct PostView: View {
                                 //                                }
                                 Button {
                                     pathModel.paths.append(.chatMessage(
-                                        isAlarm: nil,
+                                        isAlarm: postViewModel.isChatAlarm,
                                         chatRoomListId: postViewModel.userChatRoomId,
                                         chatRoomPartner: ChatPartnerModel(
                                             nickname: postViewModel.user.nickname ?? "닉네임 미아",
@@ -263,7 +262,7 @@ struct PostView: View {
                                 
                                 
                                 Button {
-                                    pathModel.paths.append(.chatMessage(isAlarm: nil, chatRoomListId: "",
+                                    pathModel.paths.append(.chatMessage(isAlarm: postViewModel.isChatAlarm, chatRoomListId: "",
                                                                         chatRoomPartner: ChatPartnerModel(
                                                                             nickname: postViewModel.user.nickname ?? "닉네임 미아",
                                                                             noticeBoardId: noticeBoard.id,
@@ -302,7 +301,7 @@ struct PostView: View {
 //                                }
                                 Button {
                                     pathModel.paths.append(.chatMessage(
-                                        isAlarm: nil,
+                                        isAlarm: postViewModel.isChatAlarm,
                                         chatRoomListId: postViewModel.userChatRoomId,
                                         chatRoomPartner: ChatPartnerModel(
                                                                             nickname: postViewModel.user.nickname ?? "닉네임 미아",
@@ -352,9 +351,10 @@ struct PostView: View {
                 if UserManager.shared.isLogin {
                     postViewModel.fetchChatList(noticeBoardId: noticeBoard.id)
                     postViewModel.fetchBookMark()
-                    postViewModel.getChatRoomId(noticeBoardId: noticeBoard.id) { isComplete, chatRoomId in
+                    postViewModel.getChatRoomId(noticeBoardId: noticeBoard.id) { isComplete, isAlarm, chatRoomId in
                         if isComplete {
                             postViewModel.userChatRoomId = chatRoomId
+                            postViewModel.isChatAlarm = isAlarm
                         }
                     }
                 }

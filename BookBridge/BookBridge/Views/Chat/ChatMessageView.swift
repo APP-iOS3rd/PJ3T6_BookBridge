@@ -237,14 +237,16 @@ struct ChatMessageView: View {
                 }
             }
             
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    withAnimation(.easeIn(duration: 0.2)) {
-                        isPresented.toggle()
+            if viewModel.saveChatRoomId != "" {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        withAnimation(.easeIn(duration: 0.2)) {
+                            isPresented.toggle()
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .foregroundStyle(.black)
                     }
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .foregroundStyle(.black)
                 }
             }
         }
