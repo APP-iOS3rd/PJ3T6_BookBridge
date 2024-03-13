@@ -356,24 +356,26 @@ extension ChatMessageViewModel {
                         guard error == nil else { return }
                         print("Recipient saved message as well")
                     }
-                    
-                    partnerQuery.getDocument { documentSnapshot, error in
-                        guard error == nil else { return }
-                        guard let document = documentSnapshot else { return }
-                        
-                        
-                        partnerQuery.updateData([
-                            "date": timestamp,
-                            "newCount": (document.data()?["newCount"] as? Int ?? 0) + 1,
-                            "recentMessage": "사진"
-                        ])
-                    }
                 }
                 self.nestedGroupImage.leave()
             }
             
             self.nestedGroup.notify(queue: .main) {
-                self.selectedImages.removeAll()
+                let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(self.saveChatRoomId)
+                
+                partnerQuery.getDocument { documentSnapshot, error in
+                    guard error == nil else { return }
+                    guard let document = documentSnapshot else { return }
+                    
+                    
+                    partnerQuery.updateData([
+                        "date": timestamp,
+                        "newCount": (document.data()?["newCount"] as? Int ?? 0) + self.selectedImages.count,
+                        "recentMessage": "사진"
+                    ])
+                    
+                    self.selectedImages.removeAll()
+                }
             }
         }
     }

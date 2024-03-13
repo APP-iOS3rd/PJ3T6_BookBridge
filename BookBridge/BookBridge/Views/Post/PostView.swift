@@ -20,7 +20,7 @@ struct PostView: View {
     
     
     @State private var isPresented = false
-    @State private var showingLoginView = false    
+    @State private var showingLoginView = false
     
     var storageManager = HomeFirebaseManager.shared
     
@@ -34,7 +34,7 @@ struct PostView: View {
                         }
                         
                         PostUserInfoView(postViewModel: postViewModel, noticeBoard: $noticeBoard, selectedTab: $selectedTab)
-
+                        
                         Divider()
                             .padding(.horizontal)
                         
@@ -50,7 +50,7 @@ struct PostView: View {
                             Divider()
                                 .padding(.horizontal)
                         }
-
+                        
                         //상대방 책장
                         PostUserBookshelf(postViewModel: postViewModel)
                         
@@ -244,35 +244,37 @@ struct PostView: View {
                         if  UserManager.shared.uid != "" {
                             //채팅한 적이 없는 경우
                             if postViewModel.chatRoomList.isEmpty {
-//                                NavigationLink {
-//                                    ChatMessageView(
-//                                        chatRoomListId: "",
-//                                        chatRoomPartner: ChatPartnerModel(
-//                                            nickname: postViewModel.user.nickname ?? "닉네임 미아",
-//                                            noticeBoardId: noticeBoard.id,
-//                                            partnerId: noticeBoard.userId,
-//                                            partnerImage: postViewModel.userUIImage, partnerImageUrl: postViewModel.user.profileURL ?? "",
-//                                            reviews: postViewModel.user.reviews ?? [0, 0, 0],
-//                                            style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
-//                                        ),
-//                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
-//                                        uid: UserManager.shared.uid
-//                                    )
-//                                }
+                                //                                NavigationLink {
+                                //                                    ChatMessageView(
+                                //                                        chatRoomListId: "",
+                                //                                        chatRoomPartner: ChatPartnerModel(
+                                //                                            nickname: postViewModel.user.nickname ?? "닉네임 미아",
+                                //                                            noticeBoardId: noticeBoard.id,
+                                //                                            partnerId: noticeBoard.userId,
+                                //                                            partnerImage: postViewModel.userUIImage, partnerImageUrl: postViewModel.user.profileURL ?? "",
+                                //                                            reviews: postViewModel.user.reviews ?? [0, 0, 0],
+                                //                                            style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
+                                //                                        ),
+                                //                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
+                                //                                        uid: UserManager.shared.uid
+                                //                                    )
+                                //                                }
                                 
                                 
                                 Button {
-                                    pathModel.paths.append(.chatMessage(isAlarm: postViewModel.isChatAlarm, chatRoomListId: "",
-                                                                        chatRoomPartner: ChatPartnerModel(
-                                                                            nickname: postViewModel.user.nickname ?? "닉네임 미아",
-                                                                            noticeBoardId: noticeBoard.id,
-                                                                            partnerId: noticeBoard.userId,
-                                                                            partnerImage: postViewModel.userUIImage, partnerImageUrl: postViewModel.user.profileURL ?? "",
-                                                                            reviews: postViewModel.user.reviews ?? [0, 0, 0],
-                                                                            style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
-                                                                        ),
-                                                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
-                                                                        uid: UserManager.shared.uid))
+                                    pathModel.paths.append(.chatMessage(
+                                        isAlarm: postViewModel.isChatAlarm,
+                                        chatRoomListId: "",
+                                        chatRoomPartner: ChatPartnerModel(
+                                            nickname: postViewModel.user.nickname ?? "닉네임 미아",
+                                            noticeBoardId: noticeBoard.id,
+                                            partnerId: noticeBoard.userId,
+                                            partnerImage: postViewModel.userUIImage, partnerImageUrl: postViewModel.user.profileURL ?? "",
+                                            reviews: postViewModel.user.reviews ?? [0, 0, 0],
+                                            style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
+                                        ),
+                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
+                                        uid: UserManager.shared.uid))
                                 } label: {
                                     Text("채팅하기")
                                         .padding(.top, 5)
@@ -284,35 +286,35 @@ struct PostView: View {
                                 }
                             } else {
                                 //채팅한 적이 있는 경우
-//                                NavigationLink {
-//                                    ChatMessageView(
-//                                        chatRoomListId: postViewModel.userChatRoomId,
-//                                        chatRoomPartner: ChatPartnerModel(
-//                                            nickname: postViewModel.user.nickname ?? "닉네임 미아",
-//                                            noticeBoardId: noticeBoard.id,
-//                                            partnerId: noticeBoard.userId,
-//                                            partnerImage: postViewModel.userUIImage, partnerImageUrl: postViewModel.user.profileURL ?? "",
-//                                            reviews: postViewModel.user.reviews ?? [0, 0, 0],
-//                                            style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
-//                                        ),
-//                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
-//                                        uid: UserManager.shared.uid
-//                                    )
-//                                }
+                                //                                NavigationLink {
+                                //                                    ChatMessageView(
+                                //                                        chatRoomListId: postViewModel.userChatRoomId,
+                                //                                        chatRoomPartner: ChatPartnerModel(
+                                //                                            nickname: postViewModel.user.nickname ?? "닉네임 미아",
+                                //                                            noticeBoardId: noticeBoard.id,
+                                //                                            partnerId: noticeBoard.userId,
+                                //                                            partnerImage: postViewModel.userUIImage, partnerImageUrl: postViewModel.user.profileURL ?? "",
+                                //                                            reviews: postViewModel.user.reviews ?? [0, 0, 0],
+                                //                                            style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
+                                //                                        ),
+                                //                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
+                                //                                        uid: UserManager.shared.uid
+                                //                                    )
+                                //                                }
                                 Button {
                                     pathModel.paths.append(.chatMessage(
                                         isAlarm: postViewModel.isChatAlarm,
                                         chatRoomListId: postViewModel.userChatRoomId,
                                         chatRoomPartner: ChatPartnerModel(
-                                                                            nickname: postViewModel.user.nickname ?? "닉네임 미아",
-                                                                            noticeBoardId: noticeBoard.id,
-                                                                            partnerId: noticeBoard.userId,
-                                                                            partnerImage: postViewModel.userUIImage, partnerImageUrl: postViewModel.user.profileURL ?? "",
-                                                                            reviews: postViewModel.user.reviews ?? [0, 0, 0],
-                                                                            style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
-                                                                        ),
-                                                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
-                                                                        uid: UserManager.shared.uid))
+                                            nickname: postViewModel.user.nickname ?? "닉네임 미아",
+                                            noticeBoardId: noticeBoard.id,
+                                            partnerId: noticeBoard.userId,
+                                            partnerImage: postViewModel.userUIImage, partnerImageUrl: postViewModel.user.profileURL ?? "",
+                                            reviews: postViewModel.user.reviews ?? [0, 0, 0],
+                                            style: (postViewModel.user.style == "" ? "칭호없음" : postViewModel.user.style) ?? "칭호없음"
+                                        ),
+                                        noticeBoardTitle: noticeBoard.noticeBoardTitle,
+                                        uid: UserManager.shared.uid))
                                 } label: {
                                     Text("채팅하기")
                                         .padding(.top, 5)
