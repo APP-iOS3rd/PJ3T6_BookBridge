@@ -10,6 +10,7 @@ import SwiftUI
 struct ChangePhoneNumberStandardView: View {
     @StateObject var viewModel: ChangePhonenumberViewModel
     @FocusState var isFocuced: Bool
+    @State var showChangePhoneNumberAlert = false
     @Binding var showNextPage: Bool
     @Binding var showPhoneView: Bool
     
@@ -132,9 +133,17 @@ struct ChangePhoneNumberStandardView: View {
                 }
             case .certiNumber:
                 if viewModel.complete == .success {
-                    showPhoneView = false
+                    showChangePhoneNumberAlert = true
                 }
             }
         }
+        .alert(isPresented: $showChangePhoneNumberAlert, content: {
+            Alert(
+                title: Text("비밀번호가 변경되었습니다."),
+                dismissButton: .default(Text("확인")) {
+                    showPhoneView = false
+                }
+            )
+        })
     }
 }
