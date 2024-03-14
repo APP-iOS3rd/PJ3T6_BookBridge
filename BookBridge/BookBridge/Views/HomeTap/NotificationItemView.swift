@@ -52,8 +52,9 @@ struct NotificationItemView: View {
                     .font(.caption)
                     .foregroundStyle(Color(.lightGray))
             }
-        }
+        }        
     }
+        
 }
 
 //양쪽 정렬

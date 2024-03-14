@@ -20,7 +20,7 @@ class NotificationViewModel: ObservableObject {
     let db = Firestore.firestore()
 }
 
-//MARK: 상대방 평가 기능
+//MARK: - 상대방 평가 기능
 extension NotificationViewModel {
     
     // 상대방 평가 시 정보 업데이트
@@ -53,7 +53,7 @@ extension NotificationViewModel {
     }
 }
 
-//MARK: 실시간 알림 감지
+//MARK: - 실시간 알림 감지
 extension NotificationViewModel {
     // Firestore에서 알림 변경 사항을 실시간으로 감지하는 메서드
     func startNotificationListener() {
@@ -66,7 +66,7 @@ extension NotificationViewModel {
             .order(by: "date", descending: true)
             .addSnapshotListener { [weak self] querySnapshot, error in
                 if ((querySnapshot?.documentChanges) != nil) {
-                    print("변경사항 감지")
+                    
                     
                                         
                     guard let documents = querySnapshot?.documents else { return }
@@ -112,14 +112,15 @@ extension NotificationViewModel {
                                 }
                             }
                         }
-                        
+                        print("변경사항 감지")
                         // isRead가 하나라도 있으면 isShowNotificationBadge는 false
-                        let result = self?.notifications.filter { $0.isRead == false}.first
-                        
-                        if let result = result {
-                            self?.isShowNotificationBadge = false
-                        } else {
+                                                                                                
+                        if ((self?.isShowBadge(notifications: self?.notifications ?? [])) != nil) {
+                            print("false가 하나라도 있음")
                             self?.isShowNotificationBadge = true
+                        } else {
+                            print("false가 없음")
+                            self?.isShowNotificationBadge = false
                         }
                     }
                 }
@@ -137,7 +138,49 @@ extension NotificationViewModel {
         db.collection("User").document(uid).collection("notification").document(id).delete()
         
         startNotificationListener()
-        
     }
 }
+
+//MARK: - isRead변경사항 Firebase 저장
+
+extension NotificationViewModel {
+    func updateIsRead(notificationId: String) {
+        print("updateIsRead 실행")
+        print("notificationId: \(notificationId)")
+        
+        let db = Firestore.firestore()
+        let userId = UserManager.shared.uid
+                        
+        db.collection("User").document(userId).collection("notification")
+            .whereField("id", isEqualTo: notificationId)
+            .getDocuments { (querySnapshot, err) in
+                if let err = err {
+                    print("해당 id에대한 notification 문서를 찾을 수 없습니다.\n\(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        // 문서의 'isRead' 필드를 'true'로 업데이트합니다.
+                        document.reference.updateData(["isRead": true]) { error in
+                            if let error = error {
+                                print("notification isRead 업데이트가 실패했습니다.\n\(error)")
+                            } else {
+                                print("notification isRead 업데이트가 성공했습니다.")
+                            }
+                        }
+                    }
+                }
+        }
+    }
+    
+    func isShowBadge(notifications: [NotificationModel]) -> Bool {
+        for notification in notifications {
+            if !notification.isRead {
+                return true
+            }
+        }
+        
+        return false
+    }
+}
+
+
 

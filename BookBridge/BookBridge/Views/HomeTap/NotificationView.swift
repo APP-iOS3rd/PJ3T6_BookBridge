@@ -32,7 +32,8 @@ struct NotificationView: View {
                     )
                     id = notification.id
                     print("Showing ExchangeReview")
-                    self.showExchangeReview = true  
+                    self.showExchangeReview = true
+                    notificationViewModel.updateIsRead(notificationId: notification.id)
                 }
                 label: {
                     VStack{
