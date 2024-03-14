@@ -73,6 +73,8 @@ class UserManager: ObservableObject {
         self.isLogin = false
         self.user = nil
         self.currentUser = nil
+        self.totalNewCount = 0
+        self.firestoreListener?.remove()
         try? Auth.auth().signOut()
         NaverAuthManager.shared.doNaverLogout()
         print("사용자가 logout하였습니다.")
@@ -123,7 +125,7 @@ class UserManager: ObservableObject {
     }
     
     func updateTotalNewCount() {
-        if currentUser != nil {
+        if uid != "" {
             firestoreListener?.remove()
             firestoreListener = FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").whereField("newCount", isGreaterThan: 0).addSnapshotListener { querySnapshot, error in
                 guard error == nil else { return }
