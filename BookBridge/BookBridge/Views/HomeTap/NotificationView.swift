@@ -30,6 +30,7 @@ struct NotificationView: View {
                         style: "칭호 미아"
                     )
                     print("Showing ExchangeReview")
+                    notificationViewModel.deleteNotification(id: notification.id)
                     self.showExchangeReview = true
                 }
                 label: {

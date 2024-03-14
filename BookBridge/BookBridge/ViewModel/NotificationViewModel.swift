@@ -12,6 +12,7 @@ import FirebaseFirestore
 class NotificationViewModel: ObservableObject { 
     @Published var notifications: [NotificationModel] = []
     @Published var partnerImageUrl: String = ""
+    @Published var data: String = ""
     
     var listener: ListenerRegistration?
     
@@ -43,7 +44,7 @@ extension NotificationViewModel {
     // 새로운 알림 평가정보 저장
     func saveNotification(notification: NotificationModel) {
         do {
-            let documentRef = db.collection("User").document(notification.userId).collection("notification").document()
+            let documentRef = db.collection("User").document(notification.userId).collection("notification").document(notification.id)
             try documentRef.setData(from: notification)
         } catch {
             print("Notification 저장실패")
@@ -70,6 +71,7 @@ extension NotificationViewModel {
                 // Firebase에서 받아온 데이터를 NotificationModel로 변환하여 배열에 저장
                 self.notifications = documents.compactMap { queryDocumentSnapshot -> NotificationModel? in
                     let data = queryDocumentSnapshot.data()
+                    let id = data["id"] as? String ?? ""
                     let userId = data["userId"] as? String ?? ""
                     let noticeBoardId = data["noticeBoardId"] as? String ?? ""
                     let partnerId = data["partnerId"] as? String ?? ""
@@ -79,9 +81,19 @@ extension NotificationViewModel {
                     let timestamp = data["date"] as? Timestamp
                     let date = timestamp?.dateValue() ?? Date()
                     
-                    return NotificationModel(userId: userId, noticeBoardId: noticeBoardId, partnerId: partnerId, partnerImageUrl: partnerImageUrl, noticeBoardTitle: noticeBoardTitle, nickname: nickname, date: date)
+                    
+                    return NotificationModel(id: id, userId: userId, noticeBoardId: noticeBoardId, partnerId: partnerId, partnerImageUrl: partnerImageUrl, noticeBoardTitle: noticeBoardTitle, nickname: nickname, date: date)
                 }
             }
+    }
+    
+    func deleteNotification(id: String) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        db.collection("User").document(uid).collection("notification").document(id).delete()
+        
+        startNotificationListener()
+        
     }
     
     func getPartnerImageUrl(partnerId: String) {
