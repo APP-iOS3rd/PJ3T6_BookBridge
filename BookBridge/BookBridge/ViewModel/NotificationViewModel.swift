@@ -75,6 +75,7 @@ extension NotificationViewModel {
                     
                     for document in documents {
                         let data = document.data()
+                        let id = data["id"] as? String ?? ""
                         let userId = data["userId"] as? String ?? ""
                         let noticeBoardId = data["noticeBoardId"] as? String ?? ""
                         let partnerId = data["partnerId"] as? String ?? ""
@@ -92,7 +93,8 @@ extension NotificationViewModel {
                             // 메인 스레드에서 UI 업데이트
                             DispatchQueue.main.async {
                                 let notification = NotificationModel(
-                                    userId: userId, 
+                                    id: id,
+                                    userId: userId,
                                     noticeBoardId: noticeBoardId,
                                     partnerId: partnerId,
                                     partnerImageUrl: partnerImageUrl,
