@@ -25,31 +25,26 @@ struct StyleModalView: View {
                 .cornerRadius(5)
                 .padding(.top, 10)
             
-            ZStack {
+            ZStack(alignment: .topTrailing) {
                 ForEach(14..<17) { item in
                     Capsule()
                         .frame(width: 3, height: 6)
                         .foregroundStyle(Color(hex: "508720"))
-                        //.hueRotation(.degrees(Double(item) * 30))
                         .offset(y: CGFloat(acceleration))
                         .rotationEffect(.degrees (Double(item) * 15), anchor: .bottom)
                 }
-                .offset(x: 10)
+                .offset(x: -5, y: 5)
                 
                 Image(viewModel.style.imageName)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 70, height: 70)
-                    .padding(.top, 10)
+                    .frame(height: 50)
             }
-            
-            Text(viewModel.style.title)
-                .font(.system(size: 20, weight: .bold))
-                .padding(.bottom, 10)
+            .padding(.vertical, 30)
             
             Text(viewModel.style.description)
                 .font(.system(size: 17))
-                .padding(.bottom, 10)
+                .padding(.bottom, 20)
             
             if (viewModel.myStyles.contains { $0 == viewModel.style.title }) {    //칭호 보유중
                 Button {

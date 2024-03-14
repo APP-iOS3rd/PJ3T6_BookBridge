@@ -177,7 +177,7 @@ struct ChatMessageView: View {
                             }
                             .alert("채팅방을 나가시겠습니까?", isPresented: $isAlert, actions: {
                                 Button("나가기", role: .destructive) {
-                                    viewModel.deleteChatRoom(uid: uid) {
+                                    viewModel.deleteChatRoom(uid: uid, partnerId: chatRoomPartner.partnerId) {
                                         dismiss()
                                     }
                                 }
@@ -238,14 +238,16 @@ struct ChatMessageView: View {
                 }
             }
             
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    withAnimation(.easeIn(duration: 0.2)) {
-                        isPresented.toggle()
+            if !viewModel.chatMessages.isEmpty {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        withAnimation(.easeIn(duration: 0.2)) {
+                            isPresented.toggle()
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .foregroundStyle(.black)
                     }
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .foregroundStyle(.black)
                 }
             }
         }

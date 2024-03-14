@@ -306,6 +306,27 @@ extension ChatMessageViewModel {
         
         completion()
     }
+    
+    // 나갔다가 다시 보내는 경우(상대방이 chatId가 있음)
+    func handleNoChatRoom(uid: String, partnerId: String, chatRoomListId: String, completion: () -> ()) {
+        let timestamp = Date()
+        
+        let query1 = FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").document(chatRoomListId)
+        
+        query1.setData([
+            "date": timestamp,
+            "id": chatRoomListId,
+            "isAlarm": true,
+            "newCount": 0,
+            "noticeBoardId": noticeBoardInfo.id,
+            "noticeBoardTitle": noticeBoardInfo.noticeBoardTitle,
+            "partnerId": partnerId,
+            "recentMessage": "",
+            "userId": uid
+        ])
+        
+        completion()
+    }
 }
 
 //MARK: 메시지 전송 (Image)
@@ -356,24 +377,26 @@ extension ChatMessageViewModel {
                         guard error == nil else { return }
                         print("Recipient saved message as well")
                     }
-                    
-                    partnerQuery.getDocument { documentSnapshot, error in
-                        guard error == nil else { return }
-                        guard let document = documentSnapshot else { return }
-                        
-                        
-                        partnerQuery.updateData([
-                            "date": timestamp,
-                            "newCount": (document.data()?["newCount"] as? Int ?? 0) + 1,
-                            "recentMessage": "사진"
-                        ])
-                    }
                 }
                 self.nestedGroupImage.leave()
             }
             
             self.nestedGroup.notify(queue: .main) {
-                self.selectedImages.removeAll()
+                let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(self.saveChatRoomId)
+                
+                partnerQuery.getDocument { documentSnapshot, error in
+                    guard error == nil else { return }
+                    guard let document = documentSnapshot else { return }
+                    
+                    
+                    partnerQuery.updateData([
+                        "date": timestamp,
+                        "newCount": (document.data()?["newCount"] as? Int ?? 0) + self.selectedImages.count,
+                        "recentMessage": "사진"
+                    ])
+                    
+                    self.selectedImages.removeAll()
+                }
             }
         }
     }
@@ -569,33 +592,50 @@ extension ChatMessageViewModel {
 //MARK: 상대방에게 메세지 Push 알림
 extension ChatMessageViewModel {
     
-    func sendNotification(to partnerId: String, with message: String) async {
+    func sendChatNotification(to partnerId: String, with message: String, chatRoomId: String) async {
         do {
             // 사용자 알림설정 체크
-            let isEnabled = try await getChattingAlarmStatus(for: partnerId)
+            let isChatEnabled = try await getChattingAlarmStatus(for: partnerId)
+            // 각 채팅방 알림설정 체크
+            let isChatRoomEnabled = try await getChatLoomAlarmStatus(for: partnerId, in: chatRoomId)
             
-            if isEnabled {
+            if isChatEnabled && isChatRoomEnabled {
                 // 사용자 알림 보내기 API
-                await sendNotificationAPI(to: partnerId, withMessage: message)
+                await sendChatNotificationAPI(to: partnerId, withMessage: message, chatRoomId: chatRoomId)
+                print("chatRoomId: \(chatRoomId)")
             }
         } catch {
             print("Error: \(error.localizedDescription)")
         }
     }
-    
+    // 사용자 알림설정
     private func getChattingAlarmStatus(for partnerId: String) async throws -> Bool {
         let query = FirebaseManager.shared.firestore.collection("User").document(partnerId)
         let document = try await query.getDocument()
         return document.data()?["isChattingAlarm"] as? Bool ?? true
     }
+    // 각 채팅방 알림설정
+    private func getChatLoomAlarmStatus(for partnerId: String,in chatRoomId: String) async throws -> Bool {
+        let query = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(chatRoomId)
+        let document = try await query.getDocument()
+        return document.data()?["isAlarm"] as? Bool ?? true
+    }
     
-    private func sendNotificationAPI(to userId: String, withMessage message: String) async {
-        guard let url = URL(string: "http://13.211.66.183:3000/send-notification") else { return }
+    private func sendChatNotificationAPI(to userId: String, withMessage message: String, chatRoomId: String) async {
+        //Secrets.xcconfig파일 ServerURL 정보 불러오기
+        guard let baseUrlString = Bundle.main.object(forInfoDictionaryKey: "ServerURL") as? String else { return }
+        
+        let urlString = "http://\(baseUrlString)/send-notification"
+        
+        guard let url = URL(string: urlString) else {
+            print("Invalid or missing URL")
+            return }
+        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let body: [String: Any] = ["userId": userId, "message": message]
+        let body: [String: Any] = ["userId": userId, "message": message, "chatRoomId": chatRoomId]
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
         
         do {
@@ -613,21 +653,64 @@ extension ChatMessageViewModel {
 
 //MARK: 채팅방 나가기
 extension ChatMessageViewModel {
-    func deleteChatRoom(uid: String, completion: @escaping() -> ()) {
+    func deleteChatRoom(uid: String, partnerId: String, completion: @escaping() -> ()) {
         firestoreListener?.remove()
         
-        let messageRemoveQuery = FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").document(saveChatRoomId).collection("messages")
-        
-        messageRemoveQuery.getDocuments { querySnapshot, error in
+        FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").whereField("id", isEqualTo: self.saveChatRoomId).getDocuments { querySnapshot, error in
             guard error == nil else { return }
             guard let documents = querySnapshot?.documents else { return }
             
-            for document in documents {
-                messageRemoveQuery.document(document.documentID).delete()
-            }
+            let messageRemoveQuery = FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").document(self.saveChatRoomId).collection("messages")
             
-            FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").document(self.saveChatRoomId).delete { _ in
-                completion()
+            //상대방도 채팅방이 없을 경우만 이미지 삭제
+            if documents.isEmpty {
+                messageRemoveQuery.getDocuments { querySnapshot, error in
+                    guard error == nil else { return }
+                    guard let documents = querySnapshot?.documents else { return }
+                    
+                    for document in documents {
+                        guard let imageURL = document.data()["imageURL"] as? String else { return }
+                        
+                        if imageURL != "" {
+                            self.deleteChatImages(imageURL: imageURL)
+                        }
+                        
+                        messageRemoveQuery.document(document.documentID).delete()
+                    }
+                    
+                    FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").document(self.saveChatRoomId).delete { _ in
+                        
+                        completion()
+                    }
+                }
+            } else {
+                messageRemoveQuery.getDocuments { querySnapshot, error in
+                    guard error == nil else { return }
+                    guard let documents = querySnapshot?.documents else { return }
+                    
+                    for document in documents {
+                        messageRemoveQuery.document(document.documentID).delete()
+                    }
+                    
+                    FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").document(self.saveChatRoomId).delete { _ in
+                        
+                        completion()
+                    }
+                }
+            }
+        }
+    }
+    
+    //채팅 이미지 삭제
+    func deleteChatImages(imageURL: String) {
+        //상대방도 채팅방이 없을 경우만 삭제
+        let ref = FirebaseManager.shared.storage.reference(forURL: imageURL)
+        
+        ref.delete { err in
+            if err == nil {
+                print("사진 삭제 성공")
+            } else {
+                print("사진 삭제 오류")
             }
         }
     }

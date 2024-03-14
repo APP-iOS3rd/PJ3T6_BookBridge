@@ -25,8 +25,13 @@ struct AddBookBtnView: View {
                     label: {
                         Image(systemName: "plus.circle.fill")
                             .resizable()
-                            .foregroundColor(Color(hex:"59AAE0"))
                             .frame(width: 50,height: 50)
+                            .foregroundColor(Color(hex:"59AAE0"))
+                            .background(
+                                Circle()
+                                    .frame(width: 50,height: 50)
+                                    .foregroundColor(.white)
+                            )
                     }
                 )
             }

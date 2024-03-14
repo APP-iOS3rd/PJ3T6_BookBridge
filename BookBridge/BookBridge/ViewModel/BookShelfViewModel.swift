@@ -17,6 +17,8 @@ class BookShelfViewModel: ObservableObject {
     
     var userId : String?
     
+    let userManager = UserManager.shared
+    
     init(userId: String?) {
         self.userId = userId
     }
@@ -31,9 +33,7 @@ class BookShelfViewModel: ObservableObject {
         }
     }
     
-    
     func fetchBooks(for tap: tapInfo) {
-        
         if tap == .wish {
             loadBooksFromFirestore(collection: "wishBooks") { [weak self] in
                 self?.filteredBooks = self?.wishBooks ?? []
@@ -44,7 +44,6 @@ class BookShelfViewModel: ObservableObject {
             }
         }
     }
-    
     
     func saveBooksToFirestore(books: [Item], collection: String) {
         guard let userId = userId else { return }
@@ -73,13 +72,9 @@ class BookShelfViewModel: ObservableObject {
             if let industryIdentifier = industryIdentifierData {
                 dataToSet["industryIdentifier"] = industryIdentifier
             }
-            
             document.setData(dataToSet)
         }
     }
-   
-
-
     
     func loadBooksFromFirestore(collection: String, completion: @escaping () -> Void) {
         guard let userId = userId else { return }
@@ -113,9 +108,35 @@ class BookShelfViewModel: ObservableObject {
                 if collection == "wishBooks" {
                     self?.wishBooks = items
                     self?.filteredBooks = items
+                    
+                    if self?.wishBooks.count ?? 0 >= 10 && !((self?.userManager.user?.titles ?? ["뉴비"]).contains("책바라기")) {
+                        self?.userManager.isWishStyleCheck = true
+                        self?.userManager.user?.titles?.append("책바라기")
+                        
+                        db.collection("User").document(userId).updateData([
+                            "titles": self?.userManager.user?.titles ?? ["뉴비", "책바라기"]
+                        ])
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            self?.userManager.isWishStyleCheck = false
+                        }
+                    }
                 } else if collection == "holdBooks" {
                     self?.holdBooks = items
                     self?.filteredBooks = items
+                    
+                    if self?.holdBooks.count ?? 0 >= 10 && !((self?.userManager.user?.titles ?? ["뉴비"]).contains("백과사전")) {
+                        self?.userManager.isHoldStyleCheck = true
+                        self?.userManager.user?.titles?.append("백과사전")
+                        
+                        db.collection("User").document(userId).updateData([
+                            "titles": self?.userManager.user?.titles ?? ["뉴비", "백과사전"]
+                        ])
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            self?.userManager.isHoldStyleCheck = false
+                        }
+                    }
                 }
             }
             completion()
@@ -133,10 +154,8 @@ class BookShelfViewModel: ObservableObject {
             if let index = holdBooks.firstIndex(where: { $0.id == book.id }) {
                 holdBooks.remove(at: index)
             }
-            
         case .search:
-            break
-            
+            break  
         }
 
         // Firestore에서도 책 제거
@@ -157,9 +176,7 @@ class BookShelfViewModel: ObservableObject {
         let docRef = db.collection("User").document(userId)
         
         docRef.getDocument { document, error in
-            guard error == nil else {
-                return
-            }
+            guard error == nil else { return }
             
             if let document = document, document.exists {
                 let data = document.data()
@@ -182,9 +199,6 @@ class BookShelfViewModel: ObservableObject {
             }
         }
     }
-
-
-
 }
 
 

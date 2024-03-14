@@ -19,9 +19,10 @@ class StyleViewModel: ObservableObject {
     //개발자가 넣고 싶은 칭호 전체
     let styleTypes: [StyleModel] = [
         /*StyleModel(title: "동네 보안관", description: "거래를 3번 이상하면 획득할 수 있어요.", imageName: "TownKeeper"),
-        StyleModel(title: "백과사전", description: "보유중인 책이 10권 이상이면 획득할 수 있어요.", imageName: "TownKeeper"),
         StyleModel(title: "기부천사", description: "책을 기부하면 획득할 수 있어요. ", imageName: "TownKeeper"),*/
-        StyleModel(title: "뉴비", description: "회원가입하면 획득할 수 있어요.", imageName: "NewLogo")
+        StyleModel(title: "뉴비", description: "회원가입하면 획득할 수 있어요.", imageName: "Newbi"),
+        StyleModel(title: "백과사전", description: "보유중인 책이 10권 이상이면 획득할 수 있어요.", imageName: "Encyclopedia"),
+        StyleModel(title: "책바라기", description: "희망하는 책이 10권 이상이면 획득할 수 있어요.", imageName: "WishBooks")
     ]
 }
 

@@ -18,6 +18,7 @@ struct ChatExchangeHopeView: View {
     @State var markerCoord: NMGLatLng?
     @State var location: String = ""
    
+    var chatRoomListId: String
     var partnerId: String
     var uid: String
     
@@ -50,10 +51,20 @@ struct ChatExchangeHopeView: View {
                     // 교환 희망 장소 위치
                     if let lat = markerCoord?.lat, let lng = markerCoord?.lng {
                         if viewModel.saveChatRoomId != "" {
-                            viewModel.handleSendLocation(uid: uid, partnerId: partnerId, lat: lat, lng: lng, location: location) {
-                                myCoord = (0, 0)
-                                markerCoord = nil
-                                location = ""
+                            if viewModel.chatMessages.isEmpty {
+                                viewModel.handleNoChatRoom(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId) {
+                                    viewModel.handleSendLocation(uid: uid, partnerId: partnerId, lat: lat, lng: lng, location: location) {
+                                        myCoord = (0, 0)
+                                        markerCoord = nil
+                                        location = ""
+                                    }
+                                }
+                            } else {
+                                viewModel.handleSendLocation(uid: uid, partnerId: partnerId, lat: lat, lng: lng, location: location) {
+                                    myCoord = (0, 0)
+                                    markerCoord = nil
+                                    location = ""
+                                }
                             }
                         } else {
                             viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
@@ -64,6 +75,10 @@ struct ChatExchangeHopeView: View {
                                     viewModel.fetchMessages(uid: uid)
                                 }
                             })
+                        }
+                        // 위치 알림
+                        Task{
+                            await viewModel.sendChatNotification(to: partnerId, with: location, chatRoomId: viewModel.saveChatRoomId)
                         }
                     }
                     dismiss()

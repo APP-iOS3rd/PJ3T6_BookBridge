@@ -80,20 +80,24 @@ struct ChatBottomBarView: View {
                 Button {
                     if !chatTextArr.isEmpty {
                         if viewModel.saveChatRoomId == "" {
-                            viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
+                            viewModel.handleSendNoId(uid: uid, partnerId: partnerId) {
                                 viewModel.handleSend(uid: uid, partnerId: partnerId)
-                                // 메세지 알림
-                                Task{
-                                    await viewModel.sendNotification(to: partnerId, with: viewModel.chatText)
-                                }
                                 viewModel.fetchMessages(uid: uid)
-                            })
+                            }
                         } else {
-                            viewModel.handleSend(uid: uid, partnerId: partnerId)
-                            Task{
-                                await viewModel.sendNotification(to: partnerId, with: viewModel.chatText)
+                            if viewModel.chatMessages.isEmpty {
+                                viewModel.handleNoChatRoom(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId) {
+                                    viewModel.handleSend(uid: uid, partnerId: partnerId)
+                                }
+                            } else {
+                                viewModel.handleSend(uid: uid, partnerId: partnerId)
                             }
                         }
+                        // 메세지 알림
+                        Task{
+                            await viewModel.sendChatNotification(to: partnerId, with: viewModel.chatText, chatRoomId: viewModel.saveChatRoomId)
+                        }
+                        
                     }
                 } label: {
                     Image(systemName: "paperplane.fill")
@@ -193,12 +197,22 @@ struct ChatBottomBarView: View {
             }
             
             if viewModel.saveChatRoomId != "" {
-                viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                if viewModel.chatMessages.isEmpty {
+                    viewModel.handleNoChatRoom(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId) {
+                        viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                    }
+                } else {
+                    viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                }
             } else {
                 viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
                     viewModel.handleSendImage(uid: uid, partnerId: partnerId)
                     viewModel.fetchMessages(uid: uid)
                 })
+            }
+            //사진 알림
+            Task{
+                await viewModel.sendChatNotification(to: partnerId, with: "사진", chatRoomId: viewModel.saveChatRoomId)
             }
         }) {
             ImagePicker(isVisible: $isShowingPhoto, images: $viewModel.selectedImages, sourceType: $one)
@@ -210,12 +224,22 @@ struct ChatBottomBarView: View {
             }
             
             if viewModel.saveChatRoomId != "" {
-                viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                if viewModel.chatMessages.isEmpty {
+                    viewModel.handleNoChatRoom(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId) {
+                        viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                    }
+                } else {
+                    viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                }
             } else {
                 viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
                     viewModel.handleSendImage(uid: uid, partnerId: partnerId)
                     viewModel.fetchMessages(uid: uid)
                 })
+            }
+            //사진 알림
+            Task{
+                await viewModel.sendChatNotification(to: partnerId, with: "사진", chatRoomId: viewModel.saveChatRoomId)
             }
         }) {
             ImagePicker(isVisible: $isShowingCamera, images: $viewModel.selectedImages, sourceType: $zero)
@@ -226,7 +250,7 @@ struct ChatBottomBarView: View {
                 isPlusBtn.toggle()
             }
         }) {
-            ChatExchangeHopeView(viewModel: viewModel, partnerId: partnerId, uid: uid)
+            ChatExchangeHopeView(viewModel: viewModel, chatRoomListId: chatRoomListId, partnerId: partnerId, uid: uid)
         }
     }
 }

@@ -43,7 +43,7 @@ struct SettingView: View {
             .padding(.top, 10)
             
             NavigationLink {
-                //TODO: 개인 정보 처리 방침 화면?
+                PrivacypolicyView()
             } label: {
                 HStack {
                     Text("개인 정보 처리 방침")
