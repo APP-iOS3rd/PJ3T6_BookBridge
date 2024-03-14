@@ -12,6 +12,8 @@ import FirebaseFirestore
 class NotificationViewModel: ObservableObject { 
     @Published var notifications: [NotificationModel] = []
     @Published var partnerImageUrl: String = ""
+    @Published var isShowNotificationBadge: Bool = false
+    @Published var isBadgeDisplayed: Bool = false
     
     var listener: ListenerRegistration?
     
@@ -75,6 +77,7 @@ extension NotificationViewModel {
                     let noticeBoardTitle = data["noticeBoardTitle"] as? String ?? ""
                     let nickname = data["nickname"] as? String ?? ""
                     let timestamp = data["date"] as? Timestamp
+                    let review = data["review"] as? String ?? ""
                     let date = timestamp?.dateValue() ?? Date()
                     
                     FirebaseManager.shared.firestore.collection("User").document(partnerId).getDocument { [weak self] documentSnapshot, error in
@@ -83,16 +86,27 @@ extension NotificationViewModel {
                         
                         // 메인 스레드에서 UI 업데이트
                         DispatchQueue.main.async {
-                            let notification = NotificationModel(userId: userId, noticeBoardId: noticeBoardId, partnerId: partnerId, partnerImageUrl: partnerImageUrl, noticeBoardTitle: noticeBoardTitle, nickname: nickname, date: date)
+                            let notification = NotificationModel(userId: userId, noticeBoardId: noticeBoardId, partnerId: partnerId, partnerImageUrl: partnerImageUrl, noticeBoardTitle: noticeBoardTitle, nickname: nickname, review: review, date: date)
                             self?.notifications.append(notification)
-                            // 필요한 경우 notifications 배열을 정렬할 수 있습니다. 예: self?.notifications.sort(by: { $0.date > $1.date })
+//                             필요한 경우 notifications 배열을 정렬할 수 있습니다. 예: self?.notifications.sort(by: { $0.date > $1.date })
                         }
+                        
+                        
                     }
+                    
+                    self?.isShowNotificationBadge = true
                 }
             }
     }
-
-
-
+    
+    // 실시간 배지 호출
+    func displayBadge() {
+       if !isBadgeDisplayed {
+           isShowNotificationBadge = true
+           isBadgeDisplayed = true
+           startNotificationListener() // 호출 위치 변경
+       }
+   }
+    
 }
 
