@@ -13,6 +13,7 @@ struct ExchangeReview: View {
     @StateObject var notificationViewModel: NotificationViewModel
     @StateObject var chatMessageViewModel: ChatMessageViewModel
     
+    @State var id: String?
     @State var isSatisfied = false
     @State var isSoso = false
     @State var isUnsatisfied = false
@@ -116,6 +117,10 @@ struct ExchangeReview: View {
                 let notification = NotificationModel(userId: chatRoomPartner.partnerId, noticeBoardId: chatMessageViewModel.noticeBoardInfo.id, partnerId: UserManager.shared.uid, partnerImageUrl: UserManager.shared.user?.profileURL ?? "" ,noticeBoardTitle: chatMessageViewModel.noticeBoardInfo.noticeBoardTitle, nickname: UserManager.shared.user?.nickname ?? "", date: Date())
                 
                 notificationViewModel.saveNotification(notification: notification)
+                
+                if let notificationID = id {
+                    notificationViewModel.deleteNotification(id: notificationID)
+                }
                 
                 dismiss()
             } label: {

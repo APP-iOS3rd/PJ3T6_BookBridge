@@ -15,6 +15,7 @@ struct NotificationView: View {
     @StateObject var viewModel = ChatMessageViewModel()
     @State private var showExchangeReview = false
     @State var selectedPartner: ChatPartnerModel?
+    @State var id: String = ""
     
     var body: some View {
         List {
@@ -29,8 +30,8 @@ struct NotificationView: View {
                         reviews: [0, 0, 0],
                         style: "칭호 미아"
                     )
+                    id = notification.id
                     print("Showing ExchangeReview")
-                    notificationViewModel.deleteNotification(id: notification.id)
                     self.showExchangeReview = true
                 }
                 label: {
@@ -39,7 +40,11 @@ struct NotificationView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
-            }
+            }.onDelete(perform: { indexSet in
+                for index in indexSet {
+                    notificationViewModel.deleteNotification(id: notificationViewModel.notifications[index].id)
+                }
+            })
         }
         .navigationTitle("알림")
         .navigationBarTitleDisplayMode(.inline)
@@ -61,7 +66,7 @@ struct NotificationView: View {
         .sheet(isPresented: $showExchangeReview) {
             // 옵셔널 바인딩을 사용하여 selectedPartner가 nil이 아닌 경우에만 ExchangeReview를 표시
             if let partner = selectedPartner {
-                ExchangeReview(notificationViewModel: notificationViewModel, chatMessageViewModel: viewModel, chatRoomPartner: partner)
+                ExchangeReview(notificationViewModel: notificationViewModel, chatMessageViewModel: viewModel, id: id, chatRoomPartner: partner)
                     .presentationDetents([.medium])
             }
         }
