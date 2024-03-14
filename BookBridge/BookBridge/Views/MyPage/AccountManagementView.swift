@@ -11,11 +11,13 @@ struct AccountManagementView: View {
     @Binding var selectedTab: Int
 
     @StateObject var viewModel: MyPageViewModel
+    @StateObject var userManager = UserManager.shared
     
     @State private var isPassword: Bool = false
     @State private var isPhone: Bool = false
     @State private var showPasswordView: Bool = false
     @State private var showPhoneView: Bool = false
+    
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -44,7 +46,7 @@ struct AccountManagementView: View {
             }
             
             Button {
-                if UserManager.shared.user?.password == "" {
+                if userManager.user?.password == "" {
                     isPassword.toggle()
                 } else {
                     showPasswordView.toggle()
@@ -75,7 +77,7 @@ struct AccountManagementView: View {
             })
             
             Button {
-                if UserManager.shared.user?.phoneNumber == "" {
+                if userManager.user?.password == "" {                    
                     isPhone.toggle()
                 } else {
                     showPhoneView.toggle()
@@ -164,14 +166,13 @@ struct AccountManagementView: View {
                         .foregroundColor(.white)
                         .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
                 )
-            }
+            } 
         }
         .navigationDestination(isPresented: $showPasswordView) {
             MyProfilePasswordView()
         }
         .navigationDestination(isPresented: $showPhoneView) {
-            //TODO: 민호님 전화번호 변경 넣는곳
-            EmptyView()
+            ConfirmPasswordView(showPhoneView: $showPhoneView)            
         }
     }
 }
