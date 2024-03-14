@@ -57,7 +57,7 @@ struct HomeView: View {
                         Image(systemName: "bell")
                             .font(.system(size: 20))
                             .foregroundStyle(.black)
-                            .padding()
+                            .padding(.trailing,20)
                         if notificationViewModel.isShowNotificationBadge {
                             Circle()
                                 .foregroundColor(.red)
