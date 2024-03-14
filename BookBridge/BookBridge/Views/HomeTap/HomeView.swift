@@ -75,7 +75,7 @@ struct HomeView: View {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 viewModel.updateNoticeBoards()
             }
-            notificationViewModel.displayBadge()
+            notificationViewModel.displayBadge()           
         }
         
         .sheet(isPresented: $showingLoginView) {

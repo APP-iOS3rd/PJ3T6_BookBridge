@@ -124,7 +124,16 @@ struct ExchangeReview: View {
                 notificationViewModel.updatePartnerReview(partnerId: chatRoomPartner.partnerId, reviewIndex: index)
                 
                 // 알림 정보를 Firebase에 저장
-                let notification = NotificationModel(userId: chatRoomPartner.partnerId, noticeBoardId: chatMessageViewModel.noticeBoardInfo.id, partnerId: UserManager.shared.uid, partnerImageUrl: UserManager.shared.user?.profileURL ?? "" ,noticeBoardTitle: chatMessageViewModel.noticeBoardInfo.noticeBoardTitle, nickname: UserManager.shared.user?.nickname ?? "", review: text, date: Date())
+                let notification = NotificationModel(
+                    userId: chatRoomPartner.partnerId,
+                    noticeBoardId: chatMessageViewModel.noticeBoardInfo.id,
+                    partnerId: UserManager.shared.uid,
+                    partnerImageUrl: UserManager.shared.user?.profileURL ?? "" ,
+                    noticeBoardTitle: chatMessageViewModel.noticeBoardInfo.noticeBoardTitle,
+                    nickname: UserManager.shared.user?.nickname ?? "",
+                    review: text, date: Date(),
+                    isRead: false
+                )
                 
                 notificationViewModel.saveNotification(notification: notification)
                 

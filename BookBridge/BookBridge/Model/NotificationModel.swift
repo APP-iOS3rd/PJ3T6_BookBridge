@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct NotificationModel: Identifiable, Hashable, Codable {
+struct NotificationModel: Identifiable, Hashable, Codable, Equatable {
     var id = UUID().uuidString
     var userId: String                          //나
     var noticeBoardId: String                   //게시물 아이디
@@ -18,6 +18,7 @@ struct NotificationModel: Identifiable, Hashable, Codable {
     var nickname: String                        //상대방 닉네임
     var review: String                          //만족도
     var date: Date                              //알림 시간
+    var isRead: Bool                            //사용자가 알람을 읽었는지 확인
     
     var timeAgo: String {
         let formatter = RelativeDateTimeFormatter()

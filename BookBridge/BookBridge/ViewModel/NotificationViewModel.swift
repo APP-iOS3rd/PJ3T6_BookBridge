@@ -9,7 +9,7 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 
-class NotificationViewModel: ObservableObject { 
+class NotificationViewModel: ObservableObject {
     @Published var notifications: [NotificationModel] = []
     @Published var partnerImageUrl: String = ""
     @Published var isShowNotificationBadge: Bool = false
@@ -59,54 +59,74 @@ extension NotificationViewModel {
     func startNotificationListener() {
         // 현재 사용자의 UID 가져오기
         guard let uid = Auth.auth().currentUser?.uid else { return }
+                        
         
         // 알림 리스너 설정
         listener = db.collection("User").document(uid).collection("notification")
             .order(by: "date", descending: true)
             .addSnapshotListener { [weak self] querySnapshot, error in
+                if ((querySnapshot?.documentChanges) != nil) {
+                    print("변경사항 감지")
                     
-                guard let documents = querySnapshot?.documents else { return }
-                
-                self?.notifications.removeAll()
-                
-                for document in documents {
-                    let data = document.data()
-                    let userId = data["userId"] as? String ?? ""
-                    let noticeBoardId = data["noticeBoardId"] as? String ?? ""
-                    let partnerId = data["partnerId"] as? String ?? ""
-                    let noticeBoardTitle = data["noticeBoardTitle"] as? String ?? ""
-                    let nickname = data["nickname"] as? String ?? ""
-                    let timestamp = data["date"] as? Timestamp
-                    let review = data["review"] as? String ?? ""
-                    let date = timestamp?.dateValue() ?? Date()
+                                        
+                    guard let documents = querySnapshot?.documents else { return }
                     
-                    FirebaseManager.shared.firestore.collection("User").document(partnerId).getDocument { [weak self] documentSnapshot, error in
-                        guard let document = documentSnapshot, error == nil else { return }
-                        let partnerImageUrl = document.data()?["profileURL"] as? String ?? ""
+                    self?.notifications.removeAll()
+                    
+                    for document in documents {
+                        let data = document.data()
+                        let userId = data["userId"] as? String ?? ""
+                        let noticeBoardId = data["noticeBoardId"] as? String ?? ""
+                        let partnerId = data["partnerId"] as? String ?? ""
+                        let noticeBoardTitle = data["noticeBoardTitle"] as? String ?? ""
+                        let nickname = data["nickname"] as? String ?? ""
+                        let timestamp = data["date"] as? Timestamp
+                        let review = data["review"] as? String ?? ""
+                        let date = timestamp?.dateValue() ?? Date()
+                        let isRead = data["isRead"] as? Bool ?? false
                         
-                        // 메인 스레드에서 UI 업데이트
-                        DispatchQueue.main.async {
-                            let notification = NotificationModel(userId: userId, noticeBoardId: noticeBoardId, partnerId: partnerId, partnerImageUrl: partnerImageUrl, noticeBoardTitle: noticeBoardTitle, nickname: nickname, review: review, date: date)
-                            self?.notifications.append(notification)
-//                             필요한 경우 notifications 배열을 정렬할 수 있습니다. 예: self?.notifications.sort(by: { $0.date > $1.date })
+                        FirebaseManager.shared.firestore.collection("User").document(partnerId).getDocument { [weak self] documentSnapshot, error in
+                            guard let document = documentSnapshot, error == nil else { return }
+                            let partnerImageUrl = document.data()?["profileURL"] as? String ?? ""
+                            
+                            // 메인 스레드에서 UI 업데이트
+                            DispatchQueue.main.async {
+                                let notification = NotificationModel(
+                                    userId: userId, 
+                                    noticeBoardId: noticeBoardId,
+                                    partnerId: partnerId,
+                                    partnerImageUrl: partnerImageUrl,
+                                    noticeBoardTitle: noticeBoardTitle,
+                                    nickname: nickname,
+                                    review: review,
+                                    date: date,
+                                    isRead: isRead
+                                )
+                                
+                                
+                                DispatchQueue.main.async {
+                                    self?.notifications.append(notification)
+                                    self?.notifications.sort(by: { $0.date < $1.date })
+                                }
+                            }
                         }
                         
+                        // isRead가 하나라도 있으면 isShowNotificationBadge는 false
+                        let result = self?.notifications.filter { $0.isRead == false}.first
                         
+                        if let result = result {
+                            self?.isShowNotificationBadge = false
+                        } else {
+                            self?.isShowNotificationBadge = true
+                        }
                     }
-                    
-                    self?.isShowNotificationBadge = true
                 }
             }
     }
     
     // 실시간 배지 호출
     func displayBadge() {
-       if !isBadgeDisplayed {
-           isShowNotificationBadge = true
-           isBadgeDisplayed = true
-           startNotificationListener() // 호출 위치 변경
-       }
+        startNotificationListener()
    }
-    
 }
 
