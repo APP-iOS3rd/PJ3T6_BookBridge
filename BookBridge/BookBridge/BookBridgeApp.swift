@@ -43,8 +43,8 @@ struct BookBridgeApp: App {
             if isOnBoarding {
                 LaunchScreenView(isOnboardingActive: $isOnBoarding)
             }
-            else {
-                // FindIdCertiView(viewModel: FindIdViewModel())
+            else { 
+                // ConfirmPasswordView(viewModel: ChangePhonenumberViewModel())
                 TabBarView(userId: UserManager.shared.uid)
                     .onOpenURL { url in // 뷰가 속한 Window에 대한 URL을 받았을 때 호출할 Handler를 등록하는 함수
                         if AuthApi.isKakaoTalkLoginUrl(url) {
