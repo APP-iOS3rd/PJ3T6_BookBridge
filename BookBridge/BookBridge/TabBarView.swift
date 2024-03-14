@@ -49,7 +49,17 @@ struct TabBarView: View {
                                     }
                                     .badge(userManager.totalNewCount)
                                     .tag(1)
-                                
+                                    .navigationDestination(isPresented: $appState.isShowingChatMessageView){
+                                        if let chatRoomId = appState.chatRoomId {
+                                            ChatMessageView(
+                                                isAlarm: false,
+                                                chatRoomListId: chatRoomId,
+                                                chatRoomPartner: ChatPartnerModel(nickname: appState.nickname ?? " ", noticeBoardId: appState.noticeBoardId ?? "", partnerId: appState.partnerId ?? "", partnerImage: UIImage(named: "DefaultImage") ?? UIImage(), partnerImageUrl: appState.profileURL ?? "", reviews: [0,0], style: appState.style ?? "칭호 미아"),
+                                                noticeBoardTitle: appState.noticeBoardTitle ?? "",
+                                                uid: appState.userId ?? "")
+                                        }
+                                    }
+
                                 HomeView()
                                     .tabItem {
                                         Image(systemName: "plus.circle")

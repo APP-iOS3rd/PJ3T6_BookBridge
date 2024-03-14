@@ -82,19 +82,16 @@ struct ChatBottomBarView: View {
                         if viewModel.saveChatRoomId == "" {
                             viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
                                 viewModel.handleSend(uid: uid, partnerId: partnerId)
-                                // 메세지 알림
-                                Task{
-                                    await viewModel.sendNotification(to: partnerId, with: viewModel.chatText, chatRoomId: viewModel.saveChatRoomId)
-                                }
                                 viewModel.fetchMessages(uid: uid)
                             })
                         } else {
                             viewModel.handleSend(uid: uid, partnerId: partnerId)
-                            Task{
-                                await viewModel.sendNotification(to: partnerId, with: viewModel.chatText, chatRoomId: viewModel.saveChatRoomId)
-                            }
                         }
-                        print("saveChatRoomId: \(viewModel.saveChatRoomId)")
+                        // 메세지 알림
+                        Task{
+                            await viewModel.sendChatNotification(to: partnerId, with: viewModel.chatText, chatRoomId: viewModel.saveChatRoomId)
+                        }
+                        
                     }
                 } label: {
                     Image(systemName: "paperplane.fill")
@@ -203,7 +200,7 @@ struct ChatBottomBarView: View {
             }
             //사진 알림
             Task{
-                await viewModel.sendNotification(to: partnerId, with: "사진", chatRoomId: viewModel.saveChatRoomId)
+                await viewModel.sendChatNotification(to: partnerId, with: "사진", chatRoomId: viewModel.saveChatRoomId)
             }
         }) {
             ImagePicker(isVisible: $isShowingPhoto, images: $viewModel.selectedImages, sourceType: $one)
@@ -224,7 +221,7 @@ struct ChatBottomBarView: View {
             }
             //사진 알림
             Task{
-                await viewModel.sendNotification(to: partnerId, with: "사진", chatRoomId: viewModel.saveChatRoomId)
+                await viewModel.sendChatNotification(to: partnerId, with: "사진", chatRoomId: viewModel.saveChatRoomId)
             }
         }) {
             ImagePicker(isVisible: $isShowingCamera, images: $viewModel.selectedImages, sourceType: $zero)

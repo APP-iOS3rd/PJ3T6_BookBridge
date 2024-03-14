@@ -65,6 +65,10 @@ struct ChatExchangeHopeView: View {
                                 }
                             })
                         }
+                        // 위치 알림
+                        Task{
+                            await viewModel.sendChatNotification(to: partnerId, with: location, chatRoomId: viewModel.saveChatRoomId)
+                        }
                     }
                     dismiss()
                 }) {

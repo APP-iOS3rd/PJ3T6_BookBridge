@@ -569,29 +569,45 @@ extension ChatMessageViewModel {
 //MARK: 상대방에게 메세지 Push 알림
 extension ChatMessageViewModel {
     
-    func sendNotification(to partnerId: String, with message: String, chatRoomId: String) async {
+    func sendChatNotification(to partnerId: String, with message: String, chatRoomId: String) async {
         do {
             // 사용자 알림설정 체크
-            let isEnabled = try await getChattingAlarmStatus(for: partnerId)
+            let isChatEnabled = try await getChattingAlarmStatus(for: partnerId)
+            // 각 채팅방 알림설정 체크
+            let isChatRoomEnabled = try await getChatLoomAlarmStatus(for: partnerId, in: chatRoomId)
             
-            if isEnabled {
+            if isChatEnabled && isChatRoomEnabled {
                 // 사용자 알림 보내기 API
-                await sendNotificationAPI(to: partnerId, withMessage: message, chatRoomId: chatRoomId)
+                await sendChatNotificationAPI(to: partnerId, withMessage: message, chatRoomId: chatRoomId)
                 print("chatRoomId: \(chatRoomId)")
             }
         } catch {
             print("Error: \(error.localizedDescription)")
         }
     }
-    
+    // 사용자 알림설정
     private func getChattingAlarmStatus(for partnerId: String) async throws -> Bool {
         let query = FirebaseManager.shared.firestore.collection("User").document(partnerId)
         let document = try await query.getDocument()
         return document.data()?["isChattingAlarm"] as? Bool ?? true
     }
+    // 각 채팅방 알림설정
+    private func getChatLoomAlarmStatus(for partnerId: String,in chatRoomId: String) async throws -> Bool {
+        let query = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(chatRoomId)
+        let document = try await query.getDocument()
+        return document.data()?["isAlarm"] as? Bool ?? true
+    }
     
-    private func sendNotificationAPI(to userId: String, withMessage message: String, chatRoomId: String) async {
-        guard let url = URL(string: "http://13.211.66.183:3000/send-notification") else { return }
+    private func sendChatNotificationAPI(to userId: String, withMessage message: String, chatRoomId: String) async {
+        //Secrets.xcconfig파일 ServerURL 정보 불러오기
+        guard let baseUrlString = Bundle.main.object(forInfoDictionaryKey: "ServerURL") as? String else { return }
+        
+        let urlString = "http://\(baseUrlString)/send-notification"
+        
+        guard let url = URL(string: urlString) else {
+            print("Invalid or missing URL")
+            return }
+        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
