@@ -105,16 +105,36 @@ struct ExchangeReview: View {
             .padding(.bottom, 30)
             
             Button {
+                var reviewIndex: Int?
+                var reviewText: String?
+                
                 if isSatisfied {
-                    notificationViewModel.updatePartnerReview(partnerId: chatRoomPartner.partnerId, reviewIndex: 0)
+                    reviewIndex = 0
+                    reviewText = "만족해요"
                 } else if isSoso {
-                    notificationViewModel.updatePartnerReview(partnerId: chatRoomPartner.partnerId, reviewIndex: 1)
+                    reviewIndex = 1
+                    reviewText = "보통이에요"
                 } else if isUnsatisfied {
-                    notificationViewModel.updatePartnerReview(partnerId: chatRoomPartner.partnerId, reviewIndex: 2)
+                    reviewIndex = 2
+                    reviewText = "별로에요"
                 } else { return }
                 
+                guard let index = reviewIndex, let text = reviewText else { return }
+                 
+                // 프로필 리뷰정보 업데이트
+                notificationViewModel.updatePartnerReview(partnerId: chatRoomPartner.partnerId, reviewIndex: index)
+                
                 // 알림 정보를 Firebase에 저장
-                let notification = NotificationModel(userId: chatRoomPartner.partnerId, noticeBoardId: chatMessageViewModel.noticeBoardInfo.id, partnerId: UserManager.shared.uid, partnerImageUrl: UserManager.shared.user?.profileURL ?? "" ,noticeBoardTitle: chatMessageViewModel.noticeBoardInfo.noticeBoardTitle, nickname: UserManager.shared.user?.nickname ?? "", date: Date())
+                let notification = NotificationModel(
+                    userId: chatRoomPartner.partnerId,
+                    noticeBoardId: chatMessageViewModel.noticeBoardInfo.id,
+                    partnerId: UserManager.shared.uid,
+                    partnerImageUrl: UserManager.shared.user?.profileURL ?? "" ,
+                    noticeBoardTitle: chatMessageViewModel.noticeBoardInfo.noticeBoardTitle,
+                    nickname: UserManager.shared.user?.nickname ?? "",
+                    review: text, date: Date(),
+                    isRead: false
+                )
                 
                 
                 if let notificationID = id {

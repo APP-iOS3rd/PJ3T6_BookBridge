@@ -22,7 +22,7 @@ struct NotificationItemView: View {
                 
                 VStack(alignment: .leading, spacing: 10) {
                 HStack {
-                    Text("\"\(notificationModel.noticeBoardTitle)\"")
+                    Text("\(notificationModel.noticeBoardTitle)")
                         .foregroundColor(.black)
                         .bold()
                     Text("게시물 평가알림")
@@ -37,14 +37,15 @@ struct NotificationItemView: View {
                     Text("님이 해당 교환에 대해 ".useNonBreakingSpace())
                         .foregroundColor(.black)
                         .font(.system(size: 15)) +
-                    Text("\"불물우룽만족해요\"".useNonBreakingSpace())
-                        .foregroundColor(.blue)
+                    Text("\(notificationModel.review)".useNonBreakingSpace())
+                        .foregroundColor(.orange)
                         .font(.system(size: 15))
                         .bold() +
                     Text(" 평가를 남겼어요.".useNonBreakingSpace())
                         .foregroundColor(.black)
                         .font(.system(size: 15))
                 }
+                .opacity(0.6)
                 .multilineTextAlignment(.leading)
                 
                 Text("\(notificationModel.timeAgo)")

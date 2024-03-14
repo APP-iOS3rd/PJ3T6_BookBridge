@@ -32,7 +32,7 @@ struct NotificationView: View {
                     )
                     id = notification.id
                     print("Showing ExchangeReview")
-                    self.showExchangeReview = true
+                    self.showExchangeReview = true  
                 }
                 label: {
                     VStack{
@@ -40,7 +40,8 @@ struct NotificationView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
-            }.onDelete(perform: { indexSet in
+            }
+          .onDelete(perform: { indexSet in
                 for index in indexSet {
                     notificationViewModel.deleteNotification(id: notificationViewModel.notifications[index].id)
                 }
@@ -67,7 +68,7 @@ struct NotificationView: View {
             // 옵셔널 바인딩을 사용하여 selectedPartner가 nil이 아닌 경우에만 ExchangeReview를 표시
             if let partner = selectedPartner {
                 ExchangeReview(notificationViewModel: notificationViewModel, chatMessageViewModel: viewModel, id: id, chatRoomPartner: partner)
-                    .presentationDetents([.medium])
+                    .presentationDetents([.fraction(0.65),])
             }
         }
     }

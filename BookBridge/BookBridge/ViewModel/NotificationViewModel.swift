@@ -9,10 +9,11 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 
-class NotificationViewModel: ObservableObject { 
+class NotificationViewModel: ObservableObject {
     @Published var notifications: [NotificationModel] = []
     @Published var partnerImageUrl: String = ""
-    @Published var data: String = ""
+    @Published var isShowNotificationBadge: Bool = false
+    @Published var isBadgeDisplayed: Bool = false
     
     var listener: ListenerRegistration?
     
@@ -58,54 +59,83 @@ extension NotificationViewModel {
     func startNotificationListener() {
         // 현재 사용자의 UID 가져오기
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        
-        notifications.removeAll()
+                        
         
         // 알림 리스너 설정
         listener = db.collection("User").document(uid).collection("notification")
             .order(by: "date", descending: true)
-            .addSnapshotListener { querySnapshot, error in
-                
-                guard let documents = querySnapshot?.documents else { return }
-                
-                // Firebase에서 받아온 데이터를 NotificationModel로 변환하여 배열에 저장
-                self.notifications = documents.compactMap { queryDocumentSnapshot -> NotificationModel? in
-                    let data = queryDocumentSnapshot.data()
-                    let id = data["id"] as? String ?? ""
-                    let userId = data["userId"] as? String ?? ""
-                    let noticeBoardId = data["noticeBoardId"] as? String ?? ""
-                    let partnerId = data["partnerId"] as? String ?? ""
-                    let partnerImageUrl = data["partnerImageUrl"] as? String ?? ""
-                    let noticeBoardTitle = data["noticeBoardTitle"] as? String ?? ""
-                    let nickname = data["nickname"] as? String ?? ""
-                    let timestamp = data["date"] as? Timestamp
-                    let date = timestamp?.dateValue() ?? Date()
+            .addSnapshotListener { [weak self] querySnapshot, error in
+                if ((querySnapshot?.documentChanges) != nil) {
+                    print("변경사항 감지")
                     
+                                        
+                    guard let documents = querySnapshot?.documents else { return }
                     
-                    return NotificationModel(id: id, userId: userId, noticeBoardId: noticeBoardId, partnerId: partnerId, partnerImageUrl: partnerImageUrl, noticeBoardTitle: noticeBoardTitle, nickname: nickname, date: date)
+                    self?.notifications.removeAll()
+                    
+                    for document in documents {
+                        let data = document.data()
+                        let userId = data["userId"] as? String ?? ""
+                        let noticeBoardId = data["noticeBoardId"] as? String ?? ""
+                        let partnerId = data["partnerId"] as? String ?? ""
+                        let noticeBoardTitle = data["noticeBoardTitle"] as? String ?? ""
+                        let nickname = data["nickname"] as? String ?? ""
+                        let timestamp = data["date"] as? Timestamp
+                        let review = data["review"] as? String ?? ""
+                        let date = timestamp?.dateValue() ?? Date()
+                        let isRead = data["isRead"] as? Bool ?? false
+                        
+                        FirebaseManager.shared.firestore.collection("User").document(partnerId).getDocument { [weak self] documentSnapshot, error in
+                            guard let document = documentSnapshot, error == nil else { return }
+                            let partnerImageUrl = document.data()?["profileURL"] as? String ?? ""
+                            
+                            // 메인 스레드에서 UI 업데이트
+                            DispatchQueue.main.async {
+                                let notification = NotificationModel(
+                                    userId: userId, 
+                                    noticeBoardId: noticeBoardId,
+                                    partnerId: partnerId,
+                                    partnerImageUrl: partnerImageUrl,
+                                    noticeBoardTitle: noticeBoardTitle,
+                                    nickname: nickname,
+                                    review: review,
+                                    date: date,
+                                    isRead: isRead
+                                )
+                                
+                                
+                                DispatchQueue.main.async {
+                                    self?.notifications.append(notification)
+                                    self?.notifications.sort(by: { $0.date < $1.date })
+                                }
+                            }
+                        }
+                        
+                        // isRead가 하나라도 있으면 isShowNotificationBadge는 false
+                        let result = self?.notifications.filter { $0.isRead == false}.first
+                        
+                        if let result = result {
+                            self?.isShowNotificationBadge = false
+                        } else {
+                            self?.isShowNotificationBadge = true
+                        }
+                    }
                 }
             }
     }
     
-    func deleteNotification(id: String) {
+    // 실시간 배지 호출
+    func displayBadge() {
+        startNotificationListener()
+   }
+  
+  func deleteNotification(id: String) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
         db.collection("User").document(uid).collection("notification").document(id).delete()
         
         startNotificationListener()
         
-    }
-    
-    func getPartnerImageUrl(partnerId: String) {
-        let partnerDocumentRef = FirebaseManager.shared.firestore.collection("User").document(partnerId)
-        
-        partnerDocumentRef.getDocument { documentSnapshot, error in
-            guard let document = documentSnapshot else { return }
-            
-            DispatchQueue.main.async {
-                self.partnerImageUrl = document.data()?["profileURL"] as? String ?? ""
-            }
-        }
     }
 }
 
