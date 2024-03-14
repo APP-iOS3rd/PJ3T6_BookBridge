@@ -45,7 +45,7 @@ extension NotificationViewModel {
     // 새로운 알림 평가정보 저장
     func saveNotification(notification: NotificationModel) {
         do {
-            let documentRef = db.collection("User").document(notification.userId).collection("notification").document()
+            let documentRef = db.collection("User").document(notification.userId).collection("notification").document(notification.id)
             try documentRef.setData(from: notification)
         } catch {
             print("Notification 저장실패")
@@ -128,5 +128,14 @@ extension NotificationViewModel {
     func displayBadge() {
         startNotificationListener()
    }
+  
+  func deleteNotification(id: String) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        db.collection("User").document(uid).collection("notification").document(id).delete()
+        
+        startNotificationListener()
+        
+    }
 }
 

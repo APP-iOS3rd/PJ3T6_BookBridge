@@ -13,6 +13,7 @@ struct ExchangeReview: View {
     @StateObject var notificationViewModel: NotificationViewModel
     @StateObject var chatMessageViewModel: ChatMessageViewModel
     
+    @State var id: String?
     @State var isSatisfied = false
     @State var isSoso = false
     @State var isUnsatisfied = false
@@ -135,7 +136,12 @@ struct ExchangeReview: View {
                     isRead: false
                 )
                 
-                notificationViewModel.saveNotification(notification: notification)
+                
+                if let notificationID = id {
+                    notificationViewModel.deleteNotification(id: notificationID)
+                } else {
+                    notificationViewModel.saveNotification(notification: notification)
+                }
                 
                 dismiss()
             } label: {
