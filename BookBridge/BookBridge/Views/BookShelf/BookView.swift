@@ -15,10 +15,7 @@ struct BookView: View {
     @Binding var ismore : Bool
     
     var tap: tapInfo
-    
-    
-    
-    
+
     let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
     
     var body: some View {
@@ -48,8 +45,6 @@ struct BookView: View {
                                         selectedBook = book
                                     }
                             }
-                            
-                            
                         }
                         .frame(width: (UIScreen.main.bounds.width - 60) / 3)
                         
@@ -63,19 +58,14 @@ struct BookView: View {
                                     Image(systemName: "xmark.circle.fill")
                                         .foregroundColor(.red)
                                         .frame(width: 24, height: 24)
-                                    
                                 }
                             }
-                            
                         }
-                        
-                        
-                        
-                        
                     }
                 }
                 .padding(.top, 8)
             }
+            .padding(.horizontal)
         }
         .onTapGesture {
             hideKeyboard()

@@ -87,6 +87,7 @@ class FirestoreSignUpManager {
                 print("User has been saved!")
                 self.addUserLocation(userId: user.id ?? "") {
                     print("회원가입에 성공하였습니다!")
+                    UserManager.shared.isDoSignUp = true
                     completion()
                 }
             }

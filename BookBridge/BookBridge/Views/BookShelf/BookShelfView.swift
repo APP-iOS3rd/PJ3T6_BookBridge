@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct BookShelfView: View {
-    @StateObject  var viewModel: BookShelfViewModel
-    @State  var selectedPicker: tapInfo
+    @StateObject var viewModel: BookShelfViewModel
+    @State var selectedPicker: tapInfo
     @State private var showingSheet = false // 시트 표시 여부를 위한 상태 변수
     @State private var searchText = ""
     @State private var selectedBook: Item?
@@ -31,9 +31,6 @@ struct BookShelfView: View {
         _ismore = State(initialValue: ismore)
     }
     
-    
-    
-    
     var searchBarPlaceholder: String {
         switch selectedPicker {
         case .wish:
@@ -45,39 +42,32 @@ struct BookShelfView: View {
         }
     }
     
-    
-    
     var body: some View {
-        
-        ZStack{
+        ZStack {
             VStack {
-                ZStack{
+                ZStack {
                     if isBack == false {
                         
                         Text("내 책장")
                             .font(.system(size: 16))
-                        HStack{
-                            
+                        
+                        HStack {
                             Spacer()
+                            
                             if userId == UserManager.shared.uid || userId == nil {
                                 Button {
                                     isEditing.toggle()
-                                    
                                 } label: {
                                     Text(isEditing ? "확인" :  "편집")
                                         .font(.system(size: 16))
                                         .foregroundStyle(.black)
                                 }
                             }
-                            
-                            
-                            
                         }
                     }
-                    
-                    
                 }
                 .padding(.top,8)
+                .padding(.horizontal)
                 
                 Picker("선택", selection: $selectedPicker) {
                     ForEach(pickerItems, id: \.self) { item in
@@ -85,6 +75,7 @@ struct BookShelfView: View {
                     }
                 }
                 .pickerStyle(.segmented)
+                .padding(.horizontal)
                 .onChange(of: selectedPicker) { newValue in
                     viewModel.fetchBooks(for: newValue)
                 }
@@ -92,13 +83,12 @@ struct BookShelfView: View {
                 Spacer()
                     .frame(height: 20)
                 
-                VStack{
+                VStack {
                     BookSearchBar(text: $searchText, placeholder: searchBarPlaceholder)
+                        .padding(.horizontal)
                         .onChange(of: searchText) { newValue in
                             viewModel.filterBooks(for: selectedPicker, searchText: newValue)
                         }
-                    
-                    
                     
                     Spacer()
                         .frame(height: 20)
@@ -110,18 +100,12 @@ struct BookShelfView: View {
                                 .environmentObject(viewModel)
                                 .presentationDetents([.large])
                                 .presentationDragIndicator(.visible)
-                            
                         }
                 }
                 .onTapGesture {
                     hideKeyboard()                    
                 }
-                    
-                
-                
-                
             }
-            .padding(.horizontal)            
             .onAppear{
                 viewModel.fetchBooks(for: selectedPicker)
             }
@@ -135,8 +119,7 @@ struct BookShelfView: View {
                         //취소 클릭시 아닐경우 나눈후 아닐경우 중복 처리후 wishbook에 입력 취소시 배열 초기화
                         if hopeBooks.isEmpty {
                             // 취소눌렀을 경우
-                        }
-                        else {
+                        } else {
                             // 확인 눌렀을 경우
                             if selectedPicker == .wish {
                                 viewModel.wishBooks.removeAll { item in
@@ -145,9 +128,7 @@ struct BookShelfView: View {
                                 viewModel.wishBooks.append(contentsOf: hopeBooks)
                                 viewModel.saveBooksToFirestore(books: hopeBooks, collection: "wishBooks")
                                 viewModel.fetchBooks(for: .wish)
-                                
-                            }
-                            else {
+                            } else {
                                 viewModel.holdBooks.removeAll { item in
                                     hopeBooks.contains(where: { $0.id == item.id })
                                 }
@@ -167,7 +148,6 @@ struct BookShelfView: View {
             if userId != nil {
                 viewModel.gettingUserInfo(userId: self.userId ?? "")
             }
-            
         }
     }
 }

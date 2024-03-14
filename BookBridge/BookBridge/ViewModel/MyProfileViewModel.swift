@@ -12,7 +12,6 @@ import FirebaseStorage
 class MyProfileViewModel: ObservableObject {
     @Published var selectImage: UIImage?
     @Published var userNickname: String = ""
-    @Published var userPassword: String = ""
     
     let db = Firestore.firestore()
     let storage = Storage.storage().reference()
@@ -22,30 +21,8 @@ class MyProfileViewModel: ObservableObject {
 
 //MARK: FirebaseFirestore 관련
 extension MyProfileViewModel {
-    func doEditing(nickname: String, userSaveImage: (String, UIImage), password: String, completion: @escaping((Bool, Bool, String)) -> ()) {
-        if selectImage != userSaveImage.1 && userNickname != nickname && userPassword != password{  //셋다 변경
-            db.collection("User").whereField("nickname", isEqualTo: userNickname).getDocuments { querySnapshot, error in
-                guard error == nil else { return }
-                guard let documents = querySnapshot else { return }
-                
-                if documents.isEmpty {      //닉네임 중복이 없는 경우
-                    if self.validator.isValidPwd(pwd: self.userPassword) {
-                        self.saveProfileImage { urlString in
-                            self.db.collection("User").document(self.userManager.uid).updateData([
-                                "nickname": self.userNickname,
-                                "profileURL": urlString,
-                                "password": self.userPassword
-                            ])
-                            completion((false, false, urlString))               //완벽
-                        }
-                    } else {                //비밀번호 양식이 맞지 않는 경우
-                        completion((false, true, ""))
-                    }
-                } else {                    //닉네임 중복이 있는 경우
-                    completion((true, false, ""))
-                }
-            }
-        } else if selectImage != userSaveImage.1 && userNickname != nickname {         //이미지, 닉네임만 변경
+    func doEditing(nickname: String, userSaveImage: (String, UIImage), completion: @escaping((Bool, String)) -> ()) {
+        if selectImage != userSaveImage.1 && userNickname != nickname {  //셋다 변경
             db.collection("User").whereField("nickname", isEqualTo: userNickname).getDocuments { querySnapshot, error in
                 guard error == nil else { return }
                 guard let documents = querySnapshot else { return }
@@ -54,43 +31,12 @@ extension MyProfileViewModel {
                     self.saveProfileImage { urlString in
                         self.db.collection("User").document(self.userManager.uid).updateData([
                             "nickname": self.userNickname,
-                            "profileURL": urlString
+                            "profileURL": urlString,
                         ])
-                        completion((false, false, urlString))               //완벽
+                        completion((false, urlString))               //완벽
                     }
                 } else {                    //닉네임 중복이 있는 경우
-                    completion((true, false, ""))
-                }
-            }
-        } else if selectImage != userSaveImage.1 && userPassword != password{             //이미지, 비밀번호 변경
-            if validator.isValidPwd(pwd: userPassword) {
-                self.saveProfileImage { urlString in
-                    self.db.collection("User").document(self.userManager.uid).updateData([
-                        "profileURL": urlString,
-                        "password": self.userPassword
-                    ])
-                    completion((false, false, urlString))               //완벽
-                }
-            } else {                                            //비밀번호 양식이 맞지 않는 경우
-                completion((false, true, ""))
-            }
-        } else if userNickname != nickname && userPassword != password {             //닉네임, 비밀번호 변경
-            db.collection("User").whereField("nickname", isEqualTo: userNickname).getDocuments { querySnapshot, error in
-                guard error == nil else { return }
-                guard let documents = querySnapshot else { return }
-                
-                if documents.isEmpty {                                  //닉네임 중복이 없는 경우
-                    if self.validator.isValidPwd(pwd: self.userPassword) {
-                        self.db.collection("User").document(self.userManager.uid).updateData([
-                            "nickname": self.userNickname,
-                            "password": self.userPassword
-                        ])
-                        completion((false, false, ""))                  //완벽
-                    } else {                                            //비밀번호 양식이 맞지 않는 경우
-                        completion((false, true, ""))
-                    }
-                } else {                                                //닉네임 중복이 있는 경우
-                    completion((true, false, ""))
+                    completion((true, ""))
                 }
             }
         } else if selectImage != userSaveImage.1 {
@@ -98,9 +44,9 @@ extension MyProfileViewModel {
                 self.db.collection("User").document(self.userManager.uid).updateData([
                     "profileURL": urlString,
                 ])
-                completion((false, false, urlString))               //완벽
+                completion((false, urlString))               //완벽
             }
-        } else if userNickname != nickname {
+        } else {
             db.collection("User").whereField("nickname", isEqualTo: userNickname).getDocuments { querySnapshot, error in
                 guard error == nil else { return }
                 guard let documents = querySnapshot else { return }
@@ -109,19 +55,10 @@ extension MyProfileViewModel {
                     self.db.collection("User").document(self.userManager.uid).updateData([
                         "nickname": self.userNickname
                     ])
-                    completion((false, false, ""))
+                    completion((false, ""))
                 } else {                    //닉네임 중복이 있는 경우
-                    completion((true, false, ""))
+                    completion((true, ""))
                 }
-            }
-        } else {
-            if self.validator.isValidPwd(pwd: self.userPassword) {
-                self.db.collection("User").document(self.userManager.uid).updateData([
-                    "password": self.userPassword
-                ])
-                completion((false, false, ""))                  //완벽
-            } else {                                            //비밀번호 양식이 맞지 않는 경우
-                completion((false, true, ""))
             }
         }
     }

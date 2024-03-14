@@ -16,7 +16,6 @@ struct NoticeBoardTapView: View {
     @Binding var isChangeAnimating: Bool
     @Binding var selectedTab: Int
     
-    
     @StateObject var viewModel: NoticeBoardViewModel
 
     @EnvironmentObject private var pathModel: TabPathViewModel

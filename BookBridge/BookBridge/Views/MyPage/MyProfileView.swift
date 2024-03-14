@@ -13,15 +13,12 @@ struct MyProfileView: View {
     @StateObject var viewModel = MyProfileViewModel()
     
     @State var nickname: String = ""
-    @State var password: String = ""
     @State var userSaveImage: (String, UIImage) = ("", UIImage(named: "Character")!)
     
     @State private var isDuplication: Bool = false
-    @State private var isFalsePassword: Bool = false
     @State private var isEditing: Bool = false
     @State private var isShowImagePicker: Bool = false
     @State private var saveText: String = ""
-    @State private var savePassword: String = ""
     
     var body: some View {
         GeometryReader { geometry in
@@ -54,13 +51,7 @@ struct MyProfileView: View {
                 .padding(.vertical, 10)
                 .padding(.bottom, 10)
                 
-                MyProfileNicknameView(isDuplication: $isDuplication, isFalsePassword: $isFalsePassword, isEditing: $isEditing, saveText: $saveText, viewModel: viewModel)
-                
-                //TODO: 전화번호
-                
-                if password != "" {
-                    MyProfilePasswordView(isDuplication: $isDuplication, isFalsePassword: $isFalsePassword, isEditing: $isEditing, savePassword: $savePassword, viewModel: viewModel)
-                }
+                MyProfileNicknameView(isDuplication: $isDuplication, isEditing: $isEditing, saveText: $saveText, viewModel: viewModel)
                 
                 Spacer()
             }
@@ -74,7 +65,6 @@ struct MyProfileView: View {
             print("userSaveImageProfile: \(userSaveImage)")
             viewModel.userNickname = nickname
             viewModel.selectImage = userSaveImage.1
-            viewModel.userPassword = password
         }
         .navigationBarBackButtonHidden()
         .navigationTitle(isEditing ? "" : "프로필")
@@ -87,7 +77,6 @@ struct MyProfileView: View {
                     Button {
                         viewModel.userNickname = nickname
                         viewModel.selectImage = userSaveImage.1
-                        viewModel.userPassword = password
                         isEditing.toggle()
                     } label: {
                         Text("취소")
@@ -106,14 +95,11 @@ struct MyProfileView: View {
             }
             
             ToolbarItem(placement: .topBarTrailing) {
-                MyProfileToolbarItemView(isDuplication: $isDuplication, isFalsePassword: $isFalsePassword, isEditing: $isEditing, nickname: $nickname, password: $password, userSaveImage: $userSaveImage, viewModel: viewModel)
+                MyProfileToolbarItemView(isDuplication: $isDuplication, isEditing: $isEditing, nickname: $nickname, userSaveImage: $userSaveImage, viewModel: viewModel)
             }
         }
         .fullScreenCover(isPresented: $isShowImagePicker){
             ProfileImagePicker(image: $viewModel.selectImage)
-        }
-        .onChange(of: viewModel.selectImage) { _ in
-            print(viewModel.selectImage)
         }
     }
 }
