@@ -190,6 +190,8 @@ struct TabBarView: View {
                         showingNewBiView = false
                     }
                 }
+                
+                UserManager.shared.updateTotalNewCount()
             }
         }){
             LoginView(showingLoginView: $showingLoginView)
