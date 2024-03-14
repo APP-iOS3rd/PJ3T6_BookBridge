@@ -10,7 +10,11 @@ import SwiftUI
 struct NoticeBoardChatView: View {
     @EnvironmentObject private var pathModel: TabPathViewModel
     @StateObject var viewModel: ChatMessageViewModel
+    @StateObject var notificationViewModel = NotificationViewModel()
     
+    @State private var isExchangeCompleted = false
+    
+    var chatRoomPartner: ChatPartnerModel
     var chatRoomListId: String
     var noticeBoardId: String
     var partnerId: String
@@ -65,7 +69,17 @@ struct NoticeBoardChatView: View {
                     .font(.caption)
                     .foregroundStyle(.white)
                 }
-            } else {
+            } else if viewModel.noticeBoardInfo.state == 2 {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 20)
+                        .foregroundStyle(.green)
+                        .frame(width: 60, height: 30)
+                    Text("교환완료")
+                        .font(.caption)
+                        .foregroundStyle(.white)
+                }
+            }
+            else {
                 Button(action: {
                     let newState = viewModel.noticeBoardInfo.state == 1 ? 0 : 1
                     
@@ -85,6 +99,7 @@ struct NoticeBoardChatView: View {
                     let newState = viewModel.noticeBoardInfo.state == 2 ? 0 : 2
                     
                     viewModel.changeState(state: newState, partnerId: partnerId, noticeBoardId: noticeBoardId)
+                    isExchangeCompleted = true
                 }) {
                     ZStack {
                         RoundedRectangle(cornerRadius: 20)
@@ -99,20 +114,42 @@ struct NoticeBoardChatView: View {
         }
         .padding(.top, 8)
         .padding(.horizontal)
-
-        
+        .onAppear {
+            print(uid, viewModel.noticeBoardInfo.userId)
+        }
+        .fullScreenCover(isPresented: $isExchangeCompleted, onDismiss: {
+            withAnimation(.linear(duration: 0.2)) {
+                isExchangeCompleted = false
+            }
+        }) {
+            ExchangeReview(notificationViewModel: notificationViewModel, chatMessageViewModel: viewModel, chatRoomPartner: chatRoomPartner)
+        }
         Divider()
         
-        if viewModel.noticeBoardInfo.reservationId == partnerId {
-            ZStack {
-                Rectangle()
-                    .foregroundStyle(.orange)
-                    .opacity(0.8)
-                    .frame(maxWidth: .infinity, maxHeight: 30)
-                Text("현재 상대방과 예약 진행중입니다")
-                    .font(.system(size: 16))
-                    .foregroundStyle(.white)
-                    .bold()
+            if viewModel.noticeBoardInfo.reservationId == partnerId {
+                ZStack {
+                switch viewModel.noticeBoardInfo.state {
+                case 1:
+                    Rectangle()
+                        .foregroundStyle(.orange)
+                        .opacity(0.8)
+                        .frame(maxWidth: .infinity, maxHeight: 30)
+                    Text("현재 상대방과 예약 진행중입니다")
+                        .font(.system(size: 16))
+                        .foregroundStyle(.white)
+                        .bold()
+                case 2:
+                    Rectangle()
+                        .foregroundStyle(.gray)
+                        .opacity(0.8)
+                        .frame(maxWidth: .infinity, maxHeight: 30)
+                    Text("교환이 완료되었습니다")
+                        .font(.system(size: 16))
+                        .foregroundStyle(.white)
+                        .bold()
+                default:
+                    EmptyView()
+                }
             }
             .padding(-8)
         }

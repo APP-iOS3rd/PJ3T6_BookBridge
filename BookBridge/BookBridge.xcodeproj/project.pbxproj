@@ -28,6 +28,10 @@
 		1DCFB01E2B687D7000250D55 /* FindIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB01D2B687D7000250D55 /* FindIdView.swift */; };
 		1DCFB0242B68CD3100250D55 /* FindPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */; };
 		1DE382A72B734E74009A7A15 /* HomeRecentSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE382A62B734E74009A7A15 /* HomeRecentSearchView.swift */; };
+		1DEAB9282BA032580096D604 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1DEAB9272BA032580096D604 /* GoogleService-Info.plist */; };
+		1DEAB92A2BA0325E0096D604 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1DEAB9292BA0325E0096D604 /* Secrets.xcconfig */; };
+		1DEAB92D2BA034510096D604 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DEAB92B2BA0344F0096D604 /* NotificationView.swift */; };
+		1DEAB92E2BA034510096D604 /* NotificationItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DEAB92C2BA034510096D604 /* NotificationItemView.swift */; };
 		1DF1CF7D2B7DD3DA008870FB /* PostPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1CF7C2B7DD3DA008870FB /* PostPathType.swift */; };
 		1DF1CF7F2B7DD6E4008870FB /* PostPathViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1CF7E2B7DD6E4008870FB /* PostPathViewModel.swift */; };
 		1DFDD1BA2B71B48400B320F7 /* SignInState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFDD1B92B71B48400B320F7 /* SignInState.swift */; };
@@ -124,8 +128,6 @@
 		5AA97F862B709C4000EF4081 /* FirestoreSignUpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA97F852B709C4000EF4081 /* FirestoreSignUpManager.swift */; };
 		5AA97F892B70BCF000EF4081 /* BundleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA97F882B70BCF000EF4081 /* BundleExtension.swift */; };
 		5AD20EAB2B85E7F3009B8CEC /* FirestoreManager_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AD20EAA2B85E7F3009B8CEC /* FirestoreManager_Tests.swift */; };
-		5ADADC562B92D953002A4C08 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5ADADC542B92D953002A4C08 /* GoogleService-Info.plist */; };
-		5ADADC572B92D953002A4C08 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5ADADC552B92D953002A4C08 /* Secrets.xcconfig */; };
 		5ADE79D32B6B2798005BB3ED /* SwiftSMTP in Frameworks */ = {isa = PBXBuildFile; productRef = 5ADE79D22B6B2798005BB3ED /* SwiftSMTP */; };
 		5ADE79DA2B6B2C99005BB3ED /* CertiResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79D92B6B2C99005BB3ED /* CertiResult.swift */; };
 		5ADE79DE2B6B3305005BB3ED /* GoogleAuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */; };
@@ -218,6 +220,10 @@
 		914600432B7205C700E0E24F /* ChatRoomListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914600422B7205C700E0E24F /* ChatRoomListView.swift */; };
 		9146004E2B7238EB00E0E24F /* ChatMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9146004D2B7238EB00E0E24F /* ChatMessageView.swift */; };
 		914600502B7240D800E0E24F /* ChatMessageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9146004F2B7240D800E0E24F /* ChatMessageViewModel.swift */; };
+		914F59732B9EC8560085926E /* ExchangeReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914F59722B9EC8560085926E /* ExchangeReview.swift */; };
+		914F59752B9EFB490085926E /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914F59742B9EFB490085926E /* NotificationViewModel.swift */; };
+		914F59772B9F22820085926E /* ChatImageModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914F59762B9F22820085926E /* ChatImageModalView.swift */; };
+		914F59792BA026B60085926E /* NotificationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914F59782BA026B60085926E /* NotificationModel.swift */; };
 		915FD1DA2B7C403D0008C38B /* ChatRoomListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FD1D92B7C403D0008C38B /* ChatRoomListModel.swift */; };
 		915FD1DC2B7CA6A40008C38B /* SearchChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FD1DB2B7CA6A40008C38B /* SearchChatListView.swift */; };
 		915FD1DE2B7CB7E80008C38B /* NoticeBoardChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FD1DD2B7CB7E70008C38B /* NoticeBoardChatView.swift */; };
@@ -289,6 +295,10 @@
 		1DCFB01D2B687D7000250D55 /* FindIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdView.swift; sourceTree = "<group>"; };
 		1DCFB0232B68CD3100250D55 /* FindPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordView.swift; sourceTree = "<group>"; };
 		1DE382A62B734E74009A7A15 /* HomeRecentSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRecentSearchView.swift; sourceTree = "<group>"; };
+		1DEAB9272BA032580096D604 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1DEAB9292BA0325E0096D604 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		1DEAB92B2BA0344F0096D604 /* NotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		1DEAB92C2BA034510096D604 /* NotificationItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationItemView.swift; sourceTree = "<group>"; };
 		1DF1CF7C2B7DD3DA008870FB /* PostPathType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPathType.swift; sourceTree = "<group>"; };
 		1DF1CF7E2B7DD6E4008870FB /* PostPathViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPathViewModel.swift; sourceTree = "<group>"; };
 		1DFDD1B92B71B48400B320F7 /* SignInState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInState.swift; sourceTree = "<group>"; };
@@ -389,8 +399,6 @@
 		5AA97F852B709C4000EF4081 /* FirestoreSignUpManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreSignUpManager.swift; sourceTree = "<group>"; };
 		5AA97F882B70BCF000EF4081 /* BundleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtension.swift; sourceTree = "<group>"; };
 		5AD20EAA2B85E7F3009B8CEC /* FirestoreManager_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreManager_Tests.swift; sourceTree = "<group>"; };
-		5ADADC542B92D953002A4C08 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		5ADADC552B92D953002A4C08 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		5ADE79D92B6B2C99005BB3ED /* CertiResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertiResult.swift; sourceTree = "<group>"; };
 		5ADE79DD2B6B3305005BB3ED /* GoogleAuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAuthModel.swift; sourceTree = "<group>"; };
 		5ADE79DF2B6B3351005BB3ED /* GoogleSignResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignResultModel.swift; sourceTree = "<group>"; };
@@ -485,6 +493,10 @@
 		914600422B7205C700E0E24F /* ChatRoomListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomListView.swift; sourceTree = "<group>"; };
 		9146004D2B7238EB00E0E24F /* ChatMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageView.swift; sourceTree = "<group>"; };
 		9146004F2B7240D800E0E24F /* ChatMessageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageViewModel.swift; sourceTree = "<group>"; };
+		914F59722B9EC8560085926E /* ExchangeReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExchangeReview.swift; sourceTree = "<group>"; };
+		914F59742B9EFB490085926E /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
+		914F59762B9F22820085926E /* ChatImageModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatImageModalView.swift; sourceTree = "<group>"; };
+		914F59782BA026B60085926E /* NotificationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationModel.swift; sourceTree = "<group>"; };
 		915FD1D92B7C403D0008C38B /* ChatRoomListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomListModel.swift; sourceTree = "<group>"; };
 		915FD1DB2B7CA6A40008C38B /* SearchChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchChatListView.swift; sourceTree = "<group>"; };
 		915FD1DD2B7CB7E70008C38B /* NoticeBoardChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardChatView.swift; sourceTree = "<group>"; };
@@ -742,8 +754,8 @@
 		5A7A4E192B61DFFD00F79C23 = {
 			isa = PBXGroup;
 			children = (
-				5ADADC542B92D953002A4C08 /* GoogleService-Info.plist */,
-				5ADADC552B92D953002A4C08 /* Secrets.xcconfig */,
+				1DEAB9272BA032580096D604 /* GoogleService-Info.plist */,
+				1DEAB9292BA0325E0096D604 /* Secrets.xcconfig */,
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
 				5A7A4E352B61DFFE00F79C23 /* BookBridgeTests */,
@@ -819,6 +831,7 @@
 				5AA0A1D12B95B64300317831 /* Alert */,
 				F6185FBE2B8C0C2600C2A889 /* LaunchScreen */,
 				91B7F0AD2B70DE4E00B4C475 /* Chat */,
+				91159E322B9EC7D100919B0C /* Review */,
 				5C8C0E302B7B2909002963F1 /* Report */,
 				F6DFC8D12B7309D800931CF9 /* Post */,
 				738EDA9D2B71EAF20066ADE7 /* HomeTap */,
@@ -1021,6 +1034,7 @@
 				5C8C0DD72B734B8C002963F1 /* NaverReverseGeocoding.swift */,
 				5C8C0E3B2B7B29F7002963F1 /* Report.swift */,
 				91E99D962B8D6CFA0038A9DE /* InquiryModel.swift */,
+				914F59782BA026B60085926E /* NotificationModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1078,6 +1092,8 @@
 				738EDAA02B71EBA30066ADE7 /* HomeTapView.swift */,
 				738EDAA22B71ECA80066ADE7 /* HomeListItemView.swift */,
 				1DE382A62B734E74009A7A15 /* HomeRecentSearchView.swift */,
+				1DEAB92B2BA0344F0096D604 /* NotificationView.swift */,
+				1DEAB92C2BA034510096D604 /* NotificationItemView.swift */,
 			);
 			path = HomeTap;
 			sourceTree = "<group>";
@@ -1103,6 +1119,14 @@
 			path = Delegate;
 			sourceTree = "<group>";
 		};
+		91159E322B9EC7D100919B0C /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				914F59722B9EC8560085926E /* ExchangeReview.swift */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
 		91B7F0AD2B70DE4E00B4C475 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
@@ -1117,6 +1141,7 @@
 				73036B682B8DACCF00A32B26 /* ChatExchangeHopeView.swift */,
 				73036B6E2B8DD7DF00A32B26 /* ChatExchangeInfoView.swift */,
 				73036B702B8DE0EC00A32B26 /* ChatUIExchangeHopeView.swift */,
+				914F59762B9F22820085926E /* ChatImageModalView.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -1183,6 +1208,7 @@
 				73441FB62B734F2F00446E0F /* NoticeBoardViewModel.swift */,
 				91695F512B8D8CE400A0E2F7 /* InquiryViewModel.swift */,
 				1D28D8022B98538100C09EB9 /* TabPathViewModel.swift */,
+				914F59742B9EFB490085926E /* NotificationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1356,8 +1382,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */,
-				5ADADC572B92D953002A4C08 /* Secrets.xcconfig in Resources */,
-				5ADADC562B92D953002A4C08 /* GoogleService-Info.plist in Resources */,
+				1DEAB92A2BA0325E0096D604 /* Secrets.xcconfig in Resources */,
+				1DEAB9282BA032580096D604 /* GoogleService-Info.plist in Resources */,
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
 				5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */,
 			);
@@ -1556,6 +1582,7 @@
 				7369293D2B7B0B5700966503 /* MyPageViewModel.swift in Sources */,
 				F64B7EFB2B8325C1008AB919 /* PostModifyViewModel.swift in Sources */,
 				5A3380702B872C130038F2DE /* PostChangeLocationView.swift in Sources */,
+				914F59772B9F22820085926E /* ChatImageModalView.swift in Sources */,
 				5A0242152B6D36FF00137AA6 /* LoadingCircle.swift in Sources */,
 				1D9F0A962B9ECD8800FC2764 /* PrivacypolicyWebView.swift in Sources */,
 				5A83458C2B74A0C0000984C4 /* TownAddButtonView.swift in Sources */,
@@ -1646,7 +1673,9 @@
 				5AA82E5E2B67891E006EFC72 /* SmtpManager.swift in Sources */,
 				5A3E020B2B6F9FCD008F8CFD /* TestView.swift in Sources */,
 				738EDAA52B7225950066ADE7 /* UIImageExtension.swift in Sources */,
+				1DEAB92D2BA034510096D604 /* NotificationView.swift in Sources */,
 				5ADE79EA2B6B6715005BB3ED /* SignUpInputManager.swift in Sources */,
+				914F59752B9EFB490085926E /* NotificationViewModel.swift in Sources */,
 				73441FB92B735E1C00446E0F /* NoticeBoardSortView.swift in Sources */,
 				7361270D2B6B83AC00943CD7 /* CameraButtonView.swift in Sources */,
 				1D9F0A942B9EC67A00FC2764 /* PrivacypolicyView.swift in Sources */,
@@ -1665,6 +1694,7 @@
 				73C962A32B68880500D34D3F /* SearchBarView.swift in Sources */,
 				5A3A44222B6C89AE00B66C81 /* LocationViewModel.swift in Sources */,
 				73C962A52B688D4200D34D3F /* BookModel.swift in Sources */,
+				1DEAB92E2BA034510096D604 /* NotificationItemView.swift in Sources */,
 				9146004E2B7238EB00E0E24F /* ChatMessageView.swift in Sources */,
 				73DDA5DF2B6A336100B25FB8 /* SelectBooksView.swift in Sources */,
 				5A1A16942B622BB10063D408 /* GoogleLoginViewController.swift in Sources */,
@@ -1675,6 +1705,7 @@
 				1DE382A72B734E74009A7A15 /* HomeRecentSearchView.swift in Sources */,
 				915FD1DA2B7C403D0008C38B /* ChatRoomListModel.swift in Sources */,
 				5A9A33872B62960800982E92 /* ColorExtension.swift in Sources */,
+				914F59732B9EC8560085926E /* ExchangeReview.swift in Sources */,
 				5A1E27532B9EDB390054EAF9 /* ChangePhoneNumberStandardView.swift in Sources */,
 				1D28D8032B98538100C09EB9 /* TabPathViewModel.swift in Sources */,
 				73D077E42B7C7FC90007DDEB /* RoomListView.swift in Sources */,
@@ -1708,6 +1739,7 @@
 				5A1E275A2B9F0ACC0054EAF9 /* ConfirmPasswordView.swift in Sources */,
 				1DF1CF7F2B7DD6E4008870FB /* PostPathViewModel.swift in Sources */,
 				738EDAA32B71ECA80066ADE7 /* HomeListItemView.swift in Sources */,
+				914F59792BA026B60085926E /* NotificationModel.swift in Sources */,
 				5A3A44152B6C778200B66C81 /* SignUpInputType.swift in Sources */,
 				5A3A440D2B6C73D500B66C81 /* MiddleBlueBtnStyle.swift in Sources */,
 				5A3380772B8752580038F2DE /* StorageManager.swift in Sources */,
@@ -1788,7 +1820,7 @@
 /* Begin XCBuildConfiguration section */
 		5A7A4E442B61DFFE00F79C23 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5ADADC552B92D953002A4C08 /* Secrets.xcconfig */;
+			baseConfigurationReference = 1DEAB9292BA0325E0096D604 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1852,7 +1884,7 @@
 		};
 		5A7A4E452B61DFFE00F79C23 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5ADADC552B92D953002A4C08 /* Secrets.xcconfig */;
+			baseConfigurationReference = 1DEAB9292BA0325E0096D604 /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

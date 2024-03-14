@@ -46,7 +46,7 @@ struct ChatMessageView: View {
                             .foregroundStyle(.white)
                     }
                 } else {
-                    NoticeBoardChatView( viewModel: viewModel, chatRoomListId: viewModel.saveChatRoomId, noticeBoardId: chatRoomPartner.noticeBoardId, partnerId: chatRoomPartner.partnerId, uid: uid)
+                    NoticeBoardChatView( viewModel: viewModel, chatRoomPartner: chatRoomPartner, chatRoomListId: viewModel.saveChatRoomId, noticeBoardId: chatRoomPartner.noticeBoardId, partnerId: chatRoomPartner.partnerId, uid: uid)
                 }
                 
                 MessageListView( viewModel: viewModel, chatRoomPartner: chatRoomPartner, uid: uid)
@@ -85,11 +85,12 @@ struct ChatMessageView: View {
                                 .background(Color(.lightGray))
                             } else {
                                 VStack(spacing: 10) {
-                                    Text("\"\(viewModel.reservationName)\"님과 교환 완료했습니다.")
+                                    Text("\"\(viewModel.reservationName)\"님과 교환을 완료했습니다.")
                                         .padding(.vertical, 8)
                                         .padding(.horizontal, 12)
                                         .font(.system(size: 18))
                                         .foregroundStyle(.white)
+                                        .bold()
                                 }
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 80)
