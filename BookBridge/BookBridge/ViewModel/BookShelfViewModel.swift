@@ -15,11 +15,9 @@ class BookShelfViewModel: ObservableObject {
     @Published var filteredBooks: [Item] = []
     @Published var user: UserModel = UserModel()
     
-    var isfirstWishCheck = true
-    var isfirstHoldCheck = true
-    var isWishStylecheck = false
-    var isHoldStylecheck = false
     var userId : String?
+    
+    let userManager = UserManager.shared
     
     init(userId: String?) {
         self.userId = userId
@@ -110,53 +108,33 @@ class BookShelfViewModel: ObservableObject {
                 if collection == "wishBooks" {
                     self?.wishBooks = items
                     self?.filteredBooks = items
-            
-                    if (self?.isfirstWishCheck ?? false) {
-                        if !(self?.isWishStylecheck ?? false) {
-                            if self?.wishBooks.count ?? 0 >= 10 {
-                                self?.isWishStylecheck = true
-                            }
-                        }
-                        self?.isfirstWishCheck = false
-                    }
-
-                    if !(self?.isWishStylecheck ?? false) {
-                        if self?.wishBooks.count ?? 0 >= 10 {
-                            self?.isWishStylecheck = true
-                            print(UserManager.shared.isWishStyleCheck)
-                            if !UserManager.shared.isWishStyleCheck {
-                                UserManager.shared.isWishStyleCheck = true
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                                    UserManager.shared.isWishStyleCheck = false
-                                }
-                            }
+                    
+                    if self?.wishBooks.count ?? 0 >= 10 && !((self?.userManager.user?.titles ?? ["뉴비"]).contains("책바라기")) {
+                        self?.userManager.isWishStyleCheck = true
+                        self?.userManager.user?.titles?.append("책바라기")
+                        
+                        db.collection("User").document(userId).updateData([
+                            "titles": self?.userManager.user?.titles ?? ["뉴비", "책바라기"]
+                        ])
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            self?.userManager.isWishStyleCheck = false
                         }
                     }
                 } else if collection == "holdBooks" {
                     self?.holdBooks = items
                     self?.filteredBooks = items
                     
-                    if (self?.isfirstHoldCheck ?? false) {
-                        if !(self?.isHoldStylecheck ?? false) {
-                            if self?.holdBooks.count ?? 0 >= 10 {
-                                self?.isHoldStylecheck = true
-                            }
-                        }
-                        self?.isfirstHoldCheck = false
-                    }
-                    
-                    if !(self?.isHoldStylecheck ?? false) {
-                        if self?.holdBooks.count ?? 0 >= 10 {
-                            self?.isHoldStylecheck = true
-                            
-                            if !UserManager.shared.isHoldStyleCheck {
-                                UserManager.shared.isHoldStyleCheck = true
-                                
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                                    UserManager.shared.isHoldStyleCheck = false
-                                }
-                            }
+                    if self?.holdBooks.count ?? 0 >= 10 && !((self?.userManager.user?.titles ?? ["뉴비"]).contains("백과사전")) {
+                        self?.userManager.isHoldStyleCheck = true
+                        self?.userManager.user?.titles?.append("백과사전")
+                        
+                        db.collection("User").document(userId).updateData([
+                            "titles": self?.userManager.user?.titles ?? ["뉴비", "백과사전"]
+                        ])
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                            self?.userManager.isHoldStyleCheck = false
                         }
                     }
                 }
@@ -176,10 +154,8 @@ class BookShelfViewModel: ObservableObject {
             if let index = holdBooks.firstIndex(where: { $0.id == book.id }) {
                 holdBooks.remove(at: index)
             }
-            
         case .search:
-            break
-            
+            break  
         }
 
         // Firestore에서도 책 제거
