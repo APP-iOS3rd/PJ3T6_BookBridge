@@ -135,9 +135,12 @@ extension NotificationViewModel {
   func deleteNotification(id: String) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        db.collection("User").document(uid).collection("notification").document(id).delete()
-        
-        startNotificationListener()
+        db.collection("User").document(uid).collection("notification").document(id).delete { error in
+            if let error = error {
+                print("Error deleting document: \(error)")
+                return
+            }
+        }
     }
 }
 
