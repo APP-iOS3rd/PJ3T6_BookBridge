@@ -151,11 +151,11 @@ struct TabBarView: View {
                 StyleGetView(style: .newBi)
             }
             
-            if userManager.isWishStyleCheck && !showingLoginView {
+            if userManager.isWishStyleCheck && !showingLoginView && userManager.isLogin {
                 StyleGetView(style: .bookHope)
             }
             
-            if userManager.isHoldStyleCheck && !showingLoginView {
+            if userManager.isHoldStyleCheck && !showingLoginView && userManager.isLogin {
                 StyleGetView(style: .bookDic)
             }
         }
