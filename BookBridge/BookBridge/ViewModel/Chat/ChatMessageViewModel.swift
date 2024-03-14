@@ -569,7 +569,7 @@ extension ChatMessageViewModel {
 //MARK: 상대방에게 메세지 Push 알림
 extension ChatMessageViewModel {
     
-    func sendNotification(to partnerId: String, with message: String, chatRoomId: String) async {
+    func sendChatNotification(to partnerId: String, with message: String, chatRoomId: String) async {
         do {
             // 사용자 알림설정 체크
             let isChatEnabled = try await getChattingAlarmStatus(for: partnerId)
@@ -578,7 +578,7 @@ extension ChatMessageViewModel {
             
             if isChatEnabled && isChatRoomEnabled {
                 // 사용자 알림 보내기 API
-                await sendNotificationAPI(to: partnerId, withMessage: message, chatRoomId: chatRoomId)
+                await sendChatNotificationAPI(to: partnerId, withMessage: message, chatRoomId: chatRoomId)
                 print("chatRoomId: \(chatRoomId)")
             }
         } catch {
@@ -598,7 +598,7 @@ extension ChatMessageViewModel {
         return document.data()?["isAlarm"] as? Bool ?? true
     }
     
-    private func sendNotificationAPI(to userId: String, withMessage message: String, chatRoomId: String) async {
+    private func sendChatNotificationAPI(to userId: String, withMessage message: String, chatRoomId: String) async {
         //Secrets.xcconfig파일 ServerURL 정보 불러오기
         guard let baseUrlString = Bundle.main.object(forInfoDictionaryKey: "ServerURL") as? String else { return }
         
