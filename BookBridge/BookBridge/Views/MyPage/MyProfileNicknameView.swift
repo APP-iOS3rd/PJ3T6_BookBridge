@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MyProfileNicknameView: View {
     @Binding var isDuplication: Bool
-    @Binding var isFalsePassword: Bool
     @Binding var isEditing: Bool
     @Binding var saveText: String
     

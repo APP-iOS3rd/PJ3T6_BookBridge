@@ -22,7 +22,7 @@ extension ReviewScoreViewModel {
         if otherUser == nil {
             reviews = userManager.user?.reviews ?? [0, 0, 0]
         } else {
-            reviews = userManager.user?.reviews ?? [0, 0, 0]
+            reviews = otherUser?.reviews ?? [0, 0, 0]
         }
         
         guard reviews.count == 3 else { return }
