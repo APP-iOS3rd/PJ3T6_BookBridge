@@ -176,7 +176,7 @@ struct ChatMessageView: View {
                             }
                             .alert("채팅방을 나가시겠습니까?", isPresented: $isAlert, actions: {
                                 Button("나가기", role: .destructive) {
-                                    viewModel.deleteChatRoom(uid: uid) {
+                                    viewModel.deleteChatRoom(uid: uid, partnerId: chatRoomPartner.partnerId) {
                                         dismiss()
                                     }
                                 }
