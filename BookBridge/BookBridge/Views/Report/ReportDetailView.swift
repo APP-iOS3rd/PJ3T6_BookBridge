@@ -60,7 +60,8 @@ struct ReportDetailView: View {
                 }
                 .alert(isPresented: $showAlert){
                     Alert(
-                        title: Text("신고 접수가 완료되었습니다."),
+                        title: Text("신고 접수 완료"),
+                        message: Text("신고 내용은 24시간 이내 조치됩니다."),
                         dismissButton: .default(Text("확인")) {
                             pathModel.paths.removeAll()
                             text = ""

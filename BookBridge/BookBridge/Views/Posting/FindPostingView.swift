@@ -61,7 +61,7 @@ struct FindPostingView: View {
                             if viewModel.noticeBoard.noticeBoardDetail.isEmpty {
                                 VStack {
                                     HStack {
-                                        Text("상세 내용을 작성해주세요")
+                                        Text("상세 내용을 작성해주세요. 부적절하거나 불쾌감을 줄 수 있는 컨텐츠를 게시할 경우 제재를 받을 수 있습니다.")
                                             .foregroundStyle(.tertiary)
                                         Spacer()
                                     }
