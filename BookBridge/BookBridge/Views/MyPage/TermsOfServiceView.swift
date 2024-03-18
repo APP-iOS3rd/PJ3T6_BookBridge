@@ -1,5 +1,5 @@
 //
-//  LocationPolicyView.swift
+//  TermsOfServiceView.swift
 //  BookBridge
 //
 //  Created by 이현호 on 3/18/24.
@@ -8,12 +8,13 @@
 import SwiftUI
 import WebKit
 
-struct LocationPolicyView: View {
+struct TermsOfServiceView: View {
     @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
-        PolicyWebView(url: URL(string: "https://internal-nest-08f.notion.site/4817aab9cde548e39b456fa3e7daf2a0?pvs=4")!)
+        PolicyWebView(url: URL(string: "https://internal-nest-08f.notion.site/39360863e97647e796cbe7a2788dcaea")!)
             .navigationBarBackButtonHidden()
-            .navigationTitle("위치기반서비스 이용약관")
+            .navigationTitle("서비스 이용약관")
             .navigationBarTitleDisplayMode(.inline)
             .padding(.horizontal)
             .toolbar {
@@ -27,6 +28,6 @@ struct LocationPolicyView: View {
                     }
                 }
             }
-            
+        
     }
 }

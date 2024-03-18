@@ -13,7 +13,7 @@ struct TermsAndConditionsView: View {
     var body: some View {
         VStack(alignment: .leading) {
             NavigationLink {
-                PrivacypolicyView()
+                TermsOfServiceView()
             } label: {
                 HStack {
                     Text("서비스 이용약관")

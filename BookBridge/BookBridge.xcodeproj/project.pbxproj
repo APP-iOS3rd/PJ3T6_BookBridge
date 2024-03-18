@@ -230,6 +230,7 @@
 		9189E0782BA587DD00F7DD36 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 9189E0772BA587DD00F7DD36 /* Secrets.xcconfig */; };
 		9189E07A2BA81AF100F7DD36 /* TermsAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189E0792BA81AF100F7DD36 /* TermsAndConditionsView.swift */; };
 		9189E07C2BA81D3400F7DD36 /* LocationPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189E07B2BA81D3400F7DD36 /* LocationPolicyView.swift */; };
+		9189E07E2BA825B900F7DD36 /* TermsOfServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189E07D2BA825B900F7DD36 /* TermsOfServiceView.swift */; };
 		91B359452B883C4D00CD7778 /* HideKeyboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B359442B883C4D00CD7778 /* HideKeyboardExtension.swift */; };
 		91B359492B88998400CD7778 /* PostImageModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B359482B88998400CD7778 /* PostImageModalView.swift */; };
 		91B7F0B02B70DE8800B4C475 /* ChatMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B7F0AF2B70DE8800B4C475 /* ChatMessageModel.swift */; };
@@ -505,6 +506,7 @@
 		9189E0772BA587DD00F7DD36 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		9189E0792BA81AF100F7DD36 /* TermsAndConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsView.swift; sourceTree = "<group>"; };
 		9189E07B2BA81D3400F7DD36 /* LocationPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPolicyView.swift; sourceTree = "<group>"; };
+		9189E07D2BA825B900F7DD36 /* TermsOfServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfServiceView.swift; sourceTree = "<group>"; };
 		91B359442B883C4D00CD7778 /* HideKeyboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideKeyboardExtension.swift; sourceTree = "<group>"; };
 		91B359482B88998400CD7778 /* PostImageModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostImageModalView.swift; sourceTree = "<group>"; };
 		91B7F0AF2B70DE8800B4C475 /* ChatMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageModel.swift; sourceTree = "<group>"; };
@@ -1076,6 +1078,7 @@
 				73441FB82B735E1C00446E0F /* NoticeBoardSortView.swift */,
 				91E99D982B8D6F500038A9DE /* InquiryView.swift */,
 				9189E0792BA81AF100F7DD36 /* TermsAndConditionsView.swift */,
+				9189E07D2BA825B900F7DD36 /* TermsOfServiceView.swift */,
 				1D9F0A932B9EC67A00FC2764 /* PrivacypolicyView.swift */,
 				9189E07B2BA81D3400F7DD36 /* LocationPolicyView.swift */,
 				1D9F0A952B9ECD8800FC2764 /* PolicyWebView.swift */,
@@ -1700,6 +1703,7 @@
 				5AA1BBF32B99AE1500928A67 /* FindPasswordInputView.swift in Sources */,
 				1DFDD1BC2B71BF3D00B320F7 /* tapInfo.swift in Sources */,
 				73C962A32B68880500D34D3F /* SearchBarView.swift in Sources */,
+				9189E07E2BA825B900F7DD36 /* TermsOfServiceView.swift in Sources */,
 				5A3A44222B6C89AE00B66C81 /* LocationViewModel.swift in Sources */,
 				73C962A52B688D4200D34D3F /* BookModel.swift in Sources */,
 				1DEAB92E2BA034510096D604 /* NotificationItemView.swift in Sources */,
