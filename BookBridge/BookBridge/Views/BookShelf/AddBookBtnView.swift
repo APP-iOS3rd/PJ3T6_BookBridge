@@ -20,14 +20,18 @@ struct AddBookBtnView: View {
                 
                 Button(
                     action: {
-                        showingSheet = true
-                            
+                        showingSheet = true                            
                     },
                     label: {
                         Image(systemName: "plus.circle.fill")
                             .resizable()
-                            .foregroundColor(Color(hex:"F6A65D"))
                             .frame(width: 50,height: 50)
+                            .foregroundColor(Color(hex:"59AAE0"))
+                            .background(
+                                Circle()
+                                    .frame(width: 50,height: 50)
+                                    .foregroundColor(.white)
+                            )
                     }
                 )
             }

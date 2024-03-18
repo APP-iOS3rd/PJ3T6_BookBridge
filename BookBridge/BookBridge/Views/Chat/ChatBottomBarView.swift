@@ -1,0 +1,257 @@
+//
+//  ChatBottomBarView.swift
+//  BookBridge
+//
+//  Created by 노주영 on 2/14/24.
+//
+
+import SwiftUI
+
+struct ChatBottomBarView: View {
+    @AppStorage("isAlarmEnabled") private var isChattingAlarm: Bool = true
+    
+    @Binding var isPlusBtn: Bool
+    
+    @StateObject var viewModel: ChatMessageViewModel
+    @State var chatTextArr: [Substring] = []
+    
+    @State private var isShowingCamera = false
+    @State private var isShowingLocation = false
+    @State private var isShowingPhoto = false
+    @State private var keyboardHeight: CGFloat = 0
+    
+    @FocusState.Binding var isShowKeyboard: Bool
+    
+    var chatRoomListId: String
+    var partnerId: String
+    var uid: String
+    
+    @State var zero: Int = 0
+    @State var one: Int = 1
+    
+    var body: some View {
+        VStack {
+            HStack (spacing: 12) {
+                Button {
+                    withAnimation(.linear(duration: 0.2)) {
+                        isPlusBtn.toggle()
+                    }
+                    isShowKeyboard = false
+                } label: {
+                    Image(systemName: "plus")
+                        .resizable()
+                        .frame(width: 23, height: 23)
+                        .rotationEffect(.degrees(isPlusBtn ? 0 : 45))
+                        .foregroundStyle(Color(.darkGray))
+                }
+                
+                ZStack {
+                    HStack {
+                        Text("내용을 입력해주세요")
+                            .foregroundColor(Color(.gray))
+                            .font(.system(size: 17))
+                            .padding(.leading, 12)
+                        Spacer()
+                    }
+                    
+                    TextEditor(text: $viewModel.chatText)
+                        .opacity(viewModel.chatText.isEmpty ? 0.5 : 1)
+                        .padding(.leading, 6)
+                        .padding(.trailing, 6)
+                        .frame(minHeight: 40, maxHeight: 120)
+                        .focused($isShowKeyboard)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .onTapGesture {
+                            isPlusBtn = true
+                            isShowKeyboard = false
+                        }
+                        .onChange(of: viewModel.chatText) { _ in
+                            withAnimation {
+                                chatTextArr = viewModel.chatText.split{ $0 == " " || $0 == "\n"}
+                            }
+                        }
+                }
+                .overlay(
+                    RoundedRectangle(cornerRadius: 22)
+                        .stroke(Color.gray, lineWidth: 1)
+                )
+                
+                
+                Button {
+                    if !chatTextArr.isEmpty {
+                        if viewModel.saveChatRoomId == "" {
+                            viewModel.handleSendNoId(uid: uid, partnerId: partnerId) {
+                                viewModel.handleSend(uid: uid, partnerId: partnerId)
+                                viewModel.fetchMessages(uid: uid)
+                            }
+                        } else {
+                            if viewModel.chatMessages.isEmpty {
+                                viewModel.handleNoChatRoom(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId) {
+                                    viewModel.handleSend(uid: uid, partnerId: partnerId)
+                                }
+                            } else {
+                                viewModel.handleSend(uid: uid, partnerId: partnerId)
+                            }
+                        }
+                        // 메세지 알림
+                        Task{
+                            await viewModel.sendChatNotification(to: partnerId, with: viewModel.chatText, chatRoomId: viewModel.saveChatRoomId)
+                        }
+                        
+                    }
+                } label: {
+                    Image(systemName: "paperplane.fill")
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                        .foregroundStyle(chatTextArr.isEmpty ? Color.gray : Color(hex:"59AAE0"))
+                }
+                .disabled(chatTextArr.isEmpty)
+            }
+            .padding(.horizontal)
+            .padding(.vertical, 8)
+            
+            if !isPlusBtn {
+                HStack {
+                    
+                    Spacer()
+                    
+                    VStack {
+                        Button(action: {
+                            isShowingPhoto = true
+                        }) {
+                            VStack {
+                                Image(systemName: "photo.on.rectangle")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30, height: 30)
+                                    .foregroundStyle(Color(.darkGray))
+                            }
+                        }
+                        .padding()
+                        .background(
+                            Circle()
+                                .frame(width: 60, height: 60)
+                                .foregroundColor(Color(hex: "D9D9D9"))
+                                .opacity(0.4)
+                        )
+                        Text("사진")
+                    }
+                    
+                    Spacer()
+                    
+                    VStack {
+                        Button(action: {
+                            isShowingCamera = true
+                        }) {
+                            Image(systemName: "camera.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 30, height: 30)
+                                .foregroundStyle(Color(.darkGray))
+                            
+                        }
+                        .padding()
+                        .background(
+                            Circle()
+                                .frame(width: 60, height: 60)
+                                .foregroundColor(Color.brown)
+                                .opacity(0.6)
+                        )
+                        Text("카메라")
+                    }
+                    
+                    Spacer()
+                    
+                    VStack {
+                        Button {
+                            isShowingLocation.toggle()
+                        } label: {
+                            Image(systemName: "mappin.and.ellipse")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 30, height: 30)
+                                .foregroundStyle(Color(.darkGray))
+                                .padding()
+                                .background(
+                                    Circle()
+                                        .frame(width: 60, height: 60)
+                                        .foregroundColor(Color.yellow)
+                                        .opacity(0.6)
+                                )
+                        }
+                        
+                        Text("위치공유")
+                    }
+                    
+                    Spacer()
+                    
+                }
+                .padding(.top, 80)
+                .padding(.bottom, 80)
+                .transition(.move(edge: .bottom))
+            }
+        }
+        .fullScreenCover(isPresented: $isShowingPhoto, onDismiss: {
+            withAnimation(.linear(duration: 0.2)) {
+                isPlusBtn.toggle()
+            }
+            
+            if viewModel.saveChatRoomId != "" {
+                if viewModel.chatMessages.isEmpty {
+                    viewModel.handleNoChatRoom(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId) {
+                        viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                    }
+                } else {
+                    viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                }
+            } else {
+                viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
+                    viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                    viewModel.fetchMessages(uid: uid)
+                })
+            }
+            //사진 알림
+            Task{
+                await viewModel.sendChatNotification(to: partnerId, with: "사진", chatRoomId: viewModel.saveChatRoomId)
+            }
+        }) {
+            ImagePicker(isVisible: $isShowingPhoto, images: $viewModel.selectedImages, sourceType: $one)
+                .ignoresSafeArea(.all)
+        }
+        .fullScreenCover(isPresented: $isShowingCamera, onDismiss: {
+            withAnimation(.linear(duration: 0.2)) {
+                isPlusBtn.toggle()
+            }
+            
+            if viewModel.saveChatRoomId != "" {
+                if viewModel.chatMessages.isEmpty {
+                    viewModel.handleNoChatRoom(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId) {
+                        viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                    }
+                } else {
+                    viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                }
+            } else {
+                viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
+                    viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                    viewModel.fetchMessages(uid: uid)
+                })
+            }
+            //사진 알림
+            Task{
+                await viewModel.sendChatNotification(to: partnerId, with: "사진", chatRoomId: viewModel.saveChatRoomId)
+            }
+        }) {
+            ImagePicker(isVisible: $isShowingCamera, images: $viewModel.selectedImages, sourceType: $zero)
+                .ignoresSafeArea(.all)
+        }
+        .fullScreenCover(isPresented: $isShowingLocation, onDismiss: {
+            withAnimation(.linear(duration: 0.2)) {
+                isPlusBtn.toggle()
+            }
+        }) {
+            ChatExchangeHopeView(viewModel: viewModel, chatRoomListId: chatRoomListId, partnerId: partnerId, uid: uid)
+        }
+    }
+}
+

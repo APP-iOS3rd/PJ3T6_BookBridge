@@ -11,63 +11,69 @@ import FirebaseFirestore
 
 struct TownSettingView: View {
     @Environment(\.dismiss) private var dismiss
+    
     @StateObject var locationViewModel = LocationViewModel.shared
     @StateObject var userLocationViewModel = UserLocationViewModel.shared
-    @State private var sliderValue = 1.0
-        
-    @State var selectedLocation: Location?
-    let locationManager = LocationManager.shared
-    let db = Firestore.firestore()
     
     @State var locations = [Location]()
+    @State var selectedLocation: Location?
+    @State private var sliderValue = 1.0
+    @State var isShowingText = false
+    // @State private var permitViewOffset: CGFloat = 300
+    
+    let db = Firestore.firestore()
+    let locationManager = LocationManager.shared
                 
     var body: some View {
-        VStack {
-            // 지도
-            TownSettingMapView()
-                .modifier(TownSettingMapStyle())
-            
-            // 동네버튼
-            HStack(spacing: 20) {
-                ForEach(userLocationViewModel.locations ?? [], id: \.id) { location in
-                    TownSelectButtonView(
-                        selectedLocation: self.$selectedLocation,
-                        locations: self.$locations,
-                        location: location
-                    )                                        
-                }
+        
+        ZStack {
+            VStack {
+                // 지도
+                TownSettingMapView()
+                    .modifier(TownSettingMapStyle())
                 
-                if userLocationViewModel.locations?.count ?? 0 < 2 {
-                    TownAddButtonView(
-                        selectedLocation: self.$selectedLocation,
-                        locations: self.$locations
-                    )
+                // 동네버튼
+                HStack(spacing: 20) {
+                    ForEach(userLocationViewModel.locations ?? [], id: \.id) { location in
+                        TownSelectButtonView(
+                            selectedLocation: self.$selectedLocation,
+                            locations: self.$locations,
+                            location: location
+                        )
+                    }
+                    
+                    if userLocationViewModel.locations?.count ?? 0 < 2 {
+                        TownAddButtonView(
+                            selectedLocation: self.$selectedLocation,
+                            locations: self.$locations
+                        )
+                    }
                 }
-            }
-            .padding(.bottom, 20)
-            .padding(.horizontal)
-            
-            // 거리 슬라이더
-            TownSettingSlideView()
-                .frame(maxWidth: .infinity)
+                .padding(.bottom, 20)
                 .padding(.horizontal)
+                
+                // 거리 슬라이더
+                TownSettingSlideView()
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal)
+                            
+            }
             
-            Spacer()
-            
-            // 저장버튼(임시)
-            Button {
-                if let locations = userLocationViewModel.locations {
-                    FirestoreManager.saveLocations(locations: locations)
-                }
-            } label: {
-                Text("저장하기")
+            if isShowingText {
+                LocationPermitView(isShowingText: $isShowingText)
             }
         }
         .navigationBarBackButtonHidden()
         .navigationTitle("동네설정")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.hidden, for: .tabBar)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
+                    if let locations = userLocationViewModel.locations {
+                        UserManager.shared.chageLocation(locations: locations)
+                        FirestoreManager.saveLocations(locations: locations)
+                    }
                     dismiss()
                 } label: {
                     Image(systemName: "chevron.backward")
@@ -75,20 +81,20 @@ struct TownSettingView: View {
                         .foregroundStyle(.black)
                 }
             }
-            
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    
-                } label: {
-                    Text("확인")
-                        .font(.system(size: 16))
-                        .foregroundStyle(.black)
-                }
-            }
         }
         .onAppear() {
+            print("위치허용여부: \(locationManager.isLocationPermitted)")
             FirestoreManager.getLocations { locations in
                 userLocationViewModel.setLocations(locations: locations)
+            }
+            
+            if !locationManager.isLocationPermitted {
+                isShowingText = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                    withAnimation {
+                        isShowingText = false
+                    }
+                }
             }
         }
     }
@@ -105,8 +111,4 @@ extension TownSettingView {
                 .padding(.bottom, 10)
         }
     }
-}
-
-#Preview {
-    TownSettingView()
 }

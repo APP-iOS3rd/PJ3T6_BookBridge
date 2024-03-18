@@ -10,6 +10,7 @@ import SwiftUI
 struct KakaoLoginView: View {
     @StateObject private var viewModel = KakaoLoginViewModel()
     @EnvironmentObject private var pathModel: PathViewModel
+    @Binding var showingLoginView: Bool
     
     var body: some View {
         VStack {
@@ -22,20 +23,25 @@ struct KakaoLoginView: View {
                         Image("KaKaoLogo")
                             .resizable()
                             .frame(width: 36, height: 36)
-                        
-                        Circle()
-                            .stroke(Color(hex: "D9D9D9"))
-                            .frame(width: 39)
-                            .foregroundColor(.white)
                     }
                 }
             } else {
                 KakaoLoginStatusView(viewModel: viewModel)
             }
         }.onChange(of: viewModel.state) { newState in
-            if newState == .signedIn, let userId = viewModel.userId {
-                pathModel.paths.append(.home(userId: userId))
+            if newState == .signedIn {
+                UserManager.shared.isLogin = true
+                UserManager.shared.setUser(uid: viewModel.userId!)
+                showingLoginView = false
             }
+            
+        }
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(
+                title: Text("로그인 오류"), // Alert 제목
+                message: Text(viewModel.alertMessage),
+                dismissButton: .default(Text("확인"))
+            )
         }
         
     }
@@ -55,7 +61,7 @@ struct KakaoLoginStatusView: View {
     }
 }
 
-
-#Preview {
-    KakaoLoginView()
-}
+//
+//#Preview {
+//    KakaoLoginView()
+//}

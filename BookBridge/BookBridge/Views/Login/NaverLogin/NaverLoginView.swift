@@ -9,36 +9,30 @@ import SwiftUI
 import NaverThirdPartyLogin
 
 struct NaverLoginView: View {
-    @State private var isLogin: Bool = false
-    
-    private var naverLoginManger = NaverAuthManager.shared
+    @StateObject var naverLoginManger = NaverAuthManager.shared
+    @Binding var showingLoginView: Bool
     
     var body: some View {
         VStack {
-            if isLogin {
-                //TODO: 로그인시 화면 이동 (지금은 구현 상태 확인용으로 로그아웃 넣어놓음)
-                Button{
-                    naverLoginManger.doNaverLogout()
-                    isLogin = false
-                } label: {
-                    Image("Character")
-                        .resizable()
-                        .frame(width: 36, height: 36)
-                }
-            } else {
-                Button{
-                    naverLoginManger.doNaverLogin()
-                    isLogin = true
-                } label: {
-                    Image("naverLogo")
-                        .resizable()
-                        .frame(width: 36, height: 36)
-                }
+            Button{
+                naverLoginManger.doNaverLogin()
+            } label: {
+                Image("naverLogo")
+                    .resizable()
+                    .frame(width: 36, height: 36)
             }
+        }.onChange(of: naverLoginManger.isLogin) { _ in
+            showingLoginView.toggle()            
         }
+        .alert(isPresented: $naverLoginManger.showAlert) {
+            Alert(
+                title: Text("로그인 오류"), // Alert 제목
+                message: Text(naverLoginManger.alertMessage),
+                dismissButton: .default(Text("확인"))
+            )
+        }
+        
+        
     }
 }
 
-#Preview {
-    NaverLoginView()
-}

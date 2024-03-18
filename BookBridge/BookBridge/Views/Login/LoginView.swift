@@ -10,11 +10,13 @@ import SwiftUI
 struct LoginView: View {
     @StateObject private var pathModel = PathViewModel()
     @StateObject var signUpVM = SignUpViewModel()
+    @StateObject var findIdVM = FindIdViewModel()
+    @StateObject var findPwdVM = FindPasswordViewModel()
+    @FocusState var isFocused: Bool
+    @Binding var showingLoginView: Bool
     
     var body: some View {
         NavigationStack(path: $pathModel.paths){
-            // NavigationDestination 정의
-
             VStack{
                 Image("Character")
                 VStack(alignment: .leading,spacing : 10){
@@ -28,12 +30,14 @@ struct LoginView: View {
                     Text("에서 교환 해봐")
                         .font(.system(size: 35, weight: .medium))
                         .foregroundColor(Color(hex: "000000"))
-                    
+                                            
                     Spacer()
                         .frame(height: 130)
-                    
-                    
+                                            
                 }
+                
+                
+                
                 Button(action: {
                     pathModel.paths.append(.certi)
                 }, label: {
@@ -44,10 +48,12 @@ struct LoginView: View {
                 .frame(width: 353, height: 50) // 여기에 프레임을 설정
                 .background(Color(hex: "59AAE0"))
                 .cornerRadius(10)
-      
                 
+                
+                                    
                 Spacer()
                     .frame(height: 20)
+                
                 
                 HStack{
                     Text("이미 계정이 있으신가요?")
@@ -60,16 +66,15 @@ struct LoginView: View {
                             .foregroundColor(Color(hex: "3A87FD"))
                             .underline()
                     })
-                    
-                    
                 }
+                
                 
                 HStack{
                     Text("로그인 없이")
                         .font(.system(size: 16, weight: .light))
                     
                     Button(action: {
-                        pathModel.paths.append(.home(userId: nil))
+                        showingLoginView = false
                     }, label: {
                         Text("둘러보기")
                             .foregroundColor(Color(hex: "3A87FD"))
@@ -77,79 +82,77 @@ struct LoginView: View {
                     })
                 }
                 
+                
                 Spacer()
                     .frame(height: 50)
+                
                 
                 HStack {
                     // 왼쪽 가로 Divider
                     Rectangle()
                         .frame(width: 100, height: 1)
                         .foregroundColor(Color(hex:"A7A7A7"))
-
+                    
                     Text("SNS 계정으로")
                         .font(.system(size: 12))
                         .foregroundColor(Color(hex:"A7A7A7"))
                         .padding(.horizontal, 10)
-
+                    
                     // 오른쪽 가로 Divider
                     Rectangle()
-                        .frame(width: 100, height: 1) 
+                        .frame(width: 100, height: 1)
                         .foregroundColor(Color(hex:"A7A7A7"))
                 }
-
-
-
+                
+                
                 HStack(spacing: 20){
-                    NaverLoginView()
-                    GoogleLoginView()
-                    KakaoLoginView()
-                    AppleLoginView()
+                    NaverLoginView(showingLoginView: $showingLoginView)
+                    GoogleLoginView(showingLoginView: $showingLoginView)
+                    KakaoLoginView(showingLoginView: $showingLoginView)
+                    AppleLoginView(showingLoginView: $showingLoginView)
                 }
+                
+                
                 Spacer()
-                    .frame(height: 50)
-                
-                
+                    .frame(height: 50)                
                 
             }
+            
             .padding(20)
             .navigationDestination(for: PathType.self) { pathType in
                 switch pathType {
-                case .home(let userId):
-                    TabBarView(userId: userId ?? "")
-                        .navigationBarBackButtonHidden()
                 case .certi:
                     EmailCertiView(signUpVM: signUpVM)
                         .navigationBarBackButtonHidden()
                 case .findId:
-                    FindIdView()
+                    FindIdView(viewModel: findIdVM)
+                        .navigationBarBackButtonHidden()
+                case .findIdCerti:
+                    FindIdCertiView(viewModel: findIdVM)
                         .navigationBarBackButtonHidden()
                 case .findpassword:
-                    FindPasswordView()
+                    FindPasswordView(viewModel: findPwdVM)
                         .navigationBarBackButtonHidden()
                 case .login:
-                    IdLoginView()
+                    IdLoginView(showingLoginView: $showingLoginView)
                         .navigationBarBackButtonHidden()
                 case .resultId:
-                    FindIdResultView()
-                        .navigationBarBackButtonHidden()
-                case .changepassword:
-                    ChangePasswordView()
+                    FindIdResultView(viewModel: findIdVM)
+                        .navigationBarBackButtonHidden()    
+                case .resultPassword:
+                    FindPasswordResultView(viewModel: findPwdVM)
                         .navigationBarBackButtonHidden()
                 case .signUp:
                     EmailSignUpView(signUpVM: signUpVM)
                         .navigationBarBackButtonHidden()
                 }
             }
-            
+            .environmentObject(pathModel)
         }
         .environmentObject(pathModel)
-        
-        
-        
     }
-        
 }
+    //#Preview {
+    //    LoginView()
+    //}
 
-#Preview {
-    LoginView()
-}

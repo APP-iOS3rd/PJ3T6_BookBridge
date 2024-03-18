@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key></key>
+	<string></string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -19,8 +21,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakao</string>
-				<string>3faeb18730ff6edf468b5e43fc5fea19</string>
+				<string>kakao3faeb18730ff6edf468b5e43fc5fea19</string>
 			</array>
 		</dict>
 		<dict>
@@ -33,9 +34,12 @@
 				<string>com.bookBridge</string>
 			</array>
 		</dict>
+		<dict/>
 	</array>
 	<key>GIDClientID</key>
 	<string>301482998840-1vmnt9ul95saa58vhg4sn873rsir7mgt.apps.googleusercontent.com</string>
+	<key>KakaoAppKey</key>
+	<string>$(KakaoAppKey)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>naversearchapp</string>
@@ -53,6 +57,19 @@
 	</dict>
 	<key>SMTPEmail</key>
 	<string>minho100227@gmail.com</string>
+	<key>ServerURL</key>
+	<string>${SERVER_URL}</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIImageName</key>
+		<string>Character</string>
+		<key>UILaunchScreen</key>
+		<dict/>
+	</dict>
 	<key>naverKey</key>
 	<string>$(naverKey)</string>
 	<key>naverKeyId</key>

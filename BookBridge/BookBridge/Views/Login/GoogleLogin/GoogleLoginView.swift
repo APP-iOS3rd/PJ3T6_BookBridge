@@ -11,12 +11,13 @@ import GoogleSignInSwift
 
 struct GoogleLoginView: View {
     @StateObject private var viewModel = GoogleAuthViewModel()
+    @Binding var showingLoginView: Bool
     
     var body: some View {
                                             
         Button {
             Task {
-                do {
+                do {                    
                     try await viewModel.signInGoogle()
                 } catch {
                     print(error)
@@ -34,10 +35,10 @@ struct GoogleLoginView: View {
                     .foregroundColor(.white)
             }
         }
-        
-    }
-}
-
-#Preview {
-    GoogleLoginView()
+        .onChange(of: viewModel.isLogin) { newState in
+            if newState {
+                showingLoginView.toggle()
+            }
+        }
+    }    
 }

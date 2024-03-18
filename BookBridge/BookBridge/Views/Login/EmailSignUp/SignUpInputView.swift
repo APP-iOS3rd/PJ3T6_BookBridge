@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SignUpInputView: View {
     @StateObject var signUpVm: SignUpViewModel
+    var isFocused: FocusState<Bool>.Binding
     var manager: SignUpInputManager
         
     var body: some View {
@@ -17,24 +18,34 @@ struct SignUpInputView: View {
                             
             switch manager.type {
             case .phone:
-                inputField(text: $signUpVm.phoneNumer, placeholder: manager.placeholder)
+                TextField(manager.placeholder, text: $signUpVm.phoneNumer)
+                    .keyboardType(.numberPad)
+                    .focused(isFocused)
+                    .modifier(InputTextFieldStyle())
+                
                 StatusTextView(text: signUpVm.phError?.rawValue ?? "", color: "F80B0B")
-                
-                
+                                
             case .pwd:
-                pwdField(text: $signUpVm.password, placeholder: manager.placeholder)
+                SecureField(manager.placeholder, text: $signUpVm.password)
+                    .keyboardType(.default)
+                    .focused(isFocused)
+                    .modifier(InputTextFieldStyle())
+                
                 StatusTextView(text: signUpVm.pwdError?.rawValue ?? "", color: "F80B0B")
                 
                                 
             case .pwdConfirm:
-                pwdField(text: $signUpVm.passwordConfirm, placeholder: manager.placeholder)
+                SecureField(manager.placeholder, text: $signUpVm.passwordConfirm)
+                    .keyboardType(.default)
+                    .focused(isFocused)
+                    .modifier(InputTextFieldStyle())
+                                
                 StatusTextView(text: signUpVm.pwdConfirmError?.rawValue ?? "", color: "F80B0B")
                 
             }
             
         }
     }
-        
 }
 
 extension SignUpInputView {
@@ -48,19 +59,11 @@ extension SignUpInputView {
                 Spacer()
             }
     }
-    
-    func inputField(text: Binding<String>, placeholder: String) -> some View {
-        return TextField(placeholder, text: text)
-            .modifier(InputTextFieldStyle())
-    }
-    
-    func pwdField(text: Binding<String>, placeholder: String) -> some View {
-        return SecureField(placeholder, text: text)
-            .modifier(InputTextFieldStyle())
-    }
-        
 }
 
-#Preview {
-    SignUpInputView(signUpVm: SignUpViewModel(), manager: SignUpInputManager(input: .phone))
-}
+//#Preview {
+//    SignUpInputView(
+//        signUpVm: SignUpViewModel(),
+//        manager: SignUpInputManager(input: .phone)
+//    )
+//}

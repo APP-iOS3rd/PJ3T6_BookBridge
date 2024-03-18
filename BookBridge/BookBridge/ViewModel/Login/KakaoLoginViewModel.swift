@@ -15,23 +15,40 @@ import FirebaseFirestore
 class KakaoLoginViewModel : ObservableObject {
     @Published var state: SignInState = .signedOut
     @Published var userId : String? = nil
-
+    @Published var showAlert: Bool = false
+    @Published var alertMessage: String = ""
     
-    func emailAuthSignUp(email: String, userName: String, password: String, completion: (() -> Void)?) {
-        
+    
+    func emailAuthSignUp(email: String, userName: String, password: String, completion: @escaping (Bool, String?) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
-            if let error = error {
-                print("error: \(error.localizedDescription)")
+            if let error = error as NSError? {
+                if error.code == AuthErrorCode.emailAlreadyInUse.rawValue {
+                    // 이미 존재하는 이메일
+                    print("이미 사용 중인 이메일입니다.")
+                    completion(false, "이미 사용 중인 이메일입니다.")
+                } else {
+                    // 다른 종류의 오류
+                    print("error: \(error.localizedDescription)")
+                    completion(false, error.localizedDescription)
+                }
+                return
             }
             if result != nil {
                 let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
                 changeRequest?.displayName = userName
-                print("사용자 이메일: \(String(describing: result?.user.email))")
+                changeRequest?.commitChanges { (error) in
+                    if let error = error {
+                        print("사용자 프로필 업데이트 실패: \(error.localizedDescription)")
+                        completion(false, error.localizedDescription)
+                        return
+                    }
+                    print("사용자 이메일: \(String(describing: result?.user.email))")
+                    completion(true, nil)
+                }
             }
-            
-            completion?()
         }
     }
+    
     
     func emailAuthSignIn(email: String, password: String, completion: @escaping (Bool) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
@@ -89,63 +106,16 @@ class KakaoLoginViewModel : ObservableObject {
         }
     }
     
-//    func loadingInfoDidKakaoAuth() {  // 사용자 정보 불러오기
-//        UserApi.shared.me { kakaoUser, error in
-//            if let error = error {
-//                print("카카오톡 사용자 정보 불러오는데 실패했습니다.")
-//
-//                return
-//            }
-//            guard let email = kakaoUser?.kakaoAccount?.email else { return }
-//            guard let password = kakaoUser?.id else { return }
-//            guard let userName = kakaoUser?.kakaoAccount?.profile?.nickname else { return }
-//
-//            self.emailAuthSignUp(email: email, userName: userName, password: "\(password)") {
-//                self.emailAuthSignIn(email: email, password: "\(password)")
-//            }
-//        }
-//    }
-//    func loadingInfoDidKakaoAuth() {
-//        UserApi.shared.me { kakaoUser, error in
-//            if let error = error {
-//                print("카카오톡 사용자 정보 불러오는데 실패했습니다.")
-//                return
-//            }
-//            guard let email = kakaoUser?.kakaoAccount?.email else { return }
-//            let password = String(kakaoUser?.id ?? 0) // Kakao ID를 비밀번호로 사용
-//            guard let userName = kakaoUser?.kakaoAccount?.profile?.nickname else { return }
-//
-//            self.emailAuthSignUp(email: email, userName: userName, password: "\(password)") {
-//                            self.emailAuthSignIn(email: email, password: "\(password)")
-//            }
-//            //Auth에서 찾고 -> Auth에서 접ㄱ
-//            FirestoreSignUpManager.shared.checkIfUserExists(email: email) { exists in
-//                if exists {
-//                    // 사용자가 존재함, 로그인 처리
-//                    self.emailAuthSignIn(email: email, password: password)
-//                        // 로그인 성공 후 Firestore에서 사용자 정보 가져오기
-//                        FirestoreSignUpManager.shared.getUserData(email: email) { userData in
-//                            if let userData = userData {
-//                                // 사용자 정보 처리
-//                                print("HELLO")
-//                                print(userData)
-//                                self.state = .signedIn
-//                            } else {
-//                                // 사용자 데이터를 찾을 수 없음. 필요한 경우 오류 처리
-//                                print("ERROR")
-//                            }
-//                        }
-//
-//                } else {
-//                    // 사용자가 존재하지 않으면 새로 등록
-//                    FirestoreSignUpManager.shared.register(email: email, password: password, nickname: userName) {
-//                        self.state = .signedIn
-//                        // 필요한 경우 추가적인 처리 수행
-//                    }
-//                }
-//            }
-//        }
-//    }
+    func kakaoUnlink() {
+        UserApi.shared.unlink { (error) in
+            if let error = error {
+                print("Kakao 계정 연결 해제 실패: \(error.localizedDescription)")
+            } else {
+                print("Kakao 계정 연결 해제 성공. 토큰이 삭제되었습니다.")
+            }
+        }
+    }
+    
     
     func loadingInfoDidKakaoAuth() {
         UserApi.shared.me { kakaoUser, error in
@@ -156,7 +126,7 @@ class KakaoLoginViewModel : ObservableObject {
             guard let email = kakaoUser?.kakaoAccount?.email,
                   let password = kakaoUser?.id.map(String.init),
                   let userName = kakaoUser?.kakaoAccount?.profile?.nickname else { return }
-
+            
             self.emailAuthSignIn(email: email, password: password) { success in
                 if success {
                     // 로그인 성공
@@ -165,6 +135,7 @@ class KakaoLoginViewModel : ObservableObject {
                             // 사용자 정보 처리
                             self.state = .signedIn
                             self.userId = uid
+                            UserManager.shared.login(uid: uid)
                             
                         } else {
                             // 사용자 데이터를 찾을 수 없음. 필요한 경우 오류 처리
@@ -173,25 +144,35 @@ class KakaoLoginViewModel : ObservableObject {
                     }
                 } else {
                     // 로그인 실패, 새 사용자 등록
-                    FirestoreSignUpManager.shared.register(email: email, password: password, nickname: userName) {
-                        FirestoreSignUpManager.shared.getUserData(email: email) { userData in
-                            if let userData = userData, let uid = userData["id"] as? String {
-                                // 사용자 정보 처리
-                                self.state = .signedIn                                
-                                self.userId = uid
-                                
-                            } else {
-                                // 사용자 데이터를 찾을 수 없음. 필요한 경우 오류 처리
-                                print("ERROR")
+                    FirestoreSignUpManager.shared.register(email: email, password: password, nickname: userName) { success, errorMessage in
+                        if success{
+                            FirestoreSignUpManager.shared.getUserData(email: email) { userData in
+                                if let userData = userData, let uid = userData["id"] as? String {
+                                    // 사용자 정보 처리
+                                    self.state = .signedIn
+                                    self.userId = uid
+                                    UserManager.shared.login(uid: uid)
+                                    
+                                } else {
+                                    // 사용자 데이터를 찾을 수 없음. 필요한 경우 오류 처리
+                                    print("ERROR")
+                                }
                             }
+                        } else {
+                            self.showAlert = true
+                            if errorMessage == "The email address is already in use by another account." {
+                                self.alertMessage = "이미 가입된 이메일입니다."
+                            }                            
+                            print(errorMessage ?? "알 수 없는 오류가 발생했습니다.")
                         }
+                        
                     }
                 }
             }
         }
     }
-
-
+    
+    
     
     // 로그아웃 기능 추가
     func logout() {
@@ -201,14 +182,14 @@ class KakaoLoginViewModel : ObservableObject {
         } catch let signOutError as NSError {
             print("Firebase 로그아웃 실패: \(signOutError.localizedDescription)")
         }
-
+        
         // Kakao 로그아웃
         UserApi.shared.logout { (error) in
             if let error = error {
                 print("Kakao 로그아웃 실패: \(error.localizedDescription)")
             }
         }
-
+        
         self.state = .signedOut
         
     }
