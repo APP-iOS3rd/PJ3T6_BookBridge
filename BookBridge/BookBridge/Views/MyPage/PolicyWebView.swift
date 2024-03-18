@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import WebKit
 
-struct PrivacypolicyWebView: UIViewRepresentable {
+struct PolicyWebView: UIViewRepresentable {
     var url: URL
 
     func makeUIView(context: Context) -> WKWebView {

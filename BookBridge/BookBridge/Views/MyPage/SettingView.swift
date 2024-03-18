@@ -43,10 +43,10 @@ struct SettingView: View {
             .padding(.top, 10)
             
             NavigationLink {
-                PrivacypolicyView()
+                TermsAndConditionsView()
             } label: {
                 HStack {
-                    Text("개인 정보 처리 방침")
+                    Text("약관 및 정책")
                         .padding(.vertical, 10)
                         .font(.system(size: 17))
                         .foregroundStyle(.black)
