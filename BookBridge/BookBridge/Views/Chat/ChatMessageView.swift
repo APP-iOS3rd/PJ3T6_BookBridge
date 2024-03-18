@@ -11,13 +11,10 @@ struct ChatMessageView: View {
     @Environment(\.dismiss) var dismiss
     
     @EnvironmentObject private var pathModel: TabPathViewModel
-
     
     @StateObject var viewModel = ChatMessageViewModel()
-    @StateObject var reportVM = ReportViewModel()
     
     @State var isAlarm: Bool = true
-    
     @State private var isAlert = false
     @State private var isPlusBtn = true
     @State private var isPresented = false
@@ -153,16 +150,12 @@ struct ChatMessageView: View {
 //                                ReportView(reportVM: reportVM)
 //                            } 
                             Button {
-                                pathModel.paths.append(.report(ischat: true))
+                                pathModel.paths.append(.report(ischat: true, targetId: viewModel.saveChatRoomId))
                             } label: {
                                 Text("신고하기")
                                     .font(.system(size: 15, weight: .medium))
                                     .foregroundStyle(.black)
                                     .padding(1)
-                                    .onAppear{
-                                        reportVM.report.targetID = "채팅방ID"
-                                        reportVM.report.targetType = .chat
-                                    }
                             }
                             
                             Divider()

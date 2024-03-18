@@ -14,7 +14,8 @@ struct ReportView: View {
     @StateObject var reportVM =  ReportViewModel()
     @Environment(\.dismiss) private var dismiss
     
-    var ischat : Bool
+    var ischat: Bool
+    var targetId: String
     
     var body: some View {
         
@@ -43,6 +44,8 @@ struct ReportView: View {
             if ischat {
                 reportVM.report.targetType = .chat
             }
+            reportVM.report.targetID = targetId
+
             print(reportVM.report.targetID)
         }
         .navigationBarTitle("\(reportVM.report.targetType.rawValue) 신고", displayMode: .inline)

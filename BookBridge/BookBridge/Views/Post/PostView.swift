@@ -12,10 +12,7 @@ struct PostView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var pathModel: TabPathViewModel
     @Binding var selectedTab : Int
-    @StateObject var postViewModel = PostViewModel()
-    @StateObject var homeViewModel = HomeViewModel()
-    @StateObject var reportViewmodel = ReportViewModel()
-    
+    @StateObject var postViewModel = PostViewModel()    
     @State var noticeBoard: NoticeBoard
     
     
@@ -78,8 +75,7 @@ struct PostView: View {
             PostMenuBtnsView(
                 isPresented: $isPresented,
                 noticeBoard: $noticeBoard,
-                postViewModel: postViewModel,
-                reportVM: reportViewmodel
+                postViewModel: postViewModel
             )
             
             VStack {

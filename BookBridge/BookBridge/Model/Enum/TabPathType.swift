@@ -18,7 +18,7 @@ enum TabPathType : Hashable {
     
     case chatRoomList(chatRoomList: [String], isComeNoticeBoard: Bool, uid: String)
     
-    case report(ischat : Bool)
+    case report(ischat: Bool, targetId: String)
     
     case noticeboard(naviTitel: String , noticeBoardArray : [String],sortType:[String])
     
