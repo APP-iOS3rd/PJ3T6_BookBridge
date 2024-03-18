@@ -13,7 +13,10 @@ struct EmailCertiView: View {
     @FocusState var isFocused: Bool
     @State var isEamilCertified = false
     @State private var showingTermsSheet = false
-    
+    @State private var showAlert: Bool = false
+    @State private var agreeToTerms: Bool = false
+    @State private var isContinue : Bool = false
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         ZStack {
@@ -36,7 +39,10 @@ struct EmailCertiView: View {
                 SignUpInputBoxView(
                     signUpVM: signUpVM,
                     inputer: SignUpInputer(input: .email),
-                    isFocused: $isFocused
+                    isFocused: $isFocused,
+                    isContinue: $isContinue,
+                    showingTermsSheet: $showingTermsSheet
+                    
                 )
                 .padding()
                 
@@ -78,10 +84,15 @@ struct EmailCertiView: View {
             signUpVM.emailError = nil
         }
         .sheet(isPresented: $showingTermsSheet) {
-            AgreeView(showingTermsSheet: $showingTermsSheet)  // 이용약관 동의 여부에 따라 처리
+            AgreeView(showAlert: $showAlert, agreeToTerms: $agreeToTerms, showingTermsSheet: $showingTermsSheet, isContinue: $isContinue)  // 이용약관 동의 여부에 따라 처리
                 .presentationDetents([.medium])
                 .cornerRadius(5)
                 .presentationDragIndicator(.visible)
+                .onDisappear{
+                    if showAlert == true {
+                        dismiss()
+                    }
+                }
                 
                 
         }

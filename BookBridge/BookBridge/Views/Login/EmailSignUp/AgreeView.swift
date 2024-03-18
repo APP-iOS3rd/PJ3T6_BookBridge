@@ -7,12 +7,14 @@
 import SwiftUI
 
 struct AgreeView: View {
+    
+    @Environment(\.dismiss) var dismiss
+    @Binding var showAlert : Bool
+    @Binding  var agreeToTerms: Bool
     @Binding  var showingTermsSheet : Bool
-    @State private var agreeToAll: Bool = false
-    @State private var agreeToTerms: Bool = false
-    @State private var ageSelection: AgeSelection? = nil
+    @Binding var isContinue : Bool
     @State private var termsExpanded = false
-    @State private var showAlert: Bool = false
+    @State private var ageSelection: AgeSelection? = nil
     
     var isContinueButtonEnabled: Bool {
         agreeToTerms && ageSelection != nil
@@ -115,6 +117,8 @@ struct AgreeView: View {
                 } else if isContinueButtonEnabled {
                     // 나머지 조건 충족 시 계속하기 로직 실행
                     showingTermsSheet = false
+                    agreeToTerms = true
+                    isContinue = true
                 }
             } label: {
                 Text("계속하기")
@@ -129,8 +133,9 @@ struct AgreeView: View {
                 Alert(
                     title: Text("알림"),
                     message: Text("만 14세 이하는 가입할 수 없습니다."),
-                    dismissButton: .default(Text("확인"), action: {                        
+                    dismissButton: .default(Text("확인"), action: {
                         showingTermsSheet = false
+                        showAlert = true
                     })
                 )
             }
