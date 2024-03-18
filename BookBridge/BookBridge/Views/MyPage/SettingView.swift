@@ -97,7 +97,7 @@ struct SettingView: View {
                 Spacer()
                 
                 //TODO: 버전 업데이트 마다 바꾸기
-                Text("1.2.0 v01")
+                Text("v1.0.1")
                     .padding(.vertical, 10)
                     .font(.system(size: 17))
                     .foregroundStyle(.black)

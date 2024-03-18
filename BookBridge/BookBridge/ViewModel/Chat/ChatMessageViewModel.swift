@@ -529,8 +529,8 @@ extension ChatMessageViewModel {
     func changeState(state: Int, partnerId: String, noticeBoardId: String) {
         let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId)
         let noticeQuery = FirebaseManager.shared.firestore.collection("noticeBoard").document(noticeBoardId)
+        let myNoticeQuery = FirebaseManager.shared.firestore.collection("User").document(UserManager.shared.uid).collection("myNoticeBoard").document(noticeBoardId)
         
-        print(partnerId)
         partnerQuery.getDocument { documentSnapshot, error in
             guard error == nil else { return }
             guard let document = documentSnapshot?.data() else { return }
@@ -546,6 +546,11 @@ extension ChatMessageViewModel {
                     ])
                     
                     noticeQuery.updateData([
+                        "state": state,
+                        "reservationId": ""
+                    ])
+                    
+                    myNoticeQuery.updateData([
                         "state": state,
                         "reservationId": ""
                     ])
@@ -568,10 +573,14 @@ extension ChatMessageViewModel {
                     "reservationId": partnerId
                 ])
                 
+                myNoticeQuery.updateData([
+                    "state": state,
+                    "reservationId": partnerId
+                ])
+                
                 self.noticeBoardInfo.reservationId = partnerId
             }
         }
-        
         self.noticeBoardInfo.state = state
     }
 }

@@ -139,7 +139,13 @@ extension NotificationViewModel {
             if let error = error {
                 print("Error deleting document: \(error)")
                 return
+            } else {
+                DispatchQueue.main.async {
+                    self.notifications.removeAll { $0.id == id }
+                }
             }
+            
+                
         }
     }
 }
