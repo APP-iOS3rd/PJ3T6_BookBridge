@@ -12,6 +12,7 @@ struct EmailCertiView: View {
     @EnvironmentObject private var pathModel: PathViewModel
     @FocusState var isFocused: Bool
     @State var isEamilCertified = false
+    @State private var showingTermsSheet = false
     
     
     var body: some View {
@@ -48,7 +49,7 @@ struct EmailCertiView: View {
                     .padding()
                 }
                 
-                                                                                            
+                
                 Spacer()
                 
                 if !isFocused {
@@ -67,14 +68,22 @@ struct EmailCertiView: View {
                     }
                     .padding()
                 }
-                                                
+                
             }
         }
         .onAppear{
-            
+            showingTermsSheet = true
             signUpVM.isEmailCertified = false
             signUpVM.email = ""
             signUpVM.emailError = nil
+        }
+        .sheet(isPresented: $showingTermsSheet) {
+            AgreeView(showingTermsSheet: $showingTermsSheet)  // 이용약관 동의 여부에 따라 처리
+                .presentationDetents([.medium])
+                .cornerRadius(5)
+                .presentationDragIndicator(.visible)
+                
+                
         }
         .navigationBarTitle("회원가입", displayMode: .inline)
         .navigationBarItems(leading: CustomBackButtonView())
@@ -84,3 +93,5 @@ struct EmailCertiView: View {
 //#Preview {
 //    EmailCertiView(signUpVM: SignUpViewModel())
 //}
+// 이용약관 내용 및 동의 여부를 처리하는 View
+
