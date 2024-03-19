@@ -227,8 +227,7 @@ extension HomeViewModel {
                     type: .find
                 )
                                 
-                DispatchQueue.main.async {
-                    print("데이터 변경 완료")
+                DispatchQueue.main.async {                    
                     self.changeNoticeBoards = changeBoards
                     self.findNoticeBoards = findBoards
                 }

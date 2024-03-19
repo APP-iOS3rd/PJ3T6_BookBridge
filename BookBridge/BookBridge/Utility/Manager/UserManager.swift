@@ -30,6 +30,8 @@ class UserManager: ObservableObject {
     @Published var isWishStyleCheck = false
     @Published var isHoldStyleCheck = false
     @Published var totalNewCount = 0
+    @Published var blockedUsers: [String] = []
+    
     
     var uid = ""
     var user: UserModel?
@@ -58,6 +60,8 @@ class UserManager: ObservableObject {
             self.currentDong = user?.getSelectedLocation()?.dong ?? ""
             self.isChanged.toggle()
         }
+        
+        self.blockUser(userId: uid)
         
     }
     
@@ -123,6 +127,36 @@ class UserManager: ObservableObject {
             }
         }
     }
+    
+    
+    func blockUser(userId: String) {
+        let db = Firestore.firestore()
+        let userRef = db.collection("User").document(self.uid)
+        
+        userRef.updateData([
+            "blockUser": FieldValue.arrayUnion([userId])
+        ]) { [weak self] error in
+            if let error = error {
+                print("Error updating document: \(error)")
+            } else {
+                print("User successfully blocked")
+                self?.fetchBlockedUsers() // 차단 목록을 업데이트
+            }
+        }
+    }
+    
+    func fetchBlockedUsers() {
+        guard let uid = currentUser?.uid else { return }
+        let userRef = FirebaseManager.shared.firestore.collection("User").document(uid)
+        
+        userRef.getDocument { [weak self] (snapshot, error) in
+            if let document = snapshot, document.exists {
+                self?.blockedUsers = document.data()?["blockUser"] as? [String] ?? []
+            }
+        }
+    }
+    
+    
     
     func updateTotalNewCount() {
         if uid != "" {

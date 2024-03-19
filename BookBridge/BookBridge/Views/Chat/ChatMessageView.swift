@@ -175,9 +175,7 @@ struct ChatMessageView: View {
                             .alert("해당 사용자를 차단합니다", isPresented: $isBlockAlert) {
                                 Button("차단하기", role: .destructive) {
                                     viewModel.blockUser(userId: chatRoomPartner.partnerId)
-                                    viewModel.deleteChatRoom(uid: uid, partnerId: chatRoomPartner.partnerId, completion: {
-                                        dismiss()
-                                    })
+                                    dismiss()
                                     
                                 }
                                 Button("취소", role: .cancel) {

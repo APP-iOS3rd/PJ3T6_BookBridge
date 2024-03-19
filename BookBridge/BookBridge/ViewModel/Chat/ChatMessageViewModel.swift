@@ -730,45 +730,9 @@ extension ChatMessageViewModel {
     func blockUser(userId: String) {
         let db = Firestore.firestore()
         let currentUserRef = db.collection("User").document(UserManager.shared.uid)
-        let chatRoomsRef = currentUserRef.collection("chatRoomList")
         
-        // 현재 사용자의 chatRoomList에서 partnerId가 차단 대상 사용자인 문서를 찾아 삭제합니다.
-        chatRoomsRef.whereField("partnerId", isEqualTo: userId).getDocuments { (snapshot, error) in
-            guard let snapshot = snapshot else {
-                print("Error fetching documents: \(error!)")
-                return
-            }
-            
-            for document in snapshot.documents {
-                let chatRoomId = document.documentID
-                // 채팅방 목록에서 차단된 사용자와의 채팅방 삭제
-                chatRoomsRef.document(chatRoomId).delete() { err in
-                    if let err = err {
-                        print("Error removing document: \(err)")
-                    } else {
-                        print("Document successfully removed!")
-                    }
-                }
-                
-                
-                let messagesRef = chatRoomsRef.document(chatRoomId).collection("messages")
-                messagesRef.getDocuments { (snapshot, error) in
-                    guard let snapshot = snapshot else {
-                        print("Error fetching messages: \(error!)")
-                        return
-                    }
-                    for message in snapshot.documents {
-                        messagesRef.document(message.documentID).delete() { err in
-                            if let err = err {
-                                print("Error removing message: \(err)")
-                            } else {
-                                print("Message successfully removed!")
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        
+
         
         // 사용자의 차단 목록에 차단 대상 사용자 ID 추가
         currentUserRef.updateData([
