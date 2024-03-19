@@ -76,7 +76,7 @@ struct AgreeView: View {
                     HStack{
                         Image(systemName: "")
                             .frame(width: 25)
-                        Link(destination: /*@START_MENU_TOKEN@*/URL(string: "https://www.apple.com")!/*@END_MENU_TOKEN@*/, label: {
+                        Link(destination: URL(string: "https://internal-nest-08f.notion.site/766b05d6793240978526484520e205e3")!, label: {
                             Text("(필수) 개인정보 수집 및 이용")
                                 .foregroundColor(.black)
                                 .underline()
