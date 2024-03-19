@@ -11,7 +11,7 @@ struct ChatMessageView: View {
     @Environment(\.dismiss) var dismiss
     
     @EnvironmentObject private var pathModel: TabPathViewModel
-
+    
     
     @StateObject var viewModel = ChatMessageViewModel()
     @StateObject var reportVM = ReportViewModel()
@@ -21,7 +21,7 @@ struct ChatMessageView: View {
     @State private var isAlert = false
     @State private var isPlusBtn = true
     @State private var isPresented = false
-    
+    @State private var isBlockAlert = false
     @FocusState var isShowKeyboard: Bool
     
     var chatRoomListId: String
@@ -149,9 +149,6 @@ struct ChatMessageView: View {
                             
                             Divider()
                             
-//                            NavigationLink {
-//                                ReportView(reportVM: reportVM)
-//                            } 
                             Button {
                                 pathModel.paths.append(.report(ischat: true))
                             } label: {
@@ -163,6 +160,31 @@ struct ChatMessageView: View {
                                         reportVM.report.targetID = "채팅방ID"
                                         reportVM.report.targetType = .chat
                                     }
+                            }
+                            
+                            Divider()
+                            
+                            Button {
+                                isBlockAlert.toggle()
+                            } label: {
+                                Text("차단하기")
+                                    .font(.system(size: 15, weight: .medium))
+                                    .foregroundStyle(Color.red)
+                                    .padding(1)
+                            }
+                            .alert("해당 사용자를 차단합니다", isPresented: $isBlockAlert) {
+                                Button("차단하기", role: .destructive) {
+                                    viewModel.blockUser(userId: chatRoomPartner.partnerId)
+                                    viewModel.deleteChatRoom(uid: uid, partnerId: chatRoomPartner.partnerId, completion: {
+                                        dismiss()
+                                    })
+                                    
+                                }
+                                Button("취소", role: .cancel) {
+                                    isBlockAlert.toggle()
+                                }
+                            } message: {
+                                Text("차단하면 사용자의 게시글과 채팅을 볼 수 없어요")
                             }
                             
                             Divider()
@@ -190,7 +212,7 @@ struct ChatMessageView: View {
                             })
                         }
                     }
-                    .frame(width: 120, height: isPresented ? 110 : 0)
+                    .frame(width: 120, height: isPresented ? 150 : 0)
                     .background(
                         RoundedRectangle(cornerRadius: 10, style: .circular)
                             .foregroundColor(Color(uiColor: .systemGray6))
@@ -260,7 +282,7 @@ struct ChatMessageView: View {
                 viewModel.saveChatRoomId = ""
             }
             viewModel.getNoticeBoardInfo(noticeBoardId: chatRoomPartner.noticeBoardId)
-        
+            
         }
         .onDisappear {
             if viewModel.saveChatRoomId != "" {

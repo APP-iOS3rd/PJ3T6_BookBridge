@@ -723,4 +723,53 @@ extension ChatMessageViewModel {
             }
         }
     }
+    
+    // 유저 차단
+    
+    
+    func blockUser(userId: String) {
+        // Firestore 인스턴스를 가져옵니다.
+        let db = Firestore.firestore()
+        let currentUserRef = db.collection("User").document(UserManager.shared.uid)
+        let chatRoomsRef = currentUserRef.collection("chatRoomList")
+        
+        // 현재 사용자의 chatRoomList에서 partnerId가 차단 대상 사용자인 문서를 찾아 삭제합니다.
+        chatRoomsRef.whereField("partnerId", isEqualTo: userId).getDocuments { (snapshot, error) in
+            guard let snapshot = snapshot else {
+                print("Error fetching documents: \(error!)")
+                return
+            }
+            
+            for document in snapshot.documents {
+                // 채팅방 목록에서 차단된 사용자와의 채팅방 삭제
+                chatRoomsRef.document(document.documentID).delete() { err in
+                    if let err = err {
+                        print("Error removing document: \(err)")
+                    } else {
+                        print("Document successfully removed!")
+                    }
+                }
+                
+                // 선택사항: 채팅방에 포함된 메시지 및 이미지 데이터 삭제 처리
+                // 채팅방 내 메시지와 관련된 추가 데이터 삭제 로직을 여기에 추가할 수 있습니다.
+            }
+        }
+        
+        
+        
+        
+        
+        currentUserRef.updateData([
+            "blockUser": FieldValue.arrayUnion([userId])
+        ]) { error in
+            if let error = error {
+                // 업데이트 실패
+                print("Error updating document: \(error)")
+            } else {
+                // 업데이트 성공
+                print("Document successfully updated")
+            }
+        }
+    }
+    
 }
