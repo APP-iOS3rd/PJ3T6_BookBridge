@@ -14,7 +14,7 @@ struct MyPostView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("나의 게시물")
+            Text("게시물 관리")
                 .font(.system(size: 20, weight: .semibold))
                 .padding(.bottom, 10)
 
@@ -42,12 +42,8 @@ struct MyPostView: View {
                         .font(.system(size: 17))
                         .foregroundStyle(Color(hex: "3C3C43"))
                 }
-                .background(
-                    RoundedRectangle(cornerRadius: 0)
-                        .foregroundColor(.white)
-                        .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
-                )
             }
+            Divider()
             
 //            NavigationLink {
 //                NoticeBoardView(selectedTab: $selectedTab, naviTitle: "요청 내역", noticeBoardArray: viewModel.userRequests, sortTypes: ["전체", "예약중", "교환완료"])
@@ -73,12 +69,24 @@ struct MyPostView: View {
                         .font(.system(size: 17))
                         .foregroundStyle(Color(hex: "3C3C43"))
                 }
-                .background(
-                    RoundedRectangle(cornerRadius: 0)
-                        .foregroundColor(.white)
-                        .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
-                )
             }
+            Divider()
+            
+            NavigationLink {                //관심목록 경로가 아직없음
+                NoticeBoardView(selectedTab: $selectedTab, naviTitle: "관심목록", noticeBoardArray: viewModel.userBookMarks, sortTypes: ["전체", "진행중", "예약중", "교환완료"])
+            } label: {
+                HStack {
+                    Text("관심목록")
+                        .padding(.vertical, 10)
+                        .font(.system(size: 17))
+                        .foregroundStyle(.black)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 17))
+                        .foregroundStyle(Color(hex: "3C3C43"))
+                }
+            }
+            Divider()
         }
         .padding(.bottom, 20)
     }
