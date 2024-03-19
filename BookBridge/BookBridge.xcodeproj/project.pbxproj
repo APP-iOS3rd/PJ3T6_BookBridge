@@ -1370,11 +1370,12 @@
 			};
 			buildConfigurationList = 5A7A4E1D2B61DFFD00F79C23 /* Build configuration list for PBXProject "BookBridge" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 5A7A4E192B61DFFD00F79C23;
 			packageReferences = (
