@@ -11,6 +11,7 @@ import FirebaseStorage
 
 class HomeViewModel: ObservableObject {
     @Published var bookMarks: [String] = []
+    @Published var blockUsers: [String] = []
     @Published var changeNoticeBoards: [NoticeBoard] = []
     @Published var changeNoticeBoardsDic: [String: UIImage] = [:]
     @Published var findNoticeBoards: [NoticeBoard] = []
@@ -80,6 +81,32 @@ extension HomeViewModel {
             }
         }
     }
+    
+    func fetchBlock(user: String) {
+        db.collection("User").document(user).getDocument { [weak self] documentSnapshot, error in
+            guard let self = self, let document = documentSnapshot, error == nil else {
+                print("Error fetching user bookmarks: \(error?.localizedDescription ?? "")")
+                return
+            }
+
+            if let blockUsers = document.data()?["blockUser"] as? [String] {
+                var blocks = [String]()
+                let group = DispatchGroup()
+
+                for blockUser in blockUsers {
+                    group.enter()
+                    blocks.append(blockUser)
+                    group.leave()
+                    
+                }
+
+                group.notify(queue: .main) {
+                    self.blockUsers = blocks
+                }
+            }
+        }
+    }
+    
     // noticeBoardId가 존재하는지 확인
     private func checkNoticeBoardExistence(noticeBoardId: String, completion: @escaping (Bool) -> Void) {
         db.collection("noticeBoard").document(noticeBoardId).getDocument { documentSnapshot, error in
@@ -213,22 +240,29 @@ extension HomeViewModel {
             }
             
             if let lat = lat, let long = long, let distance = distance {
-                let changeBoards = await GeohashManager.geoQuery(
+                var changeBoards = await GeohashManager.geoQuery(
                     lat: lat,
                     long: long,
                     distance: distance,
                     type: .change
                 )
                 
-                let findBoards = await GeohashManager.geoQuery(
+                var findBoards = await GeohashManager.geoQuery(
                     lat: lat,
                     long: long,
                     distance: distance,
                     type: .find
                 )
-                                
+                
+                changeBoards.removeAll { noticeBoard in
+                    blockUsers.contains(noticeBoard.userId)
+                }
+                findBoards.removeAll { noticeBoard in
+                    blockUsers.contains(noticeBoard.userId)
+                }
+                
                 DispatchQueue.main.async {
-                    print("데이터 변경 완료")
+                    
                     self.changeNoticeBoards = changeBoards
                     self.findNoticeBoards = findBoards
                 }
@@ -292,5 +326,11 @@ extension HomeViewModel {
                 }
             }
         }
+    }
+}
+
+// MARK: - 차단 게시글 모델에서 삭제
+extension HomeViewModel {
+    func removeBlockUser() {
     }
 }

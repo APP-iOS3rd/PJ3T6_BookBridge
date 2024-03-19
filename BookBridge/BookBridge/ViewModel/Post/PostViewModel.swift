@@ -83,6 +83,8 @@ extension PostViewModel {
             return Int((Double(reviews[0] * 3)) / Double(((reviews[0] * 3) + (reviews[1] * 2) + (reviews[2] * 1))) * 100)
         }
     }
+    
+    
 }
 
 // MARK: 게시자 책장 정보
@@ -418,6 +420,31 @@ extension PostViewModel {
                     self.userUIImage = UIImage(data: imageData) ?? UIImage(named: "Character")!
                 }
             }.resume()
+        }
+    }
+}
+
+// MARK: 유저 차단 기능
+extension PostViewModel {
+    func blockUser(userId: String) {
+        // Firestore 인스턴스를 가져옵니다.
+        let db = Firestore.firestore()
+        
+        
+        
+        // 현재 사용자의 문서에 접근합니다.
+        let currentUserDocRef = db.collection("User").document(UserManager.shared.uid)
+                
+        currentUserDocRef.updateData([
+            "blockUser": FieldValue.arrayUnion([userId])
+        ]) { error in
+            if let error = error {
+                // 업데이트 실패
+                print("Error updating document: \(error)")
+            } else {
+                // 업데이트 성공
+                print("Document successfully updated")
+            }
         }
     }
 }
