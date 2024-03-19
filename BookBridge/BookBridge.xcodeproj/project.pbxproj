@@ -33,6 +33,7 @@
 		1DEAB92E2BA034510096D604 /* NotificationItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DEAB92C2BA034510096D604 /* NotificationItemView.swift */; };
 		1DF1CF7D2B7DD3DA008870FB /* PostPathType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1CF7C2B7DD3DA008870FB /* PostPathType.swift */; };
 		1DF1CF7F2B7DD6E4008870FB /* PostPathViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF1CF7E2B7DD6E4008870FB /* PostPathViewModel.swift */; };
+		1DFD30692BA8009E00E359AB /* AgreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFD30682BA8009E00E359AB /* AgreeView.swift */; };
 		1DFDD1BA2B71B48400B320F7 /* SignInState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFDD1B92B71B48400B320F7 /* SignInState.swift */; };
 		1DFDD1BC2B71BF3D00B320F7 /* tapInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DFDD1BB2B71BF3D00B320F7 /* tapInfo.swift */; };
 		1E9CA8884DE9A470795B434C /* Pods_BookBridge_BookBridgeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38996D702CA8C661E33E70C8 /* Pods_BookBridge_BookBridgeUITests.framework */; };
@@ -303,6 +304,7 @@
 		1DEAB92C2BA034510096D604 /* NotificationItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationItemView.swift; sourceTree = "<group>"; };
 		1DF1CF7C2B7DD3DA008870FB /* PostPathType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPathType.swift; sourceTree = "<group>"; };
 		1DF1CF7E2B7DD6E4008870FB /* PostPathViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostPathViewModel.swift; sourceTree = "<group>"; };
+		1DFD30682BA8009E00E359AB /* AgreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgreeView.swift; sourceTree = "<group>"; };
 		1DFDD1B92B71B48400B320F7 /* SignInState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInState.swift; sourceTree = "<group>"; };
 		1DFDD1BB2B71BF3D00B320F7 /* tapInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tapInfo.swift; sourceTree = "<group>"; };
 		2C64B1A5C532C5F1A934328D /* Pods-BookBridge-BookBridgeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookBridge-BookBridgeUITests.release.xcconfig"; path = "Target Support Files/Pods-BookBridge-BookBridgeUITests/Pods-BookBridge-BookBridgeUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -886,6 +888,7 @@
 				5AA82E532B6764DF006EFC72 /* SignUpAuthCodeBoxView.swift */,
 				5AA82E4C2B675E26006EFC72 /* EmailSignUpView.swift */,
 				5ADE79E52B6B565F005BB3ED /* SignUpInputView.swift */,
+				1DFD30682BA8009E00E359AB /* AgreeView.swift */,
 			);
 			path = EmailSignUp;
 			sourceTree = "<group>";
@@ -1650,6 +1653,7 @@
 				5A1E27562B9EDEF30054EAF9 /* ChangePhonenumberViewModel.swift in Sources */,
 				5A3A440F2B6C741200B66C81 /* InputTextFieldStyle.swift in Sources */,
 				73718A012B8879F800C20798 /* MyProfileNicknameView.swift in Sources */,
+				1DFD30692BA8009E00E359AB /* AgreeView.swift in Sources */,
 				911B4C8B2B74A4AF00801CFF /* FirebaseConstants.swift in Sources */,
 				1D71C6C52B6C766300EEC95D /* BookSearchBar.swift in Sources */,
 				736127052B6B538800943CD7 /* NaverLoginView.swift in Sources */,
@@ -1989,9 +1993,12 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = DevelopBookBrigeProfile;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -2033,9 +2040,12 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = DevelopBookBrigeProfile;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
