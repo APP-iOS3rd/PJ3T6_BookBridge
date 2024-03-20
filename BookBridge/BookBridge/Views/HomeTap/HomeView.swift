@@ -74,7 +74,6 @@ struct HomeView: View {
             HomeTapView(viewModel: viewModel, tapCategory: $selectedPicker)
         }
         .onAppear {
-            viewModel.fetchBlock(user: UserManager.shared.uid)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 viewModel.updateNoticeBoards()
             }                    
