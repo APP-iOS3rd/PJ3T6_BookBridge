@@ -132,7 +132,8 @@ struct ExchangeReview: View {
                     partnerImageUrl: UserManager.shared.user?.profileURL ?? "" ,
                     noticeBoardTitle: chatMessageViewModel.noticeBoardInfo.noticeBoardTitle,
                     nickname: UserManager.shared.user?.nickname ?? "",
-                    review: text, date: Date(),
+                    review: text, 
+                    // date: Date(),
                     isRead: false
                 )
                 

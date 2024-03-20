@@ -49,7 +49,7 @@ struct HomeView: View {
                 Spacer()
                 
                 NavigationLink {
-                    NotificationView()
+                    NotificationView(notificationViewModel: notificationViewModel)
                         .navigationBarBackButtonHidden()
                         .onDisappear {
                             notificationViewModel.isShowNotificationBadge = false
@@ -76,10 +76,9 @@ struct HomeView: View {
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 viewModel.updateNoticeBoards()
-            }
-            notificationViewModel.displayBadge()           
+            }                    
+            notificationViewModel.startNotificationListenerIfNeeded()
         }
-        
         .sheet(isPresented: $showingLoginView) {
             LoginView(showingLoginView: $showingLoginView)
         }
