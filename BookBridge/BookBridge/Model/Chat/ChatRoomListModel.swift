@@ -20,10 +20,15 @@ struct ChatRoomListModel: Identifiable, Hashable {
     var newCount: Int                           //메시지알림 개수 표시
     
     var timeAgo: String {
-        let formatter = RelativeDateTimeFormatter()
-        formatter.locale = Locale(identifier: "ko_KR")
-        formatter.unitsStyle = .full
-        return formatter.localizedString(for: date, relativeTo: Date())
+        if date > Calendar.current.date(byAdding: .day, value: -7, to: Date())! {
+            let formatter = RelativeDateTimeFormatter()
+            formatter.locale = Locale(identifier: "ko_KR")
+            return formatter.localizedString(for: date, relativeTo: Date())
+        } else {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy. MM. dd."
+            formatter.locale = Locale(identifier: "ko_KR")
+            return formatter.string(from: date)
+        }
     }
-    //    var exchangeLocation: [Double?]        // 0번은 위도, 1번은 경도 (보류)
 }
