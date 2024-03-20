@@ -24,6 +24,11 @@ class PostViewModel: ObservableObject {
     
     let nestedGroup = DispatchGroup()
     let dispatchGroup = DispatchGroup()
+    
+    var reportedTargetIds: Set<String> {
+         ReportedContentsManager.shared.reportedTargetIds
+     }
+    
 }
 
 // MARK: 게시자 정보
@@ -347,7 +352,7 @@ extension PostViewModel {
     func fetchChatList(noticeBoardId: String) {
         let docRef = db.collection("User").document(UserManager.shared.uid).collection("chatRoomList").whereField("noticeBoardId", isEqualTo: noticeBoardId)
         
-        docRef.getDocuments { [weak self] (querySnapshot, error) in
+        docRef.getDocuments { querySnapshot, error in
             guard let documents = querySnapshot?.documents, error == nil else {
                 print("Error getting documents: \(error?.localizedDescription ?? "")")
                 return
@@ -356,13 +361,16 @@ extension PostViewModel {
             var items: [String] = []
             for document in documents {
                 let data = document.data()
+                guard let item = data["id"] as? String else { return }
                 
-                let item = data["id"] as? String
-                items.append(item ?? "")
+                if !self.reportedTargetIds.contains(item){
+                    items.append(item)
+                }
+                
             }
             
             DispatchQueue.main.async {
-                self?.chatRoomList = items
+                self.chatRoomList = items
             }
         }
     }

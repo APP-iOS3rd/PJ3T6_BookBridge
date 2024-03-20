@@ -182,7 +182,8 @@ struct RoomListView: View {
 //                    .frame(height: 70)
 //                }
             }
+//            .padding(.horizontal)
+
         }
-        .padding(.horizontal)
     }
 }

@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct ChatBottomBarView: View {
+    @Environment(\.dismiss) var dismiss
+    
     @AppStorage("isAlarmEnabled") private var isChattingAlarm: Bool = true
     
     @Binding var isPlusBtn: Bool
     
     @StateObject var viewModel: ChatMessageViewModel
-    @State var chatTextArr: [Substring] = []
     
+    @State var chatTextArr: [Substring] = []
     @State private var isShowingCamera = false
     @State private var isShowingLocation = false
     @State private var isShowingPhoto = false
@@ -112,7 +114,6 @@ struct ChatBottomBarView: View {
             
             if !isPlusBtn {
                 HStack {
-                    
                     Spacer()
                     
                     VStack {
@@ -252,6 +253,7 @@ struct ChatBottomBarView: View {
         }) {
             ChatExchangeHopeView(viewModel: viewModel, chatRoomListId: chatRoomListId, partnerId: partnerId, uid: uid)
         }
+
     }
 }
 

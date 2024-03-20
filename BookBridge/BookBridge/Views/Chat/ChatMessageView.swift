@@ -13,8 +13,10 @@ struct ChatMessageView: View {
     @EnvironmentObject private var pathModel: TabPathViewModel
     
     @StateObject var viewModel = ChatMessageViewModel()
-    
+    @StateObject var reportedContentsManager = ReportedContentsManager.shared
+
     @State var isAlarm: Bool = true
+    @State var showAlert: Bool = false
     @State private var isAlert = false
     @State private var isPlusBtn = true
     @State private var isPresented = false
@@ -245,20 +247,39 @@ struct ChatMessageView: View {
             }
         }
         .onAppear {
-            if chatRoomListId != "" {
+            if !reportedContentsManager.reportedTargetIds.contains(chatRoomListId){
+                if chatRoomListId != "" {
+                    viewModel.saveChatRoomId = chatRoomListId
+                    viewModel.initNewCount(uid: uid)
+                    viewModel.fetchMessages(uid: uid)
+                } else {
+                    viewModel.saveChatRoomId = ""
+                }
+                viewModel.getNoticeBoardInfo(noticeBoardId: chatRoomPartner.noticeBoardId)
+            } else {
                 viewModel.saveChatRoomId = chatRoomListId
                 viewModel.initNewCount(uid: uid)
-                viewModel.fetchMessages(uid: uid)
-            } else {
-                viewModel.saveChatRoomId = ""
+                showAlert = true
             }
-            viewModel.getNoticeBoardInfo(noticeBoardId: chatRoomPartner.noticeBoardId)
-        
         }
         .onDisappear {
             if viewModel.saveChatRoomId != "" {
                 viewModel.initNewCount(uid: uid)
             }
+        }
+        .onChange(of: reportedContentsManager.reportedTargetIds ){ _ in
+            if ReportedContentsManager.shared.reportedTargetIds.contains(chatRoomListId){
+                showAlert = true
+            }
+        }
+        .alert(isPresented: $showAlert){
+            Alert(
+                title: Text("신고 접수된 채팅방"),
+                message: Text("신고 내용은 24시간 이내 조치됩니다."),
+                dismissButton: .default(Text("확인")) {
+                    dismiss()
+                }
+            )
         }
     }
 }
