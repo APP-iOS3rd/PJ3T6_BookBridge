@@ -19,7 +19,7 @@ class HomeViewModel: ObservableObject {
     @Published var recentSearch : [String] = []
     @Published var filteredNoticeBoards: [NoticeBoard] = []
     @Published var currentTapCategory: TapCategory = .find
-            
+    
     let db = Firestore.firestore()
     let nestedGroup = DispatchGroup()
     let userManager = UserManager.shared
@@ -60,11 +60,11 @@ extension HomeViewModel {
                 print("Error fetching user bookmarks: \(error?.localizedDescription ?? "")")
                 return
             }
-
+            
             if let bookMarks = document.data()?["bookMarks"] as? [String] {
                 var validBookMarks = [String]()
                 let group = DispatchGroup()
-
+                
                 for bookMark in bookMarks {
                     group.enter()
                     self.checkNoticeBoardExistence(noticeBoardId: bookMark) { exists in
@@ -74,7 +74,7 @@ extension HomeViewModel {
                         group.leave()
                     }
                 }
-
+                
                 group.notify(queue: .main) {
                     self.bookMarks = validBookMarks
                 }
@@ -88,18 +88,18 @@ extension HomeViewModel {
                 print("Error fetching user bookmarks: \(error?.localizedDescription ?? "")")
                 return
             }
-
+            
             if let blockUsers = document.data()?["blockUser"] as? [String] {
                 var blocks = [String]()
                 let group = DispatchGroup()
-
+                
                 for blockUser in blockUsers {
                     group.enter()
                     blocks.append(blockUser)
                     group.leave()
                     
                 }
-
+                
                 group.notify(queue: .main) {
                     self.blockUsers = blocks
                 }
@@ -114,7 +114,7 @@ extension HomeViewModel {
                 completion(false)
                 return
             }
-
+            
             completion(document.exists)
         }
     }
@@ -218,7 +218,7 @@ extension HomeViewModel {
         
         self.fetchRecentSearch(user: userManager.uid)
         self.filterNoticeBoards(with: text)
-                
+        
     }
     
     func updateNoticeBoards() {
@@ -240,34 +240,31 @@ extension HomeViewModel {
             }
             
             if let lat = lat, let long = long, let distance = distance {
-                var changeBoards = await GeohashManager.geoQuery(
+                let changeBoards = await GeohashManager.geoQuery(
                     lat: lat,
                     long: long,
                     distance: distance,
                     type: .change
                 )
                 
-                var findBoards = await GeohashManager.geoQuery(
+                let findBoards = await GeohashManager.geoQuery(
                     lat: lat,
                     long: long,
                     distance: distance,
                     type: .find
                 )
                 
-                changeBoards.removeAll { noticeBoard in
-                    blockUsers.contains(noticeBoard.userId)
-                }
-                findBoards.removeAll { noticeBoard in
-                    blockUsers.contains(noticeBoard.userId)
-                }
-                
-                let changes = changeBoards
-                let finds = findBoards
-                
                 DispatchQueue.main.async {
                     
-                    self.changeNoticeBoards = changes
-                    self.findNoticeBoards = finds
+                    self.changeNoticeBoards = changeBoards
+                    self.findNoticeBoards = findBoards
+                    
+                    self.changeNoticeBoards = self.changeNoticeBoards.filter{ noticeBoard in
+                        !self.blockUsers.contains(noticeBoard.userId)
+                    }
+                    self.findNoticeBoards = self.findNoticeBoards.filter{ noticeBoard in
+                        !self.blockUsers.contains(noticeBoard.userId)
+                    }
                 }
             }
         }
@@ -280,22 +277,22 @@ extension HomeViewModel {
             self.filteredNoticeBoards = findNoticeBoards.filter {
                 $0.noticeBoardTitle.localizedCaseInsensitiveContains(searchTerm)
             }
-
+            
         case .change:
             self.filteredNoticeBoards = changeNoticeBoards.filter {
                 $0.noticeBoardTitle.localizedCaseInsensitiveContains(searchTerm)
             }
         }
-
+        
         // 필터링된 게시물의 이미지 로드
         for noticeBoard in filteredNoticeBoards {
             if let urlString = noticeBoard.noticeImageLink.first {
                 getDownLoadImage(isChange: noticeBoard.isChange, noticeBoardId: noticeBoard.id, urlString: urlString)
             }
         }
-
+        
     }
-
+    
     
 }
 
@@ -308,7 +305,7 @@ extension HomeViewModel {
                     URLSession.shared.dataTask(with: url) { (data, response, error) in
                         guard error == nil else { return }
                         guard let imageData = data else { return }
-
+                        
                         DispatchQueue.main.async {
                             self.changeNoticeBoardsDic.updateValue(UIImage(data: imageData) ?? UIImage(named: "Character")!, forKey: noticeBoardId)
                         }
@@ -321,7 +318,7 @@ extension HomeViewModel {
                     URLSession.shared.dataTask(with: url) { (data, response, error) in
                         guard error == nil else { return }
                         guard let imageData = data else { return }
-
+                        
                         DispatchQueue.main.async {
                             self.findNoticeBoardsDic.updateValue(UIImage(data: imageData) ?? UIImage(named: "Character")!, forKey: noticeBoardId)
                         }
