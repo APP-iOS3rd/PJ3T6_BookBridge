@@ -16,6 +16,7 @@ struct PostMenuBtnsView: View {
     @ObservedObject var postViewModel: PostViewModel
   
     @State private var showingDeleteAlert = false
+    @State var isBlockAlert = false
     
     var body: some View {
         VStack {
@@ -48,6 +49,29 @@ struct PostMenuBtnsView: View {
                             }.simultaneousGesture(TapGesture().onEnded {
                                 isPresented.toggle()
                             })
+                            
+                            Divider()
+                                .padding(1)
+                            
+                            Button {
+                                isBlockAlert.toggle()
+                            } label: {
+                                Text("차단하기")
+                                    .font(.system(size: 15))
+                                    .foregroundStyle(Color.red)
+                                    .padding(1)
+                            }
+                            .alert("해당 사용자를 차단합니다", isPresented: $isBlockAlert) {
+                                Button("취소", role: .cancel) {
+                                    isBlockAlert.toggle()
+                                }
+                                Button("차단하기", role: .destructive) {
+                                    postViewModel.blockUser(userId: noticeBoard.userId)
+                                    dismiss()
+                                }
+                            } message: {
+                                Text("차단하면 사용자의 게시글과 채팅을 볼 수 없어요")
+                            }
                         } else {
                             NavigationLink {
                                 if noticeBoard.isChange {
@@ -78,7 +102,7 @@ struct PostMenuBtnsView: View {
                         }
                     }
                 }
-                .frame(width: 110, height: isPresented ? 80 : 0)
+                .frame(width: 110, height: isPresented ? 120 : 0)
                 .background(
                     RoundedRectangle(cornerRadius: 10, style: .circular)
                         .foregroundColor(Color(uiColor: .systemGray6))
