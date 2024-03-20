@@ -261,10 +261,13 @@ extension HomeViewModel {
                     blockUsers.contains(noticeBoard.userId)
                 }
                 
+                let changes = changeBoards
+                let finds = findBoards
+                
                 DispatchQueue.main.async {
                     
-                    self.changeNoticeBoards = changeBoards
-                    self.findNoticeBoards = findBoards
+                    self.changeNoticeBoards = changes
+                    self.findNoticeBoards = finds
                 }
             }
         }
@@ -326,11 +329,5 @@ extension HomeViewModel {
                 }
             }
         }
-    }
-}
-
-// MARK: - 차단 게시글 모델에서 삭제
-extension HomeViewModel {
-    func removeBlockUser() {
     }
 }
