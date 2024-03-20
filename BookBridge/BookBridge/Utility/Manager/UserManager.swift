@@ -31,11 +31,14 @@ class UserManager: ObservableObject {
     @Published var isHoldStyleCheck = false
     @Published var totalNewCount = 0
     @Published var blockedUsers: [String] = []
-    
+    @Published var partnerBlockedUsers: [String] = []
     
     var uid = ""
     var user: UserModel?
     var currentUser: Firebase.User?
+//    var reportedTargetIds: Set<String> {
+//         ReportedContentsManager.shared.reportedTargetIds
+//     }
     
     func setUser(uid: String) {
         self.uid = uid
@@ -61,8 +64,8 @@ class UserManager: ObservableObject {
             self.isChanged.toggle()
         }
         
-        self.fetchBlockedUsers()
-        
+        fetchBlockedUsers()
+
     }
     
     func resetLoginState() {
@@ -133,14 +136,24 @@ class UserManager: ObservableObject {
     func fetchBlockedUsers() {
         guard let uid = currentUser?.uid else { return }
         let userRef = FirebaseManager.shared.firestore.collection("User").document(uid)
-        
+        print("fetchBlockedUsers Test")
         userRef.getDocument { [weak self] (snapshot, error) in
             if let document = snapshot, document.exists {
                 self?.blockedUsers = document.data()?["blockUser"] as? [String] ?? []
             }
-        }        
+        }
     }
     
+    func fetchPartnerBlockedUsers(partnerId: String) {
+                let userRef = FirebaseManager.shared.firestore.collection("User").document(partnerId)
+        
+        userRef.getDocument { [weak self] (snapshot, error) in
+            if let document = snapshot, document.exists {
+                self?.partnerBlockedUsers = document.data()?["blockUser"] as? [String] ?? []
+                print("self?.partnerBlockedUsers: \(String(describing: self?.partnerBlockedUsers))")
+            }
+        }
+    }
     
     // 탭바 채팅방 Count
     func updateTotalNewCount() {
@@ -151,8 +164,16 @@ class UserManager: ObservableObject {
                 guard let documents = querySnapshot?.documents else { return }
                 self.totalNewCount = 0
                 for document in documents {
+
+//                    // 차단된 유저의 새로운 채팅은 제외
+//                    if !(self.blockedUsers.contains(document.data()["partnerId"] as? String ?? "") || self.reportedTargetIds.contains(document.documentID)) {
+//                        self.totalNewCount += document.data()["newCount"] as? Int ?? 0
+//                    }
+                    print("외부 blockedUsers: \(self.blockedUsers)")
                     // 차단된 유저의 새로운 채팅은 제외
-                    if !self.blockedUsers.contains(document.data()["partnerId"] as? String ?? ""){
+                    if !(self.blockedUsers.contains(document.data()["partnerId"] as? String ?? "")){
+                        print("내부 blockedUsers: \(self.blockedUsers)")
+
                         self.totalNewCount += document.data()["newCount"] as? Int ?? 0
                     }
                 }

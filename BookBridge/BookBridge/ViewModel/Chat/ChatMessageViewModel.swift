@@ -159,7 +159,7 @@ extension ChatMessageViewModel {
                         if hopeBooks.isEmpty {
                             self.bookImage = UIImage(named: "DefaultImage")!
                         } else {
-                            
+                            print(hopeBooks[0])
                             self.getNoticeBoardImage(urlString: hopeBooks[0].volumeInfo.imageLinks?.smallThumbnail ?? "")
                         }
                         
@@ -216,6 +216,9 @@ extension ChatMessageViewModel {
     func handleSend(uid: String, partnerId: String) {
         let timestamp = Date()
         
+        //수신자가 발신자를 차단한 상태인지 확인
+        UserManager.shared.fetchPartnerBlockedUsers(partnerId: partnerId)
+
         checkPartnerRoom(partnerId: partnerId, timestamp: timestamp, uid: uid) {
             let messageData = [
                 "date": timestamp,
@@ -245,28 +248,34 @@ extension ChatMessageViewModel {
                 "recentMessage": self.chatText
             ])
             
-            // 수신자용 메시지 전송 저장
-            let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(self.saveChatRoomId)
-            
-            let recipientMessageDocument = partnerQuery.collection("messages").document()
-            
-            recipientMessageDocument.setData(messageData) { error in
-                guard error == nil else { return }
-                print("Recipient saved message as well")
-            }
-            
-            partnerQuery.getDocument { documentSnapshot, error in
-                guard error == nil else { return }
-                guard let document = documentSnapshot else { return }
+            print("UserManager.shared.partnerBlockedUsers: \(UserManager.shared.partnerBlockedUsers)")
+            if !(UserManager.shared.partnerBlockedUsers.contains(uid
+            )){
+                // 수신자용 메시지 전송 저장
+                let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(self.saveChatRoomId)
                 
-                partnerQuery.updateData([
-                    "date": timestamp,
-                    "newCount": (document.data()?["newCount"] as? Int ?? 0) + 1,
-                    "recentMessage": self.chatText
-                ])
+                let recipientMessageDocument = partnerQuery.collection("messages").document()
                 
-                self.chatText = ""
+                recipientMessageDocument.setData(messageData) { error in
+                    guard error == nil else { return }
+                    print("Recipient saved message as well")
+                }
+                
+                partnerQuery.getDocument { documentSnapshot, error in
+                    guard error == nil else { return }
+                    guard let document = documentSnapshot else { return }
+                    
+                    partnerQuery.updateData([
+                        "date": timestamp,
+                        "newCount": (document.data()?["newCount"] as? Int ?? 0) + 1,
+                        "recentMessage": self.chatText
+                    ])
+                    
+                }
+
             }
+            self.chatText = ""
+
         }
     }
     
@@ -724,26 +733,21 @@ extension ChatMessageViewModel {
         }
     }
     
-    // 유저 차단
-    
-    
     func blockUser(userId: String) {
-        let db = Firestore.firestore()
-        let currentUserRef = db.collection("User").document(UserManager.shared.uid)                
-        
-        // 사용자의 차단 목록에 차단 대상 사용자 ID 추가
-        currentUserRef.updateData([
-            "blockUser": FieldValue.arrayUnion([userId])
-        ]) { error in
-            if let error = error {
-                print("Error updating document: \(error)")
-            } else {                
-                print("Document successfully updated")
-                UserManager.shared.fetchBlockedUsers()
-                print(UserManager.shared.blockedUsers)
+            let db = Firestore.firestore()
+            let currentUserRef = db.collection("User").document(UserManager.shared.uid)
+
+            // 사용자의 차단 목록에 차단 대상 사용자 ID 추가
+            currentUserRef.updateData([
+                "blockUser": FieldValue.arrayUnion([userId])
+            ]) { error in
+                if let error = error {
+                    print("Error updating document: (error)")
+                } else {
+                    print("Document successfully updated")
+                    UserManager.shared.fetchBlockedUsers()
+                    print(UserManager.shared.blockedUsers)
+                }
             }
         }
-    }
-
-    
 }
