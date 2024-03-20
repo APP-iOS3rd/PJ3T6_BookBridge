@@ -43,7 +43,7 @@ extension NotificationViewModel {
     }
     
     // 새로운 알림 평가정보 저장
-    func saveNotification(notification: NotificationModel, isReview: Bool) {
+    func saveNotification(notification: NotificationModel ,isReview: Bool) {
         let documentRef = db.collection("User").document(notification.userId).collection("notification").document(notification.id)
         
         documentRef.getDocument { document, error in

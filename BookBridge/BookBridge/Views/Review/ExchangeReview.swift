@@ -39,6 +39,7 @@ struct ExchangeReview: View {
                     .frame(width: 80, height: 80)
                     .cornerRadius(40)
                     .padding()
+                    .padding(.top, 30)
                 
                 HStack {
                     Text(chatRoomPartner.nickname)
@@ -126,22 +127,46 @@ struct ExchangeReview: View {
                     notificationViewModel.updatePartnerReview(partnerId: chatRoomPartner.partnerId, reviewIndex: index)
                     
                     // 알림 정보를 Firebase에 저장
-                    let notification = NotificationModel(
-                        userId: chatRoomPartner.partnerId,
-                        noticeBoardId: chatMessageViewModel.noticeBoardInfo.id,
-                        partnerId: UserManager.shared.uid,
-                        partnerImageUrl: UserManager.shared.user?.profileURL ?? "" ,
-                        noticeBoardTitle: chatMessageViewModel.noticeBoardInfo.noticeBoardTitle,
-                        nickname: UserManager.shared.user?.nickname ?? "",
-                        review: text, date: Date(),
-                        isRead: false,
-                        isReview: notificationViewModel.notifications.first?.isReview ?? false
-                    )
+//                    let notification = NotificationModel(
+//                        userId: chatRoomPartner.partnerId,
+//                        noticeBoardId: chatMessageViewModel.noticeBoardInfo.id,
+//                        partnerId: UserManager.shared.uid,
+//                        partnerImageUrl: UserManager.shared.user?.profileURL ?? "",
+//                        noticeBoardTitle: chatMessageViewModel.noticeBoardInfo.noticeBoardTitle,
+//                        nickname: UserManager.shared.user?.nickname ?? "",
+//                        review: text, date: Date(),
+//                        isRead: false,
+//                        isReview: notificationViewModel.notifications.first?.isReview ?? false
+//                    )
 
                     if let notificationID = notificationViewModel.notifications.first?.id {
+                        // 알림 정보를 Firebase에 저장
+                        let notification = NotificationModel(
+                            userId: chatRoomPartner.partnerId,
+                            noticeBoardId: notificationViewModel.notifications.first?.noticeBoardId ?? "",
+                            partnerId: UserManager.shared.uid,
+                            partnerImageUrl: UserManager.shared.user?.profileURL ?? "",
+                            noticeBoardTitle: notificationViewModel.notifications.first?.noticeBoardTitle ?? "",
+                            nickname: UserManager.shared.user?.nickname ?? "",
+                            review: text, date: Date(),
+                            isRead: false,
+                            isReview: notificationViewModel.notifications.first?.isReview ?? false
+                        )
                         notificationViewModel.updateIsReview(notificationId: notificationID)
                         notificationViewModel.saveNotification(notification: notification, isReview: true)
                     } else {
+                        // 알림 정보를 Firebase에 저장
+                        let notification = NotificationModel(
+                            userId: chatRoomPartner.partnerId,
+                            noticeBoardId: chatMessageViewModel.noticeBoardInfo.id,
+                            partnerId: UserManager.shared.uid,
+                            partnerImageUrl: UserManager.shared.user?.profileURL ?? "",
+                            noticeBoardTitle: chatMessageViewModel.noticeBoardInfo.noticeBoardTitle,
+                            nickname: UserManager.shared.user?.nickname ?? "",
+                            review: text, date: Date(),
+                            isRead: false,
+                            isReview: notificationViewModel.notifications.first?.isReview ?? false
+                        )
                         notificationViewModel.saveNotification(notification: notification, isReview: false)
                     }
                     
@@ -177,6 +202,7 @@ struct ExchangeReview: View {
                     .frame(width: 80, height: 80)
                     .cornerRadius(40)
                     .padding()
+                    .padding(.top, 30)
                 
                 HStack {
                     Text(chatRoomPartner.nickname )
