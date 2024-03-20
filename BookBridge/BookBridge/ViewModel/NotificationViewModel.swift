@@ -52,111 +52,45 @@ extension NotificationViewModel {
         }
     }
 }
-//MARK: - 실시간 알림 감지2
-extension NotificationViewModel {
-//    func startNotificationListener2() {
-//        // 현재 사용자의 UID 가져오기
-//        guard let uid = Auth.auth().currentUser?.uid else { return }
-//                        
-//        
-//        // 알림 리스너 설정
-//        listener = db.collection("User").document(uid).collection("notification")
-//            .order(by: "date", descending: true)
-//            .addSnapshotListener { [weak self] querySnapshot, error in
-//                if ((querySnapshot?.documentChanges) != nil) {
-//                                                                                
-//                    guard let documents = querySnapshot?.documents else { return }
-//                    
-//                    self?.notifications.removeAll()
-//                    
-//                    for document in documents {
-//                        let data = document.data()
-//                        let id = data["id"] as? String ?? ""
-//                        let userId = data["userId"] as? String ?? ""
-//                        let noticeBoardId = data["noticeBoardId"] as? String ?? ""
-//                        let partnerId = data["partnerId"] as? String ?? ""
-//                        let noticeBoardTitle = data["noticeBoardTitle"] as? String ?? ""
-//                        let nickname = data["nickname"] as? String ?? ""
-//                        let timestamp = data["date"] as? Timestamp
-//                        let review = data["review"] as? String ?? ""
-//                        let date = timestamp?.dateValue() ?? Date()
-//                        let isRead = data["isRead"] as? Bool ?? false
-//                        
-//                        FirebaseManager.shared.firestore.collection("User").document(partnerId).getDocument { [weak self] documentSnapshot, error in
-//                            guard let document = documentSnapshot, error == nil else { return }
-//                            let partnerImageUrl = document.data()?["profileURL"] as? String ?? ""
-//                            
-//                            // 메인 스레드에서 UI 업데이트
-//                            DispatchQueue.main.async {
-//                                let notification = NotificationModel(
-//                                    id: id,
-//                                    userId: userId,
-//                                    noticeBoardId: noticeBoardId,
-//                                    partnerId: partnerId,
-//                                    partnerImageUrl: partnerImageUrl,
-//                                    noticeBoardTitle: noticeBoardTitle,
-//                                    nickname: nickname,
-//                                    review: review,
-//                                    date: date,
-//                                    isRead: isRead
-//                                )
-//                                
-//                                
-//                                DispatchQueue.main.async {
-//                                    self?.notifications.append(notification)
-//                                    self?.notifications.sort(by: { $0.date > $1.date })
-//                                }
-//                            }
-//                        }
-//                        print("변경사항 감지")
-//                                                                                                                        
-//                        if ((self?.isShowBadge(notifications: self?.notifications ?? [])) != nil) {
-//                            print("false가 하나라도 있음")
-//                            self?.isShowNotificationBadge = true
-//                        } else {
-//                            print("false가 없음")
-//                            self?.isShowNotificationBadge = false
-//                        }
-//                    }
-//                }
-//            }
-//    }
-}
-
 
 //MARK: - 실시간 알림 감지
 extension NotificationViewModel {
     // Firestore에서 알림 변경 사항을 실시간으로 감지하는 메서드
     func startNotificationListener() {
         let uid = UserManager.shared.uid
-        let collectionPath = "User/\(uid)/notification"
-        // listener?.remove()
-        let collectionListenr = db.collection(collectionPath)
         
-        listener = collectionListenr.addSnapshotListener{ snapshot, error in
-            guard let snapshot = snapshot else {
-                print("변경사항을 불러오는중 오류가 발생하였습니다.")
-                return
-            }
+        if !uid.isEmpty {
+            let collectionPath = "User/\(uid)/notification"
+            let collectionListenr = db.collection(collectionPath)
             
-            var notifications = [NotificationModel]()
-            snapshot.documentChanges.forEach { [weak self] change in
-                switch change.type {
-                case .added:
-                    print("알람 추가사항이 감지되었습니다.")
-                    do {
-                        if let notification = try? change.document.data(as: NotificationModel.self) {
-                            notifications.append(notification)
-                            self?.isShowNotificationBadge = true
-                        } else {
-                            print("notification decoding 실패")
-                            self?.isShowNotificationBadge = false
-                        }
-                    }
-                default: break
+            listener = collectionListenr.addSnapshotListener{ snapshot, error in
+                
+                guard let snapshot = snapshot else {
+                    print("변경사항을 불러오는중 오류가 발생하였습니다.")
+                    return
                 }
+                
+                var notifications = [NotificationModel]()
+                snapshot.documentChanges.forEach { [weak self] change in
+                    switch change.type {
+                    case .added:
+                        print("알람 추가사항이 감지되었습니다.")
+                        do {
+                            if let notification = try? change.document.data(as: NotificationModel.self) {
+                                notifications.append(notification)
+                                self?.isShowNotificationBadge = true
+                            } else {
+                                print("notification decoding 실패")
+                                self?.isShowNotificationBadge = false
+                            }
+                        }
+                    default: break
+                    }
+                }
+                
+                self.notifications.append(contentsOf: notifications)
+                self.notifications.sort { $0.date > $1.date }
             }
-            self.notifications = notifications
         }
     }
     
@@ -164,18 +98,17 @@ extension NotificationViewModel {
         if self.listener == nil {
             startNotificationListener()
         }
-        // ... 리스너 등록 코드 ...
     }
     
     func stopNotificationListener() {
         listener?.remove()
+        resetNotifications()
     }
     
-    // 실시간 배지 호출
-    func displayBadge() {
-        startNotificationListener()
-   }
-  
+    func resetNotifications() {
+        self.notifications = []
+    }
+                          
   func deleteNotification(id: String) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
