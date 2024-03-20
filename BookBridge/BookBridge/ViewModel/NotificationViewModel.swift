@@ -43,13 +43,48 @@ extension NotificationViewModel {
     }
     
     // 새로운 알림 평가정보 저장
-    func saveNotification(notification: NotificationModel) {
-        do {
-            let documentRef = db.collection("User").document(notification.userId).collection("notification").document(notification.id)
-            try documentRef.setData(from: notification)
-        } catch {
-            print("Notification 저장실패")
+    func saveNotification(notification: NotificationModel ,isReview: Bool) {
+        let documentRef = db.collection("User").document(notification.userId).collection("notification").document(notification.id)
+        
+        documentRef.getDocument { document, error in
+            do {
+                // isReview 값을 notification에 설정
+                var notificationIsReview = notification
+                notificationIsReview.isReview = isReview
+                
+                try documentRef.setData(from: notificationIsReview)
+            } catch {
+                print("Error saving document: \(error)")
+            }
         }
+    }
+    
+    // 알림 평가정보 업데이트
+    func updateIsReview(notificationId: String) {
+        print("updateIsReview 실행")
+        print("notificationId: \(notificationId)")
+        
+        let db = Firestore.firestore()
+        let userId = UserManager.shared.uid
+        
+        db.collection("User").document(userId).collection("notification")
+            .whereField("id", isEqualTo: notificationId)
+            .getDocuments { (querySnapshot, err) in
+                if let err = err {
+                    print("해당 id에대한 notification 문서를 찾을 수 없습니다.\n\(err)")
+                } else {
+                    for document in querySnapshot!.documents {
+                        // 문서의 'isReview' 필드를 'true'로 업데이트합니다.
+                        document.reference.updateData(["isReview": true]) { error in
+                            if let error = error {
+                                print("notification isReview 업데이트가 실패했습니다.\n\(error)")
+                            } else {
+                                print("notification isReview 업데이트가 성공했습니다.")
+                            }
+                        }
+                    }
+                }
+            }
     }
 }
 
@@ -59,7 +94,7 @@ extension NotificationViewModel {
     func startNotificationListener() {
         // 현재 사용자의 UID 가져오기
         guard let uid = Auth.auth().currentUser?.uid else { return }
-                        
+        
         
         // 알림 리스너 설정
         listener = db.collection("User").document(uid).collection("notification")
@@ -67,8 +102,6 @@ extension NotificationViewModel {
             .addSnapshotListener { [weak self] querySnapshot, error in
                 if ((querySnapshot?.documentChanges) != nil) {
                     
-                    
-                                        
                     guard let documents = querySnapshot?.documents else { return }
                     
                     self?.notifications.removeAll()
@@ -85,6 +118,7 @@ extension NotificationViewModel {
                         let review = data["review"] as? String ?? ""
                         let date = timestamp?.dateValue() ?? Date()
                         let isRead = data["isRead"] as? Bool ?? false
+                        let isReview = data["isReview"] as? Bool ?? false
                         
                         FirebaseManager.shared.firestore.collection("User").document(partnerId).getDocument { [weak self] documentSnapshot, error in
                             guard let document = documentSnapshot, error == nil else { return }
@@ -102,7 +136,8 @@ extension NotificationViewModel {
                                     nickname: nickname,
                                     review: review,
                                     date: date,
-                                    isRead: isRead
+                                    isRead: isRead,
+                                    isReview: isReview
                                 )
                                 
                                 
@@ -114,7 +149,7 @@ extension NotificationViewModel {
                         }
                         print("변경사항 감지")
                         // isRead가 하나라도 있으면 isShowNotificationBadge는 false
-                                                                                                
+                        
                         if ((self?.isShowBadge(notifications: self?.notifications ?? [])) != nil) {
                             print("false가 하나라도 있음")
                             self?.isShowNotificationBadge = true
@@ -130,9 +165,9 @@ extension NotificationViewModel {
     // 실시간 배지 호출
     func displayBadge() {
         startNotificationListener()
-   }
-  
-  func deleteNotification(id: String) {
+    }
+    
+    func deleteNotification(id: String) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
         db.collection("User").document(uid).collection("notification").document(id).delete { error in
@@ -145,7 +180,7 @@ extension NotificationViewModel {
                 }
             }
             
-                
+            
         }
     }
 }
@@ -159,7 +194,7 @@ extension NotificationViewModel {
         
         let db = Firestore.firestore()
         let userId = UserManager.shared.uid
-                        
+        
         db.collection("User").document(userId).collection("notification")
             .whereField("id", isEqualTo: notificationId)
             .getDocuments { (querySnapshot, err) in
@@ -177,7 +212,7 @@ extension NotificationViewModel {
                         }
                     }
                 }
-        }
+            }
     }
     
     func isShowBadge(notifications: [NotificationModel]) -> Bool {
