@@ -152,7 +152,7 @@ class UserManager: ObservableObject {
                 self.totalNewCount = 0
                 for document in documents {
                     // 차단된 유저의 새로운 채팅은 제외
-                    if !self.blockedUsers.contains(document.data()["userId"] as? String ?? ""){
+                    if !self.blockedUsers.contains(document.data()["partnerId"] as? String ?? ""){
                         self.totalNewCount += document.data()["newCount"] as? Int ?? 0
                     }
                 }
