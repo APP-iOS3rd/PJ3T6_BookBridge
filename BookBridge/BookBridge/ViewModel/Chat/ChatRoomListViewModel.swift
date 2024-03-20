@@ -16,6 +16,9 @@ class ChatRoomListViewModel: ObservableObject {
     @Published var searchText: String = ""
     
     var firestoreListener: ListenerRegistration?
+    var reportedTargetIds: Set<String> {
+         ReportedContentsManager.shared.reportedTargetIds
+     }
     
     let nestedGroup = DispatchGroup()
 }
@@ -23,12 +26,19 @@ class ChatRoomListViewModel: ObservableObject {
 //MARK: 채팅방 검색
 extension ChatRoomListViewModel {
     func searchChatRoomList() -> [ChatRoomListModel] {
-        if self.searchText == "" {
-            return chatRoomList
-        } else {
-            return chatRoomList.filter { $0.noticeBoardTitle.contains(searchText) }
+        var filteredChatRooms = self.chatRoomList
+        //채팅방 검색
+        if self.searchText != "" {
+            filteredChatRooms = self.chatRoomList.filter { $0.noticeBoardTitle.contains(searchText) }
         }
+        
+        //신고된 채팅 필터
+        filteredChatRooms = self.chatRoomList.filter{ chatRoomList in
+            !self.reportedTargetIds.contains(chatRoomList.id)
+        }
+        return filteredChatRooms
     }
+    
 }
 
 //MARK: 로그인 여부 확인
