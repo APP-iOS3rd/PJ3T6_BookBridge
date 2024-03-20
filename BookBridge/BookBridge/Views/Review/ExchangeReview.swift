@@ -148,12 +148,20 @@ struct ExchangeReview: View {
                             partnerImageUrl: UserManager.shared.user?.profileURL ?? "",
                             noticeBoardTitle: notificationViewModel.notifications.first?.noticeBoardTitle ?? "",
                             nickname: UserManager.shared.user?.nickname ?? "",
-                            review: text, date: Date(),
+                            review: text,
                             isRead: false,
                             isReview: notificationViewModel.notifications.first?.isReview ?? false
                         )
-                        notificationViewModel.updateIsReview(notificationId: notificationID)
-                        notificationViewModel.saveNotification(notification: notification, isReview: true)
+//                        notificationViewModel.updateIsReview(notificationId: notificationID)
+//                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+//                            notificationViewModel.updateNotifications()
+//                        }
+//                        
+//                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.5) {
+//                            notificationViewModel.saveNotification(notification: notification, isReview: true)
+//                        }
+                        notificationViewModel.updateReview(notification: notification, notificationId: notificationID, isReview: true)
+                        
                     } else {
                         // 알림 정보를 Firebase에 저장
                         let notification = NotificationModel(
@@ -163,11 +171,12 @@ struct ExchangeReview: View {
                             partnerImageUrl: UserManager.shared.user?.profileURL ?? "",
                             noticeBoardTitle: chatMessageViewModel.noticeBoardInfo.noticeBoardTitle,
                             nickname: UserManager.shared.user?.nickname ?? "",
-                            review: text, date: Date(),
+                            review: text,
                             isRead: false,
                             isReview: notificationViewModel.notifications.first?.isReview ?? false
                         )
-                        notificationViewModel.saveNotification(notification: notification, isReview: false)
+                        
+                        notificationViewModel.saveNotificationIsReview(notification: notification, isReview: false)
                     }
                     
                     dismiss()

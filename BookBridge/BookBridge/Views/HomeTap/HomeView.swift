@@ -49,7 +49,7 @@ struct HomeView: View {
                 Spacer()
                 
                 NavigationLink {
-                    NotificationView()
+                    NotificationView(notificationViewModel: notificationViewModel)
                         .navigationBarBackButtonHidden()
                         .onDisappear {
                             notificationViewModel.isShowNotificationBadge = false
@@ -76,10 +76,9 @@ struct HomeView: View {
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 viewModel.updateNoticeBoards()
-            }
-            notificationViewModel.displayBadge()           
+            }                    
+            notificationViewModel.startNotificationListenerIfNeeded()
         }
-        
         .sheet(isPresented: $showingLoginView) {
             LoginView(showingLoginView: $showingLoginView)
         }
@@ -92,6 +91,8 @@ struct HomeView: View {
                 print("1")
                 viewModel.updateNoticeBoards()
             }
+            notificationViewModel.stopNotificationListener()
+            notificationViewModel.startNotificationListener()
         }
         .onChange(of: locationManager.dong) { _ in
             print("현재위치 변동 감지")
@@ -102,14 +103,7 @@ struct HomeView: View {
         .onChange(of: userManager.isChanged) { _ in
             print("데이터 변화 감지")
             viewModel.updateNoticeBoards()
-        }
-        .toolbar() {
-            ToolbarItem(placement: .topBarTrailing) {
-               
-            }
-        }
-        
-        
+        }                        
     }
     
     

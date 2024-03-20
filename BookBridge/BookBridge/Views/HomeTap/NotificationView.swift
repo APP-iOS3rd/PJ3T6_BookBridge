@@ -11,7 +11,7 @@ struct NotificationView: View {
     @Environment(\.dismiss) var dismiss
     
     @EnvironmentObject private var pathModel: TabPathViewModel
-    @StateObject var notificationViewModel = NotificationViewModel()
+    @StateObject var notificationViewModel: NotificationViewModel
     @StateObject var viewModel = ChatMessageViewModel()
     @State private var showExchangeReview = false
     @State private var showResultReview = false
@@ -56,11 +56,7 @@ struct NotificationView: View {
                         }
                     })
                 }
-                .listStyle(.plain)
-                .onAppear {
-                    // 실시간 알림 감지 시작
-                    notificationViewModel.startNotificationListener()
-                }
+                .listStyle(.plain)                
                 .sheet(isPresented: $showExchangeReview) {
                     // 옵셔널 바인딩을 사용하여 selectedPartner가 nil이 아닌 경우에만 ExchangeReview를 표시
                     if let partner = selectedPartner {
@@ -80,6 +76,13 @@ struct NotificationView: View {
                     Image(systemName: "chevron.left")
                         .foregroundStyle(.black)
                 }
+            }
+        }
+        .sheet(isPresented: $showExchangeReview) {
+            // 옵셔널 바인딩을 사용하여 selectedPartner가 nil이 아닌 경우에만 ExchangeReview를 표시
+            if let partner = selectedPartner {
+                ExchangeReview(notificationViewModel: notificationViewModel, chatMessageViewModel: viewModel, id: id, chatRoomPartner: partner)
+                    .presentationDetents([.fraction(0.65),])
             }
         }
     }
