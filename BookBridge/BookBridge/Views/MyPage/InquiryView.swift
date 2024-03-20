@@ -11,6 +11,7 @@ struct InquiryView: View {
     @Environment(\.dismiss) private var dismiss
     
     @StateObject var viewModel = InquiryViewModel()
+    @FocusState var isShowKeyboard: Bool
     
     @State private var showAlert: Bool = false
     @State private var selectedCategory: Inquiry.InquiryCategory = .accountInquiry
@@ -18,6 +19,13 @@ struct InquiryView: View {
     
     var body: some View {
         ZStack(alignment: .topLeading) {
+            ClearBackground(
+                isFocused: $isShowKeyboard
+            )
+            .onTapGesture {
+                isShowKeyboard = false
+            }
+
             VStack (alignment: .leading) {
                 Text("문의 유형")
                     .bold()
@@ -48,14 +56,15 @@ struct InquiryView: View {
                     Rectangle()
                         .foregroundStyle(Color(hex: "F4F4F4"))
                         .cornerRadius(10)
-                        .frame(height: 300)
+                        .frame(maxHeight: .infinity)
                     
                     TextField("문의 내용을 입력해주세요.", text: $text, axis: .vertical)
                         .padding()
-                        .frame(height: 300, alignment: .topLeading)
+                        .frame(maxHeight: .infinity, alignment: .topLeading)
                         .onChange(of: text, perform: {
                             text = String($0.prefix(1000)) // 텍스트 글자수 제한
                         })
+                        .focused($isShowKeyboard)
                 }
                 
                 HStack {

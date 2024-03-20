@@ -31,15 +31,11 @@ struct StyleListView: View {
                     }
                 }
                 .frame(height: 50)
-                .background(
-                    RoundedRectangle(cornerRadius: 0)
-                        .foregroundColor(.white)
-                        .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
-                )
                 .onTapGesture {
                     viewModel.style = style
                     isModal = true
                 }
+                Divider()
             }
         }
     }

@@ -24,6 +24,11 @@ class HomeViewModel: ObservableObject {
     let nestedGroup = DispatchGroup()
     let userManager = UserManager.shared
     let locationManager = LocationManager.shared
+    
+    var reportedTargetIds: Set<String> {
+        ReportedContentsManager.shared.reportedTargetIds
+    }
+    
 }
 
 // MARK: - 게시물
@@ -222,6 +227,8 @@ extension HomeViewModel {
     }
     
     func updateNoticeBoards() {
+        //신고 당한 게시물
+        
         Task {
             var lat: Double?
             var long: Double?
@@ -255,17 +262,20 @@ extension HomeViewModel {
                 )
                 
                 DispatchQueue.main.async {
-                    
+                    print("데이터 변경 완료")
+                    //동네 설정 데이터 가져오기
                     self.changeNoticeBoards = changeBoards
                     self.findNoticeBoards = findBoards
                     
+                    //신고 게시글 제외하기
                     self.changeNoticeBoards = self.changeNoticeBoards.filter{ noticeBoard in
-                        !self.blockUsers.contains(noticeBoard.userId)
+                        !self.blockUsers.contains(noticeBoard.userId) || !self.reportedTargetIds.contains(noticeBoard.id)
                     }
                     self.findNoticeBoards = self.findNoticeBoards.filter{ noticeBoard in
-                        !self.blockUsers.contains(noticeBoard.userId)
+                        !self.blockUsers.contains(noticeBoard.userId) || !self.reportedTargetIds.contains(noticeBoard.id)
                     }
                 }
+//                print("self.reportedTargetIds: \(self.reportedTargetIds)")
             }
         }
     }

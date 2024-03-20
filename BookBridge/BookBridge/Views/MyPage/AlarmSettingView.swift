@@ -32,14 +32,9 @@ struct AlarmSettingView: View {
 //                        print("isChattingAlarm: \(settingVM.isChattingAlarm)")
                     }
             }
-
             .frame(height: 40)
-            .background(
-                RoundedRectangle(cornerRadius: 0)
-                    .foregroundColor(.white)
-                    .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
-            )
             .padding(.top, 10)
+            Divider()
             /* //추후 개발 예정
             HStack {
                 Text("관심 게시물 알림")
