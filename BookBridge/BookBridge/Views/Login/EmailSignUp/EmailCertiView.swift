@@ -12,7 +12,11 @@ struct EmailCertiView: View {
     @EnvironmentObject private var pathModel: PathViewModel
     @FocusState var isFocused: Bool
     @State var isEamilCertified = false
-    
+    @State private var showingTermsSheet = false
+    @State private var showAlert: Bool = false
+    @State private var agreeToTerms: Bool = false
+    @State private var isContinue : Bool = false
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         ZStack {
@@ -35,7 +39,10 @@ struct EmailCertiView: View {
                 SignUpInputBoxView(
                     signUpVM: signUpVM,
                     inputer: SignUpInputer(input: .email),
-                    isFocused: $isFocused
+                    isFocused: $isFocused,
+                    isContinue: $isContinue,
+                    showingTermsSheet: $showingTermsSheet
+                    
                 )
                 .padding()
                 
@@ -48,7 +55,7 @@ struct EmailCertiView: View {
                     .padding()
                 }
                 
-                                                                                            
+                
                 Spacer()
                 
                 if !isFocused {
@@ -67,14 +74,27 @@ struct EmailCertiView: View {
                     }
                     .padding()
                 }
-                                                
+                
             }
         }
         .onAppear{
-            
+            showingTermsSheet = true
             signUpVM.isEmailCertified = false
             signUpVM.email = ""
             signUpVM.emailError = nil
+        }
+        .sheet(isPresented: $showingTermsSheet) {
+            AgreeView(showAlert: $showAlert, agreeToTerms: $agreeToTerms, showingTermsSheet: $showingTermsSheet, isContinue: $isContinue)  // 이용약관 동의 여부에 따라 처리
+                .presentationDetents([.medium])
+                .cornerRadius(5)
+                .presentationDragIndicator(.visible)
+                .onDisappear{
+                    if showAlert == true {
+                        dismiss()
+                    }
+                }
+                
+                
         }
         .navigationBarTitle("회원가입", displayMode: .inline)
         .navigationBarItems(leading: CustomBackButtonView())
@@ -84,3 +104,5 @@ struct EmailCertiView: View {
 //#Preview {
 //    EmailCertiView(signUpVM: SignUpViewModel())
 //}
+// 이용약관 내용 및 동의 여부를 처리하는 View
+

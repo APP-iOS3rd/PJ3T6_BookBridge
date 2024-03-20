@@ -19,11 +19,18 @@ struct NotificationModel: Identifiable, Hashable, Codable, Equatable {
     var review: String                          //만족도
     var date: Date                              //알림 시간
     var isRead: Bool                            //사용자가 알람을 읽었는지 확인
+    var isReview: Bool                          //사용자가 평가를 남겼는지 확인
     
     var timeAgo: String {
-        let formatter = RelativeDateTimeFormatter()
-        formatter.locale = Locale(identifier: "ko_KR")
-        formatter.unitsStyle = .full
-        return formatter.localizedString(for: date, relativeTo: Date())
+        if date > Calendar.current.date(byAdding: .day, value: -7, to: Date())! {
+            let formatter = RelativeDateTimeFormatter()
+            formatter.locale = Locale(identifier: "ko_KR")
+            return formatter.localizedString(for: date, relativeTo: Date())
+        } else {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy. MM. dd."
+            formatter.locale = Locale(identifier: "ko_KR")
+            return formatter.string(from: date)
+        }
     }
 }

@@ -28,13 +28,8 @@ struct TermsAndConditionsView: View {
                         .foregroundStyle(Color(hex: "3C3C43"))
                 }
             }
-            .frame(height: 40)
-            .background(
-                RoundedRectangle(cornerRadius: 0)
-                    .foregroundColor(.white)
-                    .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
-            )
             .padding(.top, 10)
+            Divider()
             
             NavigationLink {
                 PrivacypolicyView()
@@ -52,12 +47,7 @@ struct TermsAndConditionsView: View {
                         .foregroundStyle(Color(hex: "3C3C43"))
                 }
             }
-            .frame(height: 40)
-            .background(
-                RoundedRectangle(cornerRadius: 0)
-                    .foregroundColor(.white)
-                    .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
-            )
+            Divider()
             
             NavigationLink {
                 LocationPolicyView()
@@ -75,12 +65,7 @@ struct TermsAndConditionsView: View {
                         .foregroundStyle(Color(hex: "3C3C43"))
                 }
             }
-            .frame(height: 40)
-            .background(
-                RoundedRectangle(cornerRadius: 0)
-                    .foregroundColor(.white)
-                    .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
-            )
+            Divider()
             
             Spacer()
         }
