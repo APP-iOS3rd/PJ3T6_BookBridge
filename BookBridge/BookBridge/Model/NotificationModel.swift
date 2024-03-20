@@ -19,8 +19,9 @@ struct NotificationModel: Identifiable, Hashable, Codable, Equatable {
     var review: String
     var date: Date
     var isRead: Bool
+    var isReview: Bool
     
-    init(userId: String, noticeBoardId: String, partnerId: String, partnerImageUrl: String, noticeBoardTitle: String, nickname: String, review: String, isRead: Bool) {
+    init(userId: String, noticeBoardId: String, partnerId: String, partnerImageUrl: String, noticeBoardTitle: String, nickname: String, review: String, isRead: Bool, isReview: Bool) {
         self.id = UUID().uuidString
         self.userId = userId
         self.noticeBoardId = noticeBoardId
@@ -31,19 +32,26 @@ struct NotificationModel: Identifiable, Hashable, Codable, Equatable {
         self.review = review
         self.date = Date()
         self.isRead = isRead
+        self.isReview = isReview
     }
 
     // Computed property to format the date, not encoded/decoded
     var timeAgo: String {
-        let formatter = RelativeDateTimeFormatter()
-        formatter.locale = Locale(identifier: "ko_KR")
-        formatter.unitsStyle = .full
-        return formatter.localizedString(for: date, relativeTo: Date())
+        if date > Calendar.current.date(byAdding: .day, value: -7, to: Date())! {
+            let formatter = RelativeDateTimeFormatter()
+            formatter.locale = Locale(identifier: "ko_KR")
+            return formatter.localizedString(for: date, relativeTo: Date())
+        } else {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy. MM. dd."
+            formatter.locale = Locale(identifier: "ko_KR")
+            return formatter.string(from: date)
+        }
     }
     
     // MARK: - Encode and Decode for Firestore Unix Time Stamp
     private enum CodingKeys: String, CodingKey {
-        case id, userId, noticeBoardId, partnerId, partnerImageUrl, noticeBoardTitle, nickname, review, date, isRead
+        case id, userId, noticeBoardId, partnerId, partnerImageUrl, noticeBoardTitle, nickname, review, date, isRead, isReview
     }
     
     // Decoding
@@ -60,6 +68,7 @@ struct NotificationModel: Identifiable, Hashable, Codable, Equatable {
         let timestamp = try container.decode(Timestamp.self, forKey: .date)
         date = timestamp.dateValue()
         isRead = try container.decode(Bool.self, forKey: .isRead)
+        isReview = try container.decode(Bool.self, forKey: .isReview)
     }
     
     // Encoding
@@ -75,5 +84,6 @@ struct NotificationModel: Identifiable, Hashable, Codable, Equatable {
         try container.encode(review, forKey: .review)
         try container.encode(isRead, forKey: .isRead)
         try container.encode(date, forKey: .date)
+        try container.encode(isReview, forKey: .isReview)
     }
 }

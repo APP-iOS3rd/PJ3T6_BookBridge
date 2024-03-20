@@ -8,6 +8,7 @@
 import Foundation
 import Firebase
 import FirebaseFirestore
+import Combine
 
 class NotificationViewModel: ObservableObject {
     @Published var notifications: [NotificationModel] = []
@@ -15,7 +16,9 @@ class NotificationViewModel: ObservableObject {
     @Published var isShowNotificationBadge: Bool = false
     @Published var isBadgeDisplayed: Bool = false
     
+    
     var listener: ListenerRegistration?
+    private var cancellables: Set<AnyCancellable> = []
     
     let db = Firestore.firestore()
 }
@@ -41,20 +44,11 @@ extension NotificationViewModel {
             }
         }
     }
-    
-    // 새로운 알림 평가정보 저장
-    func saveNotification(notification: NotificationModel) {
-        do {
-            let documentRef = db.collection("User").document(notification.userId).collection("notification").document(notification.id)
-            try documentRef.setData(from: notification)
-        } catch {
-            print("Notification 저장실패")
-        }
-    }
 }
 
 //MARK: - 실시간 알림 감지
 extension NotificationViewModel {
+    
     // Firestore에서 알림 변경 사항을 실시간으로 감지하는 메서드
     func startNotificationListener() {
         let uid = UserManager.shared.uid
@@ -82,7 +76,7 @@ extension NotificationViewModel {
                             } else {
                                 print("startNotificationListener에서 notification decoding이 실패하였습니다.")
                             }
-                        }
+                        }                   
                     default: break
                     }
                 }
@@ -107,6 +101,8 @@ extension NotificationViewModel {
     func resetNotifications() {
         self.notifications = []
     }
+    
+    
                           
   func deleteNotification(id: String) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -133,7 +129,7 @@ extension NotificationViewModel {
         
         let db = Firestore.firestore()
         let userId = UserManager.shared.uid
-                        
+        
         db.collection("User").document(userId).collection("notification")
             .whereField("id", isEqualTo: notificationId)
             .getDocuments { (querySnapshot, err) in
@@ -151,7 +147,7 @@ extension NotificationViewModel {
                         }
                     }
                 }
-        }
+            }
     }
     
     func isShowBadge(notifications: [NotificationModel]) -> Bool {
@@ -165,5 +161,123 @@ extension NotificationViewModel {
     }
 }
 
-
-
+extension NotificationViewModel {
+    func updateReview(notification: NotificationModel, notificationId: String, isReview: Bool) {
+        // 첫 번째 단계: updateIsReview 실행
+        updateIsReview(notificationId: notificationId)
+            .flatMap { [unowned self] _ -> AnyPublisher<[NotificationModel], Error> in
+                // 두 번째 단계: fetchNotifications 실행 (결과는 사용하지 않음)
+                return self.fetchNotifications(forUserId: UserManager.shared.uid)
+            }
+            .flatMap { [unowned self] _ -> AnyPublisher<Void, Error> in
+                // 세 번째 단계: 매개변수로 받은 notification만 저장
+                return self.saveNotification(notification: notification, isReview: isReview)
+            }
+            .receive(on: DispatchQueue.main) // UI 업데이트를 위해 메인 스레드에서 결과 수신
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    print("리뷰 프로세스가 성공적으로 완료되었습니다.")
+                case .failure(let error):
+                    print("리뷰 프로세스 중 오류 발생: \(error.localizedDescription)")
+                }
+            }, receiveValue: { _ in
+                print("알림이 성공적으로 저장되었습니다.")
+            })
+            .store(in: &cancellables)
+    }
+    
+    func updateIsReview(notificationId: String) -> AnyPublisher<Void, Error> {
+        let db = Firestore.firestore()
+        let userId = UserManager.shared.uid
+        
+        return Future<Void, Error> { promise in
+            db.collection("User").document(userId).collection("notification")
+                .whereField("id", isEqualTo: notificationId)
+                .getDocuments { (querySnapshot, err) in
+                    if let err = err {
+                        promise(.failure(err))
+                    } else {
+                        let batch = db.batch()
+                        querySnapshot!.documents.forEach { doc in
+                            batch.updateData(["isReview": true], forDocument: doc.reference)
+                        }
+                        batch.commit { error in
+                            if let error = error {
+                                promise(.failure(error))
+                            } else {
+                                promise(.success(()))
+                            }
+                        }
+                    }
+                }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func fetchNotifications(forUserId uid: String) -> AnyPublisher<[NotificationModel], Error> {
+        let db = Firestore.firestore()
+        let collectionPath = "User/\(uid)/notification"
+        
+        return Future<[NotificationModel], Error> { promise in
+            db.collection(collectionPath).getDocuments { querySnapshot, error in
+                if let error = error {
+                    promise(.failure(error))
+                } else {
+                    let notifications = querySnapshot!.documents.compactMap { document -> NotificationModel? in
+                        return try? document.data(as: NotificationModel.self)
+                    }
+                    self.notifications = notifications
+                    promise(.success(notifications))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func saveNotification(notification: NotificationModel, isReview: Bool) -> AnyPublisher<Void, Error> {
+        let db = Firestore.firestore()
+        let documentRef = db.collection("User").document(notification.userId)
+                          .collection("notification").document(notification.id)
+        
+        return Future<Void, Error> { promise in
+            documentRef.getDocument { document, error in
+                if let error = error {
+                    promise(.failure(error))
+                    return
+                }
+                
+                do {
+                    var updatedNotification = notification
+                    updatedNotification.isReview = isReview
+                    
+                    try documentRef.setData(from: updatedNotification) { error in
+                        if let error = error {
+                            promise(.failure(error))
+                        } else {
+                            promise(.success(()))
+                        }
+                    }
+                } catch {
+                    promise(.failure(error))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    func saveNotificationIsReview(notification: NotificationModel, isReview: Bool) {
+        saveNotification(notification: notification, isReview: isReview)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .finished:
+                    print("알림이 성공적으로 저장되었습니다.")
+                case .failure(let error):
+                    print("알림 저장 중 오류 발생: \(error.localizedDescription)")
+                }
+            }, receiveValue: { _ in
+                // 성공 시 수행할 작업 (여기서는 성공 메시지 출력 외에 별도 작업 없음)
+            })
+            .store(in: &self.cancellables)
+    }
+}
