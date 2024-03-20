@@ -66,7 +66,7 @@ extension NotificationViewModel {
             listener = collectionListenr.addSnapshotListener{ snapshot, error in
                 
                 guard let snapshot = snapshot else {
-                    print("변경사항을 불러오는중 오류가 발생하였습니다.")
+                    print("알람 변경사항을 불러오는중 오류가 발생하였습니다.")
                     return
                 }
                 
@@ -80,8 +80,7 @@ extension NotificationViewModel {
                                 notifications.append(notification)
                                 self?.isShowNotificationBadge = true
                             } else {
-                                print("notification decoding 실패")
-                                self?.isShowNotificationBadge = false
+                                print("startNotificationListener에서 notification decoding이 실패하였습니다.")
                             }
                         }
                     default: break
