@@ -159,7 +159,7 @@ extension ChatMessageViewModel {
                         if hopeBooks.isEmpty {
                             self.bookImage = UIImage(named: "DefaultImage")!
                         } else {
-                            print(hopeBooks[0])
+                            
                             self.getNoticeBoardImage(urlString: hopeBooks[0].volumeInfo.imageLinks?.smallThumbnail ?? "")
                         }
                         
@@ -729,10 +729,7 @@ extension ChatMessageViewModel {
     
     func blockUser(userId: String) {
         let db = Firestore.firestore()
-        let currentUserRef = db.collection("User").document(UserManager.shared.uid)
-        
-        
-
+        let currentUserRef = db.collection("User").document(UserManager.shared.uid)                
         
         // 사용자의 차단 목록에 차단 대상 사용자 ID 추가
         currentUserRef.updateData([
@@ -740,8 +737,10 @@ extension ChatMessageViewModel {
         ]) { error in
             if let error = error {
                 print("Error updating document: \(error)")
-            } else {
+            } else {                
                 print("Document successfully updated")
+                UserManager.shared.fetchBlockedUsers()
+                print(UserManager.shared.blockedUsers)
             }
         }
     }

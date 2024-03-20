@@ -176,7 +176,6 @@ struct ChatMessageView: View {
                                 Button("차단하기", role: .destructive) {
                                     viewModel.blockUser(userId: chatRoomPartner.partnerId)
                                     dismiss()
-                                    
                                 }
                                 Button("취소", role: .cancel) {
                                     isBlockAlert.toggle()

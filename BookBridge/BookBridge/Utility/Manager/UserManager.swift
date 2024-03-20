@@ -61,7 +61,7 @@ class UserManager: ObservableObject {
             self.isChanged.toggle()
         }
         
-        self.blockUser(userId: uid)
+        self.fetchBlockedUsers()
         
     }
     
@@ -129,21 +129,6 @@ class UserManager: ObservableObject {
     }
     
     
-    func blockUser(userId: String) {
-        let db = Firestore.firestore()
-        let userRef = db.collection("User").document(self.uid)
-        
-        userRef.updateData([
-            "blockUser": FieldValue.arrayUnion([userId])
-        ]) { [weak self] error in
-            if let error = error {
-                print("Error updating document: \(error)")
-            } else {
-                print("User successfully blocked")
-                self?.fetchBlockedUsers() // 차단 목록을 업데이트
-            }
-        }
-    }
     
     func fetchBlockedUsers() {
         guard let uid = currentUser?.uid else { return }
@@ -153,11 +138,11 @@ class UserManager: ObservableObject {
             if let document = snapshot, document.exists {
                 self?.blockedUsers = document.data()?["blockUser"] as? [String] ?? []
             }
-        }
+        }        
     }
     
     
-    
+    // 탭바 채팅방 Count
     func updateTotalNewCount() {
         if uid != "" {
             firestoreListener?.remove()
@@ -166,7 +151,10 @@ class UserManager: ObservableObject {
                 guard let documents = querySnapshot?.documents else { return }
                 self.totalNewCount = 0
                 for document in documents {
-                    self.totalNewCount += document.data()["newCount"] as? Int ?? 0
+                    // 차단된 유저의 새로운 채팅은 제외
+                    if !self.blockedUsers.contains(document.data()["userId"] as? String ?? ""){
+                        self.totalNewCount += document.data()["newCount"] as? Int ?? 0
+                    }
                 }
                 UIApplication.shared.applicationIconBadgeNumber = self.totalNewCount
             }

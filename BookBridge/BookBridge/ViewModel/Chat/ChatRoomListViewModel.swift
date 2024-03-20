@@ -24,10 +24,14 @@ class ChatRoomListViewModel: ObservableObject {
 //MARK: 채팅방 검색
 extension ChatRoomListViewModel {
     func searchChatRoomList() -> [ChatRoomListModel] {
+        var filteredChatRooms = chatRoomList.filter { chatRoom in
+            !blockUsers.contains(chatRoom.partnerId)
+        }
+        
         if self.searchText == "" {
-            return chatRoomList
+            return filteredChatRooms
         } else {
-            return chatRoomList.filter { $0.noticeBoardTitle.contains(searchText) }
+            return filteredChatRooms.filter { $0.noticeBoardTitle.contains(searchText) }
         }
     }
 }
@@ -88,6 +92,7 @@ extension ChatRoomListViewModel {
             blockUsers.contains(where: { $0 == chatRoom.partnerId })
         }
     }
+    
     //채팅방 가져오기
     func getChatRoomList(uid: String, isComeNoticeBoard: Bool, chatRoomListStr: [String]) {
         firestoreListener = FirebaseManager.shared.firestore.collection("User").document(uid).collection("chatRoomList").order(by: "date", descending: true).addSnapshotListener { querySnapshot, error in
