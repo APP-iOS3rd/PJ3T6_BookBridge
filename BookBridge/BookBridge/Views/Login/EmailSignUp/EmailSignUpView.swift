@@ -14,6 +14,9 @@ struct EmailSignUpView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var signUpVM: SignUpViewModel
     @FocusState var isFocused: Bool
+    @State private var showingTermsSheet = false
+    @State private var agreeToTerms: Bool = false
+    @State private var isContinue: Bool = false
     
     var body: some View {
         ZStack {
@@ -31,7 +34,10 @@ struct EmailSignUpView: View {
                 SignUpInputBoxView(
                     signUpVM: signUpVM,
                     inputer: SignUpInputer(input: .nickName),
-                    isFocused: $isFocused
+                    isFocused: $isFocused,
+                    isContinue: $isContinue,
+                    showingTermsSheet: $showingTermsSheet
+                    
                 )
                 .padding(.bottom)
                     

@@ -34,19 +34,15 @@ struct SettingView: View {
                         .foregroundStyle(Color(hex: "3C3C43"))
                 }
             }
-            .frame(height: 40)
-            .background(
-                RoundedRectangle(cornerRadius: 0)
-                    .foregroundColor(.white)
-                    .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
-            )
             .padding(.top, 10)
             
+            Divider()
+            
             NavigationLink {
-                PrivacypolicyView()
+                TermsAndConditionsView()
             } label: {
                 HStack {
-                    Text("개인 정보 처리 방침")
+                    Text("약관 및 정책")
                         .padding(.vertical, 10)
                         .font(.system(size: 17))
                         .foregroundStyle(.black)
@@ -58,12 +54,7 @@ struct SettingView: View {
                         .foregroundStyle(Color(hex: "3C3C43"))
                 }
             }
-            .frame(height: 40)
-            .background(
-                RoundedRectangle(cornerRadius: 0)
-                    .foregroundColor(.white)
-                    .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
-            )
+            Divider()
             
             NavigationLink {
                 InquiryView()
@@ -81,16 +72,10 @@ struct SettingView: View {
                         .foregroundStyle(Color(hex: "3C3C43"))
                 }
             }
-            .frame(height: 40)
-            .background(
-                RoundedRectangle(cornerRadius: 0)
-                    .foregroundColor(.white)
-                    .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
-            )
+            Divider()
             
             HStack {
                 Text("버전")
-                    .padding(.vertical, 10)
                     .font(.system(size: 17))
                     .foregroundStyle(.black)
                 
@@ -98,16 +83,11 @@ struct SettingView: View {
                 
                 //TODO: 버전 업데이트 마다 바꾸기
                 Text("v1.0.1")
-                    .padding(.vertical, 10)
                     .font(.system(size: 17))
                     .foregroundStyle(.black)
             }
-            .frame(height: 40)
-            .background(
-                RoundedRectangle(cornerRadius: 0)
-                    .foregroundColor(.white)
-                    .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
-            )
+            .padding(.vertical, 4)
+            Divider()
             
             HStack {
                 Button{
@@ -116,19 +96,14 @@ struct SettingView: View {
                     selectedTab = 0
                 } label: {
                     Text("로그아웃")
-                        .padding(.vertical, 10)
+                        .padding(.vertical, 4)
                         .font(.system(size: 17))
                         .foregroundStyle(.red)
                     
                     Spacer()
                 }
             }
-            .frame(height: 40)
-            .background(
-                RoundedRectangle(cornerRadius: 0)
-                    .foregroundColor(.white)
-                    .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
-            )
+            Divider()
             
             HStack {
                 Button {
@@ -136,7 +111,7 @@ struct SettingView: View {
                     showingLoginView = false
                 } label: {
                     Text("회원탈퇴")
-                        .padding(.vertical, 10)
+                        .padding(.vertical, 4)
                         .font(.system(size: 17))
                         .foregroundStyle(.red)
                     
@@ -167,12 +142,7 @@ struct SettingView: View {
                         }
                 }
             }
-            .frame(height: 40)
-            .background(
-                RoundedRectangle(cornerRadius: 0)
-                    .foregroundColor(.white)
-                    .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
-            )
+            Divider()
             Spacer()
         }
         .navigationBarBackButtonHidden()

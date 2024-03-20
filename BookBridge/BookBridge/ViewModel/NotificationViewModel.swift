@@ -108,7 +108,7 @@ extension NotificationViewModel {
                                 
                                 DispatchQueue.main.async {
                                     self?.notifications.append(notification)
-                                    self?.notifications.sort(by: { $0.date < $1.date })
+                                    self?.notifications.sort(by: { $0.date > $1.date })
                                 }
                             }
                         }
