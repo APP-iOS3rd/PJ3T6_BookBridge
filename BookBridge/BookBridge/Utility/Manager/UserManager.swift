@@ -36,9 +36,11 @@ class UserManager: ObservableObject {
     var uid = ""
     var user: UserModel?
     var currentUser: Firebase.User?
-    //    var reportedTargetIds: Set<String> {
-    //         ReportedContentsManager.shared.reportedTargetIds
-    //     }
+  
+    var reportedTargetIds: Set<String> {
+         ReportedContentsManager.shared.reportedTargetIds
+     }
+
     
     func setUser(uid: String) {
         self.uid = uid
@@ -169,8 +171,8 @@ class UserManager: ObservableObject {
                 guard let documents = querySnapshot?.documents else { return }
                 self.totalNewCount = 0
                 for document in documents {
-                    // 차단된 유저의 새로운 채팅은 제외
-                    if !(self.blockedUsers.contains(document.data()["partnerId"] as? String ?? "")){
+                    // 차단된 유저의 새로운 채팅, 신고된 채팅방 Count은 제외
+                    if !(self.blockedUsers.contains(document.data()["partnerId"] as? String ?? "") || self.reportedTargetIds.contains(document.documentID)){
                         self.totalNewCount += document.data()["newCount"] as? Int ?? 0
                     }
                 }

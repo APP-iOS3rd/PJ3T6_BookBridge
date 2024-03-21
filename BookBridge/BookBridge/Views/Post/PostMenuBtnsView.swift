@@ -14,7 +14,6 @@ struct PostMenuBtnsView: View {
     @Binding var noticeBoard: NoticeBoard
   
     @ObservedObject var postViewModel: PostViewModel
-    @StateObject var reportVM = ReportViewModel()
   
     @State private var showingDeleteAlert = false
     
@@ -40,16 +39,12 @@ struct PostMenuBtnsView: View {
                                 .padding(1)
                             
                             Button {
-                                pathModel.paths.append(.report(ischat: false))
+                                pathModel.paths.append(.report(ischat: false, targetId: noticeBoard.id))
                             } label: {
                                 Text("신고하기")
                                     .font(.system(size: 15))
                                     .foregroundStyle(Color.red)
                                     .padding(1)
-                                    .onAppear{
-                                        reportVM.report.targetID = noticeBoard.id
-                                        reportVM.report.targetType = .post
-                                    }
                             }.simultaneousGesture(TapGesture().onEnded {
                                 isPresented.toggle()
                             })

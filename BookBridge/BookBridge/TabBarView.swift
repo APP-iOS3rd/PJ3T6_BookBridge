@@ -133,8 +133,8 @@ struct TabBarView: View {
                                     uid: uid
                                 )
                                 
-                            case let .report(ischat):
-                                ReportView(ischat: ischat)
+                            case let .report(ischat, targetId):
+                                ReportView(ischat: ischat, targetId: targetId)
                               
                             case let .noticeboard(naviTitel, noticeBoardArray, sortType):
                                 NoticeBoardView(selectedTab: $selectedTab, naviTitle: naviTitel, noticeBoardArray: noticeBoardArray, sortTypes: sortType)
