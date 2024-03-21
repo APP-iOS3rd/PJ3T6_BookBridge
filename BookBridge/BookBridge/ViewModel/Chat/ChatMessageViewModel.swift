@@ -20,9 +20,11 @@ class ChatMessageViewModel: ObservableObject {
     @Published var reservationName: String = ""
     @Published var saveChatRoomId: String = ""
     @Published var selectedImages: [UIImage] = []
+    @Published var isBlocked: Bool = false
     
     var firestoreListener: ListenerRegistration?
     
+    let partnerBlockedUsers = UserManager.shared.partnerBlockedUsers
     let nestedGroup = DispatchGroup()
     let nestedGroupImage = DispatchGroup()
 }
@@ -212,16 +214,18 @@ extension ChatMessageViewModel {
 
 //MARK: 메시지 전송 (Text)
 extension ChatMessageViewModel {
-    // 메시지 전송 저장 chatRoomListId가 있는 경우
+    // 메시지 전송 저장 chaㄴㄷtRoomListId가 있는 경우
     func handleSend(uid: String, partnerId: String) {
         let timestamp = Date()
         
-        checkPartnerRoom(partnerId: partnerId, timestamp: timestamp, uid: uid) {
+        let currentChatText = self.chatText // 현재 chatText의 값을 저장
+        
+        checkPartnerRoom(partnerId: partnerId, timestamp: timestamp, uid: uid) { [self] in
             let messageData = [
                 "date": timestamp,
                 "imageURL": "",
                 "location": [100, 200],
-                "message": self.chatText,
+                "message": currentChatText,
                 "sender": uid
             ] as [String : Any]
             
@@ -242,31 +246,38 @@ extension ChatMessageViewModel {
             
             myQuery.updateData([
                 "date": timestamp,
-                "recentMessage": self.chatText
+                "recentMessage": currentChatText
             ])
             
-            // 수신자용 메시지 전송 저장
-            let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(self.saveChatRoomId)
-            
-            let recipientMessageDocument = partnerQuery.collection("messages").document()
-            
-            recipientMessageDocument.setData(messageData) { error in
-                guard error == nil else { return }
-                print("Recipient saved message as well")
-            }
-            
-            partnerQuery.getDocument { documentSnapshot, error in
-                guard error == nil else { return }
-                guard let document = documentSnapshot else { return }
+            // 차단당하지 않았다면 수신자 메시지 저장
+            if !self.isBlocked{
+                // 수신자용 메시지 전송 저장
+                let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(self.saveChatRoomId)
                 
-                partnerQuery.updateData([
-                    "date": timestamp,
-                    "newCount": (document.data()?["newCount"] as? Int ?? 0) + 1,
-                    "recentMessage": self.chatText
-                ])
+                let recipientMessageDocument = partnerQuery.collection("messages").document()
                 
-                self.chatText = ""
+                recipientMessageDocument.setData(messageData) { error in
+                    guard error == nil else { return }
+                    print("Recipient saved message as well")
+                }
+                
+                partnerQuery.getDocument { documentSnapshot, error in
+                    guard error == nil else { return }
+                    guard let document = documentSnapshot else { return }
+                    partnerQuery.updateData([
+                        "date": timestamp,
+                        "newCount": (document.data()?["newCount"] as? Int ?? 0) + 1,
+                        "recentMessage": currentChatText
+                    ])
+                    
+                }
+                //Push알림
+                Task{
+                    await sendChatNotification(from: uid, to: partnerId, with: self.chatText, chatRoomId: self.saveChatRoomId)
+                }
             }
+            self.chatText = ""
+            
         }
     }
     
@@ -334,6 +345,9 @@ extension ChatMessageViewModel {
     func handleSendImage(uid: String, partnerId: String) {
         let timestamp = Date()
         
+        // 수신자용 메시지 조회
+        let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(self.saveChatRoomId)
+        
         checkPartnerRoom(partnerId: partnerId, timestamp: timestamp, uid: uid) {
             for image in self.selectedImages {
                 self.nestedGroupImage.enter()
@@ -362,42 +376,54 @@ extension ChatMessageViewModel {
                         
                         self.count += 1 // 채팅 화면 하단 갱신
                     }
-                    
-                    myQuery.updateData([
-                        "date": timestamp,
-                        "recentMessage": "사진"
-                    ])
-                    
-                    // 수신자용 메시지 전송 저장
-                    let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(self.saveChatRoomId)
-                    
-                    let recipientMessageDocument = partnerQuery.collection("messages").document()
-                    
-                    recipientMessageDocument.setData(messageData) { error in
-                        guard error == nil else { return }
-                        print("Recipient saved message as well")
+                    if messageData.count > 0{
+                        myQuery.updateData([
+                            "date": timestamp,
+                            "recentMessage": "사진"
+                        ])
                     }
+                    // 차단당하지 않았다면 수신자 메시지 저장
+                    if !self.isBlocked{
+                        // 수신자용 메시지 저장
+                        let recipientMessageDocument = partnerQuery.collection("messages").document()
+                        
+                        recipientMessageDocument.setData(messageData) { error in
+                            guard error == nil else { return }
+                            print("Recipient saved message as well")
+                        }
+                        //Push알림
+                        Task{
+                            await self.sendChatNotification(from: uid, to: partnerId, with: "사진", chatRoomId: self.saveChatRoomId)
+                        }
+                        
+                        
+                    }
+                    
                 }
                 self.nestedGroupImage.leave()
             }
             
-            self.nestedGroup.notify(queue: .main) {
-                let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(self.saveChatRoomId)
-                
-                partnerQuery.getDocument { documentSnapshot, error in
-                    guard error == nil else { return }
-                    guard let document = documentSnapshot else { return }
-                    
-                    
-                    partnerQuery.updateData([
-                        "date": timestamp,
-                        "newCount": (document.data()?["newCount"] as? Int ?? 0) + self.selectedImages.count,
-                        "recentMessage": "사진"
-                    ])
-                    
-                    self.selectedImages.removeAll()
+            if !self.isBlocked{
+                if self.selectedImages.count > 0{
+                    self.nestedGroup.notify(queue: .main) {
+                        partnerQuery.getDocument { documentSnapshot, error in
+                            guard error == nil else { return }
+                            guard let document = documentSnapshot else { return }
+                            partnerQuery.updateData([
+                                "date": timestamp,
+                                "newCount": (document.data()?["newCount"] as? Int ?? 0) + self.selectedImages.count,
+                                "recentMessage": "사진"
+                            ])
+                            
+                        }
+                    }
                 }
-            }
+
+
+                }
+                
+            
+            self.selectedImages.removeAll()
         }
     }
     
@@ -469,30 +495,37 @@ extension ChatMessageViewModel {
                 "recentMessage": "위치"
             ])
             
-            // 수신자용 메시지 전송 저장
-            let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(self.saveChatRoomId)
-            
-            let recipientMessageDocument = partnerQuery.collection("messages").document()
-            
-            recipientMessageDocument.setData(messageData) { error in
-                guard error == nil else { return }
-                print("Recipient saved message as well")
+            if !self.isBlocked{
+                // 수신자용 메시지 전송 저장
+                let partnerQuery = FirebaseManager.shared.firestore.collection("User").document(partnerId).collection("chatRoomList").document(self.saveChatRoomId)
+                
+                let recipientMessageDocument = partnerQuery.collection("messages").document()
+                
+                recipientMessageDocument.setData(messageData) { error in
+                    guard error == nil else { return }
+                    print("Recipient saved message as well")
+                }
+                
+                partnerQuery.getDocument { documentSnapshot, error in
+                    guard error == nil else { return }
+                    guard let document = documentSnapshot else { return }
+                    
+                    partnerQuery.updateData([
+                        "date": timestamp,
+                        "newCount": (document.data()?["newCount"] as? Int ?? 0) + 1,
+                        "recentMessage": "위치"
+                    ])
+                    
+                }
+                //Push알림
+                Task{
+                    await self.sendChatNotification(from: uid, to: partnerId, with: "위치", chatRoomId: self.saveChatRoomId)
+                }
             }
             
-            partnerQuery.getDocument { documentSnapshot, error in
-                guard error == nil else { return }
-                guard let document = documentSnapshot else { return }
-                
-                partnerQuery.updateData([
-                    "date": timestamp,
-                    "newCount": (document.data()?["newCount"] as? Int ?? 0) + 1,
-                    "recentMessage": "위치"
-                ])
-                
-                self.chatText = ""
-                
-                completion()
-            }
+            self.chatText = ""
+            
+            completion()
         }
     }
 }
@@ -519,8 +552,8 @@ extension ChatMessageViewModel {
                     "userId": partnerId
                 ])
             }
-            completion()
         }
+        completion()
     }
 }
 
@@ -601,14 +634,16 @@ extension ChatMessageViewModel {
 //MARK: 상대방에게 메세지 Push 알림
 extension ChatMessageViewModel {
     
-    func sendChatNotification(to partnerId: String, with message: String, chatRoomId: String) async {
+    func sendChatNotification(from uid: String,to partnerId: String, with message: String, chatRoomId: String) async {
         do {
+            // 상대방 차단리스트에 내가 있는지 체크
+            let isBlocked = partnerBlockedUsers.contains(uid)
             // 사용자 알림설정 체크
             let isChatEnabled = try await getChattingAlarmStatus(for: partnerId)
             // 각 채팅방 알림설정 체크
             let isChatRoomEnabled = try await getChatLoomAlarmStatus(for: partnerId, in: chatRoomId)
             
-            if isChatEnabled && isChatRoomEnabled {
+            if isChatEnabled && isChatRoomEnabled && !isBlocked {
                 // 사용자 알림 보내기 API
                 await sendChatNotificationAPI(to: partnerId, withMessage: message, chatRoomId: chatRoomId)
                 print("chatRoomId: \(chatRoomId)")
@@ -720,6 +755,24 @@ extension ChatMessageViewModel {
                 print("사진 삭제 성공")
             } else {
                 print("사진 삭제 오류")
+            }
+        }
+    }
+    
+    func blockUser(userId: String) {
+        let db = Firestore.firestore()
+        let currentUserRef = db.collection("User").document(UserManager.shared.uid)
+        
+        // 사용자의 차단 목록에 차단 대상 사용자 ID 추가
+        currentUserRef.updateData([
+            "blockUser": FieldValue.arrayUnion([userId])
+        ]) { error in
+            if let error = error {
+                print("Error updating document: (error)")
+            } else {
+                print("Document successfully updated")
+                UserManager.shared.fetchBlockedUsers()
+                print(UserManager.shared.blockedUsers)
             }
         }
     }
