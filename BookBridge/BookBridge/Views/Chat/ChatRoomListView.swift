@@ -48,7 +48,7 @@ struct ChatRoomListView: View {
         .onAppear {
             if !(isComeNoticeBoard && chatRoomList.isEmpty) {
                 viewModel.checkUserLoginStatus(uid: UserManager.shared.uid, isComeNoticeBoard: isComeNoticeBoard, chatRoomListStr: chatRoomList)
-            }
+            }            
         }
         .onChange(of: UserManager.shared.uid) { _ in
             if !(isComeNoticeBoard && chatRoomList.isEmpty) {
