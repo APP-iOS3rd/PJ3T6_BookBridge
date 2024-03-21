@@ -426,6 +426,8 @@ struct HomeTapView: View {
         .onAppear {
             if UserManager.shared.isLogin {
                 viewModel.fetchBookMark(user: UserManager.shared.uid)
+                viewModel.fetchBlock(user: UserManager.shared.uid)
+                
             }
         }
         .onChange(of: tapCategory) { newValue in
@@ -456,6 +458,6 @@ struct HomeTapView: View {
                     offsetY = .zero
                 }
             })
-    }
+    } 
 }
 

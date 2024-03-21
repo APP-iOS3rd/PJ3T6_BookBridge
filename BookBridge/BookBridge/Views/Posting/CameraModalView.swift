@@ -31,11 +31,12 @@ struct CameraModalView: View {
                         ZStack {
                             Circle()
                                 .frame(width: 50, height: 50)
-                                .foregroundStyle(Color(uiColor: .systemGray5))
+                                .foregroundColor(Color(hex: "D9D9D9"))
                             
-                            Image(systemName: "photo")
+                            Image(systemName: "photo.on.rectangle")
                                 .resizable()
                                 .frame(width: 30, height: 20)
+                                .foregroundStyle(Color(.darkGray))
                         }
                     }
                     
@@ -51,11 +52,13 @@ struct CameraModalView: View {
                         ZStack {
                             Circle()
                                 .frame(width: 50, height: 50)
-                                .foregroundStyle(Color(uiColor: .systemGray5))
+                                .foregroundColor(Color.brown)
+                                .opacity(0.6)
                             
-                            Image(systemName: "camera")
+                            Image(systemName: "camera.fill")
                                 .resizable()
                                 .frame(width: 30, height: 20)
+                                .foregroundStyle(Color(.darkGray))
                         }
                     }
                     Text("카메라")

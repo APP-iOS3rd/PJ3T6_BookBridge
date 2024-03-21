@@ -12,9 +12,9 @@ import WebKit
 struct PrivacypolicyView: View {
     @Environment(\.dismiss) private var dismiss
     var body: some View {
-        PrivacypolicyWebView(url: URL(string: "https://internal-nest-08f.notion.site/766b05d6793240978526484520e205e3?pvs=4")!)
+        PolicyWebView(url: URL(string: "https://internal-nest-08f.notion.site/766b05d6793240978526484520e205e3?pvs=4")!)
             .navigationBarBackButtonHidden()
-            .navigationTitle("개인정보처리방침")
+            .navigationTitle("개인정보 처리방침")
             .navigationBarTitleDisplayMode(.inline)
             .padding(.horizontal)
             .toolbar {

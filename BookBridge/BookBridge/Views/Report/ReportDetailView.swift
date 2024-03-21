@@ -8,28 +8,42 @@
 import SwiftUI
 
 struct ReportDetailView: View {
-    
-    @ObservedObject var reportVM: ReportViewModel
     @Environment(\.dismiss) private var dismiss
+
     @EnvironmentObject private var pathModel: TabPathViewModel
+    @ObservedObject var reportVM: ReportViewModel
+    
+    @FocusState var isShowKeyboard: Bool
+
     @State private var text: String = ""
     @State private var showAlert: Bool = false
     @State private var isTargetView = false
+    
     let title: Report.ReportReason
     
     var body: some View {
         ZStack(alignment: .topLeading) {
+            //키보드 제스처 관련
+            ClearBackground(
+                isFocused: $isShowKeyboard
+            )
+            .onTapGesture {
+                isShowKeyboard = false
+            }
+            
             VStack (alignment: .leading) {
                 Text("신고 내용")
                     .bold()
                 ZStack (alignment: .topLeading) {
+                    
                     Rectangle()
                         .foregroundStyle(Color(hex: "F4F4F4"))
                         .cornerRadius(10)
-                        .frame(height: 300)
+                        .frame(maxHeight: .infinity)
+                    
                     TextField("신고 내용을 입력해주세요.", text: $text, axis: .vertical)
                         .padding()
-                        .frame(height: 300, alignment: .topLeading)
+                        .frame(maxHeight: .infinity, alignment: .topLeading)
                         .onChange(of: text, perform: {
                             text = String($0.prefix(300)) // 텍스트 글자수 제한
                         })
@@ -60,7 +74,8 @@ struct ReportDetailView: View {
                 }
                 .alert(isPresented: $showAlert){
                     Alert(
-                        title: Text("신고 접수가 완료되었습니다."),
+                        title: Text("신고 접수 완료"),
+                        message: Text("신고 내용은 24시간 이내 조치됩니다."),
                         dismissButton: .default(Text("확인")) {
                             pathModel.paths.removeAll()
                             text = ""
@@ -69,12 +84,6 @@ struct ReportDetailView: View {
                 }
                 
                 Spacer()
-                
-//                // 네비게이션 트리거
-//                NavigationLink(destination: TabBarView(userId: UserManager.shared.uid), isActive: $isTargetView) {
-//                    EmptyView()
-//                }
-//                .hidden()
             }
             .padding()
         }

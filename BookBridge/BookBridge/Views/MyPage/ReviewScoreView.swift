@@ -23,8 +23,13 @@ struct ReviewScoreView: View {
                     .background(Color(hex: "EDD1AF"))
                     .cornerRadius(5)
                 
-                Text("\(viewModel.userManager.user?.reviews?[0] ?? 0)")
-                    .font(.system(size: 17, weight: .semibold))
+                if otherUser == nil {
+                    Text("\(viewModel.userManager.user?.reviews?[0] ?? 0)")
+                        .font(.system(size: 17, weight: .semibold))
+                } else {
+                    Text("\(otherUser?.reviews?[0] ?? 0)")
+                        .font(.system(size: 17, weight: .semibold))
+                }
             }
             
             Spacer()
@@ -43,8 +48,13 @@ struct ReviewScoreView: View {
                     .background(Color(hex: "FBE6CA"))
                     .cornerRadius(5)
                 
-                Text("\(viewModel.userManager.user?.reviews?[1] ?? 0)")
-                    .font(.system(size: 17, weight: .semibold))
+                if otherUser == nil {
+                    Text("\(viewModel.userManager.user?.reviews?[1] ?? 0)")
+                        .font(.system(size: 17, weight: .semibold))
+                } else {
+                    Text("\(otherUser?.reviews?[1] ?? 0)")
+                        .font(.system(size: 17, weight: .semibold))
+                }
             }
             
             Spacer()
@@ -63,9 +73,13 @@ struct ReviewScoreView: View {
                     .background(Color(hex: "FDF1E0"))
                     .cornerRadius(5)
                 
-                Text("\(viewModel.userManager.user?.reviews?[2] ?? 0)")
-                    .font(.system(size: 17, weight: .semibold))
-            }
+                if otherUser == nil {
+                    Text("\(viewModel.userManager.user?.reviews?[2] ?? 0)")
+                        .font(.system(size: 17, weight: .semibold))
+                } else {
+                    Text("\(otherUser?.reviews?[2] ?? 0)")
+                        .font(.system(size: 17, weight: .semibold))
+                }            }
             
             Spacer()
             Rectangle()

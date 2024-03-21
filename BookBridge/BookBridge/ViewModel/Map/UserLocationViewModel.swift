@@ -64,7 +64,7 @@ final class UserLocationViewModel: NSObject, ObservableObject, NMFMapViewCameraD
         view.showScaleBar = false
         
         view.mapView.isScrollGestureEnabled = false // 지도 스크롤 제스처 활성화
-        view.mapView.isZoomGestureEnabled = true // 줌 확대, 축소 제스처 활성화
+        view.mapView.isZoomGestureEnabled = false // 줌 확대, 축소 제스처 활성화
         view.mapView.isRotateGestureEnabled = false // 지도 회전 제스처 활성화
         view.mapView.isStopGestureEnabled = false
         view.mapView.addCameraDelegate(delegate: self)

@@ -17,9 +17,9 @@ struct MyPageView: View {
     var body: some View {
         VStack {
             if otherUser == nil {
-            HStack {
-                Spacer()
-                
+                HStack {
+                    Spacer()
+                    
                     Button {
                         isShowingSettingView = true
                     } label: {
@@ -28,86 +28,95 @@ struct MyPageView: View {
                             .foregroundStyle(.black)
                     }
                 }
+                .padding(.horizontal)
             }
-            HStack(spacing: 20) {
-                if otherUser == nil {
-                    Image(uiImage: viewModel.userSaveImage.1)
-                        .resizable()
-                        .frame(width: 70, height: 70)
-                        .cornerRadius(35)
-                        .overlay(RoundedRectangle(cornerRadius: 35)
-                            .stroke(Color(hex: "D9D9D9"), lineWidth: viewModel.userSaveImage.1 == UIImage(named: "Character")! ? 2 : 0)
-                        )
-                    
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text((viewModel.userManager.user?.style == "" ? "칭호없음" : viewModel.userManager.user?.style) ?? "칭호없음")
-                            .padding(.vertical, 5)
-                            .padding(.horizontal, 8)
-                            .font(.system(size: 12))
-                            .foregroundStyle(Color(hex: "4B4B4C"))
-                            .background(Color(hex: "D9D9D9"))
-                            .cornerRadius(5)
+            
+            ScrollView {
+                HStack(spacing: 20) {
+                    if otherUser == nil {
+                        Image(uiImage: viewModel.userSaveImage.1)
+                            .resizable()
+                            .frame(width: 70, height: 70)
+                            .cornerRadius(35)
+                            .overlay(RoundedRectangle(cornerRadius: 35)
+                                .stroke(Color(hex: "D9D9D9"), lineWidth: viewModel.userSaveImage.1 == UIImage(named: "Character")! ? 2 : 0)
+                            )
                         
-                        Text(viewModel.userManager.user?.nickname ?? "")
-                            .font(.system(size: 20, weight: .bold))
-                    }
-                } else {
-                    KFImage(URL(string: otherUser?.profileURL ?? ""))
-                        .placeholder{
-                            Image("Character")
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 70, height: 70)
-                                .cornerRadius(35)
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text((viewModel.userManager.user?.style == "" ? "칭호없음" : viewModel.userManager.user?.style) ?? "칭호없음")
+                                .padding(.vertical, 5)
+                                .padding(.horizontal, 8)
+                                .font(.system(size: 12))
+                                .foregroundStyle(Color(hex: "4B4B4C"))
+                                .background(Color(hex: "D9D9D9"))
+                                .cornerRadius(5)
+                            
+                            Text(viewModel.userManager.user?.nickname ?? "")
+                                .font(.system(size: 20, weight: .bold))
                         }
-                        .resizable()
-                        .frame(width: 70, height: 70)
-                        .cornerRadius(35)
-                        .overlay(RoundedRectangle(cornerRadius: 35)
-                            .stroke(Color(hex: "D9D9D9"), lineWidth: viewModel.userSaveImage.1 == UIImage(named: "Character")! ? 2 : 0)
-                        )
-                    
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text((otherUser?.style == "" ? "칭호없음" : otherUser?.style) ?? "칭호없음")
-                            .padding(.vertical, 5)
-                            .padding(.horizontal, 8)
-                            .font(.system(size: 12))
-                            .foregroundStyle(Color(hex: "4B4B4C"))
-                            .background(Color(hex: "D9D9D9"))
-                            .cornerRadius(5)
+                    } else {
+                        KFImage(URL(string: otherUser?.profileURL ?? ""))
+                            .placeholder{
+                                Image("Character")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 70, height: 70)
+                                    .cornerRadius(35)
+                            }
+                            .resizable()
+                            .frame(width: 70, height: 70)
+                            .cornerRadius(35)
+                            .overlay(RoundedRectangle(cornerRadius: 35)
+                                .stroke(Color(hex: "D9D9D9"), lineWidth: viewModel.userSaveImage.1 == UIImage(named: "Character")! ? 2 : 0)
+                            )
                         
-                        Text(otherUser?.nickname ?? "")
-                            .font(.system(size: 20, weight: .bold))
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text((otherUser?.style == "" ? "칭호없음" : otherUser?.style) ?? "칭호없음")
+                                .padding(.vertical, 5)
+                                .padding(.horizontal, 8)
+                                .font(.system(size: 12))
+                                .foregroundStyle(Color(hex: "4B4B4C"))
+                                .background(Color(hex: "D9D9D9"))
+                                .cornerRadius(5)
+                            
+                            Text(otherUser?.nickname ?? "")
+                                .font(.system(size: 20, weight: .bold))
+                        }
                     }
+                    Spacer()
+                }
+                .padding(.horizontal)
+                .padding(.vertical, 10)
+                .padding(.top, 10)
+                
+                //매너점수
+                ReviewScoreView(otherUser: otherUser)
+                    .padding(.horizontal)
+                
+                if otherUser == nil {
+                    //나의 게시물
+                    MyPostView(selectedTab: $selectedTab, viewModel: viewModel)
+                        .padding(.horizontal)
+                    
+                    //계정 관리
+                    AccountManagementView(selectedTab: $selectedTab,viewModel: viewModel)
+                        .padding(.horizontal)
+                    
+                }
+                else {
+                    
+                    Divider()
+                    
+                    
+                    NoticeBoardView(selectedTab: $selectedTab,naviTitle: "내 게시물", noticeBoardArray: [],otherUser: otherUser, sortTypes: ["전체", "진행중", "예약중", "교환완료"])
+                        .padding(.horizontal)
                 }
                 Spacer()
             }
-            .padding(.vertical, 10)
-            .padding(.top, 10)
-            
-            //매너점수
-            ReviewScoreView(otherUser: otherUser)
-            
-            if otherUser == nil {
-                //나의 게시물
-                MyPostView(selectedTab: $selectedTab, viewModel: viewModel)
-                //계정 관리
-                AccountManagementView(selectedTab: $selectedTab,viewModel: viewModel)
-            }
-            else {
-                
-                Divider()
-                
-
-                NoticeBoardView(selectedTab: $selectedTab,naviTitle: "내 게시물", noticeBoardArray: [],otherUser: otherUser, sortTypes: ["전체", "진행중", "예약중", "교환완료"]) 
-
-            }
-            Spacer()
         }
         .navigationDestination(isPresented: $isShowingSettingView) {
             SettingView(selectedTab: $selectedTab)
         }
-        .padding(.horizontal)
         .onAppear {
             viewModel.myNoticeBoardCount = 0
             viewModel.otherNoticeBoards = []

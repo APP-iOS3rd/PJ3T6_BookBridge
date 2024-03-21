@@ -11,6 +11,7 @@ import FirebaseStorage
 
 class HomeViewModel: ObservableObject {
     @Published var bookMarks: [String] = []
+    @Published var blockUsers: [String] = []
     @Published var changeNoticeBoards: [NoticeBoard] = []
     @Published var changeNoticeBoardsDic: [String: UIImage] = [:]
     @Published var findNoticeBoards: [NoticeBoard] = []
@@ -18,11 +19,16 @@ class HomeViewModel: ObservableObject {
     @Published var recentSearch : [String] = []
     @Published var filteredNoticeBoards: [NoticeBoard] = []
     @Published var currentTapCategory: TapCategory = .find
-            
+    
     let db = Firestore.firestore()
     let nestedGroup = DispatchGroup()
     let userManager = UserManager.shared
     let locationManager = LocationManager.shared
+    
+    var reportedTargetIds: Set<String> {
+        ReportedContentsManager.shared.reportedTargetIds
+    }
+    
 }
 
 // MARK: - 게시물
@@ -59,11 +65,11 @@ extension HomeViewModel {
                 print("Error fetching user bookmarks: \(error?.localizedDescription ?? "")")
                 return
             }
-
+            
             if let bookMarks = document.data()?["bookMarks"] as? [String] {
                 var validBookMarks = [String]()
                 let group = DispatchGroup()
-
+                
                 for bookMark in bookMarks {
                     group.enter()
                     self.checkNoticeBoardExistence(noticeBoardId: bookMark) { exists in
@@ -73,13 +79,39 @@ extension HomeViewModel {
                         group.leave()
                     }
                 }
-
+                
                 group.notify(queue: .main) {
                     self.bookMarks = validBookMarks
                 }
             }
         }
     }
+    
+    func fetchBlock(user: String) {
+        db.collection("User").document(user).getDocument { [weak self] documentSnapshot, error in
+            guard let self = self, let document = documentSnapshot, error == nil else {
+                print("Error fetching user bookmarks: \(error?.localizedDescription ?? "")")
+                return
+            }
+            
+            if let blockUsers = document.data()?["blockUser"] as? [String] {
+                var blocks = [String]()
+                let group = DispatchGroup()
+                
+                for blockUser in blockUsers {
+                    group.enter()
+                    blocks.append(blockUser)
+                    group.leave()
+                    
+                }
+                
+                group.notify(queue: .main) {
+                    self.blockUsers = blocks
+                }
+            }
+        }
+    }
+    
     // noticeBoardId가 존재하는지 확인
     private func checkNoticeBoardExistence(noticeBoardId: String, completion: @escaping (Bool) -> Void) {
         db.collection("noticeBoard").document(noticeBoardId).getDocument { documentSnapshot, error in
@@ -87,7 +119,7 @@ extension HomeViewModel {
                 completion(false)
                 return
             }
-
+            
             completion(document.exists)
         }
     }
@@ -191,10 +223,12 @@ extension HomeViewModel {
         
         self.fetchRecentSearch(user: userManager.uid)
         self.filterNoticeBoards(with: text)
-                
+        
     }
     
     func updateNoticeBoards() {
+        //신고 당한 게시물
+        
         Task {
             var lat: Double?
             var long: Double?
@@ -226,12 +260,22 @@ extension HomeViewModel {
                     distance: distance,
                     type: .find
                 )
-                                
+                
                 DispatchQueue.main.async {
                     print("데이터 변경 완료")
+                    //동네 설정 데이터 가져오기
                     self.changeNoticeBoards = changeBoards
                     self.findNoticeBoards = findBoards
+                    
+                    //신고 게시글 제외하기
+                    self.changeNoticeBoards = self.changeNoticeBoards.filter{ noticeBoard in
+                        !self.blockUsers.contains(noticeBoard.userId) || !self.reportedTargetIds.contains(noticeBoard.id)
+                    }
+                    self.findNoticeBoards = self.findNoticeBoards.filter{ noticeBoard in
+                        !self.blockUsers.contains(noticeBoard.userId) || !self.reportedTargetIds.contains(noticeBoard.id)
+                    }
                 }
+//                print("self.reportedTargetIds: \(self.reportedTargetIds)")
             }
         }
     }
@@ -243,22 +287,22 @@ extension HomeViewModel {
             self.filteredNoticeBoards = findNoticeBoards.filter {
                 $0.noticeBoardTitle.localizedCaseInsensitiveContains(searchTerm)
             }
-
+            
         case .change:
             self.filteredNoticeBoards = changeNoticeBoards.filter {
                 $0.noticeBoardTitle.localizedCaseInsensitiveContains(searchTerm)
             }
         }
-
+        
         // 필터링된 게시물의 이미지 로드
         for noticeBoard in filteredNoticeBoards {
             if let urlString = noticeBoard.noticeImageLink.first {
                 getDownLoadImage(isChange: noticeBoard.isChange, noticeBoardId: noticeBoard.id, urlString: urlString)
             }
         }
-
+        
     }
-
+    
     
 }
 
@@ -271,7 +315,7 @@ extension HomeViewModel {
                     URLSession.shared.dataTask(with: url) { (data, response, error) in
                         guard error == nil else { return }
                         guard let imageData = data else { return }
-
+                        
                         DispatchQueue.main.async {
                             self.changeNoticeBoardsDic.updateValue(UIImage(data: imageData) ?? UIImage(named: "Character")!, forKey: noticeBoardId)
                         }
@@ -284,7 +328,7 @@ extension HomeViewModel {
                     URLSession.shared.dataTask(with: url) { (data, response, error) in
                         guard error == nil else { return }
                         guard let imageData = data else { return }
-
+                        
                         DispatchQueue.main.async {
                             self.findNoticeBoardsDic.updateValue(UIImage(data: imageData) ?? UIImage(named: "Character")!, forKey: noticeBoardId)
                         }

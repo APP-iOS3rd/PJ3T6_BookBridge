@@ -12,6 +12,7 @@ import FirebaseStorage
 class PostViewModel: ObservableObject {
     @Published var bookMarks: [String] = []
     @Published var chatRoomList: [String] = []
+    @Published var isChatAlarm: Bool = true
     @Published var holdBooks: [Item] = []
     @Published var wishBooks: [Item] = []
     @Published var noticeboardsihBooks : [Item] = []
@@ -23,6 +24,11 @@ class PostViewModel: ObservableObject {
     
     let nestedGroup = DispatchGroup()
     let dispatchGroup = DispatchGroup()
+    
+    var reportedTargetIds: Set<String> {
+         ReportedContentsManager.shared.reportedTargetIds
+     }
+    
 }
 
 // MARK: 게시자 정보
@@ -76,12 +82,14 @@ extension PostViewModel {
         
         guard reviews.count == 3 else { return -1 }
         
-        if reviews[0] == 0 && reviews[1] == 0 && reviews[2] == 0{
+        if reviews[0] == 0 && reviews[1] == 0 && reviews[2] == 0 {
             return -1
         } else {
             return Int((Double(reviews[0] * 3)) / Double(((reviews[0] * 3) + (reviews[1] * 2) + (reviews[2] * 1))) * 100)
         }
     }
+    
+    
 }
 
 // MARK: 게시자 책장 정보
@@ -346,7 +354,7 @@ extension PostViewModel {
     func fetchChatList(noticeBoardId: String) {
         let docRef = db.collection("User").document(UserManager.shared.uid).collection("chatRoomList").whereField("noticeBoardId", isEqualTo: noticeBoardId)
         
-        docRef.getDocuments { [weak self] (querySnapshot, error) in
+        docRef.getDocuments { querySnapshot, error in
             guard let documents = querySnapshot?.documents, error == nil else {
                 print("Error getting documents: \(error?.localizedDescription ?? "")")
                 return
@@ -355,13 +363,16 @@ extension PostViewModel {
             var items: [String] = []
             for document in documents {
                 let data = document.data()
+                guard let item = data["id"] as? String else { return }
                 
-                let item = data["id"] as? String
-                items.append(item ?? "")
+                if !self.reportedTargetIds.contains(item){
+                    items.append(item)
+                }
+                
             }
             
             DispatchQueue.main.async {
-                self?.chatRoomList = items
+                self.chatRoomList = items
             }
         }
     }
@@ -370,7 +381,7 @@ extension PostViewModel {
 // MARK: 채팅
 extension PostViewModel {
     //채팅방 ID 가져오기
-    func getChatRoomId(noticeBoardId: String, completion: @escaping(Bool, String) -> ()) {
+    func getChatRoomId(noticeBoardId: String, completion: @escaping(Bool, Bool, String) -> ()) {
         db.collection("User").document(UserManager.shared.uid)
             .collection("chatRoomList").whereField("noticeBoardId", isEqualTo: noticeBoardId).getDocuments { querySnapshot, error in
                 guard error == nil else { return }
@@ -378,13 +389,31 @@ extension PostViewModel {
                 
                 if !documents.isEmpty {
                     for document in documents.documents {
-                        print(document.documentID)
-                        completion(true, document.documentID)
+                        completion(true, document.data()["isAlarm"] as? Bool ?? true, document.documentID)
                     }
                 } else {
-                    completion(false, "")
+                    completion(false, true, "")
                 }
             }
+    }
+    
+    //사용자는 채팅방을 나갔는데 상대방은 있는 경우 채팅방 ID 가져오기
+    func getOutChatRoomId(noticeBoardId: String, completion: @escaping(String) -> ()) {
+        if user.id != "" {
+            db.collection("User").document(user.id ?? "")
+                .collection("chatRoomList").whereField("noticeBoardId", isEqualTo: noticeBoardId).whereField("partnerId", isEqualTo: UserManager.shared.uid).getDocuments { querySnapshot, error in
+                    guard error == nil else { return }
+                    guard let documents = querySnapshot else { return }
+                    
+                    if !documents.isEmpty {
+                        for document in documents.documents {
+                            completion(document.documentID)
+                        }
+                    } else {
+                        completion(self.userChatRoomId)
+                    }
+                }
+        }
     }
 }
 
@@ -399,6 +428,31 @@ extension PostViewModel {
                     self.userUIImage = UIImage(data: imageData) ?? UIImage(named: "Character")!
                 }
             }.resume()
+        }
+    }
+}
+
+// MARK: 유저 차단 기능
+extension PostViewModel {
+    func blockUser(userId: String) {
+        // Firestore 인스턴스를 가져옵니다.
+        let db = Firestore.firestore()
+        
+        
+        
+        // 현재 사용자의 문서에 접근합니다.
+        let currentUserDocRef = db.collection("User").document(UserManager.shared.uid)
+                
+        currentUserDocRef.updateData([
+            "blockUser": FieldValue.arrayUnion([userId])
+        ]) { error in
+            if let error = error {
+                // 업데이트 실패
+                print("Error updating document: \(error)")
+            } else {
+                // 업데이트 성공
+                print("Document successfully updated")
+            }
         }
     }
 }

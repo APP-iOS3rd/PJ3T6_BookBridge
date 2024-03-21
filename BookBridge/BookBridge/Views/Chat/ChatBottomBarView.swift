@@ -8,13 +8,15 @@
 import SwiftUI
 
 struct ChatBottomBarView: View {
+    @Environment(\.dismiss) var dismiss
+    
     @AppStorage("isAlarmEnabled") private var isChattingAlarm: Bool = true
     
     @Binding var isPlusBtn: Bool
     
     @StateObject var viewModel: ChatMessageViewModel
-    @State var chatTextArr: [Substring] = []
     
+    @State var chatTextArr: [Substring] = []
     @State private var isShowingCamera = false
     @State private var isShowingLocation = false
     @State private var isShowingPhoto = false
@@ -78,21 +80,33 @@ struct ChatBottomBarView: View {
                 
                 
                 Button {
-                    if !chatTextArr.isEmpty {
-                        if viewModel.saveChatRoomId == "" {
-                            viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
-                                viewModel.handleSend(uid: uid, partnerId: partnerId)
-                                viewModel.fetchMessages(uid: uid)
-                            })
-                        } else {
-                            viewModel.handleSend(uid: uid, partnerId: partnerId)
-                        }
-                        // 메세지 알림
-                        Task{
-                            await viewModel.sendChatNotification(to: partnerId, with: viewModel.chatText, chatRoomId: viewModel.saveChatRoomId)
+                    Task{
+                        //수신자가 발신자를 차단한 상태인지 확인
+                        await UserManager.shared.fetchPartnerBlockedUsers(partnerId: partnerId)
+                        viewModel.isBlocked = UserManager.shared.partnerBlockedUsers.contains(uid)
+                        
+                        //위에 비동기 작업이 완료된 후 실행
+                        await MainActor.run {
+                            if !chatTextArr.isEmpty {
+                                if viewModel.saveChatRoomId == "" {
+                                    viewModel.handleSendNoId(uid: uid, partnerId: partnerId) {
+                                        viewModel.handleSend(uid: uid, partnerId: partnerId)
+                                        viewModel.fetchMessages(uid: uid)
+                                    }
+                                } else {
+                                    if viewModel.chatMessages.isEmpty {
+                                        viewModel.handleNoChatRoom(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId) {
+                                            viewModel.handleSend(uid: uid, partnerId: partnerId)
+                                        }
+                                    } else {
+                                        viewModel.handleSend(uid: uid, partnerId: partnerId)
+                                    }
+                                }
+                            }
                         }
                         
                     }
+                    
                 } label: {
                     Image(systemName: "paperplane.fill")
                         .resizable()
@@ -106,7 +120,6 @@ struct ChatBottomBarView: View {
             
             if !isPlusBtn {
                 HStack {
-                    
                     Spacer()
                     
                     VStack {
@@ -190,18 +203,30 @@ struct ChatBottomBarView: View {
                 isPlusBtn.toggle()
             }
             
-            if viewModel.saveChatRoomId != "" {
-                viewModel.handleSendImage(uid: uid, partnerId: partnerId)
-            } else {
-                viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
-                    viewModel.handleSendImage(uid: uid, partnerId: partnerId)
-                    viewModel.fetchMessages(uid: uid)
-                })
-            }
-            //사진 알림
             Task{
-                await viewModel.sendChatNotification(to: partnerId, with: "사진", chatRoomId: viewModel.saveChatRoomId)
+                //수신자가 발신자를 차단한 상태인지 확인
+                await UserManager.shared.fetchPartnerBlockedUsers(partnerId: partnerId)
+                //수신자가 발신자를 차단한 상태인지 확인
+                viewModel.isBlocked = UserManager.shared.partnerBlockedUsers.contains(uid)
+                //위에 비동기 작업이 완료된 후 실행
+                await MainActor.run {
+                    if viewModel.saveChatRoomId != "" {
+                        if viewModel.chatMessages.isEmpty {
+                            viewModel.handleNoChatRoom(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId) {
+                                viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                            }
+                        } else {
+                            viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                        }
+                    } else {
+                        viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
+                            viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                            viewModel.fetchMessages(uid: uid)
+                        })
+                    }
+                }
             }
+
         }) {
             ImagePicker(isVisible: $isShowingPhoto, images: $viewModel.selectedImages, sourceType: $one)
                 .ignoresSafeArea(.all)
@@ -211,17 +236,28 @@ struct ChatBottomBarView: View {
                 isPlusBtn.toggle()
             }
             
-            if viewModel.saveChatRoomId != "" {
-                viewModel.handleSendImage(uid: uid, partnerId: partnerId)
-            } else {
-                viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
-                    viewModel.handleSendImage(uid: uid, partnerId: partnerId)
-                    viewModel.fetchMessages(uid: uid)
-                })
-            }
-            //사진 알림
             Task{
-                await viewModel.sendChatNotification(to: partnerId, with: "사진", chatRoomId: viewModel.saveChatRoomId)
+                //수신자가 발신자를 차단한 상태인지 확인
+                await UserManager.shared.fetchPartnerBlockedUsers(partnerId: partnerId)
+                //수신자가 발신자를 차단한 상태인지 확인
+                viewModel.isBlocked = UserManager.shared.partnerBlockedUsers.contains(uid)
+                //위에 비동기 작업이 완료된 후 실행
+                await MainActor.run {
+                    if viewModel.saveChatRoomId != "" {
+                        if viewModel.chatMessages.isEmpty {
+                            viewModel.handleNoChatRoom(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId) {
+                                viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                            }
+                        } else {
+                            viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                        }
+                    } else {
+                        viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
+                            viewModel.handleSendImage(uid: uid, partnerId: partnerId)
+                            viewModel.fetchMessages(uid: uid)
+                        })
+                    }
+                }
             }
         }) {
             ImagePicker(isVisible: $isShowingCamera, images: $viewModel.selectedImages, sourceType: $zero)
@@ -232,8 +268,9 @@ struct ChatBottomBarView: View {
                 isPlusBtn.toggle()
             }
         }) {
-            ChatExchangeHopeView(viewModel: viewModel, partnerId: partnerId, uid: uid)
+            ChatExchangeHopeView(viewModel: viewModel, chatRoomListId: chatRoomListId, partnerId: partnerId, uid: uid)
         }
+
     }
 }
 

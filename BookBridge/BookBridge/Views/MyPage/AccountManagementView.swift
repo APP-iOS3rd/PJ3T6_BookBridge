@@ -38,12 +38,8 @@ struct AccountManagementView: View {
                         .font(.system(size: 17))
                         .foregroundStyle(Color(hex: "3C3C43"))
                 }
-                .background(
-                    RoundedRectangle(cornerRadius: 0)
-                        .foregroundColor(.white)
-                        .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
-                )
             }
+            Divider()
             
             Button {
                 if userManager.user?.password == "" {
@@ -62,12 +58,8 @@ struct AccountManagementView: View {
                         .font(.system(size: 17))
                         .foregroundStyle(Color(hex: "3C3C43"))
                 }
-                .background(
-                    RoundedRectangle(cornerRadius: 0)
-                        .foregroundColor(.white)
-                        .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
-                )
             }
+            Divider()
             .alert("SNS 로그인은 비밀번호를 변경할 수 없습니다.", isPresented: $isPassword, actions: {
                 Button("확인", role: .cancel) {
                     isPassword.toggle()
@@ -93,12 +85,8 @@ struct AccountManagementView: View {
                         .font(.system(size: 17))
                         .foregroundStyle(Color(hex: "3C3C43"))
                 }
-                .background(
-                    RoundedRectangle(cornerRadius: 0)
-                        .foregroundColor(.white)
-                        .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
-                )
             }
+            Divider()
             .alert("SNS 로그인은 전화번호를 변경할 수 없습니다.", isPresented: $isPhone, actions: {
                 Button("확인", role: .cancel) {
                     isPassword.toggle()
@@ -106,27 +94,7 @@ struct AccountManagementView: View {
             }, message: {
                 
             })
-            
-            NavigationLink {                //관심목록 경로가 아직없음
-                NoticeBoardView(selectedTab: $selectedTab, naviTitle: "관심목록", noticeBoardArray: viewModel.userBookMarks, sortTypes: ["전체", "진행중", "예약중", "교환완료"])
-            } label: {
-                HStack {
-                    Text("관심목록")
-                        .padding(.vertical, 10)
-                        .font(.system(size: 17))
-                        .foregroundStyle(.black)
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .font(.system(size: 17))
-                        .foregroundStyle(Color(hex: "3C3C43"))
-                }
-                .background(
-                    RoundedRectangle(cornerRadius: 0)
-                        .foregroundColor(.white)
-                        .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
-                )
-            }
-           
+
             NavigationLink {
                 TownSettingView()
             } label: {
@@ -140,12 +108,8 @@ struct AccountManagementView: View {
                         .font(.system(size: 17))
                         .foregroundStyle(Color(hex: "3C3C43"))
                 }
-                .background(
-                    RoundedRectangle(cornerRadius: 0)
-                        .foregroundColor(.white)
-                        .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
-                )
             }
+            Divider()
             
             NavigationLink {
                 //유저 아이디에 사용자 아이디 넣기, 유저 스타일에 사용자 대표 칭호 넣기
@@ -161,12 +125,24 @@ struct AccountManagementView: View {
                         .font(.system(size: 17))
                         .foregroundStyle(Color(hex: "3C3C43"))
                 }
-                .background(
-                    RoundedRectangle(cornerRadius: 0)
-                        .foregroundColor(.white)
-                        .shadow(color: Color.init(hex: "B3B3B3"), radius: 0, x: 0, y: 1)
-                )
             } 
+            Divider()
+            
+//            NavigationLink {
+//                BlockUserManagementView()
+//            } label: {
+//                HStack {
+//                    Text("차단 사용자 관리")
+//                        .padding(.vertical, 10)
+//                        .font(.system(size: 17))
+//                        .foregroundStyle(.black)
+//                    Spacer()
+//                    Image(systemName: "chevron.right")
+//                        .font(.system(size: 17))
+//                        .foregroundStyle(Color(hex: "3C3C43"))
+//                }
+//            }
+//            Divider()
         }
         .navigationDestination(isPresented: $showPasswordView) {
             MyProfilePasswordView()

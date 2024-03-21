@@ -11,17 +11,16 @@ struct ChatMessageView: View {
     @Environment(\.dismiss) var dismiss
     
     @EnvironmentObject private var pathModel: TabPathViewModel
-
     
     @StateObject var viewModel = ChatMessageViewModel()
-    @StateObject var reportVM = ReportViewModel()
+    @StateObject var reportedContentsManager = ReportedContentsManager.shared
     
     @State var isAlarm: Bool = true
-    
+    @State var showAlert: Bool = false
     @State private var isAlert = false
     @State private var isPlusBtn = true
     @State private var isPresented = false
-    
+    @State private var isBlockAlert = false
     @FocusState var isShowKeyboard: Bool
     
     var chatRoomListId: String
@@ -46,7 +45,7 @@ struct ChatMessageView: View {
                             .foregroundStyle(.white)
                     }
                 } else {
-                    NoticeBoardChatView( viewModel: viewModel, chatRoomListId: viewModel.saveChatRoomId, noticeBoardId: chatRoomPartner.noticeBoardId, partnerId: chatRoomPartner.partnerId, uid: uid)
+                    NoticeBoardChatView( viewModel: viewModel, chatRoomPartner: chatRoomPartner, chatRoomListId: viewModel.saveChatRoomId, noticeBoardId: chatRoomPartner.noticeBoardId, partnerId: chatRoomPartner.partnerId, uid: uid)
                 }
                 
                 MessageListView( viewModel: viewModel, chatRoomPartner: chatRoomPartner, uid: uid)
@@ -85,11 +84,12 @@ struct ChatMessageView: View {
                                 .background(Color(.lightGray))
                             } else {
                                 VStack(spacing: 10) {
-                                    Text("\"\(viewModel.reservationName)\"님과 교환 완료했습니다.")
+                                    Text("\"\(viewModel.reservationName)\"님과 교환을 완료했습니다.")
                                         .padding(.vertical, 8)
                                         .padding(.horizontal, 12)
                                         .font(.system(size: 18))
                                         .foregroundStyle(.white)
+                                        .bold()
                                 }
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 80)
@@ -148,20 +148,35 @@ struct ChatMessageView: View {
                             
                             Divider()
                             
-//                            NavigationLink {
-//                                ReportView(reportVM: reportVM)
-//                            } 
                             Button {
-                                pathModel.paths.append(.report(ischat: true))
+                                pathModel.paths.append(.report(ischat: true, targetId: viewModel.saveChatRoomId))
                             } label: {
                                 Text("신고하기")
                                     .font(.system(size: 15, weight: .medium))
                                     .foregroundStyle(.black)
                                     .padding(1)
-                                    .onAppear{
-                                        reportVM.report.targetID = "채팅방ID"
-                                        reportVM.report.targetType = .chat
-                                    }
+                            }
+                            
+                            Divider()
+                            
+                            Button {
+                                isBlockAlert.toggle()
+                            } label: {
+                                Text("차단하기")
+                                    .font(.system(size: 15, weight: .medium))
+                                    .foregroundStyle(Color.red)
+                                    .padding(1)
+                            }
+                            .alert("해당 사용자를 차단합니다", isPresented: $isBlockAlert) {
+                                Button("차단하기", role: .destructive) {
+                                    viewModel.blockUser(userId: chatRoomPartner.partnerId)
+                                    dismiss()
+                                }
+                                Button("취소", role: .cancel) {
+                                    isBlockAlert.toggle()
+                                }
+                            } message: {
+                                Text("차단하면 사용자의 게시글과 채팅을 볼 수 없어요")
                             }
                             
                             Divider()
@@ -176,7 +191,7 @@ struct ChatMessageView: View {
                             }
                             .alert("채팅방을 나가시겠습니까?", isPresented: $isAlert, actions: {
                                 Button("나가기", role: .destructive) {
-                                    viewModel.deleteChatRoom(uid: uid) {
+                                    viewModel.deleteChatRoom(uid: uid, partnerId: chatRoomPartner.partnerId) {
                                         dismiss()
                                     }
                                 }
@@ -189,7 +204,7 @@ struct ChatMessageView: View {
                             })
                         }
                     }
-                    .frame(width: 120, height: isPresented ? 110 : 0)
+                    .frame(width: 120, height: isPresented ? 150 : 0)
                     .background(
                         RoundedRectangle(cornerRadius: 10, style: .circular)
                             .foregroundColor(Color(uiColor: .systemGray6))
@@ -237,32 +252,53 @@ struct ChatMessageView: View {
                 }
             }
             
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    withAnimation(.easeIn(duration: 0.2)) {
-                        isPresented.toggle()
+            if !viewModel.chatMessages.isEmpty {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        withAnimation(.easeIn(duration: 0.2)) {
+                            isPresented.toggle()
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis")
+                            .foregroundStyle(.black)
                     }
-                } label: {
-                    Image(systemName: "ellipsis")
-                        .foregroundStyle(.black)
                 }
             }
         }
         .onAppear {
-            if chatRoomListId != "" {
+            if !reportedContentsManager.reportedTargetIds.contains(chatRoomListId){
+                if chatRoomListId != "" {
+                    viewModel.saveChatRoomId = chatRoomListId
+                    viewModel.initNewCount(uid: uid)
+                    viewModel.fetchMessages(uid: uid)
+                } else {
+                    viewModel.saveChatRoomId = ""
+                }
+                viewModel.getNoticeBoardInfo(noticeBoardId: chatRoomPartner.noticeBoardId)
+            } else {
                 viewModel.saveChatRoomId = chatRoomListId
                 viewModel.initNewCount(uid: uid)
-                viewModel.fetchMessages(uid: uid)
-            } else {
-                viewModel.saveChatRoomId = ""
+                showAlert = true
             }
-            viewModel.getNoticeBoardInfo(noticeBoardId: chatRoomPartner.noticeBoardId)
-        
         }
         .onDisappear {
             if viewModel.saveChatRoomId != "" {
                 viewModel.initNewCount(uid: uid)
             }
+        }
+        .onChange(of: reportedContentsManager.reportedTargetIds ){ _ in
+            if ReportedContentsManager.shared.reportedTargetIds.contains(chatRoomListId){
+                showAlert = true
+            }
+        }
+        .alert(isPresented: $showAlert){
+            Alert(
+                title: Text("신고 접수된 채팅방"),
+                message: Text("신고 내용은 24시간 이내 조치됩니다."),
+                dismissButton: .default(Text("확인")) {
+                    dismiss()
+                }
+            )
         }
     }
 }

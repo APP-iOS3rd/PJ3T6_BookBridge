@@ -11,12 +11,14 @@ import FirebaseStorage
 struct HomeView: View {
     
     @StateObject var viewModel = HomeViewModel()
+    @StateObject var notificationViewModel = NotificationViewModel()
     @StateObject var userManager = UserManager.shared
     @StateObject var locationManager = LocationManager.shared
     @EnvironmentObject private var pathModel: TabPathViewModel
     @State private var selectedPicker: TapCategory = .find
     @State private var showingLoginView = false
     @State private var showingTownSettingView = false
+    @State private var showingAlarmView = false
     @State private var offsetY: CGFloat = 0
     
         
@@ -45,8 +47,28 @@ struct HomeView: View {
                     
                 }
                 Spacer()
+                
+                NavigationLink {
+                    NotificationView(notificationViewModel: notificationViewModel)
+                        .navigationBarBackButtonHidden()
+                        .onDisappear {
+                            notificationViewModel.isShowNotificationBadge = false
+                        }
+                } label: {
+                    ZStack {
+                        Image(systemName: "bell")
+                            .font(.system(size: 20))
+                            .foregroundStyle(.black)
+                            .padding(.trailing,20)
+                        if notificationViewModel.isShowNotificationBadge {
+                            Circle()
+                                .foregroundColor(.red)
+                                .frame(width: 8, height: 8)
+                                .offset(x: -5, y: -8)
+                        }
+                    }
+                }
             }
-            
             tapAnimation()
             
             HomeTapView(viewModel: viewModel, tapCategory: $selectedPicker)
@@ -54,21 +76,23 @@ struct HomeView: View {
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 viewModel.updateNoticeBoards()
-            }
+            }                    
+            notificationViewModel.startNotificationListenerIfNeeded()
         }
-        
         .sheet(isPresented: $showingLoginView) {
             LoginView(showingLoginView: $showingLoginView)
         }
         .navigationDestination(isPresented: $showingTownSettingView) {
             TownSettingView()
-        }
+        }        
         .onChange(of: userManager.isLogin) { _ in
             print("로그인 변동 감지")
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
                 print("1")
                 viewModel.updateNoticeBoards()
             }
+            notificationViewModel.stopNotificationListener()
+            notificationViewModel.startNotificationListener()
         }
         .onChange(of: locationManager.dong) { _ in
             print("현재위치 변동 감지")
@@ -79,14 +103,7 @@ struct HomeView: View {
         .onChange(of: userManager.isChanged) { _ in
             print("데이터 변화 감지")
             viewModel.updateNoticeBoards()
-        }
-        .toolbar() {
-            ToolbarItem(placement: .topBarTrailing) {
-               
-            }
-        }
-        
-        
+        }                        
     }
     
     

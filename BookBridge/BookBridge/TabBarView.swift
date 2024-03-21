@@ -133,8 +133,8 @@ struct TabBarView: View {
                                     uid: uid
                                 )
                                 
-                            case let .report(ischat):
-                                ReportView(ischat: ischat)
+                            case let .report(ischat, targetId):
+                                ReportView(ischat: ischat, targetId: targetId)
                               
                             case let .noticeboard(naviTitel, noticeBoardArray, sortType):
                                 NoticeBoardView(selectedTab: $selectedTab, naviTitle: naviTitel, noticeBoardArray: noticeBoardArray, sortTypes: sortType)
@@ -151,11 +151,11 @@ struct TabBarView: View {
                 StyleGetView(style: .newBi)
             }
             
-            if userManager.isWishStyleCheck && !showingLoginView {
+            if userManager.isWishStyleCheck && !showingLoginView && userManager.isLogin {
                 StyleGetView(style: .bookHope)
             }
             
-            if userManager.isHoldStyleCheck && !showingLoginView {
+            if userManager.isHoldStyleCheck && !showingLoginView && userManager.isLogin {
                 StyleGetView(style: .bookDic)
             }
         }
@@ -200,6 +200,8 @@ struct TabBarView: View {
                         showingNewBiView = false
                     }
                 }
+                
+                UserManager.shared.updateTotalNewCount()
             }
         }){
             LoginView(showingLoginView: $showingLoginView)

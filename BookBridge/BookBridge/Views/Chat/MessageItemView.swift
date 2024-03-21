@@ -18,6 +18,8 @@ struct MessageItemView: View {
     @State var chatLocationTuple: (Double, Double) = (0, 0)
 
     @State var isCopyTapped = false
+    @State private var isShowChatImageModal = false
+    
     @Binding var showToast: Bool
     
     var chatRoomPartner: ChatPartnerModel
@@ -45,6 +47,9 @@ struct MessageItemView: View {
                             .scaledToFill()
                             .frame(width: 150, height: 150)
                             .cornerRadius(10)
+                            .onTapGesture {
+                                isShowChatImageModal = true
+                            }
                     }
                 } else if messageModel.location != [100, 200] {
                     HStack(alignment: .top) {
@@ -63,29 +68,29 @@ struct MessageItemView: View {
                             PostMapView(lat: $chatLocation[0], lng: $chatLocation[1], isDetail: false)
                             
                             VStack {
-
-                                HStack(alignment: .top) {
-                                    Text(messageModel.message)
-                                        .font(.caption)
-                                        .foregroundStyle(.black)
-                                        .padding(.vertical, 5)
-                                    
-                                    Image(systemName: "doc.on.doc")
-                                        .font(.caption)
-                                        .foregroundColor(isCopyTapped ? Color.gray : Color.black)
-                                        .padding(.vertical, 5)
-                                        .onTapGesture {
-                                            UIPasteboard.general.setValue(messageModel.message, forPasteboardType: "public.plain-text")
-                                            isCopyTapped = true
-                                            showToast = true
-                                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                                                withAnimation {
-                                                    showToast = false
+                                if !messageModel.message.isEmpty {
+                                    HStack(alignment: .top) {
+                                        Text(messageModel.message)
+                                            .font(.caption)
+                                            .foregroundStyle(.black)
+                                            .padding(.vertical, 5)
+                                        
+                                        Image(systemName: "doc.on.doc")
+                                            .font(.caption)
+                                            .foregroundColor(isCopyTapped ? Color.gray : Color.black)
+                                            .padding(.vertical, 5)
+                                            .onTapGesture {
+                                                UIPasteboard.general.setValue(messageModel.message, forPasteboardType: "public.plain-text")
+                                                isCopyTapped = true
+                                                showToast = true
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                    withAnimation {
+                                                        showToast = false
+                                                    }
                                                 }
                                             }
-                                        }
+                                    }
                                 }
-
                                 
                                 NavigationLink {
                                     ChatExchangeInfoView(myCoord: chatLocationTuple, markerCoord: NMGLatLng(lat: chatLocationTuple.0, lng: chatLocationTuple.1), partnerId: chatRoomPartner.partnerId, uid: uid)
@@ -99,6 +104,7 @@ struct MessageItemView: View {
                                         .background(Color(uiColor: .systemGray5))
                                         .cornerRadius(10)
                                 }
+                                .padding(messageModel.message.isEmpty ? .top : [])
                             }
                             .frame(maxWidth: .infinity)
                             .padding(.bottom)
@@ -152,6 +158,9 @@ struct MessageItemView: View {
                             .scaledToFill()
                             .frame(width: 150, height: 150)
                             .cornerRadius(10)
+                            .onTapGesture {
+                                isShowChatImageModal = true
+                            }
                         
                         VStack {
                             Spacer()
@@ -259,7 +268,9 @@ struct MessageItemView: View {
                 viewModel.getChatImage(urlString: messageModel.imageURL)
             }
         }
-
+        .fullScreenCover(isPresented: $isShowChatImageModal) {
+            ChatImageModalView(viewModel: viewModel, messageModel: messageModel)
+        }
     }
 }
 
