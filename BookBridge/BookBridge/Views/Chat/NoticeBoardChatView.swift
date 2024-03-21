@@ -122,7 +122,7 @@ struct NoticeBoardChatView: View {
                 isExchangeCompleted = false
             }
         }) {
-            ExchangeReview(notificationViewModel: notificationViewModel, chatMessageViewModel: viewModel, chatRoomPartner: chatRoomPartner)
+            ExchangeReview(notificationViewModel: notificationViewModel, chatMessageViewModel: viewModel, notification: nil, chatRoomPartner: chatRoomPartner)
         }
         Divider()
         
