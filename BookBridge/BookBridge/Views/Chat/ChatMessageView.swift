@@ -14,13 +14,13 @@ struct ChatMessageView: View {
     
     @StateObject var viewModel = ChatMessageViewModel()
     @StateObject var reportedContentsManager = ReportedContentsManager.shared
-
+    
     @State var isAlarm: Bool = true
     @State var showAlert: Bool = false
     @State private var isAlert = false
     @State private var isPlusBtn = true
     @State private var isPresented = false
-    
+    @State private var isBlockAlert = false
     @FocusState var isShowKeyboard: Bool
     
     var chatRoomListId: String
@@ -148,9 +148,6 @@ struct ChatMessageView: View {
                             
                             Divider()
                             
-//                            NavigationLink {
-//                                ReportView(reportVM: reportVM)
-//                            } 
                             Button {
                                 pathModel.paths.append(.report(ischat: true, targetId: viewModel.saveChatRoomId))
                             } label: {
@@ -158,6 +155,28 @@ struct ChatMessageView: View {
                                     .font(.system(size: 15, weight: .medium))
                                     .foregroundStyle(.black)
                                     .padding(1)
+                            }
+                            
+                            Divider()
+                            
+                            Button {
+                                isBlockAlert.toggle()
+                            } label: {
+                                Text("차단하기")
+                                    .font(.system(size: 15, weight: .medium))
+                                    .foregroundStyle(Color.red)
+                                    .padding(1)
+                            }
+                            .alert("해당 사용자를 차단합니다", isPresented: $isBlockAlert) {
+                                Button("차단하기", role: .destructive) {
+                                    viewModel.blockUser(userId: chatRoomPartner.partnerId)
+                                    dismiss()
+                                }
+                                Button("취소", role: .cancel) {
+                                    isBlockAlert.toggle()
+                                }
+                            } message: {
+                                Text("차단하면 사용자의 게시글과 채팅을 볼 수 없어요")
                             }
                             
                             Divider()
@@ -185,7 +204,7 @@ struct ChatMessageView: View {
                             })
                         }
                     }
-                    .frame(width: 120, height: isPresented ? 110 : 0)
+                    .frame(width: 120, height: isPresented ? 150 : 0)
                     .background(
                         RoundedRectangle(cornerRadius: 10, style: .circular)
                             .foregroundColor(Color(uiColor: .systemGray6))

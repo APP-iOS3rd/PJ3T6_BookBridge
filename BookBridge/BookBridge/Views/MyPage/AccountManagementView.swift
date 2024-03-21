@@ -128,21 +128,21 @@ struct AccountManagementView: View {
             } 
             Divider()
             
-            NavigationLink {
-                BlockUserManagementView()
-            } label: {
-                HStack {
-                    Text("차단 사용자 관리")
-                        .padding(.vertical, 10)
-                        .font(.system(size: 17))
-                        .foregroundStyle(.black)
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .font(.system(size: 17))
-                        .foregroundStyle(Color(hex: "3C3C43"))
-                }
-            }
-            Divider()
+//            NavigationLink {
+//                BlockUserManagementView()
+//            } label: {
+//                HStack {
+//                    Text("차단 사용자 관리")
+//                        .padding(.vertical, 10)
+//                        .font(.system(size: 17))
+//                        .foregroundStyle(.black)
+//                    Spacer()
+//                    Image(systemName: "chevron.right")
+//                        .font(.system(size: 17))
+//                        .foregroundStyle(Color(hex: "3C3C43"))
+//                }
+//            }
+//            Divider()
         }
         .navigationDestination(isPresented: $showPasswordView) {
             MyProfilePasswordView()

@@ -28,7 +28,8 @@ struct UserModel: Codable, Identifiable, Equatable,Hashable {
     var isNewsAlarm: Bool?
     var isMarketingAlarm: Bool?
     var isChattingAlarm: Bool?
-    var blockUser: [String]?
+    var blockUser : [String]?
+
     
     
     func getSelectedLocation() -> Location? {
@@ -39,3 +40,5 @@ struct UserModel: Codable, Identifiable, Equatable,Hashable {
         return nil
     }
 }
+
+
