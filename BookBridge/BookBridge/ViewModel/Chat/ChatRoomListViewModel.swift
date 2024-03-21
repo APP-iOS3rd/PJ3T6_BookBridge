@@ -17,6 +17,9 @@ class ChatRoomListViewModel: ObservableObject {
     @Published var blockUsers : [String?] = []
     
     var firestoreListener: ListenerRegistration?
+    var reportedTargetIds: Set<String> {
+         ReportedContentsManager.shared.reportedTargetIds
+     }
     
     let nestedGroup = DispatchGroup()
 }
@@ -24,16 +27,19 @@ class ChatRoomListViewModel: ObservableObject {
 //MARK: 채팅방 검색
 extension ChatRoomListViewModel {
     func searchChatRoomList() -> [ChatRoomListModel] {
-        var filteredChatRooms = chatRoomList.filter { chatRoom in
-            !blockUsers.contains(chatRoom.partnerId)
-        }
+        
+        var filteredChatRooms = self.chatRoomList
         
         if self.searchText == "" {
             return filteredChatRooms
-        } else {
-            return filteredChatRooms.filter { $0.noticeBoardTitle.contains(searchText) }
+        } else  {
+            return filteredChatRooms.filter {
+                !self.reportedTargetIds.contains($0.id) && !blockUsers.contains($0.partnerId) && $0.noticeBoardTitle.contains(searchText)
+            }
         }
+        return filteredChatRooms
     }
+    
 }
 
 //MARK: 로그인 여부 확인
@@ -185,8 +191,4 @@ extension ChatRoomListViewModel {
             self.nestedGroup.leave()
         }
     }
-    
-    
-    
-    
 }

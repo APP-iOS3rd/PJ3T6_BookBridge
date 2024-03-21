@@ -150,6 +150,7 @@
 		5C8C0E362B7B298C002963F1 /* ReportDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0E352B7B298C002963F1 /* ReportDetailView.swift */; };
 		5C8C0E3A2B7B29C6002963F1 /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0E392B7B29C6002963F1 /* ReportViewModel.swift */; };
 		5C8C0E3C2B7B29F7002963F1 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0E3B2B7B29F7002963F1 /* Report.swift */; };
+		5CAB17812BA82A96007DEFCF /* ReportedContentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAB17802BA82A96007DEFCF /* ReportedContentsManager.swift */; };
 		5CD606442B7DAABF00AC53DD /* PostMapDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD606432B7DAABE00AC53DD /* PostMapDetailView.swift */; };
 		5CE454902B68B79000874BCE /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4548F2B68B79000874BCE /* FirestoreService.swift */; };
 		5CE454932B68B7CB00874BCE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454922B68B7CB00874BCE /* UserModel.swift */; };
@@ -425,6 +426,7 @@
 		5C8C0E352B7B298C002963F1 /* ReportDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportDetailView.swift; sourceTree = "<group>"; };
 		5C8C0E392B7B29C6002963F1 /* ReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
 		5C8C0E3B2B7B29F7002963F1 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
+		5CAB17802BA82A96007DEFCF /* ReportedContentsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportedContentsManager.swift; sourceTree = "<group>"; };
 		5CD6063F2B7D967A00AC53DD /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		5CD606432B7DAABE00AC53DD /* PostMapDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMapDetailView.swift; sourceTree = "<group>"; };
 		5CE4548F2B68B79000874BCE /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
@@ -967,6 +969,7 @@
 				5A3380752B8752360038F2DE /* Storage */,
 				5AA97F842B709C2400EF4081 /* Firestore */,
 				5ADE79DC2B6B2EDC005BB3ED /* Login */,
+				5CAB177F2BA82A3F007DEFCF /* Report */,
 				73C962A82B68C38D00D34D3F /* BookAPIManger.swift */,
 				5A3A44272B6CC7BA00B66C81 /* NaverMapApiManager.swift */,
 				5A3A44292B6CDB8A00B66C81 /* KeychainManager.swift */,
@@ -1027,6 +1030,14 @@
 			isa = PBXGroup;
 			children = (
 				5C8C0E392B7B29C6002963F1 /* ReportViewModel.swift */,
+			);
+			path = Report;
+			sourceTree = "<group>";
+		};
+		5CAB177F2BA82A3F007DEFCF /* Report */ = {
+			isa = PBXGroup;
+			children = (
+				5CAB17802BA82A96007DEFCF /* ReportedContentsManager.swift */,
 			);
 			path = Report;
 			sourceTree = "<group>";
@@ -1370,11 +1381,12 @@
 			};
 			buildConfigurationList = 5A7A4E1D2B61DFFD00F79C23 /* Build configuration list for PBXProject "BookBridge" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 5A7A4E192B61DFFD00F79C23;
 			packageReferences = (
@@ -1729,6 +1741,7 @@
 				5A1E27532B9EDB390054EAF9 /* ChangePhoneNumberStandardView.swift in Sources */,
 				1D28D8032B98538100C09EB9 /* TabPathViewModel.swift in Sources */,
 				73D077E42B7C7FC90007DDEB /* RoomListView.swift in Sources */,
+				5CAB17812BA82A96007DEFCF /* ReportedContentsManager.swift in Sources */,
 				7328DA272BA02EAE002A0F38 /* StyleType.swift in Sources */,
 				73DDA5E12B6A34A500B25FB8 /* SearchResultView.swift in Sources */,
 				914600412B71FD8700E0E24F /* ProfileImagePicker.swift in Sources */,
