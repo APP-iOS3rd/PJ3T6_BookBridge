@@ -18,6 +18,7 @@ struct ChangePostingView: View {
     @State private var sourceType = 0 // 0: 카메라, 1: 사진
     @State private var showAlert = false
     @State private var alertMessage = ""
+    var memoPlaceholder = "상세 내용을 작성해주세요.\n부적절하거나 불쾌감을 줄 수 있는 컨텐츠를 게시할 경우 제재를 받을 수 있습니다."
     
     var body: some View {
         NavigationStack {
@@ -42,30 +43,23 @@ struct ChangePostingView: View {
                     VStack(alignment: .leading) {
                         Text("상세설명")
                             .bold()
-                        ZStack {
-                            TextEditor(text: $viewModel.noticeBoard.noticeBoardDetail)
-                                .padding(.leading, 11)
-                                .padding(.trailing, 11)
-                                .padding(.top, 7)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.gray, lineWidth: 1)
-                                )
-                                .focused($isShowKeyboard)
-                            if viewModel.noticeBoard.noticeBoardDetail.isEmpty {
-                                VStack {
-                                    HStack {
-                                        Text("상세 내용을 작성해주세요. 부적절하거나 불쾌감을 줄 수 있는 컨텐츠를 게시할 경우 제재를 받을 수 있습니다.".useNonBreakingSpace())
-                                            .foregroundStyle(.tertiary)
-                                        Spacer()
-                                    }
-                                    .padding()
-                                    
-                                    Spacer()
+                        
+                        TextEditor(text: $viewModel.noticeBoard.noticeBoardDetail)
+                            .foregroundColor(viewModel.noticeBoard.noticeBoardDetail == memoPlaceholder ? .gray : .primary)
+                            .padding(.leading, 11)
+                            .padding(.trailing, 11)
+                            .padding(.top, 7)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.gray, lineWidth: 1)
+                            )
+                            .focused($isShowKeyboard)
+                            .frame(height: 200)
+                            .onTapGesture {
+                                if viewModel.noticeBoard.noticeBoardDetail == memoPlaceholder {
+                                    viewModel.noticeBoard.noticeBoardDetail = ""
                                 }
                             }
-                        }
-                        .frame(height: 200)
                     }
                     .padding(.bottom, 20)
                     
@@ -103,7 +97,7 @@ struct ChangePostingView: View {
                         if viewModel.noticeBoard.noticeBoardTitle.isEmpty {
                             alertMessage = "제목을 입력해주세요."
                             showAlert = true
-                        } else if viewModel.noticeBoard.noticeBoardDetail.isEmpty {
+                        } else if viewModel.noticeBoard.noticeBoardDetail == memoPlaceholder {
                             alertMessage = "상세 설명을 입력해주세요."
                             showAlert = true
                         } else if selectedImages.isEmpty {
@@ -143,6 +137,11 @@ struct ChangePostingView: View {
                     if viewModel.noticeBoard.noticeLocation.isEmpty {
                         viewModel.gettingUserInfo()
                     }
+                }
+            }
+            .onChange(of: isShowKeyboard) { isShowKeyboard in
+                if !isShowKeyboard && viewModel.noticeBoard.noticeBoardDetail.isEmpty {
+                    viewModel.noticeBoard.noticeBoardDetail = memoPlaceholder
                 }
             }
             .toolbar {
