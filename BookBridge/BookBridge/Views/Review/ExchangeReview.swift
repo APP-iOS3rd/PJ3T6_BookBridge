@@ -8,6 +8,11 @@
 import SwiftUI
 import Kingfisher
 
+enum ExchangeCase {
+    case review
+    case notDetermine
+}
+
 struct ExchangeReview: View {
     @Environment(\.dismiss) var dismiss
     @StateObject var notificationViewModel: NotificationViewModel
@@ -17,11 +22,12 @@ struct ExchangeReview: View {
     @State var isSatisfied = false
     @State var isSoso = false
     @State var isUnsatisfied = false
+    var notification: NotificationModel?
     
     var chatRoomPartner: ChatPartnerModel
     
     var body: some View {
-        if notificationViewModel.notifications.isEmpty || notificationViewModel.notifications.first?.isReview == false {
+        if notificationViewModel.notifications.isEmpty || notification?.isReview == false {
             VStack {
                 KFImage(URL(string: chatRoomPartner.partnerImageUrl))
                     .placeholder {
@@ -139,18 +145,18 @@ struct ExchangeReview: View {
 //                        isReview: notificationViewModel.notifications.first?.isReview ?? false
 //                    )
 
-                    if let notificationID = notificationViewModel.notifications.first?.id {
+                    if let notificationID = notification?.id {
                         // 알림 정보를 Firebase에 저장
                         let notification = NotificationModel(
                             userId: chatRoomPartner.partnerId,
-                            noticeBoardId: notificationViewModel.notifications.first?.noticeBoardId ?? "",
+                            noticeBoardId: notification?.noticeBoardId ?? "",
                             partnerId: UserManager.shared.uid,
                             partnerImageUrl: UserManager.shared.user?.profileURL ?? "",
-                            noticeBoardTitle: notificationViewModel.notifications.first?.noticeBoardTitle ?? "",
+                            noticeBoardTitle: notification?.noticeBoardTitle ?? "",
                             nickname: UserManager.shared.user?.nickname ?? "",
                             review: text,
                             isRead: false,
-                            isReview: notificationViewModel.notifications.first?.isReview ?? false
+                            isReview: notification?.isReview ?? false
                         )
 //                        notificationViewModel.updateIsReview(notificationId: notificationID)
 //                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
@@ -173,7 +179,7 @@ struct ExchangeReview: View {
                             nickname: UserManager.shared.user?.nickname ?? "",
                             review: text,
                             isRead: false,
-                            isReview: notificationViewModel.notifications.first?.isReview ?? false
+                            isReview: notification?.isReview ?? false
                         )
                         
                         notificationViewModel.saveNotificationIsReview(notification: notification, isReview: false)
@@ -226,7 +232,7 @@ struct ExchangeReview: View {
                     .font(.system(size: 30, weight: .bold))
                     .padding(.bottom, 30)
                 
-                switch notificationViewModel.notifications.first?.review {
+                switch notification?.review {
                 case "만족해요":
                     VStack {
                         Text("😃")
