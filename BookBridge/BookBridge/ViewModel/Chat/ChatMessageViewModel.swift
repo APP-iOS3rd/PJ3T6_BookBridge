@@ -273,7 +273,7 @@ extension ChatMessageViewModel {
                 }
                 //Push알림
                 Task{
-                    await sendChatNotification(from: uid, to: partnerId, with: self.chatText, chatRoomId: self.saveChatRoomId)
+                    await sendChatNotification(from: uid, to: partnerId, with: currentChatText, chatRoomId: self.saveChatRoomId)
                 }
             }
             self.chatText = ""
@@ -645,8 +645,8 @@ extension ChatMessageViewModel {
             
             if isChatEnabled && isChatRoomEnabled && !isBlocked {
                 // 사용자 알림 보내기 API
-                await sendChatNotificationAPI(to: partnerId, withMessage: message, chatRoomId: chatRoomId)
-                print("chatRoomId: \(chatRoomId)")
+                await sendChatNotificationAPI(from: uid, to: partnerId, withMessage: message, chatRoomId: chatRoomId)
+//                print("chatRoomId: \(chatRoomId)")
             }
         } catch {
             print("Error: \(error.localizedDescription)")
@@ -665,7 +665,7 @@ extension ChatMessageViewModel {
         return document.data()?["isAlarm"] as? Bool ?? true
     }
     
-    private func sendChatNotificationAPI(to userId: String, withMessage message: String, chatRoomId: String) async {
+    private func sendChatNotificationAPI(from userId: String, to partnerId: String, withMessage message: String, chatRoomId: String) async {
         //Secrets.xcconfig파일 ServerURL 정보 불러오기
         guard let baseUrlString = Bundle.main.object(forInfoDictionaryKey: "ServerURL") as? String else { return }
         
@@ -679,7 +679,7 @@ extension ChatMessageViewModel {
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let body: [String: Any] = ["userId": userId, "message": message, "chatRoomId": chatRoomId]
+        let body: [String: Any] = ["userId": userId, "partnerUserId": partnerId, "message": message, "chatRoomId": chatRoomId]
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
         
         do {
