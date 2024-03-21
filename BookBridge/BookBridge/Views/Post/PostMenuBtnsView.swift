@@ -102,7 +102,7 @@ struct PostMenuBtnsView: View {
                         }
                     }
                 }
-                .frame(width: 110, height: isPresented ? 120 : 0)
+                .frame(width: 110, height: isPresented ? UserManager.shared.uid != noticeBoard.userId ? 120 : 80 : 0)
                 .background(
                     RoundedRectangle(cornerRadius: 10, style: .circular)
                         .foregroundColor(Color(uiColor: .systemGray6))

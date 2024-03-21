@@ -228,6 +228,7 @@ extension NotificationViewModel {
                         return try? document.data(as: NotificationModel.self)
                     }
                     self.notifications = notifications
+                    self.notifications.sort { $0.date > $1.date }
                     promise(.success(notifications))
                 }
             }

@@ -58,8 +58,8 @@ struct ChatBottomBarView: View {
                     
                     TextEditor(text: $viewModel.chatText)
                         .opacity(viewModel.chatText.isEmpty ? 0.5 : 1)
-                        .padding(.leading, 6)
-                        .padding(.trailing, 6)
+                        .padding(.top, 3)
+                        .padding(.horizontal, 6)
                         .frame(minHeight: 40, maxHeight: 120)
                         .focused($isShowKeyboard)
                         .fixedSize(horizontal: false, vertical: true)
