@@ -54,7 +54,7 @@ struct TabBarView: View {
                                             ChatMessageView(
                                                 isAlarm: false,
                                                 chatRoomListId: chatRoomId,
-                                                chatRoomPartner: ChatPartnerModel(nickname: appState.nickname ?? " ", noticeBoardId: appState.noticeBoardId ?? "", partnerId: appState.partnerId ?? "", partnerImage: UIImage(named: "DefaultImage") ?? UIImage(), partnerImageUrl: appState.profileURL ?? "", reviews: [0,0], style: appState.style ?? "칭호 미아"),
+                                                chatRoomPartner: ChatPartnerModel(nickname: appState.nickname ?? " ", noticeBoardId: appState.noticeBoardId ?? "", partnerId: appState.partnerId ?? "", partnerImage: appState.profileImage ?? UIImage(), partnerImageUrl: appState.profileURL ?? "", reviews: appState.reviews ?? [0,0,0], style: appState.style ?? "칭호 미아"),
                                                 noticeBoardTitle: appState.noticeBoardTitle ?? "",
                                                 uid: appState.userId ?? "")
                                         }
@@ -133,8 +133,8 @@ struct TabBarView: View {
                                     uid: uid
                                 )
                                 
-                            case let .report(ischat):
-                                ReportView(ischat: ischat)
+                            case let .report(ischat, targetId):
+                                ReportView(ischat: ischat, targetId: targetId)
                               
                             case let .noticeboard(naviTitel, noticeBoardArray, sortType):
                                 NoticeBoardView(selectedTab: $selectedTab, naviTitle: naviTitel, noticeBoardArray: noticeBoardArray, sortTypes: sortType)

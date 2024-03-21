@@ -24,6 +24,11 @@ class PostViewModel: ObservableObject {
     
     let nestedGroup = DispatchGroup()
     let dispatchGroup = DispatchGroup()
+    
+    var reportedTargetIds: Set<String> {
+         ReportedContentsManager.shared.reportedTargetIds
+     }
+    
 }
 
 // MARK: 게시자 정보
@@ -83,6 +88,8 @@ extension PostViewModel {
             return Int((Double(reviews[0] * 3)) / Double(((reviews[0] * 3) + (reviews[1] * 2) + (reviews[2] * 1))) * 100)
         }
     }
+    
+    
 }
 
 // MARK: 게시자 책장 정보
@@ -347,7 +354,7 @@ extension PostViewModel {
     func fetchChatList(noticeBoardId: String) {
         let docRef = db.collection("User").document(UserManager.shared.uid).collection("chatRoomList").whereField("noticeBoardId", isEqualTo: noticeBoardId)
         
-        docRef.getDocuments { [weak self] (querySnapshot, error) in
+        docRef.getDocuments { querySnapshot, error in
             guard let documents = querySnapshot?.documents, error == nil else {
                 print("Error getting documents: \(error?.localizedDescription ?? "")")
                 return
@@ -356,13 +363,16 @@ extension PostViewModel {
             var items: [String] = []
             for document in documents {
                 let data = document.data()
+                guard let item = data["id"] as? String else { return }
                 
-                let item = data["id"] as? String
-                items.append(item ?? "")
+                if !self.reportedTargetIds.contains(item){
+                    items.append(item)
+                }
+                
             }
             
             DispatchQueue.main.async {
-                self?.chatRoomList = items
+                self.chatRoomList = items
             }
         }
     }
@@ -418,6 +428,31 @@ extension PostViewModel {
                     self.userUIImage = UIImage(data: imageData) ?? UIImage(named: "Character")!
                 }
             }.resume()
+        }
+    }
+}
+
+// MARK: 유저 차단 기능
+extension PostViewModel {
+    func blockUser(userId: String) {
+        // Firestore 인스턴스를 가져옵니다.
+        let db = Firestore.firestore()
+        
+        
+        
+        // 현재 사용자의 문서에 접근합니다.
+        let currentUserDocRef = db.collection("User").document(UserManager.shared.uid)
+                
+        currentUserDocRef.updateData([
+            "blockUser": FieldValue.arrayUnion([userId])
+        ]) { error in
+            if let error = error {
+                // 업데이트 실패
+                print("Error updating document: \(error)")
+            } else {
+                // 업데이트 성공
+                print("Document successfully updated")
+            }
         }
     }
 }

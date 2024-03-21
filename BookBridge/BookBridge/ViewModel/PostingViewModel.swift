@@ -14,7 +14,7 @@ class PostingViewModel: ObservableObject {
     @Published var noticeBoard: NoticeBoard = NoticeBoard(
         userId: "",
         noticeBoardTitle: "",
-        noticeBoardDetail: "",
+        noticeBoardDetail: "상세 내용을 작성해주세요.\n부적절하거나 불쾌감을 줄 수 있는 컨텐츠를 게시할 경우 제재를 받을 수 있습니다.",
         noticeImageLink: [],
         noticeLocation: [],
         noticeLocationName: "교환장소 선택",

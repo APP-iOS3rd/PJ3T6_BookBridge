@@ -1,20 +1,19 @@
 //
-//  PrivacypolicyView.swift
+//  LocationPolicyView.swift
 //  BookBridge
 //
-//  Created by 김건호 on 3/11/24.
+//  Created by 이현호 on 3/18/24.
 //
 
 import SwiftUI
 import WebKit
 
-
-struct PrivacypolicyView: View {
+struct LocationPolicyView: View {
     @Environment(\.dismiss) private var dismiss
     var body: some View {
-        PolicyWebView(url: URL(string: "https://internal-nest-08f.notion.site/766b05d6793240978526484520e205e3?pvs=4")!)
+        PolicyWebView(url: URL(string: "https://internal-nest-08f.notion.site/4817aab9cde548e39b456fa3e7daf2a0?pvs=4")!)
             .navigationBarBackButtonHidden()
-            .navigationTitle("개인정보 처리방침")
+            .navigationTitle("위치기반서비스 이용약관")
             .navigationBarTitleDisplayMode(.inline)
             .padding(.horizontal)
             .toolbar {

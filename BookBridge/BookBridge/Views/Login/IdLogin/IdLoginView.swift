@@ -21,8 +21,10 @@ struct IdLoginView: View {
             
             VStack{
                 
-                Image("Character")
-                
+                if !isFocused {
+                    Image("Character")
+                }
+                                
                 VStack(alignment: .leading, spacing: 5) {
                     
                     Spacer()

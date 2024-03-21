@@ -25,7 +25,7 @@ struct BookBridgeApp: App {
         }
         
         //Naver SDK 초기화
-        NaverThirdPartyLoginConnection.getSharedInstance().isNaverAppOauthEnable = true // NaverApp 사용 로그인
+//        NaverThirdPartyLoginConnection.getSharedInstance().isNaverAppOauthEnable = true // NaverApp 사용 로그인
         NaverThirdPartyLoginConnection.getSharedInstance()?.isInAppOauthEnable = true // 사파리 사용 로그인
         
         NaverThirdPartyLoginConnection.getSharedInstance().serviceUrlScheme = kServiceAppUrlScheme
@@ -115,9 +115,14 @@ struct BookBridgeApp: App {
                let nickname = userInfo["nickname"] as? String,// 상대방 닉네임
                let style = userInfo["style"] as? String, // 칭호
                let profileURL = userInfo["profileURL"] as? String,
-               let message = userInfo["message"] as? String {
+               let message = userInfo["message"] as? String,
+               let review0 = userInfo["review0"] as? String,
+               let review1 = userInfo["review1"] as? String,
+               let review2 = userInfo["review2"] as? String {
+                
+                let reviews = [Int(review0)!, Int(review1)!, Int(review2)!]
                 // 채팅방 상태 업데이트
-                PushChatRoomRouteManager.shared.navigateToChatRoom(chatRoomId: chatRoomId, userId: userId,  partnerId: partnerId, noticeBoardTitle: noticeBoardTitle, noticeBoardId: noticeBoardId, nickname: nickname, style: style, profileURL: profileURL, message: message)
+                PushChatRoomRouteManager.shared.navigateToChatRoom(chatRoomId: chatRoomId, userId: userId,  partnerId: partnerId, noticeBoardTitle: noticeBoardTitle, noticeBoardId: noticeBoardId, nickname: nickname, style: style, profileURL: profileURL, message: message, reviews: reviews)
 
             }
             completionHandler()

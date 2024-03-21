@@ -31,7 +31,8 @@ class FirestoreSignUpManager {
             "requests": user.requests ?? [],
             "style": user.style ?? "",
             "reviews": user.reviews ?? [0,0,0],
-            "titles": user.titles ?? ["뉴비"]
+            "titles": user.titles ?? ["뉴비"],
+            "blockUser": user.blockUser ?? []
         ] as [String : Any]
         
         return userData as [String : Any]
