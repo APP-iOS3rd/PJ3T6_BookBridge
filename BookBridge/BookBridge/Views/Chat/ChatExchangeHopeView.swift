@@ -50,35 +50,40 @@ struct ChatExchangeHopeView: View {
                 Button(action: {
                     // 교환 희망 장소 위치
                     if let lat = markerCoord?.lat, let lng = markerCoord?.lng {
-                        if viewModel.saveChatRoomId != "" {
-                            if viewModel.chatMessages.isEmpty {
-                                viewModel.handleNoChatRoom(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId) {
-                                    viewModel.handleSendLocation(uid: uid, partnerId: partnerId, lat: lat, lng: lng, location: location) {
-                                        myCoord = (0, 0)
-                                        markerCoord = nil
-                                        location = ""
+                        Task{
+                            //수신자가 발신자를 차단한 상태인지 확인
+                            await UserManager.shared.fetchPartnerBlockedUsers(partnerId: partnerId)
+                            //수신자가 발신자를 차단한 상태인지 확인
+                            viewModel.isBlocked = UserManager.shared.partnerBlockedUsers.contains(uid)
+                            //위에 비동기 작업이 완료된 후 실행
+                            await MainActor.run {
+                                if viewModel.saveChatRoomId != "" {
+                                    if viewModel.chatMessages.isEmpty {
+                                        viewModel.handleNoChatRoom(uid: uid, partnerId: partnerId, chatRoomListId: chatRoomListId) {
+                                            viewModel.handleSendLocation(uid: uid, partnerId: partnerId, lat: lat, lng: lng, location: location) {
+                                                myCoord = (0, 0)
+                                                markerCoord = nil
+                                                location = ""
+                                            }
+                                        }
+                                    } else {
+                                        viewModel.handleSendLocation(uid: uid, partnerId: partnerId, lat: lat, lng: lng, location: location) {
+                                            myCoord = (0, 0)
+                                            markerCoord = nil
+                                            location = ""
+                                        }
                                     }
-                                }
-                            } else {
-                                viewModel.handleSendLocation(uid: uid, partnerId: partnerId, lat: lat, lng: lng, location: location) {
-                                    myCoord = (0, 0)
-                                    markerCoord = nil
-                                    location = ""
+                                } else {
+                                    viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
+                                        viewModel.handleSendLocation(uid: uid, partnerId: partnerId, lat: lat, lng: lng, location: location) {
+                                            myCoord = (0, 0)
+                                            markerCoord = nil
+                                            location = ""
+                                            viewModel.fetchMessages(uid: uid)
+                                        }
+                                    })
                                 }
                             }
-                        } else {
-                            viewModel.handleSendNoId(uid: uid, partnerId: partnerId, completion: {
-                                viewModel.handleSendLocation(uid: uid, partnerId: partnerId, lat: lat, lng: lng, location: location) {
-                                    myCoord = (0, 0)
-                                    markerCoord = nil
-                                    location = ""
-                                    viewModel.fetchMessages(uid: uid)
-                                }
-                            })
-                        }
-                        // 위치 알림
-                        Task{
-                            await viewModel.sendChatNotification(to: partnerId, with: location, chatRoomId: viewModel.saveChatRoomId)
                         }
                     }
                     dismiss()
