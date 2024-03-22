@@ -269,10 +269,10 @@ extension HomeViewModel {
                     
                     //신고 게시글 제외하기
                     self.changeNoticeBoards = self.changeNoticeBoards.filter{ noticeBoard in
-                        !self.blockUsers.contains(noticeBoard.userId) || !self.reportedTargetIds.contains(noticeBoard.id)
+                        !(self.blockUsers.contains(noticeBoard.userId) || self.reportedTargetIds.contains(noticeBoard.id))
                     }
                     self.findNoticeBoards = self.findNoticeBoards.filter{ noticeBoard in
-                        !self.blockUsers.contains(noticeBoard.userId) || !self.reportedTargetIds.contains(noticeBoard.id)
+                        !(self.blockUsers.contains(noticeBoard.userId) || self.reportedTargetIds.contains(noticeBoard.id))
                     }
                 }
 //                print("self.reportedTargetIds: \(self.reportedTargetIds)")
