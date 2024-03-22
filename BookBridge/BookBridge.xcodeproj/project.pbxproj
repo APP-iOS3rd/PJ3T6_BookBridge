@@ -138,6 +138,7 @@
 		5ADE79EA2B6B6715005BB3ED /* SignUpInputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */; };
 		5AF850952BA023EA00D339D3 /* ConfirmPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF850942BA023EA00D339D3 /* ConfirmPhoneNumberView.swift */; };
 		5AF850972BA046A900D339D3 /* FirestoreExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF850962BA046A900D339D3 /* FirestoreExtension.swift */; };
+		5C3F892B2BB4F74600826A0D /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5C3F892A2BB4F74600826A0D /* Secrets.xcconfig */; };
 		5C5AB9712B85977200AD90A2 /* FCMTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5AB9702B85977200AD90A2 /* FCMTokenManager.swift */; };
 		5C6094A62B8DD8F3005E94EA /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6094A52B8DD8F3005E94EA /* SettingViewModel.swift */; };
 		5C6456292B99A42F0096563F /* PushChatRoomRouteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6456282B99A42F0096563F /* PushChatRoomRouteManager.swift */; };
@@ -229,7 +230,6 @@
 		915FD1DC2B7CA6A40008C38B /* SearchChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FD1DB2B7CA6A40008C38B /* SearchChatListView.swift */; };
 		915FD1DE2B7CB7E80008C38B /* NoticeBoardChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FD1DD2B7CB7E70008C38B /* NoticeBoardChatView.swift */; };
 		91695F522B8D8CE400A0E2F7 /* InquiryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91695F512B8D8CE400A0E2F7 /* InquiryViewModel.swift */; };
-		9189E0782BA587DD00F7DD36 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 9189E0772BA587DD00F7DD36 /* Secrets.xcconfig */; };
 		9189E07A2BA81AF100F7DD36 /* TermsAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189E0792BA81AF100F7DD36 /* TermsAndConditionsView.swift */; };
 		9189E07C2BA81D3400F7DD36 /* LocationPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189E07B2BA81D3400F7DD36 /* LocationPolicyView.swift */; };
 		9189E07E2BA825B900F7DD36 /* TermsOfServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189E07D2BA825B900F7DD36 /* TermsOfServiceView.swift */; };
@@ -414,6 +414,7 @@
 		5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputManager.swift; sourceTree = "<group>"; };
 		5AF850942BA023EA00D339D3 /* ConfirmPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPhoneNumberView.swift; sourceTree = "<group>"; };
 		5AF850962BA046A900D339D3 /* FirestoreExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreExtension.swift; sourceTree = "<group>"; };
+		5C3F892A2BB4F74600826A0D /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		5C5AB9702B85977200AD90A2 /* FCMTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenManager.swift; sourceTree = "<group>"; };
 		5C6094A52B8DD8F3005E94EA /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		5C6456282B99A42F0096563F /* PushChatRoomRouteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushChatRoomRouteManager.swift; sourceTree = "<group>"; };
@@ -508,7 +509,6 @@
 		915FD1DB2B7CA6A40008C38B /* SearchChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchChatListView.swift; sourceTree = "<group>"; };
 		915FD1DD2B7CB7E70008C38B /* NoticeBoardChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardChatView.swift; sourceTree = "<group>"; };
 		91695F512B8D8CE400A0E2F7 /* InquiryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryViewModel.swift; sourceTree = "<group>"; };
-		9189E0772BA587DD00F7DD36 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		9189E0792BA81AF100F7DD36 /* TermsAndConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsView.swift; sourceTree = "<group>"; };
 		9189E07B2BA81D3400F7DD36 /* LocationPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPolicyView.swift; sourceTree = "<group>"; };
 		9189E07D2BA825B900F7DD36 /* TermsOfServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfServiceView.swift; sourceTree = "<group>"; };
@@ -767,7 +767,7 @@
 			isa = PBXGroup;
 			children = (
 				1DEAB9272BA032580096D604 /* GoogleService-Info.plist */,
-				9189E0772BA587DD00F7DD36 /* Secrets.xcconfig */,
+				5C3F892A2BB4F74600826A0D /* Secrets.xcconfig */,
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
 				5A7A4E352B61DFFE00F79C23 /* BookBridgeTests */,
@@ -1409,7 +1409,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */,
-				9189E0782BA587DD00F7DD36 /* Secrets.xcconfig in Resources */,
+				5C3F892B2BB4F74600826A0D /* Secrets.xcconfig in Resources */,
 				1DEAB9282BA032580096D604 /* GoogleService-Info.plist in Resources */,
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
 				5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */,
@@ -1853,7 +1853,7 @@
 /* Begin XCBuildConfiguration section */
 		5A7A4E442B61DFFE00F79C23 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9189E0772BA587DD00F7DD36 /* Secrets.xcconfig */;
+			baseConfigurationReference = 5C3F892A2BB4F74600826A0D /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1917,7 +1917,7 @@
 		};
 		5A7A4E452B61DFFE00F79C23 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9189E0772BA587DD00F7DD36 /* Secrets.xcconfig */;
+			baseConfigurationReference = 5C3F892A2BB4F74600826A0D /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;

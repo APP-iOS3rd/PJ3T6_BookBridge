@@ -34,6 +34,15 @@ struct ReportDetailView: View {
             VStack (alignment: .leading) {
                 Text("신고 내용")
                     .bold()
+                
+                Text("게시글 신고 접수 이후 해당 게시글이 목록에서 제거되며, 부적절한 신고 및 허위 신고의 경우 신고자가 제재를 받을 수 있음을 유념해주세요.".useNonBreakingSpace())
+                    .foregroundColor(.black)
+                    .opacity(0.5)
+                    .font(.system(size: 15))
+                    .multilineTextAlignment(.leading)
+                    .padding(.vertical, 2)
+                    .lineSpacing(5)
+                
                 ZStack (alignment: .topLeading) {
                     
                     Rectangle()
