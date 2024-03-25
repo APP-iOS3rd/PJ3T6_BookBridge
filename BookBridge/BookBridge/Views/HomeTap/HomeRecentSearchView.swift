@@ -8,8 +8,12 @@
 import SwiftUI
 
 struct HomeRecentSearchView: View {
-    @State private var recentSearches = ["Search 1", "Search 2", "Search 3"]
-
+    @ObservedObject var viewModel: HomeViewModel
+    @Binding  var isInsideXmark: Bool
+    @Binding  var isOutsideXmark: Bool
+    @Binding  var text : String
+    
+    
     var body: some View {
         VStack {
             HStack {
@@ -17,11 +21,13 @@ struct HomeRecentSearchView: View {
                     .font(.system(size: 20))
                     .font(.headline)
                     .padding(.leading)
-
+                
                 Spacer()
-
+                
                 Button(action: {
-                    recentSearches.removeAll()
+                    if UserManager.shared.isLogin {
+                        viewModel.recentSearchDeleteAll(user: UserManager.shared.uid)
+                    }
                 }, label: {
                     Text("전체삭제")
                         .font(.system(size: 15))
@@ -31,35 +37,67 @@ struct HomeRecentSearchView: View {
                 .padding(.trailing)
             }
             .padding(.vertical, 5)
-
-            List {
-                ForEach(recentSearches, id: \.self) { search in
-                    HStack {
-                        Image(systemName: "clock")
-                            .foregroundColor(Color(hex: "999999"))
-                        Text(search)
-                            .foregroundColor(Color(hex: "999999"))
-                        Spacer()
-                        Button(action: {
-                            if let index = recentSearches.firstIndex(of: search) {
-                                recentSearches.remove(at: index)
+            
+            if UserManager.shared.isLogin {
+                if viewModel.recentSearch.isEmpty {
+                    Text("최근 검색 기록이 없습니다")
+                        .foregroundColor(.gray)
+                        .padding()
+                    Spacer()
+                } else {
+                    List {
+                        ForEach(viewModel.recentSearch, id: \.self) { search in
+                            HStack {
+                                Image(systemName: "clock")
+                                    .foregroundColor(Color(hex: "999999"))
+                                
+                                Text(search)
+                                    .foregroundColor(Color(hex: "999999"))
+                                
+                                Spacer()
+                                
+                                Button(action: {
+                                    viewModel.deleteRecentSearch(user: UserManager.shared.uid, search: search)
+                                }, label : {
+                                    Image(systemName: "multiply")
+                                        .foregroundColor(Color(hex: "999999"))
+                                })
+                                .buttonStyle(PlainButtonStyle())
                             }
-                        }) {
-                            Image(systemName: "multiply")
-                                .foregroundColor(Color(hex: "999999"))
+                            .contentShape(Rectangle())
+                            .onTapGesture {
+                                viewModel.addRecentSearch(user: UserManager.shared.uid, text: search, category: viewModel.currentTapCategory)
+                                viewModel.filterNoticeBoards(with: search)
+                                isOutsideXmark = false
+                                isInsideXmark = false
+                                text = search
+                            }
                         }
-                        .buttonStyle(PlainButtonStyle()) // 버튼 스타일 변경
                     }
+                    .listStyle(.inset)
                 }
             }
-            .listStyle(.inset)
+            else {
+                Text("최근 검색 기록이 없습니다")
+                    .foregroundColor(.gray)
+                    .padding()
+                Spacer()
+            }
+            
+            
+        }
+        .onAppear{
+            if UserManager.shared.isLogin {
+                viewModel.fetchRecentSearch(user: UserManager.shared.uid)
+            }
         }
         .background(Color.white)
+        
     }
 }
 
-struct HomeRecentSearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeRecentSearchView()
-    }
-}
+//struct HomeRecentSearchView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HomeRecentSearchView()
+//    }
+//}

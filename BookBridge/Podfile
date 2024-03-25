@@ -17,7 +17,9 @@ target 'BookBridge' do
   pod 'Alamofire'
   pod 'NMapsMap'
   pod 'SwiftyJSON', '~> 4.0'
-  pod 'GeoFire/Utils'
+  pod 'GeoFire', '~> 5.0'
+  pod 'FirebaseMessaging'
+  pod 'Kingfisher', '~> 7.0'
 
   # Add the Firebase pod for Google Analytics
   pod 'FirebaseAnalytics'
@@ -29,6 +31,7 @@ target 'BookBridge' do
   # For example, to use Firebase Authentication and Cloud Firestore
   pod 'FirebaseAuth'
   pod 'FirebaseFirestore'
+  pod 'FirebaseFirestoreSwift'
 
   target 'BookBridgeTests' do
     inherit! :search_paths

@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct HomeListItemView: View {
-    @State var url = URL(string: "")
+    
     @EnvironmentObject var viewModel: HomeViewModel
     
-    var storageManager = HomeFirebaseManager.shared
+    var homeFirebaseManager = HomeFirebaseManager.shared
     
     var author: String
     var date: Date
@@ -21,6 +21,8 @@ struct HomeListItemView: View {
     var locate: [Double]
     var title: String
     var userId: String
+    var location: String
+    var detail : String
     
     var body: some View {
         HStack {
@@ -30,34 +32,17 @@ struct HomeListItemView: View {
                     .scaledToFit()
                     .frame(width: 75, height: 100)
                     .foregroundStyle(.black)
+                    .cornerRadius(10)
                     .padding()
             } else {
-                if isChange {
-                    AsyncImage(url: url) { image in
-                        image
-                            .resizable()
-                            .frame(width: 75, height: 100)
-                            .foregroundStyle(.black)
-                            .padding()
-                    } placeholder: {
-                        ProgressView()
-                            .frame(width: 75, height: 100)
-                            .padding()
-                    }
-                } else {
-                    AsyncImage(url: URL(string: imageLinks[0])) { image in
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 75, height: 100)
-                            .foregroundStyle(.black)
-                            .padding()
-                    } placeholder: {
-                        ProgressView()
-                            .frame(width: 75, height: 100)
-                            .padding()
-                    }
-                }
+                Image(uiImage:
+                        (isChange ? viewModel.changeNoticeBoardsDic[id] : viewModel.findNoticeBoardsDic[id]) ?? UIImage(named: "Character")!
+                )
+                .resizable()
+                .frame(width: 75, height: 100)
+                .foregroundStyle(.black)
+                .cornerRadius(10)
+                .padding()
             }
             
             
@@ -69,52 +54,70 @@ struct HomeListItemView: View {
                     .foregroundColor(.black)
                     .padding(.top, 10)
                     .lineLimit(2)
+                    .multilineTextAlignment(.leading)
                 
-                Text("\(author)")
-                    .font(.system(size: 10))
-                    .padding(.top, 5)
-                    .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))
-                
-                Spacer()
-                
-                Text("무슨동 | \(date)")
-                    .font(.system(size: 10))
-                    .padding(.bottom, 10)
-                    .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))
-            }
-            Spacer()
-            VStack{
-                Button {
-                    viewModel.bookMarkToggle(user: userId, id: id)
-                } label: {
-                    if (viewModel.bookMarks.contains(id)) {
-                        Image(systemName: "bookmark.fill")
-                            .font(.system(size: 20))
-                            .padding()
-                            .foregroundColor(.black)
-                    } else {
-                        Image(systemName: "bookmark")
-                            .font(.system(size: 20))
-                            .padding()
-                            .foregroundColor(.black)
-                    }
+                if author != "" {
+                    Text("\(author)")
+                        .font(.system(size: 10))
+                        .padding(.top, 5)
+                        .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))
                 }
                 
+                
+                
+                Text("\(detail)")
+                    .font(.system(size: 14))
+                    .padding(.top, 5)
+                    .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))
+                    .multilineTextAlignment(.leading)
+                
                 Spacer()
+                
+
+                HStack{
+                    Text("\(location.count>=20 ? location.components(separatedBy: " ")[3] : location) |")
+                            .font(.system(size: 10))
+                            .lineLimit(1)
+                            .padding(.bottom, 10)
+                            .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))
+                    
+                        Text("\(ConvertManager.getTimeDifference(from: date))")
+                            .font(.system(size: 10))
+                            .padding(.bottom, 10)
+                            .foregroundStyle(Color(red: 75/255, green: 75/255, blue: 75/255))
+                }
+             
+                
+                
+
+            }
+            
+            Spacer()
+            if UserManager.shared.isLogin {
+                VStack{
+                    Button {
+                        viewModel.bookMarkToggle(user: userId, id: id)
+                    } label: {
+                        if (viewModel.bookMarks.contains(id)) {
+                            Image(systemName: "bookmark.fill")
+                                .font(.system(size: 20))
+                                .padding()
+                                .foregroundColor(.black)
+                        } else {
+                            Image(systemName: "bookmark")
+                                .font(.system(size: 20))
+                                .padding()
+                                .foregroundColor(.black)
+                        }
+                    }
+                    Spacer()
+                }
             }
         }
         .frame(height: 120, alignment: .center)
-        .background(
-            RoundedRectangle(cornerRadius: 10, style: .circular)
-                .foregroundColor(Color(red: 230/255, green: 230/255, blue: 230/255))
-        )
         .onAppear {
-            if !imageLinks.isEmpty && isChange {
-                Task {
-                    try await storageManager.downloadImage(noticeiId: id, imageId: imageLinks[0]) { url in
-                        self.url = url
-                    }
-                }
+            if !imageLinks.isEmpty {
+                viewModel.getDownLoadImage(isChange: isChange, noticeBoardId: id, urlString: imageLinks[0])
             }
         }
     }

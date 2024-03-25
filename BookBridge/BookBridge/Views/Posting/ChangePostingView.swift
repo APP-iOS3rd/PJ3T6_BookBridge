@@ -9,16 +9,19 @@ import SwiftUI
 
 struct ChangePostingView: View {
     @Environment(\.dismiss) private var dismiss
-    
+    @EnvironmentObject private var pathModel: PostPathViewModel
     @StateObject var viewModel = PostingViewModel()
-    
+    @FocusState var isShowKeyboard: Bool
     @State private var selectedImages: [UIImage] = []
     @State private var showActionSheet = false
     @State private var showImagePicker = false
-    @State private var sourceType = 0
+    @State private var sourceType = 0 // 0: 카메라, 1: 사진
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    var memoPlaceholder = "상세 내용을 작성해주세요.\n부적절하거나 불쾌감을 줄 수 있는 컨텐츠를 게시할 경우 제재를 받을 수 있습니다."
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView(showsIndicators: false) {
                 VStack(alignment: .leading) {
                     // 이미지 스크롤 뷰
@@ -34,45 +37,41 @@ struct ChangePostingView: View {
                                 .stroke(Color.gray, lineWidth: 1)
                         )
                         .padding(.bottom, 20)
+                        .focused($isShowKeyboard)
                     
                     // 상세 설명 입력 필드
                     VStack(alignment: .leading) {
                         Text("상세설명")
                             .bold()
-                        ZStack {
-                            TextEditor(text: $viewModel.noticeBoard.noticeBoardDetail)
-                                .padding(.leading, 11)
-                                .padding(.trailing, 11)
-                                .padding(.top, 7)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.gray, lineWidth: 1)
-                                )
-                            if viewModel.noticeBoard.noticeBoardDetail.isEmpty {
-                                VStack {
-                                    HStack {
-                                        Text("상세 내용을 작성해주세요")
-                                            .foregroundStyle(.tertiary)
-                                        Spacer()
-                                    }
-                                    .padding()
-                                    
-                                    Spacer()
+                        
+                        TextEditor(text: $viewModel.noticeBoard.noticeBoardDetail)
+                            .foregroundColor(viewModel.noticeBoard.noticeBoardDetail == memoPlaceholder ? .gray : .primary)
+                            .padding(.leading, 11)
+                            .padding(.trailing, 11)
+                            .padding(.top, 7)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.gray, lineWidth: 1)
+                            )
+                            .focused($isShowKeyboard)
+                            .frame(height: 200)
+                            .onTapGesture {
+                                if viewModel.noticeBoard.noticeBoardDetail == memoPlaceholder {
+                                    viewModel.noticeBoard.noticeBoardDetail = ""
                                 }
                             }
-                        }
-                        .frame(height: 200)
                     }
                     .padding(.bottom, 20)
+                    
+                    
                     
                     // 교환 희망 장소 선택 버튼
                     Text("교환 희망 장소")
                         .bold()
                     
-                    //EmptyView에 지훈님이 만든 네이버 맵 화면
                     NavigationLink(destination: ExchangeHopeView(viewModel: viewModel)) {
                         HStack {
-                            Text("\(viewModel.noticeBoard.noticeLocationName)")
+                            Text(viewModel.noticeBoard.noticeLocationName)
                                 .foregroundColor(.black)
                             Spacer()
                             Image(systemName: "chevron.right")
@@ -90,9 +89,27 @@ struct ChangePostingView: View {
                     }
                     .padding(.bottom, 30)
                     
+                    
+                    
                     // 확인 버튼
                     Button(action: {
-                        viewModel.uploadPost(isChange: true, images: selectedImages)
+                        
+                        if viewModel.noticeBoard.noticeBoardTitle.isEmpty {
+                            alertMessage = "제목을 입력해주세요."
+                            showAlert = true
+                        } else if viewModel.noticeBoard.noticeBoardDetail == memoPlaceholder {
+                            alertMessage = "상세 설명을 입력해주세요."
+                            showAlert = true
+                        } else if selectedImages.isEmpty {
+                            alertMessage = "이미지를 추가해주세요."
+                            showAlert = true
+                        } else {
+                            viewModel.uploadPost(isChange: true, images: selectedImages) {
+                                UserManager.shared.isChanged.toggle()
+                            }
+                            dismiss()
+                        }
+                        
                     }) {
                         Text("게시물 등록")
                             .fontWeight(.bold)
@@ -105,34 +122,40 @@ struct ChangePostingView: View {
                     .padding(.bottom, 20)
                 }
             }
-            .sheet(isPresented: $showActionSheet, onDismiss: {
-                showImagePicker.toggle()
-            }, content: {
-                CameraModalView(selectedImages: $selectedImages, showActionSheet: $showActionSheet, sourceType: $sourceType)
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("알림"), message: Text(alertMessage), dismissButton: .default(Text("확인")))
+            }
+            .sheet(isPresented: $showActionSheet, content: {
+                CameraModalView(selectedImages: $selectedImages, showActionSheet: $showActionSheet, sourceType: $sourceType, showImagePicker: $showImagePicker)
                     .presentationDetents([.height(150)])
             })
-            .fullScreenCover(isPresented: $showImagePicker) {
-                ImagePicker(isVisible: $showImagePicker, images: $selectedImages, sourceType: sourceType)
-                    .ignoresSafeArea(.all)
-            }
             .padding()
             .navigationTitle("바꿔요")
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                Task{
+                    if viewModel.noticeBoard.noticeLocation.isEmpty {
+                        viewModel.gettingUserInfo()
+                    }
+                }
+            }
+            .onChange(of: isShowKeyboard) { isShowKeyboard in
+                if !isShowKeyboard && viewModel.noticeBoard.noticeBoardDetail.isEmpty {
+                    viewModel.noticeBoard.noticeBoardDetail = memoPlaceholder
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button {
                         dismiss()
                     } label: {
                         Image(systemName: "xmark")
-                            .font(.system(size: 16))
                             .foregroundStyle(.black)
                     }
                 }
             }
-            .onAppear {
-                Task{
-                    viewModel.gettingUserInfo()
-                }
+            .onTapGesture {
+                isShowKeyboard = false
             }
         }
     }

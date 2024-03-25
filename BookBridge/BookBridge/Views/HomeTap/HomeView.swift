@@ -9,44 +9,103 @@ import SwiftUI
 import FirebaseStorage
 
 struct HomeView: View {
+    
     @StateObject var viewModel = HomeViewModel()
-    
-    @State private var isAnimating = false
-    @State private var rotation = 0.0
+    @StateObject var notificationViewModel = NotificationViewModel()
+    @StateObject var userManager = UserManager.shared
+    @StateObject var locationManager = LocationManager.shared
+    @EnvironmentObject private var pathModel: TabPathViewModel
     @State private var selectedPicker: TapCategory = .find
+    @State private var showingLoginView = false
+    @State private var showingTownSettingView = false
+    @State private var showingAlarmView = false
+    @State private var offsetY: CGFloat = 0
     
-    @Namespace private var animation
-    
-    var body: some View {
         
+    @Namespace private var animation
+        
+    var body: some View {        
         VStack {
             HStack {
                 Button {
-                    self.isAnimating.toggle()
-                    
+                    if userManager.isLogin {
+                        // 로그인시
+                        showingTownSettingView.toggle()
+                    } else {
+                        // 비로그인시
+                        showingLoginView.toggle()
+                    }
                 } label: {
                     HStack{
-                        Text("광교 2동")
+                        Text(userManager.isLogin ? userManager.currentDong : locationManager.dong)
                         Image(systemName: "chevron.down")
-                            .rotationEffect(.degrees(isAnimating ? 180 : 360))
-                            .animation(.linear(duration: 0.3), value: isAnimating)
+                        
+                        Spacer()                                                  
                     }
                     .padding(.leading, 20)
                     .foregroundStyle(.black)
                     
                 }
                 Spacer()
+                
+                NavigationLink {
+                    NotificationView(notificationViewModel: notificationViewModel)
+                        .navigationBarBackButtonHidden()
+                        .onDisappear {
+                            notificationViewModel.isShowNotificationBadge = false
+                        }
+                } label: {
+                    ZStack {
+                        Image(systemName: "bell")
+                            .font(.system(size: 20))
+                            .foregroundStyle(.black)
+                            .padding(.trailing,20)
+                        if notificationViewModel.isShowNotificationBadge {
+                            Circle()
+                                .foregroundColor(.red)
+                                .frame(width: 8, height: 8)
+                                .offset(x: -5, y: -8)
+                        }
+                    }
+                }
             }
-            
             tapAnimation()
             
-            HomeTapView(viewModel: viewModel, tapCategory: selectedPicker)
-        }        
-        .onAppear {
-            viewModel.gettingFindNoticeBoards()
-            viewModel.gettingChangeNoticeBoards()
+            HomeTapView(viewModel: viewModel, tapCategory: $selectedPicker)
         }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                viewModel.updateNoticeBoards()
+            }                    
+            notificationViewModel.startNotificationListenerIfNeeded()
+        }
+        .sheet(isPresented: $showingLoginView) {
+            LoginView(showingLoginView: $showingLoginView)
+        }
+        .navigationDestination(isPresented: $showingTownSettingView) {
+            TownSettingView()
+        }        
+        .onChange(of: userManager.isLogin) { _ in
+            print("로그인 변동 감지")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                print("1")
+                viewModel.updateNoticeBoards()
+            }
+            notificationViewModel.stopNotificationListener()
+            notificationViewModel.startNotificationListener()
+        }
+        .onChange(of: locationManager.dong) { _ in
+            print("현재위치 변동 감지")
+            if !userManager.isLogin {
+                viewModel.updateNoticeBoards()
+            }
+        }
+        .onChange(of: userManager.isChanged) { _ in
+            print("데이터 변화 감지")
+            viewModel.updateNoticeBoards()
+        }                        
     }
+    
     
     @ViewBuilder
     private func tapAnimation() -> some View {
@@ -72,6 +131,28 @@ struct HomeView: View {
                         self.selectedPicker = item
                     }
                 }
+                .gesture(
+                    DragGesture()
+                        .onChanged({ value in
+                            offsetY = value.translation.width * 0.5
+                        })
+                        .onEnded({ value in
+                            let translation = value.translation.width
+                            
+                            withAnimation(.easeInOut) {
+                                if translation > 0 {
+                                    if translation > 10 {
+                                        self.selectedPicker = .find
+                                    }
+                                } else {
+                                    if translation < -10 {
+                                        self.selectedPicker = .change
+                                    }
+                                }
+                                offsetY = .zero
+                            }
+                        })
+                )
             }
         }
         .overlay(Rectangle().frame(width: nil, height: 1, alignment: .bottom).foregroundColor(Color(red: 200/255, green: 200/255, blue: 200/255)), alignment: .bottom)

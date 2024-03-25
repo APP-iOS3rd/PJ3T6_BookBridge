@@ -11,18 +11,28 @@ import FirebaseFirestore
 
 class FirestoreSignUpManager {
     static let shared = FirestoreSignUpManager()
+    let redundant = RedundantValidator()
     private init() {}
     let db = Firestore.firestore()
+    let formattor = FormatValidator()
     
     func convertUserModelToDictionary(user: UserModel) -> [String : Any] {
         let userData = [
             "id" : user.id ?? "",  // change these according to you model
             "email": user.email ?? "",
-            "password": user.passsword ?? "",
+            "password": user.password ?? "",
             "nickname": user.nickname ?? "",
             "phoneNumber": user.phoneNumber ?? "",
+            "profileURL": user.profileURL ?? "",
             "joinDate": user.joinDate ?? "",
+            "fcmToken": user.fcmToken ?? "",
             "location": user.location ?? [],
+            "bookMarks": user.bookMarks ?? [],
+            "requests": user.requests ?? [],
+            "style": user.style ?? "",
+            "reviews": user.reviews ?? [0,0,0],
+            "titles": user.titles ?? ["뉴비"],
+            "blockUser": user.blockUser ?? []
         ] as [String : Any]
         
         return userData as [String : Any]
@@ -43,33 +53,60 @@ class FirestoreSignUpManager {
         return locationData as [String : Any]
     }
                 
-    func addUser(
-        id: String,
-        email: String,
-        password: String?,
-        nickname: String?,
-        phoneNumber: String?
-    ) {
-        let user = UserModel(
+    func addUser(id: String,email: String, password: String?, nickname: String?, phoneNumber: String?, fcmToken: String?, completion: @escaping () -> ()) {
+                                
+        var user = UserModel(
             id: id,
             email: email,
-            passsword: password,
+            password: password,
             nickname: nickname,
             phoneNumber: phoneNumber,
-            joinDate: Date()            
+            joinDate: Date(),
+            fcmToken: fcmToken
         )
+        
+        if let nickname = nickname, !nickname.isEmpty {
+            print("닉네임이 생성되어 있습니다.")
+            saveUserData(user: user, completion: completion)
+        } else {
+            print("닉네임의 생성이 시작됩니다.")
+            getRandomNickname { nickname in
+                user.nickname = nickname
+                print("user.nickname: \(String(describing: user.nickname))")
+                self.saveUserData(user: user, completion: completion)
+            }
+        }
+    }
+    
+    func saveUserData(user: UserModel, completion: @escaping () -> ()) {
         let userData = convertUserModelToDictionary(user: user)
-              
-        db.collection("User").document(id).setData(userData)  { err in
+        
+        db.collection("User").document(user.id ?? "").setData(userData) { err in
             if let err = err {
                 print(err.localizedDescription)
             } else {
                 print("User has been saved!")
+                self.addUserLocation(userId: user.id ?? "") {
+                    print("회원가입에 성공하였습니다!")
+                    UserManager.shared.isDoSignUp = true
+                    completion()
+                }
             }
         }
     }
-                   
-    func addUserLocation(userId: String) {
+    
+    func getRandomNickname(completion: @escaping (String) -> ()) {
+        let randomNickname = CreationManager.getRandomNickname()
+        redundant.isValidNickname(nickname: randomNickname) { result in
+            if result {
+               completion(randomNickname)
+            } else {
+                self.getRandomNickname(completion: completion)
+            }
+        }
+    }
+                                                                
+    func addUserLocation(userId: String, completion: @escaping () -> ()) {
         let document = db.collection("User").document(userId).collection("Location").document()
         let documentId = document.documentID
         let location = Location (
@@ -94,6 +131,7 @@ class FirestoreSignUpManager {
                         print("Error adding location: \(err)")
                     } else {
                         print("Location added successfully")
+                        completion()
                     }
                 }
             } else {
@@ -102,16 +140,20 @@ class FirestoreSignUpManager {
         }
     }
     
-    func register(email: String, password: String, nickname: String, phoneNumber: String = "", completion: @escaping () -> Void) {
+    func register(email: String, password: String, nickname: String, phoneNumber: String = "", fcmToken: String = "", completion: @escaping (Bool, String?) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             if let error = error {
-                print(error.localizedDescription)
+//                print(error.localizedDescription)
+                completion(false, error.localizedDescription)
+                return
             } else {
-                guard let user = result?.user else { return }
-                self.addUser(id: user.uid, email: email, password: password, nickname: nickname, phoneNumber: phoneNumber)
-                self.addUserLocation(userId: user.uid)
-                
-                completion()
+                guard let user = result?.user else {  completion(false, "사용자 생성에 실패했습니다.")
+                    return }
+                let pwd = self.formattor.isValidPwd(pwd: password) ? password : ""
+                                                
+                self.addUser(id: user.uid, email: email, password: pwd, nickname: nickname, phoneNumber: phoneNumber, fcmToken: fcmToken) {
+                    completion(true, nil)
+                }
             }
         }
     }

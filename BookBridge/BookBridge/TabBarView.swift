@@ -8,98 +8,203 @@
 import SwiftUI
 
 struct TabBarView: View {
+    @EnvironmentObject var appState: PushChatRoomRouteManager // 상태 관찰 및 뷰 전
+    @StateObject private var userManager = UserManager.shared
+    @StateObject private var pathModel = TabPathViewModel()
+    @State var selectedTab = 0
+    @State private var height: CGFloat = 0.0
+    @State private var isShowChange = false
+    @State private var isShowFind = false
+    @State private var showingLoginView = false
+    @State private var showingNewBiView = false
+    @State private var previousTab = 0 // 이전에 선택한 탭을 저장하는 변수
+    @State private var shouldShowActionSheet = false
+    
     let userId : String?
     
-    @StateObject private var pathModel = PathViewModel()
-    @State private var isLogin = UserManager.shared.isLogin
-    @State private var showingLoginAlert = false
-    @State private var showingLoginView = false
-    @State private var selectedTab = 0
-    
     var body: some View {
-        TabView(selection: $selectedTab) {
-            // 홈
-            NavigationStack{
-                HomeView()
-            }
-            .tabItem {
-                Image(systemName: "house.fill")
-                Text("Home")
-            }
-            .tag(0)
-            
-            // 채팅
-            NavigationStack{
-                EmptyView()
-            }
-            .tabItem {
-                Image(systemName: "message.fill")
-                Text("Chat")
-            }
-            .tag(1)
-            
-            // 게시글 작성
-            NavigationStack{
-                ChangePostingView()
-            }// 플러스 버튼은 빈 뷰로 처리합니다.
-            .tabItem {
-                Image(systemName: "plus.circle.fill")
-                    .font(.system(size: 40)) // 플러스 버튼은 크게 표시합니다.
-            }
-            .tag(2)
-            
-            // 책장
-            NavigationStack{
-                if isLogin {
-                    BookShelfView(userId : UserManager.shared.uid,initialTapInfo: .wish)
-                }
-                else {
-                    BookShelfView(userId: nil,initialTapInfo: .wish)
-                        .onAppear {
-                            showingLoginAlert = true
+        ZStack {
+            VStack {
+                NavigationStack(path: $pathModel.paths) {
+                    ZStack {
+                        TabView(selection: $selectedTab) {
+                            Group {
+                                // 홈
+                                HomeView()
+                                    .onDisappear {
+                                        shouldShowActionSheet = false
+                                    }
+                                    .tabItem {
+                                        Image(systemName: "house")
+                                    }
+                                    .tag(0)
+                                
+                                // 채팅
+                                ChatRoomListView(chatRoomList: [], isComeNoticeBoard: false, uid: UserManager.shared.uid)
+                                    .onDisappear {
+                                        shouldShowActionSheet = false
+                                    }
+                                    .tabItem {
+                                        Image(systemName: "message")
+                                    }
+                                    .badge(userManager.totalNewCount)
+                                    .tag(1)
+                                    .navigationDestination(isPresented: $appState.isShowingChatMessageView){
+                                        if let chatRoomId = appState.chatRoomId {
+                                            ChatMessageView(
+                                                isAlarm: false,
+                                                chatRoomListId: chatRoomId,
+                                                chatRoomPartner: ChatPartnerModel(nickname: appState.nickname ?? " ", noticeBoardId: appState.noticeBoardId ?? "", partnerId: appState.partnerId ?? "", partnerImage: appState.profileImage ?? UIImage(), partnerImageUrl: appState.profileURL ?? "", reviews: appState.reviews ?? [0,0,0], style: appState.style ?? "칭호 미아"),
+                                                noticeBoardTitle: appState.noticeBoardTitle ?? "",
+                                                uid: appState.userId ?? "")
+                                        }
+                                    }
+
+                                HomeView()
+                                    .tabItem {
+                                        Image(systemName: "plus.circle")
+                                    }
+                                    .sheet(isPresented: $shouldShowActionSheet) {
+                                        SelectPostingView(isShowChange: $isShowChange, isShowFind: $isShowFind, shouldShowActionSheet: $shouldShowActionSheet)
+                                            .presentationDetents([.height(250)])
+                                            .ignoresSafeArea(.all)
+                                        
+                                    }
+                                    .tag(2)
+                                
+                                // 책장
+                                if userManager.isLogin {
+                                    BookShelfView(userId : userManager.uid,initialTapInfo: .wish, isBack: false, ismore: false)
+                                        .onDisappear {
+                                            shouldShowActionSheet = false
+                                        }
+                                        .tabItem {
+                                            Image(systemName: "books.vertical")
+                                        }
+                                        .tag(3)
+                                } else {
+                                    BookShelfView(userId: nil,initialTapInfo: .wish, isBack: false, ismore:false)
+                                        .onDisappear {
+                                            shouldShowActionSheet = false
+                                        }
+                                        .tabItem {
+                                            Image(systemName: "books.vertical")
+                                        }
+                                        .tag(3)
+                                }
+                                
+                                //마이페이지
+                                MyPageView(selectedTab : $selectedTab)
+                                    .onDisappear {
+                                        shouldShowActionSheet = false
+                                    }
+                                    .tabItem {
+                                        Image(systemName: "person.circle")
+                                    }
+                                    .tag(4)
+                            }
+                            .toolbarBackground(.visible, for: .tabBar)
                         }
+                        .navigationDestination(for: TabPathType.self){pathType in
+                            switch pathType {
+                            case let .mypage(other):
+                                MyPageView(selectedTab: $selectedTab, otherUser: other)
+                                
+                            case let .postview(noticeboard):
+                                PostView(selectedTab: $selectedTab, noticeBoard: noticeboard)
+                                
+                            case let .chatMessage(isAlarm?, chatRoomListId, chatRoomPartner, noticeBoardTitle, uid):
+                                ChatMessageView(
+                                    isAlarm: isAlarm,
+                                    chatRoomListId: chatRoomListId,
+                                    chatRoomPartner: chatRoomPartner,
+                                    noticeBoardTitle: noticeBoardTitle,
+                                    uid: uid
+                                )
+                                
+                            case let .chatRoomList(chatRoomList, isComeNoticeBoard, uid):
+                                ChatRoomListView(chatRoomList: chatRoomList, isComeNoticeBoard: isComeNoticeBoard, uid: uid)
+                                
+                            case .chatMessage(isAlarm: .none, chatRoomListId: let chatRoomListId, chatRoomPartner: let chatRoomPartner, noticeBoardTitle: let noticeBoardTitle, uid: let uid):
+                                ChatMessageView(
+                                    chatRoomListId: chatRoomListId,
+                                    chatRoomPartner: chatRoomPartner,
+                                    noticeBoardTitle: noticeBoardTitle,
+                                    uid: uid
+                                )
+                                
+                            case let .report(ischat, targetId):
+                                ReportView(ischat: ischat, targetId: targetId)
+                              
+                            case let .noticeboard(naviTitel, noticeBoardArray, sortType):
+                                NoticeBoardView(selectedTab: $selectedTab, naviTitle: naviTitel, noticeBoardArray: noticeBoardArray, sortTypes: sortType)
+                            }
+                        }
+                        .background(Color.white.onTapGesture {
+                            self.hideKeyboard()
+                        })
+                    }
                 }
             }
-            .tabItem {
-                Image(systemName: "book.fill")
-                Text("내 책장")
-            }
-            .tag(3)
-            .alert(isPresented: $showingLoginAlert) {
-                Alert(
-                    title: Text("로그인 필요"),
-                    message: Text("이 기능을 사용하려면 로그인이 필요합니다."),
-                    primaryButton: .default(Text("로그인"), action: {
-                        showingLoginView = true
-                    }),
-                    secondaryButton: .cancel{
-                        selectedTab = 0
-                    }
-                )
+            
+            if showingNewBiView && !showingLoginView {
+                StyleGetView(style: .newBi)
             }
             
-            
-            
-            //마이페이지
-            NavigationStack{
-                EmptyView()
+            if userManager.isWishStyleCheck && !showingLoginView && userManager.isLogin {
+                StyleGetView(style: .bookHope)
             }
-            .tabItem {
-                Image(systemName: "person.fill")
-                Text("My Page")
+            
+            if userManager.isHoldStyleCheck && !showingLoginView && userManager.isLogin {
+                StyleGetView(style: .bookDic)
             }
-            .tag(4)
         }
-        .sheet(isPresented: $showingLoginView,onDismiss: {
-            if UserManager.shared.isLogin{
-                isLogin = true}
+        .environmentObject(pathModel)
+        .background(.red)
+        .tint(Color(hex:"59AAE0"))
+        .onAppear {
+            userManager.updateTotalNewCount()
+        }
+        .onChange(of: selectedTab) { newTab in
+            if !userManager.isLogin && (newTab == 1 || newTab == 2 || newTab == 3 || newTab == 4) {
+                // 비로그인 상태이며, 로그인이 필요한 탭에 접근 시
+                showingLoginView = true
+            } else {
+                if newTab == 2 {
+                    // 탭 2를 선택한 경우, 이전에 선택한 탭을 활성화
+                    selectedTab = previousTab
+                    shouldShowActionSheet = true
+                    
+                } else {
+                    // 탭 2가 아닌 다른 탭을 선택한 경우, 이전에 선택한 탭을 갱신
+                    previousTab = newTab
+                }
+            }
+        }
+        .onChange(of: appState.message){ _ in
+            selectedTab = 1
+            appState.isShowingChatMessageView = true
+        }
+        .onDisappear{
+            appState.isShowingChatMessageView = false
+        }
+        .sheet(isPresented: $showingLoginView, onDismiss: {
+            if !userManager.isLogin {
+                selectedTab = 0
+            } else {
+                if userManager.isDoSignUp {
+                    showingNewBiView = true
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                        userManager.isDoSignUp = false
+                        showingNewBiView = false
+                    }
+                }
+                
+                UserManager.shared.updateTotalNewCount()
+            }
         }){
             LoginView(showingLoginView: $showingLoginView)
         }
     }
 }
-
-
-//#Preview {
-//    TabBarView()
-//}

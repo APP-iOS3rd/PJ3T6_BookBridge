@@ -25,7 +25,6 @@ class ChangePasswordVM: ObservableObject {
         }
         
         if isValid {
-            //MARK: 비밀 번호 재 설정 하는 함수 추가 예정
             Auth.auth().sendPasswordReset(withEmail: email,completion: nil)
         }
     }

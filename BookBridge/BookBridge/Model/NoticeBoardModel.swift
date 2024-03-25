@@ -1,7 +1,8 @@
 
 import SwiftUI
+import Foundation
 
-struct NoticeBoard: Identifiable {
+struct NoticeBoard: Identifiable,Hashable {
     //@DocumentID var id:
     var id = UUID().uuidString
     var userId: String
@@ -15,6 +16,8 @@ struct NoticeBoard: Identifiable {
     var date: Date
     var hopeBook: [Item]
     var geoHash: String?
+    var reservationId: String? 
+    var isAddLocation: Bool?
 
     var dictionary: [String: Any] {
         return [
@@ -28,7 +31,9 @@ struct NoticeBoard: Identifiable {
             "isChange": isChange,
             "state": state,
             "date": date,
-            "geoHash": geoHash ?? ""
+            "geoHash": geoHash ?? "",
+            "reservationId": reservationId ?? "",
+            "isAddLocation": isAddLocation ?? false
         ]
     }
 }

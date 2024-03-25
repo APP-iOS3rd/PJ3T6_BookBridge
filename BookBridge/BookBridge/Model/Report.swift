@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Report: Identifiable, Codable {
+struct Report: Identifiable, Codable,Hashable,Equatable {
     var id: String = UUID().uuidString
     var targetType: TargetType // 신고된 게시물 유형
     var targetID: String // 신고된 ID
@@ -16,12 +16,12 @@ struct Report: Identifiable, Codable {
     var additionalComments: String? // 추가 내용
     var reportDate: Date // 신고 날짜
 
-    enum TargetType: String, Codable{
+    enum TargetType: String, Codable,Equatable,Hashable{
         case post = "게시글"
         case chat = "채팅"
     }
     
-    enum ReportReason: String, Codable, CaseIterable {
+    enum ReportReason: String, Codable, CaseIterable,Hashable,Equatable {
         case inappropriateContent = "허위/거짓 정보를 포함하고 있어요."
         case harassment = "욕설/비방/혐오 표현이 사용되었어요."
         case sensational = "선정적인 내용을 포함하고 있어요."

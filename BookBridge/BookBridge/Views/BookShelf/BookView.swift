@@ -6,17 +6,16 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct BookView: View {
     @EnvironmentObject var viewModel: BookShelfViewModel
     @Binding var selectedBook: Item?
     @Binding var isEditing: Bool  // 편집 모드 상태 바인딩
+    @Binding var ismore : Bool
     
     var tap: tapInfo
-    
-    
-    
-    
+
     let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 3)
     
     var body: some View {
@@ -26,19 +25,17 @@ struct BookView: View {
                     ZStack ( alignment : .topTrailing){
                         VStack {
                             if let urlString = book.volumeInfo.imageLinks?.smallThumbnail, let url = URL(string: urlString) {
-                                AsyncImage(url: url){
-                                    image in
-                                    image
-                                        .resizable()
-                                        .frame(width: (UIScreen.main.bounds.width - 60) / 3, height: 164)
-                                        .shadow(color: .gray, radius: 5, x: 0, y: 2)
-                                        .onTapGesture{
-                                            selectedBook = book
-                                        }
-                                } placeholder: {
-                                    ProgressView()
-                                        .frame(width: 60, height: 80)
-                                }
+                                  KFImage(url)  
+                                      .resizable()
+                                      .placeholder {
+                                          ProgressView() // 로딩 중에 표시될 플레이스홀더
+                                              .frame(width: 60, height: 80)
+                                      }
+                                      .frame(width: (UIScreen.main.bounds.width - 60) / 3, height: 164)
+                                      .shadow(color: .gray, radius: 5, x: 0, y: 2)
+                                      .onTapGesture {
+                                          selectedBook = book
+                                      }
                             } else {
                                 Image("imageNil")
                                     .resizable()
@@ -48,8 +45,6 @@ struct BookView: View {
                                         selectedBook = book
                                     }
                             }
-                            
-                            
                         }
                         .frame(width: (UIScreen.main.bounds.width - 60) / 3)
                         
@@ -63,18 +58,17 @@ struct BookView: View {
                                     Image(systemName: "xmark.circle.fill")
                                         .foregroundColor(.red)
                                         .frame(width: 24, height: 24)
-                                    
                                 }
                             }
-                            
                         }
-                        
-                        
-                        
-                        
                     }
                 }
+                .padding(.top, 8)
             }
+            .padding(.horizontal)
+        }
+        .onTapGesture {
+            hideKeyboard()
         }
     }
 }

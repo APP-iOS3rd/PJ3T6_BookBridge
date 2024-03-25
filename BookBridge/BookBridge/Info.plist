@@ -32,9 +32,12 @@
 				<string>com.bookBridge</string>
 			</array>
 		</dict>
+		<dict/>
 	</array>
 	<key>GIDClientID</key>
 	<string>301482998840-1vmnt9ul95saa58vhg4sn873rsir7mgt.apps.googleusercontent.com</string>
+	<key>KakaoAppKey</key>
+	<string>$(KakaoAppKey)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>naversearchapp</string>
@@ -52,6 +55,19 @@
 	</dict>
 	<key>SMTPEmail</key>
 	<string>minho100227@gmail.com</string>
+	<key>ServerURL</key>
+	<string>${SERVER_URL}</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIImageName</key>
+		<string>Character</string>
+		<key>UILaunchScreen</key>
+		<dict/>
+	</dict>
 	<key>naverKey</key>
 	<string>$(naverKey)</string>
 	<key>naverKeyId</key>

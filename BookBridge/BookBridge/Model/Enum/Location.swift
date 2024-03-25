@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Location: Codable, Identifiable, Equatable {
+struct Location: Codable, Identifiable, Equatable,Hashable {
     var id: String?
     var lat: Double?
     var long: Double?

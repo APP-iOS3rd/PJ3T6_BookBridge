@@ -13,7 +13,9 @@ struct BookDetailView: View {
     @EnvironmentObject var viewModel: BookShelfViewModel
     @Binding var selectedPicker: tapInfo
     
+    var isButton : Bool
     var book: Item
+    
     var body: some View {
         ScrollView{
             VStack{
@@ -41,13 +43,19 @@ struct BookDetailView: View {
                 
                 Text("\(book.volumeInfo.title!)")
                     .font(.system(size: 24, weight: .bold))
+                    .padding(.horizontal,20)
                 
                 Text("\(book.volumeInfo.authors?[0] ?? "저자 없음")")
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundColor(Color(hex: "999999"))
                 
-                WishBookAddBtnView(selectedPicker: $selectedPicker, book: book)
-                    .environmentObject(viewModel)
+                
+                if isButton {
+                    WishBookAddBtnView(selectedPicker: $selectedPicker, book: book)
+                        .environmentObject(viewModel)
+                }
+                
+                
                     
                 
                 Spacer()
@@ -84,9 +92,11 @@ struct BookDetailView: View {
                                 .frame(width: 30)
                             
                             VStack(alignment: .leading, spacing: 15){
-                                Text("\(book.volumeInfo.industryIdentifiers?[0].identifier ?? "정보 없음")")
+                                Text("\(book.volumeInfo.industryIdentifiers?.first?.identifier ?? "정보 없음")")
                                     .font(.system(size: 15, weight: .semibold))
                                     .foregroundColor(Color(hex: "9A9A9A"))
+
+
                                 Text("\(book.volumeInfo.categories?.first ?? "정보 없음")")
                                     .font(.system(size: 15, weight: .semibold))
                                     .foregroundColor(Color(hex: "9A9A9A"))
