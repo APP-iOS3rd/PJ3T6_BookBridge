@@ -19,7 +19,6 @@ struct ExchangeHopeView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            VStack{
                 ExchangeHopeExplainView()
                     .frame(height: geometry.size.height * 0.02)
                     .padding(.top,30)
@@ -55,7 +54,6 @@ struct ExchangeHopeView: View {
                     .padding(.bottom, geometry.safeAreaInsets.bottom) // 하단 세이프 에어리어만큼 패딩 추가
                     
                 }
-            }
         }
         .onAppear{
             // LocationManager로부터 초기 위치 데이터를 받아오는 로직
