@@ -36,13 +36,16 @@ struct MessageListView: View {
                             uid: uid
                         )
                     }
-                    HStack {
-                        Spacer()
+                    HStack{
+                        // 숨겨진 뷰를 사용하여 최하단에 표시
+                        Color.clear
+                            .frame(width: 0, height: 0)
+                            .id(Self.emptyScrollToString)
                     }
-                    .id(Self.emptyScrollToString)
+
+
                 }
                 .rotationEffect(.degrees(180)).scaleEffect(x: -1, y: 1, anchor: .center)
-                
                 // 자동 스크롤
                 .onReceive(viewModel.$count) { _ in
                     withAnimation(.easeOut(duration: 0.5)) {
@@ -63,7 +66,6 @@ struct MessageListView: View {
                            }
                        }
                        .onChange(of: geometry.frame(in: .global).maxY) { newValue in
-                           let scrollViewHeight = geometry.size.height
                            isAtBottom = newValue > lowestMaxY
                        }
                    }
