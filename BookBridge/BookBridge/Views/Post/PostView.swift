@@ -18,48 +18,51 @@ struct PostView: View {
     
     @State private var isPresented = false
     @State private var showingLoginView = false
+    @State private var verticalOffset: CGPoint = .zero
     
     var storageManager = HomeFirebaseManager.shared
     
     var body: some View {
         ZStack {
             GeometryReader { geometry in
-                ScrollView() {
-                    VStack {
-                        if noticeBoard.isChange {
-                            PostImageView(urlString: noticeBoard.noticeImageLink)
-                        }
-                        
-                        PostUserInfoView(postViewModel: postViewModel, noticeBoard: $noticeBoard, selectedTab: $selectedTab)
-                        
-                        Divider()
-                            .padding(.horizontal)
-                        
-                        //post 내용
-                        PostContent(noticeBoard: $noticeBoard)
-                        
-                        Divider()
-                            .padding(.horizontal)
-                        
-                        if !noticeBoard.isChange {
-                            // 희망도서 부분
-                            PostHopeBookListView(viewModel: postViewModel, hopeBooks: $postViewModel.noticeboardsihBooks)
+                    ScrollView {
+                        CustomScrollView(offset: $verticalOffset, showIndicators: true, axis: .vertical) {
+                        VStack {
+                            if noticeBoard.isChange {
+                                PostImageView(urlString: noticeBoard.noticeImageLink)
+                            }
+                            
+                            PostUserInfoView(postViewModel: postViewModel, noticeBoard: $noticeBoard, selectedTab: $selectedTab)
+                            
                             Divider()
                                 .padding(.horizontal)
-                        }
-                        
-                        //상대방 책장
-                        PostUserBookshelf(postViewModel: postViewModel)
-                        
-                        Divider()
-                            .padding(.horizontal)
-                        
-                        if noticeBoard.isAddLocation ?? false {
-                            // 교환 희망 장소
-                            PostChangeLocationView(
-                                postViewModel: postViewModel,
-                                noticeBoard: $noticeBoard
-                            )
+                            
+                            //post 내용
+                            PostContent(noticeBoard: $noticeBoard)
+                            
+                            Divider()
+                                .padding(.horizontal)
+                            
+                            if !noticeBoard.isChange {
+                                // 희망도서 부분
+                                PostHopeBookListView(viewModel: postViewModel, hopeBooks: $postViewModel.noticeboardsihBooks)
+                                Divider()
+                                    .padding(.horizontal)
+                            }
+                            
+                            //상대방 책장
+                            PostUserBookshelf(postViewModel: postViewModel)
+                            
+                            Divider()
+                                .padding(.horizontal)
+                            
+                            if noticeBoard.isAddLocation ?? false {
+                                // 교환 희망 장소
+                                PostChangeLocationView(
+                                    postViewModel: postViewModel,
+                                    noticeBoard: $noticeBoard
+                                )
+                            }
                         }
                     }
                 }
@@ -369,6 +372,7 @@ struct PostView: View {
         //        .navigationTitle(noticeBoard.isChange ? "바꿔요" : "구해요")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
+//        .navigationTitle("Offset: \(String(format: "%.1f", verticalOffset.y))")
         .toolbar(.hidden, for: .tabBar)
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
@@ -377,14 +381,14 @@ struct PostView: View {
                         dismiss()
                     } label: {
                         Image(systemName: "chevron.left")
-                            .foregroundStyle(noticeBoard.isChange ? .white : .black)
+                            .foregroundStyle(noticeBoard.isChange ? (verticalOffset.y < 0 ? .black : .white) : .black)
                     }
                     Button {
                         pathModel.paths.removeAll()
                         selectedTab = 0
                     } label: {
                         Image(systemName: "house")
-                            .foregroundStyle(noticeBoard.isChange ? .white : .black)
+                            .foregroundStyle(noticeBoard.isChange ? (verticalOffset.y < 0 ? .black : .white) : .black)
                     }
                 }
                 
@@ -397,7 +401,7 @@ struct PostView: View {
                     }
                 } label: {
                     Image(systemName: "ellipsis")
-                        .foregroundStyle(noticeBoard.isChange ? .white : .black)
+                        .foregroundStyle(noticeBoard.isChange ? (verticalOffset.y < 0 ? .black : .white) : .black)
                 }
             }
         }
@@ -406,5 +410,60 @@ struct PostView: View {
         }
         // 여기 문제 있어요
         .edgesIgnoringSafeArea(noticeBoard.isChange ? .top : [])
+    }
+}
+
+struct OffsetPreferenceKey: PreferenceKey {
+    static var defaultValue: CGPoint = .zero
+    
+    static func reduce(value: inout CGPoint, nextValue: () -> CGPoint) { }
+}
+
+struct CustomScrollView<Content: View>: View {
+    var content: Content
+    
+    @Binding var offset: CGPoint
+    var showIndicators: Bool
+    var axis: Axis.Set
+    
+    init(offset: Binding<CGPoint>, showIndicators: Bool, axis: Axis.Set, @ViewBuilder content: () -> Content) {
+        self.content = content()
+        self._offset = offset
+        self.showIndicators = showIndicators
+        self.axis = axis
+    }
+    
+    @State var startOffset: CGPoint = .zero
+    
+    var body: some View {
+        ScrollView(axis, showsIndicators: showIndicators) {
+            
+            content
+                .overlay(
+                    GeometryReader { proxy -> Color in
+                        
+                        let rect = proxy.frame(in: .global)
+                        
+                        if startOffset == .zero {
+                            DispatchQueue.main.async {
+                                startOffset = CGPoint(x: rect.minX, y: rect.minY)
+                            }
+                        }
+                        
+                        DispatchQueue.main.async {
+                            if startOffset == .zero {
+                                startOffset = CGPoint(x: rect.minX, y: rect.minY)
+                            }
+                            self.offset = CGPoint(x: startOffset.x - rect.minX, y: startOffset.y - rect.minY)
+                            
+                            self.offset = CGPoint(x: rect.minX, y: rect.minY)
+                        }
+                        return Color.clear
+                    }
+                    .frame(width: UIScreen.main.bounds.width, height: 0)
+                    
+                    ,alignment: .top
+                )
+        }
     }
 }

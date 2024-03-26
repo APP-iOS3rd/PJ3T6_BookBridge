@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeTapView: View {
     @EnvironmentObject private var pathModel: TabPathViewModel
-
+    
     @StateObject var viewModel: HomeViewModel
     @StateObject var locationManager = LocationManager.shared
     
@@ -17,13 +17,14 @@ struct HomeTapView: View {
     @State  var isOutsideXmark: Bool = false
     @State private var text = ""
     @State private var showRecentSearchView = false
-    @State private var offsetY: CGFloat = 0
+    @State private var currentOffset: CGFloat = 0
+    @State private var nextOffset: CGFloat = 0
     
     @Binding var tapCategory: TapCategory
     
     var body: some View {
         ZStack {
-            VStack{
+            VStack {
                 HStack {
                     HStack{
                         Image(systemName: "magnifyingglass")
@@ -93,38 +94,16 @@ struct HomeTapView: View {
                 }
                 .padding(.vertical, 10)
                 .padding(.horizontal, 20)
+                
                 ScrollView(.vertical, showsIndicators: false) {
                     switch tapCategory {
                     case .find:             //TODO: imageLinks 부분 받아오기
                         if text.isEmpty {
                             ForEach(viewModel.findNoticeBoards) { element in
-                                if element.hopeBook.isEmpty {                                                                    
-//                                    NavigationLink {
-//                                        
-//                                        PostView(noticeBoard: element)
-//                                    } label: {
-//                                        VStack{
-//                                            HomeListItemView(
-//                                                author: "",
-//                                                date: element.date,
-//                                                id: element.id,
-//                                                imageLinks: [],
-//                                                isChange: element.isChange,
-//                                                locate: element.noticeLocation,
-//                                                title: element.noticeBoardTitle,
-//                                                userId: element.userId,
-//                                                location: element.noticeLocationName,
-//                                                detail: element.noticeBoardDetail
-//                                            )
-//                                            
-//                                            Divider()
-//                                        }
-//                                        
-//                                    }
-                                    
+                                if element.hopeBook.isEmpty {
                                     Button {
                                         pathModel.paths.append(.postview(noticeboard: element))
-                                    } label: {                                        
+                                    } label: {
                                         VStack{
                                             HomeListItemView(
                                                 author: "",
@@ -146,6 +125,7 @@ struct HomeTapView: View {
                                         }
                                         
                                     }
+                                    .offset(x: currentOffset)
                                 } else {
                                     //TODO: 나중에 썸네일 이미지, 저자 바꾸기
                                     
@@ -171,6 +151,7 @@ struct HomeTapView: View {
                                         }
                                         
                                     }
+                                    .offset(x: currentOffset)
                                     
                                 }
                             }
@@ -202,6 +183,7 @@ struct HomeTapView: View {
                                             Divider()
                                         }
                                     }
+                                    .offset(x: currentOffset)
                                 } else {
                                     //TODO: 나중에 썸네일 이미지, 저자 바꾸기
                                     Button {
@@ -226,6 +208,7 @@ struct HomeTapView: View {
                                         }
                                         
                                     }
+                                    .offset(x: currentOffset)
                                     
                                 }
                             }
@@ -258,6 +241,7 @@ struct HomeTapView: View {
                                         Divider()
                                     }
                                 }
+                                .offset(x: nextOffset)
                             }
                             .padding(.horizontal)
                             .padding(.bottom, 10)
@@ -288,6 +272,7 @@ struct HomeTapView: View {
                                         Divider()
                                     }
                                 }
+                                .offset(x: currentOffset)
                             }
                             .padding(.horizontal)
                             .padding(.bottom, 10)
@@ -439,25 +424,28 @@ struct HomeTapView: View {
     
     var dragGesture: some Gesture {
         DragGesture()
-            .onChanged({ value in
-                offsetY = value.translation.width * 0.5
-            })
-            .onEnded({ value in
+            .onChanged { value in
+                let translation = value.translation.width
+                currentOffset = translation // 현재 보여지는 화면
+                nextOffset = translation // 다음 화면
+            }
+            .onEnded { value in
                 let translation = value.translation.width
                 
-                withAnimation(.easeInOut) {
-                    if translation > 0 {
-                        if translation > 10 {
+                withAnimation {
+                    if translation > 0 { // 오른쪽으로 드래그
+                        if tapCategory == .change {
                             tapCategory = .find
                         }
-                    } else {
-                        if translation < -10 {
+                    } else { // 왼쪽으로 드래그
+                        if tapCategory == .find {
                             tapCategory = .change
                         }
                     }
-                    offsetY = .zero
+                    nextOffset = 0
+                    currentOffset = 0
                 }
-            })
-    } 
+            }
+    }
 }
 
