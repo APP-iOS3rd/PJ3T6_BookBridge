@@ -35,6 +35,7 @@ struct ChangePostingView: View {
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.gray, lineWidth: 1)
+                                .padding(1)
                         )
                         .padding(.bottom, 20)
                         .focused($isShowKeyboard)
@@ -45,13 +46,14 @@ struct ChangePostingView: View {
                             .bold()
                         
                         TextEditor(text: $viewModel.noticeBoard.noticeBoardDetail)
-                            .foregroundColor(viewModel.noticeBoard.noticeBoardDetail == memoPlaceholder ? .gray : .primary)
+                            .foregroundStyle(viewModel.noticeBoard.noticeBoardDetail == memoPlaceholder ? Color(uiColor: .placeholderText) : .primary)
                             .padding(.leading, 11)
                             .padding(.trailing, 11)
                             .padding(.top, 7)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.gray, lineWidth: 1)
+                                    .padding(1)
                             )
                             .focused($isShowKeyboard)
                             .frame(height: 200)
