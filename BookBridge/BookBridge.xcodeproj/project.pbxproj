@@ -138,7 +138,10 @@
 		5ADE79EA2B6B6715005BB3ED /* SignUpInputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */; };
 		5AF850952BA023EA00D339D3 /* ConfirmPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF850942BA023EA00D339D3 /* ConfirmPhoneNumberView.swift */; };
 		5AF850972BA046A900D339D3 /* FirestoreExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF850962BA046A900D339D3 /* FirestoreExtension.swift */; };
-		5C3F892B2BB4F74600826A0D /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5C3F892A2BB4F74600826A0D /* Secrets.xcconfig */; };
+		5C3F892E2BB5032F00826A0D /* ci_post_clone.sh in Resources */ = {isa = PBXBuildFile; fileRef = 5C3F892D2BB5023800826A0D /* ci_post_clone.sh */; };
+		5C3F89322BB509A600826A0D /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5C3F89312BB509A600826A0D /* Secrets.xcconfig */; };
+		5C3F89342BB50E3000826A0D /* ci_post_xcodebuild.sh in Resources */ = {isa = PBXBuildFile; fileRef = 5C3F89332BB50E3000826A0D /* ci_post_xcodebuild.sh */; };
+		5C3F89362BB50E4300826A0D /* ci_pre_xcodebuild.sh in Resources */ = {isa = PBXBuildFile; fileRef = 5C3F89352BB50E4300826A0D /* ci_pre_xcodebuild.sh */; };
 		5C5AB9712B85977200AD90A2 /* FCMTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5AB9702B85977200AD90A2 /* FCMTokenManager.swift */; };
 		5C6094A62B8DD8F3005E94EA /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6094A52B8DD8F3005E94EA /* SettingViewModel.swift */; };
 		5C6456292B99A42F0096563F /* PushChatRoomRouteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6456282B99A42F0096563F /* PushChatRoomRouteManager.swift */; };
@@ -414,7 +417,10 @@
 		5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputManager.swift; sourceTree = "<group>"; };
 		5AF850942BA023EA00D339D3 /* ConfirmPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPhoneNumberView.swift; sourceTree = "<group>"; };
 		5AF850962BA046A900D339D3 /* FirestoreExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreExtension.swift; sourceTree = "<group>"; };
-		5C3F892A2BB4F74600826A0D /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		5C3F892D2BB5023800826A0D /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
+		5C3F89312BB509A600826A0D /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
+		5C3F89332BB50E3000826A0D /* ci_post_xcodebuild.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = ci_post_xcodebuild.sh; path = ../../../../../Screenshot/ci_post_xcodebuild.sh; sourceTree = "<group>"; };
+		5C3F89352BB50E4300826A0D /* ci_pre_xcodebuild.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_pre_xcodebuild.sh; sourceTree = "<group>"; };
 		5C5AB9702B85977200AD90A2 /* FCMTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenManager.swift; sourceTree = "<group>"; };
 		5C6094A52B8DD8F3005E94EA /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		5C6456282B99A42F0096563F /* PushChatRoomRouteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushChatRoomRouteManager.swift; sourceTree = "<group>"; };
@@ -766,8 +772,9 @@
 		5A7A4E192B61DFFD00F79C23 = {
 			isa = PBXGroup;
 			children = (
+				5C3F892C2BB501DD00826A0D /* ci_scripts */,
 				1DEAB9272BA032580096D604 /* GoogleService-Info.plist */,
-				5C3F892A2BB4F74600826A0D /* Secrets.xcconfig */,
+				5C3F89312BB509A600826A0D /* Secrets.xcconfig */,
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
 				5A7A4E352B61DFFE00F79C23 /* BookBridgeTests */,
@@ -997,6 +1004,16 @@
 				5AF850962BA046A900D339D3 /* FirestoreExtension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		5C3F892C2BB501DD00826A0D /* ci_scripts */ = {
+			isa = PBXGroup;
+			children = (
+				5C3F892D2BB5023800826A0D /* ci_post_clone.sh */,
+				5C3F89332BB50E3000826A0D /* ci_post_xcodebuild.sh */,
+				5C3F89352BB50E4300826A0D /* ci_pre_xcodebuild.sh */,
+			);
+			path = ci_scripts;
 			sourceTree = "<group>";
 		};
 		5C6094A42B8DD8D8005E94EA /* MyPage */ = {
@@ -1409,9 +1426,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */,
-				5C3F892B2BB4F74600826A0D /* Secrets.xcconfig in Resources */,
+				5C3F89362BB50E4300826A0D /* ci_pre_xcodebuild.sh in Resources */,
 				1DEAB9282BA032580096D604 /* GoogleService-Info.plist in Resources */,
+				5C3F89342BB50E3000826A0D /* ci_post_xcodebuild.sh in Resources */,
+				5C3F89322BB509A600826A0D /* Secrets.xcconfig in Resources */,
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
+				5C3F892E2BB5032F00826A0D /* ci_post_clone.sh in Resources */,
 				5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1853,7 +1873,7 @@
 /* Begin XCBuildConfiguration section */
 		5A7A4E442B61DFFE00F79C23 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C3F892A2BB4F74600826A0D /* Secrets.xcconfig */;
+			baseConfigurationReference = 5C3F89312BB509A600826A0D /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1917,7 +1937,7 @@
 		};
 		5A7A4E452B61DFFE00F79C23 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C3F892A2BB4F74600826A0D /* Secrets.xcconfig */;
+			baseConfigurationReference = 5C3F89312BB509A600826A0D /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
