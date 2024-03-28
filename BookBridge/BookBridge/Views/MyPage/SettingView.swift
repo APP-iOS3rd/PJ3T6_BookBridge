@@ -1,0 +1,166 @@
+//
+//  SettingView.swift
+//  ModalPractice
+//
+//  Created by 노주영 on 2/5/24.
+//
+
+import SwiftUI
+
+struct SettingView: View {
+    @StateObject var inquiryVM = InquiryViewModel()
+    
+    @Environment(\.dismiss) private var dismiss
+    @StateObject var settingVM = SettingViewModel()
+    @State private var showingLogoutAlert = false
+    @State private var showingLoginView = false
+    @Binding var selectedTab: Int
+    
+    var body: some View {
+        VStack {
+            NavigationLink {
+                AlarmSettingView(settingVM: settingVM)
+            } label: {
+                HStack {
+                    Text("알림")
+                        .padding(.vertical, 10)
+                        .font(.system(size: 17))
+                        .foregroundStyle(.black)
+                    
+                    Spacer()
+                    
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 17))
+                        .foregroundStyle(Color(hex: "3C3C43"))
+                }
+            }
+            .padding(.top, 10)
+            
+            Divider()
+            
+            NavigationLink {
+                TermsAndConditionsView()
+            } label: {
+                HStack {
+                    Text("약관 및 정책")
+                        .padding(.vertical, 10)
+                        .font(.system(size: 17))
+                        .foregroundStyle(.black)
+                    
+                    Spacer()
+                    
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 17))
+                        .foregroundStyle(Color(hex: "3C3C43"))
+                }
+            }
+            Divider()
+            
+            NavigationLink {
+                InquiryView()
+            } label: {
+                HStack {
+                    Text("문의 및 건의사항")
+                        .padding(.vertical, 10)
+                        .font(.system(size: 17))
+                        .foregroundStyle(.black)
+                    
+                    Spacer()
+                    
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 17))
+                        .foregroundStyle(Color(hex: "3C3C43"))
+                }
+            }
+            Divider()
+            
+            HStack {
+                Text("버전")
+                    .font(.system(size: 17))
+                    .foregroundStyle(.black)
+                
+                Spacer()
+                
+                //TODO: 버전 업데이트 마다 바꾸기
+                Text("v1.0.1")
+                    .font(.system(size: 17))
+                    .foregroundStyle(.black)
+            }
+            .padding(.vertical, 4)
+            Divider()
+            
+            HStack {
+                Button{
+                    UserManager.shared.logout()
+                    dismiss()
+                    selectedTab = 0
+                } label: {
+                    Text("로그아웃")
+                        .padding(.vertical, 4)
+                        .font(.system(size: 17))
+                        .foregroundStyle(.red)
+                    
+                    Spacer()
+                }
+            }
+            Divider()
+            
+            HStack {
+                Button {
+                    showingLogoutAlert = true
+                    showingLoginView = false
+                } label: {
+                    Text("회원탈퇴")
+                        .padding(.vertical, 4)
+                        .font(.system(size: 17))
+                        .foregroundStyle(.red)
+                    
+                    Spacer()
+                }
+                .alert(isPresented: $showingLogoutAlert) {
+                    Alert(
+                        title: Text("회원 탈퇴"),
+                        message: Text("정말로 회원탈퇴를 하시겠습니까?"),
+                        primaryButton: .destructive(Text("탈퇴하기")) {
+                            UserManager.shared.deleteUserAccount { (success,msg) in
+                                if success {
+                                    showingLoginView = false
+                                    dismiss()
+                                    selectedTab = 0
+                                } else {
+                                    showingLoginView = true
+                                }
+                            }
+                        },
+                        secondaryButton: .cancel()
+                    )
+                }
+                .sheet(isPresented: $showingLoginView){
+                    LoginView(showingLoginView: $showingLoginView)
+                        .onAppear{
+                            UserManager.shared.resetLoginState()
+                        }
+                }
+            }
+            Divider()
+            Spacer()
+        }
+        .navigationBarBackButtonHidden()
+        .navigationBarTitleDisplayMode(.inline)
+        .navigationTitle("설정")
+        .padding(.horizontal)
+        .toolbar(.hidden, for: .tabBar)
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(systemName: "chevron.backward")
+                        .font(.system(size: 16))
+                        .foregroundStyle(.black)
+                }
+            }
+        }
+    }
+}
+
