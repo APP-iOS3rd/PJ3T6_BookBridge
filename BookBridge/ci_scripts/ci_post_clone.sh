@@ -51,15 +51,15 @@ cat <<EOF > "/Volumes/workspace/repository/BookBridge/GoogleService-Info.plist"
     <key>STORAGE_BUCKET</key>
     <string>$(STORAGE_BUCKET)</string>
     <key>IS_ADS_ENABLED</key>
-    <$(IS_ADS_ENABLED)/>
+    <$(IS_ADS_ENABLED)></$(IS_ADS_ENABLED)>
     <key>IS_ANALYTICS_ENABLED</key>
-    <$(IS_ANALYTICS_ENABLED)/>
+    <$(IS_ANALYTICS_ENABLED)></$(IS_ANALYTICS_ENABLED)>
     <key>IS_APPINVITE_ENABLED</key>
-    <$(IS_APPINVITE_ENABLED)/>
+    <$(IS_APPINVITE_ENABLED)></$(IS_APPINVITE_ENABLED)>
     <key>IS_GCM_ENABLED</key>
-    <$(IS_GCM_ENABLED)/>
+    <$(IS_GCM_ENABLED)></$(IS_GCM_ENABLED)>
     <key>IS_SIGNIN_ENABLED</key>
-    <$(IS_SIGNIN_ENABLED)/>
+    <$(IS_SIGNIN_ENABLED)></$(IS_SIGNIN_ENABLED)>
     <key>GOOGLE_APP_ID</key>
     <string>$(GOOGLE_APP_ID)</string>
 </dict>
