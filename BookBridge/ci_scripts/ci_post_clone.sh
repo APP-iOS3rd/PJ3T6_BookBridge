@@ -11,16 +11,16 @@ pod install
 
 # Secrets.xcconfig 파일 생성
 echo "Creating Secrets.xcconfig file 환경변수 참조"
-## 경로 지정
+# Secrets 경로 지정
 cat <<EOF > "/Volumes/workspace/repository/BookBridge/Secrets.xcconfig"
-## Naver API Keys
+# Naver API Keys
 naverKeyId = $(naverKeyId)
 naverKey = $(naverKey)
 
-## Kakao API Key
+# Kakao API Key
 KakaoAppKey = $(KakaoAppKey)
 
-## Server URL
+# Server URL
 SERVER_URL = $(SERVER_URL)
 EOF
 
