@@ -138,6 +138,8 @@
 		5ADE79EA2B6B6715005BB3ED /* SignUpInputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */; };
 		5AF850952BA023EA00D339D3 /* ConfirmPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF850942BA023EA00D339D3 /* ConfirmPhoneNumberView.swift */; };
 		5AF850972BA046A900D339D3 /* FirestoreExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF850962BA046A900D339D3 /* FirestoreExtension.swift */; };
+		5C3F892E2BB5032F00826A0D /* ci_post_clone.sh in Resources */ = {isa = PBXBuildFile; fileRef = 5C3F892D2BB5023800826A0D /* ci_post_clone.sh */; };
+		5C3F89322BB509A600826A0D /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5C3F89312BB509A600826A0D /* Secrets.xcconfig */; };
 		5C5AB9712B85977200AD90A2 /* FCMTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5AB9702B85977200AD90A2 /* FCMTokenManager.swift */; };
 		5C6094A62B8DD8F3005E94EA /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6094A52B8DD8F3005E94EA /* SettingViewModel.swift */; };
 		5C6456292B99A42F0096563F /* PushChatRoomRouteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6456282B99A42F0096563F /* PushChatRoomRouteManager.swift */; };
@@ -229,7 +231,6 @@
 		915FD1DC2B7CA6A40008C38B /* SearchChatListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FD1DB2B7CA6A40008C38B /* SearchChatListView.swift */; };
 		915FD1DE2B7CB7E80008C38B /* NoticeBoardChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915FD1DD2B7CB7E70008C38B /* NoticeBoardChatView.swift */; };
 		91695F522B8D8CE400A0E2F7 /* InquiryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91695F512B8D8CE400A0E2F7 /* InquiryViewModel.swift */; };
-		9189E0782BA587DD00F7DD36 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 9189E0772BA587DD00F7DD36 /* Secrets.xcconfig */; };
 		9189E07A2BA81AF100F7DD36 /* TermsAndConditionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189E0792BA81AF100F7DD36 /* TermsAndConditionsView.swift */; };
 		9189E07C2BA81D3400F7DD36 /* LocationPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189E07B2BA81D3400F7DD36 /* LocationPolicyView.swift */; };
 		9189E07E2BA825B900F7DD36 /* TermsOfServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9189E07D2BA825B900F7DD36 /* TermsOfServiceView.swift */; };
@@ -414,6 +415,8 @@
 		5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputManager.swift; sourceTree = "<group>"; };
 		5AF850942BA023EA00D339D3 /* ConfirmPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPhoneNumberView.swift; sourceTree = "<group>"; };
 		5AF850962BA046A900D339D3 /* FirestoreExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreExtension.swift; sourceTree = "<group>"; };
+		5C3F892D2BB5023800826A0D /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
+		5C3F89312BB509A600826A0D /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		5C5AB9702B85977200AD90A2 /* FCMTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenManager.swift; sourceTree = "<group>"; };
 		5C6094A52B8DD8F3005E94EA /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		5C6456282B99A42F0096563F /* PushChatRoomRouteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushChatRoomRouteManager.swift; sourceTree = "<group>"; };
@@ -508,7 +511,6 @@
 		915FD1DB2B7CA6A40008C38B /* SearchChatListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchChatListView.swift; sourceTree = "<group>"; };
 		915FD1DD2B7CB7E70008C38B /* NoticeBoardChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeBoardChatView.swift; sourceTree = "<group>"; };
 		91695F512B8D8CE400A0E2F7 /* InquiryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InquiryViewModel.swift; sourceTree = "<group>"; };
-		9189E0772BA587DD00F7DD36 /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		9189E0792BA81AF100F7DD36 /* TermsAndConditionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndConditionsView.swift; sourceTree = "<group>"; };
 		9189E07B2BA81D3400F7DD36 /* LocationPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPolicyView.swift; sourceTree = "<group>"; };
 		9189E07D2BA825B900F7DD36 /* TermsOfServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfServiceView.swift; sourceTree = "<group>"; };
@@ -766,8 +768,9 @@
 		5A7A4E192B61DFFD00F79C23 = {
 			isa = PBXGroup;
 			children = (
+				5C3F892C2BB501DD00826A0D /* ci_scripts */,
 				1DEAB9272BA032580096D604 /* GoogleService-Info.plist */,
-				9189E0772BA587DD00F7DD36 /* Secrets.xcconfig */,
+				5C3F89312BB509A600826A0D /* Secrets.xcconfig */,
 				5A7A4E4F2B61E06600F79C23 /* .gitignore */,
 				5A7A4E242B61DFFD00F79C23 /* BookBridge */,
 				5A7A4E352B61DFFE00F79C23 /* BookBridgeTests */,
@@ -997,6 +1000,14 @@
 				5AF850962BA046A900D339D3 /* FirestoreExtension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		5C3F892C2BB501DD00826A0D /* ci_scripts */ = {
+			isa = PBXGroup;
+			children = (
+				5C3F892D2BB5023800826A0D /* ci_post_clone.sh */,
+			);
+			path = ci_scripts;
 			sourceTree = "<group>";
 		};
 		5C6094A42B8DD8D8005E94EA /* MyPage */ = {
@@ -1409,9 +1420,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A7A4E2D2B61DFFE00F79C23 /* Preview Assets.xcassets in Resources */,
-				9189E0782BA587DD00F7DD36 /* Secrets.xcconfig in Resources */,
 				1DEAB9282BA032580096D604 /* GoogleService-Info.plist in Resources */,
+				5C3F89322BB509A600826A0D /* Secrets.xcconfig in Resources */,
 				5A7A4E502B61E06600F79C23 /* .gitignore in Resources */,
+				5C3F892E2BB5032F00826A0D /* ci_post_clone.sh in Resources */,
 				5A7A4E2A2B61DFFE00F79C23 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1853,7 +1865,7 @@
 /* Begin XCBuildConfiguration section */
 		5A7A4E442B61DFFE00F79C23 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9189E0772BA587DD00F7DD36 /* Secrets.xcconfig */;
+			baseConfigurationReference = 5C3F89312BB509A600826A0D /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1917,7 +1929,7 @@
 		};
 		5A7A4E452B61DFFE00F79C23 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9189E0772BA587DD00F7DD36 /* Secrets.xcconfig */;
+			baseConfigurationReference = 5C3F89312BB509A600826A0D /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1982,7 +1994,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 202403213;
 				DEVELOPMENT_ASSET_PATHS = "\"BookBridge/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = KVX67TSKSQ;
@@ -1990,7 +2002,8 @@
 				ENABLE_TESTING_SEARCH_PATHS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BookBridge/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_CFBundleDisplayName = "책다리 - 중고책 교환";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSCameraUsageDescription = "게시물 작성, 프로필 사진 첨부, 채팅 사진 첨부 기능 사용을 위해 카메라 접근권한 동의가 필요합니다. 설정에서 이를 변경할 수 있습니다.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치를 기반으로 동네 설정, 동네별 게시글 불러오기, 게시글 교환 장소 설정, 채팅 교환 장소 공유 기능 사용을 위해 위치 접근 권한 동의가 필요합니다. 설정에서 이를 변경할 수 있습니다.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치를 기반으로 동네 설정, 동네별 게시글 불러오기, 게시글 교환 장소 설정, 채팅 교환 장소 공유 기능 사용을 위해 위치 접근 권한 동의가 필요합니다. 설정에서 이를 변경할 수 있습니다.";
@@ -2005,7 +2018,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bookBridge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2029,7 +2042,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 202403213;
 				DEVELOPMENT_ASSET_PATHS = "\"BookBridge/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = KVX67TSKSQ;
@@ -2037,7 +2050,8 @@
 				ENABLE_TESTING_SEARCH_PATHS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BookBridge/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_CFBundleDisplayName = "책다리 - 중고책 교환";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_NSCameraUsageDescription = "게시물 작성, 프로필 사진 첨부, 채팅 사진 첨부 기능 사용을 위해 카메라 접근권한 동의가 필요합니다. 설정에서 이를 변경할 수 있습니다.";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "사용자의 위치를 기반으로 동네 설정, 동네별 게시글 불러오기, 게시글 교환 장소 설정, 채팅 교환 장소 공유 기능 사용을 위해 위치 접근 권한 동의가 필요합니다. 설정에서 이를 변경할 수 있습니다.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "사용자의 위치를 기반으로 동네 설정, 동네별 게시글 불러오기, 게시글 교환 장소 설정, 채팅 교환 장소 공유 기능 사용을 위해 위치 접근 권한 동의가 필요합니다. 설정에서 이를 변경할 수 있습니다.";
@@ -2052,7 +2066,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bookBridge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
