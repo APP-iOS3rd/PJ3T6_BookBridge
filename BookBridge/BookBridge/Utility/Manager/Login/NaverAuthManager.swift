@@ -72,9 +72,9 @@ extension NaverAuthManager {
             guard let id = object["id"] as? String else { return }
             guard let nickname = object["nickname"] as? String else { return }
             guard let email = object["email"] as? String else { return }
-            guard let profileimage = object["profile_image"] as? String else { return }
             
             /*
+            guard let profileimage = object["profile_image"] as? String else { return }
             guard let name = object["name"] as? String else { return }
             guard let gender = object["gender"] as? String else { return }
             guard let age = object["age"] as? String else { return }
