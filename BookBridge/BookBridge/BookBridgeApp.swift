@@ -23,7 +23,6 @@ struct BookBridgeApp: App {
         } else {
             print("kakaoAppKey를 찾을 수 없습니다.")
         }
-        
         //Naver SDK 초기화
 //        NaverThirdPartyLoginConnection.getSharedInstance().isNaverAppOauthEnable = true // NaverApp 사용 로그인
         NaverThirdPartyLoginConnection.getSharedInstance()?.isInAppOauthEnable = true // 사파리 사용 로그인
