@@ -82,7 +82,7 @@ struct SettingView: View {
                 Spacer()
                 
                 //TODO: 버전 업데이트 마다 바꾸기
-                Text("v1.0.1")
+                Text("v1.0.2")
                     .font(.system(size: 17))
                     .foregroundStyle(.black)
             }
