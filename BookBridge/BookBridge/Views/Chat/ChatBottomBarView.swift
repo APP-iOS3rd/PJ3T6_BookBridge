@@ -33,7 +33,8 @@ struct ChatBottomBarView: View {
     
     var body: some View {
         VStack {
-            HStack (spacing: 12) {
+            HStack (spacing: 5) {
+                
                 Button {
                     withAnimation(.linear(duration: 0.2)) {
                         isPlusBtn.toggle()
@@ -45,6 +46,7 @@ struct ChatBottomBarView: View {
                         .frame(width: 23, height: 23)
                         .rotationEffect(.degrees(isPlusBtn ? 0 : 45))
                         .foregroundStyle(Color(.darkGray))
+                        .padding(5)
                 }
                 
                 ZStack {
@@ -111,6 +113,7 @@ struct ChatBottomBarView: View {
                         .resizable()
                         .frame(width: 25, height: 25)
                         .foregroundStyle(chatTextArr.isEmpty ? Color.gray : Color(hex:"59AAE0"))
+                        .padding(5)
                 }
                 .disabled(chatTextArr.isEmpty)
             }
@@ -120,7 +123,6 @@ struct ChatBottomBarView: View {
             if !isPlusBtn {
                 HStack {
                     Spacer()
-                    
                     VStack {
                         Button(action: {
                             isShowingPhoto = true
