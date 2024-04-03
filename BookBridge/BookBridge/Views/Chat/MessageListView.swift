@@ -42,9 +42,8 @@ struct MessageListView: View {
                     .id(Self.emptyScrollToString)
                 }
                 .rotationEffect(.degrees(180)).scaleEffect(x: -1, y: 1, anchor: .center)
-                
-                // 자동 스크롤
-                .onReceive(viewModel.$count) { _ in
+                // 채팅방 목록에서 들어올때 자동 스크롤
+                .onAppear{
                     withAnimation(.easeOut(duration: 0.5)) {
                         scrollViewProxy.scrollTo(Self.emptyScrollToString, anchor: .bottom)
                     }
