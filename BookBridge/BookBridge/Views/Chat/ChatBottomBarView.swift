@@ -66,7 +66,7 @@ struct ChatBottomBarView: View {
                         .fixedSize(horizontal: false, vertical: true)
                         .onTapGesture {
                             isPlusBtn = true
-//                            isShowKeyboard = false
+                            //                            isShowKeyboard = false
                         }
                         .onChange(of: viewModel.chatText) { _ in
                             withAnimation {
@@ -124,71 +124,67 @@ struct ChatBottomBarView: View {
                 HStack {
                     Spacer()
                     VStack {
-                        Button(action: {
-                            isShowingPhoto = true
-                        }) {
-                            VStack {
-                                Image(systemName: "photo.on.rectangle")
-                                    .resizable()
-                                    .scaledToFit()
-                                    .frame(width: 30, height: 30)
-                                    .foregroundStyle(Color(.darkGray))
-                            }
-                        }
-                        .padding()
-                        .background(
-                            Circle()
-                                .frame(width: 60, height: 60)
-                                .foregroundColor(Color(hex: "D9D9D9"))
-                                .opacity(0.4)
-                        )
+                        Image(systemName: "photo.on.rectangle")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 30, height: 30)
+                            .foregroundStyle(Color(.darkGray))
+                            .background(
+                                Circle()
+                                    .frame(width: 60, height: 60)
+                                    .foregroundColor(Color(hex: "D9D9D9"))
+                                    .opacity(0.4)
+                            )
+                            .padding()
                         Text("사진")
                     }
-                    
-                    Spacer()
-                    
-                    VStack {
-                        Button(action: {
-                            isShowingCamera = true
-                        }) {
-                            Image(systemName: "camera.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 30, height: 30)
-                                .foregroundStyle(Color(.darkGray))
-                            
-                        }
-                        .padding()
-                        .background(
-                            Circle()
-                                .frame(width: 60, height: 60)
-                                .foregroundColor(Color.brown)
-                                .opacity(0.6)
-                        )
-                        Text("카메라")
+                    .onTapGesture {
+                        isShowingPhoto = true
                     }
                     
                     Spacer()
                     
                     VStack {
-                        Button {
-                            isShowingLocation.toggle()
-                        } label: {
-                            Image(systemName: "mappin.and.ellipse")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 30, height: 30)
-                                .foregroundStyle(Color(.darkGray))
-                                .padding()
-                                .background(
-                                    Circle()
-                                        .frame(width: 60, height: 60)
-                                        .foregroundColor(Color.yellow)
-                                        .opacity(0.6)
-                                )
-                        }
+                        Image(systemName: "camera.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 30, height: 30)
+                            .foregroundStyle(Color(.darkGray))
+                            .background(
+                                Circle()
+                                    .frame(width: 60, height: 60)
+                                    .foregroundColor(Color.brown)
+                                    .opacity(0.6)
+                            )
+                            .padding()
+                        
+                        Text("카메라")
+                    }
+                    .onTapGesture {
+                        isShowingCamera = true
+                    }
+                    
+                    Spacer()
+                    
+                    VStack {
+                        
+                        Image(systemName: "mappin.and.ellipse")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 30, height: 30)
+                            .foregroundStyle(Color(.darkGray))
+                            .padding()
+                            .background(
+                                Circle()
+                                    .frame(width: 60, height: 60)
+                                    .foregroundColor(Color.yellow)
+                                    .opacity(0.6)
+                            )
                         
                         Text("위치공유")
+                    }
+                    .onTapGesture {
+                        isShowingLocation.toggle()
                     }
                     
                     Spacer()
@@ -228,7 +224,7 @@ struct ChatBottomBarView: View {
                     }
                 }
             }
-
+            
         }) {
             ImagePicker(isVisible: $isShowingPhoto, images: $viewModel.selectedImages, sourceType: $one)
                 .ignoresSafeArea(.all)
@@ -272,7 +268,7 @@ struct ChatBottomBarView: View {
         }) {
             ChatExchangeHopeView(viewModel: viewModel, chatRoomListId: chatRoomListId, partnerId: partnerId, uid: uid)
         }
-
+        
     }
 }
 
