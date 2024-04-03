@@ -61,11 +61,10 @@ struct ChatBottomBarView: View {
                         .padding(.top, 3)
                         .padding(.horizontal, 6)
                         .frame(minHeight: 40, maxHeight: 120)
-                        .focused($isShowKeyboard)
                         .fixedSize(horizontal: false, vertical: true)
                         .onTapGesture {
                             isPlusBtn = true
-                            isShowKeyboard = false
+//                            isShowKeyboard = false
                         }
                         .onChange(of: viewModel.chatText) { _ in
                             withAnimation {
@@ -198,6 +197,7 @@ struct ChatBottomBarView: View {
                 .transition(.move(edge: .bottom))
             }
         }
+        .focused($isShowKeyboard)
         .fullScreenCover(isPresented: $isShowingPhoto, onDismiss: {
             withAnimation(.linear(duration: 0.2)) {
                 isPlusBtn.toggle()
