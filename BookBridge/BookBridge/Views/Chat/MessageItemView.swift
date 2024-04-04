@@ -16,14 +16,14 @@ struct MessageItemView: View {
     
     @State var chatLocation: [Double] = [100, 200]
     @State var chatLocationTuple: (Double, Double) = (0, 0)
-
+    @State var shouldShowActionSheet = false
     @State var isCopyTapped = false
     @State private var isShowChatImageModal = false
-    
+    @State var messageModel: ChatMessageModel
+
     @Binding var showToast: Bool
     
     var chatRoomPartner: ChatPartnerModel
-    var messageModel: ChatMessageModel
     var uid: String
     
     var body: some View {
@@ -138,6 +138,15 @@ struct MessageItemView: View {
                         .padding(.horizontal, 12)
                         .background(Color(hex:"59AAE0"))
                         .cornerRadius(10)
+                        .onLongPressGesture {
+                            shouldShowActionSheet = true
+                        }
+                        .sheet(isPresented: $shouldShowActionSheet){
+                            SelectMessageItemView(shouldShowActionSheet: $shouldShowActionSheet, showToast: $showToast,  message: $messageModel.message)
+                                .presentationDetents([.height(170)])
+                                .ignoresSafeArea(.all)
+
+                        }
                     }
                 }
             } else {
@@ -247,6 +256,15 @@ struct MessageItemView: View {
                         .padding(.horizontal, 12)
                         .background(Color(hex:"767676"))
                         .cornerRadius(10)
+                        .onLongPressGesture {
+                            shouldShowActionSheet = true
+                        }
+                        .sheet(isPresented: $shouldShowActionSheet){
+                            SelectMessageItemView(shouldShowActionSheet: $shouldShowActionSheet, showToast: $showToast,  message: $messageModel.message)
+                                .presentationDetents([.height(170)])
+                                .ignoresSafeArea(.all)
+
+                        }
                         
                         VStack {
                             Spacer()
