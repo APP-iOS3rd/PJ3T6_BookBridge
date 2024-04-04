@@ -153,6 +153,7 @@
 		5C8C0E3A2B7B29C6002963F1 /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0E392B7B29C6002963F1 /* ReportViewModel.swift */; };
 		5C8C0E3C2B7B29F7002963F1 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0E3B2B7B29F7002963F1 /* Report.swift */; };
 		5CAB17812BA82A96007DEFCF /* ReportedContentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAB17802BA82A96007DEFCF /* ReportedContentsManager.swift */; };
+		5CBE371E2BBE482F00372EDB /* SelectMessageItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBE371D2BBE482F00372EDB /* SelectMessageItemView.swift */; };
 		5CD606442B7DAABF00AC53DD /* PostMapDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD606432B7DAABE00AC53DD /* PostMapDetailView.swift */; };
 		5CE454902B68B79000874BCE /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4548F2B68B79000874BCE /* FirestoreService.swift */; };
 		5CE454932B68B7CB00874BCE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454922B68B7CB00874BCE /* UserModel.swift */; };
@@ -430,6 +431,7 @@
 		5C8C0E392B7B29C6002963F1 /* ReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
 		5C8C0E3B2B7B29F7002963F1 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		5CAB17802BA82A96007DEFCF /* ReportedContentsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportedContentsManager.swift; sourceTree = "<group>"; };
+		5CBE371D2BBE482F00372EDB /* SelectMessageItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMessageItemView.swift; sourceTree = "<group>"; };
 		5CD6063F2B7D967A00AC53DD /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		5CD606432B7DAABE00AC53DD /* PostMapDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMapDetailView.swift; sourceTree = "<group>"; };
 		5CE4548F2B68B79000874BCE /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
@@ -1179,6 +1181,7 @@
 				73036B6E2B8DD7DF00A32B26 /* ChatExchangeInfoView.swift */,
 				73036B702B8DE0EC00A32B26 /* ChatUIExchangeHopeView.swift */,
 				914F59762B9F22820085926E /* ChatImageModalView.swift */,
+				5CBE371D2BBE482F00372EDB /* SelectMessageItemView.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -1735,6 +1738,7 @@
 				5AA1BBF32B99AE1500928A67 /* FindPasswordInputView.swift in Sources */,
 				1DFDD1BC2B71BF3D00B320F7 /* tapInfo.swift in Sources */,
 				73C962A32B68880500D34D3F /* SearchBarView.swift in Sources */,
+				5CBE371E2BBE482F00372EDB /* SelectMessageItemView.swift in Sources */,
 				9189E07E2BA825B900F7DD36 /* TermsOfServiceView.swift in Sources */,
 				5A3A44222B6C89AE00B66C81 /* LocationViewModel.swift in Sources */,
 				73C962A52B688D4200D34D3F /* BookModel.swift in Sources */,
