@@ -12,8 +12,8 @@ struct MessageListView: View {
     @StateObject var viewModel: ChatMessageViewModel
     @State var showToast = false
     @State var isScrollToBottom = false
-    
     @State var isAtBottom = false
+    @State var shouldShowActionSheet = false
     @State private var lowestMaxY: CGFloat = CGFloat.infinity
     
     var chatRoomPartner: ChatPartnerModel
@@ -30,9 +30,8 @@ struct MessageListView: View {
                             viewModel: viewModel,
                             chatLocation: chatMessage.location,
                             chatLocationTuple: (chatMessage.location[0],chatMessage.location[1]),
-                            showToast: $showToast,
+                            messageModel: ChatMessageModel(date: chatMessage.date, imageURL: chatMessage.imageURL, location: chatMessage.location, message: chatMessage.message, sender: chatMessage.sender), showToast: $showToast,
                             chatRoomPartner: chatRoomPartner,
-                            messageModel: ChatMessageModel(date: chatMessage.date, imageURL: chatMessage.imageURL, location: chatMessage.location, message: chatMessage.message, sender: chatMessage.sender),
                             uid: uid
                         )
                     }
@@ -42,9 +41,8 @@ struct MessageListView: View {
                     .id(Self.emptyScrollToString)
                 }
                 .rotationEffect(.degrees(180)).scaleEffect(x: -1, y: 1, anchor: .center)
-                
-                // 자동 스크롤
-                .onReceive(viewModel.$count) { _ in
+                // 채팅방 목록에서 들어올때 자동 스크롤
+                .onAppear{
                     withAnimation(.easeOut(duration: 0.5)) {
                         scrollViewProxy.scrollTo(Self.emptyScrollToString, anchor: .bottom)
                     }

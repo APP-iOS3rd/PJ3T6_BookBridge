@@ -138,6 +138,7 @@
 		5ADE79EA2B6B6715005BB3ED /* SignUpInputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */; };
 		5AF850952BA023EA00D339D3 /* ConfirmPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF850942BA023EA00D339D3 /* ConfirmPhoneNumberView.swift */; };
 		5AF850972BA046A900D339D3 /* FirestoreExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF850962BA046A900D339D3 /* FirestoreExtension.swift */; };
+		5C0DC42F2BBF8C070081E381 /* PressGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DC42E2BBF8C070081E381 /* PressGesture.swift */; };
 		5C3F892E2BB5032F00826A0D /* ci_post_clone.sh in Resources */ = {isa = PBXBuildFile; fileRef = 5C3F892D2BB5023800826A0D /* ci_post_clone.sh */; };
 		5C3F89322BB509A600826A0D /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5C3F89312BB509A600826A0D /* Secrets.xcconfig */; };
 		5C5AB9712B85977200AD90A2 /* FCMTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5AB9702B85977200AD90A2 /* FCMTokenManager.swift */; };
@@ -153,6 +154,7 @@
 		5C8C0E3A2B7B29C6002963F1 /* ReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0E392B7B29C6002963F1 /* ReportViewModel.swift */; };
 		5C8C0E3C2B7B29F7002963F1 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8C0E3B2B7B29F7002963F1 /* Report.swift */; };
 		5CAB17812BA82A96007DEFCF /* ReportedContentsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CAB17802BA82A96007DEFCF /* ReportedContentsManager.swift */; };
+		5CBE371E2BBE482F00372EDB /* SelectMessageItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CBE371D2BBE482F00372EDB /* SelectMessageItemView.swift */; };
 		5CD606442B7DAABF00AC53DD /* PostMapDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD606432B7DAABE00AC53DD /* PostMapDetailView.swift */; };
 		5CE454902B68B79000874BCE /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE4548F2B68B79000874BCE /* FirestoreService.swift */; };
 		5CE454932B68B7CB00874BCE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE454922B68B7CB00874BCE /* UserModel.swift */; };
@@ -415,6 +417,7 @@
 		5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputManager.swift; sourceTree = "<group>"; };
 		5AF850942BA023EA00D339D3 /* ConfirmPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPhoneNumberView.swift; sourceTree = "<group>"; };
 		5AF850962BA046A900D339D3 /* FirestoreExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreExtension.swift; sourceTree = "<group>"; };
+		5C0DC42E2BBF8C070081E381 /* PressGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressGesture.swift; sourceTree = "<group>"; };
 		5C3F892D2BB5023800826A0D /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		5C3F89312BB509A600826A0D /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		5C5AB9702B85977200AD90A2 /* FCMTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenManager.swift; sourceTree = "<group>"; };
@@ -430,6 +433,7 @@
 		5C8C0E392B7B29C6002963F1 /* ReportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewModel.swift; sourceTree = "<group>"; };
 		5C8C0E3B2B7B29F7002963F1 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		5CAB17802BA82A96007DEFCF /* ReportedContentsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportedContentsManager.swift; sourceTree = "<group>"; };
+		5CBE371D2BBE482F00372EDB /* SelectMessageItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectMessageItemView.swift; sourceTree = "<group>"; };
 		5CD6063F2B7D967A00AC53DD /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		5CD606432B7DAABE00AC53DD /* PostMapDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMapDetailView.swift; sourceTree = "<group>"; };
 		5CE4548F2B68B79000874BCE /* FirestoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
@@ -743,6 +747,7 @@
 				5A0242142B6D36FF00137AA6 /* LoadingCircle.swift */,
 				5AA1BBFC2B99EA8500928A67 /* CustomTextField.swift */,
 				5A0292172B9AB3AB00C29020 /* ClearBackground.swift */,
+				5C0DC42E2BBF8C070081E381 /* PressGesture.swift */,
 			);
 			path = UIElement;
 			sourceTree = "<group>";
@@ -1179,6 +1184,7 @@
 				73036B6E2B8DD7DF00A32B26 /* ChatExchangeInfoView.swift */,
 				73036B702B8DE0EC00A32B26 /* ChatUIExchangeHopeView.swift */,
 				914F59762B9F22820085926E /* ChatImageModalView.swift */,
+				5CBE371D2BBE482F00372EDB /* SelectMessageItemView.swift */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -1735,6 +1741,7 @@
 				5AA1BBF32B99AE1500928A67 /* FindPasswordInputView.swift in Sources */,
 				1DFDD1BC2B71BF3D00B320F7 /* tapInfo.swift in Sources */,
 				73C962A32B68880500D34D3F /* SearchBarView.swift in Sources */,
+				5CBE371E2BBE482F00372EDB /* SelectMessageItemView.swift in Sources */,
 				9189E07E2BA825B900F7DD36 /* TermsOfServiceView.swift in Sources */,
 				5A3A44222B6C89AE00B66C81 /* LocationViewModel.swift in Sources */,
 				73C962A52B688D4200D34D3F /* BookModel.swift in Sources */,
@@ -1759,6 +1766,7 @@
 				914600412B71FD8700E0E24F /* ProfileImagePicker.swift in Sources */,
 				738EDAA12B71EBA30066ADE7 /* HomeTapView.swift in Sources */,
 				5A3A44112B6C75F500B66C81 /* MiddleWhiteBtnStyle.swift in Sources */,
+				5C0DC42F2BBF8C070081E381 /* PressGesture.swift in Sources */,
 				73441FA32B733D3C00446E0F /* SettingView.swift in Sources */,
 				73441FA72B733DC700446E0F /* MyProfileView.swift in Sources */,
 				73441F9F2B733CE500446E0F /* MyPostView.swift in Sources */,
