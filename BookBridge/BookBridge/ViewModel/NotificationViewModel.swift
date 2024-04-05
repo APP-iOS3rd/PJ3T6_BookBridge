@@ -72,7 +72,10 @@ extension NotificationViewModel {
                         do {
                             if let notification = try? change.document.data(as: NotificationModel.self) {
                                 notifications.append(notification)
-                                self?.isShowNotificationBadge = true
+                                print("\(notification.noticeBoardTitle) notification.isRead: \(notification.isRead)")
+                                if notification.isRead == false{
+                                    self?.isShowNotificationBadge = true
+                                }
                             } else {
                                 print("startNotificationListener에서 notification decoding이 실패하였습니다.")
                             }
