@@ -138,6 +138,7 @@
 		5ADE79EA2B6B6715005BB3ED /* SignUpInputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */; };
 		5AF850952BA023EA00D339D3 /* ConfirmPhoneNumberView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF850942BA023EA00D339D3 /* ConfirmPhoneNumberView.swift */; };
 		5AF850972BA046A900D339D3 /* FirestoreExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF850962BA046A900D339D3 /* FirestoreExtension.swift */; };
+		5C0DC42F2BBF8C070081E381 /* PressGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0DC42E2BBF8C070081E381 /* PressGesture.swift */; };
 		5C3F892E2BB5032F00826A0D /* ci_post_clone.sh in Resources */ = {isa = PBXBuildFile; fileRef = 5C3F892D2BB5023800826A0D /* ci_post_clone.sh */; };
 		5C3F89322BB509A600826A0D /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5C3F89312BB509A600826A0D /* Secrets.xcconfig */; };
 		5C5AB9712B85977200AD90A2 /* FCMTokenManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5AB9702B85977200AD90A2 /* FCMTokenManager.swift */; };
@@ -416,6 +417,7 @@
 		5ADE79E92B6B6715005BB3ED /* SignUpInputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInputManager.swift; sourceTree = "<group>"; };
 		5AF850942BA023EA00D339D3 /* ConfirmPhoneNumberView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPhoneNumberView.swift; sourceTree = "<group>"; };
 		5AF850962BA046A900D339D3 /* FirestoreExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreExtension.swift; sourceTree = "<group>"; };
+		5C0DC42E2BBF8C070081E381 /* PressGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PressGesture.swift; sourceTree = "<group>"; };
 		5C3F892D2BB5023800826A0D /* ci_post_clone.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ci_post_clone.sh; sourceTree = "<group>"; };
 		5C3F89312BB509A600826A0D /* Secrets.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		5C5AB9702B85977200AD90A2 /* FCMTokenManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FCMTokenManager.swift; sourceTree = "<group>"; };
@@ -745,6 +747,7 @@
 				5A0242142B6D36FF00137AA6 /* LoadingCircle.swift */,
 				5AA1BBFC2B99EA8500928A67 /* CustomTextField.swift */,
 				5A0292172B9AB3AB00C29020 /* ClearBackground.swift */,
+				5C0DC42E2BBF8C070081E381 /* PressGesture.swift */,
 			);
 			path = UIElement;
 			sourceTree = "<group>";
@@ -1763,6 +1766,7 @@
 				914600412B71FD8700E0E24F /* ProfileImagePicker.swift in Sources */,
 				738EDAA12B71EBA30066ADE7 /* HomeTapView.swift in Sources */,
 				5A3A44112B6C75F500B66C81 /* MiddleWhiteBtnStyle.swift in Sources */,
+				5C0DC42F2BBF8C070081E381 /* PressGesture.swift in Sources */,
 				73441FA32B733D3C00446E0F /* SettingView.swift in Sources */,
 				73441FA72B733DC700446E0F /* MyProfileView.swift in Sources */,
 				73441F9F2B733CE500446E0F /* MyPostView.swift in Sources */,

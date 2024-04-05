@@ -19,6 +19,8 @@ struct MessageItemView: View {
     @State var shouldShowActionSheet = false
     @State var isCopyTapped = false
     @State private var isShowChatImageModal = false
+    @State private var isPressed = false
+
     @State var messageModel: ChatMessageModel
 
     @Binding var showToast: Bool
@@ -136,11 +138,10 @@ struct MessageItemView: View {
                         }
                         .padding(.vertical, 8)
                         .padding(.horizontal, 12)
-                        .background(Color(hex:"59AAE0"))
+                        .background(isPressed ? Color(hex:"417ca4") : Color(hex:"59AAE0"))
                         .cornerRadius(10)
-                        .onLongPressGesture {
-                            shouldShowActionSheet = true
-                        }
+                        // 메세지를 눌렀을경우
+                        .self.modifier(PressGesture(shouldShowActionSheet: $shouldShowActionSheet, isPressed: $isPressed))
                         .sheet(isPresented: $shouldShowActionSheet){
                             SelectMessageItemView(shouldShowActionSheet: $shouldShowActionSheet, showToast: $showToast,  message: $messageModel.message)
                                 .presentationDetents([.height(170)])
@@ -254,11 +255,10 @@ struct MessageItemView: View {
                         }
                         .padding(.vertical, 8)
                         .padding(.horizontal, 12)
-                        .background(Color(hex:"767676"))
+                        .background(isPressed ? Color(hex:"969696") : Color(hex:"767676"))
                         .cornerRadius(10)
-                        .onLongPressGesture {
-                            shouldShowActionSheet = true
-                        }
+                        // 메세지를 눌렀을경우
+                        .self.modifier(PressGesture(shouldShowActionSheet: $shouldShowActionSheet, isPressed: $isPressed))
                         .sheet(isPresented: $shouldShowActionSheet){
                             SelectMessageItemView(shouldShowActionSheet: $shouldShowActionSheet, showToast: $showToast,  message: $messageModel.message)
                                 .presentationDetents([.height(170)])
