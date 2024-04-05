@@ -72,8 +72,7 @@ extension NotificationViewModel {
                         do {
                             if let notification = try? change.document.data(as: NotificationModel.self) {
                                 notifications.append(notification)
-                                print("\(notification.noticeBoardTitle) notification.isRead: \(notification.isRead)")
-                                if notification.isRead == false{
+                                if notification.isRead == false {
                                     self?.isShowNotificationBadge = true
                                 }
                             } else {
@@ -151,6 +150,11 @@ extension NotificationViewModel {
                     }
                 }
             }
+        // 화면의 'isRead' 필드를 'true'로 업데이트 합니다.
+        if let index = notifications.firstIndex(where: {$0.id == notificationId}){
+            notifications[index].isRead = true
+        }
+
     }
     
     func isShowBadge(notifications: [NotificationModel]) -> Bool {
