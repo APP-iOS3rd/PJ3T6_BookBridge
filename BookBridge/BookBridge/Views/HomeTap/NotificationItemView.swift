@@ -22,6 +22,14 @@ struct NotificationItemView: View {
             
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
+                    if notificationModel.isRead == false {
+                        Image(systemName: "bell.fill")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit) //비율유지
+                            .frame(height: 15)
+                            .foregroundColor(.red)
+                    }
+
                     Text("\(notificationModel.noticeBoardTitle)")
                         .foregroundColor(.black)
                         .bold()
