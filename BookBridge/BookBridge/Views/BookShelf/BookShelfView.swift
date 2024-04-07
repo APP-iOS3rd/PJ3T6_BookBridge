@@ -23,6 +23,8 @@ struct BookShelfView: View {
     var userId : String?
     let pickerItems : [tapInfo] = [.wish, .hold]
     
+    @GestureState private var dragOffset = CGSize.zero
+    
     init(userId: String?, initialTapInfo: tapInfo, isBack: Bool, ismore : Bool) {
         _viewModel = StateObject(wrappedValue: BookShelfViewModel(userId: userId))
         self.userId = userId
@@ -103,7 +105,7 @@ struct BookShelfView: View {
                         }
                 }
                 .onTapGesture {
-                    hideKeyboard()                    
+                    hideKeyboard()
                 }
             }
             .onAppear{
@@ -149,6 +151,27 @@ struct BookShelfView: View {
                 viewModel.gettingUserInfo(userId: self.userId ?? "")
             }
         }
+        .gesture(
+            DragGesture()
+                .updating($dragOffset) { value, state, _ in
+                    state = value.translation
+                }
+                .onEnded { value in
+                    let horizontalTranslation = value.translation.width
+                    let threshold: CGFloat = 100 // 드래그로 이동할 최소한의 거리
+                    if horizontalTranslation > threshold {
+                        // 오른쪽으로 드래그되었을 때
+                        if let currentIndex = pickerItems.firstIndex(of: selectedPicker), currentIndex > 0 {
+                            selectedPicker = pickerItems[currentIndex - 1]
+                        }
+                    } else if horizontalTranslation < -threshold {
+                        // 왼쪽으로 드래그되었을 때
+                        if let currentIndex = pickerItems.firstIndex(of: selectedPicker), currentIndex < pickerItems.count - 1 {
+                            selectedPicker = pickerItems[currentIndex + 1] 
+                        }
+                    }
+                }
+        )
     }
 }
 

@@ -33,6 +33,7 @@ struct NoticeBoardView: View {
             TapAnimation()
             
             NoticeBoardTapView(changeHeight: $changeHeight, changeIndex: $changeIndex, findHeight: $findHeight, findIndex: $findIndex, isFindAnimating: $isFindAnimating, isChangeAnimating: $isChangeAnimating, selectedTab: $selectedTab, viewModel: viewModel, myPagePostTapType: selectedPicker, naviTitle: naviTitle, sortTypes: sortTypes)
+                .offset(x: dragOffset.width, y: 0)
         }
         .navigationBarBackButtonHidden()
         .navigationTitle(otherUser == nil ? naviTitle : "")
@@ -66,6 +67,28 @@ struct NoticeBoardView: View {
             viewModel.gettingChangeNoticeBoards(whereIndex: naviTitle == "내 게시물" ? 0 : 1, noticeBoardArray: noticeBoardArray, otherUser: otherUser)
         }
         .toolbar(.hidden, for: .tabBar)
+        .gesture(
+            DragGesture()
+                .onChanged { value in
+                    dragOffset = value.translation
+                }
+                .onEnded { value in
+                    let horizontalTranslation = value.translation.width
+                    let threshold: CGFloat = 100 // 드래그로 이동할 최소한의 거리
+                    if horizontalTranslation > threshold {
+                        // 오른쪽으로 드래그되었을 때
+                        if let currentIndex = MyPagePostTapType.allCases.firstIndex(of: selectedPicker), currentIndex > 0 {
+                            selectedPicker = MyPagePostTapType.allCases[currentIndex - 1]
+                        }
+                    } else if horizontalTranslation < -threshold {
+                        // 왼쪽으로 드래그되었을 때
+                        if let currentIndex = MyPagePostTapType.allCases.firstIndex(of: selectedPicker), currentIndex < MyPagePostTapType.allCases.count - 1 {
+                            selectedPicker = MyPagePostTapType.allCases[currentIndex + 1]
+                        }
+                    }
+                    dragOffset = .zero
+                }
+        )
     }
 }
 
