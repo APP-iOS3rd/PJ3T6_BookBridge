@@ -15,7 +15,6 @@ class SearchBooksViewModel: ObservableObject {
     @Published var firstToTalCount: Int = 0
     @Published var isFinish: Bool = true
     @Published var startIndex: Int = 0
-    @Published var saveText: String = ""
     @Published var text: String = ""
     
     var bookApiManger = BookAPIManger()
@@ -23,15 +22,20 @@ class SearchBooksViewModel: ObservableObject {
 
 extension SearchBooksViewModel {
     //도서 api 호출
-    func callBookApi() {
+    func callBookApi(isProgress: Bool) {
         bookApiManger.getData(text: text, startIndex: startIndex) { book in
             DispatchQueue.main.async {
                 if self.firstToTalCount == 0 {
                     self.firstToTalCount = book.totalItems
                     self.searchBooks.totalItems = book.totalItems
                 }
+                // 추가 검색 결과는 뒤로
+                if isProgress{
+                    self.searchBooks.items.append(contentsOf: book.items)
+                }else{
+                    self.searchBooks.items.insert(contentsOf: book.items, at: 0)
+                }
                 
-                self.searchBooks.items.append(contentsOf: book.items)
                 self.startIndex += 20
                 
                 if self.firstToTalCount <= self.startIndex || self.startIndex >= 100 {
