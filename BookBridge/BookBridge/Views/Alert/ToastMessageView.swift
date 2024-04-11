@@ -13,7 +13,7 @@ struct ToastMessageView: View {
     var body: some View {
         VStack {
             Spacer()
-            Text("주소가 복사되었습니다")
+            Text("복사되었습니다")
                 .padding()
                 .foregroundColor(.white)
                 .background(Color(.lightGray))
