@@ -23,7 +23,6 @@ struct SearchBarView: View {
                 TextField("검색어를 입력해주세요", text: $viewModel.text)
                     .padding(7)
                     .onChange(of: viewModel.text) { _ in
-                        viewModel.saveText = viewModel.text
                         viewModel.searchBooks.totalItems = 0
                         viewModel.searchBooks.items.removeAll()
                         viewModel.firstToTalCount = 0
@@ -32,7 +31,7 @@ struct SearchBarView: View {
                         
                         if viewModel.text != "" {
                             isEditing = true
-                            viewModel.callBookApi()
+                            viewModel.callBookApi(isProgress: false)
                         } else {
                             isEditing = false
                         }
