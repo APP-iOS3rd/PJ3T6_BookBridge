@@ -94,7 +94,7 @@ struct SearchResultView: View {
                         if !viewModel.isFinish {
                             ProgressView()
                                 .onAppear {
-                                    viewModel.callBookApi()
+                                    viewModel.callBookApi(isProgress: true)
                                 }
                         }
                     }

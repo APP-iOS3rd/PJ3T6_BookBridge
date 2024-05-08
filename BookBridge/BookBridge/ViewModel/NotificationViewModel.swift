@@ -72,7 +72,9 @@ extension NotificationViewModel {
                         do {
                             if let notification = try? change.document.data(as: NotificationModel.self) {
                                 notifications.append(notification)
-                                self?.isShowNotificationBadge = true
+                                if notification.isRead == false {
+                                    self?.isShowNotificationBadge = true
+                                }
                             } else {
                                 print("startNotificationListener에서 notification decoding이 실패하였습니다.")
                             }
@@ -148,6 +150,11 @@ extension NotificationViewModel {
                     }
                 }
             }
+        // 화면의 'isRead' 필드를 'true'로 업데이트 합니다.
+        if let index = notifications.firstIndex(where: {$0.id == notificationId}){
+            notifications[index].isRead = true
+        }
+
     }
     
     func isShowBadge(notifications: [NotificationModel]) -> Bool {

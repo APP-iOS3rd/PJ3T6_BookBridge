@@ -23,13 +23,8 @@ struct ReviewScoreView: View {
                     .background(Color(hex: "EDD1AF"))
                     .cornerRadius(5)
                 
-                if otherUser == nil {
-                    Text("\(viewModel.userManager.user?.reviews?[0] ?? 0)")
-                        .font(.system(size: 17, weight: .semibold))
-                } else {
-                    Text("\(otherUser?.reviews?[0] ?? 0)")
-                        .font(.system(size: 17, weight: .semibold))
-                }
+                Text("\(viewModel.review0)")
+                    .font(.system(size: 17, weight: .semibold))
             }
             
             Spacer()
@@ -48,13 +43,8 @@ struct ReviewScoreView: View {
                     .background(Color(hex: "FBE6CA"))
                     .cornerRadius(5)
                 
-                if otherUser == nil {
-                    Text("\(viewModel.userManager.user?.reviews?[1] ?? 0)")
-                        .font(.system(size: 17, weight: .semibold))
-                } else {
-                    Text("\(otherUser?.reviews?[1] ?? 0)")
-                        .font(.system(size: 17, weight: .semibold))
-                }
+                Text("\(viewModel.review1)")
+                    .font(.system(size: 17, weight: .semibold))
             }
             
             Spacer()
@@ -73,13 +63,9 @@ struct ReviewScoreView: View {
                     .background(Color(hex: "FDF1E0"))
                     .cornerRadius(5)
                 
-                if otherUser == nil {
-                    Text("\(viewModel.userManager.user?.reviews?[2] ?? 0)")
-                        .font(.system(size: 17, weight: .semibold))
-                } else {
-                    Text("\(otherUser?.reviews?[2] ?? 0)")
-                        .font(.system(size: 17, weight: .semibold))
-                }            }
+                Text("\(viewModel.review2)")
+                    .font(.system(size: 17, weight: .semibold))
+            }
             
             Spacer()
             Rectangle()
@@ -105,7 +91,12 @@ struct ReviewScoreView: View {
         .padding(.horizontal, 10)
         .padding(.bottom, 20)
         .onAppear {
-            viewModel.getMannerScore(otherUser: otherUser)                                  
+            if let otherUser = otherUser{
+                viewModel.listenForReviewUpdates(userId: otherUser.id ?? "")
+            } else if let currentUser = viewModel.userManager.user {
+                viewModel.listenForReviewUpdates(userId: currentUser.id ?? "")
+            }
+            
         }
     }
 }
